@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{EB708C05-5750-0BA1-6068-9677CCC67102}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Pengine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug-windows-x86_64\Pengine\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Pengine\</IntDir>
+    <TargetName>Pengine</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release-windows-x86_64\Pengine\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Pengine\</IntDir>
+    <TargetName>Pengine</TargetName>
+    <TargetExt>.dll</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2DD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2DR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Components\Animator2D.h" />
+    <ClInclude Include="Source\Components\BoxCollider2D.h" />
+    <ClInclude Include="Source\Components\IRenderer.h" />
+    <ClInclude Include="Source\Components\Renderer2D.h" />
+    <ClInclude Include="Source\Components\Renderer3D.h" />
+    <ClInclude Include="Source\Components\Rigidbody2D.h" />
+    <ClInclude Include="Source\Components\Transform.h" />
+    <ClInclude Include="Source\Core\Allocator.h" />
+    <ClInclude Include="Source\Core\Animation2DManager.h" />
+    <ClInclude Include="Source\Core\Application.h" />
+    <ClInclude Include="Source\Core\Camera.h" />
+    <ClInclude Include="Source\Core\Component.h" />
+    <ClInclude Include="Source\Core\ComponentManager.h" />
+    <ClInclude Include="Source\Core\Core.h" />
+    <ClInclude Include="Source\Core\Editor.h" />
+    <ClInclude Include="Source\Core\EntryPoint.h" />
+    <ClInclude Include="Source\Core\Environment.h" />
+    <ClInclude Include="Source\Core\GameObject.h" />
+    <ClInclude Include="Source\Core\ImGuizmo.h" />
+    <ClInclude Include="Source\Core\Input.h" />
+    <ClInclude Include="Source\Core\Logger.h" />
+    <ClInclude Include="Source\Core\MemoryManager.h" />
+    <ClInclude Include="Source\Core\Mesh.h" />
+    <ClInclude Include="Source\Core\MeshManager.h" />
+    <ClInclude Include="Source\Core\ObjLoader.h" />
+    <ClInclude Include="Source\Core\Scene.h" />
+    <ClInclude Include="Source\Core\Serializer.h" />
+    <ClInclude Include="Source\Core\TextureAtlas.h" />
+    <ClInclude Include="Source\Core\TextureAtlasManager.h" />
+    <ClInclude Include="Source\Core\TextureManager.h" />
+    <ClInclude Include="Source\Core\ThreadPool.h" />
+    <ClInclude Include="Source\Core\Time.h" />
+    <ClInclude Include="Source\Core\Timer.h" />
+    <ClInclude Include="Source\Core\Utils.h" />
+    <ClInclude Include="Source\Core\UUID.h" />
+    <ClInclude Include="Source\Core\Viewport.h" />
+    <ClInclude Include="Source\Core\Visualizer.h" />
+    <ClInclude Include="Source\Core\Window.h" />
+    <ClInclude Include="Source\Enums\ColoredOutput.h" />
+    <ClInclude Include="Source\Enums\EventType.h" />
+    <ClInclude Include="Source\Enums\KeyCode.h" />
+    <ClInclude Include="Source\EventSystem\EventSystem.h" />
+    <ClInclude Include="Source\EventSystem\Listener.h" />
+    <ClInclude Include="Source\Events\Event.h" />
+    <ClInclude Include="Source\Events\OnMainThreadCallback.h" />
+    <ClInclude Include="Source\Events\WindowResizeEvent.h" />
+    <ClInclude Include="Source\OpenGL\Batch.h" />
+    <ClInclude Include="Source\OpenGL\FrameBuffer.h" />
+    <ClInclude Include="Source\OpenGL\IndexBuffer.h" />
+    <ClInclude Include="Source\OpenGL\Material.h" />
+    <ClInclude Include="Source\OpenGL\Shader.h" />
+    <ClInclude Include="Source\OpenGL\Texture.h" />
+    <ClInclude Include="Source\OpenGL\VertexArray.h" />
+    <ClInclude Include="Source\OpenGL\VertexBuffer.h" />
+    <ClInclude Include="Source\OpenGL\VertexBufferLayout.h" />
+    <ClInclude Include="Source\OpenGL\stb_image.h" />
+    <ClInclude Include="Source\UI\Character.h" />
+    <ClInclude Include="Source\UI\Gui.h" />
+    <ClInclude Include="Source\yaml-cpp\anchor.h" />
+    <ClInclude Include="Source\yaml-cpp\binary.h" />
+    <ClInclude Include="Source\yaml-cpp\contrib\anchordict.h" />
+    <ClInclude Include="Source\yaml-cpp\contrib\graphbuilder.h" />
+    <ClInclude Include="Source\yaml-cpp\depthguard.h" />
+    <ClInclude Include="Source\yaml-cpp\dll.h" />
+    <ClInclude Include="Source\yaml-cpp\emitfromevents.h" />
+    <ClInclude Include="Source\yaml-cpp\emitter.h" />
+    <ClInclude Include="Source\yaml-cpp\emitterdef.h" />
+    <ClInclude Include="Source\yaml-cpp\emittermanip.h" />
+    <ClInclude Include="Source\yaml-cpp\emitterstyle.h" />
+    <ClInclude Include="Source\yaml-cpp\eventhandler.h" />
+    <ClInclude Include="Source\yaml-cpp\exceptions.h" />
+    <ClInclude Include="Source\yaml-cpp\mark.h" />
+    <ClInclude Include="Source\yaml-cpp\node\convert.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\impl.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\iterator.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\iterator_fwd.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\memory.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\node.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\node_data.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\node_iterator.h" />
+    <ClInclude Include="Source\yaml-cpp\node\detail\node_ref.h" />
+    <ClInclude Include="Source\yaml-cpp\node\emit.h" />
+    <ClInclude Include="Source\yaml-cpp\node\impl.h" />
+    <ClInclude Include="Source\yaml-cpp\node\iterator.h" />
+    <ClInclude Include="Source\yaml-cpp\node\node.h" />
+    <ClInclude Include="Source\yaml-cpp\node\parse.h" />
+    <ClInclude Include="Source\yaml-cpp\node\ptr.h" />
+    <ClInclude Include="Source\yaml-cpp\node\type.h" />
+    <ClInclude Include="Source\yaml-cpp\noexcept.h" />
+    <ClInclude Include="Source\yaml-cpp\null.h" />
+    <ClInclude Include="Source\yaml-cpp\ostream_wrapper.h" />
+    <ClInclude Include="Source\yaml-cpp\parser.h" />
+    <ClInclude Include="Source\yaml-cpp\src\collectionstack.h" />
+    <ClInclude Include="Source\yaml-cpp\src\contrib\graphbuilderadapter.h" />
+    <ClInclude Include="Source\yaml-cpp\src\directives.h" />
+    <ClInclude Include="Source\yaml-cpp\src\emitterstate.h" />
+    <ClInclude Include="Source\yaml-cpp\src\emitterutils.h" />
+    <ClInclude Include="Source\yaml-cpp\src\exp.h" />
+    <ClInclude Include="Source\yaml-cpp\src\indentation.h" />
+    <ClInclude Include="Source\yaml-cpp\src\nodebuilder.h" />
+    <ClInclude Include="Source\yaml-cpp\src\nodeevents.h" />
+    <ClInclude Include="Source\yaml-cpp\src\ptr_vector.h" />
+    <ClInclude Include="Source\yaml-cpp\src\regeximpl.h" />
+    <ClInclude Include="Source\yaml-cpp\src\regex_yaml.h" />
+    <ClInclude Include="Source\yaml-cpp\src\scanner.h" />
+    <ClInclude Include="Source\yaml-cpp\src\scanscalar.h" />
+    <ClInclude Include="Source\yaml-cpp\src\scantag.h" />
+    <ClInclude Include="Source\yaml-cpp\src\setting.h" />
+    <ClInclude Include="Source\yaml-cpp\src\singledocparser.h" />
+    <ClInclude Include="Source\yaml-cpp\src\stream.h" />
+    <ClInclude Include="Source\yaml-cpp\src\streamcharsource.h" />
+    <ClInclude Include="Source\yaml-cpp\src\stringsource.h" />
+    <ClInclude Include="Source\yaml-cpp\src\tag.h" />
+    <ClInclude Include="Source\yaml-cpp\src\token.h" />
+    <ClInclude Include="Source\yaml-cpp\stlemitter.h" />
+    <ClInclude Include="Source\yaml-cpp\traits.h" />
+    <ClInclude Include="Source\yaml-cpp\yaml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Components\Animator2D.cpp" />
+    <ClCompile Include="Source\Components\BoxCollider2D.cpp" />
+    <ClCompile Include="Source\Components\Renderer2D.cpp" />
+    <ClCompile Include="Source\Components\Renderer3D.cpp" />
+    <ClCompile Include="Source\Components\Rigidbody2D.cpp" />
+    <ClCompile Include="Source\Components\Transform.cpp" />
+    <ClCompile Include="Source\Core\Allocator.cpp" />
+    <ClCompile Include="Source\Core\Animation2DManager.cpp" />
+    <ClCompile Include="Source\Core\Application.cpp" />
+    <ClCompile Include="Source\Core\Camera.cpp" />
+    <ClCompile Include="Source\Core\Component.cpp" />
+    <ClCompile Include="Source\Core\ComponentManager.cpp" />
+    <ClCompile Include="Source\Core\Core.cpp" />
+    <ClCompile Include="Source\Core\Editor.cpp" />
+    <ClCompile Include="Source\Core\EntryPoint.cpp" />
+    <ClCompile Include="Source\Core\Environment.cpp" />
+    <ClCompile Include="Source\Core\GameObject.cpp" />
+    <ClCompile Include="Source\Core\ImGuizmo.cpp" />
+    <ClCompile Include="Source\Core\Input.cpp" />
+    <ClCompile Include="Source\Core\Logger.cpp" />
+    <ClCompile Include="Source\Core\MemoryManager.cpp" />
+    <ClCompile Include="Source\Core\Mesh.cpp" />
+    <ClCompile Include="Source\Core\MeshManager.cpp" />
+    <ClCompile Include="Source\Core\ObjLoader.cpp" />
+    <ClCompile Include="Source\Core\Scene.cpp" />
+    <ClCompile Include="Source\Core\Serializer.cpp" />
+    <ClCompile Include="Source\Core\TextureAtlas.cpp" />
+    <ClCompile Include="Source\Core\TextureAtlasManager.cpp" />
+    <ClCompile Include="Source\Core\TextureManager.cpp" />
+    <ClCompile Include="Source\Core\ThreadPool.cpp" />
+    <ClCompile Include="Source\Core\UUID.cpp" />
+    <ClCompile Include="Source\Core\Viewport.cpp" />
+    <ClCompile Include="Source\Core\Visualizer.cpp" />
+    <ClCompile Include="Source\Core\Window.cpp" />
+    <ClCompile Include="Source\EventSystem\EventSystem.cpp" />
+    <ClCompile Include="Source\EventSystem\Listener.cpp" />
+    <ClCompile Include="Source\OpenGL\Batch.cpp" />
+    <ClCompile Include="Source\OpenGL\FrameBuffer.cpp" />
+    <ClCompile Include="Source\OpenGL\IndexBuffer.cpp" />
+    <ClCompile Include="Source\OpenGL\Shader.cpp" />
+    <ClCompile Include="Source\OpenGL\Texture.cpp" />
+    <ClCompile Include="Source\OpenGL\VertexArray.cpp" />
+    <ClCompile Include="Source\OpenGL\VertexBuffer.cpp" />
+    <ClCompile Include="Source\OpenGL\stb_image.cpp" />
+    <ClCompile Include="Source\StaticVariables.cpp" />
+    <ClCompile Include="Source\UI\Character.cpp" />
+    <ClCompile Include="Source\UI\Gui.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\binary.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\contrib\graphbuilder.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\contrib\graphbuilderadapter.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\convert.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\depthguard.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\directives.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\emit.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\emitfromevents.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\emitter.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\emitterstate.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\emitterutils.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\exceptions.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\exp.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\memory.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\node.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\nodebuilder.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\nodeevents.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\node_data.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\null.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\ostream_wrapper.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\parse.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\parser.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\regex_yaml.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\scanner.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\scanscalar.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\scantag.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\scantoken.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\simplekey.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\singledocparser.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\stream.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\tag.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,52 @@
+GameObjects:
+  - GameObject: 11583146039144835287
+    Name: Tree
+    Childs:
+      - 3111079516766729780
+      - 9056416924385612150
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3111079516766729780
+    Name: TreeUp
+    Childs:
+      []
+    Transform:
+      Position: [0, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+  - GameObject: 9056416924385612150
+    Name: TreeDown
+    Childs:
+      []
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0

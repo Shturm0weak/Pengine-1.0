@@ -1,0 +1,1575 @@
+Title: Test scene
+Camera:
+  Transform:
+    Position: [-1.51313567, 1.59819078, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 0
+  Zoom: 8.75
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 17922021339314383805
+    Name: Player
+    Childs:
+      []
+    Transform:
+      Position: [-3.43323898, 1.05126262, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Animations\IdleRight\sprite_03.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\IdleRight.anim
+        - Source\Animations2D\RunRight.anim
+      Current animation: "Null"
+  - GameObject: 15219687646781287716
+    Name: BackGround
+    Childs:
+      []
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [50, 50, 1]
+    Renderer2D:
+      Color: [0.649789035, 0.987525582, 1, 1]
+      Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+  - GameObject: 16780423887298265425
+    Name: Terrain
+    Childs:
+      - 13574333100703446412
+      - 5471462784202112292
+      - 11495133375532874712
+      - 4969695491444460216
+      - 10047917149366216766
+      - 12924078770122545340
+      - 14963580484092979025
+      - 10684988532680702626
+      - 3359351800852115393
+      - 18276767071356430879
+      - 17136927053276102201
+      - 16235050222334557714
+    Transform:
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13574333100703446412
+    Name: Tile1
+    Childs:
+      []
+    Transform:
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 5471462784202112292
+    Name: Tile2
+    Childs:
+      []
+    Transform:
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 11495133375532874712
+    Name: Tile3
+    Childs:
+      []
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 4969695491444460216
+    Name: Tile4
+    Childs:
+      []
+    Transform:
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 10047917149366216766
+    Name: Tile5
+    Childs:
+      []
+    Transform:
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 12924078770122545340
+    Name: Tile6
+    Childs:
+      []
+    Transform:
+      Position: [3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 14963580484092979025
+    Name: Tile7
+    Childs:
+      []
+    Transform:
+      Position: [4, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 10684988532680702626
+    Name: Tile8
+    Childs:
+      []
+    Transform:
+      Position: [-3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 3359351800852115393
+    Name: Tile9
+    Childs:
+      []
+    Transform:
+      Position: [-4, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 18276767071356430879
+    Name: Tile10
+    Childs:
+      []
+    Transform:
+      Position: [-5, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 17136927053276102201
+    Name: Tile11
+    Childs:
+      []
+    Transform:
+      Position: [-6, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.923076928
+        - 0.349999994
+        - 0.923076928
+        - 0.349999994
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+  - GameObject: 16235050222334557714
+    Name: Collider
+    Childs:
+      []
+    Transform:
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [11, 1, 1]
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 9877586792452367290
+    Name: Vegetation
+    Childs:
+      - 8744364486060982536
+      - 17932238776293770843
+    Transform:
+      Position: [-1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 693241878337045073
+    Name: Tree1
+    Childs:
+      - 12189954765691094109
+      - 146658193439633058
+    Transform:
+      Position: [-2, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12189954765691094109
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-2, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 146658193439633058
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-2, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 7286199308230068687
+    Name: Tree2
+    Childs:
+      - 6040806715398628994
+      - 7175554070652279353
+    Transform:
+      Position: [-3, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6040806715398628994
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-3, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 7175554070652279353
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-3, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 7234124705899545410
+    Name: Tree3
+    Childs:
+      - 17566845615081992299
+      - 1353472564708244674
+    Transform:
+      Position: [-4, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17566845615081992299
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-4, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 1353472564708244674
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-4, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 10013865194505711858
+    Name: Tree4
+    Childs:
+      - 3601061082279422017
+      - 8681950456561137331
+    Transform:
+      Position: [-5, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3601061082279422017
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-5, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 8681950456561137331
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-5, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 6087934215711117109
+    Name: Tree5
+    Childs:
+      - 6623096135788420714
+      - 8940305633708547174
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6623096135788420714
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 8940305633708547174
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-6, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 6093243130430288615
+    Name: Tree6
+    Childs:
+      - 16368876295225010483
+      - 3447539371809971762
+    Transform:
+      Position: [-1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 16368876295225010483
+    Name: DownTree1
+    Childs:
+      []
+    Transform:
+      Position: [-1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 1
+  - GameObject: 3447539371809971762
+    Name: UpperTree1
+    Childs:
+      []
+    Transform:
+      Position: [-1, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 1
+  - GameObject: 12009180113170007065
+    Name: Props
+    Childs:
+      - 14489368335352826473
+      - 5364254256289210055
+      - 12956774129629986980
+    Transform:
+      Position: [0, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14489368335352826473
+    Name: Fence1
+    Childs:
+      - 16462946326843967761
+      - 5516347322442953186
+      - 10507554912796926786
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 16462946326843967761
+    Name: FenceLeft
+    Childs:
+      []
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.0769230798
+        - 0.349999994
+        - 0.0769230798
+        - 0.349999994
+        - 0.15384616
+        - 0.300000012
+        - 0.15384616
+      Layer: 0
+  - GameObject: 5516347322442953186
+    Name: FenceMiddle
+    Childs:
+      []
+    Transform:
+      Position: [-5, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0
+        - 0.349999994
+        - 0
+        - 0.349999994
+        - 0.0769230798
+        - 0.300000012
+        - 0.0769230798
+      Layer: 0
+  - GameObject: 10507554912796926786
+    Name: FenceRight
+    Childs:
+      []
+    Transform:
+      Position: [-4, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.349999994
+        - 0.15384616
+        - 0.400000006
+        - 0.15384616
+        - 0.400000006
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+      Layer: 0
+  - GameObject: 5364254256289210055
+    Name: Fence2
+    Childs:
+      - 4674996679245016540
+      - 8706996904063621630
+      - 17848986056390263590
+    Transform:
+      Position: [-3, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4674996679245016540
+    Name: FenceLeft
+    Childs:
+      []
+    Transform:
+      Position: [-3, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.0769230798
+        - 0.349999994
+        - 0.0769230798
+        - 0.349999994
+        - 0.15384616
+        - 0.300000012
+        - 0.15384616
+      Layer: 0
+  - GameObject: 8706996904063621630
+    Name: FenceMiddle
+    Childs:
+      []
+    Transform:
+      Position: [-2, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0
+        - 0.349999994
+        - 0
+        - 0.349999994
+        - 0.0769230798
+        - 0.300000012
+        - 0.0769230798
+      Layer: 0
+  - GameObject: 17848986056390263590
+    Name: FenceRight
+    Childs:
+      []
+    Transform:
+      Position: [-1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.349999994
+        - 0.15384616
+        - 0.400000006
+        - 0.15384616
+        - 0.400000006
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+      Layer: 0
+  - GameObject: 12956774129629986980
+    Name: Barrels
+    Childs:
+      - 8413496759236163595
+      - 12332271688106837385
+      - 1640322285671812666
+      - 11787215799098626999
+      - 1626484309566188103
+      - 1289985130794260109
+    Transform:
+      Position: [1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8413496759236163595
+    Name: Barrel1
+    Childs:
+      []
+    Transform:
+      Position: [1.4202733, 0.687927544, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999855995, 0.999855995, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 12332271688106837385
+    Name: Barrel2
+    Childs:
+      []
+    Transform:
+      Position: [1.09908891, 0.687927544, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999787927, 0.999787927, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 1640322285671812666
+    Name: Barrel3
+    Childs:
+      []
+    Transform:
+      Position: [0.767652988, 0.69134444, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999702513, 0.999702513, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 11787215799098626999
+    Name: Barrel4
+    Childs:
+      []
+    Transform:
+      Position: [1.23576283, 1.09795046, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999623597, 0.999623597, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 1626484309566188103
+    Name: Barrel5
+    Childs:
+      []
+    Transform:
+      Position: [0.911161423, 1.11503482, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999587417, 0.999587417, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 1289985130794260109
+    Name: Barrel6
+    Childs:
+      []
+    Transform:
+      Position: [1.06150341, 1.51822376, 0]
+      Rotation: [0, 0, -1.57079637]
+      Scale: [0.999540269, 0.999540269, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.449999988
+        - 0.15384616
+        - 0.5
+        - 0.15384616
+        - 0.5
+        - 0.230769232
+        - 0.449999988
+        - 0.230769232
+      Layer: 2
+  - GameObject: 8744364486060982536
+    Name: Bushes
+    Childs:
+      - 8947740374544030303
+      - 2072130383486312877
+      - 15641598658046765960
+      - 1532165918978334951
+      - 12052057454139088620
+      - 3550530294022117175
+      - 16341553142547759104
+      - 12272394922855477810
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8947740374544030303
+    Name: Bush1
+    Childs:
+      []
+    Transform:
+      Position: [-1.07061458, 1.02050114, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.47000003, 1.47000003, 1.47000003]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.200000003
+        - 0.230769232
+        - 0.25
+        - 0.230769232
+        - 0.25
+        - 0.307692319
+        - 0.200000003
+        - 0.307692319
+      Layer: 2
+  - GameObject: 2072130383486312877
+    Name: Bush2
+    Childs:
+      []
+    Transform:
+      Position: [-1.81548929, 1.08200455, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.230769232
+        - 0.0500000007
+        - 0.230769232
+        - 0.0500000007
+        - 0.307692319
+        - 0
+        - 0.307692319
+      Layer: 2
+  - GameObject: 15641598658046765960
+    Name: Bush3
+    Childs:
+      []
+    Transform:
+      Position: [-2.66970348, 1.04100227, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.200000003
+        - 0.230769232
+        - 0.25
+        - 0.230769232
+        - 0.25
+        - 0.307692319
+        - 0.200000003
+        - 0.307692319
+      Layer: 2
+  - GameObject: 1532165918978334951
+    Name: Bush4
+    Childs:
+      []
+    Transform:
+      Position: [-3.48974895, 1.02733469, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.230769232
+        - 0.0500000007
+        - 0.230769232
+        - 0.0500000007
+        - 0.307692319
+        - 0
+        - 0.307692319
+      Layer: 2
+  - GameObject: 12052057454139088620
+    Name: Bush5
+    Childs:
+      []
+    Transform:
+      Position: [-5.88838196, 0.972664833, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0
+        - 0.230769232
+        - 0.0500000007
+        - 0.230769232
+        - 0.0500000007
+        - 0.307692319
+        - 0
+        - 0.307692319
+      Layer: 2
+  - GameObject: 3550530294022117175
+    Name: Bush6
+    Childs:
+      []
+    Transform:
+      Position: [-5.15034151, 1.14350796, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.0500000007
+        - 0.230769232
+        - 0.100000001
+        - 0.230769232
+        - 0.100000001
+        - 0.307692319
+        - 0.0500000007
+        - 0.307692319
+      Layer: 2
+  - GameObject: 16341553142547759104
+    Name: Bush7
+    Childs:
+      []
+    Transform:
+      Position: [-2.64920259, 1.19134402, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.0500000007
+        - 0.230769232
+        - 0.100000001
+        - 0.230769232
+        - 0.100000001
+        - 0.307692319
+        - 0.0500000007
+        - 0.307692319
+      Layer: 2
+  - GameObject: 12272394922855477810
+    Name: Bush8
+    Childs:
+      []
+    Transform:
+      Position: [-4.50113869, 0.876993179, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.71989989, 1.71989989, 1.71989989]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.200000003
+        - 0.230769232
+        - 0.25
+        - 0.230769232
+        - 0.25
+        - 0.307692319
+        - 0.200000003
+        - 0.307692319
+      Layer: 2
+  - GameObject: 4162978416570751734
+    Name: AnimationTest
+    Childs:
+      []
+    Transform:
+      Position: [4, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Animations\IdleRight\sprite_11.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\IdleRight.anim
+      Current animation: Source\Animations2D\IdleRight.anim
+  - GameObject: 542485568396861819
+    Name: PhysicsTest
+    Childs:
+      - 8803265662301973023
+      - 12782417671131656914
+      - 8773808172168841233
+      - 11296491283190710665
+      - 2192392559892771477
+      - 10498783398700474683
+      - 14776285103299752197
+      - 12013689817970452518
+      - 7248229475114153356
+      - 5579403570912860511
+      - 14399822958344857805
+      - 1842715324911135709
+    Transform:
+      Position: [-2, 4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8803265662301973023
+    Name: Part1
+    Childs:
+      []
+    Transform:
+      Position: [-2, 4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 12782417671131656914
+    Name: Part2
+    Childs:
+      []
+    Transform:
+      Position: [-1, 4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 8773808172168841233
+    Name: Part3
+    Childs:
+      []
+    Transform:
+      Position: [-3, 4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 11296491283190710665
+    Name: Part4
+    Childs:
+      []
+    Transform:
+      Position: [-3, 5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 2192392559892771477
+    Name: Part5
+    Childs:
+      []
+    Transform:
+      Position: [-2, 5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 10498783398700474683
+    Name: Part6
+    Childs:
+      []
+    Transform:
+      Position: [-1, 5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 14776285103299752197
+    Name: Part7
+    Childs:
+      []
+    Transform:
+      Position: [-1, 7, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 12013689817970452518
+    Name: Part8
+    Childs:
+      []
+    Transform:
+      Position: [-2, 6, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 7248229475114153356
+    Name: Part9
+    Childs:
+      []
+    Transform:
+      Position: [-1, 6, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 5579403570912860511
+    Name: Part10
+    Childs:
+      []
+    Transform:
+      Position: [-3, 6, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 14399822958344857805
+    Name: Part11
+    Childs:
+      []
+    Transform:
+      Position: [-2, 7, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 1842715324911135709
+    Name: Part12
+    Childs:
+      []
+    Transform:
+      Position: [-3, 7, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      UV:
+        - 0.300000012
+        - 0.230769232
+        - 0.349999994
+        - 0.230769232
+        - 0.349999994
+        - 0.307692319
+        - 0.300000012
+        - 0.307692319
+      Layer: 0
+    BoxCollider2D:
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 17932238776293770843
+    Name: Trees
+    Childs:
+      - 693241878337045073
+      - 7286199308230068687
+      - 7234124705899545410
+      - 10013865194505711858
+      - 6087934215711117109
+      - 6093243130430288615
+    Transform:
+      Position: [-6, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
