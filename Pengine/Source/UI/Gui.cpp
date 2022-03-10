@@ -22,19 +22,19 @@ Gui::Gui()
 
 	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
 		m_CheckBoxTextureTrue = texture;
-		}, "Source/UIimages/CheckMarkTrue.png");
+		}, "CheckMarkTrue");
 
 	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
 		m_CheckBoxTextureFalse = texture;
-		}, "Source/UIimages/CheckMarkFalse.png");
+		}, "CheckMarkFalse");
 
 	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
 		m_TriangleRightTexture = texture;
-		}, "Source/UIimages/TriangleRight.png");
+		}, "TriangleRight");
 
 	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
 		m_TriangleDownTexture = texture;
-		}, "Source/UIimages/TriangleDown.png");
+		}, "TriangleDown");
 }
 
 void Gui::Text(const std::wstring& str, glm::vec2 position, ...)
@@ -1178,21 +1178,19 @@ float Gui::ScrollBar(const std::wstring& label, glm::vec2 position, glm::vec2 si
 	glm::vec4 tempPressedColor = m_Theme.m_PressedColor;
 	m_Theme.m_HoveredColor = m_Theme.m_HoveredSelectedColor;
 	m_Theme.m_PressedColor = m_Theme.m_PressedSelectedColor;
+	Viewport& viewport = Viewport::GetInstance();
 	if (ButtonBehavior(label + L"Slider", vertices, color))
 	{
-		//0.666f fits kind of good because if we look at vertices y component then we see that we multiply ratio by 3 components,
-		//so we need to cast YOffset to new coordinates, so our ratio is 2/3 => 0.666f
-		scrollBarIter->second -= (float)(Viewport::GetInstance().GetDragDelta().y) / (ratio * 0.666f);
+		scrollBarIter->second -= (float)(viewport.GetUIDragDelta().y) / ratio;
 	}
 	else if (isHoveredScrollBar && Input::IsMousePressed(Keycode::MOUSE_BUTTON_1))
 	{
-		int sign = Viewport::GetInstance().GetUIMousePosition().y < vertices[1] ? -1 : 1;
+		int sign = viewport.GetUIMousePosition().y < vertices[1] ? -1 : 1;
 		scrollBarIter->second -= sign * (m_Theme.m_ScrollingByClickingOffset * fullHeight + ratio * size.y);
 	}
 	m_Theme.m_HoveredColor = tempHoveredColor;
 	m_Theme.m_PressedColor = tempPressedColor;
-	scrollBarIter->second = glm::clamp(scrollBarIter->second, 0.0f, fullHeight - actualHeight);
-	YOffset = scrollBarIter->second;
+	YOffset = glm::clamp(scrollBarIter->second, 0.0f, fullHeight - actualHeight);
 	
 	m_Theme.m_ButtonAction = tempButtonAction;
 
@@ -1224,9 +1222,9 @@ void Gui::CreateRect(float vertices[8], glm::vec2 position, glm::vec2 size)
 void Gui::RecalculateProjectionMatrix()
 {
 	m_Aspect = Viewport::GetInstance().GetAspect();
-	float halfRelativeHeight = m_RelativeHeight * 0.5f;
-	m_ViewProjection = glm::ortho(-halfRelativeHeight * m_Aspect, halfRelativeHeight * m_Aspect,
-		-halfRelativeHeight, halfRelativeHeight, -1.0f, 1.0f);
+	m_ViewportUISize = { m_RelativeHeight * m_Aspect, m_RelativeHeight };
+	m_ViewProjection = glm::ortho(-m_ViewportUISize.x * 0.5f, m_ViewportUISize.x * 0.5f,
+		-m_ViewportUISize.y * 0.5f, m_ViewportUISize.y * 0.5f, -1.0f, 1.0f);
 	/*glm::vec2 size = Viewport::GetInstance().GetSize();
 	size *= 0.5f;
 	m_ViewProjection = glm::ortho(-size.x, size.x,

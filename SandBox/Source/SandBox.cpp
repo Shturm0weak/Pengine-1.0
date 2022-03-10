@@ -201,13 +201,15 @@ public:
 		Gui& gui = Gui::GetInstance();
 		glm::vec2 mousePos = Viewport::GetInstance().GetUIMousePosition();
 		gui.SetFont(gui.GetStandardFont(gui.ARIAL));
-		gui.m_Theme.m_FontScale = 40.0f;
+		gui.m_Theme.m_FontScale = 30.0f;
 		gui.m_Theme.m_ButtonSize = { 200.0f, 100.0f };
-		gui.m_Theme.m_RoundedRadius = 30.0f;
 		gui.RoundCorners(Gui::Edge::ALL);
+		float tempFontScale = gui.m_Theme.m_FontScale;
+		gui.m_Theme.m_FontScale *= 0.5f;
 		gui.Text(L"Mouse pos X = %f; Y = %f", mousePos, mousePos.x, mousePos.y);
+		gui.m_Theme.m_FontScale = tempFontScale;
 		//gui.m_XAlign = gui.XCENTER;
-		gui.BeginPanel(L"##Properties", { 0.0f, 0.0f }, { 1000.0f, 1000.0f });
+		gui.BeginPanel(L"##TestPanel", { 0.0f, 0.0f }, { 1000.0f, 1000.0f });
 		gui.Button(L"1", { 0.0f, 0.0f });
 		gui.Button(L"2", { gui.m_Theme.m_ButtonSize + gui.m_RelatedPanelProperties.m_Padding });
 		gui.Button(L"3", { (gui.m_Theme.m_ButtonSize + gui.m_RelatedPanelProperties.m_Padding) * 2.0f });
@@ -289,7 +291,7 @@ int main()
 	EntryPoint entrypoint;
 
 	entrypoint.OnStart();
-	TestApp application;
+	UITest application;
 	entrypoint.SetApplication(&application);
 	entrypoint.OnUpdate();
 

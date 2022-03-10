@@ -233,10 +233,15 @@ void Batch::Submit(Character* character)
 	}
 
 	Gui& gui = Gui::GetInstance();
+
 	bool IsStatic = gui.m_Theme.m_IsStatic;
-	float halfRelativeHeight = gui.m_RelativeHeight * 0.5f;
-	glm::vec2 halfWindowSize = { halfRelativeHeight * gui.m_Aspect, halfRelativeHeight };
-	glm::vec2 relatedPanelPosition = gui.m_CurrentPanelPosition + halfWindowSize;
+
+	float aspect = Viewport::GetInstance().GetSize().y / gui.m_RelativeHeight;
+	
+	glm::vec2 viewportSize = (glm::vec2)Viewport::GetInstance().GetSize();
+	glm::vec2 relatedPanelPosition = gui.m_CurrentPanelPosition * aspect + viewportSize * 0.5f;
+
+	glm::vec2 relatedPanelSize = gui.m_CurrentPanelSize * aspect;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((character->m_Mesh2D[0] * character->m_Scale.x + character->m_Position.x), ((character->m_Mesh2D[1]) * character->m_Scale.y + character->m_Position.y));
 	m_UIWrapper.m_Buffer->m_UV = glm::vec2(character->m_Mesh2D[2], character->m_Mesh2D[3]);
@@ -246,7 +251,7 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((character->m_Mesh2D[4] * character->m_Scale.x + character->m_Position.x), ((character->m_Mesh2D[5]) * character->m_Scale.y + character->m_Position.y));
@@ -257,7 +262,7 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((character->m_Mesh2D[8] * character->m_Scale.x + character->m_Position.x), ((character->m_Mesh2D[9]) * character->m_Scale.y + character->m_Position.y));
@@ -268,7 +273,7 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((character->m_Mesh2D[12] * character->m_Scale.x + character->m_Position.x), ((character->m_Mesh2D[13]) * character->m_Scale.y + character->m_Position.y));
@@ -279,7 +284,7 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_IndexCount += 6;
@@ -317,24 +322,29 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	}
 
 	Gui& gui = Gui::GetInstance();
-	float halfRelativeHeight = gui.m_RelativeHeight * 0.5f;
-	glm::vec2 halfWindowSize = { halfRelativeHeight * gui.m_Aspect, halfRelativeHeight };
-	glm::vec2 relatedPanelPosition = gui.m_CurrentPanelPosition + halfWindowSize;
-	glm::vec2 positionOfRect = position + halfWindowSize;
+
+	float aspect = Viewport::GetInstance().GetSize().y / gui.m_RelativeHeight;
+	
+	glm::vec2 viewportSize = (glm::vec2)Viewport::GetInstance().GetSize();
+	glm::vec2 relatedPanelPosition = gui.m_CurrentPanelPosition * aspect + viewportSize * 0.5f;
+	glm::vec2 positionOfRect = position * aspect + viewportSize * 0.5f;
+
+	glm::vec2 relatedPanelSize = gui.m_CurrentPanelSize * aspect;
+	glm::vec2 panelSize = size * aspect;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[0]), mesh[1]);
-	m_UIWrapper.m_Buffer->m_UV = glm::vec2(0, 0);
+	m_UIWrapper.m_Buffer->m_UV = glm::vec2(0.0f, 0.0f);
 	m_UIWrapper.m_Buffer->m_Static = true;
 	m_UIWrapper.m_Buffer->m_Color = color;
 	m_UIWrapper.m_Buffer->m_IsGui = 1.;
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer->m_RoundedCorners = glm::vec4(gui.m_Theme.m_RoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_PreviousRoundedCorners = glm::vec4(gui.m_Theme.m_PreviousRoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_Position = positionOfRect;
-	m_UIWrapper.m_Buffer->m_Size = size;
+	m_UIWrapper.m_Buffer->m_Size = panelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[2]), (mesh[3]));
@@ -345,11 +355,11 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer->m_RoundedCorners = glm::vec4(gui.m_Theme.m_RoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_PreviousRoundedCorners = glm::vec4(gui.m_Theme.m_PreviousRoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_Position = positionOfRect;
-	m_UIWrapper.m_Buffer->m_Size = size;
+	m_UIWrapper.m_Buffer->m_Size = panelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[4]), (mesh[5]));
@@ -360,11 +370,11 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer->m_RoundedCorners = glm::vec4(gui.m_Theme.m_RoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_PreviousRoundedCorners = glm::vec4(gui.m_Theme.m_PreviousRoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_Position = positionOfRect;
-	m_UIWrapper.m_Buffer->m_Size = size;
+	m_UIWrapper.m_Buffer->m_Size = panelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[6]), ((mesh[7])));
@@ -375,11 +385,11 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer->m_TexIndex = m_UIWrapper.m_TextureIndex;
 	m_UIWrapper.m_Buffer->m_IsRelatedToPanel = gui.m_IsRelatedToMainPanel;
 	m_UIWrapper.m_Buffer->m_RelatedPanelPosition = relatedPanelPosition;
-	m_UIWrapper.m_Buffer->m_RelatedPanelSize = gui.m_CurrentPanelSize;
+	m_UIWrapper.m_Buffer->m_RelatedPanelSize = relatedPanelSize;
 	m_UIWrapper.m_Buffer->m_RoundedCorners = glm::vec4(gui.m_Theme.m_RoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_PreviousRoundedCorners = glm::vec4(gui.m_Theme.m_PreviousRoundedCorners) * 2.0f;
 	m_UIWrapper.m_Buffer->m_Position = positionOfRect;
-	m_UIWrapper.m_Buffer->m_Size = size;
+	m_UIWrapper.m_Buffer->m_Size = panelSize;
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_IndexCount += 6;
@@ -647,7 +657,7 @@ void Batch::FlushUI()
 	Gui& gui = Gui::GetInstance();
 	shader->SetUniform1iv("u_Texture", samplers);
 	shader->SetUniformMat4f("u_Projection", gui.m_ViewProjection);
-	shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
+	//shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 	shader->SetUniform2fv("u_offset", gui.m_TextProps.m_ShadowOffset);
 	shader->SetUniform1f("u_width", gui.m_TextProps.m_Width);
 	shader->SetUniform1f("u_edge", gui.m_TextProps.m_Edge);
@@ -655,7 +665,7 @@ void Batch::FlushUI()
 	shader->SetUniform1f("u_borderedge", gui.m_TextProps.m_BorderEdge);
 	shader->SetUniform1f("u_RoundedRadius", gui.m_Theme.m_RoundedRadius);
 	shader->SetUniform4fv("u_outlineColor", gui.m_TextProps.m_OutLineColor);
-	shader->SetUniform2fv("u_ViewPortSize", Viewport::GetInstance().GetSize());
+	//shader->SetUniform2fv("u_ViewPortSize", Viewport::GetInstance().GetSize());
 
 	glDrawElements(GL_TRIANGLES, m_UIWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 	Editor::GetInstance().m_Stats.m_DrawCalls++;

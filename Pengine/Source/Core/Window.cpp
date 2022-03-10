@@ -82,8 +82,9 @@ bool Window::ShouldExit() const
 	return !glfwWindowShouldClose(m_Window);
 }
 
-void Window::NewFrame() const
+void Window::NewFrame()
 {
+	SetScrollOffset({ 0.0f, 0.0f });
 	Editor::GetInstance().ResetStats();
 	EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONUPDATE));
 	Window::GetInstance().Clear();

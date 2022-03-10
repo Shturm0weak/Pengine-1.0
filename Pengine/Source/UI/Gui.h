@@ -202,7 +202,8 @@ namespace Pengine {
 		bool m_IsCurrentPanelHovered = false;
 		bool m_IsRelativeToHeight = true;
 		float m_Aspect = 1.0f;
-		float m_RelativeHeight = 1000.0f;
+		float m_RelativeHeight = 1080.0f;
+		glm::vec2 m_ViewportUISize;
 		glm::vec2 m_CurrentPanelPosition;
 		glm::vec2 m_CurrentPanelSize;
 	private:

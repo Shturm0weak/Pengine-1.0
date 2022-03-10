@@ -129,6 +129,7 @@ void Viewport::Update()
 	m_PreviousMousePosition = m_MousePosition;
 	m_MousePosition = cursorPosition;
 
+	m_PreviousUIMousePosition = m_UIMousePosition;
 	m_UIMousePosition = normalizedcursorPosition;
 	m_UIMousePosition *= Gui::GetInstance().m_RelativeHeight * 0.5f;
 	m_UIMousePosition.x *= camera->GetAspect();

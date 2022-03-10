@@ -418,7 +418,10 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 				{
 					std::string path((const char*)payload->Data);
 					path.resize(payload->DataSize);
-					r2d->SetTexture(TextureManager::GetInstance().Get(Utils::GetNameFromFilePath(path)));
+					TextureManager::GetInstance().AsyncCreate(path);
+					TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						r2d->SetTexture(texture);
+						}, Utils::GetNameFromFilePath(path));
 				}
 				ImGui::EndDragDropTarget();
 			}

@@ -27,15 +27,16 @@ out float isGui;
 out vec4 color;
 out vec2 uv;
 
-uniform mat4 u_ViewProjection;
 uniform mat4 u_Projection;
 
 void main()
 {
-	if (isStaticA == 0) {
-		gl_Position = u_ViewProjection * positionA;
+	if (isStaticA == 0)
+	{
+		gl_Position = u_Projection * positionA;
 	}
-	else if (isStaticA > 1) {
+	else if (isStaticA > 1)
+	{
 		gl_Position = u_Projection * positionA;
 	}
 
@@ -77,7 +78,7 @@ uniform float u_borderedge;
 uniform float u_RoundedRadius;
 uniform vec2 u_offset;
 uniform sampler2D u_Texture[32];
-uniform vec2 u_ViewPortSize;
+//uniform vec2 u_ViewPortSize;
 
 bool IsInsideOfRect(vec2 pos, vec2 size)
 {
@@ -171,27 +172,33 @@ bool IsOutsideOfRadiusButInsideOfRect(vec2 pos, vec2 size, vec4 corners)
 
 void main()
 {
-	//if (isRelatedToPanel > 1)
-	//{
-	//	if (IsInsideOfRect(relatedPanelPos, relatedPanelSize))
-	//	{
-	//		if (IsOutsideOfRadiusButInsideOfRect(relatedPanelPos, relatedPanelSize, previousRoundedCorners))
-	//		{
-	//			discard;
-	//		}
-	//	}
-	//	else
-	//	{
-	//		discard;
-	//	}
-	//}
+	if (isRelatedToPanel > 1)
+	{
+		if (IsInsideOfRect(relatedPanelPos, relatedPanelSize))
+		{
+			if (IsOutsideOfRadiusButInsideOfRect(relatedPanelPos, relatedPanelSize, previousRoundedCorners))
+			{
+				//gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+				//return;
+				discard;
+			}
+		}
+		else
+		{
+			//gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+			//return;
+			discard;
+		}
+	}
 	if (isGui > 0.5)
 	{
-		//if (IsOutsideOfRadiusButInsideOfRect(positionOfRect, sizeOfRect, roundedCorners))
-		//{
-		//	discard;
-		//}
-		//else
+		if (IsOutsideOfRadiusButInsideOfRect(positionOfRect, sizeOfRect, roundedCorners))
+		{
+			//gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+			//return;
+			discard;
+		}
+		else
 		{
 			vec4 texColor = texture(u_Texture[texIndex], uv);
 			gl_FragColor = color * texColor;

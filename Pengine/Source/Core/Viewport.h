@@ -13,6 +13,7 @@ namespace Pengine
 		glm::ivec2 m_PreviousWindowSize;
 		glm::ivec2 m_Position;
 		glm::vec2 m_PreviousMousePosition;
+		glm::vec2 m_PreviousUIMousePosition;
 		glm::vec2 m_MousePosition;
 		glm::vec2 m_UIMousePosition;
 
@@ -41,6 +42,7 @@ namespace Pengine
 		glm::ivec2 GetSize() const { return m_Size; }
 		glm::vec2 GetMousePosition() const { return m_MousePosition; }
 		glm::vec2 GetUIMousePosition() const { return m_UIMousePosition; }
+		glm::vec2 GetUIDragDelta() const { return m_UIMousePosition - m_PreviousUIMousePosition; }
 		glm::vec2 GetDragDelta() const { return m_MousePosition - m_PreviousMousePosition; }
 		float GetAspect() const { return (float)m_Size.x / (float)m_Size.y; }
 		void Begin();

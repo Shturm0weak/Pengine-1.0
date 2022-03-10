@@ -49,6 +49,7 @@ void EntryPoint::PrepareResources()
     Utils::LoadShadersFromFolder("Source/Shaders");
     Utils::LoadTexturesFromFolder("Source/Images");
     Utils::LoadTexturesFromFolder("Source/Images/Icons");
+    Utils::LoadTexturesFromFolder("Source/UIimages");
 
     Environment::GetInstance().SetEditorCamera(std::make_shared<Camera>());
     Environment::GetInstance().UseEditorCameraAsMain();

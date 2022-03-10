@@ -39,7 +39,7 @@ namespace Pengine
 		GLFWwindow* GetWindow() const { return m_Window; }
 		glm::vec2 GetScrollOffset() const { return m_ScrollOffset; }
 		bool ShouldExit() const;
-		void NewFrame() const;
+		void NewFrame();
 		void EndFrame() const;
 		void SetSize(glm::ivec2 size);
 		void SetTitle(const char* title);
