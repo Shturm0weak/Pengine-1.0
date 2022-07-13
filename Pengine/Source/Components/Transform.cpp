@@ -11,6 +11,13 @@ void Transform::Copy(const IComponent& component)
 	Translate(transform.GetPosition());
 	Rotate(transform.GetRotation());
 	Scale(transform.GetScale());
+	m_FollowOwner = transform.m_FollowOwner;
+	m_Type = transform.m_Type;
+}
+
+IComponent* Transform::New(GameObject* owner)
+{
+	return new Transform();
 }
 
 IComponent* Transform::CreateCopy(GameObject* newOwner)
@@ -24,6 +31,7 @@ void Transform::Move(Transform&& transform) noexcept
 	m_PositionMat4 = std::move(transform.m_PositionMat4);
 	m_ScaleMat4 = std::move(transform.m_ScaleMat4);
 	m_RotationMat4 = std::move(transform.m_RotationMat4);
+	m_FollowOwner = transform.m_FollowOwner;
 }
 
 void Transform::UpdateBack()
@@ -55,7 +63,9 @@ Transform::Transform(Transform&& transform) noexcept
 	, m_PositionMat4(std::move(transform.m_PositionMat4))
 	, m_ScaleMat4(std::move(transform.m_ScaleMat4))
 	, m_RotationMat4(std::move(transform.m_RotationMat4))
+	, m_FollowOwner(transform.m_FollowOwner)
 {
+	m_Type = "Pengine::Transform";
 }
 
 Transform::Transform(const glm::vec3& position, const glm::vec3& scale, const glm::vec3& rotation)
@@ -63,6 +73,17 @@ Transform::Transform(const glm::vec3& position, const glm::vec3& scale, const gl
 	Translate(position);
 	Rotate(rotation);
 	Scale(scale);
+	m_Type = "Pengine::Transform";
+}
+
+glm::vec3 Transform::GetPreviousPosition() const
+{
+	return m_PreviousPosition;
+}
+
+glm::vec3 Transform::GetPositionDelta() const
+{
+	return m_PositionDelta;
 }
 
 glm::vec3 Transform::GetPosition() const
@@ -87,7 +108,8 @@ glm::mat4 Transform::GetTransform() const
 
 void Transform::Translate(const glm::vec3& position)
 {
-	glm::vec3 offset = position - Utils::GetPosition(m_PositionMat4);
+	m_PreviousPosition = Utils::GetPosition(m_PositionMat4);
+	m_PositionDelta = position - m_PreviousPosition;
 
 	m_PositionMat4 = glm::translate(glm::mat4(1.0f), position);
 	if (m_OnTranslationCallback)
@@ -97,8 +119,11 @@ void Transform::Translate(const glm::vec3& position)
 
 	if (m_Owner)
 	{
-		m_Owner->ForChilds([offset](GameObject& child) {
-			child.m_Transform.Translate(Utils::GetPosition(child.m_Transform.m_PositionMat4) + offset);
+		m_Owner->ForChilds([=](GameObject& child) {
+			if (child.m_Transform.m_FollowOwner)
+			{
+				child.m_Transform.Translate(Utils::GetPosition(child.m_Transform.m_PositionMat4) + m_PositionDelta);
+			}
 		});
 	}
 }

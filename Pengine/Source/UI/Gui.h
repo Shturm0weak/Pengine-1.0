@@ -36,7 +36,7 @@ namespace Pengine {
 
 			glm::bvec4 m_RoundedCorners = { true, true, true, true }; // Top, left, botton, right.
 			glm::bvec4 m_PreviousRoundedCorners;
-			float m_RoundedRadius = 10.0f; // In pixels.
+			float m_RoundedRadius = 5.0f; // In pixels.
 			ButtonAction m_ButtonAction = ButtonAction::RELEASED;
 			glm::vec2 m_ListBoxPadding = { 5.0f, 5.0f };
 			glm::vec2 m_ListButtonSize = { 200.0f, 35.0f };
@@ -46,6 +46,7 @@ namespace Pengine {
 			glm::vec2 m_ImageSize = { 64.0f, 64.0f };
 			glm::vec2 m_SliderSize = { 200.0f, 35.0f };
 			glm::vec2 m_BarSize = { 200.0f, 35.0f };
+			glm::vec2 m_InputSize = { 200.0f, 35.0f };
 			int m_IsStatic = true;
 			int m_CharsAfterDot = 3;
 			float m_FontScale = 15;
@@ -82,7 +83,10 @@ namespace Pengine {
 
 		Theme m_Theme;
 
+		float m_RelativeHeight = 1080.0f;
+		
 		glm::mat4 m_ViewProjection;
+		glm::vec2 m_ViewportUISize;
 
 		// If @IsRelatedToPanel set to true then all of ui element's coordinates set to 0
 		// will be created at the top left corner of the @panel.
@@ -91,7 +95,7 @@ namespace Pengine {
 
 		std::map <std::wstring, bool> m_Active;
 		std::map <std::wstring, bool> m_NegativeInputs;
-		std::map <std::wstring, std::string> m_DoubleInput;
+		std::map <std::wstring, std::wstring> m_DoubleInput;
 		std::map <std::wstring, float> m_ScrollBars;
 
 		std::wstring m_CurrentPressed;
@@ -151,37 +155,55 @@ namespace Pengine {
 		static Gui& GetInstance() { static Gui instance; return instance; }
 
 		void BeginPanel(const std::wstring& label, glm::vec2 position, glm::vec2 size, Texture* texture = nullptr);
+		
 		void Panel(const std::wstring& label, glm::vec2 position, glm::vec2 size, Texture* texture = nullptr);
+		
 		void EndPanel();
 
 		// If between @BeginPanel and @EndPanel @position should be set to zero
 		// @position and 'size' in pixels from viewport -size * 0.5f to +size * 0.5f
 		// @position is top-left corner.
 		void Text(const std::wstring& text, glm::vec2 position, ...);
+		
 		void Image(glm::vec2 position, Texture* texture = nullptr, glm::vec2 size = { 0.0f, 0.0f });
+		
 		void Bar(glm::vec2 position, float value, float maxValue, glm::vec2 size = { 0.0f, 0.0f });
+		
 		void ListBox(const std::wstring& label, glm::vec2 position, std::vector<std::wstring> items, int& selectedItem, glm::vec2 size = { 0.0f, 0.0f });
+		
 		bool Button(const std::wstring& label, glm::vec2 position, Texture* texture = nullptr, glm::vec2 size = { 0.0f, 0.0f });
+		
 		bool CheckBox(const std::wstring& label, glm::vec2 position, bool* value, glm::vec2 size = { 0.0f, 0.0f });
+		
 		bool SliderFloat(const std::wstring& label, glm::vec2 position, glm::vec2 limits, float* value, glm::vec2 size = { 0.0f, 0.0f });
+		
 		bool CollapsingHeader(const std::wstring& label, glm::vec2 position, float height = 25.0f);
 
 		void InputInt(const std::wstring& label, int64_t* value, float x = 0.0f, float y = 0.0f,
 			float width = 100.0f, float height = 50.0f, glm::vec4 panelColor = glm::vec4(0.5, 0.5, 0.5, 1));
 
-		void InputDouble(const std::wstring& label, double* value, float x = 0.0f, float y = 0.0f,
-			float width = 100.0f, float height = 50.0f, glm::vec4 panelColor = glm::vec4(0.5, 0.5, 0.5, 1));
+		void InputDouble(const std::wstring& label, double* value, glm::vec2 position);
 
 		bool IsAnyPanelHovered() const;
+		
 		bool IsRectHovered(const float vertices[8]);
+		
 		void Begin();
+		
 		void End();
+		
 		void SameLine();
+		
 		void SetFont(const Font& font);
+		
 		void RoundCorners(Edge edge);
-		glm::vec2 GetFromWorldToScreenSpace(const glm::vec2 position);
+		
+		glm::vec2 GetFromWorldToScreenSpace(const glm::vec2& position);
+		
 		const Font& GetFont() const;
+		
 		const Font& GetStandardFont(StandardFonts standardFont) const;
+		
 		const float* GetCurrentPanelRect() const;
 	private:
 		
@@ -202,26 +224,31 @@ namespace Pengine {
 		bool m_IsCurrentPanelHovered = false;
 		bool m_IsRelativeToHeight = true;
 		float m_Aspect = 1.0f;
-		float m_RelativeHeight = 1080.0f;
-		glm::vec2 m_ViewportUISize;
 		glm::vec2 m_CurrentPanelPosition;
 		glm::vec2 m_CurrentPanelSize;
 	private:
-
-		// @position is a center of a rect, 'halfSize' is a length from the center to an edge.
-		void CreateRect(float vertices[8], glm::vec2 position, glm::vec2 halfSize);
-		bool ButtonBehavior(const std::wstring& uniqueId, float vertices[8], glm::vec4& color, bool isCurrentPanelHovered = true);
-		float ScrollBar(const std::wstring& label, glm::vec2 position, glm::vec2 size, float actualHeight, float fullHeight, bool isHovered);
-		void RecalculateProjectionMatrix();
-		void ShutDown();
-		void LoadStandartFonts();
-		void ApplyRelatedToPanelProperties(float* x, float* y);
-		Character* FindCharInFont(wchar_t character);
 
 		Gui& operator=(const Gui& rhs) { return *this; }
 		Gui(const Gui&) = delete;
 		Gui();
 		~Gui() {}
+
+		// @position is a center of a rect, 'halfSize' is a length from the center to an edge.
+		void CreateRect(float vertices[8], glm::vec2 position, glm::vec2 halfSize);
+		
+		bool ButtonBehavior(const std::wstring& uniqueId, float vertices[8], glm::vec4& color, bool isCurrentPanelHovered = true);
+		
+		float ScrollBar(const std::wstring& label, glm::vec2 position, glm::vec2 size, float actualHeight, float fullHeight, bool isHovered);
+		
+		void RecalculateProjectionMatrix();
+		
+		void ShutDown();
+		
+		void LoadStandartFonts();
+		
+		void ApplyRelatedToPanelProperties(float* x, float* y);
+		
+		Character* FindCharInFont(wchar_t character);
 
 		friend class Batch;
 		friend class Viewport;

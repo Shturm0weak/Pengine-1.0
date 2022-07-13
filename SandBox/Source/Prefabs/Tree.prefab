@@ -1,19 +1,27 @@
 GameObjects:
-  - GameObject: 11583146039144835287
+  - GameObject: 7662125220393146872
     Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
     Childs:
-      - 3111079516766729780
-      - 9056416924385612150
+      - 16340367191720376029
+      - 8687705652909965220
     Transform:
+      Follow owner: true
       Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 3111079516766729780
+  - GameObject: 16340367191720376029
     Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
     Childs:
       []
     Transform:
-      Position: [0, 1, 0]
+      Follow owner: true
+      Position: [0, 1.00000024, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer2D:
@@ -29,11 +37,17 @@ GameObjects:
         - 0
         - 0.230769232
       Layer: 0
-  - GameObject: 9056416924385612150
+      Inner radius: 0
+      Outer radius: 0
+  - GameObject: 8687705652909965220
     Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
     Childs:
       []
     Transform:
+      Follow owner: true
       Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
@@ -50,3 +64,5 @@ GameObjects:
         - 0
         - 0.15384616
       Layer: 0
+      Inner radius: 0
+      Outer radius: 0

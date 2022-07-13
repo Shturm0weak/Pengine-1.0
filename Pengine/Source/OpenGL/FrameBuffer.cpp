@@ -21,7 +21,7 @@ FrameBuffer::FrameBuffer(const FrameBufferParams& params, const std::vector<Text
 			params.m_Size.x,
 			params.m_Size.y,
 			0,
-			params.m_TextureInternalFormat,
+			params.m_TextureFormat,
 			params.TextureType,
 			NULL);
 
@@ -63,6 +63,11 @@ FrameBuffer::FrameBuffer(const FrameBufferParams& params, const std::vector<Text
 
 FrameBuffer::~FrameBuffer()
 {
+	for (size_t i = 0; i < m_Textures.size(); i++)
+	{
+		glDeleteTextures(1, &m_Textures[i]);
+	}
+
 	glDeleteFramebuffers(1, &m_Fbo);
 	glDeleteRenderbuffers(1, &m_Rbo);
 }
@@ -79,9 +84,10 @@ void FrameBuffer::Resize(const glm::ivec2& size)
 			m_Params.m_Size.x,
 			m_Params.m_Size.y,
 			0,
-			m_Params.m_TextureInternalFormat,
+			m_Params.m_TextureFormat,
 			m_Params.TextureType,
 			NULL);
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 		if (m_Params.m_HasRBO)
 		{
@@ -96,7 +102,6 @@ void FrameBuffer::Bind() const
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, m_Fbo);
 }
-
 
 void FrameBuffer::UnBind() const
 {

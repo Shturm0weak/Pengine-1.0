@@ -26,20 +26,33 @@ namespace Pengine
 		~TextureManager() = default;
 
 		friend class EntryPoint;
+		friend class Editor;
+		friend class Renderer;
+		friend class Viewport;
 	public:
 
 		static TextureManager& GetInstance();
 
 		void ShutDown();
+		
 		void Delete(Texture* texture);
+		
 		void AsyncCreate(const std::string& filePath);
+		
 		Texture* Create(const std::string& filePath, bool flip = true);
+		
 		Texture* ColoredTexture(const std::string& name, uint32_t color);
+		
 		Texture* Get(const std::string& filePath, bool showErrors = false);
-		void AsyncGet(std::function<void(Texture* t)> function, const std::string& filePath);
+		
+		void AsyncGet(std::function<void(Texture* t)> function, const std::string& name);
+		
 		void RemoveFromGetAsync(const std::string& filePath);
+		
 		void ResetTexParametersi();
+		
 		std::vector<Texture*> GetTexturesFromFolder(const std::string& filePath);
+		
 		std::vector<Texture::TexParameteri> GetTexParamertersi() const { return m_TexParameters; }
 	};
 

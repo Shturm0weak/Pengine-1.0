@@ -23,9 +23,13 @@ namespace Pengine
 		static TextureAtlasManager& GetInstance();
 
 		TextureAtlas* Load(const std::string& filePath);
-		TextureAtlas* Create(const std::string& name, const glm::vec2& size, class Texture* texture);
+		
+		TextureAtlas* Create(const std::string& name, const glm::vec2& size = { 0.0f, 0.0f }, class Texture* texture = TextureManager::GetInstance().Get("White"));
+		
 		TextureAtlas* Get(const std::string& name);
+		
 		void ShutDown();
+		
 		void Delete(TextureAtlas* textureAtlas);
 	};
 

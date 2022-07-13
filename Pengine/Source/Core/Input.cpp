@@ -12,12 +12,12 @@ void Input::SetupCallBack()
     glfwSetMouseButtonCallback(window, Input::MouseButtonCallBack);
 }
 
-bool Input::IsMouseDown(int button)
+bool Input::Mouse::IsMouseDown(int button)
 {
     return glfwGetMouseButton(Window::GetInstance().GetWindow(), button);
 }
 
-bool Input::IsMousePressed(int button)
+bool Input::Mouse::IsMousePressed(int button)
 {
     auto buttonIter = s_Keys.find(button);
     if (buttonIter != s_Keys.end())
@@ -28,7 +28,7 @@ bool Input::IsMousePressed(int button)
     return false;
 }
 
-bool Input::IsMouseReleased(int button)
+bool Input::Mouse::IsMouseReleased(int button)
 {
     auto buttonIter = s_Keys.find(button);
     if (buttonIter != s_Keys.end())
@@ -39,12 +39,12 @@ bool Input::IsMouseReleased(int button)
     return false;
 }
 
-bool Input::IsKeyDown(int keycode)
+bool Input::KeyBoard::IsKeyDown(int keycode)
 {
     return glfwGetKey(Window::GetInstance().GetWindow(), keycode);
 }
 
-bool Input::IsKeyPressed(int keycode)
+bool Input::KeyBoard::IsKeyPressed(int keycode)
 {
     auto keyIter = s_Keys.find(keycode);
     if (keyIter != s_Keys.end())
@@ -58,7 +58,7 @@ bool Input::IsKeyPressed(int keycode)
     return false;
 }
 
-bool Input::IsKeyReleased(int keycode)
+bool Input::KeyBoard::IsKeyReleased(int keycode)
 {
     auto keyIter = s_Keys.find(keycode);
     if (keyIter != s_Keys.end())
@@ -71,6 +71,8 @@ bool Input::IsKeyReleased(int keycode)
 
 void Input::ResetInput()
 {
+    m_JoyStick.Update();
+
     for (auto key = s_Keys.begin(); key != s_Keys.end(); key++)
     {
         key->second = -1;
@@ -94,10 +96,10 @@ void Input::KeyCallBack(GLFWwindow* window, int key, int scancode, int action, i
 
 void Input::MouseButtonCallBack(GLFWwindow* window, int button, int action, int mods)
 {
-    auto keyIter = s_Keys.find(button);
-    if (keyIter != s_Keys.end())
+    auto buttonIter = s_Keys.find(button);
+    if (buttonIter != s_Keys.end())
     {
-        keyIter->second = action;
+        buttonIter->second = action;
     }
     else
     {
@@ -105,4 +107,116 @@ void Input::MouseButtonCallBack(GLFWwindow* window, int button, int action, int 
     }
 
     ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
+}
+
+void Input::JoyStickInfo::Update()
+{
+    m_PreviuosButtons = m_Buttons;
+
+    for (auto axis = m_Axes.begin(); axis != m_Axes.end(); axis++)
+    {
+        axis->second = -1;
+    }
+
+    for (auto button = m_Buttons.begin(); button != m_Buttons.end(); button++)
+    {
+        button->second = -1;
+    }
+
+    m_IsPresent = glfwJoystickPresent(m_ID);
+
+    if (m_IsPresent)
+    {
+        int axesCount = 0;
+        const float* axes = glfwGetJoystickAxes(m_ID, &axesCount);
+
+        if (axes)
+        {
+            for (size_t i = 0; i < axesCount; i++)
+            {
+                auto axisIter = m_Axes.find(i);
+                if (axisIter != m_Axes.end())
+                {
+                    axisIter->second = axes[i];
+                }
+                else
+                {
+                    m_Axes.insert(std::make_pair(i, axes[i]));
+                }
+            }
+        }
+
+        int buttonCount = 0;
+        const unsigned char* buttons = glfwGetJoystickButtons(m_ID, &buttonCount);
+
+        if (buttons)
+        {
+            for (size_t i = 0; i < buttonCount; i++)
+            {
+                auto buttonIter = m_Buttons.find(i);
+                if (buttonIter != m_Buttons.end())
+                {
+                    buttonIter->second = buttons[i];
+                }
+                else
+                {
+                    m_Buttons.insert(std::make_pair(i, buttons[i]));
+                }
+            }
+        }
+    }
+}
+
+bool Input::JoyStick::IsButtonDown(int buttonCode)
+{
+    auto buttonIter = m_JoyStick.m_Buttons.find(buttonCode);
+    if (buttonIter != m_JoyStick.m_Buttons.end())
+    {
+        if (buttonIter->second == 1)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Input::JoyStick::IsButtonPressed(int buttonCode)
+{
+    auto buttonIter = m_JoyStick.m_Buttons.find(buttonCode);
+    auto previousButtonIter = m_JoyStick.m_PreviuosButtons.find(buttonCode);
+    if (buttonIter != m_JoyStick.m_Buttons.end())
+    {
+        if (buttonIter->second == 1 && previousButtonIter->second != 1)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Input::JoyStick::IsButtonReleased(int buttonCode)
+{
+    auto buttonIter = m_JoyStick.m_Buttons.find(buttonCode);
+    if (buttonIter != m_JoyStick.m_Buttons.end())
+    {
+        if (buttonIter->second == 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+float Input::JoyStick::GetAxis(int axisCode)
+{
+    auto axisIter = m_JoyStick.m_Axes.find(axisCode);
+    if (axisIter != m_JoyStick.m_Axes.end())
+    {
+        return axisIter->second;
+    }
+
+    return 0.0f;
 }

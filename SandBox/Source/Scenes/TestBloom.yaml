@@ -1,0 +1,206 @@
+Title: TestBloom
+Environment:
+  Global Intensity: 1
+  Blur passes: 10
+  Brightness threshold: 0.5
+  Exposure: 0.0500000007
+  Gamma: 1.5
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [2.78405571, -0.590920448, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 18.5
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 12543233394876077456
+    Name: BlueCircle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.0956801176, -0.0956799984, 0]
+      Rotation: [0, 0, 0]
+      Scale: [5, 5, 1]
+    Renderer2D:
+      Color: [0.329113901, 0.413068414, 1, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 2.12400007
+      Outer radius: 2.5
+      Is Normal used: false
+      Ambient: 10
+  - GameObject: 11721543418983455576
+    Name: RedLightSword
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [11.7966557, -0.653889418, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.304141223, 7.18668365, 1]
+    Renderer2D:
+      Color: [1, 0.151898742, 0.151898742, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+  - GameObject: 6931913935437151123
+    Name: BlueLightSword
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.7172356, -0.825183392, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.304141223, 7.18668365, 1]
+    Renderer2D:
+      Color: [0.329411775, 0.411764711, 1, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 9
+  - GameObject: 12435011192564372312
+    Name: OrangeLightSword
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.590703011, 10.207798, 0]
+      Rotation: [0, 0, -1.55924094]
+      Scale: [0.304140985, 7.18667459, 1]
+    Renderer2D:
+      Color: [1, 0.350798488, 0.0675105453, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 15
+  - GameObject: 5708994282519824408
+    Name: GreenLightSword
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.0482010841, -11.1430902, 0]
+      Rotation: [0, 0, -1.55924094]
+      Scale: [0.304140985, 7.18667459, 1]
+    Renderer2D:
+      Color: [0.114725232, 1, 0.0675105453, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 10
+  - GameObject: 8815855591852583473
+    Name: RedLightSword
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.160077572, -0.113764852, 0]
+      Rotation: [0, 0, -0.881730974]
+      Scale: [0.304141134, 7.1866827, 1]
+    Renderer2D:
+      Color: [1, 0.0675105453, 0.0675105453, 1]
+      Texture: White
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 10

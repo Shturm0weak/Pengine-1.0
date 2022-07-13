@@ -9,7 +9,7 @@ using namespace Pengine;
 
 void VertexBuffer::Initialize(const void* data, uint32_t size, bool Static)
 {
-	glGenBuffers(1, &m_RendererId);
+	glGenBuffers(1, &m_RendererID);
 	Bind();
 	if (Static)
 	{
@@ -23,8 +23,8 @@ void VertexBuffer::Initialize(const void* data, uint32_t size, bool Static)
 
 void VertexBuffer::Clear()
 {
-	m_RendererId = UINT32_MAX;
-	glDeleteBuffers(1, &m_RendererId);
+	m_RendererID = UINT32_MAX;
+	glDeleteBuffers(1, &m_RendererID);
 }
 
 VertexBuffer::~VertexBuffer()
@@ -34,7 +34,7 @@ VertexBuffer::~VertexBuffer()
 
 void VertexBuffer::Bind() const 
 {
-	glBindBuffer(GL_ARRAY_BUFFER, m_RendererId);
+	glBindBuffer(GL_ARRAY_BUFFER, m_RendererID);
 }
 
 void VertexBuffer::UnBind() const
@@ -44,5 +44,5 @@ void VertexBuffer::UnBind() const
 
 void VertexBuffer::Invalidate() const
 {
-	glInvalidateBufferData(m_RendererId);
+	//glInvalidateBufferData(m_RendererID); OpenGL 4.6
 }

@@ -1,0 +1,200 @@
+Title: Fire
+Environment:
+  Global Intensity: 0
+  Blur passes: 20
+  Brightness threshold: 0.460000008
+  Exposure: 0.200000003
+  Gamma: 1.5
+  Pixels blured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-1.99890137, -0.0854492188, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 0
+  Zoom: 5.5
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 607239967807386415
+    Name: CampFire
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/FireLoop.png
+      Normal Texture: White
+      UV:
+        - 0.875
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.875
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 10
+      Play: true
+      Animations:
+        - Source\Animations2D\FireLoop.anim
+      Current animation: Source\Animations2D\FireLoop.anim
+    Script:
+      FilePaths:
+        - Source\Scripts\CampFire.lua
+    Point Light 2D:
+      Color: [1, 1, 1]
+      Constant: 0
+      Linear: 1.20756125
+      Quadratic: 1.20756125
+  - GameObject: 14398546510557650506
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [0.708860755, 0.54643935, 0.320034206, 1]
+      Texture: Source/Images/e4FtQNt.png
+      Normal Texture: Source/Images/cjFUm7X.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: true
+      Ambient: 1.30000007
+  - GameObject: 16356710735296977323
+    Name: Floor
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [5, 5, 1]
+    Renderer2D:
+      Color: [0.510548532, 0.348982036, 0.122790165, 1]
+      Texture: Source/Images/e4FtQNt.png
+      Normal Texture: Source/Images/cjFUm7X.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: true
+      Ambient: 1.20000005
+  - GameObject: 8715737511300327072
+    Name: CampFire
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/FireLoop.png
+      Normal Texture: White
+      UV:
+        - 0.875
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.875
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 10
+      Play: true
+      Animations:
+        - Source\Animations2D\FireLoop.anim
+      Current animation: Source\Animations2D\FireLoop.anim
+    Script:
+      FilePaths:
+        - Source\Scripts\CampFire.lua
+    Point Light 2D:
+      Color: [1, 1, 1]
+      Constant: 0
+      Linear: 1.20756125
+      Quadratic: 1.20756125
+  - GameObject: 3171372377099573795
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [0.708860755, 0.54643935, 0.320034206, 1]
+      Texture: Source/Images/e4FtQNt.png
+      Normal Texture: Source/Images/cjFUm7X.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1

@@ -1,7 +1,7 @@
 workspace "PengineEngine"
 	architecture "x64"
 
-	configurations{
+	configurations {
 		"Debug",
 		"Release"
 	}
@@ -21,22 +21,23 @@ project "Pengine"
 		"%{prj.name}/**.cpp"
 	}
 
-	includedirs{
+	includedirs {
 		"$(SolutionDir)Includes/GLEW",
 		"$(SolutionDir)Includes/GLFW",
+		"$(SolutionDir)Includes/LUA",
+		"$(SolutionDir)Includes",
 		"$(SolutionDir)Vendor",
 		"$(SolutionDir)%{prj.name}/Source/%{prj.name}"
 	}
 
 	libdirs {"$(SolutionDir)Libs"}
 
-	links{
+	links {
 		"glfw3.lib",
 		"opengl32.lib",
 		"glew32s.lib",
 		"ImGui.lib",
-		"OpenAL32.lib",
-		"Box2D.lib"
+		"OpenAL32.lib"
 	}
 
 	filter "system:windows"
@@ -52,11 +53,15 @@ project "Pengine"
 		}
 
 		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox")
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox"),
+			("{COPY} $(SolutionDir)Dlls/lua54.dll ../bin/" .. outputdir .. "/SandBox"),
+			("{COPY} $(SolutionDir)Dlls/rttr_core_d.dll ../bin/" .. outputdir .. "/SandBox"),
+			("{COPY} $(SolutionDir)Dlls/rttr_core.dll ../bin/" .. outputdir .. "/SandBox"),
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs")
 		}
 
 		flags {
-		 "MultiProcessorCompile",
+			"MultiProcessorCompile",
 		}
 
 	filter "configurations:Debug"
@@ -64,11 +69,21 @@ project "Pengine"
 		defines "_DEBUG"
 		symbols "on"
 
+		links {
+			"Box2Dd.lib",
+			"rttr_core_d.lib"
+		}
+
 	filter "configurations:Release"
 		defines "_RELEASE"
 		runtime "Release"
 		symbols "on"
 		optimize "Full"
+
+		links {
+			"Box2Dr.lib",
+			"rttr_core_r.lib"
+		}
 
 project "SandBox"
 	location "SandBox"
@@ -78,22 +93,23 @@ project "SandBox"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	includedirs{
+	includedirs {
 		"$(SolutionDir)Includes/GLEW",
 		"$(SolutionDir)Includes/GLFW",
+		"$(SolutionDir)Includes/LUA",
+		"$(SolutionDir)Includes",
 		"$(SolutionDir)Vendor",
 		"$(SolutionDir)%{prj.name}/Source",
 		"$(SolutionDir)Pengine/Source"
 	}
 
-	links{
+	links {
 		"glfw3.lib",
 		"opengl32.lib",
 		"glew32s.lib",
 		"ImGui.lib",
 		"OpenAL32.lib",
 		"Pengine.lib",
-		"Box2D.lib"
 	}
 
 	files {
@@ -102,8 +118,7 @@ project "SandBox"
 	}
 
 	libdirs {
-		"$(SolutionDir)Libs",
-		"bin/" .. outputdir .. "/Pengine"
+		"$(SolutionDir)Libs"
 	}
 
 	filter "system:windows"
@@ -114,7 +129,7 @@ project "SandBox"
 		 "MultiProcessorCompile",
 		}
 
-		defines{
+		defines {
 			"_CRT_SECURE_NO_WARNINGS",
 			"_WIN64",
 			"GLEW_STATIC",
@@ -126,8 +141,18 @@ project "SandBox"
 		runtime "Debug"
 		symbols "on"
 
+		links {
+			"Box2Dd.lib",
+			"rttr_core_d.lib"
+		}
+
 	filter "configurations:Release"
 		defines "_RELEASE"
 		runtime "Release"
 		symbols "on"
 		optimize "Full"
+
+		links {
+			"Box2Dr.lib",
+			"rttr_core_r.lib"
+		}

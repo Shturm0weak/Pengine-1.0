@@ -41,8 +41,11 @@ namespace Pengine
 	public:
 
 		static inline float GetTime() { return Time::GetInstance().m_Time; };
+		
 		static inline float GetDeltaTime() { return Time::GetInstance().m_DeltaTime; };
+		
 		static inline float GetFps() { return 1.0f / Time::GetDeltaTime(); }
+		
 		static inline void CalculateDeltaTime() { Time::GetInstance().CalculateDeltaTimeImpl(); }
 	};
 

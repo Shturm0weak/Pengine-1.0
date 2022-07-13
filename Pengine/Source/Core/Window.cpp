@@ -13,19 +13,20 @@ Window::~Window()
 	glfwTerminate();
 }
 
-int Window::Initialize()
+int Window::Initialize(const std::string& title)
 {
 	if (!glfwInit())
 	{
 		return -1;
 	}
 
-	m_Window = glfwCreateWindow(m_Size.x, m_Size.y, "SandBox", NULL, NULL);
+	m_Window = glfwCreateWindow(m_Size.x, m_Size.y, title.c_str(), NULL, NULL);
 
 	if (!m_Window)
 	{
 		Logger::Error("Failed to initialize GLFW!");
 		glfwTerminate();
+
 		return -1;
 	}
 
@@ -35,10 +36,11 @@ int Window::Initialize()
 	if (glewInit() != GLEW_OK)
 	{
 		Logger::Error("Failed to initialize GLEW!");
+
 		return -1;
 	}
 
-	glfwSwapInterval(m_VSync); // Enable vsync
+	SetVSyncEnabled(m_VSync);
 
 	m_ImGuiContext = ImGui::CreateContext();
 	m_ImGuiIO = &ImGui::GetIO();
@@ -68,6 +70,7 @@ int Window::Initialize()
 	Input::SetupCallBack();
 
 	Logger::Success("Window has been initialized!");
+
 	return 0;
 }
 
@@ -77,9 +80,19 @@ Window& Window::GetInstance()
 	return window;
 }
 
+void Window::Exit()
+{
+	glfwSetWindowShouldClose(m_Window, true);
+}
+
 bool Window::ShouldExit() const
 {
 	return !glfwWindowShouldClose(m_Window);
+}
+
+void Window::SetTitle(const std::string& title)
+{
+	glfwSetWindowTitle(m_Window, title.c_str());
 }
 
 void Window::NewFrame()
@@ -127,9 +140,15 @@ void Window::SetCurrentContext() const
 	ImGui::SetCurrentContext(m_ImGuiContext);
 }
 
-void Window::Clear() const
+void Window::SetVSyncEnabled(bool enabled)
+{
+	m_VSync = enabled;
+	glfwSwapInterval(m_VSync);
+}
+
+void Window::Clear(const glm::vec4& color) const
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearDepth(1.0f);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(color.x, color.y, color.y, color.w);
 }

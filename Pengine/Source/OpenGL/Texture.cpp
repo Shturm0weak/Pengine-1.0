@@ -3,6 +3,9 @@
 #include "stb_image.h"
 #include "../Core/Utils.h"
 #include "../Core/Logger.h"
+#include "../Core/ThreadPool.h"
+#include "../EventSystem/EventSystem.h"
+#include "../Events/OnMainThreadCallback.h"
 
 using namespace Pengine;
 
@@ -36,12 +39,20 @@ bool Texture::LoadInVRAM(const std::vector<TexParameteri>& texParameters, bool u
 	glGenTextures(1, &m_RendererID);
 	glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
+	m_IsLinear = texParameters[0].m_Param == GL_LINEAR;
+
 	for (size_t i = 0; i < texParameters.size(); i++)
 	{
 		glTexParameteri(texParameters[i].m_Target, texParameters[i].m_Pname, texParameters[i].m_Param);
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	glGenerateMipmap(GL_TEXTURE_2D);
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	if (unloadFromRAM)
@@ -76,20 +87,35 @@ void Texture::ColoredTexture(const std::vector<TexParameteri>& texParameters, ui
 		glTexParameteri(texParameters[i].m_Target, texParameters[i].m_Pname, texParameters[i].m_Param);
 	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Texture::Texture(const std::string& filePath)
-	: m_FilePath(filePath)
-	, m_Name(Utils::GetNameFromFilePath(filePath))
 {
+	m_FilePath = filePath;
+	m_Name = Utils::GetNameFromFilePath(filePath);
 }
 
 Texture::~Texture()
 {
 	UnLoadFromRAM();
 	UnLoadFromVRAM();
+}
+
+void Texture::Reload()
+{
+	std::vector<Texture::TexParameteri> params = TextureManager::GetInstance().GetTexParamertersi();
+	ThreadPool::GetInstance().Enqueue([=] {
+		UnLoadFromRAM();
+		LoadInRAM();
+
+		std::function<void()> callback = std::function<void()>([=] {
+			UnLoadFromVRAM();
+			LoadInVRAM(params);
+		});
+		EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+	});
 }
 
 void Texture::Bind(unsigned int slot) const

@@ -26,32 +26,69 @@ namespace Pengine
 
 		Mesh* m_Mesh = MeshManager::GetInstance().Get("Quad");
 		Texture* m_Texture = TextureManager::GetInstance().Get("White");
-
-		int m_Layer = 0;
-
-		friend class Serializer;
-	public:
+		Texture* m_NormalTexture = TextureManager::GetInstance().Get("White");
+		Texture* m_EmissiveMaskTexture = TextureManager::GetInstance().Get("White");
 
 		glm::vec4 m_Color = glm::vec4(1.0f);
 		
-		static IComponent* Create(GameObject* owner);
+		int m_Layer = 0;
 
-		virtual void Copy(const IComponent& component) override;
-		virtual IComponent* Renderer2D::CreateCopy(GameObject* newOwner) override;
-		virtual void Render() override;
-		virtual void Delete() override;
+		bool m_IsNormalUsed = false;
+
+		friend class Serializer;
+		friend class Editor;
+	public:
+
+		float m_InnerRadius = 0.0f;
+		float m_OuterRadius = 0.0f;
+
+		float m_Ambient = 1.0f;
+		float m_EmmisiveMaskIntensity = 0.0f;
+
 		Renderer2D(int layer) { m_Layer = layer; }
 		Renderer2D() = default;
+		
+		static IComponent* Create(GameObject* owner);
 
-		void operator=(const Renderer2D& renderer2D);
+		virtual IComponent* New(GameObject* owner) override;
+		
+		virtual void Copy(const IComponent& component) override;
+		
+		virtual void Render() override;
+		
+		virtual void Delete() override;
+
+		glm::vec4 GetColor() const { return m_Color; }
+		
+		void SetColor(const glm::vec4& color) { m_Color = color; }
+		
 		void SetTexture(Texture* texture);
-		void Flip();
-		void ReversedUV();
-		void OriginalUV();
-		void SetLayer(int layer);
-		void SetUV(std::vector<float> uv);
-		int GetLayer() const { return m_Layer; }
+		
+		void SetNormalTexture(Texture* normalTexture);
+
+		void SetEmissiveMaskTexture(Texture* emissiveMaskTexture);
+
 		Texture* GetTexture() const { return m_Texture; }
+		
+		Texture* GetNormalTexture() const { return m_NormalTexture; }
+
+		Texture* GetEmissiveMaskTexture() const { return m_EmissiveMaskTexture; }
+
+		void SetShader(Shader* shader) { m_Shader = shader; }
+		
+		void Flip();
+		
+		void ReversedUV();
+		
+		void OriginalUV();
+		
+		void SetLayer(int layer);
+		
+		void SetUV(const std::vector<float>& uv);
+		
+		std::vector<float> GetUV() const;
+		
+		int GetLayer() const { return m_Layer; }
 	};
 
 }

@@ -1,0 +1,180 @@
+Title: TestExplosion
+Environment:
+  Global Intensity: 1
+  Blur passes: 8
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 1
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [0.644454956, 0, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1.75
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 6895385386688921583
+    Name: Explosion3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Explosion3\0027.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 15
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 30
+      Play: false
+      Animations:
+        - Source\Animations2D\Explosion3.anim
+      Current animation: Source\Animations2D\Explosion3.anim
+  - GameObject: 1418664135619274016
+    Name: Explosion1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Explosion3\0021.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 15
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 30
+      Play: false
+      Animations:
+        - Source\Animations2D\Explosion1.anim
+      Current animation: Source\Animations2D\Explosion1.anim
+  - GameObject: 5236263084282477665
+    Name: Explosion1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Explosion3\0016.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 15
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 30
+      Play: false
+      Animations:
+        - Source\Animations2D\Explosion1.anim
+        - Source\Animations2D\Explosion2.anim
+      Current animation: Source\Animations2D\Explosion2.anim
+  - GameObject: 12352750203287754869
+    Name: Explosion3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Images\Explosion3\0007.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 15
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 30
+      Play: false
+      Animations:
+        - Source\Animations2D\Explosion3.anim
+        - Source\Animations2D\Explosion4.anim
+      Current animation: Source\Animations2D\Explosion4.anim

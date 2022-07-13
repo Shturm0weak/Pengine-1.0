@@ -6,6 +6,7 @@
 #include "Component.h"
 #include "UUID.h"
 #include "../Components/Transform.h"
+#include "../Components/ICollider2D.h"
 
 #include <vector>
 
@@ -22,6 +23,8 @@ namespace Pengine
 		void Copy(const ComponentManager& componentManager);
 	public:
 
+		const std::vector<IComponent*> GetComponents() const { return m_Components; }
+
 		ComponentManager(class GameObject* owner) : m_Owner(owner) {}
 
 		void operator=(const ComponentManager& componentManager);
@@ -30,7 +33,6 @@ namespace Pengine
 		{
 			for (auto component : m_Components)
 			{
-				component->m_UUID.Clear();
 				component->Delete();
 			}
 			m_Components.clear();
@@ -52,6 +54,9 @@ namespace Pengine
 		}
 
 		template<>
+		ICollider2D* GetComponent<ICollider2D>();
+
+		template<>
 		Transform* GetComponent<Transform>();
 
 		bool AddComponent(IComponent* component);
@@ -65,7 +70,6 @@ namespace Pengine
 				component = T::Create(m_Owner);
 				component->m_Owner = m_Owner;
 				component->m_Type = Utils::GetTypeName<T>();
-				component->m_UUID = UUID::Generate();
 				m_Components.push_back(component);
 #ifdef _DEBUG
 				Logger::Log("has been added to GameObject!",
@@ -82,7 +86,6 @@ namespace Pengine
 
 			Utils::Erase<IComponent>(m_Components, component);
 
-			component->m_UUID.Clear();
 			component->Delete();
 		}
 	};

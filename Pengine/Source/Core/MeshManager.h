@@ -4,6 +4,7 @@
 #include "Mesh.h"
 
 #include <unordered_map>
+#include <functional>
 
 namespace Pengine
 {
@@ -23,9 +24,18 @@ namespace Pengine
 		static MeshManager& GetInstance();
 
 		Mesh* Load(const std::string& filePath);
+		
+		void LoadAsync(const std::string& filePath, std::function<void(Mesh*)> callback);
+
 		Mesh* Create(const std::string& name, std::vector<float>& vertexAttributes, 
 			std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, const std::string& filePath = "None");
+
+		void CreateAsync(const std::string& name, std::vector<float>& vertexAttributes,
+			std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, std::function<void(Mesh*)> callback, const std::string& filePath = "None");
+
 		Mesh* Get(const std::string& name) const;
+
+		void Delete(Mesh* mesh);
 
 		void ShutDown();
 	};

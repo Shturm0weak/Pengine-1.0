@@ -4,14 +4,14 @@ using namespace Pengine;
 
 void VertexArray::Initialize()
 {
-	glGenVertexArrays(1, &m_RendererId);
+	glGenVertexArrays(1, &m_RendererID);
 	Bind();
 }
 
 void VertexArray::Clear()
 {
-	m_RendererId = UINT32_MAX;
-	glDeleteVertexArrays(1, &m_RendererId);
+	m_RendererID = UINT32_MAX;
+	glDeleteVertexArrays(1, &m_RendererID);
 }
 
 VertexArray::~VertexArray()
@@ -32,14 +32,14 @@ void VertexArray::AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& la
 		glEnableVertexAttribArray(i + offsetOfGlVertexAttribArray);
 		glVertexAttribPointer(i + offsetOfGlVertexAttribArray, element.m_Count, element.m_Type,
 			element.m_Normalized, layout.GetStride(), (const void*)offset);
-		glVertexAttribDivisor(i + offsetOfGlVertexAttribArray, devisor);
+		glVertexAttribDivisorARB(i + offsetOfGlVertexAttribArray, devisor);
 		offset += element.m_Count * VertexBufferElement::GetSizeOfType(element.m_Type);
 	}
 }
 
 void VertexArray::Bind() const
 {
-	glBindVertexArray(m_RendererId);
+	glBindVertexArray(m_RendererID);
 }
 
 void VertexArray::UnBind() const

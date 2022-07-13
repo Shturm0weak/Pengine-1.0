@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,12 +70,16 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2DD.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2Dd.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -83,7 +87,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -99,25 +103,39 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2DR.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2Dr.lib;rttr_core_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Audio\Sound.h" />
+    <ClInclude Include="Source\Audio\SoundManager.h" />
+    <ClInclude Include="Source\Audio\vorbis.h" />
+    <ClInclude Include="Source\Audio\wavParser.h" />
     <ClInclude Include="Source\Components\Animator2D.h" />
     <ClInclude Include="Source\Components\BoxCollider2D.h" />
+    <ClInclude Include="Source\Components\CircleCollider2D.h" />
+    <ClInclude Include="Source\Components\ICollider2D.h" />
     <ClInclude Include="Source\Components\IRenderer.h" />
+    <ClInclude Include="Source\Components\ParticleEmitter.h" />
+    <ClInclude Include="Source\Components\PointLight2D.h" />
     <ClInclude Include="Source\Components\Renderer2D.h" />
     <ClInclude Include="Source\Components\Renderer3D.h" />
     <ClInclude Include="Source\Components\Rigidbody2D.h" />
+    <ClInclude Include="Source\Components\Script.h" />
     <ClInclude Include="Source\Components\Transform.h" />
     <ClInclude Include="Source\Core\Allocator.h" />
     <ClInclude Include="Source\Core\Animation2DManager.h" />
     <ClInclude Include="Source\Core\Application.h" />
+    <ClInclude Include="Source\Core\Asset.h" />
     <ClInclude Include="Source\Core\Camera.h" />
     <ClInclude Include="Source\Core\Component.h" />
     <ClInclude Include="Source\Core\ComponentManager.h" />
@@ -125,6 +143,7 @@
     <ClInclude Include="Source\Core\Editor.h" />
     <ClInclude Include="Source\Core\EntryPoint.h" />
     <ClInclude Include="Source\Core\Environment.h" />
+    <ClInclude Include="Source\Core\FileDialogs.h" />
     <ClInclude Include="Source\Core\GameObject.h" />
     <ClInclude Include="Source\Core\ImGuizmo.h" />
     <ClInclude Include="Source\Core\Input.h" />
@@ -133,6 +152,9 @@
     <ClInclude Include="Source\Core\Mesh.h" />
     <ClInclude Include="Source\Core\MeshManager.h" />
     <ClInclude Include="Source\Core\ObjLoader.h" />
+    <ClInclude Include="Source\Core\Raycast2D.h" />
+    <ClInclude Include="Source\Core\ReflectionSystem.h" />
+    <ClInclude Include="Source\Core\Renderer.h" />
     <ClInclude Include="Source\Core\Scene.h" />
     <ClInclude Include="Source\Core\Serializer.h" />
     <ClInclude Include="Source\Core\TextureAtlas.h" />
@@ -141,8 +163,8 @@
     <ClInclude Include="Source\Core\ThreadPool.h" />
     <ClInclude Include="Source\Core\Time.h" />
     <ClInclude Include="Source\Core\Timer.h" />
-    <ClInclude Include="Source\Core\Utils.h" />
     <ClInclude Include="Source\Core\UUID.h" />
+    <ClInclude Include="Source\Core\Utils.h" />
     <ClInclude Include="Source\Core\Viewport.h" />
     <ClInclude Include="Source\Core\Visualizer.h" />
     <ClInclude Include="Source\Core\Window.h" />
@@ -154,6 +176,8 @@
     <ClInclude Include="Source\Events\Event.h" />
     <ClInclude Include="Source\Events\OnMainThreadCallback.h" />
     <ClInclude Include="Source\Events\WindowResizeEvent.h" />
+    <ClInclude Include="Source\Lua\LuaState.h" />
+    <ClInclude Include="Source\Lua\LuaStateManager.h" />
     <ClInclude Include="Source\OpenGL\Batch.h" />
     <ClInclude Include="Source\OpenGL\FrameBuffer.h" />
     <ClInclude Include="Source\OpenGL\IndexBuffer.h" />
@@ -210,8 +234,8 @@
     <ClInclude Include="Source\yaml-cpp\src\nodebuilder.h" />
     <ClInclude Include="Source\yaml-cpp\src\nodeevents.h" />
     <ClInclude Include="Source\yaml-cpp\src\ptr_vector.h" />
-    <ClInclude Include="Source\yaml-cpp\src\regeximpl.h" />
     <ClInclude Include="Source\yaml-cpp\src\regex_yaml.h" />
+    <ClInclude Include="Source\yaml-cpp\src\regeximpl.h" />
     <ClInclude Include="Source\yaml-cpp\src\scanner.h" />
     <ClInclude Include="Source\yaml-cpp\src\scanscalar.h" />
     <ClInclude Include="Source\yaml-cpp\src\scantag.h" />
@@ -227,11 +251,18 @@
     <ClInclude Include="Source\yaml-cpp\yaml.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Audio\Sound.cpp" />
+    <ClCompile Include="Source\Audio\SoundManager.cpp" />
     <ClCompile Include="Source\Components\Animator2D.cpp" />
     <ClCompile Include="Source\Components\BoxCollider2D.cpp" />
+    <ClCompile Include="Source\Components\CircleCollider2D.cpp" />
+    <ClCompile Include="Source\Components\ICollider2D.cpp" />
+    <ClCompile Include="Source\Components\ParticleEmitter.cpp" />
+    <ClCompile Include="Source\Components\PointLight2D.cpp" />
     <ClCompile Include="Source\Components\Renderer2D.cpp" />
     <ClCompile Include="Source\Components\Renderer3D.cpp" />
     <ClCompile Include="Source\Components\Rigidbody2D.cpp" />
+    <ClCompile Include="Source\Components\Script.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
     <ClCompile Include="Source\Core\Allocator.cpp" />
     <ClCompile Include="Source\Core\Animation2DManager.cpp" />
@@ -243,6 +274,7 @@
     <ClCompile Include="Source\Core\Editor.cpp" />
     <ClCompile Include="Source\Core\EntryPoint.cpp" />
     <ClCompile Include="Source\Core\Environment.cpp" />
+    <ClCompile Include="Source\Core\FileDialogs.cpp" />
     <ClCompile Include="Source\Core\GameObject.cpp" />
     <ClCompile Include="Source\Core\ImGuizmo.cpp" />
     <ClCompile Include="Source\Core\Input.cpp" />
@@ -251,18 +283,24 @@
     <ClCompile Include="Source\Core\Mesh.cpp" />
     <ClCompile Include="Source\Core\MeshManager.cpp" />
     <ClCompile Include="Source\Core\ObjLoader.cpp" />
+    <ClCompile Include="Source\Core\Raycast2D.cpp" />
+    <ClCompile Include="Source\Core\ReflectionSystem.cpp" />
+    <ClCompile Include="Source\Core\Renderer.cpp" />
     <ClCompile Include="Source\Core\Scene.cpp" />
     <ClCompile Include="Source\Core\Serializer.cpp" />
     <ClCompile Include="Source\Core\TextureAtlas.cpp" />
     <ClCompile Include="Source\Core\TextureAtlasManager.cpp" />
     <ClCompile Include="Source\Core\TextureManager.cpp" />
     <ClCompile Include="Source\Core\ThreadPool.cpp" />
+    <ClCompile Include="Source\Core\Timer.cpp" />
     <ClCompile Include="Source\Core\UUID.cpp" />
     <ClCompile Include="Source\Core\Viewport.cpp" />
     <ClCompile Include="Source\Core\Visualizer.cpp" />
     <ClCompile Include="Source\Core\Window.cpp" />
     <ClCompile Include="Source\EventSystem\EventSystem.cpp" />
     <ClCompile Include="Source\EventSystem\Listener.cpp" />
+    <ClCompile Include="Source\Lua\LuaState.cpp" />
+    <ClCompile Include="Source\Lua\LuaStateManager.cpp" />
     <ClCompile Include="Source\OpenGL\Batch.cpp" />
     <ClCompile Include="Source\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="Source\OpenGL\IndexBuffer.cpp" />
@@ -289,9 +327,9 @@
     <ClCompile Include="Source\yaml-cpp\src\exp.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\memory.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\node.cpp" />
+    <ClCompile Include="Source\yaml-cpp\src\node_data.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\nodebuilder.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\nodeevents.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\node_data.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\null.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\ostream_wrapper.cpp" />
     <ClCompile Include="Source\yaml-cpp\src\parse.cpp" />

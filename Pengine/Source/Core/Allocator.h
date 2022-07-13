@@ -2,10 +2,6 @@
 
 #include "Core.h"
 
-#include <map>
-#include <unordered_map>
-#include <vector>
-
 namespace Pengine
 {
 

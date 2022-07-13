@@ -1,0 +1,301 @@
+Textures:
+  - FilePath: Source\Images\Explosion3\0001.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0002.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0003.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0004.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0005.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0006.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0007.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0008.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0009.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0010.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0011.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0012.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0013.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0014.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0015.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0016.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0017.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0018.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0019.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0020.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0021.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0022.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0023.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0024.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0025.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0026.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0027.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0028.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0029.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Explosion3\0030.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1

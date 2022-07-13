@@ -1,6 +1,8 @@
 #include "ComponentManager.h"
 
 #include "GameObject.h"
+#include "../Components/BoxCollider2D.h"
+#include "../Components/CircleCollider2D.h"
 
 using namespace Pengine;
 
@@ -18,8 +20,14 @@ void ComponentManager::Copy(const ComponentManager& componentManager)
 	size_t componentsSize = componentManager.m_Components.size();
 	for (size_t i = 0; i < componentsSize; i++)
 	{
-		IComponent* component = componentManager.m_Components[i];
-		AddComponent(component->CreateCopy(m_Owner));
+		if (IComponent* component = GetComponent(componentManager.m_Components[i]->GetType()))
+		{
+			component->Copy(*(componentManager.m_Components[i]));
+		}
+		else
+		{
+			AddComponent(componentManager.m_Components[i]->CreateCopy(m_Owner));
+		}
 	}
 }
 
@@ -40,6 +48,15 @@ IComponent* ComponentManager::GetComponent(const std::string& type)
 	return nullptr;
 }
 
+template<>
+ICollider2D* ComponentManager::GetComponent<ICollider2D>()
+{
+	ICollider2D* c2d = nullptr;
+	c2d = GetComponent<BoxCollider2D>();
+	c2d = !c2d ? GetComponent<CircleCollider2D>() : c2d;
+	return c2d;
+}
+
 bool ComponentManager::AddComponent(IComponent* component)
 {
 	if (GetComponent(component->GetType()))
@@ -49,7 +66,6 @@ bool ComponentManager::AddComponent(IComponent* component)
 	else
 	{
 		component->m_Owner = m_Owner;
-		component->m_UUID = UUID::Generate();
 		m_Components.push_back(component);
 #ifdef _DEBUG
 		Logger::Log("has been added to GameObject!",

@@ -2,6 +2,7 @@
 
 #include "Logger.h"
 #include "ObjLoader.h"
+#include "ThreadPool.h"
 
 using namespace Pengine;
 
@@ -16,12 +17,26 @@ Mesh* MeshManager::Load(const std::string& filePath)
 	return objl::Loader::Load(filePath);
 }
 
+void MeshManager::LoadAsync(const std::string& filePath, std::function<void(Mesh*)> callback)
+{
+	ThreadPool::GetInstance().Enqueue([=] {
+		objl::Loader::LoadAsync(filePath, callback);
+	});
+}
+
 Mesh* MeshManager::Create(const std::string& name, std::vector<float>& vertexAttributes,
 	std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, const std::string& filePath)
 {
 	Mesh* mesh = new Mesh(name, vertexAttributes, indices, layouts, filePath);
 	m_Meshes.insert(std::make_pair(mesh->GetName(), mesh));
 	return mesh;
+}
+
+void MeshManager::CreateAsync(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, std::function<void(Mesh*)> callback, const std::string& filePath)
+{
+	Mesh* mesh = new Mesh(name, vertexAttributes, indices, layouts, filePath);
+	m_Meshes.insert(std::make_pair(mesh->GetName(), mesh));
+	callback(mesh);
 }
 
 Mesh* MeshManager::Get(const std::string& name) const
@@ -49,4 +64,13 @@ void MeshManager::ShutDown()
 		delete meshIter.second;
 	}
 	m_Meshes.clear();
+}
+
+void MeshManager::Delete(Mesh* mesh)
+{
+	if (mesh)
+	{
+		m_Meshes.erase(mesh->GetName());
+		delete mesh;
+	}
 }

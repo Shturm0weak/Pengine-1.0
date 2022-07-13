@@ -15,7 +15,6 @@ namespace Pengine
 	public:
 
 		virtual void Render() = 0;
-		virtual IComponent* CreateCopy(GameObject* newOwner) override { return nullptr; };
 		virtual ~IRenderer() {};
 	};
 

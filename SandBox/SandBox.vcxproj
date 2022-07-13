@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;C:\Users\Alexandr\source\repos\MathLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,8 +70,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;math.lib;Box2DD.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs;..\bin\Debug-windows-x86_64\Pengine;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2Dd.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Vendor;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;C:\Users\Alexandr\source\repos\MathLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -95,22 +95,36 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;math.lib;Box2DR.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs;..\bin\Release-windows-x86_64\Pengine;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2Dr.lib;rttr_core_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\MathApp.cpp" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\2DShooter.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Controller.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Enemy.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\EnemyAI.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Health.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Pawn.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Player.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Shoot.h" />
+    <ClInclude Include="Source\Examples\2DShooter\Source\Skills.h" />
+    <ClInclude Include="Source\Examples\ExampleApplication.h" />
+    <ClInclude Include="Source\Examples\ExampleComponent.h" />
+    <ClInclude Include="Source\Examples\TestRTTRSystem.h" />
+    <ClInclude Include="Source\Examples\UI\UI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Examples\2DShooter\Source\2DShooter.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Controller.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Enemy.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\EnemyAI.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Health.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Pawn.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Player.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Shoot.cpp" />
+    <ClCompile Include="Source\Examples\2DShooter\Source\Skills.cpp" />
     <ClCompile Include="Source\SandBox.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\Shaders\Default2D.shader" />
-    <None Include="Source\Shaders\Default3D.shader" />
-    <None Include="Source\Shaders\DefaultLines.shader" />
-    <None Include="Source\Shaders\UI.shader" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\MathApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

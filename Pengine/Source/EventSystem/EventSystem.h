@@ -34,18 +34,28 @@ namespace Pengine
 		EventSystem(const EventSystem&) = delete;
 		EventSystem& operator=(const EventSystem&) { return *this; }
 		~EventSystem();
+
+		friend class Editor;
 	public:
 
 		static EventSystem& GetInstance();
 		
 		bool AlreadySended(IEvent* event);
+		
 		bool AlreadyRegistered(EventType type, IListener* client);
+		
 		void SetProcessingEventsEnabled(bool enabled);
+		
 		void RegisterClient(EventType type, IListener* client);
+		
 		void UnregisterClient(EventType type, IListener* client);
+		
 		void UnregisterAll(IListener* client);
+		
 		void SendEvent(IEvent* event);
+		
 		void ProcessEvents();
+		
 		void ClearEvents();
 	};
 

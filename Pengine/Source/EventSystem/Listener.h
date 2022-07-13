@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include "../Core/ReflectionSystem.h"
 #include "../Events/WindowResizeEvent.h"
 
 #include <vector>
@@ -13,8 +14,11 @@ namespace Pengine
 	protected:
 
 		virtual void OnStart() {};
+		
 		virtual void OnUpdate() {};
+		
 		virtual void OnClose() {};
+		
 		virtual void OnWindowResize(const WindowResizeEvent& event) {};
 	public:
 

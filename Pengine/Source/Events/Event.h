@@ -12,6 +12,8 @@ namespace Pengine
 
 		class IListener* m_Sender = nullptr;
 		EventType m_Type;
+
+		friend class EventSystem;
 	public:
 
 		EventType GetType() const { return m_Type; }

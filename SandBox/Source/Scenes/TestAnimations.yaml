@@ -1,0 +1,222 @@
+Title: TestAnimations
+Environment:
+  Global Intensity: 1
+  Blur passes: 10
+  Brightness threshold: 1
+  Exposure: 0.100000001
+  Gamma: 1
+  Pixels blured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [0, 0, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 2.5
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 9032010453408802378
+    Name: Idle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Idle.png
+      Normal Texture: White
+      UV:
+        - 0.600000024
+        - 0
+        - 0.800000012
+        - 0
+        - 0.800000012
+        - 1
+        - 0.600000024
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\RedSoldierCrouch.anim
+        - Source\Animations2D\RedSoldierDeath.anim
+        - Source\Animations2D\RedSoldierIdle.anim
+        - Source\Animations2D\RedSoldierJump.anim
+        - Source\Animations2D\RedSoldierRun.anim
+      Current animation: Source\Animations2D\RedSoldierIdle.anim
+  - GameObject: 13689224140843885003
+    Name: Jump
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Jump.png
+      Normal Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\RedSoldierCrouch.anim
+        - Source\Animations2D\RedSoldierDeath.anim
+        - Source\Animations2D\RedSoldierIdle.anim
+        - Source\Animations2D\RedSoldierJump.anim
+        - Source\Animations2D\RedSoldierRun.anim
+      Current animation: Source\Animations2D\RedSoldierJump.anim
+  - GameObject: 12268332675320848250
+    Name: Run
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Run.png
+      Normal Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 0.666666687
+        - 0
+        - 0.666666687
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\RedSoldierCrouch.anim
+        - Source\Animations2D\RedSoldierDeath.anim
+        - Source\Animations2D\RedSoldierIdle.anim
+        - Source\Animations2D\RedSoldierJump.anim
+        - Source\Animations2D\RedSoldierRun.anim
+      Current animation: Source\Animations2D\RedSoldierRun.anim
+  - GameObject: 7148145550574728696
+    Name: Death
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+      Normal Texture: White
+      UV:
+        - 0.375
+        - 0
+        - 0.5
+        - 0
+        - 0.5
+        - 1
+        - 0.375
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\RedSoldierCrouch.anim
+        - Source\Animations2D\RedSoldierDeath.anim
+        - Source\Animations2D\RedSoldierIdle.anim
+        - Source\Animations2D\RedSoldierJump.anim
+        - Source\Animations2D\RedSoldierRun.anim
+      Current animation: Source\Animations2D\RedSoldierDeath.anim
+  - GameObject: 5611322259298029256
+    Name: Crouch
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Crouch.png
+      Normal Texture: White
+      UV:
+        - 0
+        - 0
+        - 0.333333343
+        - 0
+        - 0.333333343
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Animations2D\RedSoldierCrouch.anim
+        - Source\Animations2D\RedSoldierDeath.anim
+        - Source\Animations2D\RedSoldierIdle.anim
+        - Source\Animations2D\RedSoldierJump.anim
+        - Source\Animations2D\RedSoldierRun.anim
+      Current animation: Source\Animations2D\RedSoldierCrouch.anim

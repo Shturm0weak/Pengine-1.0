@@ -10,16 +10,16 @@ using namespace Pengine;
 void IndexBuffer::Initialize(const uint32_t* data, uint32_t count)
 {
 	m_Count = count;
-	glGenBuffers(1, &m_RendererId);
+	glGenBuffers(1, &m_RendererID);
 	Bind();
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data, GL_DYNAMIC_DRAW);
 }
 
 void IndexBuffer::Clear()
 {
-	m_RendererId = UINT32_MAX;
+	m_RendererID = UINT32_MAX;
 	m_Count = 0;
-	glDeleteBuffers(1, &m_RendererId);
+	glDeleteBuffers(1, &m_RendererID);
 }
 
 IndexBuffer::~IndexBuffer()
@@ -29,7 +29,7 @@ IndexBuffer::~IndexBuffer()
 
 void IndexBuffer::Bind() const
 {
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererId);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID);
 }
 
 void IndexBuffer::UnBind() const 

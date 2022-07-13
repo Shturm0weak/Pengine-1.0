@@ -8,13 +8,67 @@
 #include "../Components/BoxCollider2D.h"
 #include "../Components/Rigidbody2D.h"
 #include "../Components/Animator2D.h"
+#include "../Components/ParticleEmitter.h"
+#include "../Components/Script.h"
 
 #include <fstream>
 #include <string>
 
 using namespace Pengine;
 
-namespace YAML 
+namespace ReflectedProps
+{
+
+#define DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
+bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component, rttr::property& prop) \
+{ \
+	using namespace glm; \
+	using namespace std; \
+	if (auto& propData = in[prop.get_name()]) \
+	{ \
+		if (auto& propTypeData = propData["Type"]) \
+		{ \
+			if (ReflectedProps::is_##type(propTypeData.as<std::string>())) \
+			{ \
+				if (auto& propValueData = propData["Value"]) \
+				{ \
+					prop.set_value(component, propValueData.as<type>()); \
+					return true; \
+				} \
+			} \
+		} \
+	} \
+	return false; \
+}
+
+#define SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
+if (ReflectedProps::is_##type(prop.get_type().get_name())) \
+{ \
+	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_##type(); \
+	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(component).get_value<type>(); \
+}
+
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
+DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+
+}
+
+namespace YAML
 {
 
 	template<>
@@ -92,6 +146,155 @@ namespace YAML
 		}
 	};
 
+	template<>
+	struct convert<glm::ivec2>
+	{
+		static Node encode(const glm::ivec2& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::ivec2& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 2)
+				return false;
+
+			rhs.x = node[0].as<int>();
+			rhs.y = node[1].as<int>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::ivec3>
+	{
+		static Node encode(const glm::ivec3& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::ivec3& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 3)
+				return false;
+
+			rhs.x = node[0].as<int>();
+			rhs.y = node[1].as<int>();
+			rhs.z = node[2].as<int>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::ivec4>
+	{
+		static Node encode(const glm::ivec4& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.push_back(rhs.w);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::ivec4& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 4)
+				return false;
+
+			rhs.x = node[0].as<int>();
+			rhs.y = node[1].as<int>();
+			rhs.z = node[2].as<int>();
+			rhs.w = node[3].as<int>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::dvec2>
+	{
+		static Node encode(const glm::dvec2& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::dvec2& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 2)
+				return false;
+
+			rhs.x = node[0].as<double>();
+			rhs.y = node[1].as<double>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::dvec3>
+	{
+		static Node encode(const glm::dvec3& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::dvec3& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 3)
+				return false;
+
+			rhs.x = node[0].as<double>();
+			rhs.y = node[1].as<double>();
+			rhs.z = node[2].as<double>();
+			return true;
+		}
+	};
+
+	template<>
+	struct convert<glm::dvec4>
+	{
+		static Node encode(const glm::dvec4& rhs)
+		{
+			Node node;
+			node.push_back(rhs.x);
+			node.push_back(rhs.y);
+			node.push_back(rhs.z);
+			node.push_back(rhs.w);
+			node.SetStyle(EmitterStyle::Flow);
+			return node;
+		}
+
+		static bool decode(const Node& node, glm::dvec4& rhs)
+		{
+			if (!node.IsSequence() || node.size() != 4)
+				return false;
+
+			rhs.x = node[0].as<double>();
+			rhs.y = node[1].as<double>();
+			rhs.z = node[2].as<double>();
+			rhs.w = node[3].as<double>();
+			return true;
+		}
+	};
 }
 
 YAML::Emitter& operator<<(YAML::Emitter& out, glm::vec2& v)
@@ -108,6 +311,55 @@ YAML::Emitter& operator<<(YAML::Emitter& out, glm::vec3& v)
 	return out;
 }
 
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::vec4& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::ivec2& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::ivec3& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::ivec4& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::dvec2& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::dvec3& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << v.z << YAML::EndSeq;
+	return out;
+}
+
+YAML::Emitter& operator<<(YAML::Emitter& out, glm::dvec4& v)
+{
+	out << YAML::Flow;
+	out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
+	return out;
+}
+
 YAML::Emitter& operator<<(YAML::Emitter& out, float* v)
 {
 	out << YAML::Flow;
@@ -119,14 +371,6 @@ YAML::Emitter& operator<<(YAML::Emitter& out, float* v)
 		YAML::EndSeq;
 	return out;
 }
-
-YAML::Emitter& operator<<(YAML::Emitter& out, glm::vec4& v)
-{
-	out << YAML::Flow;
-	out << YAML::BeginSeq << v.x << v.y << v.z << v.w << YAML::EndSeq;
-	return out;
-}
-
 
 void Serializer::SerializeTextureAtlas(TextureAtlas* textureAtlas)
 {
@@ -164,17 +408,25 @@ TextureAtlas* Serializer::DeSerializeTextureAtlas(const std::string& filePath)
 		return nullptr;
 	}
 
-	glm::vec2 size = data["Size"].as<glm::vec2>();
-	std::string textureFilePath = data["Texture"].as<std::string>();
-
-	Texture* texture = TextureManager::GetInstance().Get(Utils::GetNameFromFilePath(textureFilePath));
-	if (!texture)
+	TextureAtlas* textureAtlas = TextureAtlasManager::GetInstance().Create(Utils::GetNameFromFilePath(filePath, 2));
+	textureAtlas->m_FilePath = filePath;
+	
+	if (auto& sizeData = data["Size"])
 	{
-		texture = TextureManager::GetInstance().Get("White");
+		textureAtlas->SetSize(sizeData.as<glm::vec2>());
 	}
 
-	TextureAtlas* textureAtlas = TextureAtlasManager::GetInstance().Create(Utils::GetNameFromFilePath(filePath, 2), size, texture);
-	textureAtlas->m_FilePath = filePath;
+	if (auto& textureData = data["Texture"])
+	{
+		Texture* texture = TextureManager::GetInstance().Create(textureData.as<std::string>());
+		if (!texture)
+		{
+			texture = TextureManager::GetInstance().Get("White");
+		}
+
+		textureAtlas->m_Texture = texture;
+	}
+
 	return textureAtlas;
 }
 
@@ -189,18 +441,24 @@ void Serializer::SerializeAnimation2D(Animation2DManager::Animation2D* animation
 
 	out << YAML::BeginMap;
 	out << YAML::Key << "Textures";
-	out << YAML::BeginSeq;
+	out << YAML::Value << YAML::BeginSeq;
 
 	const size_t texturesSize = animation->m_Textures.size();
 	for (size_t i = 0; i < texturesSize; i++)
 	{
-		out << animation->m_Textures[i]->GetFilePath();
+		out << YAML::BeginMap;
+		out << YAML::Key << "FilePath" << YAML::Value << animation->m_Textures[i]->GetFilePath();
+
+		out << YAML::Key << "UVs";
+
+		out << YAML::Value << animation->m_UVs[i];
+
+		out << YAML::EndMap;
 	}
-	
+
 	out << YAML::EndSeq;
 	out << YAML::EndMap;
-	
-	animation->m_FilePath = std::string("Source/Animations2D/" + animation->m_Name + ".anim");
+
 	std::ofstream fout(animation->m_FilePath);
 	fout << out.c_str();
 }
@@ -225,12 +483,12 @@ Animation2DManager::Animation2D* Serializer::DeSerializeAnimation2D(const std::s
 
 	Animation2DManager::Animation2D* animation = new Animation2DManager::Animation2D(filePath, Utils::GetNameFromFilePath(filePath, 4));
 
-	auto textures = data["Textures"];
-	if (textures)
+	if (auto textures = data["Textures"])
 	{
 		for (auto texture : textures)
 		{
-			animation->m_Textures.push_back(TextureManager::GetInstance().Create(texture.as<std::string>()));
+			animation->m_Textures.push_back(TextureManager::GetInstance().Create(texture["FilePath"].as<std::string>()));
+			animation->m_UVs.push_back(texture["UVs"].as<std::vector<float>>());
 		}
 	}
 
@@ -240,6 +498,9 @@ Animation2DManager::Animation2D* Serializer::DeSerializeAnimation2D(const std::s
 void Serializer::SerializePrefab(const std::string& filePath, GameObject& gameObject)
 {
 	YAML::Emitter out;
+
+	std::string prefabFilePath = filePath + "/" + gameObject.GetName() + ".prefab";
+	gameObject.m_PrefabFilePath = prefabFilePath;
 
 	out << YAML::BeginMap;
 	out << YAML::Key << "GameObjects";
@@ -256,17 +517,17 @@ void Serializer::SerializePrefab(const std::string& filePath, GameObject& gameOb
 	out << YAML::EndSeq;
 	out << YAML::EndMap;
 
-	std::ofstream fout(std::string(filePath + "/" + gameObject.GetName() + ".prefab"));
+	std::ofstream fout(prefabFilePath);
 	fout << out.c_str();
 
 	Logger::Success("has been serialized!", "Prefab", gameObject.GetName().c_str());
 }
 
-void Serializer::DeserializePrefab(const std::string filePath)
+GameObject* Serializer::DeserializePrefab(const std::string filePath)
 {
 	if (filePath.empty())
 	{
-		return;
+		return nullptr;
 	}
 
 	std::ifstream stream(filePath);
@@ -277,15 +538,14 @@ void Serializer::DeserializePrefab(const std::string filePath)
 	YAML::Node data = YAML::LoadMesh(strStream.str());
 	if (!data)
 	{
-		return;
+		return nullptr;
 	}
 
 	Scene* scene = EntryPoint::GetApplication().GetScene();
 
 	std::unordered_map<GameObject*, std::vector<size_t>> childs;
 
-	auto& gameObjects = data["GameObjects"];
-	if (gameObjects)
+	if (auto& gameObjects = data["GameObjects"])
 	{
 		for (auto& gameObject : gameObjects)
 		{
@@ -311,6 +571,8 @@ void Serializer::DeserializePrefab(const std::string filePath)
 	}
 
 	Logger::Success("has been deserialized!", "Prefab", Utils::GetNameFromFilePath(filePath, 6).c_str());
+
+	return childs.begin()->first;
 }
 
 void Serializer::SerializeScene(const Scene& scene)
@@ -321,13 +583,16 @@ void Serializer::SerializeScene(const Scene& scene)
 
 	out << YAML::Key << "Title" << YAML::Value << scene.GetTitle().c_str();
 	
+	SerializeEnvironment(out);
 	SerializeCamera(out, Environment::GetInstance().GetMainCamera());
 
 	SerializeGameObjects(out, scene);
 
 	out << YAML::EndMap;
 
-	std::ofstream fout("Source/Scenes/" + scene.GetTitle() + ".yaml");
+	std::string filePath = scene.m_FilePath == "None" ? "Source/Scenes/" + scene.GetTitle() + ".yaml" : scene.m_FilePath;
+
+	std::ofstream fout(filePath);
 	fout << out.c_str();
 
 	Logger::Success("has been serialized!", "Scene", scene.m_Title.c_str());
@@ -352,15 +617,28 @@ void Serializer::DeserializeScene(const std::string filePath)
 	}
 
 	Scene* scene = EntryPoint::GetApplication().GetScene();
-	scene->Clear();
-	scene->m_Title = data["Title"].as<std::string>();
+	if (!scene)
+	{
+		scene = EntryPoint::GetApplication().NewScene("Scene");
+	}
+	else
+	{
+		scene->Clear();
+	}
 
+	if (auto& titleData = data["Title"])
+	{
+		scene->m_Title = titleData.as<std::string>();
+	}
+
+	scene->m_FilePath = filePath;
+
+	DeserializeEnvironment(data);
 	Environment::GetInstance().GetMainCamera()->Copy(DeserializeCamera(data));
 
 	std::unordered_map<GameObject*, std::vector<size_t>> childs;
 
-	auto& gameObjects = data["GameObjects"];
-	if (gameObjects)
+	if (auto& gameObjects = data["GameObjects"])
 	{
 		for (auto& gameObject : gameObjects)
 		{
@@ -408,27 +686,137 @@ void Serializer::SerializeCamera(YAML::Emitter& out, const std::shared_ptr<class
 
 Camera Serializer::DeserializeCamera(YAML::Node& in)
 {
-	auto& cameraIn = in["Camera"];
-	Camera camera;
+	if (auto& cameraIn = in["Camera"])
+	{
+		Camera camera;
 
-	camera.m_Transform = DeserializeTransform(cameraIn);
-	camera.m_Fov = cameraIn["Fov"].as<float>();
-	camera.m_ZoomScale = cameraIn["Zoom"].as<float>();
-	camera.m_ZoomSensetivity = cameraIn["Zoom Sensetivity"].as<float>();
-	camera.m_Znear = cameraIn["Z near"].as<float>();
-	camera.m_Zfar = cameraIn["Z far"].as<float>();
-	camera.m_Speed = cameraIn["Speed"].as<float>();
-	camera.m_Type = (Camera::CameraType)cameraIn["Type"].as<int>();
+		camera.m_Transform = DeserializeTransform(cameraIn);
 
-	camera.UpdateProjection(camera.m_Size);
+		if (auto& fovData = cameraIn["Fov"])
+		{
+			camera.m_Fov = fovData.as<float>();
+		}
 
-	return camera;
+		if (auto& zoomData = cameraIn["Zoom"])
+		{
+			camera.m_ZoomScale = zoomData.as<float>();
+		}
+
+		if (auto& zoomSensetivityData = cameraIn["Zoom Sensetivity"])
+		{
+			camera.m_ZoomSensetivity = zoomSensetivityData.as<float>();
+		}
+
+		if (auto& zNearData = cameraIn["Z near"])
+		{
+			camera.m_Znear = zNearData.as<float>();
+		}
+
+		if (auto& zFarData = cameraIn["Z far"])
+		{
+			camera.m_Zfar = zFarData.as<float>();
+		}
+
+		if (auto& speedData = cameraIn["Speed"])
+		{
+			camera.m_Speed = speedData.as<float>();
+		}
+
+		if (auto& typeData = cameraIn["Type"])
+		{
+			camera.m_Type = (Camera::CameraType)typeData.as<int>();
+		}
+
+		camera.UpdateProjection(camera.m_Size);
+		
+		return camera;
+	}
+	else
+	{
+		Logger::Error("Is null", "Camera", "Serializer");
+		throw "Camera is null";
+	}
+}
+
+void Serializer::SerializeEnvironment(YAML::Emitter& out)
+{
+	out << YAML::Key << "Environment";
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Global Intensity" << YAML::Value << Environment::GetInstance().GetGlobalIntensity();
+	out << YAML::Key << "Blur passes" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BlurPasses;
+	out << YAML::Key << "Brightness threshold" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold;
+	out << YAML::Key << "Exposure" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Exposure;
+	out << YAML::Key << "Gamma" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Gamma;
+	out << YAML::Key << "Pixels blured" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_PixelsBlured;
+	out << YAML::Key << "IsEnabled" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_IsEnabled;
+	out << YAML::Key << "DownSampling" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_DownSampling;
+	out << YAML::Key << "UpSampling" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_UpSampling;
+	out << YAML::Key << "UpScalingScale" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_UpScalingScale;
+	out << YAML::EndMap;
+}
+
+void Serializer::DeserializeEnvironment(YAML::Node& in)
+{
+	if (auto& environmentIn = in["Environment"])
+	{
+		if (auto& globalIntensityData = environmentIn["Global Intensity"])
+		{
+			Environment::GetInstance().SetGlobalIntensity(globalIntensityData.as<float>());
+		}
+
+		if (auto& blurPassesData = environmentIn["Blur passes"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_BlurPasses = blurPassesData.as<int>();
+		}
+
+		if (auto& brightnessThresholdData = environmentIn["Brightness threshold"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold = brightnessThresholdData.as<float>();
+		}
+
+		if (auto& exposureData = environmentIn["Exposure"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_Exposure = exposureData.as<float>();
+		}
+
+		if (auto& GammaData = environmentIn["Gamma"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_Gamma = GammaData.as<float>();
+		}
+
+		if (auto& pixelsbluredData = environmentIn["Pixels blured"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_PixelsBlured = pixelsbluredData.as<int>();
+		}
+
+		if (auto& isEnabledData = environmentIn["IsEnabled"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_IsEnabled = isEnabledData.as<bool>();
+		}
+
+		if (auto& downSamplingData = environmentIn["DownSampling"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_DownSampling = downSamplingData.as<bool>();
+		}
+
+		if (auto& upSamplingData = environmentIn["UpSampling"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_UpSampling = upSamplingData.as<bool>();
+		}
+
+		if (auto& upScalingScaleData = environmentIn["UpScalingScaleData"])
+		{
+			Environment::GetInstance().m_BloomSettings.m_UpScalingScale = upScalingScaleData.as<float>();
+		}
+	}
 }
 
 void Serializer::SerializeTransform(YAML::Emitter& out, const Transform& transform)
 {
 	out << YAML::Key << "Transform";
 	out << YAML::BeginMap;
+	out << YAML::Key << "Follow owner" << YAML::Value << transform.GetFollorOwner();
 	out << YAML::Key << "Position" << YAML::Value << transform.GetPosition();
 	out << YAML::Key << "Rotation" << YAML::Value << transform.GetRotation();
 	out << YAML::Key << "Scale" << YAML::Value << transform.GetScale();
@@ -437,13 +825,41 @@ void Serializer::SerializeTransform(YAML::Emitter& out, const Transform& transfo
 
 Transform Serializer::DeserializeTransform(YAML::Node& in)
 {
-	auto& transformIn = in["Transform"];
+	if (auto& transformIn = in["Transform"])
+	{
+		glm::vec3 position = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 rotation = { 0.0f, 0.0f, 0.0f };
+		glm::vec3 scale = { 1.0f, 1.0f, 1.0f };
 
-	glm::vec3 position = transformIn["Position"].as<glm::vec3>();
-	glm::vec3 rotation = transformIn["Rotation"].as<glm::vec3>();
-	glm::vec3 scale = transformIn["Scale"].as<glm::vec3>();
+		if (auto& positionData = transformIn["Position"])
+		{
+			position = positionData.as<glm::vec3>();
+		}
 
-	return Transform(position, scale, rotation);
+		if (auto& rotationData = transformIn["Rotation"])
+		{
+			rotation = rotationData.as<glm::vec3>();
+		}
+
+		if (auto& scaleData = transformIn["Scale"])
+		{
+			scale = scaleData.as<glm::vec3>();
+		}
+
+		Transform transform = Transform(position, scale, rotation);
+
+		if (auto& followOwnerData = transformIn["Follow owner"])
+		{
+			transform.SetFollowOwner(followOwnerData.as<bool>());
+		}
+
+		return transform;
+	}
+	else
+	{
+		Logger::Error("Is null", "Transform", "Serializer");
+		throw "Transform is null";
+	}
 }
 
 void Serializer::SerializeGameObjects(YAML::Emitter& out, const Scene& scene)
@@ -470,27 +886,68 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	out << YAML::BeginMap;
 	out << YAML::Key << "GameObject" << YAML::Value << std::to_string(gameObject.GetUUID());
 	out << YAML::Key << "Name" << YAML::Value << gameObject.m_Name;
-	
+	out << YAML::Key << "Is Enabled" << YAML::Value << gameObject.m_IsEnabled;
+	out << YAML::Key << "Is Selectable" << YAML::Value << gameObject.m_IsSelectable;
+	out << YAML::Key << "Prefab File Path" << YAML::Value << gameObject.m_PrefabFilePath;
+
+	gameObject.m_UUID.Clear();
+	gameObject.m_UUID = UUID::Generate();
+
 	SerializeGameObjectChilds(out, gameObject);
 	SerializeTransform(out, gameObject.m_Transform);
 	SerializeRenderer2D(out, gameObject.m_ComponentManager);
 	SerializeBoxCollider2D(out, gameObject.m_ComponentManager);
+	SerializeCircleCollider2D(out, gameObject.m_ComponentManager);
 	SerializeRigidbody2D(out, gameObject.m_ComponentManager);
 	SerializeAnimator2D(out, gameObject.m_ComponentManager);
+	SerializeParticleEmitter(out, gameObject.m_ComponentManager);
+	SerializeScript(out, gameObject.m_ComponentManager);
+	SerializePointLight(out, gameObject.m_ComponentManager);
+	SerializeUserDefinedComponents(out, gameObject.m_ComponentManager);
 
 	out << YAML::EndMap;
 }
 
 void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unordered_map<GameObject*, std::vector<size_t>>& childs)
 {
-	GameObject* gameObject = scene.CreateGameObject(in["Name"].as<std::string>(),
-		DeserializeTransform(in), UUID(in["GameObject"].as<size_t>()));
+	GameObject* gameObject = nullptr;
+
+	if (auto& nameData = in["Name"])
+	{
+		gameObject = scene.CreateGameObject(nameData.as<std::string>(),
+			DeserializeTransform(in), UUID(in["GameObject"].as<size_t>()));
+	}
+	else
+	{
+		Logger::Error("Name is null", "GameObject", "Serializer");
+		throw "GameObject cannot be created, name is null";
+	}
+
+	if (auto& prefabData = in["Prefab File Path"])
+	{
+		gameObject->m_PrefabFilePath = prefabData.as<std::string>();
+	}
+
+	if (auto& isEnabledData = in["Is Enabled"])
+	{
+		gameObject->m_IsEnabled = isEnabledData.as<bool>();
+	}
+
+	if (auto& isSelectableData = in["Is Selectable"])
+	{
+		gameObject->m_IsSelectable = isSelectableData.as<bool>();
+	}
 
 	DeserializeGameObjectChilds(in, gameObject, childs);
 	DeSerializeRenderer2D(in, gameObject->m_ComponentManager);
 	DeSerializeBoxCollider2D(in, gameObject->m_ComponentManager);
+	DeSerializeCircleCollider2D(in, gameObject->m_ComponentManager);
 	DeSerializeRigidbody2D(in, gameObject->m_ComponentManager);
 	DeSerializeAnimator2D(in, gameObject->m_ComponentManager);
+	DeSerializeParticleEmitter(in, gameObject->m_ComponentManager);
+	DeSerializeScript(in, gameObject->m_ComponentManager);
+	DeSerializePointLight(in, gameObject->m_ComponentManager);
+	DeserializeUserDefinedComponents(in, gameObject->m_ComponentManager);
 }
 
 void Serializer::SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameObject)
@@ -507,8 +964,7 @@ void Serializer::SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameO
 void Serializer::DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObject,
 	std::unordered_map<GameObject*, std::vector<size_t>>& childs)
 {
-	auto childsIn = in["Childs"];
-	if (childsIn)
+	if (auto& childsIn = in["Childs"])
 	{
 		std::pair<GameObject*, std::vector<size_t>> pair = std::make_pair(gameObject, std::vector<size_t>());
 		std::vector<size_t> childsUUID = childsIn.as<std::vector<size_t>>();
@@ -532,6 +988,12 @@ void Serializer::SerializeRenderer2D(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "Texture" << YAML::Value << 
 			(r2d->m_Texture != nullptr ? r2d->m_Texture->GetFilePath() : "White");
 		
+		out << YAML::Key << "Normal Texture" << YAML::Value <<
+			(r2d->m_NormalTexture != nullptr ? r2d->m_NormalTexture->GetFilePath() : "White");
+
+		out << YAML::Key << "Emissive Mask Texture" << YAML::Value <<
+			(r2d->m_EmissiveMaskTexture != nullptr ? r2d->m_EmissiveMaskTexture->GetFilePath() : "White");
+
 		std::vector<float> uv;
 		for (uint32_t i = 0; i < 8; i++)
 		{
@@ -539,38 +1001,111 @@ void Serializer::SerializeRenderer2D(YAML::Emitter& out, ComponentManager& compo
 		}
 		out << YAML::Key << "UV" << YAML::Value << uv;
 		out << YAML::Key << "Layer" << YAML::Value << r2d->m_Layer;
+		out << YAML::Key << "Inner radius" << YAML::Value << r2d->m_InnerRadius;
+		out << YAML::Key << "Outer radius" << YAML::Value << r2d->m_OuterRadius;
+		out << YAML::Key << "Is Normal used" << YAML::Value << r2d->m_IsNormalUsed;
+		out << YAML::Key << "Ambient" << YAML::Value << r2d->m_Ambient;
+		out << YAML::Key << "Emmisive Mask Intensity" << YAML::Value << r2d->m_EmmisiveMaskIntensity;
 		out << YAML::EndMap;
 	}
 }
 
 void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& componentManager)
 {
-	auto& renderer2DIn = in["Renderer2D"];
-	if (renderer2DIn)
+	if (auto& renderer2DIn = in["Renderer2D"])
 	{
 		Renderer2D* r2d = componentManager.AddComponent<Renderer2D>();
 		
-		r2d->m_Color = renderer2DIn["Color"].as<glm::vec4>();
+		if (auto& colorData = renderer2DIn["Color"])
+		{
+			r2d->m_Color = colorData.as<glm::vec4>();
+		}
 		
-		std::string textureFilePath = renderer2DIn["Texture"].as<std::string>();
-		if (textureFilePath == "White")
+		if (auto& textureData = renderer2DIn["Texture"])
 		{
-			r2d->SetTexture(TextureManager::GetInstance().Get("White"));
-		}
-		else
-		{
-			TextureManager::GetInstance().AsyncCreate(textureFilePath);
-			TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
-				r2d->SetTexture(texture);
-			}, Utils::GetNameFromFilePath(textureFilePath));
+			std::string textureFilePath = textureData.as<std::string>();
+			if (textureFilePath == "White")
+			{
+				r2d->SetTexture(TextureManager::GetInstance().Get("White"));
+			}
+			else
+			{
+				TextureManager::GetInstance().AsyncCreate(textureFilePath);
+				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+					r2d->SetTexture(texture);
+				}, Utils::GetNameFromFilePath(textureFilePath));
+			}
 		}
 
-		r2d->SetLayer(renderer2DIn["Layer"].as<int>());
-
-		std::vector<float> uv = renderer2DIn["UV"].as<std::vector<float>>();
-		for (size_t i = 0; i < 8; i++)
+		if (auto& textureData = renderer2DIn["Normal Texture"])
 		{
-			r2d->m_UV[i] = uv[i];
+			std::string textureFilePath = textureData.as<std::string>();
+			if (textureFilePath == "White")
+			{
+				r2d->SetNormalTexture(TextureManager::GetInstance().Get("White"));
+			}
+			else
+			{
+				TextureManager::GetInstance().AsyncCreate(textureFilePath);
+				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+					r2d->SetNormalTexture(texture);
+					}, Utils::GetNameFromFilePath(textureFilePath));
+			}
+		}
+
+		if (auto& textureData = renderer2DIn["Emissive Mask Texture"])
+		{
+			std::string textureFilePath = textureData.as<std::string>();
+			if (textureFilePath == "White")
+			{
+				r2d->SetEmissiveMaskTexture(TextureManager::GetInstance().Get("White"));
+			}
+			else
+			{
+				TextureManager::GetInstance().AsyncCreate(textureFilePath);
+				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+					r2d->SetEmissiveMaskTexture(texture);
+					}, Utils::GetNameFromFilePath(textureFilePath));
+			}
+		}
+
+		if (auto& layerData = renderer2DIn["Layer"])
+		{
+			r2d->SetLayer(layerData.as<int>());
+		}
+
+		if (auto& ambientData = renderer2DIn["Ambient"])
+		{
+			r2d->m_Ambient = ambientData.as<float>();
+		}
+
+		if (auto& emissiveMaskIntensityData = renderer2DIn["Emmisive Mask Intensity"])
+		{
+			r2d->m_EmmisiveMaskIntensity = emissiveMaskIntensityData.as<float>();
+		}
+
+		if (auto& innerRadiusData = renderer2DIn["Inner radius"])
+		{
+			r2d->m_InnerRadius = innerRadiusData.as<float>();
+		}
+
+		if (auto& OuterRadiusData = renderer2DIn["Outer radius"])
+		{
+			r2d->m_OuterRadius = OuterRadiusData.as<float>();
+		}
+
+		if (auto& isNormalUsedData = renderer2DIn["Is Normal used"])
+		{
+			r2d->m_IsNormalUsed = isNormalUsedData.as<bool>();
+		}
+
+		if (auto& uvData = renderer2DIn["UV"])
+		{
+			std::vector<float> uv = uvData.as<std::vector<float>>();
+			for (size_t i = 0; i < 8; i++)
+			{
+				r2d->m_UV[i] = uv[i];
+			}
 		}
 	}
 }
@@ -582,29 +1117,130 @@ void Serializer::SerializeBoxCollider2D(YAML::Emitter& out, ComponentManager& co
 	{
 		out << YAML::Key << "BoxCollider2D";
 		out << YAML::BeginMap;
+		out << YAML::Key << "Trigger" << YAML::Value << bc2d->m_IsTrigger;
 		out << YAML::Key << "Offset" << YAML::Value << bc2d->m_Offset;
-		out << YAML::Key << "Size" << YAML::Value << bc2d->m_Size;
+		out << YAML::Key << "Size" << YAML::Value << bc2d->GetSize();
 		out << YAML::Key << "Density" << YAML::Value << bc2d->m_Density;
 		out << YAML::Key << "Friction" << YAML::Value << bc2d->m_Friction;
 		out << YAML::Key << "Restitution" << YAML::Value << bc2d->m_Restitution;
 		out << YAML::Key << "Restitution threshold" << YAML::Value << bc2d->m_RestitutionThreshold;
+		out << YAML::Key << "Tag" << YAML::Value << bc2d->m_Tag;
 		out << YAML::EndMap;
 	}
 }
 
 void Serializer::DeSerializeBoxCollider2D(YAML::Node& in, ComponentManager& componentManager)
 {
-	auto& boxCollider2DIn = in["BoxCollider2D"];
-	if (boxCollider2DIn)
+	if (auto& boxCollider2DIn = in["BoxCollider2D"])
 	{
 		BoxCollider2D* bc2d = componentManager.AddComponent<BoxCollider2D>();
 
-		bc2d->m_Offset = boxCollider2DIn["Offset"].as<glm::vec2>();
-		bc2d->m_Size = boxCollider2DIn["Size"].as<glm::vec2>();
-		bc2d->m_Density = boxCollider2DIn["Density"].as<float>();
-		bc2d->m_Friction = boxCollider2DIn["Friction"].as<float>();
-		bc2d->m_Restitution = boxCollider2DIn["Restitution"].as<float>();
-		bc2d->m_RestitutionThreshold = boxCollider2DIn["Restitution threshold"].as<float>();
+		if (auto& triggerData = boxCollider2DIn["Trigger"])
+		{
+			bc2d->m_IsTrigger = triggerData.as<bool>();
+		}
+
+		if (auto& offsetData = boxCollider2DIn["Offset"])
+		{
+			bc2d->m_Offset = offsetData.as<glm::vec2>();
+		}
+
+		if (auto& sizeData = boxCollider2DIn["Size"])
+		{
+			bc2d->SetSize(sizeData.as<glm::vec2>());
+		}
+
+		if (auto& densityData = boxCollider2DIn["Density"])
+		{
+			bc2d->m_Density = densityData.as<float>();
+		}
+
+		if (auto& frictionData = boxCollider2DIn["Friction"])
+		{
+			bc2d->m_Friction = frictionData.as<float>();
+		}
+	
+		if (auto& restitutionData = boxCollider2DIn["Restitution"])
+		{
+			bc2d->m_Restitution = restitutionData.as<float>();
+		}
+		
+		if (auto& restitutionData = boxCollider2DIn["Restitution threshold"])
+		{
+			bc2d->m_RestitutionThreshold = restitutionData.as<float>();
+		}
+
+		if (auto& tagData = boxCollider2DIn["Tag"])
+		{
+			bc2d->m_Tag = tagData.as<std::string>();
+		}
+	}
+}
+
+void Serializer::SerializeCircleCollider2D(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	CircleCollider2D* cc2d = componentManager.GetComponent<CircleCollider2D>();
+	if (cc2d != nullptr)
+	{
+		out << YAML::Key << "CircleCollider2D";
+		out << YAML::BeginMap;
+		out << YAML::Key << "Trigger" << YAML::Value << cc2d->m_IsTrigger;
+		out << YAML::Key << "Offset" << YAML::Value << cc2d->m_Offset;
+		out << YAML::Key << "Radius" << YAML::Value << cc2d->GetRadius();
+		out << YAML::Key << "Density" << YAML::Value << cc2d->m_Density;
+		out << YAML::Key << "Friction" << YAML::Value << cc2d->m_Friction;
+		out << YAML::Key << "Restitution" << YAML::Value << cc2d->m_Restitution;
+		out << YAML::Key << "Restitution threshold" << YAML::Value << cc2d->m_RestitutionThreshold;
+		out << YAML::Key << "Tag" << YAML::Value << cc2d->m_Tag;
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeCircleCollider2D(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& circleCollider2DIn = in["CircleCollider2D"])
+	{
+		CircleCollider2D* cc2d = componentManager.AddComponent<CircleCollider2D>();
+
+		if (auto& triggerData = circleCollider2DIn["Trigger"])
+		{
+			cc2d->m_IsTrigger = triggerData.as<bool>();
+		}
+
+		if (auto& offsetData = circleCollider2DIn["Offset"])
+		{
+			cc2d->m_Offset = offsetData.as<glm::vec2>();
+		}
+
+		if (auto& radiusData = circleCollider2DIn["Radius"])
+		{
+			cc2d->SetRadius(radiusData.as<float>());
+		}
+
+		if (auto& densityData = circleCollider2DIn["Density"])
+		{
+			cc2d->m_Density = densityData.as<float>();
+		}
+
+		if (auto& frictionData = circleCollider2DIn["Friction"])
+		{
+			cc2d->m_Friction = frictionData.as<float>();
+		}
+
+		if (auto& restitutionData = circleCollider2DIn["Restitution"])
+		{
+			cc2d->m_Restitution = restitutionData.as<float>();
+		}
+
+		if (auto& restitutionData = circleCollider2DIn["Restitution threshold"])
+		{
+			cc2d->m_RestitutionThreshold = restitutionData.as<float>();
+		}
+
+		if (auto& tagData = circleCollider2DIn["Tag"])
+		{
+			cc2d->m_Tag = tagData.as<std::string>();
+		}
 	}
 }
 
@@ -615,21 +1251,27 @@ void Serializer::SerializeRigidbody2D(YAML::Emitter& out, ComponentManager& comp
 	{
 		out << YAML::Key << "Rigidbody2D";
 		out << YAML::BeginMap;
-		out << YAML::Key << "Type" << YAML::Value << (int)rb2d->m_BodyType;
-		out << YAML::Key << "Fixed rotation" << YAML::Value << rb2d->m_FixedRotation;
+		out << YAML::Key << "Type" << YAML::Value << (int)(!rb2d->IsStatic());
+		out << YAML::Key << "Fixed rotation" << YAML::Value << rb2d->IsFixedRotation();
 		out << YAML::EndMap;
 	}
 }
 
 void Serializer::DeSerializeRigidbody2D(YAML::Node& in, ComponentManager& componentManager)
 {
-	auto& Rigidbody2DIn = in["Rigidbody2D"];
-	if (Rigidbody2DIn)
+	if (auto& Rigidbody2DIn = in["Rigidbody2D"])
 	{
 		Rigidbody2D* rb2d = componentManager.AddComponent<Rigidbody2D>();
 
-		rb2d->m_BodyType = (Rigidbody2D::BodyType)Rigidbody2DIn["Type"].as<int>();
-		rb2d->m_FixedRotation = Rigidbody2DIn["Fixed rotation"].as<bool>();
+		if (auto& typeData = Rigidbody2DIn["Type"])
+		{
+			rb2d->SetStatic(!((bool)typeData.as<int>()));
+		}
+
+		if (auto& fixedRotationData = Rigidbody2DIn["Fixed rotation"])
+		{
+			rb2d->SetFixedRotation(fixedRotationData.as<bool>());
+		}
 	}
 }
 
@@ -640,8 +1282,8 @@ void Serializer::SerializeAnimator2D(YAML::Emitter& out, ComponentManager& compo
 	{
 		out << YAML::Key << "Animator2D";
 		out << YAML::BeginMap;
-		out << YAML::Key << "Speed" << YAML::Value << a2d->m_Speed;
-		out << YAML::Key << "Play" << YAML::Value << a2d->m_Play;
+		out << YAML::Key << "Speed" << YAML::Value << a2d->GetSpeed();
+		out << YAML::Key << "Play" << YAML::Value << a2d->IsPlaying();
 
 		std::vector<std::string> animations;
 
@@ -651,8 +1293,8 @@ void Serializer::SerializeAnimator2D(YAML::Emitter& out, ComponentManager& compo
 			animations.push_back(a2d->m_Animations[i]->m_FilePath);
 		}
 		out << YAML::Key << "Animations" << YAML::Value << animations;
-		out << YAML::Key << "Current animation" << YAML::Value << (a2d->m_CurrentAnimation ? 
-			a2d->m_CurrentAnimation->m_FilePath.c_str() : "Null");
+		out << YAML::Key << "Current animation" << YAML::Value << (a2d->GetCurrentAnimation() ? 
+			a2d->GetCurrentAnimation()->m_FilePath.c_str() : "Null");
 
 		out << YAML::EndMap;
 	}
@@ -660,24 +1302,369 @@ void Serializer::SerializeAnimator2D(YAML::Emitter& out, ComponentManager& compo
 
 void Serializer::DeSerializeAnimator2D(YAML::Node& in, ComponentManager& componentManager)
 {
-	auto& Animator2DIn = in["Animator2D"];
-	if (Animator2DIn)
+	if (auto& Animator2DIn = in["Animator2D"])
 	{
 		Animator2D* a2d = componentManager.AddComponent<Animator2D>();
 
-		a2d->m_Speed = Animator2DIn["Speed"].as<float>();
-		a2d->m_Play = Animator2DIn["Play"].as<bool>();
-
-		std::vector<std::string> AnimationFilePaths = Animator2DIn["Animations"].as<std::vector<std::string>>();
-		for (const std::string& animationFilePath : AnimationFilePaths)
+		if (auto& speedData = Animator2DIn["Speed"])
 		{
-			if (Animation2DManager::Animation2D* animation = Animation2DManager::GetInstance().Load(animationFilePath))
+			a2d->SetSpeed(speedData.as<float>());
+		}
+
+		if (auto& playData = Animator2DIn["Play"])
+		{
+			a2d->SetPlay(playData.as<bool>());
+		}
+
+		if (auto& animationsData = Animator2DIn["Animations"])
+		{
+			std::vector<std::string> AnimationFilePaths = animationsData.as<std::vector<std::string>>();
+			for (const std::string& animationFilePath : AnimationFilePaths)
 			{
-				a2d->m_Animations.push_back(animation);
+				if (Animation2DManager::Animation2D* animation = Animation2DManager::GetInstance().Load(animationFilePath))
+				{
+					a2d->m_Animations.push_back(animation);
+				}
 			}
 		}
 
-		std::string currentAnimationFilePath = Animator2DIn["Current animation"].as<std::string>();
-		a2d->m_CurrentAnimation = Animation2DManager::GetInstance().Get(Utils::GetNameFromFilePath(currentAnimationFilePath, 4));
+		if (auto& currentAnimationData = Animator2DIn["Current animation"])
+		{
+			std::string currentAnimationFilePath = currentAnimationData.as<std::string>();
+			a2d->SetCurrentAnimation(Animation2DManager::GetInstance().Get(Utils::GetNameFromFilePath(currentAnimationFilePath, 4)));
+		}
+	}
+}
+
+void Serializer::SerializeParticleEmitter(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	ParticleEmitter* particleEmitter = componentManager.GetComponent<ParticleEmitter>();
+	if (particleEmitter != nullptr)
+	{
+		out << YAML::Key << "Particle Emitter";
+		out << YAML::BeginMap;
+		out << YAML::Key << "Acceleration" << YAML::Value << particleEmitter->m_Acceleration;
+		out << YAML::Key << "Color end" << YAML::Value << particleEmitter->m_ColorEnd;
+		out << YAML::Key << "Color start" << YAML::Value << particleEmitter->m_ColorStart;
+		out << YAML::Key << "Direction X" << YAML::Value << particleEmitter->m_Direction[0];
+		out << YAML::Key << "Direction Y" << YAML::Value << particleEmitter->m_Direction[1];
+		out << YAML::Key << "Direction Z" << YAML::Value << particleEmitter->m_Direction[2];
+		out << YAML::Key << "Intensity" << YAML::Value << particleEmitter->m_Intensity;
+		out << YAML::Key << "Gravity" << YAML::Value << particleEmitter->m_Gravity;
+		out << YAML::Key << "Loop" << YAML::Value << particleEmitter->m_Loop;
+		out << YAML::Key << "Max time to live" << YAML::Value << particleEmitter->m_MaxTimeToLive;
+		out << YAML::Key << "Particles size" << YAML::Value << particleEmitter->m_ParticlesSize;
+		out << YAML::Key << "Radius X to spawn" << YAML::Value << particleEmitter->m_RadiusToSpawn[0];
+		out << YAML::Key << "Radius Y to spawn" << YAML::Value << particleEmitter->m_RadiusToSpawn[1];
+		out << YAML::Key << "Radius Z to spawn" << YAML::Value << particleEmitter->m_RadiusToSpawn[2];
+		out << YAML::Key << "Scale" << YAML::Value << particleEmitter->m_Scale;
+		out << YAML::Key << "Texture" << YAML::Value << particleEmitter->m_Texture->GetFilePath();
+		out << YAML::Key << "Time to spawn" << YAML::Value << particleEmitter->m_TimeToSpawn;
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeParticleEmitter(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& particleEmitterIn = in["Particle Emitter"])
+	{
+		ParticleEmitter* particleEmitter = componentManager.AddComponent<ParticleEmitter>();
+
+		if (auto& accelarationData = particleEmitterIn["Acceleration"])
+		{
+			particleEmitter->m_Acceleration = accelarationData.as<float>();
+		}
+
+		if (auto& colorEndData = particleEmitterIn["Color end"])
+		{
+			particleEmitter->m_ColorEnd = colorEndData.as<glm::vec4>();
+		}
+
+		if (auto& colorStartData = particleEmitterIn["Color start"])
+		{
+			particleEmitter->m_ColorStart = colorStartData.as<glm::vec4>();
+		}
+
+		if (auto& directionXData = particleEmitterIn["Direction X"])
+		{
+			particleEmitter->m_Direction[0] = directionXData.as<glm::vec2>();
+		}
+
+		if (auto& directionYData = particleEmitterIn["Direction Y"])
+		{
+			particleEmitter->m_Direction[1] = directionYData.as<glm::vec2>();
+		}
+
+		if (auto& directionZData = particleEmitterIn["Direction Z"])
+		{
+			particleEmitter->m_Direction[2] = directionZData.as<glm::vec2>();
+		}
+
+		if (auto& intensityData = particleEmitterIn["Intensity"])
+		{
+			particleEmitter->m_Intensity = intensityData.as<float>();
+		}
+
+		if (auto& gravityData = particleEmitterIn["Gravity"])
+		{
+			particleEmitter->m_Gravity = gravityData.as<glm::vec3>();
+		}
+
+		if (auto& loopData = particleEmitterIn["Loop"])
+		{
+			particleEmitter->m_Loop = loopData.as<bool>();
+		}
+
+		if (auto& maxTimeToLiveData = particleEmitterIn["Max time to live"])
+		{
+			particleEmitter->m_MaxTimeToLive = maxTimeToLiveData.as<float>();
+		}
+
+		if (auto& particleSizeData = particleEmitterIn["Particles size"])
+		{
+			particleEmitter->m_ParticlesSize = particleSizeData.as<int>();
+		}
+
+		if (auto& radiusXToSpawnData = particleEmitterIn["Radius X to spawn"])
+		{
+			particleEmitter->m_RadiusToSpawn[0] = radiusXToSpawnData.as<glm::vec2>();
+		}
+
+		if (auto& radiusYToSpawnData = particleEmitterIn["Radius Y to spawn"])
+		{
+			particleEmitter->m_RadiusToSpawn[1] = radiusYToSpawnData.as<glm::vec2>();
+		}
+
+		if (auto& radiusZToSpawnData = particleEmitterIn["Radius Z to spawn"])
+		{
+			particleEmitter->m_RadiusToSpawn[2] = radiusZToSpawnData.as<glm::vec2>();
+		}
+
+		if (auto& scaleData = particleEmitterIn["Scale"])
+		{
+			particleEmitter->m_Scale = scaleData.as<glm::vec2>();
+		}
+
+		if (auto& timeToSpawnData = particleEmitterIn["Time to spawn"])
+		{
+			particleEmitter->m_TimeToSpawn = timeToSpawnData.as<glm::vec2>();
+		}
+
+		if (auto& textureData = particleEmitterIn["Texture"])
+		{
+			if (textureData.as<std::string>() == "White")
+			{
+				particleEmitter->m_Texture = TextureManager::GetInstance().Get("White");
+			}
+			else
+			{
+				TextureManager::GetInstance().AsyncCreate(textureData.as<std::string>());
+				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+					particleEmitter->m_Texture = texture; }, Utils::GetNameFromFilePath(textureData.as<std::string>()));
+			}
+		}
+	}
+}
+
+void Serializer::SerializeScript(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	Script* script = componentManager.GetComponent<Script>();
+	if (script != nullptr && script->m_LStates.size() > 0)
+	{
+		out << YAML::Key << "Script";
+		out << YAML::BeginMap;
+
+		std::vector<std::string> states;
+		for (auto& state : script->m_LStates)
+		{
+			states.push_back(state->m_FilePath);
+		}
+
+		out << YAML::Key << "FilePaths" << YAML::Value << states;
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeScript(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& scriptIn = in["Script"])
+	{
+		Script* script = componentManager.AddComponent<Script>();
+
+		if (auto& filePathData = scriptIn["FilePaths"])
+		{
+			std::vector<std::string> states = filePathData.as<std::vector<std::string>>();
+			for (auto& state : states)
+			{
+				script->Assign(state);
+			}
+		}
+	}
+}
+
+void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	PointLight2D* pointLight2D = componentManager.GetComponent<PointLight2D>();
+	if (pointLight2D)
+	{
+		out << YAML::Key << "Point Light 2D";
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Color" << YAML::Value << pointLight2D->m_Color;
+		out << YAML::Key << "Constant" << YAML::Value << pointLight2D->m_Constant;
+		out << YAML::Key << "Linear" << YAML::Value << pointLight2D->m_Linear;
+		out << YAML::Key << "Quadratic" << YAML::Value << pointLight2D->m_Quadratic;
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& pointLight2DIn = in["Point Light 2D"])
+	{
+		PointLight2D* pointLight2D = componentManager.AddComponent<PointLight2D>();
+
+		if (auto& colorData = pointLight2DIn["Color"])
+		{
+			pointLight2D->m_Color = colorData.as<glm::vec3>();
+		}
+
+		if (auto& constantData = pointLight2DIn["Constant"])
+		{
+			pointLight2D->m_Constant = constantData.as<float>();
+		}
+
+		if (auto& linearData = pointLight2DIn["Linear"])
+		{
+			pointLight2D->m_Linear = linearData.as<float>();
+		}
+
+		if (auto& quadraticData = pointLight2DIn["Quadratic"])
+		{
+			pointLight2D->m_Quadratic = quadraticData.as<float>();
+		}
+	}
+}
+
+void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	using namespace glm;
+	using namespace std;
+
+	for (IComponent* component : componentManager.GetComponents())
+	{
+		if (Utils::IsUserDefinedComponent(component->GetType()))
+		{
+			out << YAML::Key << component->GetType();
+			out << YAML::BeginMap;
+
+			rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
+			for (auto& prop : componentClass.get_properties())
+			{
+				out << YAML::Key << prop.get_name();
+				out << YAML::BeginMap;
+
+				SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
+				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+				else if (prop.get_type().is_pointer())
+				{
+					if (auto& value = prop.get_value(component))
+					{
+						if (value.can_convert<IAsset*>())
+						{
+							std::string type = prop.get_type().get_name();
+							IAsset* asset = value.get_value<IAsset*>();
+							if (asset)
+							{
+								out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_asset();
+								out << YAML::Key << "Value" << YAML::Value << asset->GetFilePath();
+							}
+						}
+					}
+				}
+
+				out << YAML::EndMap;
+			}
+
+			out << YAML::EndMap;
+		}
+	}
+}
+
+void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManager& componentManager)
+{
+	for (auto& registeredClass : ReflectionSystem::GetInstance().m_RegisteredClasses)
+	{
+		if (Utils::IsUserDefinedComponent(registeredClass.first))
+		{
+			if (auto& componentData = in[registeredClass.first])
+			{
+				registeredClass.second.m_AddComponentCallBack(&componentManager);
+				IComponent* component = componentManager.GetComponent(registeredClass.first);
+				rttr::type componentClass = rttr::type::get_by_name(registeredClass.first.c_str());
+
+				for (auto& prop : componentClass.get_properties())
+				{
+					ReflectedProps::DeserializeReflectedintProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedfloatProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteddoubleProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteduint32_tProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteduint64_tProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteduint32_tProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteduint64_tProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedstringProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedboolProperty(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedvec2Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedvec3Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedvec4Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedivec2Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedivec3Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflectedivec4Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteddvec2Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteddvec3Property(componentData, component, prop);
+					ReflectedProps::DeserializeReflecteddvec4Property(componentData, component, prop);
+
+					if (auto& propData = componentData[prop.get_name()])
+					{
+						if (auto& propTypeData = propData["Type"])
+						{
+							if (ReflectedProps::is_asset(propTypeData.as<std::string>()))
+							{
+								if (auto& propValueData = propData["Value"])
+								{
+									std::string assetFilePath = propValueData.as<std::string>();
+									if (assetFilePath == "White" || Utils::MatchType(assetFilePath, {"jpeg", "png", "jpg"}))
+									{
+										TextureManager::GetInstance().AsyncCreate(assetFilePath);
+										TextureManager::GetInstance().AsyncGet([=](Texture* texture)
+											{
+												prop.set_value(component, texture);
+											}
+										, Utils::GetNameFromFilePath(assetFilePath));
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 }

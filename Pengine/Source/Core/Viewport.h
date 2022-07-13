@@ -26,7 +26,10 @@ namespace Pengine
 		bool m_IsHovered = false;
 		bool m_IsFocused = false;
 
-		void SetViewPortPosition(const glm::ivec2 position);
+		int m_MipMap = 0;
+
+		void SetPosition(const glm::ivec2 position);
+		
 		void Initialize();
 
 		Viewport() = default;
@@ -35,22 +38,39 @@ namespace Pengine
 		~Viewport() = default;
 
 		friend class EntryPoint;
+		friend class Renderer;
 	public:
 
 		static Viewport& GetInstance();
 
 		glm::ivec2 GetSize() const { return m_Size; }
+		
 		glm::vec2 GetMousePosition() const { return m_MousePosition; }
+		
 		glm::vec2 GetUIMousePosition() const { return m_UIMousePosition; }
+		
 		glm::vec2 GetUIDragDelta() const { return m_UIMousePosition - m_PreviousUIMousePosition; }
+		
 		glm::vec2 GetDragDelta() const { return m_MousePosition - m_PreviousMousePosition; }
+		
+		glm::vec2 GetMousePositionFromWorldToNormalized(const glm::vec2& position) const;
+		
 		float GetAspect() const { return (float)m_Size.x / (float)m_Size.y; }
+		
 		void Begin();
+		
 		void End();
+		
 		void Update();
+		
+		void ShutDown();
+
 		void Resize(const glm::ivec2& size);
+		
 		bool IsHovered() const { return m_IsHovered; }
+		
 		bool IsFocused() const { return m_IsFocused; }
+		
 		bool IsActiveGuizmo() const { return m_IsActiveGuizmo; }
 	};
 

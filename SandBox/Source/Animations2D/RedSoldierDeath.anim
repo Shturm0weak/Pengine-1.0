@@ -1,0 +1,81 @@
+Textures:
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0
+      - 0
+      - 0.125
+      - 0
+      - 0.125
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.125
+      - 0
+      - 0.25
+      - 0
+      - 0.25
+      - 1
+      - 0.125
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.25
+      - 0
+      - 0.375
+      - 0
+      - 0.375
+      - 1
+      - 0.25
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.375
+      - 0
+      - 0.5
+      - 0
+      - 0.5
+      - 1
+      - 0.375
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.5
+      - 0
+      - 0.625
+      - 0
+      - 0.625
+      - 1
+      - 0.5
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.625
+      - 0
+      - 0.75
+      - 0
+      - 0.75
+      - 1
+      - 0.625
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.75
+      - 0
+      - 0.875
+      - 0
+      - 0.875
+      - 1
+      - 0.75
+      - 1
+  - FilePath: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Death.png
+    UVs:
+      - 0.875
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.875
+      - 1

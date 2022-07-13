@@ -4,6 +4,7 @@
 #include "Logger.h"
 #include "Scene.h"
 #include "Utils.h"
+#include "Serializer.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
 
@@ -16,10 +17,24 @@ void GameObject::Copy(const GameObject& gameObject)
 	m_Name = gameObject.m_Name;
 	m_Transform = gameObject.m_Transform;
 	m_ComponentManager = gameObject.m_ComponentManager;
+	m_IsSerializable = gameObject.m_IsSerializable;
+	m_IsEnabled = gameObject.m_IsEnabled;
+	m_IsSelectable = gameObject.m_IsSelectable;
+	m_PrefabFilePath = gameObject.m_PrefabFilePath;
 
 	if (gameObject.GetOwner())
 	{
 		gameObject.GetOwner()->AddChild(this);
+	}
+
+	while (m_Childs.size() > 0)
+	{
+		m_Childs.back()->Delete();
+	}
+
+	if (m_Owner)
+	{
+		m_Owner->RemoveChild(this);
 	}
 
 	std::vector<GameObject*> childs = gameObject.GetChilds();
@@ -118,14 +133,26 @@ void GameObject::ForChilds(std::function<void(GameObject& child)> forChilds)
 	}
 }
 
+void GameObject::DeleteLater()
+{
+	std::function<void()> callback = std::function<void()>([this] {
+		this->Delete();
+	});
+	EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+}
+
 void GameObject::AddChild(GameObject* child)
 {
-	if (this == child || child == this->GetOwner() || child->GetOwner() == this) return;
+	if (this == child || child == this->GetOwner()) return;
 	if (child->GetOwner() != nullptr)
 	{
 		child->GetOwner()->RemoveChild(child);
 	}
-	m_Childs.push_back(child);
+	if (std::find(m_Childs.begin(), m_Childs.end(), child) == m_Childs.end())
+	{
+		m_Childs.push_back(child);
+	}
+
 	child->m_Owner = this;
 }
 
@@ -135,4 +162,25 @@ void GameObject::RemoveChild(GameObject* child)
 	{
 		child->m_Owner = nullptr;
 	}
+}
+
+void GameObject::ResetWithPrefab()
+{
+	auto callback = [this]() {
+		GameObject* prefab = Serializer::DeserializePrefab(this->m_PrefabFilePath);
+		if (prefab)
+		{
+			Transform tempTransform(this->m_Transform);
+			this->Copy(*prefab);
+			this->m_Transform.Copy(tempTransform);
+			prefab->DeleteLater();
+		}
+	};
+	EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+}
+
+void GameObject::UpdatePrefab()
+{
+	Serializer::SerializePrefab(Utils::GetDirectoryFromFilePath(m_PrefabFilePath), *this);
+
 }

@@ -15,7 +15,7 @@ namespace Pengine
 
 		struct MemoryPool
 		{
-			std::map<char*, uint64_t> m_MemoryPool;
+			std::map<char*, size_t> m_MemoryPool;
 			std::vector<char*> m_FreeMemory;
 		};
 
@@ -30,8 +30,11 @@ namespace Pengine
 		static MemoryManager& GetInstance();
 
 		void ShutDown();
+		
 		void FreeMemory(const std::string& type, class IAllocator* allocator);
+		
 		void AddPool(const std::string& type);
+		
 		MemoryPool* GetPool(const std::string& type);
 
 		template<typename T>

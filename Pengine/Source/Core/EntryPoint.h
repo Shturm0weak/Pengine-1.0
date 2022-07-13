@@ -20,9 +20,12 @@ namespace Pengine
 
 		static Application& GetApplication() { return *m_Application; }
 
-		void SetApplication(Application* application) { m_Application = application;}
+		void SetApplication(Application* application, bool startState = false);
+		
 		void OnStart();
+		
 		void OnUpdate();
+		
 		void OnClose();
 	};
 

@@ -5,10 +5,10 @@
 using namespace Pengine;
 
 TextureAtlas::TextureAtlas(const std::string& name, const glm::vec2& size, class Texture* texture)
-	: m_Name(name)
-	, m_Size(size)
+	: m_Size(size)
 	, m_Texture(texture)
 {
+	m_Name = name;
 	m_FilePath = "Source/TextureAtlases/" + m_Name + ".ta";
 }
 

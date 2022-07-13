@@ -9,17 +9,22 @@ namespace Pengine
 	{
 	private:
 
-		uint32_t m_RendererId = UINT32_MAX;
+		uint32_t m_RendererID = UINT32_MAX;
 	public:
 
 		VertexBuffer() = default;
 		~VertexBuffer();
 
-		uint32_t GetRendererId() const { return m_RendererId; }
+		uint32_t GetRendererID() const { return m_RendererID; }
+		
 		void Initialize(const void* data, uint32_t size, bool Static = true);
+		
 		void Clear();
+		
 		void Bind() const;
+		
 		void UnBind() const;
+		
 		void Invalidate() const;
 	};
 

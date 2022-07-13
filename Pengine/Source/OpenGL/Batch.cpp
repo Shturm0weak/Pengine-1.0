@@ -7,6 +7,7 @@
 #include "../Core/Logger.h"
 #include "../Core/Editor.h"
 #include "../Core/Viewport.h"
+#include "../Core/EntryPoint.h"
 #include "../UI/Gui.h"
 
 using namespace Pengine;
@@ -20,29 +21,37 @@ void Batch::InitializeGameObjects()
 	glBindBuffer(GL_ARRAY_BUFFER, m_GOWrapper.m_Vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(GOVertex) * 4 * RENDERER_MAX_SPRITES, NULL, GL_DYNAMIC_DRAW);
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 0);
+	glBindVertexArray(m_GOWrapper.m_Vao);
+
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_Position));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 1);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_UV));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 2);
+	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_Color));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 3);
+	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TransformMat0));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 4);
+	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TransformMat1));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 5);
+	glEnableVertexAttribArray(5);
 	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TransformMat2));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 6);
+	glEnableVertexAttribArray(6);
 	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TransformMat3));
 
-	glEnableVertexArrayAttrib(m_GOWrapper.m_Vao, 7);
-	glVertexAttribPointer(7, 1, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TextureIndex));
+	glEnableVertexAttribArray(7);
+	glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_AdditionalData0));
+
+	glEnableVertexAttribArray(8);
+	glVertexAttribPointer(8, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_AdditionalData1));
+
+	glEnableVertexAttribArray(9);
+	glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(GOVertex), (const GLvoid*)offsetof(GOVertex, m_TextureData));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -81,10 +90,12 @@ void Batch::InitializeLines()
 	glBindBuffer(GL_ARRAY_BUFFER, m_LineWrapper.m_Vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(LineVertex) * 2 * RENDERER_MAX_LINES, NULL, GL_DYNAMIC_DRAW);
 
-	glEnableVertexArrayAttrib(m_LineWrapper.m_Vao, 0);
+	glBindVertexArray(m_LineWrapper.m_Vao);
+
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(LineVertex), (const GLvoid*)offsetof(LineVertex, m_Position));
 
-	glEnableVertexArrayAttrib(m_LineWrapper.m_Vao, 1);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(LineVertex), (const GLvoid*)offsetof(LineVertex, m_Color));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -114,43 +125,45 @@ void Batch::InitializeUI()
 	glBindBuffer(GL_ARRAY_BUFFER, m_UIWrapper.m_Vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(UIVertex) * 4 * RENDERER_MAX_SPRITES, NULL, GL_DYNAMIC_DRAW);
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 0);
+	glBindVertexArray(m_UIWrapper.m_Vao);
+
+	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_Vertex));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 1);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_UV));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 2);
+	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 1, GL_INT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_Static));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 3);
+	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_Color));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 4);
+	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 1, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_IsGui));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 5);
+	glEnableVertexAttribArray(5);
 	glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_TexIndex));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 6);
+	glEnableVertexAttribArray(6);
 	glVertexAttribPointer(6, 1, GL_INT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_IsRelatedToPanel));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 7);
+	glEnableVertexAttribArray(7);
 	glVertexAttribPointer(7, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_RelatedPanelPosition));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 8);
+	glEnableVertexAttribArray(8);
 	glVertexAttribPointer(8, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_RelatedPanelSize));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 9);
+	glEnableVertexAttribArray(9);
 	glVertexAttribPointer(9, 4, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_RoundedCorners));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 10);
+	glEnableVertexAttribArray(10);
 	glVertexAttribPointer(10, 4, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_PreviousRoundedCorners));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 11);
+	glEnableVertexAttribArray(11);
 	glVertexAttribPointer(11, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_Position));
 
-	glEnableVertexArrayAttrib(m_UIWrapper.m_Vao, 12);
+	glEnableVertexAttribArray(12);
 	glVertexAttribPointer(12, 2, GL_FLOAT, GL_FALSE, sizeof(UIVertex), (const GLvoid*)offsetof(UIVertex, m_Size));
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -179,6 +192,34 @@ void Batch::InitializeUI()
 	{
 		m_UIWrapper.m_TextureSlots[i] = 0;
 	}
+}
+
+float Batch::GOVertAttribWrapper::GetTextureSlot(uint32_t maxTextureSlots, Texture* texture)
+{
+	float textureIndex = -1.0f;
+
+	if (texture == nullptr)
+	{
+		texture = TextureManager::GetInstance().Get("White");
+	}
+
+	for (unsigned int i = 0; i < maxTextureSlots; i++)
+	{
+		if (m_TextureSlots[i] == texture->GetRendererID())
+		{
+			textureIndex = (float)i;
+			break;
+		}
+	}
+
+	if (textureIndex == -1.0f)
+	{
+		textureIndex = (float)m_TextureSlotIndex;
+		m_TextureSlots[m_TextureSlotIndex] = texture->GetRendererID();
+		m_TextureSlotIndex++;
+	}
+
+	return textureIndex;
 }
 
 Batch::Batch()
@@ -210,7 +251,7 @@ void Batch::Submit(Character* character)
 		Batch::GetInstance().BeginUI();
 	}
 
-	m_UIWrapper.m_TextureIndex = 0.0f;
+	m_UIWrapper.m_TextureIndex = -1.0f;
 	if (character->m_Font->m_FontAtlas == nullptr)
 	{
 		character->m_Font->m_FontAtlas = TextureManager::GetInstance().Get("White");
@@ -225,7 +266,7 @@ void Batch::Submit(Character* character)
 		}
 
 	}
-	if (m_UIWrapper.m_TextureIndex == 0.0f)
+	if (m_UIWrapper.m_TextureIndex == -1.0f)
 	{
 		m_UIWrapper.m_TextureIndex = (float)m_UIWrapper.m_TextureSlotIndex;
 		m_UIWrapper.m_TextureSlots[m_UIWrapper.m_TextureSlotIndex] = character->m_Font->m_FontAtlas->GetRendererID();
@@ -299,7 +340,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 		Batch::GetInstance().BeginUI();
 	}
 
-	m_UIWrapper.m_TextureIndex = 0.0f;
+	m_UIWrapper.m_TextureIndex = -1.0f;
 	if (texture == nullptr)
 	{
 		texture = TextureManager::GetInstance().Get("White");
@@ -314,7 +355,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 		}
 
 	}
-	if (m_UIWrapper.m_TextureIndex == 0.0f)
+	if (m_UIWrapper.m_TextureIndex == -1.0f)
 	{
 		m_UIWrapper.m_TextureIndex = (float)m_UIWrapper.m_TextureSlotIndex;
 		m_UIWrapper.m_TextureSlots[m_UIWrapper.m_TextureSlotIndex] = texture->GetRendererID();
@@ -417,7 +458,8 @@ void Batch::Submit(const glm::vec3& start, const glm::vec3& end, const glm::vec4
 	Editor::GetInstance().m_Stats.m_Vertices += 2;
 }
 
-void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>& uv, const glm::mat4& transform, const glm::vec4& color, Texture* texture)
+void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>& uv, const glm::mat4& transform,
+	const glm::vec4& color, std::vector<class Texture*> textures, const glm::vec4& additionalData0, const glm::vec4& additionalData1)
 {
 	if (m_GOWrapper.m_TextureSlotIndex > m_MaxTextureSlots - 1 || m_GOWrapper.m_IndexCount >= RENDERER_INDICES_SIZE)
 	{
@@ -426,26 +468,19 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 		Batch::GetInstance().BeginGameObjects();
 	}
 
-	m_GOWrapper.m_TextureIndex = 0.0f;
-	if (texture == nullptr)
+	if (textures.size() > 0)
 	{
-		texture = TextureManager::GetInstance().Get("White");
+		m_GOWrapper.m_TextureIndex = m_GOWrapper.GetTextureSlot(m_MaxTextureSlots, textures[0]);
 	}
 
-	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
+	if (textures.size() > 1)
 	{
-		if (m_GOWrapper.m_TextureSlots[i] == texture->GetRendererID())
-		{
-			m_GOWrapper.m_TextureIndex = (float)i;
-			break;
-		}
-
+		m_GOWrapper.m_NormalTextureIndex = m_GOWrapper.GetTextureSlot(m_MaxTextureSlots, textures[1]);
 	}
-	if (m_GOWrapper.m_TextureIndex == 0.0f)
+
+	if (textures.size() > 2)
 	{
-		m_GOWrapper.m_TextureIndex = (float)m_GOWrapper.m_TextureSlotIndex;
-		m_GOWrapper.m_TextureSlots[m_GOWrapper.m_TextureSlotIndex] = texture->GetRendererID();
-		m_GOWrapper.m_TextureSlotIndex++;
+		m_GOWrapper.m_EmissiveMaskTextureIndex = m_GOWrapper.GetTextureSlot(m_MaxTextureSlots, textures[2]);
 	}
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(vertices[0], vertices[1], 0.0f);
@@ -455,7 +490,11 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData0;
+	m_GOWrapper.m_Buffer->m_AdditionalData1 = additionalData1;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[2] = m_GOWrapper.m_EmissiveMaskTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(vertices[4], vertices[5], 0.0f);
@@ -465,7 +504,11 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData0;
+	m_GOWrapper.m_Buffer->m_AdditionalData1 = additionalData1;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[2] = m_GOWrapper.m_EmissiveMaskTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(vertices[8], vertices[9], 0.0f);
@@ -475,7 +518,11 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData0;
+	m_GOWrapper.m_Buffer->m_AdditionalData1 = additionalData1;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[2] = m_GOWrapper.m_EmissiveMaskTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(vertices[12], vertices[13], 0.0f);
@@ -485,7 +532,11 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData0;
+	m_GOWrapper.m_Buffer->m_AdditionalData1 = additionalData1;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[2] = m_GOWrapper.m_EmissiveMaskTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_IndexCount += 6;
@@ -493,7 +544,8 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	Editor::GetInstance().m_Stats.m_Vertices += 4;
 }
 
-void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, const glm::vec4& color, Texture* texture)
+void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, const glm::vec4& color, std::vector<class Texture*> textures,
+	const glm::vec4& additionalData)
 {
 	if (m_GOWrapper.m_TextureSlotIndex > m_MaxTextureSlots - 1 || m_GOWrapper.m_IndexCount >= RENDERER_INDICES_SIZE)
 	{
@@ -502,26 +554,14 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 		Batch::GetInstance().BeginGameObjects();
 	}
 
-	m_GOWrapper.m_TextureIndex = 0.0f;
-	if (texture == nullptr)
+	if (textures.size() > 0)
 	{
-		texture = TextureManager::GetInstance().Get("White");
+		m_GOWrapper.m_TextureIndex = m_GOWrapper.GetTextureSlot(m_MaxTextureSlots, textures[0]);
 	}
 
-	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
+	if (textures.size() == 2)
 	{
-		if (m_GOWrapper.m_TextureSlots[i] == texture->GetRendererID())
-		{
-			m_GOWrapper.m_TextureIndex = (float)i;
-			break;
-		}
-
-	}
-	if (m_GOWrapper.m_TextureIndex == 0.0f)
-	{
-		m_GOWrapper.m_TextureIndex = (float)m_GOWrapper.m_TextureSlotIndex;
-		m_GOWrapper.m_TextureSlots[m_GOWrapper.m_TextureSlotIndex] = texture->GetRendererID();
-		m_GOWrapper.m_TextureSlotIndex++;
+		m_GOWrapper.m_NormalTextureIndex = m_GOWrapper.GetTextureSlot(m_MaxTextureSlots, textures[1]);
 	}
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(mesh[0], mesh[1], 0.0f);
@@ -531,7 +571,9 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(mesh[4], mesh[5], 0.0f);
@@ -541,7 +583,9 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(mesh[8], mesh[9], 0.0f);
@@ -551,7 +595,9 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_Buffer->m_Position = glm::vec3(mesh[12], mesh[13], 0.0f);
@@ -561,7 +607,9 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 	m_GOWrapper.m_Buffer->m_TransformMat1 = transform[1];
 	m_GOWrapper.m_Buffer->m_TransformMat2 = transform[2];
 	m_GOWrapper.m_Buffer->m_TransformMat3 = transform[3];
-	m_GOWrapper.m_Buffer->m_TextureIndex = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_AdditionalData0 = additionalData;
+	m_GOWrapper.m_Buffer->m_TextureData[0] = m_GOWrapper.m_TextureIndex;
+	m_GOWrapper.m_Buffer->m_TextureData[1] = m_GOWrapper.m_NormalTextureIndex;
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_IndexCount += 6;
@@ -570,10 +618,10 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 }
 
 void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& positionMat4, const glm::mat4& rotationMat4,
-	const glm::mat4& scaleMat4, const glm::vec4& color, Texture* texture)
+	const glm::mat4& scaleMat4, const glm::vec4& color, std::vector<class Texture*> textures)
 {
 	glm::mat4 transform = positionMat4 * rotationMat4 * scaleMat4;
-	Submit(mesh, transform, color, texture);
+	Submit(mesh, transform, color, textures);
 }
 
 void Batch::FlushGameObjects()
@@ -586,15 +634,37 @@ void Batch::FlushGameObjects()
 	int samplers[32];
 	for (unsigned int i = m_GOWrapper.m_StartTextureSlotIndex; i < m_GOWrapper.m_TextureSlotIndex; i++)
 	{
-		glBindTextureUnit(i, m_GOWrapper.m_TextureSlots[i]);
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, m_GOWrapper.m_TextureSlots[i]);
 	}
 	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
 	{
 		samplers[i] = i;
 	}
 
+	shader->SetUniform1f("u_GlobalIntensity", Environment::GetInstance().GetGlobalIntensity());
 	shader->SetUniform1iv("u_Texture", samplers);
 	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
+	//shader->SetUniform2fv("u_Resolution", Viewport::GetInstance().GetSize());
+
+	char buffer[64];
+	Scene* scene = EntryPoint::GetApplication().GetScene();
+	int pointLightSize = scene->m_PointLights2D.size();
+	shader->SetUniform1i("pointLightSize", pointLightSize);
+	for (int i = 0; i < pointLightSize; i++)
+	{
+		PointLight2D* pointLight2D = scene->m_PointLights2D[i];
+		sprintf(buffer, "pointLights[%i].position", i);
+		shader->SetUniform3fv(buffer, pointLight2D->GetOwner()->m_Transform.GetPosition());
+		sprintf(buffer, "pointLights[%i].color", i);
+		shader->SetUniform3fv(buffer, pointLight2D->m_Color);
+		sprintf(buffer, "pointLights[%i].constant", i);
+		shader->SetUniform1f(buffer, pointLight2D->m_Constant);
+		sprintf(buffer, "pointLights[%i]._linear", i);
+		shader->SetUniform1f(buffer, pointLight2D->m_Linear);
+		sprintf(buffer, "pointLights[%i].quadratic", i);
+		shader->SetUniform1f(buffer, pointLight2D->m_Quadratic);
+	}
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -610,13 +680,16 @@ void Batch::FlushGameObjects()
 	for (unsigned int i = m_GOWrapper.m_TextureSlotIndex; i < 32; i++)
 	{
 		m_GOWrapper.m_TextureSlots[i] = 0;
-		glBindTextureUnit(i, 0);
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	glDisable(GL_TEXTURE_2D_ARRAY);
 }
 
 void Batch::FlushLines()
 {
+	Window::GetInstance().Clear({ 0.0f, 0.0f, 0.0f, 0.0f });
+
 	glBindVertexArray(m_LineWrapper.m_Vao);
 	m_LineWrapper.m_Ibo.Bind();
 
@@ -647,7 +720,8 @@ void Batch::FlushUI()
 	int samplers[32];
 	for (unsigned int i = 0; i < m_UIWrapper.m_TextureSlotIndex; i++)
 	{
-		glBindTextureUnit(i, m_UIWrapper.m_TextureSlots[i]);
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, m_UIWrapper.m_TextureSlots[i]);
 	}
 	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
 	{
@@ -668,6 +742,7 @@ void Batch::FlushUI()
 	//shader->SetUniform2fv("u_ViewPortSize", Viewport::GetInstance().GetSize());
 
 	glDrawElements(GL_TRIANGLES, m_UIWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
+
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
 	Editor::GetInstance().m_Stats.m_Indices += m_UIWrapper.m_IndexCount;
 
@@ -678,7 +753,8 @@ void Batch::FlushUI()
 	for (unsigned int i = m_UIWrapper.m_TextureSlotIndex; i < 32; i++)
 	{
 		m_UIWrapper.m_TextureSlots[i] = 0;
-		glBindTextureUnit(i, 0);
+		glActiveTexture(GL_TEXTURE0 + i);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	glDisable(GL_TEXTURE_2D_ARRAY);
 }

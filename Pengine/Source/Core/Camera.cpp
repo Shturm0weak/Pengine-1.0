@@ -24,23 +24,23 @@ void Camera::UpdateViewProjection()
 
 void Camera::MoveOrthographic()
 {
-	if (Input::IsKeyDown(Keycode::KEY_UP))
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_UP))
 	{
 		m_Transform.Translate(m_Transform.GetPosition()
 			+ glm::vec3(0.0f, m_Speed * Time::GetDeltaTime(), 0.0f));
 	}
-	else if (Input::IsKeyDown(Keycode::KEY_DOWN))
+	else if (Input::KeyBoard::IsKeyDown(Keycode::KEY_DOWN))
 	{
 		m_Transform.Translate(m_Transform.GetPosition()
 			- glm::vec3(0.0f, m_Speed * Time::GetDeltaTime(), 0.0f));
 	}
 
-	if (Input::IsKeyDown(Keycode::KEY_RIGHT))
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_RIGHT))
 	{
 		m_Transform.Translate(m_Transform.GetPosition()
 			+ glm::vec3(m_Speed * Time::GetDeltaTime(), 0.0f, 0.0f));
 	}
-	else if (Input::IsKeyDown(Keycode::KEY_LEFT))
+	else if (Input::KeyBoard::IsKeyDown(Keycode::KEY_LEFT))
 	{
 		m_Transform.Translate(m_Transform.GetPosition()
 			- glm::vec3(m_Speed * Time::GetDeltaTime(), 0.0f, 0.0f));
@@ -107,7 +107,8 @@ void Camera::UpdateProjection(const glm::vec2& size)
 
 void Camera::Movement()
 {
-	if (Viewport::GetInstance().IsFocused() == false || Viewport::GetInstance().IsHovered() == false)
+	//Viewport::GetInstance().IsFocused() == false;
+	if (Viewport::GetInstance().IsHovered() == false)
 	{
 		return;
 	}
@@ -129,7 +130,8 @@ void Camera::Movement()
 
 void Camera::SetZoom(float zoom)
 {
-	if (Viewport::GetInstance().IsFocused() && Viewport::GetInstance().IsHovered())
+	//Viewport::GetInstance().IsFocused();
+	if (Viewport::GetInstance().IsHovered())
 	{
 		m_ZoomScale -= zoom * m_ZoomSensetivity;
 		m_ZoomScale = glm::clamp(m_ZoomScale, 0.0f, 1000.f);

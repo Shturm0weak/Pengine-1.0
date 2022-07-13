@@ -1,12 +1,14 @@
 #include "Viewport.h"
 
 #include "Window.h"
+#include "Renderer.h"
 #include "Environment.h"
 #include "Logger.h"
 #include "ImGuizmo.h"
 #include "Editor.h"
 #include "Input.h"
 #include "Serializer.h"
+#include "Environment.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
 #include "../OpenGL/FrameBuffer.h"
@@ -20,53 +22,97 @@ Viewport& Viewport::GetInstance()
     return viewport;
 }
 
+glm::vec2 Viewport::GetMousePositionFromWorldToNormalized(const glm::vec2& position) const
+{
+	std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+	glm::vec2 normalizedPosition = (position - glm::vec2(camera->m_Transform.GetPosition())) / camera->GetZoom();
+	normalizedPosition.x /= camera->GetAspect();
+	return normalizedPosition;
+}
+
 void Viewport::Begin()
 {
     m_FrameBufferViewport->Bind();
-    Window::GetInstance().Clear();
     m_PreviousWindowSize = Window::GetInstance().GetSize();
     glViewport(0, 0, m_Size.x, m_Size.y);
+    Window::GetInstance().Clear();
 }
 
 void Viewport::End()
 {
     glViewport(0, 0, m_PreviousWindowSize.x, m_PreviousWindowSize.y);
     m_FrameBufferViewport->UnBind();
+	Window::GetInstance().Clear();
 }
 
-void Viewport::SetViewPortPosition(const glm::ivec2 position)
+void Viewport::SetPosition(const glm::ivec2 position)
 {
-	m_Position = position;
+	m_Position = position + glm::ivec2(0, 22);
 }
 
 void Viewport::Initialize()
 {
     m_Size = Window::GetInstance().GetSize();
-    FrameBuffer::FrameBufferParams params = { m_Size, 1, GL_COLOR_ATTACHMENT0, GL_RGBA,
-        GL_UNSIGNED_BYTE, true, true, true };
+    FrameBuffer::FrameBufferParams params = { m_Size, 1, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
+		GL_UNSIGNED_BYTE, true, true, true };
+
+	TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
+	TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
+
     m_FrameBufferViewport = new FrameBuffer(params, TextureManager::GetInstance().GetTexParamertersi());
+
+	TextureManager::GetInstance().ResetTexParametersi();
 
     Logger::Success("Viewport has been initialized!");
 }
 
 void Viewport::Update()
 {
-	if (Input::IsKeyPressed(Keycode::KEY_W))
+	if (IsFocused())
 	{
-		m_GizmoOperation = 0;
+		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_W))
+		{
+			m_GizmoOperation = 0;
+		}
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_R))
+		{
+			m_GizmoOperation = 1;
+		}
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_S))
+		{
+			m_GizmoOperation = 2;
+		}
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_Q))
+		{
+			m_GizmoOperation = -1;
+		}
 	}
-	else if (Input::IsKeyPressed(Keycode::KEY_R))
-	{
-		m_GizmoOperation = 1;
-	}
-	else if (Input::IsKeyPressed(Keycode::KEY_S))
-	{
-		m_GizmoOperation = 2;
-	}
-	else if (Input::IsKeyPressed(Keycode::KEY_Q))
-	{
-		m_GizmoOperation = -1;
-	}
+
+	ImGui::Begin("MipMapLevel");
+	ImGui::SliderInt("Level", &m_MipMap, 0, Renderer::GetInstance().m_FrameBufferBlur.size() / 2 - 1);
+	ImGui::Text("Size %f %f", glm::pow(0.5f, m_MipMap) * m_Size.x * 0.5f, glm::pow(0.5f, m_MipMap) * m_Size.y * 0.5f);
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::Begin("SceneColor", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::Begin("Bloom", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBloom->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::Begin("Bloom MipMaps", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBlur[m_MipMap * 2 + 1]->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::PopStyleVar();
+	ImGui::End();
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("ViewPort", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
@@ -79,9 +125,11 @@ void Viewport::Update()
 	m_IsHovered = ImGui::IsWindowHovered();
 	m_IsFocused = ImGui::IsWindowFocused();
 
-	SetViewPortPosition(glm::vec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y));
+	SetPosition(glm::vec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y));
 
-    void* texture = reinterpret_cast<void*>(m_FrameBufferViewport->m_Textures[0]);
+	//void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBloom->m_Textures[0]);
+	//void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBlur[m_MipMap * 2 + 1]->m_Textures[0]);
+    texture = reinterpret_cast<void*>(m_FrameBufferViewport->m_Textures[0]);
     ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
 
 	if (ImGui::BeginDragDropTarget())
@@ -124,7 +172,7 @@ void Viewport::Update()
 
 	glm::vec2 cursorPosition = normalizedcursorPosition * (double)camera->GetZoom();
 	cursorPosition.x *= camera->GetAspect();
-	cursorPosition += glm::dvec2(cameraPos.x, -cameraPos.y);
+	cursorPosition += glm::dvec2(cameraPos.x, cameraPos.y);
 
 	m_PreviousMousePosition = m_MousePosition;
 	m_MousePosition = cursorPosition;
@@ -217,12 +265,30 @@ void Viewport::Update()
     ImGui::End();
 }
 
+void Viewport::ShutDown()
+{
+	delete m_FrameBufferViewport;
+}
+
 void Viewport::Resize(const glm::ivec2& size)
 {
     m_Size = size;
+
     m_FrameBufferViewport->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferScene->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
 
     std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
     camera->UpdateProjection(m_Size);
 	Gui::GetInstance().RecalculateProjectionMatrix();
+
+	glm::vec2 newSize = size;
+	//newSize *= 2.0f;
+	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferBlur.size(); i+=2)
+	{
+		newSize *= 0.5f;
+		Renderer::GetInstance().m_FrameBufferBlur[i + 0]->Resize(newSize);
+		Renderer::GetInstance().m_FrameBufferBlur[i + 1]->Resize(newSize);
+	}
 }

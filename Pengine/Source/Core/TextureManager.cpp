@@ -50,7 +50,7 @@ void TextureManager::ShutDown()
 
 void TextureManager::Delete(Texture* texture)
 {
-	auto iter = m_Textures.find(texture->m_FilePath);
+	auto iter = m_Textures.find(texture->GetName());
 	if (iter != m_Textures.end())
 	{
 		delete iter->second;
@@ -61,6 +61,7 @@ void TextureManager::Delete(Texture* texture)
 void TextureManager::AsyncCreate(const std::string& filePath)
 {
 	ThreadPool::GetInstance().Enqueue([=] {
+		if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return;
 		Texture* texture = Get(Utils::GetNameFromFilePath(filePath));
 		if (texture == nullptr)
 		{
@@ -69,8 +70,10 @@ void TextureManager::AsyncCreate(const std::string& filePath)
 
 			texture->LoadInRAM();
 
+			std::vector<Texture::TexParameteri> params = m_TexParameters;
+
 			std::function<void()> callback = std::function<void()>([=] {
-				texture->LoadInVRAM(m_TexParameters);
+				texture->LoadInVRAM(params);
 				DispatchLoadedTextures();
 			});
 			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
@@ -87,6 +90,7 @@ void TextureManager::AsyncCreate(const std::string& filePath)
 
 Texture* TextureManager::Create(const std::string& filePath, bool flip)
 {
+	if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return nullptr;
 	Texture* texture = Get(Utils::GetNameFromFilePath(filePath));
 	if (texture == nullptr)
 	{
@@ -120,6 +124,7 @@ Texture* TextureManager::ColoredTexture(const std::string& name, uint32_t color)
 	texture->ColoredTexture(m_TexParameters, color);
 
 	m_Textures.insert(std::make_pair(texture->GetName(), texture));
+
 	return texture;
 }
 
@@ -141,6 +146,7 @@ Texture* TextureManager::Get(const std::string& name, bool showErrors)
 		{
 			Logger::Warning("doesn't exist!", "Texture", filename.c_str());
 		}
+
 		return nullptr;
 	}
 }

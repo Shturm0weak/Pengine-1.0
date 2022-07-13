@@ -51,6 +51,7 @@ namespace Pengine
 			~SyncParams();
 
 			void SetThreadFinished(size_t index);
+			
 			void WaitForAllThreads();
 		};
 
@@ -59,6 +60,7 @@ namespace Pengine
 		inline uint32_t GetThreadsAmount() { return m_Threads.size(); }
 		
 		void Shutdown();
+		
 		void Enqueue(Task task);
 	};
 

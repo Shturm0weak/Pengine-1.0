@@ -16,53 +16,46 @@ void Renderer2D::Copy(const IComponent& component)
 	Renderer2D& r2d = *(Renderer2D*)&component;
 	m_Mesh = r2d.m_Mesh;
 	m_Texture = r2d.m_Texture;
+	m_NormalTexture = r2d.m_NormalTexture;
+	m_EmissiveMaskTexture = r2d.m_EmissiveMaskTexture;
 	m_Color = r2d.m_Color;
 	m_Type = component.GetType();
 	m_UV = r2d.m_UV;
-	
+	m_InnerRadius = r2d.m_InnerRadius;
+	m_OuterRadius = r2d.m_OuterRadius;
+	m_IsNormalUsed = r2d.m_IsNormalUsed;
+	m_Ambient = r2d.m_Ambient;
+	m_EmmisiveMaskIntensity = r2d.m_EmmisiveMaskIntensity;
+
 	SetLayer(r2d.GetLayer());
 }
 
-IComponent* Renderer2D::CreateCopy(GameObject* newOwner)
+IComponent* Renderer2D::New(GameObject* owner)
 {
-	Renderer2D* r2d = (Renderer2D*)Create(newOwner);
-	*r2d = *this;
-
-	return r2d;
+	return Create(owner);
 }
 
 void Renderer2D::Render()
 {
 	Batch::GetInstance().Submit(m_Mesh->GetVertexAttributes(), m_UV,
-		m_Owner->m_Transform.GetTransform(), m_Color, m_Texture);
+		m_Owner->m_Transform.GetTransform(), m_Color, { m_Texture, m_NormalTexture, m_EmissiveMaskTexture },
+		{ m_InnerRadius, m_OuterRadius, (float)m_IsNormalUsed, m_Ambient },
+		{ m_EmmisiveMaskIntensity, 0.0f, 0.0f, 0.0f });
 }
 
 IComponent* Renderer2D::Create(GameObject* owner)
 {
 	Renderer2D* r2d = MemoryManager::GetInstance().Allocate<Renderer2D>();
 	r2d->m_Type = Utils::GetTypeName<Renderer2D>();
-
-	if (Utils::IsThere<IRenderer>(owner->GetScene()->m_Renderers2D, r2d->GetUUID()) == false)
-	{
-		owner->GetScene()->m_Renderers2D.insert(std::make_pair(r2d->GetUUID(), r2d));
-
-		r2d->SetLayer(0);
-	}
+	r2d->SetLayer(0);
 
 	return r2d;
 }
 
 void Renderer2D::Delete()
 {
-	*this = Renderer2D(-1);
-	Utils::Erase<IRenderer>(m_Owner->GetScene()->m_Renderers2D, this->GetUUID());
 	Utils::Erase<Renderer2D>(m_Owner->GetScene()->m_Renderer2DLayers[m_Layer], this);
 	MemoryManager::GetInstance().FreeMemory<Renderer2D>(static_cast<IAllocator*>(this));
-}
-
-void Renderer2D::operator=(const Renderer2D& renderer2D)
-{
-	Copy(renderer2D);
 }
 
 void Renderer2D::SetTexture(Texture* texture)
@@ -70,6 +63,22 @@ void Renderer2D::SetTexture(Texture* texture)
 	if (texture)
 	{
 		m_Texture = texture;
+	}
+}
+
+void Renderer2D::SetNormalTexture(Texture* normalTexture)
+{
+	if (normalTexture)
+	{
+		m_NormalTexture = normalTexture;
+	}
+}
+
+void Renderer2D::SetEmissiveMaskTexture(Texture* emissiveMaskTexture)
+{
+	if (emissiveMaskTexture)
+	{
+		m_EmissiveMaskTexture = emissiveMaskTexture;
 	}
 }
 
@@ -121,10 +130,15 @@ void Renderer2D::SetLayer(int layer)
 	}
 }
 
-void Renderer2D::SetUV(std::vector<float> uv)
+void Renderer2D::SetUV(const std::vector<float>& uv)
 {
 	if (uv.size() == 8)
 	{
 		m_UV = uv;
 	}
+}
+
+std::vector<float> Renderer2D::GetUV() const
+{
+	return m_UV;
 }

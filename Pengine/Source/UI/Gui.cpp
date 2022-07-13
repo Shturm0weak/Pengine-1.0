@@ -82,7 +82,7 @@ void Gui::Text(const std::wstring& str, glm::vec2 position, ...)
 			}
 			else if (str[i + 1] == 's')
 			{
-				argument = (va_arg(argptr, std::wstring));
+				argument = va_arg(argptr, std::wstring);
 			}
 
 			size_t argumentSize = argument.size();
@@ -357,7 +357,7 @@ bool Gui::ButtonBehavior(const std::wstring& uniqueId, float vertices[8], glm::v
 		bool isHovered = IsRectHovered(vertices);
 		if (isHovered)
 		{
-			if (Input::IsMouseDown(Keycode::MOUSE_BUTTON_1))
+			if (Input::Mouse::IsMouseDown(Keycode::MOUSE_BUTTON_1))
 			{
 				m_CurrentDown = uniqueId;
 			}
@@ -377,20 +377,20 @@ bool Gui::ButtonBehavior(const std::wstring& uniqueId, float vertices[8], glm::v
 		{
 			case ButtonAction::DOWN:
 			{
-				buttonAction = Input::IsMouseDown(Keycode::MOUSE_BUTTON_1);
+				buttonAction = Input::Mouse::IsMouseDown(Keycode::MOUSE_BUTTON_1);
 				//An assumption that if I wanna "drag" a button I don't have to intersect it
 				isHovered = true;
 				break;
 			}
 			case ButtonAction::PRESSED:
 			{
-				buttonAction = Input::IsMousePressed(Keycode::MOUSE_BUTTON_1);
+				buttonAction = Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_1);
 				isHovered = IsRectHovered(vertices);
 				break;
 			}
 			case ButtonAction::RELEASED:
 			{
-				buttonAction = Input::IsMouseReleased(Keycode::MOUSE_BUTTON_1);
+				buttonAction = Input::Mouse::IsMouseReleased(Keycode::MOUSE_BUTTON_1);
 				isHovered = IsRectHovered(vertices);
 				break;
 			}
@@ -581,7 +581,7 @@ bool Gui::SliderFloat(const std::wstring& label, glm::vec2 position, glm::vec2 l
 
 	if (IsRectHovered(vertices) && m_CurrentDown == L"")
 	{
-		if (Input::IsMouseDown(Keycode::MOUSE_BUTTON_1))
+		if (Input::Mouse::IsMouseDown(Keycode::MOUSE_BUTTON_1))
 		{
 			m_CurrentDown = uniqueId;
 		}
@@ -594,7 +594,7 @@ bool Gui::SliderFloat(const std::wstring& label, glm::vec2 position, glm::vec2 l
 		glm::vec2 mPos = Viewport::GetInstance().GetUIMousePosition();
 		float _value = (mPos.x - position.x - size.x * 0.5f);
 		*value = ((1 + ((_value) / (size.x))) * maxValue) + min;
-		if (Input::IsKeyDown(Keycode::KEY_LEFT_SHIFT)) *value = glm::round(*value);
+		if (Input::KeyBoard::IsKeyDown(Keycode::KEY_LEFT_SHIFT)) *value = glm::round(*value);
 		if (*value > max) *value = max;
 		else if (*value < min) *value = min;
 	}
@@ -652,7 +652,7 @@ void Gui::InputInt(const std::wstring& label, int64_t* value, float x, float y, 
 
 	Panel(L"##InputInt" + uniqueId, glm::vec2(x, y), glm::vec2(width, height));
 
-	if (Input::IsMousePressed(Keycode::MOUSE_BUTTON_1))
+	if (Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_1))
 	{
 		if (IsRectHovered(m_CurrentPanelCoords))
 		{
@@ -677,16 +677,16 @@ void Gui::InputInt(const std::wstring& label, int64_t* value, float x, float y, 
 
 		int key = -1;
 
-		if (Input::IsKeyPressed(Keycode::KEY_0)) key = Keycode::KEY_0;
-		else if (Input::IsKeyPressed(Keycode::KEY_1)) key = Keycode::KEY_1;
-		else if (Input::IsKeyPressed(Keycode::KEY_2)) key = Keycode::KEY_2;
-		else if (Input::IsKeyPressed(Keycode::KEY_3)) key = Keycode::KEY_3;
-		else if (Input::IsKeyPressed(Keycode::KEY_4)) key = Keycode::KEY_4;
-		else if (Input::IsKeyPressed(Keycode::KEY_5)) key = Keycode::KEY_5;
-		else if (Input::IsKeyPressed(Keycode::KEY_6)) key = Keycode::KEY_6;
-		else if (Input::IsKeyPressed(Keycode::KEY_7)) key = Keycode::KEY_7;
-		else if (Input::IsKeyPressed(Keycode::KEY_8)) key = Keycode::KEY_8;
-		else if (Input::IsKeyPressed(Keycode::KEY_9)) key = Keycode::KEY_9;
+		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_0)) key = Keycode::KEY_0;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_1)) key = Keycode::KEY_1;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_2)) key = Keycode::KEY_2;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_3)) key = Keycode::KEY_3;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_4)) key = Keycode::KEY_4;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_5)) key = Keycode::KEY_5;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_6)) key = Keycode::KEY_6;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_7)) key = Keycode::KEY_7;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_8)) key = Keycode::KEY_8;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_9)) key = Keycode::KEY_9;
 		
 		if (key != -1)
 		{
@@ -701,7 +701,7 @@ void Gui::InputInt(const std::wstring& label, int64_t* value, float x, float y, 
 		//	iter1->second = !iter1->second;
 		//}
 
-		if (Input::IsKeyPressed(Keycode::KEY_BACKSPACE))
+		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_BACKSPACE))
 		{
 			if (stringValue.empty() == false) stringValue.pop_back();
 			if (*stringValue.rbegin() == 32) *value = 0;
@@ -724,124 +724,143 @@ void Gui::InputInt(const std::wstring& label, int64_t* value, float x, float y, 
 		m_CurrentPanelCoords[i] = tempCoords[i];
 }
 
-void Gui::InputDouble(const std::wstring& label, double* value, float x, float y, float width, float height, glm::vec4 panelColor)
+void Gui::InputDouble(const std::wstring& label, double* value, glm::vec2 position)
 {
-	auto iter = m_Active.find(label);
-	if (iter == m_Active.end()) {
+	auto activeIter = m_Active.find(label);
+	if (activeIter == m_Active.end())
+	{
 		m_Active.insert(std::make_pair(label, false));
-		iter = m_Active.find(label);
+		activeIter = m_Active.find(label);
 	}
 
-	auto iter1 = m_NegativeInputs.find(label);
-	if (iter1 == m_NegativeInputs.end()) {
+	auto negativeInputsIter = m_NegativeInputs.find(label);
+	if (negativeInputsIter == m_NegativeInputs.end())
+	{
 		m_NegativeInputs.insert(std::make_pair(label, false));
-		iter1 = m_NegativeInputs.find(label);
+		negativeInputsIter = m_NegativeInputs.find(label);
 	}
 
 	glm::dvec2 mousePos = Viewport::GetInstance().GetUIMousePosition();
-	ApplyRelatedToPanelProperties(&x, &y);
-	x += width * 0.5f;
-	y -= height * 0.5f;
-	std::wstring uniqueId = std::to_wstring(x);
+	ApplyRelatedToPanelProperties(&position.x, &position.y);
+	position.x += m_Theme.m_InputSize.x * 0.5f;
+	position.y -= m_Theme.m_InputSize.y * 0.5f;
+	std::wstring uniqueId = std::to_wstring(position.x);
 	uniqueId.erase(remove_if(uniqueId.begin(), uniqueId.end(), isspace), uniqueId.end());
 	UIProperties temp = m_RelatedPanelProperties;
 	float tempCoords[8];
 	for (size_t i = 0; i < 8; i++)
+	{
 		tempCoords[i] = m_CurrentPanelCoords[i];
-	Panel(L"##InputDouble" + uniqueId, glm::vec2(x, y), glm::vec2(width, height));
+	}
+	Panel(L"##InputDouble" + uniqueId, position, m_Theme.m_InputSize);
 
-	if (Input::IsMousePressed(Keycode::MOUSE_BUTTON_1))
+	if (Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_1))
 	{
 		if (IsRectHovered(m_CurrentPanelCoords))
 		{
-			iter->second = true;
+			activeIter->second = true;
 			m_IsInteracting = true;
 		}
 		else
 		{
-			iter->second = false;
+			activeIter->second = false;
 			m_IsInteracting = false;
 		}
 	}
 
 	m_RelatedPanelProperties = temp;
 
-	std::ostringstream Q;
-	Q << std::setprecision(6) << std::setw(20) << *value;
+	std::wostringstream Q;
+	Q << std::setprecision(16) << std::setw(20) << *value;
 
-	auto iter2 = m_DoubleInput.find(label);
-	if (iter2 == m_DoubleInput.end()) {
+	auto doubleInputIter = m_DoubleInput.find(label);
+	if (doubleInputIter == m_DoubleInput.end())
+	{
 		m_DoubleInput.insert(std::make_pair(label, Q.str()));
-		iter2 = m_DoubleInput.find(label);
+		doubleInputIter = m_DoubleInput.find(label);
+	}
+	else
+	{
+		doubleInputIter->second = Q.str();
 	}
 
-	iter2->second.erase(std::remove(iter2->second.begin(), iter2->second.end(), 32), iter2->second.end());
-	std::string stringValue = iter2->second;
+	doubleInputIter->second.erase(std::remove(doubleInputIter->second.begin(), doubleInputIter->second.end(), 32), doubleInputIter->second.end());
+	std::wstring stringValue = doubleInputIter->second;
 
-	size_t index = stringValue.find('.');
+	size_t index = stringValue.find(L'.');
 
-	if (iter->second == true)
+	if (activeIter->second == true)
 	{
 		int key = -1;
 
-		if (Input::IsKeyPressed(Keycode::KEY_0)) key = Keycode::KEY_0;
-		else if (Input::IsKeyPressed(Keycode::KEY_1)) key = Keycode::KEY_1;
-		else if (Input::IsKeyPressed(Keycode::KEY_2)) key = Keycode::KEY_2;
-		else if (Input::IsKeyPressed(Keycode::KEY_3)) key = Keycode::KEY_3;
-		else if (Input::IsKeyPressed(Keycode::KEY_4)) key = Keycode::KEY_4;
-		else if (Input::IsKeyPressed(Keycode::KEY_5)) key = Keycode::KEY_5;
-		else if (Input::IsKeyPressed(Keycode::KEY_6)) key = Keycode::KEY_6;
-		else if (Input::IsKeyPressed(Keycode::KEY_7)) key = Keycode::KEY_7;
-		else if (Input::IsKeyPressed(Keycode::KEY_8)) key = Keycode::KEY_8;
-		else if (Input::IsKeyPressed(Keycode::KEY_9)) key = Keycode::KEY_9;
+		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_0)) key = Keycode::KEY_0;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_1)) key = Keycode::KEY_1;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_2)) key = Keycode::KEY_2;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_3)) key = Keycode::KEY_3;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_4)) key = Keycode::KEY_4;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_5)) key = Keycode::KEY_5;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_6)) key = Keycode::KEY_6;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_7)) key = Keycode::KEY_7;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_8)) key = Keycode::KEY_8;
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_9)) key = Keycode::KEY_9;
 
 		if (key != -1)
 		{
-			if (stringValue.size() == 1 && stringValue[0] == '0') stringValue.pop_back();
-			if (stringValue.size() < 5) 
+			if (stringValue.size() == 1 && stringValue[0] == L'0') stringValue.pop_back();
+			if (stringValue.size() < 10) 
 			{
-				stringValue += std::to_string(key - 48);
-				std::istringstream(stringValue) >> *value;
+				stringValue += std::to_wstring(key - 48);
+				std::wistringstream(stringValue) >> *value;
 			}
 		}
 
-		//if (Input::IsKeyPressed(Keycode::MINUS))
-		//{
-		//	stringValue = "-0";
-		//	std::istringstream(stringValue) >> *value;
-		//	iter1->second = !iter1->second;
-		//}
-		if (Input::IsKeyPressed(Keycode::PERIOD))
+		if (Input::KeyBoard::IsKeyPressed(Keycode::MINUS))
+		{
+			size_t index = stringValue.find(L'-');
+			if (index != std::wstring::npos)
+			{
+				stringValue.erase(index);
+			}
+			else
+			{
+				stringValue.insert(0, L"-");
+			}
+			std::wistringstream(stringValue) >> *value;
+			negativeInputsIter->second = !negativeInputsIter->second;
+		}
+
+		if (Input::KeyBoard::IsKeyPressed(Keycode::PERIOD))
 		{
 			if (index == std::string::npos)
 			{
-				stringValue += ".";
-				std::istringstream(stringValue) >> *value;
+				stringValue += L".";
+				std::wistringstream(stringValue) >> *value;
 			}
 		}
-		else if (Input::IsKeyPressed(Keycode::KEY_BACKSPACE))
+		else if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_BACKSPACE))
 		{
 			if (stringValue.empty() == false) stringValue.pop_back();
-			if (stringValue.empty() == true) stringValue += '0';
-			std::istringstream(stringValue) >> *value;
+			if (stringValue.empty() == true) stringValue += L'0';
+			std::wistringstream(stringValue) >> *value;
 		}
 
-		if (iter1->second) *value *= *value < 0 ? 1 : -1;
-		iter2->second = stringValue;
+		doubleInputIter->second = stringValue;
 	}
 
 	m_YAlign = YCENTER;
 	m_XAlign = XCENTER;
 	//int m_Theme.m_CharsAfterComma = index == std::string::npos ? 0 : stringValue.size() - index;
-	Text(L"%s", glm::vec2(width * 0.5f, -height * 0.5f), stringValue);
-	m_RelatedPanelProperties.m_YOffset -= (height * 0.5f + m_RelatedPanelProperties.m_Padding.y);
+	Text(L"%s", glm::vec2(m_Theme.m_InputSize.x * 0.5f, -m_Theme.m_InputSize.y * 0.5f), stringValue);
+	m_RelatedPanelProperties.m_YOffset -= (m_Theme.m_InputSize.y * 0.5f + m_RelatedPanelProperties.m_Padding.y);
 	m_XAlign = LEFT;
-	Text(label, glm::vec2(width + 10, -height * 0.5f));
+	Text(label, glm::vec2(m_Theme.m_InputSize.x + 10, -m_Theme.m_InputSize.y * 0.5f));
 	m_YAlign = TOP;
-	m_RelatedPanelProperties.m_YOffset += (height - m_LastUIPropertiesOnPanel.m_Size.y);
+	m_RelatedPanelProperties.m_YOffset += (m_Theme.m_InputSize.y - m_LastUIPropertiesOnPanel.m_Size.y);
 
 	for (size_t i = 0; i < 8; i++)
+	{
 		m_CurrentPanelCoords[i] = tempCoords[i];
+	}
 }
 
 void Gui::Image(glm::vec2 pos, Texture* texture, glm::vec2 size)
@@ -928,16 +947,36 @@ void Gui::ListBox(const std::wstring& label, glm::vec2 position, std::vector<std
 {
 	glm::vec2 buttonSize = Utils::IsEqual(size, { 0.0f, 0.0f }) ? m_Theme.m_ListButtonSize : size;
 	glm::vec2 tempPadding = m_RelatedPanelProperties.m_Padding;
+	size_t maxItems = items.size() < m_Theme.m_MaxItemInListBox ? items.size() : m_Theme.m_MaxItemInListBox;
+	float fullHeight = buttonSize.y * items.size() + (items.size() - 1) * m_Theme.m_ListBoxPadding.y;
+	float actualHeight = buttonSize.y * maxItems + (maxItems - 1) * m_Theme.m_ListBoxPadding.y;
+	glm::vec2 halfSize = { (buttonSize.x + m_Theme.m_ListBoxPadding.x) * 0.5f, -actualHeight * 0.5f };
+	
+	bool isCreatedExtraPanel = false;
+	if (!m_IsRelatedToPanel)
+	{
+		Character* character = FindCharInFont(label[0]);
+		float height = character->m_Height * character->m_Scale.y;
+
+		isCreatedExtraPanel = true;
+		glm::vec4 tempPanelColor = m_Theme.m_PanelColor;
+		m_Theme.m_PanelColor = { 0.0f, 0.0f, 0.0f, 0.0f };
+		glm::vec2 panelSize = { halfSize.x * 2.0f +
+			halfSize.x * m_Theme.m_ScrollBarWidthRelativeToRect,
+			actualHeight + m_Theme.m_ListBoxPadding.y + height };
+
+		BeginPanel(L"##ListBoxPanel" + label, position + glm::vec2(panelSize.x * 0.5f, -panelSize.y * 0.5f), panelSize);
+		
+		m_Theme.m_PanelColor = tempPanelColor;
+		m_RelatedPanelProperties.m_Margin = { 0.0f, 0.0f };
+	}
+
 	m_RelatedPanelProperties.m_Padding = m_Theme.m_ListBoxPadding;
 	
 	Text(label, position);
 	
 	ApplyRelatedToPanelProperties(&position.x, &position.y);
-	size_t maxItems = items.size() < m_Theme.m_MaxItemInListBox ? items.size() : m_Theme.m_MaxItemInListBox;
-	float fullHeight = buttonSize.y * items.size() + (items.size() - 1) * m_Theme.m_ListBoxPadding.y;
-	float actualHeight = buttonSize.y * maxItems + (maxItems - 1) * m_Theme.m_ListBoxPadding.y;
 
-	glm::vec2 halfSize = { (buttonSize.x + m_Theme.m_ListBoxPadding.x) * 0.5f, -actualHeight * 0.5f };
 	float vertices[8];
 	CreateRect(vertices, position + halfSize, halfSize);
 
@@ -1005,6 +1044,11 @@ void Gui::ListBox(const std::wstring& label, glm::vec2 position, std::vector<std
 	m_CurrentPanelPosition = tempCurrentPanelPos;
 	m_CurrentPanelSize = tempCcurentPanelSize;
 	m_IsCurrentPanelHovered = tempIsCurrentPanelHovered;
+
+	if (isCreatedExtraPanel)
+	{
+		EndPanel();
+	}
 }
 
 bool Gui::IsAnyPanelHovered() const
@@ -1029,7 +1073,7 @@ void Gui::Begin()
 void Gui::End()
 {
 	Batch::GetInstance().EndUI();
-	if (!Input::IsMouseDown(Keycode::MOUSE_BUTTON_1))
+	if (!Input::Mouse::IsMouseDown(Keycode::MOUSE_BUTTON_1))
 	{
 		m_CurrentDown = L"";
 	}
@@ -1173,7 +1217,9 @@ float Gui::ScrollBar(const std::wstring& label, glm::vec2 position, glm::vec2 si
 	{
 		Window& window = Window::GetInstance();
 		scrollBarIter->second -= window.GetScrollOffset().y * m_Theme.m_ScrollScale;
+		scrollBarIter->second = glm::clamp(scrollBarIter->second, 0.0f, fullHeight - actualHeight);
 	}
+
 	glm::vec4 tempHoveredColor = m_Theme.m_HoveredColor;
 	glm::vec4 tempPressedColor = m_Theme.m_PressedColor;
 	m_Theme.m_HoveredColor = m_Theme.m_HoveredSelectedColor;
@@ -1183,7 +1229,7 @@ float Gui::ScrollBar(const std::wstring& label, glm::vec2 position, glm::vec2 si
 	{
 		scrollBarIter->second -= (float)(viewport.GetUIDragDelta().y) / ratio;
 	}
-	else if (isHoveredScrollBar && Input::IsMousePressed(Keycode::MOUSE_BUTTON_1))
+	else if (isHoveredScrollBar && Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_1))
 	{
 		int sign = viewport.GetUIMousePosition().y < vertices[1] ? -1 : 1;
 		scrollBarIter->second -= sign * (m_Theme.m_ScrollingByClickingOffset * fullHeight + ratio * size.y);
@@ -1240,12 +1286,9 @@ void Gui::ShutDown()
 	m_StandardFonts.clear();
 }
 
-glm::vec2 Gui::GetFromWorldToScreenSpace(const glm::vec2 position)
+glm::vec2 Gui::GetFromWorldToScreenSpace(const glm::vec2& position)
 {
-	glm::vec2 screenSpacePosition;/* = glm::vec2(
-		position.x / (Viewport::GetInstance().() * Window::GetInstance().GetCamera().m_ZoomScale),
-		position.y / Window::GetInstance().GetCamera().m_ZoomScale
-	);
-	screenSpacePosition *= glm::vec2(Window::GetInstance().GetSize()) * 0.5f;*/
-	return screenSpacePosition;
+	Viewport& viewport = Viewport::GetInstance();
+	glm::vec2 normalizedPosition = viewport.GetMousePositionFromWorldToNormalized(position);
+	return m_ViewportUISize * 0.5f * normalizedPosition;
 }

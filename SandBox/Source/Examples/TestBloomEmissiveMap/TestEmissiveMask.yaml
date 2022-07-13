@@ -1,0 +1,386 @@
+Title: TestEmissiveMask
+Environment:
+  Global Intensity: 1
+  Blur passes: 8
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [0.405349731, -0.489883423, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1.25
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 18030291297780183598
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.200000003
+        - 0.300000012
+        - 0.300000012
+        - 0.300000012
+        - 0.300000012
+        - 0.400000006
+        - 0.200000003
+        - 0.400000006
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+  - GameObject: 14340246556999848918
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.899999976
+        - 0.200000003
+        - 1
+        - 0.200000003
+        - 1
+        - 0.300000012
+        - 0.899999976
+        - 0.300000012
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+  - GameObject: 12608447452501747152
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.100000001
+        - 0.800000012
+        - 0.200000003
+        - 0.800000012
+        - 0.200000003
+        - 0.899999976
+        - 0.100000001
+        - 0.899999976
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+  - GameObject: 17462041663960543664
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0
+        - 0.899999976
+        - 0.100000001
+        - 0.899999976
+        - 0.100000001
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+  - GameObject: 1152746831373548669
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.300000012
+        - 0.699999988
+        - 0.400000006
+        - 0.699999988
+        - 0.400000006
+        - 0.800000012
+        - 0.300000012
+        - 0.800000012
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+  - GameObject: 1020833020622391478
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.200000003
+        - 0.5
+        - 0.300000012
+        - 0.5
+        - 0.300000012
+        - 0.600000024
+        - 0.200000003
+        - 0.600000024
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+  - GameObject: 5324360820334966092
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.200000003
+        - 0.400000006
+        - 0.300000012
+        - 0.400000006
+        - 0.300000012
+        - 0.5
+        - 0.200000003
+        - 0.5
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+  - GameObject: 18368941027958873964
+    Name: StoneCharacter
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: Source\Examples\TestBloomEmissiveMap\Sprites\StoneCharacterSheetEmissiveMask.png
+      UV:
+        - 0.100000001
+        - 0.600000024
+        - 0.200000003
+        - 0.600000024
+        - 0.200000003
+        - 0.699999988
+        - 0.100000001
+        - 0.699999988
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 10
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterArmorBuff.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterDefeated.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterGlowing.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterIdle.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterLaserCast.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterMeleeAttack.anim
+        - Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterRangeAttack.anim
+      Current animation: Source\Examples\TestBloomEmissiveMap\Animations\StoneCharacterImmune.anim

@@ -16,14 +16,6 @@ void Animation2DManager::Save(Animation2D* animation)
 	{
 		m_Animations.insert(std::make_pair(animation->m_Name, animation));
 	}
-	if (m_ReplaceCurrentAnimFile)
-	{
-		std::remove(animation->m_FilePath.c_str());
-	}
-	else
-	{
-		Load(animation->m_FilePath);
-	}
 }
 
 Animation2DManager::Animation2D* Animation2DManager::Load(const std::string& filePath)

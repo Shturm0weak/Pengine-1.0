@@ -23,6 +23,9 @@ namespace Pengine
 		std::unordered_map<std::string, int> m_UniformLocationCache;
 		uint32_t m_RendererID;
 
+		std::string m_Name;
+		std::string m_FilePath;
+
 		int GetUniformLocation(const std::string& name);
 		
 		Shader() {}
@@ -30,18 +33,26 @@ namespace Pengine
 		~Shader();
 	public:
 
-		std::string m_Name;
-		std::string m_FilePath;
-
 		static const char** GetListOfShaders();
+		
 		static Shader* Create(const std::string& name, const std::string& path);
+		
 		static Shader* Get(const std::string& name, bool showErrors = true);
+		
 		void Bind() const;
+		
 		void UnBind() const;
+		
 		void Reload();
 
+		std::string GetName() const { return m_Name; }
+		
+		std::string GetFilePath() const { return m_FilePath; }
+
 		ShaderProgramSource Parseshader(const std::string& filepath);
+		
 		uint32_t CreateShader(const std::string& vertexShader, const std::string& FragmentShader);
+		
 		uint32_t CompileShader(uint32_t type, const std::string& source);
 
 		void SetUniform1i(const std::string& name, int value);

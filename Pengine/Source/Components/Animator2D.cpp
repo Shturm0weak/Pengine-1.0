@@ -12,8 +12,8 @@ const char** Animator2D::GetAnimationsNames()
 	{
 		delete[] m_AnimationsNames;
 	}
-	m_AnimationsNames = new const char*[m_Animations.size()];
-	for(size_t i = 0; i < m_Animations.size(); i++)
+	m_AnimationsNames = new const char* [m_Animations.size()];
+	for (size_t i = 0; i < m_Animations.size(); i++)
 	{
 		m_AnimationsNames[i] = m_Animations[i]->m_Name.c_str();
 	}
@@ -23,7 +23,7 @@ const char** Animator2D::GetAnimationsNames()
 
 IComponent* Animator2D::Create(GameObject* owner)
 {
-    return new Animator2D();
+	return new Animator2D();
 }
 
 Animator2D::Animator2D()
@@ -65,33 +65,61 @@ void Animator2D::Copy(const IComponent& component)
 	m_Type = component.GetType();
 }
 
-IComponent* Animator2D::CreateCopy(GameObject* newOwner)
+IComponent* Animator2D::New(GameObject* owner)
 {
-    Animator2D* animator = new Animator2D();
-    *animator = *this;
-    return animator;
+	return Create(owner);
+}
+
+Animation2DManager::Animation2D* Animator2D::GetAnimation(const std::string& name)
+{
+	for (auto& anim : m_Animations)
+	{
+		if (anim->m_Name == name)
+		{
+			return anim;
+		}
+	}
+
+	return nullptr;
 }
 
 void Animator2D::PlayAnimation(Animation2DManager::Animation2D* animation)
 {
 	m_Timer += Time::GetDeltaTime();
 	m_Counter = m_Timer * m_Speed;
+
 	if (m_Counter < m_CurrentAnimation->m_Textures.size())
 	{
-		if (Renderer2D* r2d = m_Owner->m_ComponentManager.GetComponent<Renderer2D>())
+		m_Renderer2D = m_Renderer2D ? m_Renderer2D : m_Owner->m_ComponentManager.GetComponent<Renderer2D>();
+
+		if (m_Renderer2D)
 		{
-			r2d->SetTexture(m_CurrentAnimation->m_Textures[m_Counter]);
+			m_Renderer2D->SetTexture(m_CurrentAnimation->m_Textures[m_Counter]);
+
+			if (m_AutoSetUV)
+			{
+				m_Renderer2D->SetUV(m_CurrentAnimation->m_UVs[m_Counter]);
+			}
 		}
 	}
+
 	if (m_Counter >= m_CurrentAnimation->m_Textures.size())
 	{
-		m_Timer = 0;
+		m_Timer = 0.0f;
+
+		for (auto callback : m_EndCallbacks)
+		{
+			callback();
+		}
 	}
 }
 
 void Animator2D::AddAnimation(Animation2DManager::Animation2D* animation)
 {
-    m_Animations.push_back(animation);
+	if (!Utils::IsThere<Animation2DManager::Animation2D*>(m_Animations, animation))
+	{
+		m_Animations.push_back(animation);
+	}
 }
 
 void Animator2D::RemoveAnimation(Animation2DManager::Animation2D* animation)
@@ -104,7 +132,38 @@ void Animator2D::RemoveAll()
 	m_Animations.clear();
 }
 
-void Animator2D::operator=(const Animator2D& animator2d)
+void Animator2D::Reset()
 {
-    Copy(animator2d);
+	m_Timer = 0.0f;
+	m_Counter = 0.0f;
+}
+
+std::vector<float> Animator2D::GetOriginalUV()
+{
+	if (m_CurrentAnimation && m_Counter < m_CurrentAnimation->m_UVs.size())
+	{
+		return m_CurrentAnimation->m_UVs[m_Counter];
+	}
+	else
+	{
+		return std::vector<float>();
+	}
+}
+
+std::vector<float> Animator2D::GetReversedUV()
+{
+	if (m_CurrentAnimation && m_Counter < m_CurrentAnimation->m_UVs.size())
+	{
+		std::vector<float> uv = m_CurrentAnimation->m_UVs[m_Counter];
+		uv[0] = m_CurrentAnimation->m_UVs[m_Counter][4];
+		uv[2] = m_CurrentAnimation->m_UVs[m_Counter][6];
+		uv[4] = m_CurrentAnimation->m_UVs[m_Counter][0];
+		uv[6] = m_CurrentAnimation->m_UVs[m_Counter][2];
+
+		return uv;
+	}
+	else
+	{
+		return std::vector<float>();
+	}
 }

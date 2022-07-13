@@ -17,23 +17,26 @@ namespace Pengine
 	{
 	private:
 
-		Mesh* m_Mesh = nullptr;
 		Material m_Material;
 
 		friend class Serializer;
 	public:
 
+		Mesh* m_Mesh = nullptr;
+
+		Renderer3D() = default;
+		
 		static IComponent* Create(GameObject* owner);
 
+		virtual IComponent* New(GameObject* owner) override;
+		
 		virtual void Copy(const IComponent& component) override;
-		virtual IComponent* Renderer3D::CreateCopy(GameObject* newOwner) override;
+		
 		virtual void Render() override;
+		
 		virtual void Delete() override;
-		Renderer3D() = default;
 
 		void SetMesh(Mesh* mesh) { m_Mesh = mesh; }
-
-		void operator=(const Renderer3D& Renderer3D);
 	};
 
 }

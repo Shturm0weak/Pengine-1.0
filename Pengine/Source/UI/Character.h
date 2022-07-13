@@ -68,6 +68,7 @@ namespace Pengine {
 	public:
 
 		void LoadFont(const std::string& filename, const std::string& pathToTextureAtlas);
+		
 		void LoadCharacters();
 
 		~Font();

@@ -20,21 +20,22 @@ void Renderer3D::Copy(const IComponent& component)
 	m_Type = component.GetType();
 }
 
-IComponent* Renderer3D::CreateCopy(GameObject* newOwner)
+IComponent* Renderer3D::New(GameObject* owner)
 {
-	Renderer3D* r2d = (Renderer3D*)Create(newOwner);
-	*r2d = *this;
-	return r2d;
+	return Create(owner);
 }
 
 void Renderer3D::Render()
 {
+	if (!m_Mesh) return;
+
 	m_Shader = Shader::Get("Default3D");
 	m_Shader->Bind();
 	m_Shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 	m_Shader->SetUniformMat4f("u_Transform", m_Owner->m_Transform.GetTransform());
 	m_Shader->SetUniform4fv("u_Color", m_Material.m_Color);
-	glBindTextureUnit(0, m_Material.m_Texture->GetRendererID());
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, m_Material.m_Texture->GetRendererID());
 	m_Shader->SetUniform1i("u_Diffuse", 0);
 
 	m_Mesh->m_Va.Bind();
@@ -54,17 +55,18 @@ void Renderer3D::Render()
 
 	m_Shader->UnBind();
 
-	glBindTextureUnit(0, TextureManager::GetInstance().Get("White")->GetRendererID());
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().Get("White")->GetRendererID());
 }
 
 IComponent* Renderer3D::Create(GameObject* owner)
 {
-	Renderer3D* r2d = MemoryManager::GetInstance().Allocate<Renderer3D>();
+	Renderer3D* r2d = new Renderer3D();
 	r2d->m_Type = Utils::GetTypeName<Renderer3D>();
 
-	if (Utils::IsThere<IRenderer>(owner->GetScene()->m_Renderers3D, r2d->GetUUID()) == false)
+	if (Utils::IsThere<IRenderer*>(owner->GetScene()->m_Renderers3D, r2d) == false)
 	{
-		owner->GetScene()->m_Renderers3D.insert(std::make_pair(r2d->GetUUID(), r2d));
+		owner->GetScene()->m_Renderers3D.push_back(r2d);
 	}
 
 	return r2d;
@@ -72,12 +74,6 @@ IComponent* Renderer3D::Create(GameObject* owner)
 
 void Renderer3D::Delete()
 {
-	*this = Renderer3D();
-	Utils::Erase<IRenderer>(m_Owner->GetScene()->m_Renderers3D, this->GetUUID());
-	MemoryManager::GetInstance().FreeMemory<Renderer3D>(static_cast<IAllocator*>(this));
-}
-
-void Renderer3D::operator=(const Renderer3D& Renderer3D)
-{
-	Copy(Renderer3D);
+	Utils::Erase<IRenderer>(m_Owner->GetScene()->m_Renderers3D, this);
+	delete this;
 }

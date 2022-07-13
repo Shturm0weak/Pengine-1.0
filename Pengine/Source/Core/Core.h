@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_PREALLOCATED_INSTANCES 10000
+#define MAX_PREALLOCATED_INSTANCES 1000
 
 #ifdef PENGINE_ENGINE
 #define PENGINE_API __declspec(dllexport)
@@ -21,3 +21,10 @@
 #include "Time.h"
 
 #include <string>
+
+// Used for RTTR.
+template<typename T>
+inline void ReflectionAddComponent(void* componentManager)
+{
+	static_cast<Pengine::ComponentManager*>(componentManager)->AddComponent<T>();
+}

@@ -30,7 +30,13 @@ void MemoryManager::FreeMemory(const std::string& type, IAllocator* allocator)
     if (memoryPool)
     {
         memoryPool->m_FreeMemory.push_back(allocator->m_MemoryPoolPtr);
-        memoryPool->m_MemoryPool.rbegin()->second--;
+
+        auto memoryPoolIter = memoryPool->m_MemoryPool.find(allocator->m_MemoryPoolPtr);
+        if (memoryPoolIter != memoryPool->m_MemoryPool.end())
+        {
+            memoryPoolIter->second--;
+        }
+
         allocator->m_IsInitialized = false;
     }
 }

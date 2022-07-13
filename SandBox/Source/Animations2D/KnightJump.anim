@@ -1,0 +1,31 @@
+Textures:
+  - FilePath: Source\Images\Animations\Knight\_Jump.png
+    UVs:
+      - 0
+      - 0
+      - 0.333333343
+      - 0
+      - 0.333333343
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Images\Animations\Knight\_Jump.png
+    UVs:
+      - 0.333333343
+      - 0
+      - 0.666666687
+      - 0
+      - 0.666666687
+      - 1
+      - 0.333333343
+      - 1
+  - FilePath: Source\Images\Animations\Knight\_Jump.png
+    UVs:
+      - 0.666666687
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.666666687
+      - 1

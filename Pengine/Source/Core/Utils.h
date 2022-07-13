@@ -20,7 +20,7 @@ namespace fs = std::filesystem;
 
 namespace Pengine
 {
-	
+
 	namespace Utils
 	{
 		/*template<class T>
@@ -36,6 +36,60 @@ namespace Pengine
 				return nullptr;
 			}
 		}*/
+
+		PENGINE_API inline glm::vec2 Direction(const glm::vec2& a, const glm::vec2& b)
+		{
+			return glm::normalize(glm::vec2(b.x - a.x, b.y - a.y));
+		}
+
+		PENGINE_API inline float GetLength(const glm::vec2& a)
+		{
+			return glm::sqrt(a.x * a.x + a.y * a.y);
+		}
+
+		PENGINE_API inline float GetSquaredLength(const glm::vec2& a)
+		{
+			return (a.x * a.x + a.y * a.y);
+		}
+
+		PENGINE_API inline float Epsilonf()
+		{
+			return 0.000001f;
+		}
+
+		PENGINE_API inline bool IntersectTriangle(glm::vec3 start, glm::vec3 dir, float length, glm::vec3& a, glm::vec3& b, glm::vec3& c, glm::vec3& planeNorm, glm::vec3& position)
+		{
+			glm::vec3 end = dir * length;
+			glm::vec3 rayDelta = end - start;
+			glm::vec3 rayToPlaneDelta = a - start;
+			float ratio = glm::dot(rayToPlaneDelta, planeNorm);
+			glm::vec3 proj = planeNorm * ratio;
+			float vp = glm::dot(rayDelta, planeNorm);
+			if (vp >= -0.0001 && vp <= 0.0001)
+			{
+				return false;
+			}
+			float wp = glm::dot(rayToPlaneDelta, planeNorm);
+			float t = wp / vp;
+			glm::vec3 iPos = rayDelta * t + start;
+			position = iPos;
+			glm::vec3 edge0 = b - a;
+			glm::vec3 edge1 = c - b;
+			glm::vec3 edge2 = a - c;
+			glm::vec3 c0 = iPos - a;
+			glm::vec3 c1 = iPos - b;
+			glm::vec3 c2 = iPos - c;
+
+			if (glm::dot(planeNorm, glm::cross(edge0, c0)) > 0 &&
+				glm::dot(planeNorm, glm::cross(edge1, c1)) > 0 &&
+				glm::dot(planeNorm, glm::cross(edge2, c2)) > 0) return true;
+			else return false;
+		}
+
+		PENGINE_API inline std::vector<float> StandartUV()
+		{
+			return { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f };
+		}
 
 		PENGINE_API inline bool IsEqual(float a, float b)
 		{
@@ -62,8 +116,13 @@ namespace Pengine
 			return string.find(content) != std::string::npos;
 		}
 
+		PENGINE_API inline bool IsUserDefinedComponent(const std::string& type)
+		{
+			return !Utils::Contains(type, "Pengine::");
+		}
+
 		template<class T>
-		PENGINE_API inline bool IsThere(const std::vector<T*>& vector, T* object)
+		inline bool IsThere(const std::vector<T>& vector, T object)
 		{
 			return std::find(vector.begin(), vector.end(), object) != vector.end();
 		}
@@ -139,6 +198,30 @@ namespace Pengine
 			return (std::string(typeid(T).name()).substr(6));
 		}
 
+		PENGINE_API inline void Print(const glm::mat3& mat)
+		{
+			for (size_t i = 0; i < 3; i++)
+			{
+				for (size_t j = 0; j < 3; j++)
+				{
+					printf_s("%f ", mat[j][i]);
+				}
+				printf_s("\n");
+			}
+		}
+
+		PENGINE_API inline void Print(const glm::mat4& mat)
+		{
+			for (size_t i = 0; i < 4; i++)
+			{
+				for (size_t j = 0; j < 4; j++)
+				{
+					printf_s("%f ", mat[j][i]);
+				}
+				printf_s("\n");
+			}
+		}
+
 		PENGINE_API inline glm::vec3 GetPosition(const glm::mat4& position)
 		{
 			const float* matPtr = glm::value_ptr(position);
@@ -171,11 +254,44 @@ namespace Pengine
 			return path.substr(index + 1, path.length() - index - 2 - resolutionLength);
 		}
 
+		PENGINE_API inline std::string ReplaceSlashWithDoubleSlash(const std::string& string)
+		{
+			std::string replacedString = string;
+			std::replace(replacedString.begin(), replacedString.end(), '/', '\\');
+			return replacedString;
+		}
+
+		PENGINE_API inline std::string GetDirectoryFromFilePath(const std::string& path)
+		{
+			size_t index = path.find_last_of("/");
+			if (index == std::string::npos)
+			{
+				index = path.find_last_of("\\");
+			}
+			return path.substr(0, index);
+		}
+
 		PENGINE_API inline std::string GetResolutionFromFilePath(const std::string& path)
 		{
 			size_t index = path.find_last_of(".");
-			assert(index != std::string::npos);
+			if (index == std::string::npos)
+			{
+				return "None";
+			}
 			return path.substr(index + 1, path.length() - 1);
+		}
+
+		PENGINE_API inline bool MatchType(const std::string& path, std::vector<std::string> types)
+		{
+			for (size_t i = 0; i < types.size(); i++)
+			{
+				if (Utils::GetResolutionFromFilePath(path) == types[i])
+				{
+					return true;
+				}
+			}
+
+			return false;
 		}
 
 		PENGINE_API inline void LoadShadersFromFolder(const std::string& path)
@@ -191,23 +307,24 @@ namespace Pengine
 			}
 		}
 
-		PENGINE_API inline void LoadTexturesFromFolder(const std::string& path)
+		PENGINE_API inline std::vector<Texture*> LoadTexturesFromFolder(const std::string& path)
 		{
 			std::vector<std::string> textures;
+			std::vector<Texture*> texturesPtr;
 			for (const auto& entry : fs::directory_iterator(path))
 			{
 				std::string pathToTexture = entry.path().string();
-				if (pathToTexture.find(".png") <= pathToTexture.length()
-					|| pathToTexture.find(".jpeg") <= pathToTexture.length()
-					|| pathToTexture.find(".jpg") <= pathToTexture.length())
+				textures.push_back(entry.path().string());
+				size_t index = 0;
+				index = textures.back().find("\\", index);
+				textures.back().replace(index, 1, "/");
+				if (auto texture = TextureManager::GetInstance().Create(textures.back()))
 				{
-					textures.push_back(entry.path().string());
-					size_t index = 0;
-					index = textures.back().find("\\", index);
-					textures.back().replace(index, 1, "/");
-					TextureManager::GetInstance().Create(textures.back());
+					texturesPtr.push_back(texture);
 				}
 			}
+
+			return texturesPtr;
 		}
 
 		template<class T>
@@ -224,9 +341,10 @@ namespace Pengine
 				memoryPool.insert(std::make_pair(newPreAllocMemory, 0));
 				for (size_t i = 0; i < MAX_PREALLOCATED_INSTANCES * sizeof(T); i += sizeof(T))
 				{
-					freeMemory.push_back(newPreAllocMemory + (MAX_PREALLOCATED_INSTANCES * sizeof(T)) - i);
+					freeMemory.push_back(newPreAllocMemory + i);
 				}
 			}
+
 			if (freeMemory.size() > 0)
 			{
 				for (auto memoryPoolIter = memoryPool.begin(); memoryPoolIter != memoryPool.end(); memoryPoolIter++)
@@ -237,6 +355,7 @@ namespace Pengine
 						memoryPoolIter->second++;
 						char* ptr = freeMemory.back();
 						freeMemory.pop_back();
+
 						return ptr;
 					}
 				}
@@ -315,6 +434,80 @@ namespace Pengine
 			}
 			return true;
 		}
+
+		PENGINE_API inline int DeleteDirectory(const std::wstring& refcstrRootDirectory,
+			bool              bDeleteSubdirectories = false)
+		{
+			bool            bSubdirectory = false;       // Flag, indicating whether
+														 // subdirectories have been found
+			HANDLE          hFile;                       // Handle to directory
+			std::wstring     strFilePath;                 // Filepath
+			std::wstring     strPattern;                  // Pattern
+			WIN32_FIND_DATA FileInformation;             // File information
+
+
+			strPattern = refcstrRootDirectory + L"\\*.*";
+			hFile = ::FindFirstFile(strPattern.c_str(), &FileInformation);
+			if (hFile != INVALID_HANDLE_VALUE)
+			{
+				do
+				{
+					if (FileInformation.cFileName[0] != '.')
+					{
+						strFilePath.erase();
+						strFilePath = refcstrRootDirectory + L"\\" + FileInformation.cFileName;
+
+						if (FileInformation.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+						{
+							if (bDeleteSubdirectories)
+							{
+								// Delete subdirectory
+								int iRC = DeleteDirectory(strFilePath, bDeleteSubdirectories);
+								if (iRC)
+									return iRC;
+							}
+							else
+								bSubdirectory = true;
+						}
+						else
+						{
+							// Set file attributes
+							if (::SetFileAttributes(strFilePath.c_str(),
+								FILE_ATTRIBUTE_NORMAL) == FALSE)
+								return ::GetLastError();
+
+							// Delete file
+							if (::DeleteFile(strFilePath.c_str()) == FALSE)
+								return ::GetLastError();
+						}
+					}
+				} while (::FindNextFile(hFile, &FileInformation) == TRUE);
+
+				// Close handle
+				::FindClose(hFile);
+
+				DWORD dwError = ::GetLastError();
+				if (dwError != ERROR_NO_MORE_FILES)
+					return dwError;
+				else
+				{
+					if (!bSubdirectory)
+					{
+						// Set directory attributes
+						if (::SetFileAttributes(refcstrRootDirectory.c_str(),
+							FILE_ATTRIBUTE_NORMAL) == FALSE)
+							return ::GetLastError();
+
+						// Delete directory
+						if (::RemoveDirectory(refcstrRootDirectory.c_str()) == FALSE)
+							return ::GetLastError();
+					}
+				}
+			}
+
+			return 0;
+		}
+
 	}
 
 }

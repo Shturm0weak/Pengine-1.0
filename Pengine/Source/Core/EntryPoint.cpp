@@ -9,8 +9,11 @@
 #include "MemoryManager.h"
 #include "TextureManager.h"
 #include "Viewport.h"
+#include "Renderer.h"
 #include "ThreadPool.h"
 #include "Editor.h"
+#include "Timer.h"
+#include "../Audio/SoundManager.h"
 #include "../EventSystem/EventSystem.h"
 #include "../OpenGL/FrameBuffer.h"
 #include "../OpenGL/Batch.h"
@@ -18,6 +21,7 @@
 #include "Animation2DManager.h"
 #include "Visualizer.h"
 #include "../UI/Gui.h"
+#include "../Lua/LuaStateManager.h"
 
 using namespace Pengine;
 
@@ -33,7 +37,7 @@ void EntryPoint::PrepareResources()
 
     std::vector<uint32_t> indices =
     {
-        0, 1, 2 , 2, 3, 0
+        0, 1, 2, 2, 3, 0
     };
 
     const std::vector<uint32_t> layouts = { 2, 2 };
@@ -42,22 +46,40 @@ void EntryPoint::PrepareResources()
 
     TextureManager::GetInstance().ResetTexParametersi();
     TextureManager::GetInstance().ColoredTexture("White", 0xFFFFFFFF);
-
+    
+    Renderer::GetInstance().Initialize();
     Viewport::GetInstance().Initialize();
     ThreadPool::GetInstance().Initialize();
 
     Utils::LoadShadersFromFolder("Source/Shaders");
     Utils::LoadTexturesFromFolder("Source/Images");
-    Utils::LoadTexturesFromFolder("Source/Images/Icons");
+    Utils::LoadTexturesFromFolder("Source/UIimages/EditorIcons");
     Utils::LoadTexturesFromFolder("Source/UIimages");
 
     Environment::GetInstance().SetEditorCamera(std::make_shared<Camera>());
     Environment::GetInstance().UseEditorCameraAsMain();
 }
 
+void EntryPoint::SetApplication(Application* application, bool startState)
+{
+    assert(application);
+
+    m_Application = application;
+
+    OnStart();
+
+    if (startState)
+    {
+        EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONSTART));
+        m_Application->OnPlay();
+    }
+
+    OnUpdate();
+}
+
 void EntryPoint::OnStart()
 {
-    assert(Window::GetInstance().Initialize() == 0);
+    assert(Window::GetInstance().Initialize(m_Application->GetTitle()) == 0);
 
     PrepareResources();
 }
@@ -75,30 +97,19 @@ void EntryPoint::OnUpdate()
         {
             Environment::GetInstance().GetMainCamera()->Movement();
             EventSystem::GetInstance().ProcessEvents();
+            Timer::UpdateCallbacks();
+
             if (m_Application->GetState() == Application::ApplicationState::Play)
             {
+                m_Application->PostStartCall();
                 m_Application->UpdatePhysics();
                 m_Application->OnUpdate();
+                m_Application->OnLuaUpdate();
             }
 
-            Viewport::GetInstance().Begin();
-            {
-                Batch::GetInstance().BeginGameObjects();
-                {
-                    m_Application->Render();
-                    Visualizer::RenderQuads();
-                }
-                Batch::GetInstance().EndGameObjects();
+            SoundManager::GetInstance().UpdateSourceState();
 
-                Visualizer::RenderLines();
-
-                Gui::GetInstance().Begin();
-                {
-                    m_Application->OnGuiRender();
-                }
-                Gui::GetInstance().End();
-            }
-            Viewport::GetInstance().End();
+            Renderer::GetInstance().Render(m_Application);
 
             Editor::GetInstance().Update(m_Application->GetScene());
         }
@@ -110,6 +121,8 @@ void EntryPoint::OnClose()
 {
     m_Application->ShutDown();
     Animation2DManager::GetInstance().ShutDown();
+    Viewport::GetInstance().ShutDown();
+    Renderer::GetInstance().ShutDown();
     MeshManager::GetInstance().ShutDown();
     MemoryManager::GetInstance().ShutDown();
     ThreadPool::GetInstance().Shutdown();

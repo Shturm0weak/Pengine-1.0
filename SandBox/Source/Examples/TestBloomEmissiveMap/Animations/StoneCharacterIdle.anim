@@ -1,0 +1,41 @@
+Textures:
+  - FilePath: Source/Examples/TestBloomEmissiveMap/Sprites/StoneCharacterSheet.png
+    UVs:
+      - 0
+      - 0.899999976
+      - 0.100000001
+      - 0.899999976
+      - 0.100000001
+      - 1
+      - 0
+      - 1
+  - FilePath: Source/Examples/TestBloomEmissiveMap/Sprites/StoneCharacterSheet.png
+    UVs:
+      - 0.100000001
+      - 0.899999976
+      - 0.200000003
+      - 0.899999976
+      - 0.200000003
+      - 1
+      - 0.100000001
+      - 1
+  - FilePath: Source/Examples/TestBloomEmissiveMap/Sprites/StoneCharacterSheet.png
+    UVs:
+      - 0.200000003
+      - 0.899999976
+      - 0.300000012
+      - 0.899999976
+      - 0.300000012
+      - 1
+      - 0.200000003
+      - 1
+  - FilePath: Source/Examples/TestBloomEmissiveMap/Sprites/StoneCharacterSheet.png
+    UVs:
+      - 0.300000012
+      - 0.899999976
+      - 0.400000006
+      - 0.899999976
+      - 0.400000006
+      - 1
+      - 0.300000012
+      - 1

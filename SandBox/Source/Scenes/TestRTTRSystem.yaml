@@ -1,0 +1,65 @@
+Title: TestRTTRSystem
+Environment:
+  Global Intensity: 1
+  Blur passes: 8
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 1
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [0, 0, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 13841387658387546481
+    Name: Person
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Person:
+      m_Name:
+        Type: std::string
+        Value: Alexander
+      m_Age:
+        Type: int
+        Value: 21
+      m_Height:
+        Type: float
+        Value: 170
+      m_Weight:
+        Type: double
+        Value: 65.549999999999997
+      m_Vec2:
+        Type: struct glm::vec<2,float,0>
+        Value: [0, 0]
+      m_Vec3:
+        Type: struct glm::vec<3,float,0>
+        Value: [0, 0, 0]
+      m_Vec4:
+        Type: struct glm::vec<4,float,0>
+        Value: [0, 0, 0, 0]
+      m_Texture:
+        Type: asset
+        Value: Source/Images/dirt.jpg
+      m_Float:
+        {}
