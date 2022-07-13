@@ -3,6 +3,7 @@ A simple 2D game engine.
 <img src="https://user-images.githubusercontent.com/48869588/157312824-eb6a3cb1-3e2a-4b01-bfdb-d26537dbb858.png">
 <img src="https://user-images.githubusercontent.com/48869588/178849777-26f3a8f7-31cb-48db-ac11-8c989c177c28.png">
 <img src="https://user-images.githubusercontent.com/48869588/178849904-b219c9fa-2252-42b0-a201-62ced3646083.png">
+<img src="https://user-images.githubusercontent.com/48869588/178851129-857d1916-f737-4a6c-9386-cf22d78816b5.png">
 <img src="https://user-images.githubusercontent.com/48869588/178850673-68461c01-7c4f-4715-a887-1538fe7a0052.jpg">
 
 # **Features**
@@ -17,6 +18,10 @@ A simple 2D game engine.
 * Event System
 * OpenGL 4.6 support
 * Scripts in Lua for game objects
+* 2D Point Lights
+* 2D Normal Maps
+* 2D Emissive Mask
+* Bloom
 
 # **Used Libraries**
 
