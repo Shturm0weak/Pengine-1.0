@@ -1059,11 +1059,12 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 			{
 				if (ImGui::CollapsingHeader(component->GetType().c_str()))
 				{
+					auto& types = rttr::type::get_types();
 					rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
 					for (auto& prop : componentClass.get_properties())
 					{
-						std::string type = prop.get_type().get_name().to_string();
-						std::string name = prop.get_name().to_string();
+						std::string type = prop.get_type().get_name();
+						std::string name = prop.get_name();
 
 						if (ReflectedProps::is_float(type))
 						{
@@ -1079,7 +1080,7 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 						{
 							int value = prop.get_value(component).to_int();
 							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::SliderInt(prop.get_name().to_string().c_str(), &value, 0, 10))
+							if (ImGui::SliderInt(name.c_str(), &value, 0, 10))
 							{
 								prop.set_value(component, value);
 							}

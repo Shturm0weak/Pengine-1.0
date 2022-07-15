@@ -25,25 +25,28 @@ project "Pengine"
 		"$(SolutionDir)Includes/GLEW",
 		"$(SolutionDir)Includes/GLFW",
 		"$(SolutionDir)Includes/LUA",
+		"$(SolutionDir)Includes/rttr",
 		"$(SolutionDir)Includes",
 		"$(SolutionDir)Vendor",
-		"$(SolutionDir)Vendor/ImGui",
-		"$(SolutionDir)%{prj.name}/Source/%{prj.name}"
+		"$(SolutionDir)Vendor/ImGui"
 	}
 
 	links {
 		"Box2D",
 		"Yaml",
 		"ImGui",
-		"RTTR",
 		"glfw3.lib",
 		"opengl32.lib",
 		"glew32s.lib",
 		"ImGui.lib",
 		"OpenAL32.lib",
 		"Box2D.lib",
-		"RTTR.lib",
 		"Yaml.lib"
+	}
+
+	postbuildcommands {
+		("{COPY} %{cfg.buildtarget.relpath} $(SolutionDir)/bin/" .. outputdir .. "/SandBox"),
+		("{COPY} $(SolutionDir)Dlls/lua54.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 	}
 
 	filter "system:windows"
@@ -58,13 +61,8 @@ project "Pengine"
 			"VORBIS_FPU_CONTROL"
 		}
 
-		postbuildcommands {
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/SandBox"),
-			("{COPY} $(SolutionDir)Dlls/lua54.dll ../bin/" .. outputdir .. "/SandBox"),
-		}
-
 		flags {
-			"MultiProcessorCompile",
+			"MultiProcessorCompile"
 		}
 
 	filter "configurations:Debug"
@@ -72,22 +70,32 @@ project "Pengine"
 		defines "_DEBUG"
 		symbols "on"
 		
-		libdirs {"$(SolutionDir)Libs/Debug"}
-
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Release")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Debug"),
+			("{COPY} $(SolutionDir)Dlls/rttr_core_d.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 		}
 
+		libdirs {"$(SolutionDir)Libs/Debug"}
+
+		links {
+			"rttr_core_d.lib"
+		}
+		
 	filter "configurations:Release"
 		defines "_RELEASE"
 		runtime "Release"
 		symbols "on"
 		optimize "Full"
 
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Release"),
+			("{COPY} $(SolutionDir)Dlls/rttr_core.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
+		}
+
 		libdirs {"$(SolutionDir)Libs/Release"}
 
-		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Debug")
+		links {
+			"rttr_core.lib"
 		}
 
 project "SandBox"
@@ -118,7 +126,6 @@ project "SandBox"
 		"OpenAL32.lib",
 		"Pengine.lib",
 		"Box2D.lib",
-		"RTTR.lib",
 		"Yaml.lib"
 	}
 
@@ -132,7 +139,7 @@ project "SandBox"
 		cppdialect "C++17"
 
 		flags {
-			"MultiProcessorCompile",
+			"MultiProcessorCompile"
 		}
 
 		defines {
@@ -149,6 +156,10 @@ project "SandBox"
 
 		libdirs {"$(SolutionDir)Libs/Debug"}
 
+		links {
+			"rttr_core_d.lib"
+		}
+
 	filter "configurations:Release"
 		defines "_RELEASE"
 		runtime "Release"
@@ -156,6 +167,10 @@ project "SandBox"
 		optimize "Full"
 
 		libdirs {"$(SolutionDir)Libs/Release"}
+
+		links {
+			"rttr_core.lib"
+		}
 
 ImGuiLocation = "Vendor/ImGui"
 
@@ -176,7 +191,7 @@ project "ImGui"
 		"$(SolutionDir)Vendor/ImGui",
 		"$(SolutionDir)Includes/GLEW",
 		"$(SolutionDir)Vendor/ImGui/libs/glfw/include",
-		"$(SolutionDir)Vendor/ImGui/misc/freetype",
+		"$(SolutionDir)Vendor/ImGui/misc/freetype"
 	}
 
 	filter "system:windows"
@@ -185,7 +200,7 @@ project "ImGui"
 		staticruntime "On"
 
 		flags {
-			"MultiProcessorCompile",
+			"MultiProcessorCompile"
 		}
 
 	filter "system:linux"
@@ -240,7 +255,7 @@ project "Box2D"
 		staticruntime "Off"
 
 		flags {
-			"MultiProcessorCompile",
+			"MultiProcessorCompile"
 		}
 
 	filter "system:linux"
@@ -313,54 +328,4 @@ project "Yaml"
 
 		postbuildcommands {
 			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Yaml/Yaml.lib $(SolutionDir)Libs/Release")
-		}
-
-RTTRLocation = "Vendor/rttr"
-
-project "RTTR"
-	location (RTTRLocation)
-	kind "StaticLib"
-	language "C++"
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files {
-		RTTRLocation .. "/**.h",
-		RTTRLocation .. "/**.cpp"
-	}
-
-	includedirs {
-		"$(SolutionDir)Vendor"
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-		cppdialect "C++17"
-		staticruntime "Off"
-
-		flags {
-			"MultiProcessorCompile",
-		}
-
-	filter "system:linux"
-		pic "On"
-		systemversion "latest"
-		cppdialect "C++17"
-		staticruntime "Off"
-
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
-
-		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/RTTR/RTTR.lib $(SolutionDir)Libs/Debug")
-		}
-
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "Full"
-
-		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/RTTR/RTTR.lib $(SolutionDir)Libs/Release")
 		}

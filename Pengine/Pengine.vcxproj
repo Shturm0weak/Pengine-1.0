@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes\rttr;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,14 +70,15 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;RTTR.lib;Yaml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -85,7 +86,7 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes\rttr;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -101,14 +102,15 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;RTTR.lib;Yaml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)
+IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -265,9 +267,6 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q
     </ProjectReference>
     <ProjectReference Include="..\Vendor\ImGui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Vendor\rttr\RTTR.vcxproj">
-      <Project>{11778B7C-FDAD-8C0D-A69A-721092B0080F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

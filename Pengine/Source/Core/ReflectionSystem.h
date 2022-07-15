@@ -99,9 +99,8 @@ namespace Pengine
         };
 
         std::map<std::string, RegisteredClass> m_RegisteredClasses;
-    
-        static ReflectionSystem& GetInstance() { static ReflectionSystem reflectionSystem; return reflectionSystem; }
 
+        static ReflectionSystem& GetInstance() { static ReflectionSystem reflectionSystem; return reflectionSystem; }
     };
     
 
