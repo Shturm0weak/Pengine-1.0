@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -25,55 +25,61 @@
 *                                                                                   *
 *************************************************************************************/
 
-#ifndef RTTR_PROPERTY_ACCESSOR__
-#define RTTR_PROPERTY_ACCESSOR__
+#ifndef RTTR_PROPERTY_ACCESSOR_H_
+#define RTTR_PROPERTY_ACCESSOR_H_
 
 namespace rttr
 {
 namespace detail
 {
 
+/////////////////////////////////////////////////////////////////////////////////////////
+// We have to use this property_accessor helper struct, because of a bug in MSVC compiler
+// "ambiguous call to overloaded function when using raw arrays"
+
 template<typename T>
 struct property_accessor
 {
-    static bool set_value(T& prop, argument& arg)
-    {           
-        prop = arg.get_value<T>();
+    static bool set_value(T& prop, const T& arg)
+    {
+        prop = arg;
         return true;
     }
 };
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, std::size_t N>
 struct property_accessor<T[N]>
 {
-    static bool set_value(T (& prop)[N], argument& arg)
-    {           
-        copy_array(arg.get_value<T[N]>(), prop);
+    static bool set_value(T (& target)[N], const T (& src)[N])
+    {
+#if RTTR_COMPILER == RTTR_COMPILER_MSVC  && RTTR_COMP_VER <= 1800
+        using array_t = remove_const_t<remove_reference_t<decltype(src)>>;
+        copy_array(const_cast<array_t&>(src), target);
+#else
+        copy_array(src, target);
+#endif
         return true;
     }
 };
 
-template<typename T>
-struct property_accessor<T*>
-{
-    static bool set_value(T* prop, argument& arg)
-    {           
-        *prop = *arg.get_value<T*>();
-        return true;
-    }
-};
+/////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, std::size_t N>
 struct property_accessor<T(*)[N]>
 {
-    static bool set_value(T (* prop)[N], argument& arg)
-    {           
-        copy_array(*arg.get_value<T(*)[N]>(), *prop);
+
+    static bool set_value(T (*target)[N], const T (*src)[N])
+    {
+        copy_array(src, target);
         return true;
     }
 };
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
 } // end namespace detail
 } // end namespace rttr
 
-#endif // RTTR_PROPERTY_ACCESSOR_
+#endif // RTTR_PROPERTY_ACCESSOR_H_

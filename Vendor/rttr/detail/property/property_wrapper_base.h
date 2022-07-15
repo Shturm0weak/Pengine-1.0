@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -33,6 +33,7 @@
 #include "rttr/type.h"
 #include "rttr/variant.h"
 #include "rttr/access_levels.h"
+#include "rttr/string_view.h"
 
 namespace rttr
 {
@@ -43,8 +44,8 @@ class argument;
 namespace detail
 {
 /*!
- * Abstract class for an instance of a Property.
- * 
+ * Base class for an instance of a Property.
+ *
  * This is the base class for all properties of the system.
  * It provide the basic mechanism for getting all meta data of a property,
  * but it also define a general interface to set/get properties via string: toString and fromString.
@@ -52,47 +53,35 @@ namespace detail
 class RTTR_API property_wrapper_base
 {
     public:
-        property_wrapper_base();
+        property_wrapper_base(string_view name, type declaring_type) RTTR_NOEXCEPT;
 
         virtual ~property_wrapper_base();
 
-        //! sets the name of this property.
-        void set_name(const char* name);
+        type get_declaring_type() const RTTR_NOEXCEPT;
 
-        //! returns the name of this property.
-        const char* get_name() const;
+        string_view get_name() const RTTR_NOEXCEPT;
 
-        virtual access_levels get_access_level() const = 0;
+        virtual bool is_valid() const RTTR_NOEXCEPT;
 
-        //! Returns true whether this is a constant property, otherwise false.
-        virtual bool is_readonly() const = 0;
+        virtual access_levels get_access_level() const RTTR_NOEXCEPT;
 
-        //! Returns true whether this is a static property, otherwise false.
-        virtual bool is_static() const = 0;
-    
-        //! Returns the type of the underlying property.
-        virtual type get_type() const = 0;
+        virtual bool is_readonly() const RTTR_NOEXCEPT;
 
-        //! Returns the class that declares this property.
-        type get_declaring_type() const;
+        virtual bool is_static() const RTTR_NOEXCEPT;
 
-        //! Sets the declaring type for this property.
-        void set_declaring_type(type declaring_type);
+        virtual type get_type() const RTTR_NOEXCEPT;
 
-        //! Retrieve the stored metadata for this property
-        virtual variant get_metadata(const variant& key) const = 0;
+        virtual variant get_metadata(const variant& key) const;
 
-        //! Returns true when the underlying property is an array type.
-        virtual bool is_array() const = 0;
+        virtual bool set_value(instance& object, argument& arg) const;
 
-        //! Sets this property of the given instance \p instance to the value of the argument \p argument.
-        virtual bool set_value(instance& object, argument& arg) const = 0;
+        virtual variant get_value(instance& object) const;
 
-        //! Returns the value of this property from the given instance \p instance.
-        virtual variant get_value(instance& object) const = 0;
+    protected:
+        void init() RTTR_NOEXCEPT;
 
     private:
-        const char* m_name;
+        string_view m_name;
         type        m_declaring_type;
 };
 

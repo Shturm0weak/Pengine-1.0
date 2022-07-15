@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -37,20 +37,20 @@ namespace detail
 
 /*!
  * This class holds one enum data.
- * 
+ *
  */
 template<typename Enum_Type>
 class enum_data
 {
     public:
-        enum_data() : m_name(nullptr) {}
-        enum_data(const char* name, Enum_Type value) : m_name(name), m_value(value) { }
+        enum_data() {}
+        enum_data(string_view name, Enum_Type value) : m_name(name), m_value(value) { }
 
-        const char* get_name() const    { return m_name; }
+        string_view get_name() const    { return m_name;  }
         Enum_Type get_value() const     { return m_value; }
 
     private:
-        const char* m_name;
+        string_view m_name;
         Enum_Type   m_value;
 };
 

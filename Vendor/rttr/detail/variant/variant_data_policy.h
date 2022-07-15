@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -31,10 +31,11 @@
 #include "rttr/detail/misc/misc_type_traits.h"
 #include "rttr/detail/variant/variant_data.h"
 #include "rttr/detail/misc/argument_wrapper.h"
-#include "rttr/detail/variant_array_view/variant_array_view_creator.h"
+#include "rttr/detail/variant_associative_view/variant_associative_view_creator.h"
+#include "rttr/detail/variant_sequential_view/variant_sequential_view_creator.h"
 #include "rttr/detail/variant/variant_data_converter.h"
-#include "rttr/detail/misc/compare_equal.h"
-#include "rttr/detail/misc/compare_less.h"
+#include "rttr/detail/comparison/compare_equal.h"
+#include "rttr/detail/comparison/compare_less.h"
 
 #include <cstdint>
 
@@ -64,7 +65,7 @@ struct variant_data_policy_arithmetic;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename T, bool Can_Place = (sizeof(T) <= sizeof(variant_data)) && 
+template<typename T, bool Can_Place = (sizeof(T) <= sizeof(variant_data)) &&
                                       (std::alignment_of<T>::value <= std::alignment_of<variant_data>::value)>
 using can_place_in_variant = std::integral_constant<bool, Can_Place>;
 
@@ -120,14 +121,18 @@ enum class variant_policy_operation : uint8_t
     DESTROY,
     CLONE,
     SWAP,
+    EXTRACT_WRAPPED_VALUE,
+    CREATE_WRAPPED_VALUE,
     GET_VALUE,
     GET_TYPE,
     GET_PTR,
     GET_RAW_TYPE,
     GET_RAW_PTR,
     GET_ADDRESS_CONTAINER,
-    IS_ARRAY,
-    TO_ARRAY,
+    IS_ASSOCIATIVE_CONTAINER,
+    IS_SEQUENTIAL_CONTAINER,
+    CREATE_ASSOCIATIV_VIEW,
+    CREATE_SEQUENTIAL_VIEW,
     IS_VALID,
     IS_NULLPTR,
     CONVERT,
@@ -143,27 +148,20 @@ using variant_policy_func = bool (*)(variant_policy_operation, const variant_dat
 // some ugly workaround for MSVC < v. 1800
 
 #if RTTR_COMPILER == RTTR_COMPILER_MSVC  && RTTR_COMP_VER <= 1800
-    #define COMPARE_EQUAL_PRE_PROC(lhs, rhs)                                            \
-        compare_equal(const_cast<typename remove_const<T>::type&>(Tp::get_value(lhs)), const_cast<typename remove_const<T>::type&>(rhs.get_value<T>()))
-#else                                                                             
-    #define COMPARE_EQUAL_PRE_PROC(lhs, rhs)                                            \
-        compare_equal(Tp::get_value(src_data), rhs.get_value<T>())                 
+    #define COMPARE_EQUAL_PRE_PROC(lhs, rhs, ok)                                  \
+        compare_equal(const_cast<typename remove_const<T>::type&>(Tp::get_value(lhs)), const_cast<typename remove_const<T>::type&>(rhs.get_value<T>()), ok)
+#else
+    #define COMPARE_EQUAL_PRE_PROC(lhs, rhs, ok)                                  \
+        compare_equal(Tp::get_value(src_data), rhs.get_value<T>(), ok)
 #endif
 
 #if RTTR_COMPILER == RTTR_COMPILER_MSVC && RTTR_COMP_VER <= 1800
-    #define COMPARE_LESS_PRE_PROC(lhs, rhs, result)                                     \
+    #define COMPARE_LESS_PRE_PROC(lhs, rhs, result)                           \
         compare_less_than(const_cast<typename remove_const<T>::type&>(Tp::get_value(lhs)), const_cast<typename remove_const<T>::type&>(rhs.get_value<T>()), result)
-#else                                                                             
-    #define COMPARE_LESS_PRE_PROC(lhs, rhs, result)                                     \
-        compare_less_than(Tp::get_value(src_data), rhs.get_value<T>(), result)                      
+#else
+    #define COMPARE_LESS_PRE_PROC(lhs, rhs, result)                           \
+        compare_less_than(Tp::get_value(src_data), rhs.get_value<T>(), result)
 #endif
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-static RTTR_INLINE bool is_floating_point(const type& type)
-{
-    return (type == type::get<float>() || type == type::get<double>());
-}
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -184,12 +182,41 @@ static RTTR_INLINE is_nullptr(T& to)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+#if RTTR_COMPILER == RTTR_COMPILER_MSVC && RTTR_COMP_VER <= 1800
+    // MSVC 2013 has not a full working "std::is_copy_constructible", thats why
+    // this workaround is used here
+    template<typename T>
+    using is_copyable = ::rttr::detail::is_copy_constructible<T>;
+#else
+    template<typename T>
+    using is_copyable = std::is_copy_constructible<T>;
+#endif
+
+template<typename T, typename Tp = decay_except_array_t<wrapper_mapper_t<T>> >
+enable_if_t<is_copyable<Tp>::value &&
+            is_wrapper<T>::value, variant> get_wrapped_value(T& value)
+{
+    using raw_wrapper_type = remove_cv_t<remove_reference_t<T>>;
+    return variant(wrapper_mapper<raw_wrapper_type>::get(value));
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+template<typename T, typename Tp = decay_except_array_t<wrapper_mapper_t<T>>>
+enable_if_t<!is_copyable<Tp>::value ||
+            !is_wrapper<T>::value, variant> get_wrapped_value(T& value)
+{
+    return variant();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 
 /*!
  * This class represents the base implementation for variant_data policy.
  *
  * We use the C++ idiom CRTP (Curiously Recurring Template Pattern) to avoid rewriting the same code over an over again.
- * The template parameter \p Tp represents the derived class, which will be invoked. 
+ * The template parameter \p Tp represents the derived class, which will be invoked.
  * Hopefully, the function call to derived class will be inlined.
  */
 template<typename T, typename Tp, typename Converter>
@@ -199,7 +226,7 @@ struct variant_data_base_policy
     {
         switch (op)
         {
-            case variant_policy_operation::DESTROY: 
+            case variant_policy_operation::DESTROY:
             {
                 Tp::destroy(const_cast<T&>(Tp::get_value(src_data)));
                 break;
@@ -212,6 +239,20 @@ struct variant_data_base_policy
             case variant_policy_operation::SWAP:
             {
                 Tp::swap(const_cast<T&>(Tp::get_value(src_data)), arg.get_value<variant_data>());
+                break;
+            }
+            case variant_policy_operation::EXTRACT_WRAPPED_VALUE:
+            {
+                arg.get_value<variant>() = get_wrapped_value(Tp::get_value(src_data));
+                break;
+            }
+            case variant_policy_operation::CREATE_WRAPPED_VALUE:
+            {
+                const auto& params          = arg.get_value<std::tuple<variant&, const type&>>();
+                variant& var                = std::get<0>(params);
+                const type& wrapper_type    = std::get<1>(params);
+
+                wrapper_type.create_wrapped_value(Tp::get_value(src_data), var);
                 break;
             }
             case variant_policy_operation::GET_VALUE:
@@ -249,74 +290,103 @@ struct variant_data_base_policy
                 data.m_data_address_wrapped_type    = as_void_ptr(wrapped_raw_addressof(Tp::get_value(src_data)));
                 break;
             }
-            case variant_policy_operation::IS_ARRAY:
+            case variant_policy_operation::IS_ASSOCIATIVE_CONTAINER:
             {
-                return ::rttr::detail::is_array<typename raw_type<T>::type>::value;
+                return can_create_associative_view<T>::value;
             }
-            case variant_policy_operation::TO_ARRAY:
+            case variant_policy_operation::IS_SEQUENTIAL_CONTAINER:
             {
-                arg.get_value<std::unique_ptr<array_wrapper_base>&>() = create_variant_array_view(const_cast<T&>(Tp::get_value(src_data)));
+                return can_create_sequential_view<T>::value;
+            }
+            case variant_policy_operation::CREATE_ASSOCIATIV_VIEW:
+            {
+                arg.get_value<variant_associative_view_private&>() = create_variant_associative_view(const_cast<T&>(Tp::get_value(src_data)));
+                break;
+            }
+            case variant_policy_operation::CREATE_SEQUENTIAL_VIEW:
+            {
+                arg.get_value<variant_sequential_view_private&>() = create_variant_sequential_view(const_cast<T&>(Tp::get_value(src_data)));
                 break;
             }
             case variant_policy_operation::CONVERT:
             {
                 return Converter::convert_to(Tp::get_value(src_data), arg.get_value<argument>());
-                break;
             }
             case variant_policy_operation::IS_VALID:
             {
                 return true;
-                break;
             }
             case variant_policy_operation::IS_NULLPTR:
             {
                 return is_nullptr(Tp::get_value(src_data));
-                break;
             }
             case variant_policy_operation::COMPARE_EQUAL:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& lhs  = std::get<0>(param);
                 const variant& rhs  = std::get<1>(param);
+                bool& ok            = std::get<2>(param);
                 const type rhs_type = rhs.get_type();
                 const type lhs_type = type::get<T>();
+                const auto is_lhs_arithmetic = std::is_arithmetic<T>::value;
+                RTTR_BEGIN_DISABLE_CONDITIONAL_EXPR_WARNING
+
                 if (lhs_type == rhs_type)
                 {
-                    return COMPARE_EQUAL_PRE_PROC(src_data, rhs);
+                    return COMPARE_EQUAL_PRE_PROC(src_data, rhs, ok);
                 }
                 else
                 {
-                    variant var_tmp;
-                    if (rhs.convert(lhs_type, var_tmp))
-                        return COMPARE_EQUAL_PRE_PROC(src_data, var_tmp);
-                    else if (lhs.convert(rhs_type, var_tmp))
-                        return (var_tmp.compare_equal(rhs));
+                    if (is_lhs_arithmetic && rhs_type.is_arithmetic())
+                    {
+                        return variant_compare_equal(lhs, lhs_type, rhs, rhs_type, ok);
+                    }
+                    else
+                    {
+                        variant var_tmp;
+                        if (rhs.convert(lhs_type, var_tmp))
+                            return COMPARE_EQUAL_PRE_PROC(src_data, var_tmp, ok);
+                        else if (lhs.convert(rhs_type, var_tmp))
+                            return (var_tmp.compare_equal(rhs, ok));
+                        else if (rhs.is_nullptr())
+                            return is_nullptr(Tp::get_value(src_data));
+                    }
                 }
 
+                RTTR_END_DISABLE_CONDITIONAL_EXPR_WARNING
                 return false;
-                break;
             }
             case variant_policy_operation::COMPARE_LESS:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& lhs  = std::get<0>(param);
                 const variant& rhs  = std::get<1>(param);
+                bool& ok            = std::get<2>(param);
                 const type rhs_type = rhs.get_type();
                 const type lhs_type = type::get<T>();
                 int result = 0;
                 if (lhs_type == rhs_type)
                 {
-                    if (COMPARE_LESS_PRE_PROC(src_data, rhs, result))
+                    if ((ok = COMPARE_LESS_PRE_PROC(src_data, rhs, result)) == true)
                         return (result == -1 ? true : false);
                 }
                 else
                 {
-                    return variant_compare_less(lhs, lhs_type, rhs, rhs_type);
+                    return variant_compare_less(lhs, lhs_type, rhs, rhs_type, ok);
                 }
 
-                // as last try, do a string conversion
-                return (lhs.to_string() < rhs.to_string());
-                break;
+                bool ok1 = false;
+                bool ok2 = false;
+                auto ret = (lhs.to_string(&ok1) < rhs.to_string(&ok2));
+                if (ok1 && ok2)
+                {
+                    ok = true;
+                    return ret;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -340,12 +410,12 @@ struct variant_data_policy_small : variant_data_base_policy<T, variant_data_poli
     {
         return reinterpret_cast<const T&>(data);
     }
-    
+
     static RTTR_INLINE void destroy(T& value)
     {
         value.~T();
     }
-    
+
     static RTTR_INLINE void clone(const T& value, variant_data& dest)
     {
         new (&dest) T(value);
@@ -360,7 +430,7 @@ struct variant_data_policy_small : variant_data_base_policy<T, variant_data_poli
     template<typename U>
     static RTTR_INLINE void create(U&& value, variant_data& dest)
     {
-        new (&dest) T(std::forward<U>(value)); 
+        new (&dest) T(std::forward<U>(value));
     }
 };
 
@@ -378,12 +448,12 @@ struct variant_data_policy_big : variant_data_base_policy<T, variant_data_policy
     {
         return *reinterpret_cast<T* const &>(data);
     }
-    
+
     static RTTR_INLINE void destroy(T& value)
     {
         delete &value;
     }
-    
+
     static RTTR_INLINE void clone(const T& value, variant_data& dest)
     {
         reinterpret_cast<T*&>(dest) = new T(value);
@@ -423,11 +493,11 @@ struct variant_data_policy_array_small : variant_data_base_policy<T, variant_dat
     {
         return reinterpret_cast<const T&>(data);
     }
-    
+
     static RTTR_INLINE void destroy(T& value)
     {
     }
-    
+
     static RTTR_INLINE void clone(const T& value, variant_data& dest)
     {
         COPY_ARRAY_PRE_PROC(value, dest);
@@ -461,12 +531,12 @@ struct variant_data_policy_array_big : variant_data_base_policy<T, variant_data_
     {
         return reinterpret_cast<const T&>(*reinterpret_cast<const array_dest_type&>(data));
     }
-    
+
     static RTTR_INLINE void destroy(T& value)
     {
         delete [] &value;
     }
-    
+
     static RTTR_INLINE void clone(const T& value, variant_data& dest)
     {
         reinterpret_cast<array_dest_type&>(dest) = new T;
@@ -503,11 +573,11 @@ struct variant_data_policy_arithmetic : variant_data_base_policy<T, variant_data
     {
         return reinterpret_cast<const T&>(data);
     }
-    
+
     static RTTR_INLINE void destroy(T& value)
     {
     }
-    
+
     static RTTR_INLINE void clone(const T& value, variant_data& dest)
     {
         reinterpret_cast<T&>(dest) = value;
@@ -560,15 +630,17 @@ struct RTTR_API variant_data_policy_empty
     {
         switch (op)
         {
-            case variant_policy_operation::DESTROY: 
+            case variant_policy_operation::DESTROY:
             case variant_policy_operation::CLONE:
             case variant_policy_operation::SWAP:
+            case variant_policy_operation::EXTRACT_WRAPPED_VALUE:
+            case variant_policy_operation::CREATE_WRAPPED_VALUE:
             {
                 break;
             }
             case variant_policy_operation::GET_VALUE:
             {
-                arg.get_value<void*>() = nullptr;
+                arg.get_value<const void*>() = nullptr;
                 break;
             }
             case variant_policy_operation::GET_TYPE:
@@ -601,18 +673,25 @@ struct RTTR_API variant_data_policy_empty
                 data.m_data_address_wrapped_type    = nullptr;
                 break;
             }
-            case variant_policy_operation::IS_ARRAY:
+            case variant_policy_operation::IS_ASSOCIATIVE_CONTAINER:
             {
                 return false;
             }
-            case variant_policy_operation::TO_ARRAY:
+            case variant_policy_operation::IS_SEQUENTIAL_CONTAINER:
+            {
+                return false;
+            }
+            case variant_policy_operation::CREATE_ASSOCIATIV_VIEW:
+            {
+                break;
+            }
+            case variant_policy_operation::CREATE_SEQUENTIAL_VIEW:
             {
                 break;
             }
             case variant_policy_operation::IS_VALID:
             {
                 return false;
-                break;
             }
             case variant_policy_operation::IS_NULLPTR:
             {
@@ -624,10 +703,12 @@ struct RTTR_API variant_data_policy_empty
             }
             case variant_policy_operation::COMPARE_EQUAL:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
-                const variant& lhs  = std::get<0>(param);
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& rhs  = std::get<1>(param);
-                return !rhs.is_valid();
+                bool& ok            = std::get<2>(param);
+                if (!rhs.is_valid())
+                    ok = true;
+                return ok;
             }
             case variant_policy_operation::COMPARE_LESS:
             {
@@ -657,15 +738,16 @@ struct RTTR_API variant_data_policy_void
     {
         switch (op)
         {
-            case variant_policy_operation::DESTROY: 
+            case variant_policy_operation::DESTROY:
             case variant_policy_operation::CLONE:
             case variant_policy_operation::SWAP:
+            case variant_policy_operation::EXTRACT_WRAPPED_VALUE:
             {
                 break;
             }
             case variant_policy_operation::GET_VALUE:
             {
-                arg.get_value<void*>() = nullptr;
+                arg.get_value<const void*>() = nullptr;
                 break;
             }
             case variant_policy_operation::GET_TYPE:
@@ -697,13 +779,25 @@ struct RTTR_API variant_data_policy_void
                 data.m_data_address_wrapped_type    = nullptr;
                 break;
             }
-            case variant_policy_operation::IS_ARRAY:
+            case variant_policy_operation::IS_ASSOCIATIVE_CONTAINER:
             {
                 return false;
             }
-            case variant_policy_operation::TO_ARRAY:
+            case variant_policy_operation::IS_SEQUENTIAL_CONTAINER:
+            {
+                return false;
+            }
+            case variant_policy_operation::CREATE_ASSOCIATIV_VIEW:
             {
                 break;
+            }
+            case variant_policy_operation::CREATE_SEQUENTIAL_VIEW:
+            {
+                break;
+            }
+            case variant_policy_operation::CREATE_WRAPPED_VALUE:
+            {
+                return false;
             }
             case variant_policy_operation::IS_NULLPTR:
             {
@@ -712,7 +806,6 @@ struct RTTR_API variant_data_policy_void
             case variant_policy_operation::IS_VALID:
             {
                 return true;
-                break;
             }
             case variant_policy_operation::CONVERT:
             {
@@ -720,10 +813,12 @@ struct RTTR_API variant_data_policy_void
             }
             case variant_policy_operation::COMPARE_EQUAL:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
-                const variant& lhs  = std::get<0>(param);
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& rhs  = std::get<1>(param);
-                return (rhs.is_type<void>());
+                bool& ok            = std::get<2>(param);
+                if (rhs.is_type<void>())
+                    ok = true;
+                return ok;
             }
             case variant_policy_operation::COMPARE_LESS:
             {
@@ -761,7 +856,7 @@ struct RTTR_API variant_data_policy_nullptr_t
         // otherwise mingw has reports a problems here: "request for member 'nullptr_t' in non-class type 'std::nullptr_t'"
         value.std::nullptr_t::~nullptr_t();
     }
-    
+
     static RTTR_INLINE void clone(const std::nullptr_t& value, variant_data& dest)
     {
         new (&dest) std::nullptr_t(value);
@@ -790,6 +885,14 @@ struct RTTR_API variant_data_policy_nullptr_t
             case variant_policy_operation::SWAP:
             {
                 swap(get_value(src_data), arg.get_value<variant_data>());
+                break;
+            }
+            case variant_policy_operation::CREATE_WRAPPED_VALUE:
+            {
+                return false;
+            }
+            case variant_policy_operation::EXTRACT_WRAPPED_VALUE:
+            {
                 break;
             }
             case variant_policy_operation::GET_VALUE:
@@ -826,11 +929,19 @@ struct RTTR_API variant_data_policy_nullptr_t
                 data.m_data_address_wrapped_type    = as_void_ptr(wrapped_raw_addressof(get_value(src_data)));
                 break;
             }
-            case variant_policy_operation::IS_ARRAY:
+            case variant_policy_operation::IS_ASSOCIATIVE_CONTAINER:
             {
                 return false;
             }
-            case variant_policy_operation::TO_ARRAY:
+            case variant_policy_operation::IS_SEQUENTIAL_CONTAINER:
+            {
+                return false;
+            }
+            case variant_policy_operation::CREATE_ASSOCIATIV_VIEW:
+            {
+                break;
+            }
+            case variant_policy_operation::CREATE_SEQUENTIAL_VIEW:
             {
                 break;
             }
@@ -848,31 +959,19 @@ struct RTTR_API variant_data_policy_nullptr_t
             }
             case variant_policy_operation::COMPARE_EQUAL:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
-                const variant& lhs  = std::get<0>(param);
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& rhs  = std::get<1>(param);
-                const type rhs_type = rhs.get_type();
-                const type lhs_type = type::get<std::nullptr_t>();
-                if (lhs_type == rhs_type)
-                {
-                    return compare_equal(get_value(src_data), rhs.get_value<std::nullptr_t>());
-                }
-                else
-                {
-                    variant var_tmp;
-                    if (rhs.convert(lhs_type, var_tmp))
-                        return compare_equal(get_value(src_data), var_tmp.get_value<std::nullptr_t>());
-                    else if (lhs.convert(rhs_type, var_tmp))
-                        return (var_tmp.compare_equal(rhs));
-                }
-
-                return false;
+                bool&           ok  = std::get<2>(param);
+                ok = true;
+                return rhs.is_nullptr();
             }
             case variant_policy_operation::COMPARE_LESS:
             {
-                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&>>();
+                const auto& param   = arg.get_value<std::tuple<const variant&, const variant&, bool&>>();
                 const variant& lhs  = std::get<0>(param);
                 const variant& rhs  = std::get<1>(param);
+                bool& ok            = std::get<2>(param);
+                ok = true;
                 return (lhs.is_nullptr() && !rhs.is_nullptr());
             }
         }
@@ -882,9 +981,43 @@ struct RTTR_API variant_data_policy_nullptr_t
     template<typename U>
     static RTTR_INLINE void create(U&& value, variant_data& dest)
     {
-        new (&dest) std::nullptr_t(std::forward<U>(value)); 
+        new (&dest) std::nullptr_t(std::forward<U>(value));
     }
 };
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// default export, to reduce compile time, and code bloat
+template struct RTTR_API variant_data_policy_arithmetic<bool>;
+template struct RTTR_API variant_data_policy_arithmetic<char>;
+template struct RTTR_API variant_data_policy_arithmetic<float>;
+template struct RTTR_API variant_data_policy_arithmetic<double>;
+
+template struct RTTR_API variant_data_policy_arithmetic<std::uint8_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::uint16_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::uint32_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::uint64_t>;
+
+template struct RTTR_API variant_data_policy_arithmetic<std::int8_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::int16_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::int32_t>;
+template struct RTTR_API variant_data_policy_arithmetic<std::int64_t>;
+
+
+template struct RTTR_API variant_data_policy_small<bool*>;
+template struct RTTR_API variant_data_policy_small<char*>;
+template struct RTTR_API variant_data_policy_small<float*>;
+template struct RTTR_API variant_data_policy_small<double*>;
+
+template struct RTTR_API variant_data_policy_small<std::uint8_t*>;
+template struct RTTR_API variant_data_policy_small<std::uint16_t*>;
+template struct RTTR_API variant_data_policy_small<std::uint32_t*>;
+template struct RTTR_API variant_data_policy_small<std::uint64_t*>;
+
+template struct RTTR_API variant_data_policy_small<std::int8_t*>;
+template struct RTTR_API variant_data_policy_small<std::int16_t*>;
+template struct RTTR_API variant_data_policy_small<std::int32_t*>;
+template struct RTTR_API variant_data_policy_small<std::int64_t*>;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

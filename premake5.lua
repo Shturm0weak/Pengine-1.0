@@ -35,13 +35,14 @@ project "Pengine"
 		"Box2D",
 		"Yaml",
 		"ImGui",
+		"RTTR",
 		"glfw3.lib",
 		"opengl32.lib",
 		"glew32s.lib",
 		"ImGui.lib",
 		"OpenAL32.lib",
 		"Box2D.lib",
-		"rttr_core.lib",
+		"RTTR.lib",
 		"Yaml.lib"
 	}
 
@@ -74,8 +75,7 @@ project "Pengine"
 		libdirs {"$(SolutionDir)Libs/Debug"}
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Release"),
-			("{COPY} $(SolutionDir)Dlls/rttr_core_d.dll ../bin/" .. outputdir .. "/SandBox")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Release")
 		}
 
 	filter "configurations:Release"
@@ -87,8 +87,7 @@ project "Pengine"
 		libdirs {"$(SolutionDir)Libs/Release"}
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Debug"),
-			("{COPY} $(SolutionDir)Dlls/rttr_core.dll ../bin/" .. outputdir .. "/SandBox")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Debug")
 		}
 
 project "SandBox"
@@ -119,7 +118,7 @@ project "SandBox"
 		"OpenAL32.lib",
 		"Pengine.lib",
 		"Box2D.lib",
-		"rttr_core.lib",
+		"RTTR.lib",
 		"Yaml.lib"
 	}
 
@@ -314,4 +313,54 @@ project "Yaml"
 
 		postbuildcommands {
 			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Yaml/Yaml.lib $(SolutionDir)Libs/Release")
+		}
+
+RTTRLocation = "Vendor/rttr"
+
+project "RTTR"
+	location (RTTRLocation)
+	kind "StaticLib"
+	language "C++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		RTTRLocation .. "/**.h",
+		RTTRLocation .. "/**.cpp"
+	}
+
+	includedirs {
+		"$(SolutionDir)Vendor"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+		flags {
+			"MultiProcessorCompile",
+		}
+
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/RTTR/RTTR.lib $(SolutionDir)Libs/Debug")
+		}
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "Full"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/RTTR/RTTR.lib $(SolutionDir)Libs/Release")
 		}

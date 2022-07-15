@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -29,8 +29,7 @@
 #define RTTR_DESTRUCTOR_H_
 
 #include "rttr/detail/base/core_prerequisites.h"
-
-#include <string>
+#include "rttr/detail/misc/class_item_mapper.h"
 
 namespace rttr
 {
@@ -41,11 +40,13 @@ class type;
 namespace detail
 {
 class destructor_wrapper_base;
+template<>
+RTTR_API destructor create_invalid_item();
 }
 
 /*!
  * The \ref destructor class provides a destructor for registered types.
- * 
+ *
  * A instance of a destructor class can only be obtained from the \ref type class.
  * See \ref type::get_destructor().
  *
@@ -55,14 +56,14 @@ class destructor_wrapper_base;
  *
  * Typical Usage
  * ----------------------
- * 
+ *
  * \code{.cpp}
  *     constructor string_ctor == type::get_by_name("std::string").get_constructor({type::get<const char*>()});
- * 
+ *
  *     variant my_string = string_ctor.invoke("Hello World"); // returns an ptr to the object on the heap
- * 
+ *
  *     type::get("std::string").get_destructor().invoke(my_string);
- * 
+ *
  *     my_string.is_valid(); // yield to false
  * \endcode
  *
@@ -73,50 +74,66 @@ class RTTR_API destructor
     public:
         /*!
          * \brief Returns true whether this destructor object is valid; otherwise false.
-         * 
+         *
          * \return Returns true when the destructor is valid; otherwise false.
          */
-        bool is_valid() const;
+        bool is_valid() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Convenience function to check if this destructor is valid or not.
          *
          * \return True if this destructor is valid, otherwise false.
          */
-        explicit operator bool() const;
+        explicit operator bool() const RTTR_NOEXCEPT;
+
+        /*!
+         * Returns the class that declares this destructor.
+         *
+         * \remark When this destructor is not valid, this function will return an invalid type object (see \ref type::is_valid).
+         *
+         * \return \ref type "Type" of the declaring class/struct for this destructor.
+         */
+        type get_declaring_type() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns the rttr::type for which this destructor can delete objects.
          *
          * \return The type of this destructor.
          */
-        type get_destructed_type() const;
+        type get_destructed_type() const RTTR_NOEXCEPT;
 
         /*!
-         * \brief Destroys the given object \p obj.
+         * \brief Destroys the contained object in the variant \p obj.
          *
          * \remark When the \p obj could be destroyed the given \p obj is invalid after calling this method;
          *         Otherwise it is still valid.
+         *
+         * \return True if the destructor of the object could be invoked, otherwise false.
          */
-        void invoke(variant& obj) const;
+        bool invoke(variant& obj) const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true if this destructor is the same like the \p other.
          *
          * \return True if both destructors are equal, otherwise false.
          */
-        bool operator==(const destructor& other) const;
+        bool operator==(const destructor& other) const RTTR_NOEXCEPT;
 
         /*!
          * Returns true if this destructor is the not the same like the \p other.
          *
          * \return True if both destructors are different, otherwise false.
          */
-        bool operator!=(const destructor& other) const;
+        bool operator!=(const destructor& other) const RTTR_NOEXCEPT;
 
     private:
-        friend class type; // to prevent creation of this class
-        destructor(const detail::destructor_wrapper_base* wrapper = nullptr);
+        destructor(const detail::destructor_wrapper_base* wrapper) RTTR_NOEXCEPT;
+
+        template<typename T>
+        friend T detail::create_item(const detail::class_item_to_wrapper_t<T>* wrapper);
+        template<typename T>
+        friend T detail::create_invalid_item();
+
     private:
         const detail::destructor_wrapper_base* m_wrapper;
 };

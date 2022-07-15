@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -33,11 +33,11 @@ namespace rttr
 {
 namespace detail
 {
-    
+
 struct base_class_info
 {
-    base_class_info(type t,void*(*rttr_cast_func)(void*))
-    : m_base_type(t), m_rttr_cast_func(rttr_cast_func)
+    base_class_info(type t, void*(*rttr_cast_func)(void*))
+    :   m_base_type(t), m_rttr_cast_func(rttr_cast_func)
     {}
     type            m_base_type;
     void*           (*m_rttr_cast_func)(void*);
@@ -64,7 +64,7 @@ public:
 };
 
 /*!
- * If T has a type alias called \a 'base_class_list' then inherits from true_type, otherwise inherits from false_type. 
+ * If T has a type alias called \a 'base_class_list' then inherits from true_type, otherwise inherits from false_type.
  */
 template<typename T>
 using has_base_class_list = std::integral_constant<bool, has_base_class_list_impl<T>::value>;
@@ -74,14 +74,14 @@ using info_container = std::vector<detail::base_class_info>;
 /*!
  * This class fills from a given type_list the corresponding type objects into a std::vector.
  */
-template<typename DerivedClass, typename... T> 
-struct type_from_base_classes;
+template<typename DerivedClass, typename... T>
+struct RTTR_LOCAL type_from_base_classes;
 
 template<typename DerivedClass>
-struct type_from_base_classes<DerivedClass> 
+struct RTTR_LOCAL type_from_base_classes<DerivedClass>
 {
-    static RTTR_INLINE void fill(info_container&) 
-    { 
+    static RTTR_INLINE void fill(info_container&)
+    {
     }
 };
 
@@ -100,15 +100,15 @@ static void* rttr_cast_impl(void* ptr)
     return static_cast<void*>(static_cast<BaseType*>(static_cast<DerivedType*>(ptr)));
 }
 
-template<typename DerivedClass, typename BaseClass, typename... U> 
-struct type_from_base_classes<DerivedClass, BaseClass, U...>
+template<typename DerivedClass, typename BaseClass, typename... U>
+struct RTTR_LOCAL type_from_base_classes<DerivedClass, BaseClass, U...>
 {
     static RTTR_INLINE void fill(info_container& vec)
     {
         static_assert(has_base_class_list<BaseClass>::value, "The parent class has no base class list defined - please use the macro RTTR_ENABLE");
         vec.emplace_back(type::get<BaseClass>(), &rttr_cast_impl<DerivedClass, BaseClass>);
-        // retrieve also the types of all base classes of the base classes; you will get an compile error here, 
-        // when the base class has not defined the 'base_class_list' typedef 
+        // retrieve also the types of all base classes of the base classes; you will get an compile error here,
+        // when the base class has not defined the 'base_class_list' typedef
         type_from_base_classes<DerivedClass, typename BaseClass::base_class_list>::fill(vec);
         // continue with the rest
         type_from_base_classes<DerivedClass, U...>::fill(vec);
@@ -125,7 +125,7 @@ struct type_from_base_classes<DerivedClass, type_list<BaseClassList...>> : type_
  * When there is no type_list defined or the class has no base class, an empty vector is returned.
  */
 template<typename T, typename Enable = void>
-struct base_classes
+struct RTTR_LOCAL base_classes
 {
     static RTTR_INLINE info_container get_types()
     {
@@ -135,7 +135,7 @@ struct base_classes
 };
 
 template<typename T>
-struct base_classes<T, typename std::enable_if<has_base_class_list<T>::value>::type>
+struct RTTR_LOCAL base_classes<T, typename std::enable_if<has_base_class_list<T>::value>::type>
 {
     static RTTR_INLINE info_container get_types()
     {

@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -35,7 +35,6 @@
 #include "rttr/argument.h"
 #include "rttr/detail/type/accessor_type.h"
 #include "rttr/policy.h"
-#include "rttr/array_mapper.h"
 #include "rttr/detail/misc/utility.h"
 #include "rttr/detail/property/property_accessor.h"
 

@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -42,17 +42,20 @@ namespace detail
 {
 /*!
  * Abstract class for a method.
- * 
+ *
  * This is the base class for all methods.
  * You can invoke the method.
  */
 class RTTR_API destructor_wrapper_base
 {
     public:
+        destructor_wrapper_base() RTTR_NOEXCEPT;
         virtual ~destructor_wrapper_base();
 
-        virtual type get_destructed_type() const = 0;
-        virtual void invoke(variant& obj) const = 0;
+        virtual bool is_valid() const RTTR_NOEXCEPT;
+        virtual type get_declaring_type() const RTTR_NOEXCEPT;
+        virtual type get_destructed_type() const RTTR_NOEXCEPT;
+        virtual bool invoke(variant& obj) const RTTR_NOEXCEPT;
 };
 
 } // end namespace detail

@@ -20,11 +20,11 @@ namespace ReflectedProps
 {
 
 #define DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
-bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component, rttr::property& prop) \
+bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component, rttr::property prop) \
 { \
 	using namespace glm; \
 	using namespace std; \
-	if (auto& propData = in[prop.get_name()]) \
+	if (auto& propData = in[prop.get_name().to_string()]) \
 	{ \
 		if (auto& propTypeData = propData["Type"]) \
 		{ \
@@ -42,7 +42,7 @@ bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component,
 }
 
 #define SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
-if (ReflectedProps::is_##type(prop.get_type().get_name())) \
+if (ReflectedProps::is_##type(prop.get_type().get_name().to_string())) \
 { \
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_##type(); \
 	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(component).get_value<type>(); \
@@ -1563,7 +1563,7 @@ void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentMan
 			rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
 			for (auto& prop : componentClass.get_properties())
 			{
-				out << YAML::Key << prop.get_name();
+				out << YAML::Key << prop.get_name().to_string();
 				out << YAML::BeginMap;
 
 				SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
@@ -1589,7 +1589,7 @@ void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentMan
 					{
 						if (value.can_convert<IAsset*>())
 						{
-							std::string type = prop.get_type().get_name();
+							std::string type = prop.get_type().get_name().to_string();
 							IAsset* asset = value.get_value<IAsset*>();
 							if (asset)
 							{

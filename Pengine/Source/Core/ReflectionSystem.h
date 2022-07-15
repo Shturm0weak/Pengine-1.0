@@ -104,7 +104,23 @@ namespace Pengine
 
     };
     
-    #define REGISTER_CLASS(type) RTTR_REGISTRATION(type) \
+
+    #define RTTR_REGISTRATION_USER_DEFINED(type)                            \
+    static void rttr_auto_register_reflection_function_##type();            \
+    namespace                                                               \
+    {                                                                       \
+        struct rttr__auto__register__##type                                 \
+        {                                                                   \
+            rttr__auto__register__##type()                                  \
+            {                                                               \
+                rttr_auto_register_reflection_function_##type();            \
+            }                                                               \
+        };                                                                  \
+    }                                                                       \
+    static const rttr__auto__register__##type RTTR_CAT(RTTR_CAT(auto_register__, __LINE__), type); \
+    static void rttr_auto_register_reflection_function_##type()
+
+    #define REGISTER_CLASS(type) RTTR_REGISTRATION_USER_DEFINED(type) \
     { \
         Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.insert( \
             std::make_pair(std::string(typeid(type).name()).substr(6), \

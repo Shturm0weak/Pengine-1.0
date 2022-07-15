@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -79,7 +79,7 @@ struct RTTR_API policy
          *   std::cout << meth.get_return_type().get_name();    // prints "std::string*"
          *   variant var = meth.invoke(instance());
          *   std::cout << var.is_type<std::string*>();          // prints "true"
-         *   return 0;  
+         *   return 0;
          * }
          * \endcode
          */
@@ -109,7 +109,7 @@ struct RTTR_API policy
          *   std::cout << meth.get_return_type().get_name();    // prints "void"
          *   variant var = meth.invoke(instance());
          *   std::cout << var.is_type<void>();                  // prints "true"
-         *   return 0;  
+         *   return 0;
          * }
          * \endcode
          */
@@ -156,6 +156,41 @@ struct RTTR_API policy
          * \endcode
          */
         static const detail::bind_as_ptr        bind_as_ptr;
+
+        /*!
+         * The \ref as_reference_wrapper policy will bind a member object as *std::reference_wrapper* type.
+         *
+         * This can be useful when binding big data types, like arrays, to avoid copies during get/set of the property.
+         *
+         * See following example code:
+         * \code{.cpp}
+         * using namespace rttr;
+         * struct Foo
+         * {
+         *   std::vector<int> vec;
+         * };
+         *
+         * RTTR_REGISTRATION
+         * {
+         *      registration::class_<Foo>("Foo")
+         *                   .property("vec", &Foo::vec)
+         *                   (
+         *                       policy::prop::as_reference_wrapper
+         *                   );
+         * }
+         *
+         * int main()
+         * {
+         *   Foo obj;
+         *   property prop = type::get<Foo>().get_property("vec");
+         *   variant var = prop.get_value(obj);
+         *   std::cout << var.is_type<std::reference_wrapper<std::vector<int>>>(); // prints "true"
+         *   prop.set_value(obj, var);      // not really necessary, but remark that now a std::reference_wrapper<std::vector<int>> is expected
+         *   return 0;
+         * }
+         * \endcode
+         */
+        static const detail::as_reference_wrapper        as_reference_wrapper;
     };
 
     /*!
@@ -167,8 +202,8 @@ struct RTTR_API policy
         /*!
          * The \ref as_raw_ptr policy will create an instance of a class as raw pointer.
          *
-         * That means the object is created with a *new*-expression and its lifetime lasts 
-         * until it is destroyed using a *delete*-expression. 
+         * That means the object is created with a *new*-expression and its lifetime lasts
+         * until it is destroyed using a *delete*-expression.
          * In order to invoke the delete expression use the corresponding \ref destructor.
          *
          * See following example code:
@@ -203,9 +238,9 @@ struct RTTR_API policy
          * The \ref as_std_shared_ptr policy will create an instance of a class through *std::make_shared<T>*.
          *
          * That means the object is \ref type::is_wrapper() "wrapped" into a *std::shared_ptr<T>*.
-         * The wrapped object is destroyed and its memory deallocated when either of the following happens: 
-         * - the last remaining variant object (which contains the *shared_ptr* owning the object is destroyed.
-         * - the last remaining variant owning the *shared_ptr* is assigned another object.
+         * The wrapped object is destroyed and its memory deallocated when either of the following happens:
+         * - the last remaining variant owning the *shared_ptr* is destroyed
+         * - the last remaining variant owning the *shared_ptr* is assigned another data or variant
          *
          * The object is destroyed using the default deleter of *std::shared_ptr*.
          *

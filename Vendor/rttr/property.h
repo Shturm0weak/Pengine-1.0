@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -29,9 +29,10 @@
 #define RTTR_PROPERTY_H_
 
 #include "rttr/detail/base/core_prerequisites.h"
-
+#include "rttr/detail/misc/class_item_mapper.h"
 #include "rttr/parameter_info.h"
 #include "rttr/access_levels.h"
+#include "rttr/string_view.h"
 
 #include <string>
 
@@ -42,38 +43,39 @@ class type;
 class enumeration;
 class instance;
 class argument;
+class property;
 
 namespace detail
 {
     class property_wrapper_base;
 }
-  
+
 /*!
  * The \ref property class provides several meta information about a property and gives read/write access to its value.
  *
  * A instance of a property class can only be obtained from the \ref type class.
  * See \ref type::get_property() and \ref type::get_properties().
  *
- * For registration a property, nested inside a class, see \ref registration::class_<T>::property() 
+ * For registration a property, nested inside a class, see \ref registration::class_<T>::property()
  * and for global properties see \ref registration::property().
  *
  * Meta Information
  * ----------------
  * A \ref property has a \ref get_name() "name", and a \ref get_type() "type" as well as attributes that specify its behavior:
- * \ref is_readonly(), \ref is_static(), \ref is_enumeration(), \ref is_array(). 
+ * \ref is_readonly(), \ref is_static(), \ref is_enumeration(), \ref is_array().
  * When the \ref property was declared inside a class, then \ref get_declaring_type() can be used to obtain the type of this class.
  *
  * The property's values are set and retrieved with \ref set_value() and \ref get_value();
  * When its not a \ref is_static "static property" you have to provide a class instance to set/get the property value.
  * This instance can be the raw type on the stack; the current hierarchy level doesn't matter. It can be also a raw pointer to the object or
  * a \ref variant which contains the instance, again as pointer or stack object.
- * When the property is declared as \ref is_static "static" you you still have to provide an empty instance object, 
+ * When the property is declared as \ref is_static "static" you you still have to provide an empty instance object,
  * use therefore the default ctor of \ref instance::instance() "instance()", or as shortcut use simply `{}`.
  *
  * A property will be successfully \ref set_value "set" when the provided instance can be converted to the \ref get_declaring_type() "declared class" type.
  * The new forwarded property value must 100% match the type of the registered property. An automatically type conversion is **not** performed.
  *
- * The return type of \ref get_value() is \ref variant object. 
+ * The return type of \ref get_value() is \ref variant object.
  * This object contains not only the value of the property, it also indicates whether the property value could be retrieved or not.
  * A \ref variant::is_valid "valid" variant object means, that the property was successfully retrieved, otherwise not.
  *
@@ -85,7 +87,7 @@ namespace detail
  *
  * Typical Usage
  * ----------------------
- * 
+ *
 \code{.cpp}
   using namespace rttr;
   struct MyStruct { int value = 23; };
@@ -119,24 +121,24 @@ class RTTR_API property
          *
          * \return True if this property is valid, otherwise false.
          */
-        bool is_valid() const;
+        bool is_valid() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Convenience function to check if this property is valid or not.
          *
          * \return True if this property is valid, otherwise false.
          */
-        explicit operator bool() const;
+        explicit operator bool() const RTTR_NOEXCEPT;
 
         /*!
-         * \brief Returns the access level with which this property was 
+         * \brief Returns the access level with which this property was
          *        \ref registration::class_<T>::property() "registered".
          *
          * \remark When the property is not valid, this function will return level \ref access_levels::public_access.
          *
          * \return \ref access_levels of the property.
          */
-        access_levels get_access_level() const;
+        access_levels get_access_level() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true if this property is read only, otherwise false.
@@ -145,8 +147,7 @@ class RTTR_API property
          *
          * \return True if this is a read only property, otherwise false.
          */
-        bool is_readonly() const;
-
+        bool is_readonly() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true if this property is static property, otherwise false.
@@ -156,8 +157,7 @@ class RTTR_API property
          *
          * \return True if this is a static property, otherwise false.
          */
-        bool is_static() const;
-
+        bool is_static() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true if the underlying property is an \ref enumeration.
@@ -166,35 +166,26 @@ class RTTR_API property
          *
          * \return True if this is a \ref enumeration type, otherwise false.
          */
-        bool is_enumeration() const;
+        bool is_enumeration() const RTTR_NOEXCEPT;
 
        /*!
-         * \brief Returns the enumerator if this property is an enum type; 
+         * \brief Returns the enumerator if this property is an enum type;
          *        otherwise the returned value is \ref enumeration::is_valid "not valid".
          *
          * \see is_enumeration()
          *
          * \return An enumeration object.
          */
-        enumeration get_enumeration() const;
-
-        /*!
-         * \brief Returns true if the underlying property is an \ref array.
-         *
-         * \remark When the property is not valid, this function will return false.
-         *
-         * \return True if this is a \ref array type, otherwise false.
-         */
-        bool is_array() const;
+        enumeration get_enumeration() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns the name of this property.
          *
-         * \remark When the property is not valid, this function will return an empty string.
+         * \remark When the property is not valid, this function will return an empty string_view.
          *
          * \return Name of the property.
          */
-        std::string get_name() const;
+        string_view get_name() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns the underlying \ref type object of this property.
@@ -203,7 +194,7 @@ class RTTR_API property
          *
          * \return \ref type "Type" of the underlying property.
          */
-        type get_type() const;
+        type get_type() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns the \ref type of the class or struct that declares this property.
@@ -213,7 +204,7 @@ class RTTR_API property
          *
          * \return \ref type "Type" of the declaring class/struct for this property.
          */
-        type get_declaring_type() const;
+        type get_declaring_type() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Set the property of the given instance \p object to the given value \p arg.
@@ -227,7 +218,7 @@ class RTTR_API property
          * \return The return value indicates whether the operation was successful or not.
          */
         bool set_value(instance object, argument arg) const;
-        
+
         /*!
          * \brief Returns the current property value of the given instance \p object.
          *
@@ -242,7 +233,7 @@ class RTTR_API property
         /*!
          * \brief Returns the meta data for the given key \p key.
          *
-         * \remark When no meta data is registered with the given \p key, 
+         * \remark When no meta data is registered with the given \p key,
          *         an invalid \ref variant object is returned (see \ref variant::is_valid).
          *
          * \return A variant object, containing arbitrary data.
@@ -254,19 +245,24 @@ class RTTR_API property
          *
          * \return True if both properties are equal, otherwise false.
          */
-        bool operator==(const property& other) const;
+        bool operator==(const property& other) const RTTR_NOEXCEPT;
 
         /*!
          * Returns true if this property is the not the same like the \p other.
          *
          * \return True if both properties are different, otherwise false.
          */
-        bool operator!=(const property& other) const;
+        bool operator!=(const property& other) const RTTR_NOEXCEPT;
 
     private:
-        friend class type; // to prevent creation of this class
         //! Constructs a property from a property_wrapper_base.
-        property(const detail::property_wrapper_base* wrapper = nullptr);
+        property(const detail::property_wrapper_base* wrapper) RTTR_NOEXCEPT;
+
+        template<typename T>
+        friend T detail::create_item(const detail::class_item_to_wrapper_t<T>* wrapper);
+        template<typename T>
+        friend T detail::create_invalid_item();
+
     private:
         const detail::property_wrapper_base* m_wrapper;
 };

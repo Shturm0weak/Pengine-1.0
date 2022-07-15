@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -31,12 +31,18 @@
 #include "rttr/detail/base/core_prerequisites.h"
 
 #include "rttr/detail/misc/std_type_traits.h"
+#include "rttr/detail/misc/misc_type_traits.h"
 
 #include <cstddef>
 #include <memory>
 #include <type_traits>
 #include <utility>
 #include <algorithm>
+#include <string>
+
+#ifdef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+RTTR_BEGIN_DISABLE_EXCEPT_TYPE_WARNING
+#endif
 
 namespace rttr
 {
@@ -177,6 +183,32 @@ struct remove_last_index_impl<index_sequence<First, I...>>
 template<typename T>
 using remove_last_index = typename remove_last_index_impl<T>::type;
 
+/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
+
+//template<typename T, std::size_t Index>
+//using type_identity = T;
+
+//
+template<typename T, std::size_t Index>
+struct type_identity
+{
+    using type = T;
+};
+
+template<typename T, std::size_t N, typename Indices = make_index_sequence<N>>
+struct create_type_list;
+
+template<typename T, std::size_t N, std::size_t... Indices>
+struct create_type_list<T, N, index_sequence<Indices...>>
+{
+    using type = type_list<typename type_identity<T, Indices>::type...>;
+};
+
+// creates a type list with type T, N times in it
+// e.g. create_type_list_t<int, 3> => type_list<int, int, int>
+template<typename T, std::size_t N>
+using create_type_list_t = typename create_type_list<T, N>::type;
 
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -189,7 +221,7 @@ static RTTR_INLINE bool check_all_true(bool arg1, BoolArgs... args) { return arg
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-// copy the content of any arbitrary array, use it like: 
+// copy the content of any arbitrary array, use it like:
 // copy_array(in, out);
 // works with every dimension
 
@@ -222,107 +254,33 @@ auto copy_array(const ElementType (&in)[Count], ElementType (&out)[Count])
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-// compare whether two arrays are the same or not
-// the comparison will go down till element wise comparison
-
-template<typename ElementType>
-struct compare_array_equal_impl
-{
-    bool operator()(const ElementType &lhs, const ElementType &rhs)
-    {
-        return (lhs == rhs);
-    }
-};
-
-template<typename ElementType, std::size_t Count>
-struct compare_array_equal_impl<ElementType[Count]> 
-{
-    bool operator()(const ElementType (&lhs)[Count], const ElementType (&rhs)[Count])
-    {
-        for(std::size_t i = 0; i < Count; ++i)
-        {
-            if (!compare_array_equal_impl<ElementType>()(lhs[i], rhs[i]))
-                return false;
-        }
-
-        return true;
-    }
-};
-
-template<typename ElementType, std::size_t Count>
-bool compare_array_equal(const ElementType (&lhs)[Count], const ElementType (&rhs)[Count])
-{
-    return compare_array_equal_impl<ElementType[Count]>()(lhs, rhs);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
-// compare whether array lhs is less than rhs
-// the comparison will go down till element wise comparison
-
-template<typename ElementType>
-struct compare_array_less_impl
-{
-    int operator()(const ElementType &lhs, const ElementType &rhs)
-    {
-        return (lhs < rhs ? - 1 : ((rhs < lhs) ? 1 : 0));
-    }
-};
- 
-template<typename ElementType, std::size_t Count>
-struct compare_array_less_impl<ElementType[Count]> 
-{
-    int operator()(const ElementType (&lhs)[Count], const ElementType (&rhs)[Count])
-    {
-    	int flag = 0;
-        for(std::size_t i = 0; i < Count; ++i)
-        {
-            if ((flag = compare_array_less_impl<ElementType>()(lhs[i], rhs[i])) != 0)
-                return flag;
-        }
- 
-        return 0;
-    }
-};
- 
-template<typename ElementType, std::size_t Count>
-bool compare_array_less(const ElementType (&lhs)[Count], const ElementType (&rhs)[Count])
-{
-    if (compare_array_less_impl<ElementType[Count]>()(lhs, rhs) == -1)
-        return true;
-
-    return false;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////
 // make_unqiue implementation for C++11
 
-template<class T> struct _Unique_if 
+template<class T> struct _Unique_if
 {
     using _Single_object = std::unique_ptr<T>;
 };
 
-template<class T> struct _Unique_if<T[]> 
+template<class T> struct _Unique_if<T[]>
 {
     using _Unknown_bound = std::unique_ptr<T[]>;
 };
 
-template<class T, size_t N> struct _Unique_if<T[N]> 
+template<class T, size_t N> struct _Unique_if<T[N]>
 {
     using _Known_bound = void;
 };
 
 template<class T, class... Args>
 typename _Unique_if<T>::_Single_object
-make_unique(Args&&... args) 
+make_unique(Args&&... args)
 {
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
 template<class T>
 typename _Unique_if<T>::_Unknown_bound
-make_unique(size_t n) 
+make_unique(size_t n)
 {
     using U = typename std::remove_extent<T>::type;
     return std::unique_ptr<T>(new U[n]());
@@ -331,22 +289,15 @@ make_unique(size_t n)
 template<class T, class... Args>
 typename _Unique_if<T>::_Known_bound
 make_unique(Args&&...) = delete;
-        
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template< typename T >
-RTTR_INLINE const T& as_const(T& obj) { return const_cast<T&>(obj); }
-
-template< typename T >
-RTTR_INLINE const T& as_const(const T& obj) { return obj; }
-
-template<typename T>
-RTTR_INLINE const T as_const(T&& obj) 
+template <class T>
+RTTR_CONSTEXPR RTTR_INLINE add_const_t<T>& as_const(T& value) RTTR_NOEXCEPT
 {
-    static_assert(!std::is_const<T>::value, "The given obj is already const, moving a const RValue will result in a copy!");
-    return std::forward<T>(obj); 
+    return value;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -354,14 +305,14 @@ RTTR_INLINE const T as_const(T&& obj)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T>
-RTTR_FORCE_INLINE typename std::enable_if<std::is_pointer<T>::value, void*>::type as_void_ptr(const T& obj) 
+RTTR_FORCE_INLINE typename std::enable_if<std::is_pointer<T>::value, void*>::type as_void_ptr(const T& obj)
 {
     return const_cast<void*>(reinterpret_cast<const volatile void*>(obj));
 }
 
 
 template<typename T>
-RTTR_FORCE_INLINE typename std::enable_if<!std::is_pointer<T>::value, void*>::type as_void_ptr(const T& obj) 
+RTTR_FORCE_INLINE typename std::enable_if<!std::is_pointer<T>::value, void*>::type as_void_ptr(const T& obj)
 {
     return const_cast<void*>(reinterpret_cast<const volatile void*>(&obj));
 }
@@ -372,17 +323,18 @@ RTTR_FORCE_INLINE typename std::enable_if<!std::is_pointer<T>::value, void*>::ty
 
 /*!
  * Helper class to iterate in a ranged-based for loops backwards through a container.
- * use it like following: 
+ * use it like following:
  * \code{.cpp}
  *   for(const auto& value: reverse(my_vector))
  *      std::cout << value << std::endl;
- * \endcode                
+ * \endcode
  */
 template<class T>
 class reverse_wrapper
 {
     public:
         reverse_wrapper(T& container) : m_container(container) { }
+
         decltype(std::declval<T>().rbegin()) begin() { return m_container.rbegin(); }
         decltype(std::declval<T>().rend()) end() { return m_container.rend(); }
 
@@ -390,6 +342,8 @@ class reverse_wrapper
         decltype(std::declval<T>().crend()) end() const { return m_container.crend(); }
 
     private:
+        reverse_wrapper<T>& operator=(const reverse_wrapper<T>& other);
+
         T& m_container;
 };
 
@@ -407,42 +361,23 @@ class reverse_move_wrapper
         T m_container;
 };
 
-
 template<class T>
-reverse_move_wrapper<T> reverse(T&& container) 
+auto reverse(T&& container) -> typename std::conditional< std::is_lvalue_reference<T>::value, reverse_wrapper<T>, reverse_move_wrapper<T> >::type
 {
-    return reverse_move_wrapper<T>(std::forward<T>(container));
-}
-
-template<class T>
-const reverse_move_wrapper<const T> reverse(const T&& container) 
-{
-    return reverse_move_wrapper<const T>(std::forward<const T>(container));
-}
-
-template<class T>
-reverse_wrapper<T> reverse(T& container) 
-{
-     return reverse_wrapper<T>(container);
-}
-
-template<class T>
-const reverse_wrapper<const T> reverse(const T& container) 
-{
-     return reverse_wrapper<const T>(container);
+    return { std::forward<T>(container) };
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
-        
+
 template<typename T>
 using return_type_normal = add_pointer_t< remove_pointers_t<T> >;
 
-template<typename T>
-using raw_addressof_return_type = std::conditional< is_function_ptr< remove_pointers_except_one_t<T> >::value,
-                                                    add_pointer_t< remove_pointers_except_one_t<T> >,
-                                                    return_type_normal<T> >;
+template<typename T, typename Tp = remove_reference_t<T>>
+using raw_addressof_return_type = std::conditional< is_function_ptr< remove_pointers_except_one_t<Tp> >::value,
+                                                    add_pointer_t< remove_pointers_except_one_t<Tp> >,
+                                                    return_type_normal<Tp> >;
 
 
 template<typename T>
@@ -500,7 +435,7 @@ static RTTR_INLINE raw_addressof_return_type_t<T> raw_addressof(T& data)
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
- 
+
 /*!
  * The \ref move_wrapper class wraps a move-only type in a copyable object.
  *
@@ -554,7 +489,69 @@ static RTTR_INLINE std::shared_ptr<T> create_if_empty(const std::shared_ptr<T>& 
     return (obj.get() ? obj : std::make_shared<T>());
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/*!
+ * \brief Generates a hash value for continuous sequence of char's
+ */
+RTTR_INLINE static std::size_t generate_hash(const char* text, std::size_t length)
+{
+    const std::size_t  magic_prime = static_cast<std::size_t>(0x01000193);
+    std::size_t               hash = static_cast<std::size_t>(0xcbf29ce4);
+
+    for (std::size_t i = 0; i < length; ++i)
+      hash = (hash ^ text[i]) * magic_prime;
+
+    return hash;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// custom has functor, to make sure that "std::string" and "rttr::string_view" uses the same hashing algorithm
+template <typename T>
+struct hash;
+
+template <>
+struct hash<std::string>
+{
+public:
+    size_t operator()(const std::string& text) const
+    {
+        return generate_hash(text.data(), text.length());
+    }
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+template<typename T>
+inline enable_if_t<std::is_same<T, std::string>::value || std::is_same<T, std::wstring>::value, bool>
+starts_with(const T& big_str, const T& small_str)
+{
+    return (big_str.compare(0, small_str.size(), small_str) == 0);
+}
+
+template<typename T>
+inline enable_if_t<std::is_same<T, std::string>::value || std::is_same<T, std::wstring>::value, bool>
+ends_with(const T& big_str, const T& small_str)
+{
+    return (big_str.size() >= small_str.size() &&
+            big_str.compare(big_str.size() - small_str.size(), small_str.size(), small_str) == 0);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+/*!
+ * A simple identity function. Returns the same object, without doing anything.
+ */
+template<typename T>
+static RTTR_INLINE T& identity_func(T& func) { return func; }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
 } // end namespace detail
 } // end namespace rttr
+
+#ifdef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+RTTR_END_DISABLE_EXCEPT_TYPE_WARNING
+#endif
 
 #endif //RTTR_UTILITY_H_

@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -43,39 +43,39 @@ namespace detail
 //
 // Does not bind to a <T*> or <T*const> partial specialization with VC10 and earlier
 
-template <class T> 
+template <class T>
 struct remove_pointer_imp
 {
    using type = T;
 };
 
-template <class T> 
+template <class T>
 struct remove_pointer_imp<T*>
 {
    using type = T;
 };
 
-template <class T, bool b> 
+template <class T, bool b>
 struct remove_pointer_imp3
 {
    using type = typename remove_pointer_imp<typename std::remove_cv<T>::type>::type;
 };
 
-template <class T> 
+template <class T>
 struct remove_pointer_imp3<T, false>
 {
    using type = T;
 };
 
-template <class T> 
+template <class T>
 struct remove_pointer_imp2
 {
    using type = typename remove_pointer_imp3<T, std::is_pointer<T>::value>::type;
 };
 
-template< typename T > 
+template< typename T >
 struct remove_pointer
-{ 
+{
     using type = typename remove_pointer_imp2<T>::type;
 };
 #else
@@ -91,33 +91,33 @@ using remove_pointer = std::remove_pointer<T>;
 
  #if RTTR_COMPILER == RTTR_COMPILER_MSVC && RTTR_COMP_VER <= 1800
 
-template <typename T, size_t... Bounds> 
+template <typename T, size_t... Bounds>
 struct recombobulator;
 
-template <typename T> 
+template <typename T>
 struct recombobulator<T>
 {
     using type = T;
 };
 
-template <typename T, size_t N, size_t... Bounds> 
-struct recombobulator<T, N, Bounds...> : recombobulator<T[N], Bounds...> 
-{ 
+template <typename T, size_t N, size_t... Bounds>
+struct recombobulator<T, N, Bounds...> : recombobulator<T[N], Bounds...>
+{
 };
 
-template <typename T> 
+template <typename T>
 struct remove_const_impl
 {
     using type = T;
 };
 
-template <typename T> 
-struct remove_const_impl<const T> 
+template <typename T>
+struct remove_const_impl<const T>
 {
     using type = T;
 };
 
-template <typename T, size_t... Bounds> 
+template <typename T, size_t... Bounds>
 struct discombobulator_const : recombobulator<typename remove_const_impl<T>::type, Bounds...>
 {
 };
@@ -127,13 +127,13 @@ struct discombobulator_const<T[N], Bounds...> : discombobulator_const<T, N, Boun
 {
 };
 
-template <typename T> 
-struct remove_const : discombobulator_const<T> 
+template <typename T>
+struct remove_const : discombobulator_const<T>
 {
 };
 
-template <typename T> 
-struct remove_const<T[]> 
+template <typename T>
+struct remove_const<T[]>
 {
     using U = typename remove_const<T>::type;
     using type = U[];
@@ -152,19 +152,19 @@ using remove_const = std::remove_const<T>;
 
 #if RTTR_COMPILER == RTTR_COMPILER_MSVC && RTTR_COMP_VER <= 1800
 
-template <typename T> 
+template <typename T>
 struct remove_volatile_impl
 {
     using type = T;
 };
 
-template <typename T> 
-struct remove_volatile_impl<volatile T> 
+template <typename T>
+struct remove_volatile_impl<volatile T>
 {
     using type = T;
 };
 
-template <typename T, size_t... Bounds> 
+template <typename T, size_t... Bounds>
 struct discombobulator_volatile : recombobulator<typename remove_volatile_impl<T>::type, Bounds...>
 {
 };
@@ -174,13 +174,13 @@ struct discombobulator_volatile<T[N], Bounds...> : discombobulator_volatile<T, N
 {
 };
 
-template <typename T> 
-struct remove_volatile : discombobulator_volatile<T> 
+template <typename T>
+struct remove_volatile : discombobulator_volatile<T>
 {
 };
 
-template <typename T> 
-struct remove_volatile<T[]> 
+template <typename T>
+struct remove_volatile<T[]>
 {
     using U = typename remove_volatile<T>::type;
     using type = U[];
@@ -219,7 +219,7 @@ using remove_cv = std::remove_cv<T>;
 // C++14 has support for this, but we support at the moment C++11
 
 template< bool B, class T, class F >
-using conditional_t = typename std::conditional<B,T,F>::type;
+using conditional_t = typename std::conditional<B, T, F>::type;
 
 template<typename T>
 using remove_cv_t = typename remove_cv<T>::type;
@@ -240,14 +240,20 @@ template<typename T>
 using add_pointer_t = typename std::add_pointer<T>::type;
 
 template< bool B, class T = void >
-using enable_if_t = typename std::enable_if<B,T>::type;
+using enable_if_t = typename std::enable_if<B, T>::type;
 
 template<typename T>
 using decay_t = typename std::decay<T>::type;
+
+template<typename T>
+using add_const_t = typename std::add_const<T>::type;
+
+template<typename T>
+using add_lvalue_reference_t = typename std::add_lvalue_reference<T>::type;
 
 /////////////////////////////////////////////////////////////////////////////////////
 
 } // end namespace detail
 } // end namespace rttr
 
-#endif // RTTR_MISC_TYPE_TRAITS_H_
+#endif // RTTR_STD_TYPE_TRAITS_H_

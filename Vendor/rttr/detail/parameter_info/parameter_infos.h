@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -55,7 +55,7 @@ template<>
 struct parameter_infos<>
 {
     parameter_infos() {}
-    
+
     std::tuple<> m_param_infos;
 
     RTTR_STATIC_CONSTEXPR std::size_t count = 0;
@@ -102,19 +102,21 @@ parameter_info create_param_info(const T& data)
 }
 
 template<std::size_t... Indices, typename...T>
-static RTTR_INLINE std::vector<parameter_info> 
-convert_to_parameter_info_list_impl(index_sequence<Indices...>, const parameter_infos<T...>& param_infos)
- { 
-     return std::vector<parameter_info>{create_param_info(std::get<Indices>(param_infos.m_param_infos))...};
+static RTTR_INLINE std::array<parameter_info, sizeof...(T)>
+create_paramter_info_array_impl(index_sequence<Indices...>, const parameter_infos<T...>& param_infos)
+ {
+    return { {create_param_info(std::get<Indices>(param_infos.m_param_infos))...} };
  };
 
-
-template<typename...T>
-static RTTR_INLINE std::vector<parameter_info>
-convert_to_parameter_info_list(const parameter_infos<T...>& param_infos)
- { 
-     return convert_to_parameter_info_list_impl(make_index_sequence<sizeof...(T)>(), param_infos);
-
+// MSVC 2015 cannot handle sizeof...(),
+// I retrieve a fatal error C1001: An internal error has occurred in the compiler.
+// (compiler file 'msc1.cpp', line 1421)
+// MSVC 2013 can handle it...
+template<typename...T, std::size_t Size = sizeof...(T)>
+static RTTR_INLINE std::array<parameter_info, Size>
+create_paramter_info_array(const parameter_infos<T...>& param_infos)
+ {
+     return create_paramter_info_array_impl(make_index_sequence<Size>(), param_infos);
  };
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -127,7 +129,7 @@ struct param_info_creater_func_impl;
 template<typename F, typename Has_Name, typename Default_Type_List, std::size_t... Arg_Count>
 struct param_info_creater_func_impl<F, Has_Name, Default_Type_List, index_sequence<Arg_Count...>>
 {
-    using type = parameter_infos< parameter_info_wrapper<param_types_t<F, Arg_Count>, Arg_Count, Has_Name, 
+    using type = parameter_infos< parameter_info_wrapper<param_types_t<F, Arg_Count>, Arg_Count, Has_Name,
                                                          type_list_element_t<Arg_Count, Default_Type_List> >...>;
 };
 
@@ -139,18 +141,18 @@ struct param_info_creater_ctor_impl;
 template<typename Ctor_Args_List, typename Has_Name, typename Default_Type_List, std::size_t... Arg_Count>
 struct param_info_creater_ctor_impl<Ctor_Args_List, Has_Name, Default_Type_List, index_sequence<Arg_Count...>>
 {
-    using type = parameter_infos< parameter_info_wrapper<type_list_element_t<Arg_Count, Ctor_Args_List>, Arg_Count, Has_Name, 
+    using type = parameter_infos< parameter_info_wrapper<type_list_element_t<Arg_Count, Ctor_Args_List>, Arg_Count, Has_Name,
                                                          type_list_element_t<Arg_Count, Default_Type_List> >...>;
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename T, typename Has_Name, typename Default_Type_List, typename Enable = void>
+template<typename T, typename Acc_Type, typename Has_Name, typename Default_Type_List, typename Enable = void>
 struct param_info_creater;
 
 // for functions
-template<typename F, typename Has_Name, typename...Def_Args>
-struct param_info_creater<type_list<F>, Has_Name, type_list<Def_Args...>, enable_if_t<is_function<F>::value>>
+template<typename F, typename Acc_Type, typename Has_Name, typename...Def_Args>
+struct param_info_creater<type_list<F>, Acc_Type, Has_Name, type_list<Def_Args...>, enable_if_t< std::is_same<Acc_Type, function_type>::value >>
 {
     using new_default_list = push_front_n_t<void, type_list<Def_Args...>, function_traits<F>::arg_count - sizeof...(Def_Args)>;
     using idx_seq = make_index_sequence< function_traits<F>::arg_count>;
@@ -159,7 +161,7 @@ struct param_info_creater<type_list<F>, Has_Name, type_list<Def_Args...>, enable
 
 // ctor with one argument
 template<typename T, typename Has_Name, typename...Def_Args>
-struct param_info_creater<type_list<T>, Has_Name, type_list<Def_Args...>, enable_if_t<!is_function<T>::value>>
+struct param_info_creater<type_list<T>, constructor_type, Has_Name, type_list<Def_Args...>, enable_if_t< is_one_argument<T>::value >>
 {
     static_assert(sizeof...(Def_Args) < 2, "Invalid 'Def_Args' size.");
     using new_default_list = push_front_n_t<void, type_list<Def_Args...>, 1 - sizeof...(Def_Args)>;
@@ -169,7 +171,7 @@ struct param_info_creater<type_list<T>, Has_Name, type_list<Def_Args...>, enable
 
 // ctor with zero or more then one argument
 template<typename Has_Name, typename...Ctor_Args, typename...Def_Args>
-struct param_info_creater<type_list<Ctor_Args...>, Has_Name, type_list<Def_Args...>, enable_if_t< is_not_one_argument<Ctor_Args...>::value >>
+struct param_info_creater<type_list<Ctor_Args...>, constructor_type, Has_Name, type_list<Def_Args...>, enable_if_t< !is_one_argument<Ctor_Args...>::value >>
 {
     static_assert(sizeof...(Ctor_Args) >= sizeof...(Def_Args), "Invalid 'Def_Args' size.");
     using new_default_list = push_front_n_t<void, type_list<Def_Args...>, sizeof...(Ctor_Args) - sizeof...(Def_Args)>;
@@ -178,66 +180,66 @@ struct param_info_creater<type_list<Ctor_Args...>, Has_Name, type_list<Def_Args.
 };
 
 
-template<typename Acc_Args, typename Has_Name, typename Def_Args>
-using param_info_creater_t = typename param_info_creater<Acc_Args, Has_Name, Def_Args>::type;
+template<typename Acc_Args, typename Acc_Type, typename Has_Name, typename Def_Args>
+using param_info_creater_t = typename param_info_creater<Acc_Args, Acc_Type, Has_Name, Def_Args>::type;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
 
-template<typename Acc_Args, typename Def_List, typename Param_Names, std::size_t... Indices>
+template<typename Acc_Args, typename Acc_Type, typename Def_List, typename Param_Names, std::size_t... Indices>
 static RTTR_INLINE
-param_info_creater_t<Acc_Args, has_param_name, Def_List>
+param_info_creater_t<Acc_Args, Acc_Type, has_param_name, Def_List>
 create_param_infos_and_store_names(index_sequence<Indices...>, Param_Names& names)
 {
-    return param_info_creater_t<Acc_Args, has_param_name, Def_List>{std::get<Indices>(names.m_param_names)...};
+    return param_info_creater_t<Acc_Args, Acc_Type, has_param_name, Def_List>{string_view(std::get<Indices>(names.m_param_names))...};
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename Acc_Args, typename...TArgs, typename T_Def = as_type_list_t<typename find_default_args<get_default_args_t<TArgs...>, Acc_Args>::default_types_func>>
-static RTTR_INLINE 
-enable_if_t< !has_param_names<TArgs...>::value && has_default_types<Acc_Args, type_list<TArgs...>>::value, param_info_creater_t<Acc_Args, no_param_name, T_Def>>
+template<typename Acc_Args, typename Acc_Type, typename...TArgs, typename T_Def = as_type_list_t<typename find_default_args_t<get_default_args_t<TArgs...>, Acc_Args, Acc_Type>::default_types_func>>
+static RTTR_INLINE
+enable_if_t< !has_param_names<TArgs...>::value && has_default_types<Acc_Args, type_list<TArgs...>, Acc_Type>::value, param_info_creater_t<Acc_Args, Acc_Type, no_param_name, T_Def>>
 create_param_infos(TArgs&&... args)
 {
-    return param_info_creater_t<Acc_Args, no_param_name, T_Def>();
+    return param_info_creater_t<Acc_Args, Acc_Type, no_param_name, T_Def>();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename Acc_Args, typename...TArgs>
-static RTTR_INLINE 
-enable_if_t< !has_param_names<TArgs...>::value && !has_default_types<Acc_Args, type_list<TArgs...>>::value, param_info_creater_t<Acc_Args, no_param_name, type_list<> >>
+template<typename Acc_Args, typename Acc_Type, typename...TArgs>
+static RTTR_INLINE
+enable_if_t< !has_param_names<TArgs...>::value && !has_default_types<Acc_Args, type_list<TArgs...>, Acc_Type>::value, param_info_creater_t<Acc_Args, Acc_Type, no_param_name, type_list<> >>
 create_param_infos(TArgs&&... args)
 {
-    return param_info_creater_t<Acc_Args, no_param_name, type_list<> >();
+    return param_info_creater_t<Acc_Args, Acc_Type, no_param_name, type_list<> >();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
-template<typename Acc_Args, typename...TArgs, typename T_Def = as_type_list_t<typename find_default_args<get_default_args_t<TArgs...>, Acc_Args>::default_types_func>>
-static RTTR_INLINE 
-enable_if_t< has_param_names<TArgs...>::value && has_default_types<Acc_Args, type_list<TArgs...>>::value, param_info_creater_t<Acc_Args, has_param_name, T_Def>>
-create_param_infos(TArgs&&... args)
-{
-    using Param_Type = find_if_t<is_parameter_names, TArgs...>;
-    auto result = forward_to_array<Param_Type>(std::forward<TArgs>(args)...);
-    return create_param_infos_and_store_names<Acc_Args, T_Def>(make_index_sequence<Param_Type::count>(), result[0]);
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-template<typename Acc_Args, typename...TArgs>
-static RTTR_INLINE 
-enable_if_t< has_param_names<TArgs...>::value && !has_default_types<Acc_Args, type_list<TArgs...>>::value, param_info_creater_t<Acc_Args, has_param_name, type_list<> >>
+template<typename Acc_Args, typename Acc_Type, typename...TArgs, typename T_Def = as_type_list_t<typename find_default_args_t<get_default_args_t<TArgs...>, Acc_Args, Acc_Type>::default_types_func>>
+static RTTR_INLINE
+enable_if_t< has_param_names<TArgs...>::value && has_default_types<Acc_Args, type_list<TArgs...>, Acc_Type>::value, param_info_creater_t<Acc_Args, Acc_Type, has_param_name, T_Def>>
 create_param_infos(TArgs&&... args)
 {
     using Param_Type = find_if_t<is_parameter_names, TArgs...>;
     auto result = forward_to_array<Param_Type>(std::forward<TArgs>(args)...);
-    return create_param_infos_and_store_names<Acc_Args, type_list<>>(make_index_sequence<Param_Type::count>(), result[0]);
+    return create_param_infos_and_store_names<Acc_Args, Acc_Type, T_Def>(make_index_sequence<Param_Type::count>(), result[0]);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+template<typename Acc_Args, typename Acc_Type, typename...TArgs>
+static RTTR_INLINE
+enable_if_t< has_param_names<TArgs...>::value && !has_default_types<Acc_Args, type_list<TArgs...>, Acc_Type>::value, param_info_creater_t<Acc_Args, Acc_Type, has_param_name, type_list<> >>
+create_param_infos(TArgs&&... args)
+{
+    using Param_Type = find_if_t<is_parameter_names, TArgs...>;
+    auto result = forward_to_array<Param_Type>(std::forward<TArgs>(args)...);
+    return create_param_infos_and_store_names<Acc_Args, Acc_Type, type_list<>>(make_index_sequence<Param_Type::count>(), result[0]);
 }
 
 
@@ -260,7 +262,7 @@ template<std::size_t D_Index, std::size_t...D_Indices, std::size_t P_Index, std:
 struct store_default_args_helper<index_sequence<D_Index, D_Indices...>, index_sequence<P_Index, P_Indices...>>
 {
     template<typename...Default_Args, typename...Param_Args>
-    static RTTR_INLINE 
+    static RTTR_INLINE
     void perform(parameter_infos<Param_Args...>& param_infos, const default_args<Default_Args...>& def_args)
     {
         store_default_value(std::get<P_Index>(param_infos.m_param_infos), std::get<D_Index>(def_args.m_args));
@@ -273,7 +275,7 @@ template<>
 struct store_default_args_helper<index_sequence<>, index_sequence<>>
 {
     template<typename...Default_Args, typename...Param_Args>
-    static RTTR_INLINE 
+    static RTTR_INLINE
     void perform(parameter_infos<Param_Args...>& param_infos, const default_args<Default_Args...>& def_args)
     {
     }

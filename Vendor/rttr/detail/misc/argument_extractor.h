@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -33,6 +33,7 @@
 
 #include <memory>
 #include <type_traits>
+#include <array>
 
 namespace rttr
 {
@@ -80,7 +81,7 @@ private:
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
-    
+
     template<typename container_type, typename U, typename... Args>
     static
     enable_if_t< std::is_same<T, raw_type_t<U>>::value, void >

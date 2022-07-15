@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -57,15 +57,16 @@ using is_integer = std::integral_constant<bool, !std::is_same<F, T>::value &&
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename F, typename T>
-typename std::enable_if<is_integer<F, T>::value && 
+typename std::enable_if<is_integer<F, T>::value &&
                         std::numeric_limits<F>::is_signed &&
                         !std::numeric_limits<T>::is_signed,
                         bool>::type
 convert_to(const F& from, T& to)
 {
-    if ((from < 0) || ((sizeof(T) < sizeof(F)) && (from > static_cast<F>((std::numeric_limits<T>::max)()))))
-        return false; // value too large
-    else if (static_cast<T>(from) > (std::numeric_limits<T>::max)()) 
+    if (from < 0)
+        return false; // value too small
+
+    if (static_cast<typename std::make_unsigned<F>::type>(from) > (std::numeric_limits<T>::max)())
         return false; // value too large
 
     to = static_cast<T>(from);
@@ -75,15 +76,13 @@ convert_to(const F& from, T& to)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename F, typename T>
-typename std::enable_if<is_integer<F, T>::value && 
+typename std::enable_if<is_integer<F, T>::value &&
                         !std::numeric_limits<F>::is_signed &&
                         std::numeric_limits<T>::is_signed,
                         bool>::type
 convert_to(const F& from, T& to)
 {
-    if ((sizeof(T) < sizeof(F)) && (from > static_cast<F>((std::numeric_limits<T>::max)())))
-        return false; // value too large
-    else if (static_cast<T>(from) > (std::numeric_limits<T>::max)()) 
+    if (from > static_cast<typename std::make_unsigned<T>::type>((std::numeric_limits<T>::max)()))
         return false; // value too large
 
     to = static_cast<T>(from);
@@ -101,7 +100,7 @@ convert_to(const F& from, T& to)
 {
     if (from > (std::numeric_limits<T>::max)())
         return false; // value too large
-    else if (from < (std::numeric_limits<T>::min)()) 
+    else if (from < (std::numeric_limits<T>::min)())
         return false; // value too small
 
     to = static_cast<T>(from);
@@ -111,7 +110,7 @@ convert_to(const F& from, T& to)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename F, typename T>
-typename std::enable_if<is_integer<F, T>::value && 
+typename std::enable_if<is_integer<F, T>::value &&
                         !std::numeric_limits<F>::is_signed &&
                         !std::numeric_limits<T>::is_signed,
                         bool>::type
@@ -130,16 +129,16 @@ convert_to(const F& from, T& to)
 // floating point conversion
 
 template<typename F, typename T>
-typename std::enable_if<std::is_floating_point<F>::value && 
+typename std::enable_if<std::is_floating_point<F>::value &&
                         std::is_integral<T>::value && std::numeric_limits<T>::is_signed,
                         bool>::type
 convert_to(const F& from, T& to)
 {
     if (from > (std::numeric_limits<T>::max)())
         return false; // value too large
-    else if (from < -(std::numeric_limits<T>::max)()) 
+    else if (from < -(std::numeric_limits<T>::max)())
         return false; // value to small
-    
+
     to = static_cast<T>(from);
     return true;
 }
@@ -147,14 +146,14 @@ convert_to(const F& from, T& to)
 /////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename F, typename T>
-typename std::enable_if<std::is_floating_point<F>::value && 
+typename std::enable_if<std::is_floating_point<F>::value &&
                         std::is_integral<T>::value && !std::numeric_limits<T>::is_signed,
                         bool>::type
 convert_to(const F& from, T& to)
 {
     if (from < 0 || from > (std::numeric_limits<T>::max)())
         return false; // value too large
-    
+
     to = static_cast<T>(from);
     return true;
 }
@@ -165,39 +164,12 @@ convert_to(const F& from, T& to)
 // string conversion
 
 template<typename F, typename T>
-typename std::enable_if<std::is_integral<F>::value &&
-                        std::is_same<T, std::string>::value,
+typename std::enable_if<std::is_same<T, std::string>::value,
                         bool>::type
 convert_to(const F& from, T& to)
 {
     bool ok = false;
-    to = static_cast<T>(int_to_string(static_cast<int>(from), &ok));
-    return ok;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-template<typename F, typename T>
-typename std::enable_if<std::is_same<F, float>::value &&
-                        std::is_same<T, std::string>::value,
-                        bool>::type
-convert_to(const F& from, T& to)
-{
-    bool ok = false;
-    to = float_to_string(from, &ok);
-    return ok;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-
-template<typename F, typename T>
-typename std::enable_if<std::is_same<F, double>::value &&
-                        std::is_same<T, std::string>::value,
-                        bool>::type
-convert_to(const F& from, T& to)
-{
-    bool ok = false;
-    to = double_to_string(from, &ok);
+    to = to_string(from, &ok);
     return ok;
 }
 

@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -41,14 +41,26 @@ template<typename ClassType>
 class destructor_wrapper : public destructor_wrapper_base
 {
     public:
-        type get_destructed_type() const { return type::get<ClassType*>(); }
+        type get_declaring_type() const RTTR_NOEXCEPT { return type::get<ClassType>(); }
 
-        void invoke(variant& obj) const
+        type get_destructed_type() const RTTR_NOEXCEPT { return type::get<ClassType*>(); }
+
+        bool is_valid() const RTTR_NOEXCEPT { return true; }
+
+        bool invoke(variant& obj) const RTTR_NOEXCEPT
         {
             if (obj.is_type<ClassType*>())
             {
+                // although an exception can occur when calling 'delete',
+                // nobody should throw an exception in destructor, so we don't catch the exception
+                // and just terminate the application
                 delete obj.get_value<ClassType*>();
                 obj = variant();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 };

@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -65,8 +65,8 @@ namespace detail
                                           member_func_ptr,
                                           conditional_t< std::is_member_object_pointer<T>::value,
                                                          member_object_ptr,
-                                                         conditional_t< is_function_ptr<T>::value || is_std_function<T>::value,
-                                                                        function_ptr, 
+                                                         conditional_t< is_functor<T>::value,
+                                                                        function_ptr,
                                                                         conditional_t< std::is_pointer<T>::value,
                                                                                        object_ptr,
                                                                                        void
@@ -80,7 +80,7 @@ namespace detail
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-    
+
     struct void_member_func
     {
         using type = void_member_func;
@@ -100,14 +100,14 @@ namespace detail
     {
         using type = return_func;
     };
- 
+
     template<typename T>
     struct method_type : conditional_t<std::is_member_function_pointer<T>::value,
                                        conditional_t< is_void_func<T>::value,
                                                       void_member_func,
                                                       return_member_func
                                                      >,
-                                       conditional_t< is_function_ptr<T>::value || is_std_function<T>::value,
+                                       conditional_t< is_functor<T>::value,
                                                       conditional_t< is_void_func<T>::value,
                                                                      void_func,
                                                                      return_func

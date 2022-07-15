@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -44,105 +44,113 @@ namespace detail
     /////////////////////////////////////////////////////////////////////////////////////
 
     template<typename T>
-    struct is_std_function : std::false_type
-    {
-        using signature = T;
-    };
-
-    template<typename T>
-    struct is_std_function<std::function<T>> : std::true_type
-    {
-        using signature = T;
-    };
-
-    template<typename T>
-    struct get_std_function_signature
-    {
-        using type = T;
-    };
-
-    template<typename T>
-    struct get_std_function_signature<std::function<T>>
-    {
-        using type = T;
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    template<typename T>
-    struct is_function_ptr : std::integral_constant<bool, std::is_pointer<T>::value && 
+    struct is_function_ptr : std::integral_constant<bool, std::is_pointer<T>::value &&
                                                           std::is_function<::rttr::detail::remove_pointer_t<T>>::value>
     {
     };
 
     /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    template<typename... Args>
-    struct function_args
+    // snippet provided by K-ballo
+    struct helper
     {
-        using arg_types = std::tuple<Args...>;
+        void operator()(...);
     };
 
-    /////////////////////////////////////////////////////////////////////////////////////
+    template <typename T>
+    struct helper_composed: T, helper
+    {};
 
-    template<typename T> 
-    struct function_traits_func_ptr;
+    template <void (helper::*) (...)>
+    struct member_function_holder
+    {};
+
+    template <typename T, typename Ambiguous = member_function_holder<&helper::operator()> >
+    struct is_functor_impl : std::true_type
+    {};
+
+    template <typename T>
+    struct is_functor_impl<T, member_function_holder<&helper_composed<T>::operator()> > : std::false_type
+    {};
+
+    /*!
+     * \brief Returns true whether the given type T is a functor.
+     *        i.e. func(...); That can be free function, lambdas or function objects.
+     */
+    template <typename T>
+    struct is_functor : conditional_t<std::is_class<T>::value,
+                                      is_functor_impl<T>,
+                                      std::false_type>
+    {};
 
     template<typename R, typename... Args>
-    struct function_traits_func_ptr<R (*)(Args...)> : function_args<Args...>
-    {
-        static const size_t arg_count = sizeof...(Args);
-        using return_type = R;
-    };
+    struct is_functor<R (*)(Args...)> : std::true_type {};
+
+    template<typename R, typename... Args>
+    struct is_functor<R (&)(Args...)> : std::true_type {};
+
+#ifndef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+    template<typename R, typename... Args>
+    struct is_functor<R (*)(Args...) noexcept> : std::true_type {};
+
+    template<typename R, typename... Args>
+    struct is_functor<R (&)(Args...) noexcept> : std::true_type {};
+#endif
 
     /////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    template <typename T>
+    struct function_traits : function_traits< decltype(&T::operator()) > {};
+
+    template<typename R, typename... Args>
+    struct function_traits<R (Args...)>
+    {
+        static RTTR_CONSTEXPR_OR_CONST size_t arg_count = sizeof...(Args);
+
+        using return_type   = R;
+        using arg_types     = std::tuple<Args...>;
+    };
+
+    template<typename R, typename... Args>
+    struct function_traits<R (*)(Args...)> : function_traits<R (Args...)> { };
+
+    template<typename R, typename... Args>
+    struct function_traits<R (&)(Args...)> : function_traits<R (Args...)> { };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...)> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) const> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) volatile> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) const volatile> : function_traits<R (Args...)> {using class_type = C; };
+
+#ifndef RTTR_NO_CXX17_NOEXCEPT_FUNC_TYPE
+    template<typename R, typename... Args>
+    struct function_traits<R (*)(Args...) noexcept> : function_traits<R (Args...)> { };
+
+    template<typename R, typename... Args>
+    struct function_traits<R (&)(Args...) noexcept> : function_traits<R (Args...)> { };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) noexcept> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) const noexcept> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) volatile noexcept> : function_traits<R (Args...)> { using class_type = C; };
+
+    template<typename R, typename C, typename... Args>
+    struct function_traits<R (C::*)(Args...) const volatile noexcept> : function_traits<R (Args...)> {using class_type = C; };
+#endif
 
     template<typename T>
-    struct function_traits_mem_ptr;
-
-    template<typename R, typename C, typename... Args>
-    struct function_traits_mem_ptr<R (C::*)(Args...)> : function_args<Args...>
-    {
-        static const size_t arg_count = sizeof...(Args);
-        using return_type   = R;
-        using class_type    = C;
-    };
-    
-    template<typename R, typename C, typename... Args>
-    struct function_traits_mem_ptr<R (C::*)(Args...) const> : function_args<Args...>
-    {
-        static const size_t arg_count = sizeof...(Args);
-        using return_type   = R;
-        using class_type    = C;
-    };
-
-    template<typename R, typename C, typename... Args>
-    struct function_traits_mem_ptr<R (C::*)(Args...) const volatile> : function_args<Args...>
-    {
-        static const size_t arg_count = sizeof...(Args);
-        using return_type   = R;
-        using class_type    = C;
-    };
-
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    template<typename T> 
-    struct function_traits : conditional_t< std::is_member_function_pointer< T >::value, 
-                                            function_traits_mem_ptr< T >,
-                                            conditional_t< std::is_function< T >::value,
-                                                           function_traits_func_ptr< add_pointer_t< T > >,
-                                                           conditional_t< is_std_function< T >::value,
-                                                                          function_traits_func_ptr< add_pointer_t< typename get_std_function_signature< T >::type > >,
-                                                                          function_traits_func_ptr< T >
-                                                                        >
-                                                         >
-                                          >
-    {
-    };
+    struct function_traits<std::function<T>> : function_traits<T> {};
 
     /////////////////////////////////////////////////////////////////////////////////////
     // use it like e.g:
@@ -158,7 +166,7 @@ namespace detail
     using param_types_t = typename param_types<F, Index>::type;
 
     /////////////////////////////////////////////////////////////////////////////////////
-    
+
     template<typename F>
     struct is_void_func : conditional_t< std::is_same<typename function_traits<F>::return_type, void>::value,
                                          std::true_type,
@@ -172,8 +180,7 @@ namespace detail
     template<typename F>
     using is_function = std::integral_constant<bool, std::is_member_function_pointer<F>::value ||
                                                      std::is_function<F>::value ||
-                                                     is_std_function<F>::value ||
-                                                     is_function_ptr<F>::value
+                                                     is_functor<F>::value
                                               >;
 
     /////////////////////////////////////////////////////////////////////////////////////

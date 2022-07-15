@@ -1062,64 +1062,67 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 					rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
 					for (auto& prop : componentClass.get_properties())
 					{
-						if (ReflectedProps::is_float(prop.get_type().get_name()))
+						std::string type = prop.get_type().get_name().to_string();
+						std::string name = prop.get_name().to_string();
+
+						if (ReflectedProps::is_float(type))
 						{
 							float value = prop.get_value(component).to_float();
-							ImGui::PushID(std::string(component->GetType() + prop.get_name()).c_str());
-							if (ImGui::SliderFloat(prop.get_name().c_str(), &value, 0.0f, 10.0f))
+							ImGui::PushID(std::string(component->GetType() + name).c_str());
+							if (ImGui::SliderFloat(name.c_str(), &value, 0.0f, 10.0f))
 							{
 								prop.set_value(component, value);
 							}
 							ImGui::PopID();
 						}
-						else if (ReflectedProps::is_int(prop.get_type().get_name()))
+						else if (ReflectedProps::is_int(type))
 						{
 							int value = prop.get_value(component).to_int();
-							ImGui::PushID(std::string(component->GetType() + prop.get_name()).c_str());
-							if (ImGui::SliderInt(prop.get_name().c_str(), &value, 0, 10))
+							ImGui::PushID(std::string(component->GetType() + name).c_str());
+							if (ImGui::SliderInt(prop.get_name().to_string().c_str(), &value, 0, 10))
 							{
 								prop.set_value(component, value);
 							}
 							ImGui::PopID();
 						}
-						else if (ReflectedProps::is_double(prop.get_type().get_name()))
+						else if (ReflectedProps::is_double(type))
 						{
 							double value = prop.get_value(component).to_double();
-							ImGui::PushID(std::string(component->GetType() + prop.get_name()).c_str());
-							if (ImGui::InputDouble(prop.get_name().c_str(), &value))
+							ImGui::PushID(std::string(component->GetType() + name).c_str());
+							if (ImGui::InputDouble(name.c_str(), &value))
 							{
 								prop.set_value(component, value);
 							}
 							ImGui::PopID();
 						}
-						else if (ReflectedProps::is_string(prop.get_type().get_name()))
+						else if (ReflectedProps::is_string(type))
 						{
 							std::string value = prop.get_value(component).to_string();
 							char buffer[64];
 							strcpy(buffer, value.c_str());
-							ImGui::PushID(std::string(component->GetType() + prop.get_name()).c_str());
-							if (ImGui::InputText(prop.get_name().c_str(), buffer, sizeof(buffer)))
+							ImGui::PushID(std::string(component->GetType() + name).c_str());
+							if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
 							{
 								prop.set_value(component, std::string(buffer));
 							}
 							ImGui::PopID();
 						}
-						else if (ReflectedProps::is_vec2(prop.get_type().get_name()))
+						else if (ReflectedProps::is_vec2(type))
 						{
 							glm::vec2 value = prop.get_value(component).get_value<glm::vec2>();
-							DrawVec2Control(prop.get_name().c_str(), value);
+							DrawVec2Control(name.c_str(), value);
 							prop.set_value(component, value);
 						}
-						else if (ReflectedProps::is_vec3(prop.get_type().get_name()))
+						else if (ReflectedProps::is_vec3(type))
 						{
 							glm::vec3 value = prop.get_value(component).get_value<glm::vec3>();
-							DrawVec3Control(prop.get_name().c_str(), value);
+							DrawVec3Control(name.c_str(), value);
 							prop.set_value(component, value);
 						}
-						else if (ReflectedProps::is_vec4(prop.get_type().get_name()))
+						else if (ReflectedProps::is_vec4(type))
 						{
 							glm::vec4 value = prop.get_value(component).get_value<glm::vec4>();
-							DrawVec4Control(prop.get_name().c_str(), value);
+							DrawVec4Control(name.c_str(), value);
 							prop.set_value(component, value);
 						}
 						//else if (prop.get_type().is_pointer())

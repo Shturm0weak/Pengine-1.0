@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -46,33 +46,35 @@ namespace detail
 
 /*!
  * Abstract class for a method.
- * 
+ *
  * This is the base class for all methods.
  * You can invoke the method.
  */
 class RTTR_API enumeration_wrapper_base
 {
     public:
-        enumeration_wrapper_base();
-        virtual ~enumeration_wrapper_base();
+        enumeration_wrapper_base() RTTR_NOEXCEPT;
+        virtual ~enumeration_wrapper_base() RTTR_NOEXCEPT;
 
-        virtual type get_underlying_type() const = 0;
-        
-        virtual type get_type() const = 0;
+        type get_declaring_type() const RTTR_NOEXCEPT;
 
-        virtual std::vector<std::string> get_names() const = 0;
+        virtual bool is_valid() const RTTR_NOEXCEPT;
 
-        virtual std::vector<variant> get_values() const = 0;
+        virtual type get_underlying_type() const RTTR_NOEXCEPT;
 
-        virtual std::string value_to_name(argument& value) const = 0;
+        virtual type get_type() const RTTR_NOEXCEPT;
 
-        virtual variant name_to_value(const std::string& name) const = 0;
+        virtual array_range<string_view> get_names() const RTTR_NOEXCEPT;
 
-        void set_declaring_type(type declaring_type);
+        virtual array_range<variant> get_values() const RTTR_NOEXCEPT;
 
-        type get_declaring_type() const;
+        virtual string_view value_to_name(argument& value) const;
 
-        virtual variant get_metadata(const variant& key) const = 0;
+        virtual variant name_to_value(string_view name) const;
+
+        void set_declaring_type(type declaring_type) RTTR_NOEXCEPT;
+
+        virtual variant get_metadata(const variant& key) const;
     private:
         type m_declaring_type;
 };

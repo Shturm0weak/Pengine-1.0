@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -42,21 +42,31 @@ namespace detail { struct invalid_wrapper_type { }; }
  * A wrapper type is a class which encapsulate an instance of another type.
  * This are for instance smart pointer classes, e.g. `std::shared_ptr<T>` or `std::unique_ptr<T>`.
  * Out of the box, RTTR recognize following wrapper types:
- * - \p `std::shared_ptr<T>` 
+ * - \p `std::shared_ptr<T>`
  * - \p `std::reference_wrapper<T>`
  * - \p `std::weak_ptr<T>`
  * - \p `std::unique_ptr<T>`
  *
  * Custom wrapper types
  * --------------------
- * In order to work with custom wrapper types, its required to specialize the class 
+ * In order to work with custom wrapper types, its required to specialize the class
  * \ref rttr::wrapper_mapper<T> "wrapper_mapper<T>". Therefore you have to provide two nested type aliases:
  * 1. `using wrapped_type = typename T::encapsulated_type;`
  * 2. `using type = T`
  *
- * And two functions:
+ * And three functions:
  * 1. `static wrapped_type get(const T& obj);`
- * 2. `static T create(wrapped_type& obj);`
+ * 2. `static T create(wrapped_type& obj);` (Optional)
+ * 3. `static T<U> convert(const type& source, bool& ok);` (Optional)
+ *
+ * \remark The \ref rttr::wrapper_mapper<T>::create(T& obj) "create()" function is optional. When no one is provided,
+ *         then it will be not possible to convert from the wrapped type to the wrapper class from inside a variant.
+ *         The \ref rttr::wrapper_mapper<T>::convert(const type& source, bool& ok) "convert()" function is also optional.
+ *         When no one is provided, you cannot use the \ref rttr::type::register_wrapper_converter_for_base_classes<T>()
+ *         function. For the wrapper classes: `std::shared_ptr<T>` and `std::reference_wrapper<T>`
+ *         default conversion functions are included.
+ *
+ * \see variant::convert()
  *
  * Following code example illustrates how to add a specialization:
  * \code{.cpp}
@@ -68,6 +78,7 @@ namespace detail { struct invalid_wrapper_type { }; }
  *  {
  *  public:
  *      custom_type(T& obj) : m_data(std::addressof(obj)) {}
+ *      custom_type(T) : m_data(nullptr) {}
  *      T& get_data() { return *m_value; }
  *  private:
  *      T* m_data;
@@ -91,7 +102,22 @@ namespace detail { struct invalid_wrapper_type { }; }
  *      inline static type create(const wrapped_type& value)
  *      {
  *         return custom_type<T>(value);
- *      } 
+ *      }
+ *
+ *      template<typename U>
+ *      inline static custom_type<U> convert(const type& source, bool& ok)
+ *      {
+ *          if (auto obj = rttr_cast<typename custom_type<U>::wrapped_type*>(&source.get_data()))
+ *          {
+ *              ok = true;
+ *              return custom_type<U>(*obj);
+ *          }
+ *          else
+ *          {
+ *              ok = false;
+ *              return custom_type<U>();
+ *          }
+ *      }
  *  };
  *
  *  } // end namespace rttr
@@ -99,7 +125,7 @@ namespace detail { struct invalid_wrapper_type { }; }
  *
  * \remark
  * It is very important that the type alias for `wrapped_type` is the actual return type of the getter function.
- * Make also sure you put your specialization inside the namespace `rttr`. 
+ * Make also sure you put your specialization inside the namespace `rttr`.
  * The best place for this code, is below the declaration of your wrapper type.
  * When this is not possible, include your specialization code before registering your types to RTTR.
  */
@@ -121,7 +147,13 @@ struct wrapper_mapper
     inline static type create(const wrapped_type& value)
     {
         return type(value);
-    } 
+    }
+
+    template<typename U>
+    inline static T<U> convert(const type& source, bool& ok)
+    {
+        return type(value);
+    }
 #endif
 };
 

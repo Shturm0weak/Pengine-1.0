@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -39,12 +39,12 @@ namespace rttr
  *
  * \remark Both class types must contain the macro \ref RTTR_ENABLE in the class declaration.
  *        \p Source_Type and \p Target_Type must be both pointer types.
- *         
+ *
  *
  * \return A pointer of type \p Target_Type
  */
 template<typename Target_Type, typename Source_Type>
-Target_Type rttr_cast(Source_Type object);
+Target_Type rttr_cast(Source_Type object) RTTR_NOEXCEPT;
 
 }
 

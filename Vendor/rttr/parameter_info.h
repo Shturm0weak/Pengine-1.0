@@ -1,6 +1,6 @@
 /************************************************************************************
 *                                                                                   *
-*   Copyright (c) 2014, 2015 - 2016 Axel Menzel <info@rttr.org>                     *
+*   Copyright (c) 2014 - 2018 Axel Menzel <info@rttr.org>                           *
 *                                                                                   *
 *   This file is part of RTTR (Run Time Type Reflection)                            *
 *   License: MIT License                                                            *
@@ -29,6 +29,8 @@
 
 #include "rttr/detail/base/core_prerequisites.h"
 
+#include "rttr/string_view.h"
+
 #include <string>
 #include <vector>
 #include <cstdint>
@@ -43,11 +45,6 @@ class parameter_info;
 namespace detail
 {
     class parameter_info_wrapper_base;
-    template<typename...T> 
-    struct parameter_infos;
-    template<typename...T> 
-    static std::vector<parameter_info> convert_to_parameter_info_list(const parameter_infos<T...>&);
-
     template<typename T>
     static parameter_info create_param_info(const T&);
 }
@@ -70,12 +67,12 @@ namespace detail
  *
  * Typical Usage
  * ----------------------
- * 
+ *
  * \code{.cpp}
  *   using namespace rttr;
- *   
+ *
  *   void set_window_geometry(const char* name, int w, int h) {...}
- *   
+ *
  *   RTTR_REGISTRATION
  *   {
  *        registration::method("set_window_geometry", &set_window_geometry)
@@ -116,61 +113,58 @@ class RTTR_API parameter_info
          *
          * \return Parameter type.
          */
-        type get_type() const;
+        type get_type() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true when this parameter has a default value; otherwise false.
          *
          * \return Bool to indicate that this parameter has a default value.
          */
-        bool has_default_value() const;
+        bool has_default_value() const RTTR_NOEXCEPT;
 
         /*!
-         * \brief Returns the default value as \ref variant for this parameter; 
+         * \brief Returns the default value as \ref variant for this parameter;
          *        or an \ref variant::is_valid() "invalid" variant to indicate that no default value is available.
          *
          * \return Default value as variant.
          */
         variant get_default_value() const;
 
-         /*!
+        /*!
          * \brief Returns the name of this parameter.
          *        When no name was provided during registration via \ref parameter_names(),
          *        then an empty string is returned.
          *
          * \return The name of the parameter.
          */
-        std::string get_name() const;
+        string_view get_name() const RTTR_NOEXCEPT;
 
-         /*!
+        /*!
          * \brief Returns the zero-based position of the parameter in the formal parameter list.
          *
          * \return An integer representing the position this parameter occupies in the parameter list.
          */
-        uint32_t get_index() const;
+        uint32_t get_index() const RTTR_NOEXCEPT;
 
         /*!
          * \brief Returns true if this property is the same like the \p other.
          *
          * \return True if both properties are equal, otherwise false.
          */
-        bool operator==(const parameter_info& other) const;
+        bool operator==(const parameter_info& other) const RTTR_NOEXCEPT;
 
         /*!
          * Returns true if this property is the not the same like the \p other.
          *
          * \return True if both properties are different, otherwise false.
          */
-        bool operator!=(const parameter_info& other) const;
+        bool operator!=(const parameter_info& other) const RTTR_NOEXCEPT;
 
     private:
-        template<typename... T> 
-        friend std::vector<parameter_info> detail::convert_to_parameter_info_list(const detail::parameter_infos<T...>&);
-
         template<typename T>
         friend parameter_info detail::create_param_info(const T&);
 
-        parameter_info(const detail::parameter_info_wrapper_base* wrapper = nullptr);
+        parameter_info(const detail::parameter_info_wrapper_base* wrapper) RTTR_NOEXCEPT;
     private:
         const detail::parameter_info_wrapper_base* m_wrapper;
 };
