@@ -48,10 +48,12 @@
     <ClInclude Include="Source\Examples\ExampleComponent.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Examples\TestRTTRSystem.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Examples\UI\UI.h">
       <Filter>Examples\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Examples\TestRTTRSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Examples\2DShooter\Source\2DShooter.cpp">

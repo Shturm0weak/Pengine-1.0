@@ -6,6 +6,11 @@
 #include "Editor.h"
 #include "../EventSystem/EventSystem.h"
 
+#include <glew.h>
+#include <glfw3.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <glfw3native.h>
+
 using namespace Pengine;
 
 Window::~Window()

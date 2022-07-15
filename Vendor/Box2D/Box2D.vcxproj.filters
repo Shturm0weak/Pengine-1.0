@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="extern">
+      <UniqueIdentifier>{7BE134FC-6783-5FD2-503E-73263C7FE622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glad">
+      <UniqueIdentifier>{62D9E0B7-CE8E-59AD-5783-5384C33750B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glad\include">
+      <UniqueIdentifier>{D542DAA5-41A4-B7B3-CA11-FE653672EE72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glad\include\KHR">
+      <UniqueIdentifier>{C9B354BC-35EB-9C53-3EF5-0077AAABC34C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glad\include\glad">
+      <UniqueIdentifier>{FC22FB46-E847-4AC7-1193-2F57FD1649E5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glfw">
+      <UniqueIdentifier>{1ADAE0B7-868F-59AD-0F84-53847B3850B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glfw\include">
+      <UniqueIdentifier>{8D7B4B5F-F9DC-286D-824A-6F1FEEAA5F2C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glfw\include\GLFW">
+      <UniqueIdentifier>{EC7612DD-D89B-615D-01E7-46EDED6A607B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\glfw\src">
+      <UniqueIdentifier>{3115B012-9DA0-1DD7-A6B1-A0CB12BC79D7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\imgui">
+      <UniqueIdentifier>{25DF20B4-1142-B058-BAC7-E80EA6097CDB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extern\sajson">
+      <UniqueIdentifier>{D8D1B84E-4492-3485-0DCD-7D02794C7961}</UniqueIdentifier>
+    </Filter>
     <Filter Include="include">
       <UniqueIdentifier>{89AF369E-F58E-B539-FEA6-40106A051C9B}</UniqueIdentifier>
     </Filter>
@@ -22,8 +55,110 @@
     <Filter Include="src\rope">
       <UniqueIdentifier>{329936CF-1E66-91DA-477F-7F8233ABC668}</UniqueIdentifier>
     </Filter>
+    <Filter Include="testbed">
+      <UniqueIdentifier>{90781ED9-FC57-9D74-0570-284B71CE03D6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="testbed\tests">
+      <UniqueIdentifier>{728FE9C6-DE4F-65FD-A78A-AE7A130AAAD9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="unit-test">
+      <UniqueIdentifier>{72A4EE57-DE0E-A3CE-274D-547493F68023}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="extern\glad\include\KHR\khrplatform.h">
+      <Filter>extern\glad\include\KHR</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glad\include\glad\gl.h">
+      <Filter>extern\glad\include\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\include\GLFW\glfw3.h">
+      <Filter>extern\glfw\include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\include\GLFW\glfw3native.h">
+      <Filter>extern\glfw\include\GLFW</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\cocoa_joystick.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\cocoa_platform.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\egl_context.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\glfw_config.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\glx_context.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\internal.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\linux_joystick.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\mappings.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\nsgl_context.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\null_joystick.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\null_platform.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\osmesa_context.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\posix_thread.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\posix_time.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\wgl_context.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\win32_joystick.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\win32_platform.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\wl_platform.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\x11_platform.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\glfw\src\xkb_unicode.h">
+      <Filter>extern\glfw\src</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imconfig.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imgui.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imgui_internal.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imstb_rectpack.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imstb_textedit.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\imgui\imstb_truetype.h">
+      <Filter>extern\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="extern\sajson\sajson.h">
+      <Filter>extern\sajson</Filter>
+    </ClInclude>
     <ClInclude Include="include\box2d\b2_api.h">
       <Filter>include\box2d</Filter>
     </ClInclude>
@@ -171,8 +306,41 @@
     <ClInclude Include="src\dynamics\b2_polygon_contact.h">
       <Filter>src\dynamics</Filter>
     </ClInclude>
+    <ClInclude Include="testbed\draw.h">
+      <Filter>testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="testbed\imgui_impl_glfw.h">
+      <Filter>testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="testbed\imgui_impl_opengl3.h">
+      <Filter>testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="testbed\settings.h">
+      <Filter>testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="testbed\test.h">
+      <Filter>testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="unit-test\doctest.h">
+      <Filter>unit-test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="extern\imgui\imgui.cpp">
+      <Filter>extern\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="extern\imgui\imgui_demo.cpp">
+      <Filter>extern\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="extern\imgui\imgui_draw.cpp">
+      <Filter>extern\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="extern\imgui\imgui_widgets.cpp">
+      <Filter>extern\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="extern\sajson\sajson.cpp">
+      <Filter>extern\sajson</Filter>
+    </ClCompile>
     <ClCompile Include="src\collision\b2_broad_phase.cpp">
       <Filter>src\collision</Filter>
     </ClCompile>
@@ -307,6 +475,213 @@
     </ClCompile>
     <ClCompile Include="src\rope\b2_rope.cpp">
       <Filter>src\rope</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\draw.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\imgui_impl_glfw.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\imgui_impl_opengl3.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\main.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\settings.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\test.cpp">
+      <Filter>testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\add_pair.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\apply_force.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\body_types.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\box_stack.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\breakable.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\bridge.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\bullet_test.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\cantilever.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\car.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\chain.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\chain_problem.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\character_collision.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\circle_stack.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\collision_filtering.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\collision_processing.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\compound_shapes.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\confined.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\continuous_test.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\convex_hull.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\conveyor_belt.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\distance_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\distance_test.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\dominos.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\dump_loader.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\dynamic_tree.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\edge_shapes.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\edge_test.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\friction.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\gear_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\heavy1.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\heavy2.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\mobile_balanced.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\mobile_unbalanced.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\motor_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\pinball.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\platformer.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\polygon_collision.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\polygon_shapes.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\prismatic_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\pulley_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\pyramid.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\ray_cast.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\restitution.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\revolute_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\rope.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\sensor.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\shape_cast.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\shape_editing.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\skier.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\slider_crank_1.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\slider_crank_2.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\theo_jansen.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\tiles.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\time_of_impact.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\tumbler.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\web.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\wheel_joint.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="testbed\tests\wrecking_ball.cpp">
+      <Filter>testbed\tests</Filter>
+    </ClCompile>
+    <ClCompile Include="unit-test\collision_test.cpp">
+      <Filter>unit-test</Filter>
+    </ClCompile>
+    <ClCompile Include="unit-test\hello_world.cpp">
+      <Filter>unit-test</Filter>
+    </ClCompile>
+    <ClCompile Include="unit-test\joint_test.cpp">
+      <Filter>unit-test</Filter>
+    </ClCompile>
+    <ClCompile Include="unit-test\math_test.cpp">
+      <Filter>unit-test</Filter>
+    </ClCompile>
+    <ClCompile Include="unit-test\world_test.cpp">
+      <Filter>unit-test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

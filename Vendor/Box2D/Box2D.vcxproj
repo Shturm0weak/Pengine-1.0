@@ -41,14 +41,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>bin\Debug-windows-x86_64\Box2D\</OutDir>
-    <IntDir>bin-int\Debug-windows-x86_64\Box2D\</IntDir>
+    <OutDir>..\..\bin\Debug-windows-x86_64\Box2D\</OutDir>
+    <IntDir>..\..\bin-int\Debug-windows-x86_64\Box2D\</IntDir>
     <TargetName>Box2D</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>bin\Release-windows-x86_64\Box2D\</OutDir>
-    <IntDir>bin-int\Release-windows-x86_64\Box2D\</IntDir>
+    <OutDir>..\..\bin\Release-windows-x86_64\Box2D\</OutDir>
+    <IntDir>..\..\bin-int\Release-windows-x86_64\Box2D\</IntDir>
     <TargetName>Box2D</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
@@ -56,28 +56,34 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor\Box2D\include;$(SolutionDir)Vendor\Box2D\src;$(SolutionDir)Vendor\Box2D\testbed;$(SolutionDir)Vendor\Box2D\extern;$(SolutionDir)Vendor\Box2D\extern\glad\include;$(SolutionDir)Vendor\Box2D\extern\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Box2D\Box2D.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Box2D\Box2D.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Box2D\Box2D.lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <WarningLevel>TurnOffAllWarnings</WarningLevel>
-      <AdditionalIncludeDirectories>include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor\Box2D\include;$(SolutionDir)Vendor\Box2D\src;$(SolutionDir)Vendor\Box2D\testbed;$(SolutionDir)Vendor\Box2D\extern;$(SolutionDir)Vendor\Box2D\extern\glad\include;$(SolutionDir)Vendor\Box2D\extern\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -85,8 +91,42 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Box2D\Box2D.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Box2D\Box2D.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Box2D\Box2D.lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="extern\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="extern\glad\include\glad\gl.h" />
+    <ClInclude Include="extern\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="extern\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="extern\glfw\src\cocoa_joystick.h" />
+    <ClInclude Include="extern\glfw\src\cocoa_platform.h" />
+    <ClInclude Include="extern\glfw\src\egl_context.h" />
+    <ClInclude Include="extern\glfw\src\glfw_config.h" />
+    <ClInclude Include="extern\glfw\src\glx_context.h" />
+    <ClInclude Include="extern\glfw\src\internal.h" />
+    <ClInclude Include="extern\glfw\src\linux_joystick.h" />
+    <ClInclude Include="extern\glfw\src\mappings.h" />
+    <ClInclude Include="extern\glfw\src\nsgl_context.h" />
+    <ClInclude Include="extern\glfw\src\null_joystick.h" />
+    <ClInclude Include="extern\glfw\src\null_platform.h" />
+    <ClInclude Include="extern\glfw\src\osmesa_context.h" />
+    <ClInclude Include="extern\glfw\src\posix_thread.h" />
+    <ClInclude Include="extern\glfw\src\posix_time.h" />
+    <ClInclude Include="extern\glfw\src\wgl_context.h" />
+    <ClInclude Include="extern\glfw\src\win32_joystick.h" />
+    <ClInclude Include="extern\glfw\src\win32_platform.h" />
+    <ClInclude Include="extern\glfw\src\wl_platform.h" />
+    <ClInclude Include="extern\glfw\src\x11_platform.h" />
+    <ClInclude Include="extern\glfw\src\xkb_unicode.h" />
+    <ClInclude Include="extern\imgui\imconfig.h" />
+    <ClInclude Include="extern\imgui\imgui.h" />
+    <ClInclude Include="extern\imgui\imgui_internal.h" />
+    <ClInclude Include="extern\imgui\imstb_rectpack.h" />
+    <ClInclude Include="extern\imgui\imstb_textedit.h" />
+    <ClInclude Include="extern\imgui\imstb_truetype.h" />
+    <ClInclude Include="extern\sajson\sajson.h" />
     <ClInclude Include="include\box2d\b2_api.h" />
     <ClInclude Include="include\box2d\b2_block_allocator.h" />
     <ClInclude Include="include\box2d\b2_body.h" />
@@ -136,8 +176,19 @@
     <ClInclude Include="src\dynamics\b2_island.h" />
     <ClInclude Include="src\dynamics\b2_polygon_circle_contact.h" />
     <ClInclude Include="src\dynamics\b2_polygon_contact.h" />
+    <ClInclude Include="testbed\draw.h" />
+    <ClInclude Include="testbed\imgui_impl_glfw.h" />
+    <ClInclude Include="testbed\imgui_impl_opengl3.h" />
+    <ClInclude Include="testbed\settings.h" />
+    <ClInclude Include="testbed\test.h" />
+    <ClInclude Include="unit-test\doctest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="extern\imgui\imgui.cpp" />
+    <ClCompile Include="extern\imgui\imgui_demo.cpp" />
+    <ClCompile Include="extern\imgui\imgui_draw.cpp" />
+    <ClCompile Include="extern\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="extern\sajson\sajson.cpp" />
     <ClCompile Include="src\collision\b2_broad_phase.cpp" />
     <ClCompile Include="src\collision\b2_chain_shape.cpp" />
     <ClCompile Include="src\collision\b2_circle_shape.cpp" />
@@ -183,6 +234,75 @@
     <ClCompile Include="src\dynamics\b2_world.cpp" />
     <ClCompile Include="src\dynamics\b2_world_callbacks.cpp" />
     <ClCompile Include="src\rope\b2_rope.cpp" />
+    <ClCompile Include="testbed\draw.cpp" />
+    <ClCompile Include="testbed\imgui_impl_glfw.cpp" />
+    <ClCompile Include="testbed\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="testbed\main.cpp" />
+    <ClCompile Include="testbed\settings.cpp" />
+    <ClCompile Include="testbed\test.cpp" />
+    <ClCompile Include="testbed\tests\add_pair.cpp" />
+    <ClCompile Include="testbed\tests\apply_force.cpp" />
+    <ClCompile Include="testbed\tests\body_types.cpp" />
+    <ClCompile Include="testbed\tests\box_stack.cpp" />
+    <ClCompile Include="testbed\tests\breakable.cpp" />
+    <ClCompile Include="testbed\tests\bridge.cpp" />
+    <ClCompile Include="testbed\tests\bullet_test.cpp" />
+    <ClCompile Include="testbed\tests\cantilever.cpp" />
+    <ClCompile Include="testbed\tests\car.cpp" />
+    <ClCompile Include="testbed\tests\chain.cpp" />
+    <ClCompile Include="testbed\tests\chain_problem.cpp" />
+    <ClCompile Include="testbed\tests\character_collision.cpp" />
+    <ClCompile Include="testbed\tests\circle_stack.cpp" />
+    <ClCompile Include="testbed\tests\collision_filtering.cpp" />
+    <ClCompile Include="testbed\tests\collision_processing.cpp" />
+    <ClCompile Include="testbed\tests\compound_shapes.cpp" />
+    <ClCompile Include="testbed\tests\confined.cpp" />
+    <ClCompile Include="testbed\tests\continuous_test.cpp" />
+    <ClCompile Include="testbed\tests\convex_hull.cpp" />
+    <ClCompile Include="testbed\tests\conveyor_belt.cpp" />
+    <ClCompile Include="testbed\tests\distance_joint.cpp" />
+    <ClCompile Include="testbed\tests\distance_test.cpp" />
+    <ClCompile Include="testbed\tests\dominos.cpp" />
+    <ClCompile Include="testbed\tests\dump_loader.cpp" />
+    <ClCompile Include="testbed\tests\dynamic_tree.cpp" />
+    <ClCompile Include="testbed\tests\edge_shapes.cpp" />
+    <ClCompile Include="testbed\tests\edge_test.cpp" />
+    <ClCompile Include="testbed\tests\friction.cpp" />
+    <ClCompile Include="testbed\tests\gear_joint.cpp" />
+    <ClCompile Include="testbed\tests\heavy1.cpp" />
+    <ClCompile Include="testbed\tests\heavy2.cpp" />
+    <ClCompile Include="testbed\tests\mobile_balanced.cpp" />
+    <ClCompile Include="testbed\tests\mobile_unbalanced.cpp" />
+    <ClCompile Include="testbed\tests\motor_joint.cpp" />
+    <ClCompile Include="testbed\tests\pinball.cpp" />
+    <ClCompile Include="testbed\tests\platformer.cpp" />
+    <ClCompile Include="testbed\tests\polygon_collision.cpp" />
+    <ClCompile Include="testbed\tests\polygon_shapes.cpp" />
+    <ClCompile Include="testbed\tests\prismatic_joint.cpp" />
+    <ClCompile Include="testbed\tests\pulley_joint.cpp" />
+    <ClCompile Include="testbed\tests\pyramid.cpp" />
+    <ClCompile Include="testbed\tests\ray_cast.cpp" />
+    <ClCompile Include="testbed\tests\restitution.cpp" />
+    <ClCompile Include="testbed\tests\revolute_joint.cpp" />
+    <ClCompile Include="testbed\tests\rope.cpp" />
+    <ClCompile Include="testbed\tests\sensor.cpp" />
+    <ClCompile Include="testbed\tests\shape_cast.cpp" />
+    <ClCompile Include="testbed\tests\shape_editing.cpp" />
+    <ClCompile Include="testbed\tests\skier.cpp" />
+    <ClCompile Include="testbed\tests\slider_crank_1.cpp" />
+    <ClCompile Include="testbed\tests\slider_crank_2.cpp" />
+    <ClCompile Include="testbed\tests\theo_jansen.cpp" />
+    <ClCompile Include="testbed\tests\tiles.cpp" />
+    <ClCompile Include="testbed\tests\time_of_impact.cpp" />
+    <ClCompile Include="testbed\tests\tumbler.cpp" />
+    <ClCompile Include="testbed\tests\web.cpp" />
+    <ClCompile Include="testbed\tests\wheel_joint.cpp" />
+    <ClCompile Include="testbed\tests\wrecking_ball.cpp" />
+    <ClCompile Include="unit-test\collision_test.cpp" />
+    <ClCompile Include="unit-test\hello_world.cpp" />
+    <ClCompile Include="unit-test\joint_test.cpp" />
+    <ClCompile Include="unit-test\math_test.cpp" />
+    <ClCompile Include="unit-test\world_test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

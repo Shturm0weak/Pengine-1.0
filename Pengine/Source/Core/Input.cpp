@@ -1,4 +1,6 @@
 #include "Input.h"
+
+#include "glfw3.h"
 #include "Window.h"
 
 #include <algorithm>

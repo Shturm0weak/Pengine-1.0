@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,16 +70,15 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2Dd.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;rttr_core.lib;Yaml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
 IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul)</Command>
+IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -87,7 +86,7 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Pengine\Source\Pengine;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -103,19 +102,24 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2Dr.lib;rttr_core_r.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;rttr_core.lib;Yaml.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
 IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs &gt; nul)</Command>
+IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul)
+IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll ..\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Audio\OpenAl\EFX-Util.h" />
+    <ClInclude Include="Source\Audio\OpenAl\al.h" />
+    <ClInclude Include="Source\Audio\OpenAl\alc.h" />
+    <ClInclude Include="Source\Audio\OpenAl\efx-creative.h" />
+    <ClInclude Include="Source\Audio\OpenAl\efx.h" />
+    <ClInclude Include="Source\Audio\OpenAl\xram.h" />
     <ClInclude Include="Source\Audio\Sound.h" />
     <ClInclude Include="Source\Audio\SoundManager.h" />
     <ClInclude Include="Source\Audio\vorbis.h" />
@@ -190,65 +194,6 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q
     <ClInclude Include="Source\OpenGL\stb_image.h" />
     <ClInclude Include="Source\UI\Character.h" />
     <ClInclude Include="Source\UI\Gui.h" />
-    <ClInclude Include="Source\yaml-cpp\anchor.h" />
-    <ClInclude Include="Source\yaml-cpp\binary.h" />
-    <ClInclude Include="Source\yaml-cpp\contrib\anchordict.h" />
-    <ClInclude Include="Source\yaml-cpp\contrib\graphbuilder.h" />
-    <ClInclude Include="Source\yaml-cpp\depthguard.h" />
-    <ClInclude Include="Source\yaml-cpp\dll.h" />
-    <ClInclude Include="Source\yaml-cpp\emitfromevents.h" />
-    <ClInclude Include="Source\yaml-cpp\emitter.h" />
-    <ClInclude Include="Source\yaml-cpp\emitterdef.h" />
-    <ClInclude Include="Source\yaml-cpp\emittermanip.h" />
-    <ClInclude Include="Source\yaml-cpp\emitterstyle.h" />
-    <ClInclude Include="Source\yaml-cpp\eventhandler.h" />
-    <ClInclude Include="Source\yaml-cpp\exceptions.h" />
-    <ClInclude Include="Source\yaml-cpp\mark.h" />
-    <ClInclude Include="Source\yaml-cpp\node\convert.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\impl.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\iterator.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\iterator_fwd.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\memory.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\node.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\node_data.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\node_iterator.h" />
-    <ClInclude Include="Source\yaml-cpp\node\detail\node_ref.h" />
-    <ClInclude Include="Source\yaml-cpp\node\emit.h" />
-    <ClInclude Include="Source\yaml-cpp\node\impl.h" />
-    <ClInclude Include="Source\yaml-cpp\node\iterator.h" />
-    <ClInclude Include="Source\yaml-cpp\node\node.h" />
-    <ClInclude Include="Source\yaml-cpp\node\parse.h" />
-    <ClInclude Include="Source\yaml-cpp\node\ptr.h" />
-    <ClInclude Include="Source\yaml-cpp\node\type.h" />
-    <ClInclude Include="Source\yaml-cpp\noexcept.h" />
-    <ClInclude Include="Source\yaml-cpp\null.h" />
-    <ClInclude Include="Source\yaml-cpp\ostream_wrapper.h" />
-    <ClInclude Include="Source\yaml-cpp\parser.h" />
-    <ClInclude Include="Source\yaml-cpp\src\collectionstack.h" />
-    <ClInclude Include="Source\yaml-cpp\src\contrib\graphbuilderadapter.h" />
-    <ClInclude Include="Source\yaml-cpp\src\directives.h" />
-    <ClInclude Include="Source\yaml-cpp\src\emitterstate.h" />
-    <ClInclude Include="Source\yaml-cpp\src\emitterutils.h" />
-    <ClInclude Include="Source\yaml-cpp\src\exp.h" />
-    <ClInclude Include="Source\yaml-cpp\src\indentation.h" />
-    <ClInclude Include="Source\yaml-cpp\src\nodebuilder.h" />
-    <ClInclude Include="Source\yaml-cpp\src\nodeevents.h" />
-    <ClInclude Include="Source\yaml-cpp\src\ptr_vector.h" />
-    <ClInclude Include="Source\yaml-cpp\src\regex_yaml.h" />
-    <ClInclude Include="Source\yaml-cpp\src\regeximpl.h" />
-    <ClInclude Include="Source\yaml-cpp\src\scanner.h" />
-    <ClInclude Include="Source\yaml-cpp\src\scanscalar.h" />
-    <ClInclude Include="Source\yaml-cpp\src\scantag.h" />
-    <ClInclude Include="Source\yaml-cpp\src\setting.h" />
-    <ClInclude Include="Source\yaml-cpp\src\singledocparser.h" />
-    <ClInclude Include="Source\yaml-cpp\src\stream.h" />
-    <ClInclude Include="Source\yaml-cpp\src\streamcharsource.h" />
-    <ClInclude Include="Source\yaml-cpp\src\stringsource.h" />
-    <ClInclude Include="Source\yaml-cpp\src\tag.h" />
-    <ClInclude Include="Source\yaml-cpp\src\token.h" />
-    <ClInclude Include="Source\yaml-cpp\stlemitter.h" />
-    <ClInclude Include="Source\yaml-cpp\traits.h" />
-    <ClInclude Include="Source\yaml-cpp\yaml.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp" />
@@ -312,37 +257,17 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q
     <ClCompile Include="Source\StaticVariables.cpp" />
     <ClCompile Include="Source\UI\Character.cpp" />
     <ClCompile Include="Source\UI\Gui.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\binary.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\contrib\graphbuilder.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\contrib\graphbuilderadapter.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\convert.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\depthguard.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\directives.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\emit.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\emitfromevents.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\emitter.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\emitterstate.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\emitterutils.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\exceptions.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\exp.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\memory.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\node.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\node_data.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\nodebuilder.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\nodeevents.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\null.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\ostream_wrapper.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\parse.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\parser.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\regex_yaml.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\scanner.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\scanscalar.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\scantag.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\scantoken.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\simplekey.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\singledocparser.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\stream.cpp" />
-    <ClCompile Include="Source\yaml-cpp\src\tag.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vendor\Box2D\Box2D.vcxproj">
+      <Project>{A434E80C-1049-10BE-D9CA-B31D459E0CEF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Vendor\yaml-cpp\Yaml.vcxproj">
+      <Project>{58888F7C-44BF-900D-EDAB-7610D9C10C0F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Vendor\ImGui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

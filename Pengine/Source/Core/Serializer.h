@@ -3,7 +3,7 @@
 #include "Core.h"
 #include "Scene.h"
 #include "Animation2DManager.h"
-#include "../yaml-cpp/yaml.h"
+#include "yaml-cpp/yaml.h"
 
 #include <vector>
 

@@ -19,7 +19,6 @@ class Person : public IComponent
 	public: PROPERTY(Person, glm::vec3, m_Vec3, glm::vec3())
 	public: PROPERTY(Person, glm::vec4, m_Vec4, glm::vec4())
 	public: PROPERTY(Person, Texture*, m_Texture, TextureManager::GetInstance().Get("White"))
-	public: PROPERTY(Person, float*, m_Float, new float(5.1f))
 
 public:
 

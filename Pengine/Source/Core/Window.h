@@ -2,11 +2,6 @@
 
 #include "Core.h"
 
-#include <glew.h>
-#include <glfw3.h>
-#define GLFW_EXPOSE_NATIVE_WIN32
-#include <glfw3native.h>
-
 namespace Pengine
 {
 

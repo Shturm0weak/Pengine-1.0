@@ -14,9 +14,9 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include "glm/gtx/quaternion.hpp"
 
-#include <ImGui/imgui.h>
-#include <ImGui/examples/imgui_impl_glfw.h>
-#include <ImGui/examples/imgui_impl_opengl3.h>
+#include "../Vendor/ImGui/imgui_internal.h"
+#include "../Vendor/ImGui/backends/imgui_impl_glfw.h"
+#include "../Vendor/ImGui/backends/imgui_impl_opengl3.h"
 
 #include "Time.h"
 

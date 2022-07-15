@@ -8,8 +8,8 @@
 #include <iostream>
 #include <map>
 
-#include "OpenAl/OpenAl/al.h"
-#include "OpenAl/OpenAl/alc.h"
+#include "OpenAl/al.h"
+#include "OpenAl/alc.h"
 
 namespace Pengine
 {

@@ -24,9 +24,6 @@
 #include "../Lua/LuaStateManager.h"
 #include "Box2D/include/box2d/b2_fixture.h"
 
-#include <imgui/imgui.h>
-#include <imgui/imgui_internal.h>
-
 #include <filesystem>
 #include <fstream>
 
@@ -94,7 +91,7 @@ void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float 
 	ImGui::PushMultiItemsWidths(2, ImGui::CalcItemWidth());
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
 
-	const float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
 	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
 
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
@@ -146,7 +143,7 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 	ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
 
-	const float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
 	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
 
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
@@ -211,7 +208,7 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	ImGui::PushMultiItemsWidths(4, ImGui::CalcItemWidth());
 	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
 
-	const float lineHeight = GImGui->Font->FontSize + GImGui->Style.FramePadding.y * 2.0f;
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
 	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
 
 	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
@@ -256,9 +253,9 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
-	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.9f, 0.9f, 0.9f, 1.0f });
-	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 1.0f, 1.0f, 1.0f, 1.0f });
-	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.9f, 0.9f, 0.9f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.7f, 0.7f, 0.7f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.9f, 0.9f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.7f, 0.7f, 0.7f, 1.0f });
 	if (ImGui::Button("W", buttonSize))
 	{
 		values.w = resetValue;
@@ -408,8 +405,8 @@ void Editor::AssetBrowser()
 		const float padding = 16.0f;
 		const float thumbnailSize = 128.0f;
 		const float cellSize = padding + thumbnailSize;
-		const float panelWidth = ImGui::GetContentRegionAvailWidth();
-
+		const float panelWidth = ImGui::GetContentRegionAvail().x;
+		
 		const int columns = (int)(panelWidth / cellSize);
 
 		if (columns == 0)
@@ -924,7 +921,7 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 					}
 				}
 
-				ImGui::InputFloat("Speed", &anim2d->m_Speed, 0.1f, 1.0f, 3);
+				ImGui::InputFloat("Speed", &anim2d->m_Speed, 0.1f, 1.0f);
 
 				const float size = 32.0f;
 				ImTextureID icon = anim2d->m_Play ?
@@ -1125,32 +1122,32 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 							DrawVec4Control(prop.get_name().c_str(), value);
 							prop.set_value(component, value);
 						}
-						else if (prop.get_type().is_pointer())
-						{
-							if (prop.get_value(component).can_convert<Texture*>())
-							{
-								Texture* value = prop.get_value(component).get_value<Texture*>();
-								ImGui::Image((ImTextureID)value->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0, 1), ImVec2(1, 0));
-
-								if (ImGui::BeginDragDropTarget())
-								{
-									if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
-									{
-										std::string path((const char*)payload->Data);
-										path.resize(payload->DataSize);
-										TextureManager::GetInstance().AsyncCreate(path);
-										TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
-											prop.set_value(component, texture);
-											}, Utils::GetNameFromFilePath(path));
-									}
-									ImGui::EndDragDropTarget();
-								}
-
-								ImGui::SameLine();
-
-								ImGui::Text(prop.get_name().c_str());
-							}
-						}
+						//else if (prop.get_type().is_pointer())
+						//{
+						//	if (prop.get_value(component).can_convert<Texture*>())
+						//	{
+						//		Texture* value = prop.get_value(component).get_value<Texture*>();
+						//		ImGui::Image((ImTextureID)value->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0, 1), ImVec2(1, 0));
+						//
+						//		if (ImGui::BeginDragDropTarget())
+						//		{
+						//			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						//			{
+						//				std::string path((const char*)payload->Data);
+						//				path.resize(payload->DataSize);
+						//				TextureManager::GetInstance().AsyncCreate(path);
+						//				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						//					prop.set_value(component, texture);
+						//					}, Utils::GetNameFromFilePath(path));
+						//			}
+						//			ImGui::EndDragDropTarget();
+						//		}
+						//
+						//		ImGui::SameLine();
+						//
+						//		ImGui::Text(prop.get_name().c_str());
+						//	}
+						//}
 					}
 				}
 			}
@@ -1314,6 +1311,8 @@ Editor& Editor::GetInstance()
 
 void Editor::Update(Scene* scene)
 {
+	if (Window::GetInstance().GetSize().x == 0 || Window::GetInstance().GetSize().y == 0) return;
+
 	Timer timer = Timer(false, &m_Stats.m_RenderEditor);
 
 	m_Stats.s_AllocationsCount = 0;
@@ -1391,11 +1390,11 @@ void Editor::Update(Scene* scene)
 	TextMenu();
 	ToolBar();
 	Environment();
-	Animation2DMenu();
-	TextureAtlasMenu();
 	Settings();
-	DeleteDirectoryOrFile();
-	CreatingFileMenu();
+	m_Animation2DMenu.Update();
+	m_TextureAtlasMenu.Update();
+	m_DeleteDirectoryOrFile.Update();
+	m_CreatingFileMenu.Update();
 
 	if (Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_1) && viewport.IsFocused() && viewport.IsHovered()
 		&& !viewport.IsActiveGuizmo())
@@ -1715,7 +1714,7 @@ void Editor::Animation2DMenu::Update()
 		const float padding = 16.0f;
 		const float thumbnailSize = 128.0f;
 		const float cellSize = padding + thumbnailSize;
-		const float panelWidth = ImGui::GetContentRegionAvailWidth();
+		const float panelWidth = ImGui::GetContentRegionAvail().x;
 
 		const int columns = (int)(panelWidth / cellSize);
 		ImGui::Columns(glm::max<int>(columns, 1), 0, false);
@@ -1747,6 +1746,14 @@ void Editor::Animation2DMenu::Update()
 		{
 			Animation2DManager::GetInstance().Save(m_Animation);
 			Serializer::SerializeAnimation2D(m_Animation);
+		}
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Clear"))
+		{
+			m_Animation->m_Textures.clear();
+			m_Animation->m_UVs.clear();
 		}
 
 		ImGui::Text("Loaded animations");
@@ -1803,7 +1810,7 @@ void Editor::TextureAtlasMenu::Update()
 		ImGui::Text("Filepath: %s", m_TextureAtlas->GetFilePath().c_str());
 
 		glm::vec2 size = m_TextureAtlas->GetSize();
-		if (ImGui::InputFloat2("Size", &size[0], 2))
+		if (ImGui::InputFloat2("Size", &size[0]))
 		{
 			m_TextureAtlas->SetSize(size);
 		}

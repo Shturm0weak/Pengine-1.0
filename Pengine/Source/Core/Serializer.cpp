@@ -1641,28 +1641,28 @@ void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManag
 					ReflectedProps::DeserializeReflecteddvec3Property(componentData, component, prop);
 					ReflectedProps::DeserializeReflecteddvec4Property(componentData, component, prop);
 
-					if (auto& propData = componentData[prop.get_name()])
-					{
-						if (auto& propTypeData = propData["Type"])
-						{
-							if (ReflectedProps::is_asset(propTypeData.as<std::string>()))
-							{
-								if (auto& propValueData = propData["Value"])
-								{
-									std::string assetFilePath = propValueData.as<std::string>();
-									if (assetFilePath == "White" || Utils::MatchType(assetFilePath, {"jpeg", "png", "jpg"}))
-									{
-										TextureManager::GetInstance().AsyncCreate(assetFilePath);
-										TextureManager::GetInstance().AsyncGet([=](Texture* texture)
-											{
-												prop.set_value(component, texture);
-											}
-										, Utils::GetNameFromFilePath(assetFilePath));
-									}
-								}
-							}
-						}
-					}
+					//if (auto& propData = componentData[prop.get_name()])
+					//{
+					//	if (auto& propTypeData = propData["Type"])
+					//	{
+					//		if (ReflectedProps::is_asset(propTypeData.as<std::string>()))
+					//		{
+					//			if (auto& propValueData = propData["Value"])
+					//			{
+					//				std::string assetFilePath = propValueData.as<std::string>();
+					//				if (assetFilePath == "White" || Utils::MatchType(assetFilePath, {"jpeg", "png", "jpg"}))
+					//				{
+					//					TextureManager::GetInstance().AsyncCreate(assetFilePath);
+					//					TextureManager::GetInstance().AsyncGet([=](Texture* texture)
+					//						{
+					//							prop.set_value(component, texture);
+					//						}
+					//					, Utils::GetNameFromFilePath(assetFilePath));
+					//				}
+					//			}
+					//		}
+					//	}
+					//}
 				}
 			}
 		}

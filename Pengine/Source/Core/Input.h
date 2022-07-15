@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Core.h"
-#include "glew.h"
-#include "glfw3.h"
-
 #include "../Enums/KeyCode.h"
 
 #include <unordered_map>
