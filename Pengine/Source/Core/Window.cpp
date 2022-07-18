@@ -74,6 +74,8 @@ int Window::Initialize(const std::string& title)
 	Logger::UpdateTime();
 	Input::SetupCallBack();
 
+	Logger::Log(std::string("Hardware supports OpenGL: " + std::string((char*)glGetString(GL_VERSION))).c_str());
+	Logger::Log(std::string("Application supports GLEW: " + std::string((char*)glewGetString(GLEW_VERSION))).c_str());
 	Logger::Success("Window has been initialized!");
 
 	return 0;
