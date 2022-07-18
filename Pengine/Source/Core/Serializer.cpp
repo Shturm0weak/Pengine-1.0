@@ -19,8 +19,8 @@ using namespace Pengine;
 namespace ReflectedProps
 {
 
-#define DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
-bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component, rttr::property prop) \
+#define EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(_name, type) \
+bool deserialize_reflected_##_name##_property(YAML::Node& in, IComponent* component, rttr::property prop) \
 { \
 	using namespace glm; \
 	using namespace std; \
@@ -28,7 +28,7 @@ bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component,
 	{ \
 		if (auto& propTypeData = propData["Type"]) \
 		{ \
-			if (ReflectedProps::is_##type(propTypeData.as<std::string>())) \
+			if (ReflectedProps::is_##_name(propTypeData.as<std::string>())) \
 			{ \
 				if (auto& propValueData = propData["Value"]) \
 				{ \
@@ -41,11 +41,29 @@ bool DeserializeReflected##type##Property(YAML::Node& in, IComponent* component,
 	return false; \
 }
 
+#define	DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type, type)
+
 #define SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
 if (ReflectedProps::is_##type(prop.get_type().get_name())) \
 { \
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_##type(); \
 	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(component).get_value<type>(); \
+}
+
+#define SERIALIZE_REFLECTED_VECTOR_PROPERTY(type) \
+if (Utils::Contains(prop.get_type().get_name(), ReflectedProps::get_vector##type())) \
+{ \
+	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_vector##type(); \
+	out << YAML::Key << "Value" << YAML::Value << YAML::BeginSeq; \
+\
+	vector<type> value = prop.get_value(component).get_value<vector<type>>(); \
+\
+	for (size_t i = 0; i < value.size(); i++) \
+	{ \
+		out << value[i]; \
+	} \
+\
+	out << YAML::EndSeq; \
 }
 
 DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
@@ -65,6 +83,24 @@ DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
 DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
 DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
 DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint, std::vector<int>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint64_t, std::vector<__int64>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint32_t, std::vector<unsigned int>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorfloat, std::vector<float>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordouble, std::vector<double>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorbool, std::vector<bool>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec2, std::vector<glm::vec2>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec3, std::vector<glm::vec3>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec4, std::vector<glm::vec4>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec2, std::vector<glm::ivec2>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec3, std::vector<glm::ivec3>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec4, std::vector<glm::ivec4>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec2, std::vector<glm::dvec2>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec3, std::vector<glm::dvec3>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec4, std::vector<glm::dvec4>)
+EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorstring, std::vector<std::string>)
 
 }
 
@@ -1566,23 +1602,26 @@ void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentMan
 				out << YAML::Key << prop.get_name();
 				out << YAML::BeginMap;
 
-				SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
-				else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+				if (prop.get_type().is_array())
+				{
+					SERIALIZE_REFLECTED_VECTOR_PROPERTY(float)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(double)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(bool)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int64_t)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(string)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint32_t)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint64_t)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec2)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec3)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec4)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec2)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec3)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec4)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec2)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec3)
+					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec4)
+				}
 				else if (prop.get_type().is_pointer())
 				{
 					if (auto& value = prop.get_value(component))
@@ -1598,6 +1637,26 @@ void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentMan
 							}
 						}
 					}
+				}
+				else
+				{
+					SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
+					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
 				}
 
 				out << YAML::EndMap;
@@ -1622,24 +1681,43 @@ void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManag
 
 				for (auto& prop : componentClass.get_properties())
 				{
-					ReflectedProps::DeserializeReflectedintProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedfloatProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteddoubleProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteduint32_tProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteduint64_tProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteduint32_tProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteduint64_tProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedstringProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedboolProperty(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedvec2Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedvec3Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedvec4Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedivec2Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedivec3Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflectedivec4Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteddvec2Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteddvec3Property(componentData, component, prop);
-					ReflectedProps::DeserializeReflecteddvec4Property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_int_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_float_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_double_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_uint32_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_int64_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_uint64_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_string_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_bool_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_ivec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_ivec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_ivec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_dvec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_dvec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_dvec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_dvec4_property(componentData, component, prop);
+
+					ReflectedProps::deserialize_reflected_vectorint_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorfloat_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectordouble_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorint64_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectoruint32_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectoruint64_t_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorstring_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorbool_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorvec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorvec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorvec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorivec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorivec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectorivec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectordvec2_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectordvec3_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectordvec4_property(componentData, component, prop);
+					ReflectedProps::deserialize_reflected_vectordvec4_property(componentData, component, prop);
 
 					//if (auto& propData = componentData[prop.get_name()])
 					//{

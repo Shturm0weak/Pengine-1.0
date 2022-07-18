@@ -68,6 +68,8 @@ namespace Pengine
 
 		bool m_IsEnabled = true;
 
+		bool m_DrawVecLabel = true;
+
 		Editor() = default;
 		Editor(const Editor&) = delete;
 		Editor& operator=(const Editor&) { return *this; }
@@ -84,6 +86,16 @@ namespace Pengine
 		void DrawVec4Control(const std::string& label, glm::vec4& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 		
+		void DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue = 0.0f,
+			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
+
+		void DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue = 0.0f,
+			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
+
+		void DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue = 0.0f,
+			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
+
+
 		void DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags);
 		
 		void DrawChilds(GameObject* gameOBject);

@@ -85,7 +85,7 @@ void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float 
 
 	ImGui::Columns(2);
 	ImGui::SetColumnWidth(0, columnWidth);
-	ImGui::Text(label.c_str());
+	if(m_DrawVecLabel) ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
 	ImGui::PushMultiItemsWidths(2, ImGui::CalcItemWidth());
@@ -137,7 +137,7 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 
 	ImGui::Columns(2);
 	ImGui::SetColumnWidth(0, columnWidth);
-	ImGui::Text(label.c_str());
+	if (m_DrawVecLabel) ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
 	ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
@@ -202,7 +202,7 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 
 	ImGui::Columns(2);
 	ImGui::SetColumnWidth(0, columnWidth);
-	ImGui::Text(label.c_str());
+	if (m_DrawVecLabel) ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
 	ImGui::PushMultiItemsWidths(4, ImGui::CalcItemWidth());
@@ -271,7 +271,201 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+}
 
+void Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+{
+	ImGuiIO& io = ImGui::GetIO();
+
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2);
+	ImGui::SetColumnWidth(0, columnWidth);
+	if (m_DrawVecLabel) ImGui::Text(label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(2, ImGui::CalcItemWidth());
+	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
+
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
+	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	if (ImGui::Button("X", buttonSize))
+	{
+		values.x = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	if (ImGui::Button("Y", buttonSize))
+	{
+		values.y = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+
+	ImGui::PopStyleVar();
+
+	ImGui::Columns(1);
+
+	ImGui::PopID();
+}
+
+void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+{
+	ImGuiIO& io = ImGui::GetIO();
+
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2);
+	ImGui::SetColumnWidth(0, columnWidth);
+	if (m_DrawVecLabel) ImGui::Text(label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(3, ImGui::CalcItemWidth());
+	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
+
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
+	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	if (ImGui::Button("X", buttonSize))
+	{
+		values.x = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	if (ImGui::Button("Y", buttonSize))
+	{
+		values.y = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+	if (ImGui::Button("Z", buttonSize))
+	{
+		values.z = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+
+	ImGui::PopStyleVar();
+
+	ImGui::Columns(1);
+
+	ImGui::PopID();
+}
+
+void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+{
+	ImGuiIO& io = ImGui::GetIO();
+
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2);
+	ImGui::SetColumnWidth(0, columnWidth);
+	if (m_DrawVecLabel) ImGui::Text(label.c_str());
+	ImGui::NextColumn();
+
+	ImGui::PushMultiItemsWidths(4, ImGui::CalcItemWidth());
+	ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2{ 0, 5.0f });
+
+	const float lineHeight = ImGui::GetFont()->FontSize + ImGui::GetStyle().FramePadding.y * 2.0f;
+	const ImVec2 buttonSize = { lineHeight + 3.0f, lineHeight };
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.2f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.8f, 0.1f, 0.15f, 1.0f });
+	if (ImGui::Button("X", buttonSize))
+	{
+		values.x = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.3f, 0.8f, 0.3f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.2f, 0.7f, 0.2f, 1.0f });
+	if (ImGui::Button("Y", buttonSize))
+	{
+		values.y = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.2f, 0.35f, 0.9f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.1f, 0.25f, 0.8f, 1.0f });
+	if (ImGui::Button("Z", buttonSize))
+	{
+		values.z = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+	ImGui::SameLine();
+
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4{ 0.7f, 0.7f, 0.7f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4{ 0.9f, 0.9f, 0.9f, 1.0f });
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4{ 0.7f, 0.7f, 0.7f, 1.0f });
+	if (ImGui::Button("W", buttonSize))
+	{
+		values.w = resetValue;
+	}
+	ImGui::PopStyleColor(3);
+
+	ImGui::SameLine();
+	ImGui::DragInt("##W", &values.w, speed, limits.x, limits.y);
+	ImGui::PopItemWidth();
+
+	ImGui::PopStyleVar();
+
+	ImGui::Columns(1);
+
+	ImGui::PopID();
 }
 
 void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
@@ -1126,6 +1320,289 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 							DrawVec4Control(name.c_str(), value);
 							prop.set_value(component, value);
 						}
+						else if (ReflectedProps::is_ivec2(type))
+						{
+							glm::ivec2 value = prop.get_value(component).get_value<glm::ivec2>();
+							DrawIVec2Control(name.c_str(), value);
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_ivec3(type))
+						{
+							glm::ivec3 value = prop.get_value(component).get_value<glm::ivec3>();
+							DrawIVec3Control(name.c_str(), value);
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_ivec4(type))
+						{
+							glm::ivec4 value = prop.get_value(component).get_value<glm::ivec4>();
+							DrawIVec4Control(name.c_str(), value);
+							prop.set_value(component, value);
+						}
+
+#define ADD_ELEMENT(_name, _value, _i) \
+						ImGui::Text(_name.c_str()); \
+						ImGui::SameLine(); \
+						ImGui::PushID(std::string(_name + "+" + std::to_string(_i)).c_str()); \
+						if (ImGui::Button("+")) { _value.emplace_back(); } ImGui::PopID();
+
+#define REMOVE_ELEMENT(_name, _value, _i) \
+						ImGui::SameLine(); \
+						ImGui::PushID(std::string(_name + "-" + std::to_string(_i)).c_str()); \
+						if (ImGui::Button("-")) { _value.erase(_value.begin() + _i); } ImGui::PopID();
+
+						if (ReflectedProps::is_vectorfloat(type))
+						{
+							std::vector<float> value = prop.get_value(component).get_value<std::vector<float>>();
+							
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								ImGui::InputFloat(std::string("##float" + std::to_string(i)).c_str(), &value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+
+								if (i == 0)
+								{
+									ImGui::SameLine();
+									ADD_ELEMENT(name, value, i)
+								}
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorint(type))
+						{
+							std::vector<int> value = prop.get_value(component).get_value<std::vector<int>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								ImGui::InputInt(std::string("##int" + name + std::to_string(i)).c_str(), &value[i]);
+								
+								REMOVE_ELEMENT(name, value, i)
+
+								if (i == 0)
+								{
+									ImGui::SameLine();
+									ADD_ELEMENT(name, value, i)
+								}
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectordouble(type))
+						{
+							std::vector<double> value = prop.get_value(component).get_value<std::vector<double>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								ImGui::InputDouble(std::string("##double" + name + std::to_string(i)).c_str(), &value[i]);
+							
+								REMOVE_ELEMENT(name, value, i)
+
+								if (i == 0)
+								{
+									ImGui::SameLine();
+									ADD_ELEMENT(name, value, i)
+								}
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorbool(type))
+						{
+							std::vector<bool> value = prop.get_value(component).get_value<std::vector<bool>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								bool valueBool = value[i];
+								ImGui::Checkbox(std::string("##bool" + name + std::to_string(i)).c_str(), &valueBool);
+								value[i] = valueBool;
+
+								REMOVE_ELEMENT(name, value, i)
+
+								if (i == 0)
+								{
+									ImGui::SameLine();
+									ADD_ELEMENT(name, value, i)
+								}
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorstring(type))
+						{
+							std::vector<std::string> value = prop.get_value(component).get_value<std::vector<std::string>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								char buffer[64];
+								strcpy(buffer, value[i].c_str());
+								if (ImGui::InputText(std::string("##string" + name + std::to_string(i)).c_str(), buffer, sizeof(buffer)))
+								{
+									value[i] = buffer;
+								}
+								
+								REMOVE_ELEMENT(name, value, i)
+
+								if (i == 0)
+								{
+									ImGui::SameLine();
+									ADD_ELEMENT(name, value, i)
+								}
+							}
+
+							prop.set_value(component, value);
+						}
+
+						m_DrawVecLabel = false;
+
+						if (ReflectedProps::is_vectorvec2(type))
+						{
+							std::vector<glm::vec2> value = prop.get_value(component).get_value<std::vector<glm::vec2>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawVec2Control(std::string("vec2" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorvec3(type))
+						{
+							std::vector<glm::vec3> value = prop.get_value(component).get_value<std::vector<glm::vec3>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawVec3Control(std::string("vec3" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorvec4(type))
+						{
+							std::vector<glm::vec4> value = prop.get_value(component).get_value<std::vector<glm::vec4>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawVec4Control(std::string("vec4" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorivec2(type))
+						{
+							std::vector<glm::ivec2> value = prop.get_value(component).get_value<std::vector<glm::ivec2>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawIVec2Control(std::string("ivec2" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorivec3(type))
+						{
+							std::vector<glm::ivec3> value = prop.get_value(component).get_value<std::vector<glm::ivec3>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawIVec3Control(std::string("ivec3" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+						else if (ReflectedProps::is_vectorivec4(type))
+						{
+							std::vector<glm::ivec4> value = prop.get_value(component).get_value<std::vector<glm::ivec4>>();
+
+							if (value.empty())
+							{
+								ADD_ELEMENT(name, value, -1)
+							}
+
+							for (size_t i = 0; i < value.size(); i++)
+							{
+								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+								DrawIVec4Control(std::string("ivec4" + name + std::to_string(i)), value[i]);
+
+								REMOVE_ELEMENT(name, value, i)
+							}
+
+							prop.set_value(component, value);
+						}
+
+						m_DrawVecLabel = true;
+
 						//else if (prop.get_type().is_pointer())
 						//{
 						//	if (prop.get_value(component).can_convert<Texture*>())

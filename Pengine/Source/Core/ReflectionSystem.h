@@ -7,16 +7,30 @@
 #include <string>
 #include <map>
 #include <functional>
+#include <vector>
 
 namespace ReflectedProps
 {
 
-#define REFLECTED_PRIMITIVE_PROPERTY(_name) \
-    static std::string get_##_name() \
+#define COM ,
+
+#define REFLECTED_PRIMITIVE_PROPERTY(type) \
+    static std::string get_##type() \
     { \
         using namespace std; \
         using namespace glm; \
-        return typeid(_name).name(); \
+        return typeid(type).name(); \
+    } \
+\
+    static bool is_##type(const std::string _type) \
+    { \
+        return _type == get_##type(); \
+    }
+
+#define EXPLICIT_REFLECTED_PRIMITIVE_PROPERTY(_name, type) \
+    static std::string get_##_name() \
+    { \
+        return #type; \
     } \
 \
     static bool is_##_name(const std::string _type) \
@@ -24,10 +38,10 @@ namespace ReflectedProps
         return _type == get_##_name(); \
     }
 
-#define EXPLICIT_REFLECTED_PRIMITIVE_PROPERTY(_name, type) \
+#define EXPLICIT_REFLECTED_VECTOR_PROPERTY(_name, type) \
     static std::string get_##_name() \
     { \
-        return #type; \
+         return typeid(type).name(); \
     } \
 \
     static bool is_##_name(const std::string _type) \
@@ -51,6 +65,25 @@ REFLECTED_PRIMITIVE_PROPERTY(ivec4)
 REFLECTED_PRIMITIVE_PROPERTY(dvec2)
 REFLECTED_PRIMITIVE_PROPERTY(dvec3)
 REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorint, std::vector<int>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorint64_t, std::vector<__int64>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectoruint32_t, std::vector<unsigned int>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorfloat, std::vector<float>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectordouble, std::vector<double>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorbool, std::vector<bool>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorvec2, std::vector<glm::vec2>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorvec3, std::vector<glm::vec3>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorvec4, std::vector<glm::vec4>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorivec2, std::vector<glm::ivec2>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorivec3, std::vector<glm::ivec3>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorivec4, std::vector<glm::ivec4>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectordvec2, std::vector<glm::dvec2>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectordvec3, std::vector<glm::dvec3>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectordvec4, std::vector<glm::dvec4>)
+EXPLICIT_REFLECTED_VECTOR_PROPERTY(vectorstring, std::vector<std::string>)
+
 EXPLICIT_REFLECTED_PRIMITIVE_PROPERTY(string, std::string)
 EXPLICIT_REFLECTED_PRIMITIVE_PROPERTY(asset, asset)
 }
