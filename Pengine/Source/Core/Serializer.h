@@ -26,7 +26,7 @@ namespace Pengine
 		
 		static GameObject* DeserializePrefab(const std::string filePath);
 		
-		static void SerializeScene(const Scene& scene);
+		static void SerializeScene(Scene& scene);
 		
 		static void DeserializeScene(const std::string filePath);
 		

@@ -8,7 +8,7 @@ using namespace Pengine;
 int main()
 {
 	EntryPoint entrypoint;
-	TestRTTRSystem application;
+	Application application;
 	entrypoint.SetApplication(&application);
 
 	return 0;

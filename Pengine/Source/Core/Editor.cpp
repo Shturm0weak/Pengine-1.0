@@ -1115,6 +1115,11 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 					}
 				}
 
+				if (ImGui::Button("Clear"))
+				{
+					anim2d->m_Animations.clear();
+				}
+
 				ImGui::InputFloat("Speed", &anim2d->m_Speed, 0.1f, 1.0f);
 
 				const float size = 32.0f;

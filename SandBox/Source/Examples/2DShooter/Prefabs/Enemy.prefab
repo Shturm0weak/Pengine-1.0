@@ -1,0 +1,112 @@
+GameObjects:
+  - GameObject: 12342575273359520132
+    Name: Enemy
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
+    Childs:
+      - 7047628927895701491
+      - 9115005661050897897
+      - 18215215453183068536
+    Transform:
+      Follow owner: true
+      Position: [7.68036699, 1.85388243, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Green\Gunner_Green_Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.400000006
+        - 0
+        - 0.600000024
+        - 0
+        - 0.600000024
+        - 1
+        - 0.400000006
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1.17299998
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [7.34700012, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Enemy
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\2DShooter\Animations\GreenSoldierIdle.anim
+        - Source\Examples\2DShooter\Animations\GreenSoldierRun.anim
+        - Source\Examples\2DShooter\Animations\GreenSoldierDeath.anim
+        - Source\Examples\2DShooter\Animations\GreenSoldierJump.anim
+      Current animation: Source\Examples\2DShooter\Animations\GreenSoldierIdle.anim
+  - GameObject: 7047628927895701491
+    Name: MuzzleFlash
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.08036613, 1.92388165, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.150000036, 0.150000036, 0.150000036]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\MuzzleFlash.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 9115005661050897897
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [0.298305273, 0.548253655, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 18215215453183068536
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [9.80629826, 0.566226125, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]

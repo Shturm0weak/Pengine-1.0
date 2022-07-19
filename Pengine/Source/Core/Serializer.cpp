@@ -611,7 +611,7 @@ GameObject* Serializer::DeserializePrefab(const std::string filePath)
 	return childs.begin()->first;
 }
 
-void Serializer::SerializeScene(const Scene& scene)
+void Serializer::SerializeScene(Scene& scene)
 {
 	YAML::Emitter out;
 
@@ -627,6 +627,13 @@ void Serializer::SerializeScene(const Scene& scene)
 	out << YAML::EndMap;
 
 	std::string filePath = scene.m_FilePath == "None" ? "Source/Scenes/" + scene.GetTitle() + ".yaml" : scene.m_FilePath;
+
+	if (Utils::GetNameFromFilePath(filePath, 4) != scene.m_Title)
+	{
+		filePath = Utils::ReplaceNameFromFilePath(filePath, scene.m_Title, 4);
+	}
+
+	scene.m_FilePath = filePath;
 
 	std::ofstream fout(filePath);
 	fout << out.c_str();
@@ -665,6 +672,10 @@ void Serializer::DeserializeScene(const std::string filePath)
 	if (auto& titleData = data["Title"])
 	{
 		scene->m_Title = titleData.as<std::string>();
+	}
+	else
+	{
+		scene->m_Title = Utils::GetNameFromFilePath(filePath, 4);
 	}
 
 	scene->m_FilePath = filePath;
@@ -722,10 +733,9 @@ void Serializer::SerializeCamera(YAML::Emitter& out, const std::shared_ptr<class
 
 Camera Serializer::DeserializeCamera(YAML::Node& in)
 {
+	Camera camera;
 	if (auto& cameraIn = in["Camera"])
 	{
-		Camera camera;
-
 		camera.m_Transform = DeserializeTransform(cameraIn);
 
 		if (auto& fovData = cameraIn["Fov"])
@@ -762,16 +772,11 @@ Camera Serializer::DeserializeCamera(YAML::Node& in)
 		{
 			camera.m_Type = (Camera::CameraType)typeData.as<int>();
 		}
-
-		camera.UpdateProjection(camera.m_Size);
-		
-		return camera;
 	}
-	else
-	{
-		Logger::Error("Is null", "Camera", "Serializer");
-		throw "Camera is null";
-	}
+	
+	camera.UpdateProjection(camera.m_Size);
+	
+	return camera;
 }
 
 void Serializer::SerializeEnvironment(YAML::Emitter& out)

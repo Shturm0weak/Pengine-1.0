@@ -18,6 +18,8 @@ using namespace Pengine;
 void Scene::Copy(const Scene& scene)
 {
 	m_Title = scene.m_Title;
+	m_FilePath = scene.m_FilePath;
+
 	delete m_Box2DWorld;
 	m_Box2DWorld = new b2World(scene.m_Box2DWorld->GetGravity());
 
@@ -240,6 +242,9 @@ void Scene::ShutDown()
 
 void Scene::Clear()
 {
+	m_Title = "Scene";
+	m_FilePath = "None";
+
 	while (m_GameObjects.size() > 0)
 	{
 		DeleteGameObject(m_GameObjects.back());

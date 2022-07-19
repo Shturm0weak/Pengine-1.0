@@ -1,0 +1,37 @@
+GameObjects:
+  - GameObject: 14902609219711236958
+    Name: Ammo
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Ammo.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -0.170000002, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.25, 0.25, 0.25]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\AmmoIcon.png
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+    CircleCollider2D:
+      Trigger: true
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ammo

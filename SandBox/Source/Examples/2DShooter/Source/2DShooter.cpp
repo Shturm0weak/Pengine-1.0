@@ -36,7 +36,7 @@ Shooter2D::Shooter2D(const std::string& title)
 
 void Shooter2D::OnStart()
 {
-	Serializer::DeserializeScene("Source/Scenes/2DShooter.yaml");
+	Serializer::DeserializeScene("Source/Examples/2DShooter/Scenes/2DShooter.yaml");
 	m_Player = GetScene()->FindGameObject("Player")->m_ComponentManager.AddComponent<Player>();
 
 	std::vector<GameObject*> enemies = GetScene()->FindGameObjects("Enemy");
@@ -46,17 +46,17 @@ void Shooter2D::OnStart()
 		m_Enemies.push_back(enemyComponent);
 	}
 
-	Serializer::DeserializePrefab("Source/Prefabs/Blood.prefab");
+	Serializer::DeserializePrefab("Source/Examples/2DShooter/Prefabs/Blood.prefab");
 	Shoot::m_BloodPrefab = GetScene()->FindGameObject("Blood");
 	Shoot::m_BloodPrefab->m_IsEnabled = false;
 	Shoot::m_BloodPrefab->m_IsSelectable = false;
 
-	Serializer::DeserializePrefab("Source/Prefabs/Stones.prefab");
+	Serializer::DeserializePrefab("Source/Examples/2DShooter/Prefabs/Stones.prefab");
 	Shoot::m_StonesPrefab = GetScene()->FindGameObject("Stones");
 	Shoot::m_StonesPrefab->m_IsEnabled = false;
 	Shoot::m_StonesPrefab->m_IsSelectable = false;
 
-	Serializer::DeserializePrefab("Source/Prefabs/Ammo.prefab");
+	Serializer::DeserializePrefab("Source/Examples/2DShooter/Prefabs/Ammo.prefab");
 	m_AmmoPrefab = GetScene()->FindGameObject("Ammo");
 	m_AmmoPrefab->m_IsEnabled = false;
 	m_AmmoPrefab->m_IsSelectable = false;

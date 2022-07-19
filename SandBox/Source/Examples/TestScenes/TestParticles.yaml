@@ -1,0 +1,2868 @@
+Title: TestParticles
+Environment:
+  Global Intensity: 0
+  Blur passes: 20
+  Brightness threshold: 0
+  Exposure: 0.00999999978
+  Gamma: 1
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-0.416259766, -0.419311523, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 0
+  Zoom: 3.5
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 15046915695655253327
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.65354979, -0.63657397, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Particle Emitter:
+      Acceleration: 2.5
+      Color end: [1, 0.911392331, 0, 1]
+      Color start: [1, 0.708333075, 0, 1]
+      Direction X: [-0.100000001, 0.100000001]
+      Direction Y: [1, 1]
+      Direction Z: [0, 0]
+      Intensity: 1
+      Gravity: [0, 0, 0]
+      Loop: true
+      Max time to live: 1.55200005
+      Particles size: 500
+      Radius X to spawn: [-0.200000003, 0.200000003]
+      Radius Y to spawn: [0, 0]
+      Radius Z to spawn: [0, 0]
+      Scale: [0.280000001, 0.326999992]
+      Texture: Source/Images/WhiteCirlce.png
+      Time to spawn: [0, 3.55100012]
+    Script:
+      FilePaths:
+        - Source\Scripts\CampFire.lua
+    Point Light 2D:
+      Color: [1, 0.910714209, 0]
+      Constant: 0.629000008
+      Linear: 1.5
+      Quadratic: 1.5
+  - GameObject: 8284481700595793620
+    Name: BackGround
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [100, 100, 1]
+    Renderer2D:
+      Color: [0.489873827, 0.64135021, 0.278730273, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14913119896285010170
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 18115273689004426131
+      - 741973557697229794
+    Transform:
+      Follow owner: true
+      Position: [-2.43981457, -1.35879588, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 18115273689004426131
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.43981457, -0.358795404, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 741973557697229794
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.43981457, -1.35879588, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7950969352406481741
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 13343265581691724879
+      - 7032575799600025728
+    Transform:
+      Follow owner: true
+      Position: [-3.18981457, -1.59027731, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13343265581691724879
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.18981457, -0.590276837, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7032575799600025728
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.18981457, -1.59027731, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6304883185289838305
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 15121460807991521027
+      - 6835581520741205045
+    Transform:
+      Follow owner: true
+      Position: [-2.24537039, -2.02546263, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 15121460807991521027
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.24537039, -1.02546215, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6835581520741205045
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.24537039, -2.02546263, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8585783625071422199
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 3442874460927319615
+      - 8809308985361960482
+    Transform:
+      Follow owner: true
+      Position: [-1.32870364, -2.37731457, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3442874460927319615
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.32870364, -1.37731409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8809308985361960482
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.32870364, -2.37731457, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4890861041906854020
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 12958365429996120774
+      - 9034706122091426589
+    Transform:
+      Follow owner: true
+      Position: [-0.615740538, -2.78472209, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12958365429996120774
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.615740538, -1.78472161, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9034706122091426589
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.615740538, -2.78472209, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8734540636653934030
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 4391284242868922807
+      - 16034883475001885649
+    Transform:
+      Follow owner: true
+      Position: [0.125000179, -2.15509248, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4391284242868922807
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.125000179, -1.155092, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16034883475001885649
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.125000179, -2.15509248, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12065234999862214285
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 10684586392547257291
+      - 11428602737387507807
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -1.78472185, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 10684586392547257291
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -0.784721375, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11428602737387507807
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -1.78472185, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 884871909380930239
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 11435312726928117036
+      - 6147332962462054237
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -1.78472185, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 11435312726928117036
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -0.784721375, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6147332962462054237
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.46759307, -1.78472185, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1402595931077804551
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 13153823571371260235
+      - 13059898628248206227
+    Transform:
+      Follow owner: true
+      Position: [0.83796382, -2.02546263, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13153823571371260235
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.83796382, -1.02546215, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13059898628248206227
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.83796382, -2.02546263, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8198019791708594974
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 27395520393356036
+      - 15301141109206827163
+    Transform:
+      Follow owner: true
+      Position: [0.20833391, -2.62731409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 27395520393356036
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.20833391, -1.62731361, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15301141109206827163
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.20833391, -2.62731409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14827909094532786241
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 6322670267996483899
+      - 16979198982301250201
+    Transform:
+      Follow owner: true
+      Position: [1.21759295, -2.69212866, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6322670267996483899
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.21759295, -1.69212818, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16979198982301250201
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.21759295, -2.69212866, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14009495676838272970
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 10939779945752965448
+      - 12005885020581901589
+    Transform:
+      Follow owner: true
+      Position: [-1.65277731, -2.65509176, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 10939779945752965448
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.65277731, -1.65509129, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12005885020581901589
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.65277731, -2.65509176, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9359675249408743673
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 17099561738191097406
+      - 7322965296251952931
+    Transform:
+      Follow owner: true
+      Position: [-2.45833302, -2.55323958, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17099561738191097406
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.45833302, -1.55323911, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7322965296251952931
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.45833302, -2.55323958, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3517933482758931150
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 6665759829042712070
+      - 5612198715432121358
+    Transform:
+      Follow owner: true
+      Position: [-3.18981409, -2.11805439, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6665759829042712070
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.18981409, -1.11805391, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5612198715432121358
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.18981409, -2.11805439, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13603379646993076462
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 12889181307956244173
+      - 8238951752108549422
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -1.9791652, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12889181307956244173
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -0.97916472, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8238951752108549422
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -1.9791652, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4355524950397743933
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 2503755211773578218
+      - 11700090143416964459
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -1.9791652, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 2503755211773578218
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -0.97916472, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11700090143416964459
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.85648131, -1.9791652, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5200077200328864620
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 6361341337902450185
+      - 7246421016018748667
+    Transform:
+      Follow owner: true
+      Position: [-0.837962151, 1.17824221, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6361341337902450185
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.837962151, 2.17824244, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7246421016018748667
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.837962151, 1.17824221, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17625487163884487167
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 14758287992590826916
+      - 13592260532604043711
+    Transform:
+      Follow owner: true
+      Position: [-0.291665435, 0.993056774, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14758287992590826916
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.291665435, 1.99305713, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13592260532604043711
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.291665435, 0.993056774, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11113460542288963226
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 11339986562499830942
+      - 15024083544155999365
+    Transform:
+      Follow owner: true
+      Position: [0.143519759, 0.863426983, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 11339986562499830942
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.143519759, 1.8634274, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15024083544155999365
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.143519759, 0.863426983, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 998476623087913564
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 5313187834940408275
+      - 11291566663213521859
+    Transform:
+      Follow owner: true
+      Position: [1.27314925, 1.15972316, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5313187834940408275
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.27314925, 2.15972352, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11291566663213521859
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.27314925, 1.15972316, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7795126362882406222
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 9123917484726472135
+      - 4431618797520884075
+    Transform:
+      Follow owner: true
+      Position: [0.875000834, 0.835649252, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 9123917484726472135
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.875000834, 1.83564961, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4431618797520884075
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.875000834, 0.835649252, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15073444770656201379
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 1881761032924290591
+      - 14883441592573972309
+    Transform:
+      Follow owner: true
+      Position: [1.93055618, 0.909723282, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 1881761032924290591
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.93055618, 1.90972376, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14883441592573972309
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.93055618, 0.909723282, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1717092632051316601
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 5903882387640081213
+      - 16376442339619703978
+    Transform:
+      Follow owner: true
+      Position: [1.57870436, 0.400464118, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5903882387640081213
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.57870436, 1.40046453, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16376442339619703978
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.57870436, 0.400464118, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18032788938682785786
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 3159312079478349236
+      - 6247775935372874982
+    Transform:
+      Follow owner: true
+      Position: [2.30092645, 0.00231546164, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3159312079478349236
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.30092645, 1.00231612, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6247775935372874982
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.30092645, 0.00231546164, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18403375008744571488
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 5016565096290860621
+      - 12044687929553679414
+    Transform:
+      Follow owner: true
+      Position: [0.374999881, 0.631945014, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5016565096290860621
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.374999881, 1.63194585, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12044687929553679414
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.374999881, 0.631945014, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11911433123818130524
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 11712494406071783582
+      - 11478222652909658194
+    Transform:
+      Follow owner: true
+      Position: [0.921296418, 0.0856487155, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 11712494406071783582
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.921296418, 1.08564961, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11478222652909658194
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.921296418, 0.0856487155, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10694252114179301194
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 8575801375814947389
+      - 14235735871472118315
+    Transform:
+      Follow owner: true
+      Position: [-0.0694444478, 0.539352655, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8575801375814947389
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.0694444478, 1.53935361, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14235735871472118315
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.0694444478, 0.539352655, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8157098327566283960
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 10734246117019081958
+      - 7438800121530949687
+    Transform:
+      Follow owner: true
+      Position: [-1.07870412, 0.974537849, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 10734246117019081958
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.07870412, 1.9745388, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7438800121530949687
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.07870412, 0.974537849, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9539223614924046213
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 3431461573115984699
+      - 18131462638333653130
+    Transform:
+      Follow owner: true
+      Position: [-0.717592776, 0.520833969, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3431461573115984699
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.717592776, 1.52083492, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18131462638333653130
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.717592776, 0.520833969, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13813932287147064721
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 12922469579616637492
+      - 5623944813169681606
+    Transform:
+      Follow owner: true
+      Position: [0.152777553, 0.233796835, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12922469579616637492
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.152777553, 1.23379779, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5623944813169681606
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.152777553, 0.233796835, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15958498552243263390
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 7800508626142595253
+      - 6354496070927476722
+    Transform:
+      Follow owner: true
+      Position: [-1.70833373, 0.844908118, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 7800508626142595253
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.70833373, 1.84490895, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6354496070927476722
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.70833373, 0.844908118, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15212340924068561402
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 9124593668514565777
+      - 15696646900878263279
+    Transform:
+      Follow owner: true
+      Position: [-2.27314901, 0.668982029, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 9124593668514565777
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.27314901, 1.66898274, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15696646900878263279
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.27314901, 0.668982029, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16179121195729374708
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 3337935925823575579
+      - 11812810725996180700
+    Transform:
+      Follow owner: true
+      Position: [-2.84722281, 0.233796835, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3337935925823575579
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.84722281, 1.23379755, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11812810725996180700
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.84722281, 0.233796835, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5766649017810524814
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 5307277434905026840
+      - 13723831887599348749
+    Transform:
+      Follow owner: true
+      Position: [-3.63426018, -0.0162029862, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5307277434905026840
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.63426018, 0.983797789, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13723831887599348749
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.63426018, -0.0162029862, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18300445275227605682
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 14108209235898120951
+      - 14962919025139895608
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 0.391204596, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14108209235898120951
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 1.39120543, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14962919025139895608
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 0.391204596, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3963897933069048460
+    Name: Tree
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs/Tree.prefab
+    Childs:
+      - 3612286204617530814
+      - 12412464653719121918
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 0.391204596, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3612286204617530814
+    Name: TreeUp
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 1.39120543, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.15384616
+        - 0.0500000007
+        - 0.15384616
+        - 0.0500000007
+        - 0.230769232
+        - 0
+        - 0.230769232
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12412464653719121918
+    Name: TreeDown
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.55092657, 0.391204596, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source/Images/RPGpack_sheet_2X.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0.0769230798
+        - 0.0500000007
+        - 0.0769230798
+        - 0.0500000007
+        - 0.15384616
+        - 0
+        - 0.15384616
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0

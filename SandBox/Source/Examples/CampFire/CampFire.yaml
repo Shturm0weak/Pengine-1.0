@@ -1,0 +1,214 @@
+Title: CampFire
+Environment:
+  Global Intensity: 0
+  Blur passes: 20
+  Brightness threshold: 0.460000008
+  Exposure: 0.200000003
+  Gamma: 1.5
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-0.499420166, 0.0807189941, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 0
+  Zoom: 3.25
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 8481551987396142628
+    Name: CampFire
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\CampFire\Sprites\FireLoop.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.875
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.875
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 10
+      Play: true
+      Animations:
+        - Source\Examples\CampFire\Animation\FireLoop.anim
+      Current animation: Source\Examples\CampFire\Animation\FireLoop.anim
+    Script:
+      FilePaths:
+        - Source\Scripts\CampFire.lua
+    Point Light 2D:
+      Color: [1, 1, 1]
+      Constant: 0
+      Linear: 1.20756125
+      Quadratic: 1.20756125
+  - GameObject: 9724928702314674002
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [0.708860755, 0.54643935, 0.320034206, 1]
+      Texture: Source\Examples\CampFire\Sprites\Diffuse.png
+      Normal Texture: Source\Examples\CampFire\Sprites\Normal.png
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: true
+      Ambient: 1.30000007
+      Emmisive Mask Intensity: 0
+  - GameObject: 1348064737836154986
+    Name: Floor
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [5, 5, 1]
+    Renderer2D:
+      Color: [0.510548532, 0.348982036, 0.122790165, 1]
+      Texture: Source\Examples\CampFire\Sprites\Diffuse.png
+      Normal Texture: Source\Examples\CampFire\Sprites\Normal.png
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: true
+      Ambient: 1.20000005
+      Emmisive Mask Intensity: 0
+  - GameObject: 9253789085132853499
+    Name: CampFire
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\CampFire\Sprites\FireLoop.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.875
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.875
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 10
+      Play: true
+      Animations:
+        - Source\Examples\CampFire\Animation\FireLoop.anim
+      Current animation: Source\Examples\CampFire\Animation\FireLoop.anim
+    Script:
+      FilePaths:
+        - Source\Scripts\CampFire.lua
+    Point Light 2D:
+      Color: [1, 1, 1]
+      Constant: 0
+      Linear: 1.20756125
+      Quadratic: 1.20756125
+  - GameObject: 2955283083222917626
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [0.708860755, 0.54643935, 0.320034206, 1]
+      Texture: Source\Examples\CampFire\Sprites\Diffuse.png
+      Normal Texture: Source\Examples\CampFire\Sprites\Normal.png
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0

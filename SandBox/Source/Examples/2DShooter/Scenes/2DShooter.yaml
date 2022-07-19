@@ -1,0 +1,3186 @@
+Title: 2DShooter
+Environment:
+  Global Intensity: 1
+  Blur passes: 10
+  Brightness threshold: 0.800000012
+  Exposure: 0.0500000007
+  Gamma: 1
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [1.93330288, 0.394482136, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 0
+  Zoom: 3.5
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 11561569106104033271
+    Name: Background
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      - 13465723408866015562
+      - 5376492217088092884
+      - 14276241430731821773
+      - 13171586471811309276
+      - 1910966922025735407
+      - 1625564129018277671
+      - 548391302087363091
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1000, 1000, 1]
+    Renderer2D:
+      Color: [0.194090873, 0.19409278, 0.19409281, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13465723408866015562
+    Name: Ground1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 5377629865956557583
+      - 8607748194298001459
+      - 16634311313065429765
+      - 9360689881454790666
+      - 17265790041467571124
+      - 5397164181464775618
+      - 12604006445089893838
+      - 13626239452890140877
+      - 3726234084224791220
+      - 1544340969401335285
+      - 91746586853621761
+    Transform:
+      Follow owner: true
+      Position: [-7.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [11, 0.300000012, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 5377629865956557583
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8607748194298001459
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16634311313065429765
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9360689881454790666
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-5.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17265790041467571124
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5397164181464775618
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.00286579, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12604006445089893838
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.00286961, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13626239452890140877
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-9.00286961, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3726234084224791220
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-10.0028696, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1544340969401335285
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.0028696, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 91746586853621761
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12.0028696, -1.08022952, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5376492217088092884
+    Name: Ground1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 10260002634193302877
+      - 13470523854970241053
+      - 2605091296251581124
+      - 3857691092288946111
+      - 700894988995238474
+      - 5823082077354917532
+      - 13746021468490634042
+      - 4903562277487600990
+      - 15962702106119450563
+      - 18325451058609130052
+      - 6405013804549704440
+    Transform:
+      Follow owner: true
+      Position: [5.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [11, 0.375246793, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 10260002634193302877
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.0136118, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13470523854970241053
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [9.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2605091296251581124
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3857691092288946111
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 700894988995238474
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5823082077354917532
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13746021468490634042
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4903562277487600990
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15962702106119450563
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18325451058609130052
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.01361179, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6405013804549704440
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.0136117935, -0.37893948, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14276241430731821773
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 11229112066052173527
+      - 886047647285126251
+      - 18074494583009590256
+    Transform:
+      Follow owner: true
+      Position: [-1.0100286, -0.661890924, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 11229112066052173527
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.34097445, -0.842406869, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 886047647285126251
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.997134745, -0.631805182, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 18074494583009590256
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.648997009, -0.399713516, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 13171586471811309276
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 3613362619195965952
+      - 9476163069995053517
+      - 7597420714886950041
+    Transform:
+      Follow owner: true
+      Position: [11.0451288, -0.761461556, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3613362619195965952
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [11.3610315, -0.676218033, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 9476163069995053517
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [11.0128937, -0.560888767, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 7597420714886950041
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.665472, -0.387536287, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.350000024, 0.705510437, 0.350000024]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 7
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 1910966922025735407
+    Name: Ground1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 14812991308125579161
+      - 1438536913458960941
+      - 13680588147869470036
+      - 1312732254495022711
+      - 10577345897022813590
+      - 7952955512095426194
+      - 515775306926000911
+      - 11280467402768123139
+      - 4136842691992406300
+      - 3848223014229996605
+      - 11520010798172779778
+    Transform:
+      Follow owner: true
+      Position: [17.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [11, 0.375246793, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 14812991308125579161
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [22.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1438536913458960941
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [21.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 13680588147869470036
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [20.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1312732254495022711
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [19.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10577345897022813590
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [18.0265083, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7952955512095426194
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [17.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 515775306926000911
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [16.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11280467402768123139
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [15.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4136842691992406300
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [14.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3848223014229996605
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [13.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11520010798172779778
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [12.0265064, -0.808738887, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1625564129018277671
+    Name: Ground1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 7997144907779231438
+      - 9401349490704229114
+      - 2770158160260446062
+      - 2795688956122436255
+      - 15778547240601933807
+      - 709448878421477506
+      - 11912413306822280620
+      - 367272841128194860
+      - 1011278106196839618
+      - 6420408735337380525
+      - 17123572926636282570
+    Transform:
+      Follow owner: true
+      Position: [28.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [11, 0.375246793, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Ground
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 7997144907779231438
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [33.6790771, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9401349490704229114
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [32.6790771, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2770158160260446062
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [31.6790848, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2795688956122436255
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [30.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15778547240601933807
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [29.6790905, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 709448878421477506
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [28.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11912413306822280620
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [27.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 367272841128194860
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [26.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1011278106196839618
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [25.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6420408735337380525
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [24.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17123572926636282570
+    Name: Platform
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [23.6790886, -0.774355829, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Platform.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 8
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 548391302087363091
+    Name: Circle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.5830307, 3.07454252, 0]
+      Rotation: [0, 0, 0]
+      Scale: [3, 3, 1.12320006]
+    Renderer2D:
+      Color: [1, 0.506329119, 0.506329119, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 1.5
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 1326155953258300658
+    Name: Player
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Player.prefab
+    Childs:
+      - 5951682142644237614
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 0.999989986, 0.999989986, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Red\Gunner_Red_Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.800000012
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.800000012
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.200000003, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Player
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\2DShooter\Animations\RedSoldierIdle.anim
+        - Source\Examples\2DShooter\Animations\RedSoldierRun.anim
+        - Source\Examples\2DShooter\Animations\RedSoldierDeath.anim
+        - Source\Examples\2DShooter\Animations\RedSoldierJump.anim
+      Current animation: "Null"
+  - GameObject: 15224543109378704269
+    Name: Enemy
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
+    Childs:
+      - 9890404044022096187
+      - 3478280629184232454
+      - 7240336935309385777
+    Transform:
+      Follow owner: true
+      Position: [-7.74657726, 0.72830987, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Green\Gunner_Green_Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.200000003
+        - 0
+        - 0.400000006
+        - 0
+        - 0.400000006
+        - 1
+        - 0.200000003
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1.17299998
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.200000003, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Enemy
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierRun.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
+      Current animation: Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
+  - GameObject: 9890404044022096187
+    Name: MuzzleFlash
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.3465786, 0.798309088, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.150000036, 0.150000036, 0.150000036]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\MuzzleFlash.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 3478280629184232454
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [-11.686264, -0.198659897, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 7240336935309385777
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [-2.12395024, -0.163712144, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13340488689920478368
+    Name: Enemy
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
+    Childs:
+      - 3454504942899372985
+      - 9741014202736825534
+      - 10710006136661456646
+    Transform:
+      Follow owner: true
+      Position: [17.4946194, 0.827625632, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Green\Gunner_Green_Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.200000003
+        - 0
+        - 0.400000006
+        - 0
+        - 0.400000006
+        - 1
+        - 0.200000003
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1.17299998
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.200000003, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Enemy
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierRun.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
+      Current animation: Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
+  - GameObject: 3454504942899372985
+    Name: MuzzleFlash
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [17.894619, 0.89762485, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.150000036, 0.150000036, 0.150000036]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\MuzzleFlash.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 9741014202736825534
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [12.3021612, -0.164709806, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 10710006136661456646
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [21.8587685, 0.0230164528, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6358832885674007735
+    Name: Enemy
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
+    Childs:
+      - 17756165952607578679
+      - 17652958137718952321
+      - 13965222889627326626
+    Transform:
+      Follow owner: true
+      Position: [29.4455338, 1.3904109, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\Green\Gunner_Green_Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.200000003
+        - 0
+        - 0.400000006
+        - 0
+        - 0.400000006
+        - 1
+        - 0.200000003
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1.17299998
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.200000003, 0.300000012]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Enemy
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierRun.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
+        - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
+      Current animation: Source/Examples/2DShooter/Animations/GreenSoldierRun.anim
+  - GameObject: 17756165952607578679
+    Name: MuzzleFlash
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [29.8455334, 1.46041012, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.150000036, 0.150000036, 0.150000036]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\MuzzleFlash.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 17652958137718952321
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [24.0314827, 0.0899193287, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13965222889627326626
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [33.5441322, 0.107893288, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5071307481269674841
+    Name: Lights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 14299794811003125126
+      - 14738456462483867274
+      - 6456826366176670056
+      - 11931097143036879930
+      - 1442019743701668173
+      - 10553695238143469660
+      - 1742483557397150680
+      - 15909009127861584709
+      - 11637789969481371767
+      - 4838853022068135910
+      - 3714858560059843460
+      - 11968273314788907503
+      - 5388972305962308567
+      - 4746507254544173172
+      - 14647821272987992458
+      - 2717630776063636383
+      - 1595049450219380310
+      - 5366074328425932984
+      - 17574106801386092868
+      - 7839618765165635629
+      - 9954457469981929103
+      - 6689382318345502079
+      - 16146532890597628109
+      - 7958105732111161257
+      - 1126014283638814177
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14299794811003125126
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.18055534, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 14738456462483867274
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.0084877, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 6456826366176670056
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.62345695, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 11931097143036879930
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.36265373, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 1442019743701668173
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.97762299, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 10553695238143469660
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.3086414, 0.381172925, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 1742483557397150680
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [11.9872208, 0.0686732531, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 15909009127861584709
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [13.6021891, 0.0686732531, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 11637789969481371767
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [15.3413973, 0.0686732531, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 4838853022068135910
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [17.4038849, 0.00617349148, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 3714858560059843460
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [19.0188541, 0.00617349148, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 11968273314788907503
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [20.7580643, 0.00617349148, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 5388972305962308567
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [23.7001781, 0.121913195, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 4746507254544173172
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [25.3151474, 0.121913195, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 14647821272987992458
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [27.0543575, 0.121913195, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 2717630776063636383
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [28.9548054, 0.214505792, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 1595049450219380310
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [30.5697746, 0.214505792, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 5366074328425932984
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [32.3089905, 0.214505792, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 17574106801386092868
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.06173038, -0.248456717, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 7839618765165635629
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.67669964, -0.248456717, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 9954457469981929103
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-5.50462723, -0.248456717, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 6689382318345502079
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.93210125, -0.266975403, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 16146532890597628109
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.5470705, -0.266975403, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 7958105732111161257
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-10.3749971, -0.266975403, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
+  - GameObject: 5951682142644237614
+    Name: MuzzleFlash
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.400000125, 0.0699999332, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.150000036, 0.150000036, 0.150000036]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\2DShooter\Sprites\MuzzleFlash.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 5
+      Emmisive Mask Intensity: 0
+  - GameObject: 1126014283638814177
+    Name: Light
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.204919934, 0.420279443, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.114762597, 0.588135004, 1]
+    Renderer2D:
+      Color: [0.110459179, 0.637130797, 0.0967793688, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 7
+      Emmisive Mask Intensity: 0
