@@ -123,6 +123,7 @@ namespace Pengine
         {
             void* m_Class = nullptr;
             std::function<void(void*)> m_AddComponentCallBack;
+            std::vector<std::function<void(void*, void*)>> m_CopyPropertyCallBacks;
 
             RegisteredClass(void* registeredClass,
                 std::function<void(void*)> AddCallback)
@@ -161,16 +162,28 @@ namespace Pengine
         )); \
     }
 
-    #define PROPERTY(baseClass, type, _name, value) type _name = value; \
+    #define PROPERTY(baseClass, _type, _name, value) _type _name = value; \
     private: \
     Pengine::ReflectionSystem::ReflectionWrapper RW##_name = Pengine::ReflectionSystem::ReflectionWrapper([=] \
     { \
         auto classIter = Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(baseClass).name()).substr(6)); \
         if (classIter != Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.end()) \
         { \
+            if (rttr::type::get_by_name(classIter->first.c_str()).get_property(#_name).is_valid()) return; \
+            classIter->second.m_CopyPropertyCallBacks.push_back([](void* componentA, void* componentB) { static_cast<baseClass*>(componentA)->_name = static_cast<baseClass*>(componentB)->_name; }); \
             rttr::registration::class_<baseClass>* registeredClass = static_cast<rttr::registration::class_<baseClass>*>(classIter->second.m_Class); \
             registeredClass->property(#_name, &baseClass::_name); \
         } \
     });
+
+    #define COPY_PROPERTIES(component) \
+    auto classIter = Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.find(component.GetType()); \
+    if (classIter != Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.end()) \
+    { \
+        for (size_t i = 0; i < classIter->second.m_CopyPropertyCallBacks.size(); i++) \
+        { \
+            classIter->second.m_CopyPropertyCallBacks[i]((void*)this, (void*)&component); \
+        } \
+    }
 
 }

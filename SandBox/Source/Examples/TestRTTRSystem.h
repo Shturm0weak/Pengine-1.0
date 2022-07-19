@@ -42,6 +42,8 @@ public:
 
 	virtual void Copy(const IComponent& component) override
 	{
+		COPY_PROPERTIES(component)
+
 		Person& person = *(Person*)&component;
 		m_Type = component.GetType();
 	}

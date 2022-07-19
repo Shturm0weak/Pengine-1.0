@@ -5,6 +5,7 @@
 #include "Logger.h"
 #include "Editor.h"
 #include "../EventSystem/EventSystem.h"
+#include "../UI/Gui.h"
 
 #include <glew.h>
 #include <glfw3.h>
@@ -111,6 +112,7 @@ void Window::NewFrame()
 	Logger::UpdateTime();
 	Time::CalculateDeltaTime();
 	Input::ResetInput();
+	Gui::GetInstance().Begin();
 	glfwPollEvents();
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();

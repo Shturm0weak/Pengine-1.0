@@ -244,7 +244,7 @@ void Renderer::Render(class Application* application)
         }
 
         Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderUITime);
-        Gui::GetInstance().Begin();
+        //Gui::GetInstance().Begin(); It is called in Window::NewFrame for allowing OnGuiRender calls from components.
         {
             application->OnGuiRender();
         }
