@@ -137,7 +137,6 @@ namespace Pengine
         static ReflectionSystem& GetInstance() { static ReflectionSystem reflectionSystem; return reflectionSystem; }
     };
     
-
     #define RTTR_REGISTRATION_USER_DEFINED(type)                            \
     static void rttr_auto_register_reflection_function_##type();            \
     namespace                                                               \

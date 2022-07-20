@@ -72,18 +72,21 @@ void Rigidbody2D::SetStatic(bool isStatic)
 
 void Rigidbody2D::Initialize()
 {
-	b2World& box2World = m_Owner->GetScene()->GetBox2DWorld();
-	b2BodyDef bodyDef;
-	bodyDef.type = Rigidbody2D::ConvertToB2BodyType(m_BodyType);
-	glm::vec3 position = m_Owner->m_Transform.GetPosition();
-	bodyDef.position.Set(position.x, position.y);
-	bodyDef.angle = m_Owner->m_Transform.GetRotation().z;
-	m_Body = box2World.CreateBody(&bodyDef);
-	m_Body->SetFixedRotation(m_FixedRotation);
+	if (m_IsInitializedPhysics) return;
+
 	if (ICollider2D* c2d = m_Owner->m_ComponentManager.GetComponent<ICollider2D>())
 	{
+		b2World& box2World = m_Owner->GetScene()->GetBox2DWorld();
+		b2BodyDef bodyDef;
+		bodyDef.type = Rigidbody2D::ConvertToB2BodyType(m_BodyType);
+		glm::vec3 position = m_Owner->m_Transform.GetPosition();
+		bodyDef.position.Set(position.x, position.y);
+		bodyDef.angle = m_Owner->m_Transform.GetRotation().z;
+		m_Body = box2World.CreateBody(&bodyDef);
+		m_Body->SetFixedRotation(m_FixedRotation);
 		m_Fixture = m_Body->CreateFixture(&c2d->m_Fixture);
 		m_Body->SetTransform({ c2d->GetPosition().x, c2d->GetPosition().y }, m_Owner->m_Transform.GetRotation().z);
+		m_IsInitializedPhysics = true;
 	}
 }
 

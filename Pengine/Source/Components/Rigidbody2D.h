@@ -19,6 +19,7 @@ namespace Pengine
 		b2Body* m_Body = nullptr;
 		BodyType m_BodyType = BodyType::Static;
 		bool m_FixedRotation = false;
+		bool m_IsInitializedPhysics = false;
 
 		friend class Scene;
 		friend class Editor;
@@ -50,6 +51,8 @@ namespace Pengine
 		
 		bool IsStatic() const { return m_BodyType == BodyType::Static; }
 		
+		bool IsInitializedPhysics() const { return m_IsInitializedPhysics; }
+
 		void ApplyAngularImpulse(float impulse, bool wake);
 		
 		void ApplyForce(const glm::vec2& force, const glm::vec2& point, bool wake);

@@ -180,6 +180,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClInclude Include="Source\Events\Event.h" />
     <ClInclude Include="Source\Events\OnMainThreadCallback.h" />
     <ClInclude Include="Source\Events\WindowResizeEvent.h" />
+    <ClInclude Include="Source\Lua\luaaa.hpp" />
     <ClInclude Include="Source\Lua\LuaState.h" />
     <ClInclude Include="Source\Lua\LuaStateManager.h" />
     <ClInclude Include="Source\OpenGL\Batch.h" />
@@ -215,7 +216,6 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClCompile Include="Source\Core\Camera.cpp" />
     <ClCompile Include="Source\Core\Component.cpp" />
     <ClCompile Include="Source\Core\ComponentManager.cpp" />
-    <ClCompile Include="Source\Core\Core.cpp" />
     <ClCompile Include="Source\Core\Editor.cpp" />
     <ClCompile Include="Source\Core\EntryPoint.cpp" />
     <ClCompile Include="Source\Core\Environment.cpp" />
@@ -229,7 +229,6 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClCompile Include="Source\Core\MeshManager.cpp" />
     <ClCompile Include="Source\Core\ObjLoader.cpp" />
     <ClCompile Include="Source\Core\Raycast2D.cpp" />
-    <ClCompile Include="Source\Core\ReflectionSystem.cpp" />
     <ClCompile Include="Source\Core\Renderer.cpp" />
     <ClCompile Include="Source\Core\Scene.cpp" />
     <ClCompile Include="Source\Core\Serializer.cpp" />

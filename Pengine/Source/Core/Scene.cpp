@@ -35,14 +35,14 @@ void Scene::Copy(const Scene& scene)
 
 void Scene::OnPhysicsStart()
 {
-	for (auto& gameObjectIter : m_GameObjects)
-	{
-		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
-		if (rb2d)
-		{
-			rb2d->Initialize();
-		}
-	}
+	//for (auto& gameObjectIter : m_GameObjects)
+	//{
+	//	Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
+	//	if (rb2d)
+	//	{
+	//		rb2d->Initialize();
+	//	}
+	//}
 }
 
 void Scene::OnPhysicsUpdate()
@@ -52,6 +52,10 @@ void Scene::OnPhysicsUpdate()
 		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
 		if (rb2d)
 		{
+			rb2d->Initialize();
+
+			if (!rb2d->IsInitializedPhysics()) continue;
+
 			const glm::vec3 position = rb2d->GetOwner()->m_Transform.GetPosition();
 			const glm::vec3 scale = rb2d->GetOwner()->m_Transform.GetScale();
 			rb2d->m_Body->SetTransform({ position.x, position.y }, rb2d->GetOwner()->m_Transform.GetRotation().z);
@@ -97,13 +101,14 @@ void Scene::OnPhysicsUpdate()
 		{
 			b2Body* body = rb2d->m_Body;
 			const auto position = body->GetPosition();
-			glm::vec2 offset;
+			glm::vec2 offset = { 0.0f, 0.0f };
 			if (ICollider2D* c2d = gameObjectIter->m_ComponentManager.GetComponent<ICollider2D>())
 			{
 				offset = c2d->GetOffset();
+
+				gameObjectIter->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, 0.0f));
+				gameObjectIter->m_Transform.Rotate(glm::vec3(0.0f, 0.0f, body->GetAngle()));
 			}
-			gameObjectIter->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, 0.0f));
-			gameObjectIter->m_Transform.Rotate(glm::vec3(0.0f, 0.0f, body->GetAngle()));
 		}
 	}
 }

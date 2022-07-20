@@ -273,6 +273,7 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Lua\luaaa.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -332,9 +333,6 @@
     <ClCompile Include="Source\Core\ComponentManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Core.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Core\Editor.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -372,9 +370,6 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Raycast2D.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Core\ReflectionSystem.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Renderer.cpp">
