@@ -1,6 +1,7 @@
 # **Pengine**
 A simple 2D game engine.
-<img src="https://user-images.githubusercontent.com/48869588/157312824-eb6a3cb1-3e2a-4b01-bfdb-d26537dbb858.png">
+
+<img src="https://user-images.githubusercontent.com/48869588/185961976-8b7d092c-48ac-452a-8b48-54591e173825.png">
 <img src="https://user-images.githubusercontent.com/48869588/178849777-26f3a8f7-31cb-48db-ac11-8c989c177c28.png">
 <img src="https://user-images.githubusercontent.com/48869588/178849904-b219c9fa-2252-42b0-a201-62ced3646083.png">
 <img src="https://user-images.githubusercontent.com/48869588/178851129-857d1916-f737-4a6c-9386-cf22d78816b5.png">
@@ -9,15 +10,15 @@ A simple 2D game engine.
 # **Features**
 
 * Batch Renderering
-* ECS(Entity component system)
+* Simple Components System
 * 2D Physics
 * Thread Pool
 * Audio
-* RTTR(Run time type reflection) for user-defined components
-* Simple in game GUI (text, button, slider, bar, list box, panel) 
+* RTTR(Run Time Type Reflection) for user-defined components
+* Simple ingame GUI (text, button, slider, bar, list box, panel, image, animation) 
 * Event System
-* OpenGL 4.6 support
-* Scripts in Lua for game objects
+* OpenGL 3.3 support
+* Lua Scripts for game objects
 * 2D Point Lights
 * 2D Normal Maps
 * 2D Emissive Mask
