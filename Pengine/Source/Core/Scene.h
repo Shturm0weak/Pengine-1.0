@@ -34,14 +34,10 @@ namespace Pengine
 		std::string m_Title = "Scene";
 		std::string m_FilePath = "None";
 		b2World* m_Box2DWorld = nullptr;
-		
-		void Copy(const Scene& scene);
 
-		void OnPhysicsStart();
+		void Copy(const Scene& scene);
 		
 		void OnPhysicsUpdate();
-		
-		void OnPhysicsClose();
 
 		std::vector<GameObject*> SelectGameObject(std::vector<GameObject*> ignoreMask = std::vector<GameObject*>(),
 			int maxGameObjects = 1);
@@ -58,6 +54,7 @@ namespace Pengine
 		friend IComponent* ParticleEmitter::Create(GameObject* owner);
 		friend IComponent* PointLight2D::Create(GameObject* owner);
 		friend void GameObject::Delete();
+		friend void GameObject::DeleteLater(float seconds);
 		friend void Renderer2D::Delete();
 		friend void Renderer3D::Delete();
 		friend void Rigidbody2D::Delete();
@@ -101,6 +98,8 @@ namespace Pengine
 		
 		const std::vector<GameObject*>& GetGameObjects() const { return m_GameObjects; }
 		
+		void OnRegisterClients();
+
 		void Render();
 		
 		void ShutDown();

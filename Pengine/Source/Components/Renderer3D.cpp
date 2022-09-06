@@ -56,7 +56,7 @@ void Renderer3D::Render()
 	m_Shader->UnBind();
 
 	glActiveTexture(GL_TEXTURE0 + 0);
-	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().Get("White")->GetRendererID());
+	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
 }
 
 IComponent* Renderer3D::Create(GameObject* owner)

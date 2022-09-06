@@ -15,24 +15,47 @@
 
 using namespace Pengine;
 
+bool Gui::UIAnimator::Play(Animation2DManager::Animation2D* animation, glm::vec2 position, glm::vec2 size, float speed)
+{
+	if (!animation) return false;
+
+	m_Timer += Time::GetDeltaTime();
+	m_Counter = m_Timer * speed;
+
+	if (m_Counter < animation->GetTextures().size())
+	{
+		Gui::GetInstance().Image(position, animation->GetTextures()[m_Counter],
+			size, animation->GetUVs()[m_Counter]);
+	}
+
+	if (m_Counter > animation->GetTextures().size() - Time::GetDeltaTime() * speed * 1.1f)
+	{
+		m_Timer = 0.0f;
+
+		return true;
+	}
+
+	return false;
+}
+
 Gui::Gui()
 {
 	RecalculateProjectionMatrix();
 	LoadStandartFonts();
 
-	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+	TextureManager::GetInstance().AsyncGetByName([=](Texture* texture) {
 		m_CheckBoxTextureTrue = texture;
 		}, "CheckMarkTrue");
 
-	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+	TextureManager::GetInstance().AsyncGetByName([=](Texture* texture) {
 		m_CheckBoxTextureFalse = texture;
 		}, "CheckMarkFalse");
 
-	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+	TextureManager::GetInstance().AsyncGetByName([=](Texture* texture) {
 		m_TriangleRightTexture = texture;
 		}, "TriangleRight");
 
-	TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+	TextureManager::GetInstance().AsyncGetByName([=](Texture* texture) {
 		m_TriangleDownTexture = texture;
 		}, "TriangleDown");
 }
@@ -863,7 +886,23 @@ void Gui::InputDouble(const std::wstring& label, double* value, glm::vec2 positi
 	}
 }
 
-void Gui::Image(glm::vec2 pos, Texture* texture, glm::vec2 size)
+bool Gui::Animation(const std::string& label, glm::vec2 position, Animation2DManager::Animation2D* animation,
+	glm::vec2 size, float speed)
+{
+	auto& animator = m_Animations.find(label);
+	if (animator == m_Animations.end())
+	{
+		m_Animations.insert(std::make_pair(label, UIAnimator()));
+	}
+	else
+	{
+		return animator->second.Play(animation, position, size, speed);
+	}
+
+	return false;
+}
+
+void Gui::Image(glm::vec2 pos, Texture* texture, glm::vec2 size, std::vector<float> uv)
 {
 	if (Utils::IsEqual(size, { 0.0f, 0.0f })) size = m_Theme.m_ImageSize;
 	ApplyRelatedToPanelProperties(&pos.x, &pos.y);
@@ -879,7 +918,7 @@ void Gui::Image(glm::vec2 pos, Texture* texture, glm::vec2 size)
 	float vertices[8];
 	CreateRect(vertices, pos, halfSize);
 
-	Batch::GetInstance().Submit(vertices, m_Theme.m_ImageColor, pos, size, texture);
+	Batch::GetInstance().Submit(vertices, m_Theme.m_ImageColor, pos, size, texture, uv);
 
 	if (m_IsRelatedToPanel)
 	{

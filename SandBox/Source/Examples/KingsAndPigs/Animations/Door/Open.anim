@@ -1,0 +1,51 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Opening (46x56).png
+    UVs:
+      - 0
+      - 0
+      - 0.200000003
+      - 0
+      - 0.200000003
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Opening (46x56).png
+    UVs:
+      - 0.200000003
+      - 0
+      - 0.400000006
+      - 0
+      - 0.400000006
+      - 1
+      - 0.200000003
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Opening (46x56).png
+    UVs:
+      - 0.400000006
+      - 0
+      - 0.600000024
+      - 0
+      - 0.600000024
+      - 1
+      - 0.400000006
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Opening (46x56).png
+    UVs:
+      - 0.600000024
+      - 0
+      - 0.800000012
+      - 0
+      - 0.800000012
+      - 1
+      - 0.600000024
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Opening (46x56).png
+    UVs:
+      - 0.800000012
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.800000012
+      - 1

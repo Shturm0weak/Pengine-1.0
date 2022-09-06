@@ -37,7 +37,7 @@ namespace Pengine
 		std::vector<glm::vec2> m_Direction = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
 		std::vector<glm::vec2> m_RadiusToSpawn = { { 0.0f, 0.0f }, { 0.0f, 0.0f }, { 0.0f, 0.0f } };
 		std::vector<Particle> m_Particles;
-		Texture* m_Texture = TextureManager::GetInstance().Get("White");
+		Texture* m_Texture = TextureManager::GetInstance().White();
 		int m_ParticlesSize = 10;
 		int m_ParticlesFinished = 0;
 		float m_MaxTimeToLive = 1.0f;

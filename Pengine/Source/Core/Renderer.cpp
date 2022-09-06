@@ -101,7 +101,7 @@ void Renderer::ComposeFinalImage()
     shader->UnBind();
 
     glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().Get("White")->GetRendererID());
+    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
 }
 
 void Renderer::RenderFullScreenQuad()
@@ -150,7 +150,6 @@ void Renderer::Bloom()
             shader->Bind();
             shader->SetUniform1i("u_Pixels", Environment::GetInstance().m_BloomSettings.m_PixelsBlured);
             shader->SetUniform1i("u_Horizontal", horizontal);
-            shader->SetUniform1i("u_DownSampling", Environment::GetInstance().m_BloomSettings.m_DownSampling);
             shader->SetUniform1i("u_FirstFrameBufferIteration", firstIterationOfFirstFrameBuffer);
             shader->SetUniform1f("u_Brightness", Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold);
 
@@ -172,7 +171,7 @@ void Renderer::Bloom()
             shader->UnBind();
 
             glActiveTexture(GL_TEXTURE0 + 0);
-            glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().Get("White")->GetRendererID());
+            glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
             m_FrameBufferBlur[index]->UnBind();
         }
     }
@@ -203,8 +202,6 @@ void Renderer::Bloom()
     shader->SetUniform1i("u_BlurTexturesSize", m_FrameBufferBlur.size() / 2 + 1);
     shader->SetUniform1f("u_Exposure", Environment::GetInstance().m_BloomSettings.m_Exposure);
     shader->SetUniform1f("u_Brightness", Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold);
-    shader->SetUniform1i("u_UpSampling", Environment::GetInstance().m_BloomSettings.m_UpSampling);
-    shader->SetUniform1f("u_UpSamplingScale", Environment::GetInstance().m_BloomSettings.m_UpScalingScale);
 
     m_FrameBufferBloom->Bind();
     viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
@@ -215,7 +212,7 @@ void Renderer::Bloom()
     
     m_FrameBufferBloom->UnBind();
     glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().Get("White")->GetRendererID());
+    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
     glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
 }
 

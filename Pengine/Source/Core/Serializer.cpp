@@ -4,6 +4,7 @@
 #include "TextureManager.h"
 #include "EntryPoint.h"
 #include "TextureAtlasManager.h"
+#include "../EventSystem/EventSystem.h"
 #include "../OpenGL/Texture.h"
 #include "../Components/BoxCollider2D.h"
 #include "../Components/Rigidbody2D.h"
@@ -457,7 +458,7 @@ TextureAtlas* Serializer::DeSerializeTextureAtlas(const std::string& filePath)
 		Texture* texture = TextureManager::GetInstance().Create(textureData.as<std::string>());
 		if (!texture)
 		{
-			texture = TextureManager::GetInstance().Get("White");
+			texture = TextureManager::GetInstance().White();
 		}
 
 		textureAtlas->m_Texture = texture;
@@ -641,11 +642,11 @@ void Serializer::SerializeScene(Scene& scene)
 	Logger::Success("has been serialized!", "Scene", scene.m_Title.c_str());
 }
 
-void Serializer::DeserializeScene(const std::string filePath)
+Scene* Serializer::DeserializeScene(const std::string filePath)
 {
 	if (filePath.empty())
 	{
-		return;
+		return nullptr;
 	}
 
 	std::ifstream stream(filePath);
@@ -656,7 +657,7 @@ void Serializer::DeserializeScene(const std::string filePath)
 	YAML::Node data = YAML::LoadMesh(strStream.str());
 	if (!data)
 	{
-		return;
+		return nullptr;
 	}
 
 	Scene* scene = EntryPoint::GetApplication().GetScene();
@@ -711,6 +712,8 @@ void Serializer::DeserializeScene(const std::string filePath)
 	}
 
 	Logger::Success("has been deserialized!", "Scene", scene->m_Title.c_str());
+
+	return scene;
 }
 
 void Serializer::SerializeCamera(YAML::Emitter& out, const std::shared_ptr<class Camera>& camera)
@@ -791,9 +794,6 @@ void Serializer::SerializeEnvironment(YAML::Emitter& out)
 	out << YAML::Key << "Gamma" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Gamma;
 	out << YAML::Key << "Pixels blured" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_PixelsBlured;
 	out << YAML::Key << "IsEnabled" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_IsEnabled;
-	out << YAML::Key << "DownSampling" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_DownSampling;
-	out << YAML::Key << "UpSampling" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_UpSampling;
-	out << YAML::Key << "UpScalingScale" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_UpScalingScale;
 	out << YAML::EndMap;
 }
 
@@ -834,21 +834,6 @@ void Serializer::DeserializeEnvironment(YAML::Node& in)
 		if (auto& isEnabledData = environmentIn["IsEnabled"])
 		{
 			Environment::GetInstance().m_BloomSettings.m_IsEnabled = isEnabledData.as<bool>();
-		}
-
-		if (auto& downSamplingData = environmentIn["DownSampling"])
-		{
-			Environment::GetInstance().m_BloomSettings.m_DownSampling = downSamplingData.as<bool>();
-		}
-
-		if (auto& upSamplingData = environmentIn["UpSampling"])
-		{
-			Environment::GetInstance().m_BloomSettings.m_UpSampling = upSamplingData.as<bool>();
-		}
-
-		if (auto& upScalingScaleData = environmentIn["UpScalingScaleData"])
-		{
-			Environment::GetInstance().m_BloomSettings.m_UpScalingScale = upScalingScaleData.as<float>();
 		}
 	}
 }
@@ -931,8 +916,8 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	out << YAML::Key << "Is Selectable" << YAML::Value << gameObject.m_IsSelectable;
 	out << YAML::Key << "Prefab File Path" << YAML::Value << gameObject.m_PrefabFilePath;
 
-	gameObject.m_UUID.Clear();
-	gameObject.m_UUID = UUID::Generate();
+	//gameObject.m_UUID.Clear();
+	//gameObject.m_UUID = UUID::Generate();
 
 	SerializeGameObjectChilds(out, gameObject);
 	SerializeTransform(out, gameObject.m_Transform);
@@ -1067,14 +1052,14 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			std::string textureFilePath = textureData.as<std::string>();
 			if (textureFilePath == "White")
 			{
-				r2d->SetTexture(TextureManager::GetInstance().Get("White"));
+				r2d->SetTexture(TextureManager::GetInstance().White());
 			}
 			else
 			{
 				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 					r2d->SetTexture(texture);
-				}, Utils::GetNameFromFilePath(textureFilePath));
+				}, textureFilePath);
 			}
 		}
 
@@ -1083,14 +1068,14 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			std::string textureFilePath = textureData.as<std::string>();
 			if (textureFilePath == "White")
 			{
-				r2d->SetNormalTexture(TextureManager::GetInstance().Get("White"));
+				r2d->SetNormalTexture(TextureManager::GetInstance().White());
 			}
 			else
 			{
 				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 					r2d->SetNormalTexture(texture);
-					}, Utils::GetNameFromFilePath(textureFilePath));
+					}, textureFilePath);
 			}
 		}
 
@@ -1099,14 +1084,14 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			std::string textureFilePath = textureData.as<std::string>();
 			if (textureFilePath == "White")
 			{
-				r2d->SetEmissiveMaskTexture(TextureManager::GetInstance().Get("White"));
+				r2d->SetEmissiveMaskTexture(TextureManager::GetInstance().White());
 			}
 			else
 			{
 				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 					r2d->SetEmissiveMaskTexture(texture);
-					}, Utils::GetNameFromFilePath(textureFilePath));
+					}, textureFilePath);
 			}
 		}
 
@@ -1372,7 +1357,7 @@ void Serializer::DeSerializeAnimator2D(YAML::Node& in, ComponentManager& compone
 		if (auto& currentAnimationData = Animator2DIn["Current animation"])
 		{
 			std::string currentAnimationFilePath = currentAnimationData.as<std::string>();
-			a2d->SetCurrentAnimation(Animation2DManager::GetInstance().Get(Utils::GetNameFromFilePath(currentAnimationFilePath, 4)));
+			a2d->SetCurrentAnimation(Animation2DManager::GetInstance().Get(currentAnimationFilePath));
 		}
 	}
 }
@@ -1495,13 +1480,13 @@ void Serializer::DeSerializeParticleEmitter(YAML::Node& in, ComponentManager& co
 		{
 			if (textureData.as<std::string>() == "White")
 			{
-				particleEmitter->m_Texture = TextureManager::GetInstance().Get("White");
+				particleEmitter->m_Texture = TextureManager::GetInstance().White();
 			}
 			else
 			{
 				TextureManager::GetInstance().AsyncCreate(textureData.as<std::string>());
-				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
-					particleEmitter->m_Texture = texture; }, Utils::GetNameFromFilePath(textureData.as<std::string>()));
+				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+					particleEmitter->m_Texture = texture; }, textureData.as<std::string>());
 			}
 		}
 	}
@@ -1686,6 +1671,9 @@ void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManag
 
 				for (auto& prop : componentClass.get_properties())
 				{
+					// Maybe it is better to make a dispatcher function with callbacks
+					// and call it here, so we don't need to explicitly write each function by hand.
+
 					ReflectedProps::deserialize_reflected_int_property(componentData, component, prop);
 					ReflectedProps::deserialize_reflected_float_property(componentData, component, prop);
 					ReflectedProps::deserialize_reflected_double_property(componentData, component, prop);
@@ -1736,7 +1724,7 @@ void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManag
 					//				if (assetFilePath == "White" || Utils::MatchType(assetFilePath, {"jpeg", "png", "jpg"}))
 					//				{
 					//					TextureManager::GetInstance().AsyncCreate(assetFilePath);
-					//					TextureManager::GetInstance().AsyncGet([=](Texture* texture)
+					//					TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture)
 					//						{
 					//							prop.set_value(component, texture);
 					//						}

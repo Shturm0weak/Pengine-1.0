@@ -59,6 +59,20 @@ namespace Pengine
 		template<>
 		Transform* GetComponent<Transform>();
 
+		template<typename T>
+		T* GetComponentSubClass()
+		{
+			for (auto component : m_Components)
+			{
+				if (dynamic_cast<T*>(component) != nullptr)
+				{
+					return static_cast<T*>(component);
+				}
+			}
+
+			return nullptr;
+		}
+
 		bool AddComponent(IComponent* component);
 
 		template<class T>
@@ -78,6 +92,12 @@ namespace Pengine
 				return static_cast<T*>(component);
 			}
 			return static_cast<T*>(component);
+		}
+
+		template<class T>
+		void RemoveComponent()
+		{
+			RemoveComponent(GetComponent<T>());
 		}
 
 		void RemoveComponent(IComponent* component)

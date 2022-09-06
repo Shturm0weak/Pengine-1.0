@@ -31,6 +31,8 @@ namespace Pengine
 		
 		virtual ICollider2D* IntersectTrigger() override;
 	
+		virtual void SetSize(const glm::vec2& size) override { SetRadius(size.x); };
+
 		void SetRadius(float radius) { m_Radius = radius; }
 		
 		float GetRadius() const { return m_Radius; }

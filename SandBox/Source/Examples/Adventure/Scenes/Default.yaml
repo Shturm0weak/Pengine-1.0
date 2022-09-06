@@ -1,0 +1,236 @@
+Title: Default
+Environment:
+  Global Intensity: 1
+  Blur passes: 8
+  Brightness threshold: 0.769999981
+  Exposure: 0.137999997
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: false
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-0.0819396973, -0.749053955, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1.75
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 4082235372478561200
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.259740263
+        - 0.5
+        - 0.38961038
+        - 0.5
+        - 0.38961038
+        - 0.5625
+        - 0.259740263
+        - 0.5625
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\Adventure\Animations\Idle1.anim
+        - Source\Examples\Adventure\Animations\Idle2.anim
+        - Source\Examples\Adventure\Animations\Attack1.anim
+        - Source\Examples\Adventure\Animations\Attack2.anim
+        - Source\Examples\Adventure\Animations\Attack3.anim
+      Current animation: Source\Examples\Adventure\Animations\Attack2.anim
+  - GameObject: 10229290541346742251
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.519480526
+        - 0.5625
+        - 0.649350643
+        - 0.5625
+        - 0.649350643
+        - 0.625
+        - 0.519480526
+        - 0.625
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\Adventure\Animations\Idle1.anim
+        - Source\Examples\Adventure\Animations\Idle2.anim
+        - Source\Examples\Adventure\Animations\Attack1.anim
+        - Source\Examples\Adventure\Animations\Attack2.anim
+        - Source\Examples\Adventure\Animations\Attack3.anim
+      Current animation: Source\Examples\Adventure\Animations\Attack1.anim
+  - GameObject: 9779858793210957922
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.129870132
+        - 0.4375
+        - 0.259740263
+        - 0.4375
+        - 0.259740263
+        - 0.5
+        - 0.129870132
+        - 0.5
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\Adventure\Animations\Idle1.anim
+        - Source\Examples\Adventure\Animations\Idle2.anim
+        - Source\Examples\Adventure\Animations\Attack1.anim
+        - Source\Examples\Adventure\Animations\Attack2.anim
+        - Source\Examples\Adventure\Animations\Attack3.anim
+      Current animation: Source\Examples\Adventure\Animations\Attack3.anim
+  - GameObject: 17213683120956927255
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.77922076
+        - 0.625
+        - 0.909090936
+        - 0.625
+        - 0.909090936
+        - 0.6875
+        - 0.77922076
+        - 0.6875
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\Adventure\Animations\Idle1.anim
+        - Source\Examples\Adventure\Animations\Idle2.anim
+        - Source\Examples\Adventure\Animations\Attack1.anim
+        - Source\Examples\Adventure\Animations\Attack2.anim
+        - Source\Examples\Adventure\Animations\Attack3.anim
+      Current animation: Source\Examples\Adventure\Animations\Idle2.anim
+  - GameObject: 15207085878142055488
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.38961038
+        - 0.9375
+        - 0.519480526
+        - 0.9375
+        - 0.519480526
+        - 1
+        - 0.38961038
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\Adventure\Animations\Idle1.anim
+        - Source\Examples\Adventure\Animations\Idle2.anim
+        - Source\Examples\Adventure\Animations\Attack1.anim
+        - Source\Examples\Adventure\Animations\Attack2.anim
+        - Source\Examples\Adventure\Animations\Attack3.anim
+      Current animation: Source\Examples\Adventure\Animations\Idle1.anim

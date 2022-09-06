@@ -3,6 +3,8 @@
 #include "Window.h"
 #include "Viewport.h"
 #include "Input.h"
+#include "Environment.h"
+#include "../EventSystem/EventSystem.h"
 
 using namespace Pengine;
 

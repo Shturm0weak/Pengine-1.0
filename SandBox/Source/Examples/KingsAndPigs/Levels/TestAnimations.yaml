@@ -1,0 +1,502 @@
+Title: TestAnimations
+Environment:
+  Global Intensity: 1
+  Blur passes: 8
+  Brightness threshold: 0.949999988
+  Exposure: 0.100000001
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [0.832881927, 2.08784103, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 3.25
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 3143260156062057134
+    Name: Cannon
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\10-Cannon\Shoot (44x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.25
+        - 0
+        - 0.5
+        - 0
+        - 0.5
+        - 1
+        - 0.25
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Cannon\CannonShoot.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Cannon\CannonShoot.anim
+  - GameObject: 12550442807120251858
+    Name: BombOn
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Bomb On (52x56).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 0.75
+        - 0
+        - 0.75
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Bomb\BombOn.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Bomb\BombOn.anim
+  - GameObject: 7183219267906416598
+    Name: BombBoom
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.166666672
+        - 0
+        - 0.333333343
+        - 0
+        - 0.333333343
+        - 1
+        - 0.166666672
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Bomb\BombBoom.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Bomb\BombBoom.anim
+  - GameObject: 10282820916318794919
+    Name: KingHuman
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Attack (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.666666687
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.666666687
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+  - GameObject: 3972591843253448627
+    Name: KingHuman
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Dead (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 0.75
+        - 0
+        - 0.75
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+  - GameObject: 11190497523152423685
+    Name: KingHuman
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Hit (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+  - GameObject: 6175065695310656565
+    Name: KingHuman
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Idle (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 0.0909090936
+        - 0
+        - 0.0909090936
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+  - GameObject: 15257315010613427608
+    Name: KingHuman
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Run (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.75
+        - 0
+        - 0.875
+        - 0
+        - 0.875
+        - 1
+        - 0.75
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+  - GameObject: 11574929771395498145
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\03-Pig\Attack (34x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.400000006
+        - 0
+        - 0.600000024
+        - 0
+        - 0.600000024
+        - 1
+        - 0.400000006
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
+  - GameObject: 2756771886620429029
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.777777791
+        - 0
+        - 0.888888896
+        - 0
+        - 0.888888896
+        - 1
+        - 0.777777791
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBox\Idle.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\PigThrowingBox\Idle.anim
+  - GameObject: 4417716807778412378
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\05-Pig Thowing a Bomb\Idle (26x26).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.600000024
+        - 0
+        - 0.699999988
+        - 0
+        - 0.699999988
+        - 1
+        - 0.600000024
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Idle.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Idle.anim
+  - GameObject: 13682734153926334570
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\02-King Pig\Idle (38x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.416666657
+        - 0
+        - 0.5
+        - 0
+        - 0.5
+        - 1
+        - 0.416666657
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingPig\Idle.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\KingPig\Idle.anim

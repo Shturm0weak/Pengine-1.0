@@ -1,0 +1,62 @@
+GameObjects:
+  - GameObject: 5094168418196707856
+    Name: BombPrefab
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/BombPrefab.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.29999995, 1.29999995, 1.29999995]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Bomb On (52x56).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.5
+        - 0
+        - 0.75
+        - 0
+        - 0.75
+        - 1
+        - 0.5
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 0.170000002
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ThrowingObject
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Bomb\IdleOn.anim
+        - Source\Examples\KingsAndPigs\Animations\Bomb\Blow.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Bomb\IdleOn.anim
+    ThrowingObject:
+      m_Damage:
+        Type: int
+        Value: 2
+      m_TimeToBlow:
+        Type: float
+        Value: 2
+      m_DamageArea:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]

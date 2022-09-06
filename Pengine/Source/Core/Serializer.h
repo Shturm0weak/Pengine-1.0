@@ -28,7 +28,7 @@ namespace Pengine
 		
 		static void SerializeScene(Scene& scene);
 		
-		static void DeserializeScene(const std::string filePath);
+		static Scene* DeserializeScene(const std::string filePath);
 		
 		static void SerializeCamera(YAML::Emitter& out, const std::shared_ptr<class Camera>& camera);
 		

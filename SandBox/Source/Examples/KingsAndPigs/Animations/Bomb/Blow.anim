@@ -1,0 +1,61 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0
+      - 0
+      - 0.166666672
+      - 0
+      - 0.166666672
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0.166666672
+      - 0
+      - 0.333333343
+      - 0
+      - 0.333333343
+      - 1
+      - 0.166666672
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0.333333343
+      - 0
+      - 0.5
+      - 0
+      - 0.5
+      - 1
+      - 0.333333343
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0.5
+      - 0
+      - 0.666666687
+      - 0
+      - 0.666666687
+      - 1
+      - 0.5
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0.666666687
+      - 0
+      - 0.833333313
+      - 0
+      - 0.833333313
+      - 1
+      - 0.666666687
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\09-Bomb\Boooooom (52x56).png
+    UVs:
+      - 0.833333313
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.833333313
+      - 1

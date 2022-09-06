@@ -1,15 +1,21 @@
 #include "Core/EntryPoint.h"
 
-#include "Examples/2DShooter/Source/2DShooter.h"
-#include "Examples/TestRTTRSystem.h"
+#include "Examples/KingsAndPigs/Source/KingsAndPigs.h"
 
 using namespace Pengine;
 
 int main()
 {
 	EntryPoint entrypoint;
-	Application application;
-	entrypoint.SetApplication(&application);
+	KingsAndPigs application;
 
+#ifdef STANDALONE
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
+
+	entrypoint.SetApplication(&application, true);
+#else
+	entrypoint.SetApplication(&application, false);
+#endif
+	
 	return 0;
 }

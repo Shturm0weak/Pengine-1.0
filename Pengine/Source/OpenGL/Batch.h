@@ -119,6 +119,13 @@ namespace Pengine
 		
 		const uint32_t m_MaxTextureSlots = 32;
 		
+		std::vector<float> m_DefaultUV = {
+			0.0f, 0.0f,
+			1.0f, 0.0f,
+			1.0f, 1.0f,
+			0.0f, 1.0f
+		};
+
 		void InitializeGameObjects();
 		
 		void InitializeLines();
@@ -135,7 +142,8 @@ namespace Pengine
 
 		void Submit(class Character* character);
 		
-		void Submit(float* mesh, const glm::vec4& color, const glm::vec2& position, const glm::vec2& size, class Texture* texture = nullptr);
+		void Submit(float* mesh, const glm::vec4& color, const glm::vec2& position, const glm::vec2& size,
+			class Texture* texture = nullptr, std::vector<float> uv = {});
 		
 		void Submit(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color);
 		

@@ -32,6 +32,8 @@ namespace Pengine
 		
 		virtual void Delete() { delete this; }
 		
+		virtual void OnRegisterClient() {}
+
 		virtual IComponent* CreateCopy(GameObject* newOwner);
 
 		std::string GetType() const { return m_Type; }

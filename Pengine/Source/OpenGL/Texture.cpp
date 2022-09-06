@@ -105,6 +105,8 @@ Texture::~Texture()
 
 void Texture::Reload()
 {
+	if (m_FilePath == "None") return;
+
 	std::vector<Texture::TexParameteri> params = TextureManager::GetInstance().GetTexParamertersi();
 	ThreadPool::GetInstance().Enqueue([=] {
 		UnLoadFromRAM();

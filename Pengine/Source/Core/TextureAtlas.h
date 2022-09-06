@@ -14,7 +14,7 @@ namespace Pengine
 	private:
 
 		glm::vec2 m_Size = { 0.0f, 0.0f };
-		Texture* m_Texture = TextureManager::GetInstance().Get("White");
+		Texture* m_Texture = TextureManager::GetInstance().White();
 
 		TextureAtlas(const std::string& name, const glm::vec2& size, Texture* texture);
 

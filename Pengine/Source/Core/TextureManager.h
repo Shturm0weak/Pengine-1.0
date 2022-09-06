@@ -39,18 +39,26 @@ namespace Pengine
 		
 		void AsyncCreate(const std::string& filePath);
 		
+		Texture* White() const { return GetByName("White"); }
+
 		Texture* Create(const std::string& filePath, bool flip = true);
 		
 		Texture* ColoredTexture(const std::string& name, uint32_t color);
 		
-		Texture* Get(const std::string& filePath, bool showErrors = false);
+		Texture* GetByFilePath(const std::string& filePath, bool showErrors = false) const;
 		
-		void AsyncGet(std::function<void(Texture* t)> function, const std::string& name);
+		Texture* GetByName(const std::string& name, bool showErrors = false) const;
+
+		void AsyncGetByFilePath(std::function<void(Texture*)> callback, const std::string& filePath);
 		
-		void RemoveFromGetAsync(const std::string& filePath);
+		void AsyncGetByName(std::function<void(Texture*)> callback, const std::string& name);
 		
+		void RemoveFromGetAsync(const std::string& key);
+
 		void ResetTexParametersi();
 		
+		void ReloadAllTextures();
+
 		std::vector<Texture*> GetTexturesFromFolder(const std::string& filePath);
 		
 		std::vector<Texture::TexParameteri> GetTexParamertersi() const { return m_TexParameters; }

@@ -1,0 +1,41 @@
+Textures:
+  - FilePath: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+    UVs:
+      - 0
+      - 0.9375
+      - 0.129870132
+      - 0.9375
+      - 0.129870132
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+    UVs:
+      - 0.129870132
+      - 0.9375
+      - 0.259740263
+      - 0.9375
+      - 0.259740263
+      - 1
+      - 0.129870132
+      - 1
+  - FilePath: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+    UVs:
+      - 0.259740263
+      - 0.9375
+      - 0.38961038
+      - 0.9375
+      - 0.38961038
+      - 1
+      - 0.259740263
+      - 1
+  - FilePath: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+    UVs:
+      - 0.38961038
+      - 0.9375
+      - 0.519480526
+      - 0.9375
+      - 0.519480526
+      - 1
+      - 0.38961038
+      - 1

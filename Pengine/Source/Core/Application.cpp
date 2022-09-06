@@ -5,6 +5,7 @@
 #include "Viewport.h"
 #include "../Lua/LuaStateManager.h"
 #include "../Lua/LuaState.h"
+#include "../UI/Gui.h"
 
 using namespace Pengine;
 
@@ -12,20 +13,20 @@ void Application::OnPlay()
 {
 	if (m_IsStarted) return;
 
+	Gui::GetInstance().m_Animations.clear();
 	SetState(Application::ApplicationState::Play);
 	m_IsPostStarted = false;
 	m_DefaultScene->Clear();
 	*m_DefaultScene = *m_Scene;
+	m_Scene->OnRegisterClients();
 	OnStart();
 	OnLuaStart();
-	m_Scene->OnPhysicsStart();
 	m_IsStarted = true;
 }
 
 void Application::OnStop()
 {
 	SetState(Application::ApplicationState::Edit);
-	m_Scene->OnPhysicsClose();
 	OnClose();
 	m_Scene->Clear();
 	*m_Scene = *m_DefaultScene;

@@ -5,6 +5,7 @@
 #include "Logger.h"
 #include "Editor.h"
 #include "../EventSystem/EventSystem.h"
+#include "../Events/SetScrollEvent.h"
 #include "../UI/Gui.h"
 
 #include <glew.h>
@@ -16,21 +17,24 @@ using namespace Pengine;
 
 Window::~Window()
 {
-	glfwTerminate();
+	ShutDown();
 }
 
-int Window::Initialize(const std::string& title)
+int Window::CreateWindowInstance(const std::string& title,
+	const glm::ivec2& size, GLFWmonitor* monitor)
 {
 	if (!glfwInit())
 	{
+		Logger::Error("Failed to initialize GLFW!");
+
 		return -1;
 	}
 
-	m_Window = glfwCreateWindow(m_Size.x, m_Size.y, title.c_str(), NULL, NULL);
+	m_Window = glfwCreateWindow(size.x, size.y, m_Title.c_str(), monitor, NULL);
 
 	if (!m_Window)
 	{
-		Logger::Error("Failed to initialize GLFW!");
+		Logger::Error("Failed to create window!");
 		glfwTerminate();
 
 		return -1;
@@ -49,22 +53,26 @@ int Window::Initialize(const std::string& title)
 	SetVSyncEnabled(m_VSync);
 
 	m_ImGuiContext = ImGui::CreateContext();
+	ImGui::SetCurrentContext(m_ImGuiContext);
 	m_ImGuiIO = &ImGui::GetIO();
 	ImGui_ImplGlfw_InitForOpenGL(m_Window, true);
 	ImGui_ImplOpenGL3_Init("#version 330");
+
 	m_ImGuiIO->ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	m_ImGuiIO->FontDefault = m_ImGuiIO->Fonts->AddFontFromFileTTF("Source/Fonts/OpenSans/OpenSans-Regular.ttf", 16.0f);
 
-	glfwSetScrollCallback(Window::GetInstance().GetWindow(),
+	glfwSetScrollCallback(m_Window,
 		[](GLFWwindow* window, double xoffset, double yoffset) {
-			Window::GetInstance().AddScrollOffset({ xoffset, yoffset });
-			Environment::GetInstance().GetMainCamera()->SetZoom(yoffset);
+			glm::vec2 offset = { xoffset, yoffset };
+
+			Window::GetInstance().AddScrollOffset(offset);
+			EventSystem::GetInstance().SendEvent(new OnSetScrollEvent(offset, EventType::ONSETSCROLL));
 
 			ImGui_ImplGlfw_ScrollCallback(window, xoffset, yoffset);
 		}
 	);
 
-	glfwSetWindowSizeCallback(Window::GetWindow(), [](GLFWwindow* window, int width,
+	glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width,
 		int height) {
 			Window::GetInstance().SetSize({ width, height });
 		}
@@ -75,17 +83,31 @@ int Window::Initialize(const std::string& title)
 	Logger::UpdateTime();
 	Input::SetupCallBack();
 
+	return 0;
+}
+
+int Window::Initialize(const std::string& title)
+{
+	m_Title = title;
+
+	bool exitCode = SetWindowMode(m_WindowMode);
+
 	Logger::Log(std::string("Hardware supports OpenGL: " + std::string((char*)glGetString(GL_VERSION))).c_str());
 	Logger::Log(std::string("Application supports GLEW: " + std::string((char*)glewGetString(GLEW_VERSION))).c_str());
 	Logger::Success("Window has been initialized!");
 
-	return 0;
+	return exitCode;
 }
 
 Window& Window::GetInstance()
 {
 	static Window window;
 	return window;
+}
+
+void Window::SetWindowSize(const glm::ivec2 size)
+{
+	glfwSetWindowSize(m_Window, size.x, size.y);
 }
 
 void Window::Exit()
@@ -96,6 +118,51 @@ void Window::Exit()
 bool Window::ShouldExit() const
 {
 	return !glfwWindowShouldClose(m_Window);
+}
+
+int Window::SetWindowMode(WindowMode windowMode)
+{
+	m_WindowMode = windowMode;
+
+	bool exitCode = 0;
+
+	switch (m_WindowMode)
+	{
+	case WindowMode::Windowed:
+	{
+		if (!m_Window)
+		{
+			exitCode = CreateWindowInstance(m_Title, { 1280, 720 }, NULL);
+		}
+
+		glfwSetWindowMonitor(m_Window, NULL, 1280 * 0.25, 720 * 0.25, 1280, 720, 60);
+
+		break;
+	}
+	case WindowMode::Fullscreen:
+	{
+		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+		if (!m_Window)
+		{
+			exitCode = CreateWindowInstance(m_Title, { 1280, 720 }, NULL);
+		}
+
+		glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+		glfwSetWindowMonitor(m_Window, monitor, 0, 0, mode->width, mode->height, mode->refreshRate);
+
+		break;
+	}
+	default:
+		break;
+	}
+
+	return exitCode;
 }
 
 void Window::SetTitle(const std::string& title)
@@ -160,4 +227,12 @@ void Window::Clear(const glm::vec4& color) const
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glClearDepth(1.0f);
 	glClearColor(color.x, color.y, color.y, color.w);
+}
+
+void Window::ShutDown()
+{
+	glfwTerminate();
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 }

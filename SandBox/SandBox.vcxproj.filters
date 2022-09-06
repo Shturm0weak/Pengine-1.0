@@ -15,33 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Examples\2DShooter\Source\2DShooter.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Controller.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Enemy.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\EnemyAI.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Health.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Pawn.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Player.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Shoot.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\2DShooter\Source\Skills.h">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Examples\ExampleApplication.h">
       <Filter>Examples</Filter>
     </ClInclude>
@@ -54,35 +27,36 @@
     <ClInclude Include="Source\Examples\UI\UI.h">
       <Filter>Examples\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\King.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Health.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Examples\2DShooter\Source\2DShooter.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Controller.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Enemy.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\EnemyAI.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Health.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Pawn.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Player.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Shoot.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\2DShooter\Source\Skills.cpp">
-      <Filter>Examples\2DShooter\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SandBox.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\King.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Examples\KingsAndPigs\TestAnimations.yaml" />
+    <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\AddBlurImages.shader" />
+    <None Include="Source\Shaders\Blur.shader" />
+    <None Include="Source\Shaders\ComposeFinalImage.shader" />
+    <None Include="Source\Shaders\Default2D.shader" />
+    <None Include="Source\Shaders\Default3D.shader" />
+    <None Include="Source\Shaders\DefaultLines.shader" />
+    <None Include="Source\Shaders\UI.shader" />
   </ItemGroup>
 </Project>

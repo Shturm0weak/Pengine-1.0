@@ -9,20 +9,31 @@ namespace Pengine
 	{
 	private:
 
+		enum class WindowMode
+		{
+			Windowed = 0,
+			Fullscreen = 1
+		} m_WindowMode = WindowMode::Windowed;
+
 		GLFWwindow* m_Window = nullptr;
 
 		glm::ivec2 m_Size = { 800, 600 };
 		glm::vec2 m_ScrollOffset = { 0.0f, 0.0f };
 
+		std::string m_Title = "Application";
+
 		ImGuiContext* m_ImGuiContext = nullptr;
 		ImGuiIO* m_ImGuiIO = nullptr;
 
-		bool m_VSync = true;
+		bool m_VSync = false;
 
 		Window() = default;
 		Window(const Window&) = delete;
 		Window& operator=(const Window&) { return *this; }
 		~Window();
+
+		int CreateWindowInstance(const std::string& title,
+			const glm::ivec2& size, GLFWmonitor* monitor);
 
 		friend class Editor;
 	public:
@@ -39,10 +50,14 @@ namespace Pengine
 		
 		glm::vec2 GetScrollOffset() const { return m_ScrollOffset; }
 		
+		void SetWindowSize(const glm::ivec2 size);
+
 		void Exit();
 
 		bool ShouldExit() const;
 		
+		int SetWindowMode(WindowMode windowMode);
+
 		void SetTitle(const std::string& title);
 		
 		void NewFrame();
@@ -62,6 +77,8 @@ namespace Pengine
 		void AddScrollOffset(const glm::vec2& offset) { m_ScrollOffset += offset; }
 		
 		void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 1.0f }) const;
+
+		void ShutDown();
 	};
 
 }

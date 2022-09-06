@@ -2,6 +2,8 @@
 
 #include "../Core/EntryPoint.h"
 #include "../Events/OnMainThreadCallback.h"
+#include "../Core/Application.h"
+#include "../Core/Timer.h"
 
 using namespace Pengine;
 
@@ -13,7 +15,8 @@ void EventSystem::DispatchEvent(IEvent* event)
 		return;
 	}
 	
-	if (EntryPoint::GetApplication().GetState() != Application::ApplicationState::Play) return;
+	if (EntryPoint::GetApplication().GetState() != Application::ApplicationState::Play
+		&& (event->GetType() == EventType::ONUPDATE)) return;
 
 	m_Range = m_Database.equal_range((EventType)event->GetType());
 	for (m_Iter = m_Range.first; m_Iter != m_Range.second; m_Iter++)
@@ -91,7 +94,6 @@ void EventSystem::RegisterClient(EventType type, IListener* client)
 		return;
 	}
 
-	client->m_RegisteredEvents.push_back((int)type);
 	m_Database.insert(std::make_pair(type, client));
 }
 
@@ -145,6 +147,38 @@ void EventSystem::SendEvent(IEvent* event)
 	}
 
 	m_CurrentEvents.push_back(event);
+}
+
+void EventSystem::SendCallbackOnFrame(std::function<void()> callback, size_t frames)
+{
+	assert(frames != 0);
+
+	std::vector<std::function<void()>> callbacks;
+
+	callbacks.push_back([this, callback]
+		{
+			Timer::SetCallback([this, callback]
+				{
+					SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+				}
+			, 0.0f);
+		}
+	);
+
+	for (size_t i = 1; i < frames; i++)
+	{
+		callbacks.push_back([this, lastCallback = callbacks.back()]
+			{
+				Timer::SetCallback([this, lastCallback]
+				{
+					SendEvent(new OnMainThreadCallback(lastCallback, EventType::ONMAINTHREADPROCESS));
+				}
+			, 0.0f);
+			}
+		);
+	}
+
+	callbacks.back()();
 }
 
 void EventSystem::ProcessEvents()

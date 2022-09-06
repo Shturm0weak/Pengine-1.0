@@ -1,0 +1,144 @@
+GameObjects:
+  - GameObject: 13423102265022029880
+    Name: Window1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Window1.prefab
+    Childs:
+      - 4851198345182431385
+      - 15374757695788547974
+      - 8361666535177398692
+      - 4431154127868330431
+    Transform:
+      Follow owner: true
+      Position: [5, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4851198345182431385
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.333333343
+        - 0.428571433
+        - 0.333333343
+        - 0.428571433
+        - 0.5
+        - 0.285714298
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15374757695788547974
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.333333343
+        - 0.571428597
+        - 0.333333343
+        - 0.571428597
+        - 0.5
+        - 0.428571433
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8361666535177398692
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.166666672
+        - 0.428571433
+        - 0.166666672
+        - 0.428571433
+        - 0.333333343
+        - 0.285714298
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4431154127868330431
+    Name: Tile4
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.166666672
+        - 0.571428597
+        - 0.166666672
+        - 0.571428597
+        - 0.333333343
+        - 0.428571433
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0

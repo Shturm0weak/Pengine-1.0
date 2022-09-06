@@ -6,21 +6,6 @@
 
 using namespace Pengine;
 
-const char** Animator2D::GetAnimationsNames()
-{
-	if (m_AnimationsNames != nullptr)
-	{
-		delete[] m_AnimationsNames;
-	}
-	m_AnimationsNames = new const char* [m_Animations.size()];
-	for (size_t i = 0; i < m_Animations.size(); i++)
-	{
-		m_AnimationsNames[i] = m_Animations[i]->m_Name.c_str();
-	}
-
-	return m_AnimationsNames;
-}
-
 IComponent* Animator2D::Create(GameObject* owner)
 {
 	return new Animator2D();
@@ -59,10 +44,11 @@ void Animator2D::OnClose()
 void Animator2D::Copy(const IComponent& component)
 {
 	Animator2D& a2d = *(Animator2D*)&component;
+	m_Type = component.GetType();
 	m_Animations = a2d.m_Animations;
 	m_Speed = a2d.m_Speed;
 	m_CurrentAnimation = a2d.m_CurrentAnimation;
-	m_Type = component.GetType();
+	m_Play = a2d.m_Play;
 }
 
 IComponent* Animator2D::New(GameObject* owner)
@@ -107,9 +93,20 @@ void Animator2D::PlayAnimation(Animation2DManager::Animation2D* animation)
 	{
 		m_Timer = 0.0f;
 
-		for (auto callback : m_EndCallbacks)
+		for (std::vector<std::function<bool()>>::iterator callbackIter = m_EndCallbacks.begin();
+			callbackIter != m_EndCallbacks.end();)
 		{
-			callback();
+			if ((*callbackIter))
+			{
+				if ((*callbackIter)())
+				{
+					callbackIter = m_EndCallbacks.erase(callbackIter);
+				}
+				else
+				{
+					++callbackIter;
+				}
+			}
 		}
 	}
 }

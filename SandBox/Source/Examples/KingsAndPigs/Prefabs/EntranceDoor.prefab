@@ -1,0 +1,40 @@
+GameObjects:
+  - GameObject: 9216061960903414246
+    Name: EntranceDoor
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/EntranceDoor.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\11-Door\Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Door\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Door\Close.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Door\Idle.anim

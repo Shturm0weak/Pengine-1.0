@@ -24,6 +24,7 @@ namespace Pengine
 		std::function<void()> m_OnTranslationCallback;
 
 		bool m_FollowOwner = true;
+		bool m_Copyable = true;
 
 		void Move(Transform&& transform) noexcept;
 		void UpdateBack();
@@ -78,6 +79,10 @@ namespace Pengine
 		bool GetFollorOwner() const { return m_FollowOwner; }
 		
 		void SetFollowOwner(bool followOwner) { m_FollowOwner = followOwner; }
+
+		bool IsCopyable() const { return m_Copyable; }
+
+		void SetCopyable(bool copyable) { m_Copyable = copyable; }
 		
 		void SetOnRotationCallback(std::function<void()> callback) { m_OnRotationCallback = callback; }
 		

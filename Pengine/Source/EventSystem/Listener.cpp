@@ -29,6 +29,11 @@ void IListener::HandleEvent(IEvent* event)
 		OnWindowResize(*(WindowResizeEvent*)event);
 		break;
 	}
+	case EventType::ONSETSCROLL:
+	{
+		OnSetScroll(*(OnSetScrollEvent*)event);
+		break;
+	}
 	default:
 		break;
 	}

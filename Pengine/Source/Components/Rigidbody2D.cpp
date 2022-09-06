@@ -4,6 +4,7 @@
 #include "../Core/Scene.h"
 #include "../Core/MemoryManager.h"
 #include "Box2D/include/box2d/b2_world.h"
+#include "Box2D/include/box2d/b2_contact.h"
 
 using namespace Pengine;
 
@@ -88,6 +89,16 @@ void Rigidbody2D::Initialize()
 		m_Body->SetTransform({ c2d->GetPosition().x, c2d->GetPosition().y }, m_Owner->m_Transform.GetRotation().z);
 		m_IsInitializedPhysics = true;
 	}
+}
+
+bool Rigidbody2D::IsCollided() const
+{
+	if (m_Body && m_Body->GetContactList())
+	{
+		return m_Body->GetContactList()->contact->IsTouching();
+	}
+	
+	return false;
 }
 
 void Rigidbody2D::ApplyAngularImpulse(float impulse, bool wake)

@@ -33,22 +33,12 @@ void Scene::Copy(const Scene& scene)
 	}
 }
 
-void Scene::OnPhysicsStart()
-{
-	//for (auto& gameObjectIter : m_GameObjects)
-	//{
-	//	Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
-	//	if (rb2d)
-	//	{
-	//		rb2d->Initialize();
-	//	}
-	//}
-}
-
 void Scene::OnPhysicsUpdate()
 {
 	for (auto& gameObjectIter : m_GameObjects)
 	{
+		if (!gameObjectIter->IsEnabled()) continue;
+
 		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
 		if (rb2d)
 		{
@@ -96,6 +86,8 @@ void Scene::OnPhysicsUpdate()
 
 	for (auto& gameObjectIter : m_GameObjects)
 	{
+		if (!gameObjectIter->IsEnabled()) continue;
+
 		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
 		if (rb2d)
 		{
@@ -111,20 +103,6 @@ void Scene::OnPhysicsUpdate()
 			}
 		}
 	}
-}
-
-void Scene::OnPhysicsClose()
-{
-	// It has been already destroyed when a gameobject is destroyed.
-	//for (auto& gameObjectIter : m_GameObjects)
-	//{
-	//	Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
-	//	if (rb2d)
-	//	{
-	//		rb2d->m_Body->DestroyFixture(rb2d->m_Fixture);
-	//		m_Box2DWorld->DestroyBody(rb2d->m_Body);
-	//	}
-	//}
 }
 
 Scene::Scene(const std::string& title) : m_Title(title)
@@ -170,6 +148,17 @@ std::vector<GameObject*> Scene::SelectGameObject(std::vector<GameObject*> ignore
 	}
 
 	return gameObjects;
+}
+
+void Scene::OnRegisterClients()
+{
+	for (auto& gameObject : m_GameObjects)
+	{
+		for (auto& component : gameObject->m_ComponentManager.GetComponents())
+		{
+			component->OnRegisterClient();
+		}
+	}
 }
 
 void Scene::Render()
@@ -232,7 +221,9 @@ void Scene::Render()
 					Transform transform = cc2d->GetOwner()->m_Transform;
 					transform.Translate({ cc2d->GetPosition(), 0.0f });
 					float radius = cc2d->GetRadius() * gameObject->m_Transform.GetScale().x;
-					Visualizer::DrawCircle(radius * 0.95f, radius, transform.GetTransform(), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+					Visualizer::DrawCircle(radius - Editor::GetInstance().m_LineWidth * 0.01f, radius,
+						transform.GetPositionMat4() * glm::scale(glm::mat4(1.0f), glm::vec3(radius * 2.0f)),
+						glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 				}
 			}
 		}
@@ -252,7 +243,7 @@ void Scene::Clear()
 
 	while (m_GameObjects.size() > 0)
 	{
-		DeleteGameObject(m_GameObjects.back());
+		DeleteGameObject(m_GameObjects.front());
 	}
 
 	LuaStateManager::GetInstance().ShutDown();

@@ -1,6 +1,7 @@
 #include "SoundManager.h"
 
 #include "../Core/Logger.h"
+#include "../Core/Utils.h"
 
 using namespace Pengine;
 
@@ -70,8 +71,13 @@ Sound* SoundManager::GetSound(const std::string& name) const
 
 Sound* SoundManager::Load(const std::string& filePath)
 {
-	Sound* sound = new Sound(filePath);
-	CreateSoundAsset(sound);
+	Sound* sound = GetSound(filePath);
+	if (!sound)
+	{
+		sound = new Sound(filePath);
+		CreateSoundAsset(sound);
+	}
+
 	return sound;
 }
 

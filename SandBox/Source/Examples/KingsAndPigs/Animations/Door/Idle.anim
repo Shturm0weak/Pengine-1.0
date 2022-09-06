@@ -1,0 +1,11 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Idle.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1

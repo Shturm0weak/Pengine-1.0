@@ -11,7 +11,7 @@
 
 class Controller : public Pengine::IComponent
 {
-	RTTR_ENABLE(IComponent)
+	//RTTR_ENABLE(IComponent)
 
 private:
 
@@ -50,4 +50,4 @@ public:
 
 	static class Pengine::IComponent* Create(class Pengine::GameObject* owner);
 };
-REGISTER_CLASS(Controller)
+//REGISTER_CLASS(Controller)

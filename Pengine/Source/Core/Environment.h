@@ -2,13 +2,14 @@
 
 #include "Core.h"
 #include "Camera.h"
+#include "../EventSystem/Listener.h"
 
 #include <memory>
 
 namespace Pengine
 {
 
-	class PENGINE_API Environment
+	class PENGINE_API Environment : public IListener
 	{
 	private:
 
@@ -17,12 +18,9 @@ namespace Pengine
 			float m_BrightnessThreshold = 1.1f;
 			float m_Gamma = 1.0f;
 			float m_Exposure = 0.05f;
-			float m_UpScalingScale = 1.0f;
 			int m_BlurPasses = 8;
 			int m_PixelsBlured = 6;
 			bool m_IsEnabled = true;
-			bool m_DownSampling = false;
-			bool m_UpSampling = false;
 		} m_BloomSettings;
 
 		std::shared_ptr<class Camera> m_EditorCamera;
@@ -30,7 +28,7 @@ namespace Pengine
 
 		float m_GlobalIntensity = 1.0f;
 	
-		Environment() = default;
+		Environment();
 		Environment(const Environment&) = delete;
 		Environment& operator=(const Environment&) { return *this; }
 		~Environment() = default;
@@ -42,6 +40,8 @@ namespace Pengine
 	public:
 
 		static Environment& GetInstance();
+
+		virtual void OnSetScroll(const OnSetScrollEvent& event);
 
 		void UseEditorCameraAsMain() { m_MainCamera = m_EditorCamera; }
 		

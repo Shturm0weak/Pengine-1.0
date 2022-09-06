@@ -1,0 +1,158 @@
+GameObjects:
+  - GameObject: 9453045085603982707
+    Name: PigThrowingBomb
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/PigThrowingBomb.prefab
+    Childs:
+      - 8858520137813590780
+      - 14598120802375614335
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.699999988, 0.699999988, 0.699999988]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\05-Pig Thowing a Bomb\Idle (26x26).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.300000012
+        - 0
+        - 0.400000006
+        - 0
+        - 0.400000006
+        - 1
+        - 0.300000012
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.400000006, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 10
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Pig\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Fall.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Death.anim
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Pick.anim
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Run.anim
+        - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Throw.anim
+      Current animation: "Null"
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 3
+      m_MaxHealth:
+        Type: int
+        Value: 3
+    PigThrowing:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: true
+      m_HasRigidbody:
+        Type: bool
+        Value: true
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0.300000012
+      m_Speed:
+        Type: float
+        Value: 1
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 3
+      m_AttackCoolDown:
+        Type: float
+        Value: 2.5
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [5, 3]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: King
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Pig
+          - Heart
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - Pig
+          - ThrowingObject
+      m_InitializeDirection:
+        Type: int
+        Value: 1
+      m_VisibilityRange:
+        Type: float
+        Value: 3
+      m_WaitTimer:
+        Type: float
+        Value: 0
+      m_TimeToWait:
+        Type: float
+        Value: 3
+      m_ObjectName:
+        Type: std::string
+        Value: BombPrefab
+      m_PigScale:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.800000012, 0.800000012, 0.800000012]
+      m_ThrowingPigScale:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.600000024, 0.600000024, 0.600000024]
+  - GameObject: 8858520137813590780
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14598120802375614335
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]

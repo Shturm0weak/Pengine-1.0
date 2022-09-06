@@ -52,8 +52,8 @@ void Viewport::SetPosition(const glm::ivec2 position)
 
 void Viewport::Initialize()
 {
-    m_Size = Window::GetInstance().GetSize();
-    FrameBuffer::FrameBufferParams params = { m_Size, 1, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
+    glm::ivec2 size = Window::GetInstance().GetSize();
+    FrameBuffer::FrameBufferParams params = { size , 1, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
 		GL_UNSIGNED_BYTE, true, true, true };
 
 	TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
@@ -68,6 +68,9 @@ void Viewport::Initialize()
 
 void Viewport::Update()
 {
+	void* texture = nullptr;
+
+#ifndef STANDALONE
 	if (IsFocused())
 	{
 		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_W))
@@ -93,30 +96,31 @@ void Viewport::Update()
 	ImGui::Text("Size %f %f", glm::pow(0.5f, m_MipMap) * m_Size.x * 0.5f, glm::pow(0.5f, m_MipMap) * m_Size.y * 0.5f);
 	ImGui::End();
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("SceneColor", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[0]);
-	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("Bloom", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBloom->m_Textures[0]);
-	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("Bloom MipMaps", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBlur[m_MipMap * 2 + 1]->m_Textures[0]);
-	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
+#endif
 
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
     ImGui::Begin("ViewPort", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-
+	
     if (m_Size.x != ImGui::GetWindowSize().x || m_Size.y != ImGui::GetWindowSize().y)
     {
         Resize(glm::ivec2(ImGui::GetWindowSize().x, ImGui::GetWindowSize().y));
@@ -127,11 +131,9 @@ void Viewport::Update()
 
 	SetPosition(glm::vec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y));
 
-	//void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBloom->m_Textures[0]);
-	//void* texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBlur[m_MipMap * 2 + 1]->m_Textures[0]);
-    texture = reinterpret_cast<void*>(m_FrameBufferViewport->m_Textures[0]);
-    ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0, 1), ImVec2(1, 0));
-
+	texture = reinterpret_cast<void*>(m_FrameBufferViewport->m_Textures[0]);
+    ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	
 	if (ImGui::BeginDragDropTarget())
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))

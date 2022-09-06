@@ -3,6 +3,7 @@
 #include "../Core/Core.h"
 #include "../Core/ReflectionSystem.h"
 #include "../Events/WindowResizeEvent.h"
+#include "../Events/SetScrollEvent.h"
 
 #include <vector>
 
@@ -13,16 +14,16 @@ namespace Pengine
 	{
 	protected:
 
-		virtual void OnStart() {};
+		virtual void OnStart() {}
 		
-		virtual void OnUpdate() {};
+		virtual void OnUpdate() {}
 		
-		virtual void OnClose() {};
+		virtual void OnClose() {}
 		
-		virtual void OnWindowResize(const WindowResizeEvent& event) {};
-	public:
+		virtual void OnWindowResize(const WindowResizeEvent& event) {}
 
-		std::vector<int> m_RegisteredEvents;
+		virtual void OnSetScroll(const OnSetScrollEvent& event) {}
+	public:
 
 		void HandleEvent(class IEvent* event);
 

@@ -29,13 +29,15 @@ namespace Pengine
 		ICollider2D() { m_Type = "ICollider"; }
 		
 		void SetTrigger(bool isTrigger) { m_IsTrigger = isTrigger; }
-		
+
 		glm::vec2 GetPosition() const;
 		
 		glm::vec2 GetOffset() const { return m_Offset; }
 		
 		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
 
+		virtual void SetSize(const glm::vec2& size) = 0;
+		
 		virtual ICollider2D* IntersectTrigger() = 0;
 		
 		virtual ~ICollider2D() {};

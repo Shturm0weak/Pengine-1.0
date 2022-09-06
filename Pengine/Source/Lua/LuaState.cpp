@@ -132,7 +132,7 @@ PointLight2D* LuaState::LuaAddPointLight2D(GameObject* gameObject)
 
 Texture* LuaState::LuaGetTexture(const std::string& name)
 {
-	return TextureManager::GetInstance().Get(name);
+	return TextureManager::GetInstance().GetByName(name);
 }
 
 Texture* LuaState::LuaCreateTexture(const std::string& filePath)

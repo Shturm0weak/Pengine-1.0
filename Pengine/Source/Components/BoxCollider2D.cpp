@@ -117,6 +117,14 @@ bool BoxCollider2D::BoxCircleOverlap(CircleCollider2D* other)
         return true;
     }
 
+    for (size_t i = 0; i < 4; i++)
+    {
+        if (glm::distance(thisBox[i], glm::vec4(positionOther, 1.0f)) < radius)
+        {
+            return true;
+        }
+    }
+
     return false;
 }
 
@@ -169,7 +177,7 @@ ICollider2D* BoxCollider2D::IntersectTrigger()
         
         if (this == bc2d) continue;
 
-        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->m_IsEnabled) continue;
+        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->IsEnabled()) continue;
 
         if (BoxBoxOverlapSAT(bc2d))
         {
@@ -182,7 +190,7 @@ ICollider2D* BoxCollider2D::IntersectTrigger()
     {
         CircleCollider2D* cc2d = scene->m_CircleColliders2D[i];
 
-        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->m_IsEnabled) continue;
+        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->IsEnabled()) continue;
 
         if (BoxCircleOverlap(cc2d))
         {

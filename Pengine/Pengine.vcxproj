@@ -179,6 +179,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClInclude Include="Source\EventSystem\Listener.h" />
     <ClInclude Include="Source\Events\Event.h" />
     <ClInclude Include="Source\Events\OnMainThreadCallback.h" />
+    <ClInclude Include="Source\Events\SetScrollEvent.h" />
     <ClInclude Include="Source\Events\WindowResizeEvent.h" />
     <ClInclude Include="Source\Lua\luaaa.hpp" />
     <ClInclude Include="Source\Lua\LuaState.h" />

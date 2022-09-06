@@ -115,15 +115,20 @@ void Raycast2D::Raycast(Scene* scene, const glm::vec2& from, const glm::vec2& to
 
 		Transform& transform = bc2d->GetOwner()->m_Transform;
 
-		if (bc2d->GetOwner()->m_IsEnabled)
+		if (bc2d->GetOwner()->IsEnabled())
 		{
 			glm::vec2 size = bc2d->GetSize();
 
+			glm::mat4 transformMat4 = glm::translate(glm::mat4(1.0f), 
+				glm::vec3(bc2d->GetPosition(), 0.0f)) * 
+				transform.GetRotationMat4() *
+				transform.GetScaleMat4();
+
 			corners.clear();
-			corners.push_back(glm::vec2(transform.GetTransform() * glm::vec4(-size.x, -size.y, 0.0f, 1.0f)));
-			corners.push_back(glm::vec2(transform.GetTransform() * glm::vec4( size.x, -size.y, 0.0f, 1.0f)));
-			corners.push_back(glm::vec2(transform.GetTransform() * glm::vec4( size.x,  size.y, 0.0f, 1.0f)));
-			corners.push_back(glm::vec2(transform.GetTransform() * glm::vec4(-size.x,  size.y, 0.0f, 1.0f)));
+			corners.push_back(glm::vec2(transformMat4 * glm::vec4(-size.x, -size.y, 0.0f, 1.0f)));
+			corners.push_back(glm::vec2(transformMat4 * glm::vec4( size.x, -size.y, 0.0f, 1.0f)));
+			corners.push_back(glm::vec2(transformMat4 * glm::vec4( size.x,  size.y, 0.0f, 1.0f)));
+			corners.push_back(glm::vec2(transformMat4 * glm::vec4(-size.x,  size.y, 0.0f, 1.0f)));
 
 			glm::vec2 result = { 0.0f, 0.0f };
 			if (LineIntersect(corners[3], corners[0], from, to, result))
@@ -186,10 +191,10 @@ void Raycast2D::Raycast(Scene* scene, const glm::vec2& from, const glm::vec2& to
 
 		Transform& transform = cc2d->GetOwner()->m_Transform;
 
-		if (cc2d->GetOwner()->m_IsEnabled)
+		if (cc2d->GetOwner()->IsEnabled())
 		{
 			glm::vec2 result = { 0.0f, 0.0f };
-			if (CircleIntersect(from, to, transform.GetPosition(), cc2d->GetRadius(), result))
+			if (CircleIntersect(from, to, cc2d->GetPosition(), cc2d->GetRadius(), result))
 			{
 				points.insert(std::make_pair(cc2d, result));
 			}

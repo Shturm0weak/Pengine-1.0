@@ -60,19 +60,24 @@ void EntryPoint::PrepareResources()
     Environment::GetInstance().UseEditorCameraAsMain();
 }
 
+void EntryPoint::OnStartState()
+{
+    if (m_StartState)
+    {
+        m_StartState = false;
+        EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONSTART));
+        m_Application->OnPlay();
+    }
+}
+
 void EntryPoint::SetApplication(Application* application, bool startState)
 {
     assert(application);
 
     m_Application = application;
+    m_StartState = startState;
 
     OnStart();
-
-    if (startState)
-    {
-        EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONSTART));
-        m_Application->OnPlay();
-    }
 
     OnUpdate();
 }
@@ -82,6 +87,10 @@ void EntryPoint::OnStart()
     assert(Window::GetInstance().Initialize(m_Application->GetTitle()) == 0);
 
     PrepareResources();
+
+#ifdef STANDALONE
+    Serializer::DeserializeScene("Source/Examples/KingsAndPigs/Levels/Level1.yaml");
+#endif
 }
 
 EntryPoint::~EntryPoint()
@@ -95,7 +104,6 @@ void EntryPoint::OnUpdate()
     {
         Window::GetInstance().NewFrame();
         {
-            Environment::GetInstance().GetMainCamera()->Movement();
             EventSystem::GetInstance().ProcessEvents();
             Timer::UpdateCallbacks();
 
@@ -111,9 +119,18 @@ void EntryPoint::OnUpdate()
 
             Renderer::GetInstance().Render(m_Application);
 
+#ifdef STANDALONE
+            Editor::GetInstance().SetEnabled(false);
+#else
+            Environment::GetInstance().GetMainCamera()->Movement();
+#endif
+
             Editor::GetInstance().Update(m_Application->GetScene());
         }
+
         Window::GetInstance().EndFrame();
+
+        OnStartState();
     }
 }
 

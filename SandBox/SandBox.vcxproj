@@ -100,36 +100,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Examples\2DShooter\Source\2DShooter.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Controller.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Enemy.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\EnemyAI.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Health.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Pawn.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Player.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Shoot.h" />
-    <ClInclude Include="Source\Examples\2DShooter\Source\Skills.h" />
     <ClInclude Include="Source\Examples\ExampleApplication.h" />
     <ClInclude Include="Source\Examples\ExampleComponent.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Health.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\King.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
     <ClInclude Include="Source\Examples\TestRTTRSystem.h" />
     <ClInclude Include="Source\Examples\UI\UI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Examples\2DShooter\Source\2DShooter.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Controller.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Enemy.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\EnemyAI.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Health.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Pawn.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Player.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Shoot.cpp" />
-    <ClCompile Include="Source\Examples\2DShooter\Source\Skills.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\King.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
     <ClCompile Include="Source\SandBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pengine\Pengine.vcxproj">
       <Project>{EB708C05-5750-0BA1-6068-9677CCC67102}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Examples\KingsAndPigs\TestAnimations.yaml" />
+    <None Include="Source\Shaders\AddBlurImages.shader" />
+    <None Include="Source\Shaders\Blur.shader" />
+    <None Include="Source\Shaders\ComposeFinalImage.shader" />
+    <None Include="Source\Shaders\Default2D.shader" />
+    <None Include="Source\Shaders\Default3D.shader" />
+    <None Include="Source\Shaders\DefaultLines.shader" />
+    <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\UI.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -35,9 +35,9 @@ namespace Pengine
 		
 		virtual ICollider2D* IntersectTrigger() override;
 
+		virtual void SetSize(const glm::vec2& size) override { m_Size = size; }
+
 		glm::vec2 GetSize() const { return m_Size; }
-		
-		void SetSize(const glm::vec2& size) { m_Size = size; }
 		
 		glm::vec2 GetOffset() const { return m_Offset; }
 		

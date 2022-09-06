@@ -74,7 +74,7 @@ void Batch::InitializeGameObjects()
 	m_GOWrapper.m_Ibo.Initialize(indices, RENDERER_INDICES_SIZE);
 	glBindVertexArray(0);
 
-	m_GOWrapper.m_TextureSlots[0] = TextureManager::GetInstance().Get("White")->GetRendererID();
+	m_GOWrapper.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
 	for (unsigned int i = m_GOWrapper.m_StartTextureSlotIndex; i < 32; i++)
 	{
 		m_GOWrapper.m_TextureSlots[i] = 0;
@@ -187,7 +187,7 @@ void Batch::InitializeUI()
 	m_UIWrapper.m_Ibo.Initialize(indices, RENDERER_INDICES_SIZE);
 	glBindVertexArray(0);
 
-	m_UIWrapper.m_TextureSlots[0] = TextureManager::GetInstance().Get("White")->GetRendererID();
+	m_UIWrapper.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
 	for (unsigned int i = 1; i < 32; i++)
 	{
 		m_UIWrapper.m_TextureSlots[i] = 0;
@@ -200,7 +200,7 @@ float Batch::GOVertAttribWrapper::GetTextureSlot(uint32_t maxTextureSlots, Textu
 
 	if (texture == nullptr)
 	{
-		texture = TextureManager::GetInstance().Get("White");
+		texture = TextureManager::GetInstance().White();
 	}
 
 	for (unsigned int i = 0; i < maxTextureSlots; i++)
@@ -254,7 +254,7 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_TextureIndex = -1.0f;
 	if (character->m_Font->m_FontAtlas == nullptr)
 	{
-		character->m_Font->m_FontAtlas = TextureManager::GetInstance().Get("White");
+		character->m_Font->m_FontAtlas = TextureManager::GetInstance().White();
 	}
 
 	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
@@ -331,7 +331,8 @@ void Batch::Submit(Character* character)
 	m_UIWrapper.m_IndexCount += 6;
 }
 
-void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& position, const glm::vec2& size, Texture* texture)
+void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& position, const glm::vec2& size, Texture* texture,
+	std::vector<float> uv)
 {
 	if (m_UIWrapper.m_TextureSlotIndex > m_MaxTextureSlots - 1 || m_UIWrapper.m_IndexCount >= RENDERER_INDICES_SIZE)
 	{
@@ -343,7 +344,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_TextureIndex = -1.0f;
 	if (texture == nullptr)
 	{
-		texture = TextureManager::GetInstance().Get("White");
+		texture = TextureManager::GetInstance().White();
 	}
 
 	for (unsigned int i = 0; i < m_MaxTextureSlots; i++)
@@ -373,8 +374,13 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	glm::vec2 relatedPanelSize = gui.m_CurrentPanelSize * aspect;
 	glm::vec2 panelSize = size * aspect;
 
+	if (uv.size() == 0)
+	{
+		uv = m_DefaultUV;
+	}
+
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[0]), mesh[1]);
-	m_UIWrapper.m_Buffer->m_UV = glm::vec2(0.0f, 0.0f);
+	m_UIWrapper.m_Buffer->m_UV = glm::vec2(uv[0], uv[1]);
 	m_UIWrapper.m_Buffer->m_Static = true;
 	m_UIWrapper.m_Buffer->m_Color = color;
 	m_UIWrapper.m_Buffer->m_IsGui = 1.;
@@ -389,7 +395,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[2]), (mesh[3]));
-	m_UIWrapper.m_Buffer->m_UV = glm::vec2(1.0f, 0.0f);
+	m_UIWrapper.m_Buffer->m_UV = glm::vec2(uv[2], uv[3]);
 	m_UIWrapper.m_Buffer->m_Static = true;
 	m_UIWrapper.m_Buffer->m_Color = color;
 	m_UIWrapper.m_Buffer->m_IsGui = 1.;
@@ -404,7 +410,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[4]), (mesh[5]));
-	m_UIWrapper.m_Buffer->m_UV = glm::vec2(1.0f, 1.0f);
+	m_UIWrapper.m_Buffer->m_UV = glm::vec2(uv[4], uv[5]);
 	m_UIWrapper.m_Buffer->m_Static = true;
 	m_UIWrapper.m_Buffer->m_Color = color;
 	m_UIWrapper.m_Buffer->m_IsGui = 1.;
@@ -419,7 +425,7 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 	m_UIWrapper.m_Buffer++;
 
 	m_UIWrapper.m_Buffer->m_Vertex = glm::vec2((mesh[6]), ((mesh[7])));
-	m_UIWrapper.m_Buffer->m_UV = glm::vec2(0.0f, 1.0f);
+	m_UIWrapper.m_Buffer->m_UV = glm::vec2(uv[6], uv[7]);
 	m_UIWrapper.m_Buffer->m_Static = true;
 	m_UIWrapper.m_Buffer->m_Color = color;
 	m_UIWrapper.m_Buffer->m_IsGui = 1.;

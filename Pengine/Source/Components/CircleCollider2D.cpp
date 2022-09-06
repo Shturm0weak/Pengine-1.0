@@ -79,7 +79,7 @@ ICollider2D* CircleCollider2D::IntersectTrigger()
 
         if (this == cc2d) continue;
 
-        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->m_IsEnabled) continue;
+        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->IsEnabled()) continue;
 
         if (CircleCircleOberlap(cc2d))
         {
@@ -92,7 +92,7 @@ ICollider2D* CircleCollider2D::IntersectTrigger()
     {
         BoxCollider2D* bc2d = scene->m_BoxColliders2D[i];
     
-        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->m_IsEnabled) continue;
+        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->IsEnabled()) continue;
     
         if (bc2d->BoxCircleOverlap(this))
         {

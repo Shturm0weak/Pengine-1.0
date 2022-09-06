@@ -14,13 +14,13 @@ void Animation2DManager::Save(Animation2D* animation)
 {
 	if (Utils::Erase<Animation2D>(m_Animations, animation))
 	{
-		m_Animations.insert(std::make_pair(animation->m_Name, animation));
+		m_Animations.insert(std::make_pair(animation->m_FilePath, animation));
 	}
 }
 
 Animation2DManager::Animation2D* Animation2DManager::Load(const std::string& filePath)
 {
-	auto animIter = m_Animations.find(Utils::GetNameFromFilePath(filePath, 4));
+	auto animIter = m_Animations.find(filePath);
 	if (animIter != m_Animations.end())
 	{
 		Animation2D* newAnimation = Serializer::DeSerializeAnimation2D(filePath);
@@ -31,31 +31,31 @@ Animation2DManager::Animation2D* Animation2DManager::Load(const std::string& fil
 	else
 	{
 		Animation2D* animation = Serializer::DeSerializeAnimation2D(filePath);
-		m_Animations.insert(std::make_pair(animation->m_Name, animation));
+		m_Animations.insert(std::make_pair(filePath, animation));
 		return animation;
 	}
 }
 
-Animation2DManager::Animation2D* Animation2DManager::Create(const std::string& name)
+Animation2DManager::Animation2D* Animation2DManager::Create(const std::string& filePath)
 {
-	if (name.empty())
+	if (filePath.empty())
 	{
 		return nullptr;
 	}
 
-	Animation2D* animation2D = Get(name);
+	Animation2D* animation2D = Get(filePath);
 	if (!animation2D)
 	{
-		animation2D = new Animation2D("None", name);
-		m_Animations.insert(std::make_pair(name, animation2D));
+		animation2D = new Animation2D(filePath, Utils::GetNameFromFilePath(filePath, 4));
+		m_Animations.insert(std::make_pair(filePath, animation2D));
 	}
 
 	return animation2D;
 }
 
-Animation2DManager::Animation2D* Animation2DManager::Get(const std::string& name) const
+Animation2DManager::Animation2D* Animation2DManager::Get(const std::string& filePath) const
 {
-	auto animIter = m_Animations.find(name);
+	auto animIter = m_Animations.find(filePath);
 	if (animIter != m_Animations.end())
 	{
 		return animIter->second;

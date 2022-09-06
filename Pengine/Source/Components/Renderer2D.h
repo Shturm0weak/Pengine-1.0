@@ -25,9 +25,9 @@ namespace Pengine
 		};
 
 		Mesh* m_Mesh = MeshManager::GetInstance().Get("Quad");
-		Texture* m_Texture = TextureManager::GetInstance().Get("White");
-		Texture* m_NormalTexture = TextureManager::GetInstance().Get("White");
-		Texture* m_EmissiveMaskTexture = TextureManager::GetInstance().Get("White");
+		Texture* m_Texture = TextureManager::GetInstance().White();
+		Texture* m_NormalTexture = TextureManager::GetInstance().White();
+		Texture* m_EmissiveMaskTexture = TextureManager::GetInstance().White();
 
 		glm::vec4 m_Color = glm::vec4(1.0f);
 		

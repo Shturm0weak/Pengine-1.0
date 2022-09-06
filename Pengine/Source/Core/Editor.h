@@ -64,6 +64,10 @@ namespace Pengine
 
 		Scene* m_CurrentScene = nullptr;
 
+		float m_ThumbnailScale = 0.8f;
+
+		int m_SelectedWindowMode = 0;
+
 		bool m_IsActiveAssetList = false;
 
 		bool m_IsEnabled = true;

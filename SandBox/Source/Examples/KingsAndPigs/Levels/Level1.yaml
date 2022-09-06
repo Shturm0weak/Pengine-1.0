@@ -1,0 +1,3739 @@
+Title: Level1
+Environment:
+  Global Intensity: 1
+  Blur passes: 20
+  Brightness threshold: 0.899999976
+  Exposure: 0.100000009
+  Gamma: 1.5
+  Pixels blured: 6
+  IsEnabled: true
+  DownSampling: false
+  UpSampling: false
+  UpScalingScale: 1
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [4.11846399, -2.60788679, 0]
+    Rotation: [0, 0, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 3
+  Zoom Sensetivity: 0.25
+  Z near: -1
+  Z far: 10000
+  Speed: 5
+  Type: 0
+GameObjects:
+  - GameObject: 15265275002967714794
+    Name: Terrain
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 351575653120344353
+      - 7648872411710060910
+      - 2563185297208137867
+      - 8541228872084804868
+      - 14064371411476073990
+      - 727811995004990413
+      - 9521870013529755713
+      - 6736983177846589625
+      - 5032816012629248565
+      - 12875842798074480386
+      - 17315070232809810602
+      - 3870767822030541277
+      - 5739713768983042860
+      - 9627723357393828162
+      - 4563154835607488878
+      - 7056258348748477878
+      - 10568819362077419863
+      - 8281501430082332097
+      - 2618195796279572327
+      - 2798327188711951498
+      - 505448957049333916
+      - 7612948506026903690
+      - 5135391302520269889
+      - 16147989992704286616
+      - 17861411679504337835
+      - 15128924618636935605
+      - 4262025899187581404
+      - 8274937377071106412
+      - 11098188261373829471
+      - 2548687572718563766
+      - 10131719815763465268
+      - 1251554195012661675
+      - 15812017852502204483
+      - 11626905765994224661
+      - 1388852598824993031
+      - 3732815555093695386
+      - 11652971555105428821
+      - 15356549333800296675
+      - 17375022499798931927
+      - 16946736420234459826
+      - 4418055221892536804
+      - 15151226542781527378
+      - 11449712288181822307
+      - 15423734611484798206
+      - 7235664670966921123
+      - 16352574291859816117
+      - 10494633064654792502
+      - 67681901434883997
+      - 11105982301148475980
+      - 8539698400529366372
+      - 11553619517110460720
+      - 17838868349048190039
+      - 8470654571828171728
+      - 15955433039829980520
+      - 1790429457864649187
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 351575653120344353
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.368421048
+        - 0.846153855
+        - 0.421052635
+        - 0.846153855
+        - 0.421052635
+        - 0.923076928
+        - 0.368421048
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7648872411710060910
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2563185297208137867
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8541228872084804868
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14064371411476073990
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 727811995004990413
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9521870013529755713
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6736983177846589625
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.692307711
+        - 0.157894731
+        - 0.692307711
+        - 0.157894731
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5032816012629248565
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.368421048
+        - 0.769230783
+        - 0.421052635
+        - 0.769230783
+        - 0.421052635
+        - 0.846153855
+        - 0.368421048
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12875842798074480386
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17315070232809810602
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3870767822030541277
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5739713768983042860
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9627723357393828162
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4563154835607488878
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7056258348748477878
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+        - 0.157894731
+        - 0.923076928
+        - 0.105263159
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10568819362077419863
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.769230783
+        - 0.210526317
+        - 0.769230783
+        - 0.210526317
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8281501430082332097
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.769230783
+        - 0.210526317
+        - 0.769230783
+        - 0.210526317
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2618195796279572327
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.769230783
+        - 0.210526317
+        - 0.769230783
+        - 0.210526317
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2798327188711951498
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.769230783
+        - 0.210526317
+        - 0.769230783
+        - 0.210526317
+        - 0.846153855
+        - 0.157894731
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 505448957049333916
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+        - 0.105263159
+        - 0.846153855
+        - 0.0526315793
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7612948506026903690
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+        - 0.105263159
+        - 0.846153855
+        - 0.0526315793
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5135391302520269889
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+        - 0.105263159
+        - 0.846153855
+        - 0.0526315793
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16147989992704286616
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.769230783
+        - 0.105263159
+        - 0.769230783
+        - 0.105263159
+        - 0.846153855
+        - 0.0526315793
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17861411679504337835
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.421052635
+        - 0.846153855
+        - 0.473684222
+        - 0.846153855
+        - 0.473684222
+        - 0.923076928
+        - 0.421052635
+        - 0.923076928
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15128924618636935605
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.421052635
+        - 0.769230783
+        - 0.473684222
+        - 0.769230783
+        - 0.473684222
+        - 0.846153855
+        - 0.421052635
+        - 0.846153855
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4262025899187581404
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+        - 0.105263159
+        - 0.461538464
+        - 0.0526315793
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8274937377071106412
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+        - 0.157894731
+        - 0.461538464
+        - 0.105263159
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11098188261373829471
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+        - 0.157894731
+        - 0.461538464
+        - 0.105263159
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2548687572718563766
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+        - 0.157894731
+        - 0.461538464
+        - 0.105263159
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10131719815763465268
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+        - 0.157894731
+        - 0.461538464
+        - 0.105263159
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1251554195012661675
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+        - 0.157894731
+        - 0.461538464
+        - 0.105263159
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15812017852502204483
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.384615391
+        - 0.210526317
+        - 0.384615391
+        - 0.210526317
+        - 0.461538464
+        - 0.157894731
+        - 0.461538464
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11626905765994224661
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+        - 0.105263159
+        - 0.384615391
+        - 0.0526315793
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1388852598824993031
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 3732815555093695386
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11652971555105428821
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15356549333800296675
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17375022499798931927
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16946736420234459826
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.307692319
+        - 0.210526317
+        - 0.307692319
+        - 0.210526317
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4418055221892536804
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.230769232
+        - 0.105263159
+        - 0.230769232
+        - 0.105263159
+        - 0.307692319
+        - 0.0526315793
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15151226542781527378
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.230769232
+        - 0.157894731
+        - 0.230769232
+        - 0.157894731
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11449712288181822307
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.230769232
+        - 0.157894731
+        - 0.230769232
+        - 0.157894731
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15423734611484798206
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.230769232
+        - 0.157894731
+        - 0.230769232
+        - 0.157894731
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 7235664670966921123
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.230769232
+        - 0.157894731
+        - 0.230769232
+        - 0.157894731
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16352574291859816117
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.230769232
+        - 0.157894731
+        - 0.230769232
+        - 0.157894731
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10494633064654792502
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.230769232
+        - 0.210526317
+        - 0.230769232
+        - 0.210526317
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 67681901434883997
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.157894731
+        - 0.307692319
+        - 0.210526317
+        - 0.307692319
+        - 0.210526317
+        - 0.384615391
+        - 0.157894731
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11105982301148475980
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8539698400529366372
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.0526315793
+        - 0.307692319
+        - 0.105263159
+        - 0.307692319
+        - 0.105263159
+        - 0.384615391
+        - 0.0526315793
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11553619517110460720
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 17838868349048190039
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8470654571828171728
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 15955433039829980520
+    Name: Cell
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.105263159
+        - 0.307692319
+        - 0.157894731
+        - 0.307692319
+        - 0.157894731
+        - 0.384615391
+        - 0.105263159
+        - 0.384615391
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1790429457864649187
+    Name: BackGround
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [100, 100, 1]
+    Renderer2D:
+      Color: [0.247058824, 0.219607845, 0.31764707, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 9
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9410312191229932136
+    Name: WallsColliders
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 17029434632228987897
+      - 13283573495081932679
+      - 18283643304074051425
+      - 10856790862307539864
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17029434632228987897
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [9, 1, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 13283573495081932679
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, -5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [9, 1, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 18283643304074051425
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8, -2.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 4, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 10856790862307539864
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -2.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 4, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 12934096927170266998
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Stairs.prefab
+    Childs:
+      - 17939413983292924080
+      - 621379674650256746
+      - 2480633464418220537
+    Transform:
+      Follow owner: true
+      Position: [2, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0.25999999]
+      Size: [1.5, 0.25]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 17939413983292924080
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.5
+        - 0.428571433
+        - 0.5
+        - 0.428571433
+        - 0.666666687
+        - 0.285714298
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 621379674650256746
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.5
+        - 0.571428597
+        - 0.5
+        - 0.571428597
+        - 0.666666687
+        - 0.428571433
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2480633464418220537
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.571428597
+        - 0.5
+        - 0.714285731
+        - 0.5
+        - 0.714285731
+        - 0.666666687
+        - 0.571428597
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11699099589530660602
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Stairs.prefab
+    Childs:
+      - 15326996471790736843
+      - 6498771611002847180
+      - 18381360332542263136
+    Transform:
+      Follow owner: true
+      Position: [6, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0.25999999]
+      Size: [1.5, 0.25]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 15326996471790736843
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.5
+        - 0.428571433
+        - 0.5
+        - 0.428571433
+        - 0.666666687
+        - 0.285714298
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6498771611002847180
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.5
+        - 0.571428597
+        - 0.5
+        - 0.571428597
+        - 0.666666687
+        - 0.428571433
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 18381360332542263136
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -3, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.571428597
+        - 0.5
+        - 0.714285731
+        - 0.5
+        - 0.714285731
+        - 0.666666687
+        - 0.571428597
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 11661735936067180174
+    Name: Stairs
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Stairs.prefab
+    Childs:
+      - 4433463862103596573
+      - 1443806657521984675
+      - 6606269393854611444
+    Transform:
+      Follow owner: true
+      Position: [2, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0.25999999]
+      Size: [1.5, 0.25]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: true
+  - GameObject: 4433463862103596573
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.5
+        - 0.428571433
+        - 0.5
+        - 0.428571433
+        - 0.666666687
+        - 0.285714298
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 1443806657521984675
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.5
+        - 0.571428597
+        - 0.5
+        - 0.571428597
+        - 0.666666687
+        - 0.428571433
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6606269393854611444
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.571428597
+        - 0.5
+        - 0.714285731
+        - 0.5
+        - 0.714285731
+        - 0.666666687
+        - 0.571428597
+        - 0.666666687
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 622876115409547711
+    Name: Window1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Window1.prefab
+    Childs:
+      - 4897548085554689184
+      - 12918229982292156214
+      - 10976723791749837870
+      - 6291660262559847241
+    Transform:
+      Follow owner: true
+      Position: [5, -1.17592645, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4897548085554689184
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -1.17592645, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.333333343
+        - 0.428571433
+        - 0.333333343
+        - 0.428571433
+        - 0.5
+        - 0.285714298
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 12918229982292156214
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -1.17592645, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.333333343
+        - 0.571428597
+        - 0.333333343
+        - 0.571428597
+        - 0.5
+        - 0.428571433
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10976723791749837870
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -2.17592549, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.285714298
+        - 0.166666672
+        - 0.428571433
+        - 0.166666672
+        - 0.428571433
+        - 0.333333343
+        - 0.285714298
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6291660262559847241
+    Name: Tile4
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, -2.17592549, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.428571433
+        - 0.166666672
+        - 0.571428597
+        - 0.166666672
+        - 0.571428597
+        - 0.333333343
+        - 0.428571433
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6229036592385140577
+    Name: Window2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Window2.prefab
+    Childs:
+      - 5069369774435242731
+      - 10907967985756371059
+      - 5976855840992293281
+      - 6203938021006974793
+    Transform:
+      Follow owner: true
+      Position: [1.70370388, -2.35185194, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5069369774435242731
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.70370388, -2.35185194, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.571428597
+        - 0.333333343
+        - 0.714285731
+        - 0.333333343
+        - 0.714285731
+        - 0.5
+        - 0.571428597
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 10907967985756371059
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.70370388, -2.35185194, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.714285731
+        - 0.333333343
+        - 0.857142866
+        - 0.333333343
+        - 0.857142866
+        - 0.5
+        - 0.714285731
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5976855840992293281
+    Name: Tile3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.70370388, -3.35185194, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.571428597
+        - 0.166666672
+        - 0.714285731
+        - 0.166666672
+        - 0.714285731
+        - 0.333333343
+        - 0.571428597
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6203938021006974793
+    Name: Tile4
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.70370388, -3.35185194, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.714285731
+        - 0.166666672
+        - 0.857142866
+        - 0.166666672
+        - 0.857142866
+        - 0.333333343
+        - 0.714285731
+        - 0.333333343
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9534641155456512787
+    Name: Flag2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Flag2.prefab
+    Childs:
+      - 13445100087046462479
+      - 9231948980573831494
+    Transform:
+      Follow owner: true
+      Position: [7, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13445100087046462479
+    Name: Tile1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.142857149
+        - 0.666666687
+        - 0.285714298
+        - 0.666666687
+        - 0.285714298
+        - 0.833333313
+        - 0.142857149
+        - 0.833333313
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 9231948980573831494
+    Name: Tile2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.142857149
+        - 0.333333343
+        - 0.285714298
+        - 0.333333343
+        - 0.285714298
+        - 0.5
+        - 0.142857149
+        - 0.5
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6232868467494154573
+    Name: SmallStairs2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/SmallStairs2.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7, -1.60000002, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.714285731
+        - 0.666666687
+        - 0.857142866
+        - 0.666666687
+        - 0.857142866
+        - 0.833333313
+        - 0.714285731
+        - 0.833333313
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0.349999994]
+      Size: [0.5, 0.150000006]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 16212600456707456586
+    Name: HeartPrefab
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Heart.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.330000043, 0.330000043, 0.330000043]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\12-Live and Coins\Big Heart Idle (18x14).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.25
+        - 0
+        - 0.375
+        - 0
+        - 0.375
+        - 1
+        - 0.25
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    CircleCollider2D:
+      Trigger: true
+      Offset: [0, 0]
+      Radius: 0.5
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Heart
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\BigHeart\Idle.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\BigHeart\Idle.anim
+  - GameObject: 5395009666609633877
+    Name: Door
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Door.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.45614052, -4, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\11-Door\Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: true
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Door
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Door\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Door\Open.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Door\Idle.anim
+    Door:
+      m_LevelName:
+        Type: std::string
+        Value: Level2
+  - GameObject: 5061260434253593936
+    Name: EntranceDoor
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/EntranceDoor.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.63888884, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\11-Door\Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 2
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Animator2D:
+      Speed: 8
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Door\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Door\Close.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Door\Idle.anim
+  - GameObject: 507403095170983581
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Box.prefab
+    Childs:
+      - 11380358908965694476
+      - 14437694284100819229
+      - 16749482756152344419
+      - 8182104505873313580
+    Transform:
+      Follow owner: true
+      Position: [2.52777767, -1.31140375, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.59281522, 0.468872041, 0.468872041]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Animator2D:
+      Speed: 16
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Box\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Box\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Box\Death.anim
+      Current animation: "Null"
+    Box:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: false
+      m_HasRigidbody:
+        Type: bool
+        Value: false
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0
+      m_Speed:
+        Type: float
+        Value: 2
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 0.5
+      m_AttackCoolDown:
+        Type: float
+        Value: 1
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: ""
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Heart
+          - Pig
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          []
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 2
+      m_MaxHealth:
+        Type: int
+        Value: 2
+  - GameObject: 11380358908965694476
+    Name: Piece1
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.375, -1.41094065, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 1.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 14437694284100819229
+    Name: Piece2
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.375, -1.14936662, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 2.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 16749482756152344419
+    Name: Piece3
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.67129612, -1.13084817, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 3.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 8182104505873313580
+    Name: Piece4
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.67592573, -1.3924222, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 4.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 834396260596182796
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Pig.prefab
+    Childs:
+      - 1738522033199006941
+      - 4112964641631941337
+    Transform:
+      Follow owner: true
+      Position: [5.99634504, -1.96710563, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.818181813
+        - 0
+        - 0.909090936
+        - 0
+        - 0.909090936
+        - 1
+        - 0.818181813
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0.100000001, -0.0500000007]
+      Size: [0.25, 0.400000006]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 10
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Fall.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Death.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 3
+      m_MaxHealth:
+        Type: int
+        Value: 3
+    Pig:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: true
+      m_HasRigidbody:
+        Type: bool
+        Value: true
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0.300000012
+      m_Speed:
+        Type: float
+        Value: 1
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 0.5
+      m_AttackCoolDown:
+        Type: float
+        Value: 1
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: King
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Pig
+          - Heart
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - Pig
+      m_InitializeDirection:
+        Type: int
+        Value: -1
+      m_VisibilityRange:
+        Type: float
+        Value: 2
+      m_WaitTimer:
+        Type: float
+        Value: 0
+      m_TimeToWait:
+        Type: float
+        Value: 3
+  - GameObject: 1738522033199006941
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [4.80847931, -2.37573147, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4112964641631941337
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [7.01315784, -2.43274879, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5207505147849761052
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Pig.prefab
+    Childs:
+      - 6698367561589232987
+      - 17760367635144674493
+    Transform:
+      Follow owner: true
+      Position: [5.34064341, -3.93421054, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.818181813
+        - 0
+        - 0.909090936
+        - 0
+        - 0.909090936
+        - 1
+        - 0.818181813
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0.100000001, -0.0500000007]
+      Size: [0.25, 0.400000006]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 10
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Fall.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Death.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 3
+      m_MaxHealth:
+        Type: int
+        Value: 3
+    Pig:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: true
+      m_HasRigidbody:
+        Type: bool
+        Value: true
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0.300000012
+      m_Speed:
+        Type: float
+        Value: 1
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 0.5
+      m_AttackCoolDown:
+        Type: float
+        Value: 1
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: King
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Pig
+          - Heart
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - Pig
+      m_InitializeDirection:
+        Type: int
+        Value: -1
+      m_VisibilityRange:
+        Type: float
+        Value: 2
+      m_WaitTimer:
+        Type: float
+        Value: 0
+      m_TimeToWait:
+        Type: float
+        Value: 3
+  - GameObject: 6698367561589232987
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [3.92470694, -4.34283638, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17760367635144674493
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [7.10818672, -4.30482483, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12960753839221625086
+    Name: Pig
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Pig.prefab
+    Childs:
+      - 18149160869200270068
+      - 17311144654293793647
+    Transform:
+      Follow owner: true
+      Position: [1.96710515, -2.99342132, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.818181813
+        - 0
+        - 0.909090936
+        - 0
+        - 0.909090936
+        - 1
+        - 0.818181813
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0.100000001, -0.0500000007]
+      Size: [0.25, 0.400000006]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 10
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Fall.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Death.anim
+        - Source\Examples\KingsAndPigs\Animations\Pig\Run.anim
+      Current animation: Source\Examples\KingsAndPigs\Animations\Pig\Idle.anim
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 3
+      m_MaxHealth:
+        Type: int
+        Value: 3
+    Pig:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: true
+      m_HasRigidbody:
+        Type: bool
+        Value: true
+      m_Direction:
+        Type: int
+        Value: -1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0.300000012
+      m_Speed:
+        Type: float
+        Value: 1
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 0.5
+      m_AttackCoolDown:
+        Type: float
+        Value: 1
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: King
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Pig
+          - Heart
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - Pig
+      m_InitializeDirection:
+        Type: int
+        Value: -1
+      m_VisibilityRange:
+        Type: float
+        Value: 2
+      m_WaitTimer:
+        Type: float
+        Value: 0
+      m_TimeToWait:
+        Type: float
+        Value: 3
+  - GameObject: 18149160869200270068
+    Name: StartPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [3.12646151, -3.37353849, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17311144654293793647
+    Name: EndPosition
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: false
+      Position: [0.988304138, -3.37353826, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6231560354350174860
+    Name: ObstacleColliders
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 5883927833762121158
+      - 4447580564404933483
+      - 18179803870796676344
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5883927833762121158
+    Name: Obstacle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.39181185, -1.5, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.0316248015, 2, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Obstacle
+  - GameObject: 4447580564404933483
+    Name: Obstacle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.63157845, -2.75438547, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.0369495675, 1.54497719, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Obstacle
+  - GameObject: 18179803870796676344
+    Name: Obstacle
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.20175409, -3.36257291, 0]
+      Rotation: [0, 0, -1.22386622]
+      Scale: [0.0455459356, 1.54497671, 1]
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Obstacle
+  - GameObject: 12654500118963159813
+    Name: King
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/King.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.60087729, -1.11549664, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.5, 1.5, 1.5]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\01-King Human\Idle (78x58).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.727272749
+        - 0
+        - 0.818181813
+        - 0
+        - 0.818181813
+        - 1
+        - 0.727272749
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [-0.100000001, -0.0500000007]
+      Size: [0.125, 0.200000003]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: King
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: true
+    Animator2D:
+      Speed: 10
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Jump.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Fall.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\Death.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\DoorIn.anim
+        - Source\Examples\KingsAndPigs\Animations\KingHuman\DoorOut.anim
+      Current animation: "Null"
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 3
+      m_MaxHealth:
+        Type: int
+        Value: 3
+    King:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: false
+      m_HasRigidbody:
+        Type: bool
+        Value: true
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0.300000012
+      m_Speed:
+        Type: float
+        Value: 2
+      m_Jump:
+        Type: float
+        Value: 9
+      m_AttackRange:
+        Type: float
+        Value: 1
+      m_AttackCoolDown:
+        Type: float
+        Value: 0.5
+      m_AttackImpulse:
+        Type: struct glm::vec<2,float,0>
+        Value: [0.5, 0.25]
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: Pig
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Pig
+          - Heart
+          - ThrowingObject
+          - Obstacle
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Obstacle
+          - ThrowingObject

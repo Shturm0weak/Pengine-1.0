@@ -1,0 +1,11 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\08-Box\Hit.png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1

@@ -5,6 +5,8 @@
 #include "Scene.h"
 #include "Utils.h"
 #include "Serializer.h"
+#include "EntryPoint.h"
+#include "Timer.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
 
@@ -30,11 +32,6 @@ void GameObject::Copy(const GameObject& gameObject)
 	while (m_Childs.size() > 0)
 	{
 		m_Childs.back()->Delete();
-	}
-
-	if (m_Owner)
-	{
-		m_Owner->RemoveChild(this);
 	}
 
 	std::vector<GameObject*> childs = gameObject.GetChilds();
@@ -94,6 +91,7 @@ GameObject* GameObject::Create(Scene* scene, const std::string& name, const Tran
 	gameObject->m_Scene->m_GameObjects.push_back(gameObject);
 	gameObject->m_Transform.m_Owner = gameObject;
 	gameObject->m_UUID = uuid.operator size_t();
+	gameObject->m_CreationTime = Time::GetTime();
 
 #ifdef _DEBUG
 	Logger::Log("has been created!", "GameObject", gameObject->m_Name.c_str(), RESET);
@@ -125,20 +123,24 @@ void GameObject::Delete()
 #endif
 }
 
+void GameObject::DeleteLater(float seconds)
+{
+	float deleteTime = Time::GetTime();
+	Timer::SetCallback([deleteTime, this]
+	{
+		if (deleteTime >= this->GetCreationTime())
+		{
+			this->Delete();
+		}
+	}, seconds);
+}
+
 void GameObject::ForChilds(std::function<void(GameObject& child)> forChilds)
 {
 	for (GameObject* child : m_Childs)
 	{
 		forChilds(*child);
 	}
-}
-
-void GameObject::DeleteLater()
-{
-	std::function<void()> callback = std::function<void()>([this] {
-		this->Delete();
-	});
-	EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 }
 
 void GameObject::AddChild(GameObject* child)
@@ -164,15 +166,39 @@ void GameObject::RemoveChild(GameObject* child)
 	}
 }
 
+void GameObject::SetCopyableTransform(bool copyable)
+{
+	m_Transform.SetCopyable(copyable);
+	ForChilds([copyable](GameObject& child)
+		{
+			child.m_Transform.SetCopyable(copyable);
+		}
+	);
+}
+
+GameObject* GameObject::GetChildByName(const std::string& name)
+{
+	for (GameObject* child : m_Childs)
+	{
+		if (child->GetName() == name)
+		{
+			return child;
+		}
+	}
+
+	return nullptr;
+}
+
 void GameObject::ResetWithPrefab()
 {
 	auto callback = [this]() {
 		GameObject* prefab = Serializer::DeserializePrefab(this->m_PrefabFilePath);
 		if (prefab)
 		{
-			Transform tempTransform(this->m_Transform);
-			this->Copy(*prefab);
-			this->m_Transform.Copy(tempTransform);
+			SetCopyableTransform(false);
+			Copy(*prefab);
+			SetCopyableTransform(true);
+
 			prefab->DeleteLater();
 		}
 	};

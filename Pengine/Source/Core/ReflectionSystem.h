@@ -175,8 +175,8 @@ namespace Pengine
         } \
     });
 
-    #define COPY_PROPERTIES(component) \
-    auto classIter = Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.find(component.GetType()); \
+    #define COPY_PROPERTIES(baseClass, component) \
+    auto classIter = Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.find(#baseClass); \
     if (classIter != Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.end()) \
     { \
         for (size_t i = 0; i < classIter->second.m_CopyPropertyCallBacks.size(); i++) \

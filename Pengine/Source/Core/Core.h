@@ -1,12 +1,15 @@
 #pragma once
 
-#define MAX_PREALLOCATED_INSTANCES 1000
+#define MAX_PREALLOCATED_INSTANCES 10000
 
 #ifdef PENGINE_ENGINE
 #define PENGINE_API __declspec(dllexport)
 #else
 #define PENGINE_API __declspec(dllimport)
 #endif
+
+//#define STANDALONE
+#undef STANDALONE
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

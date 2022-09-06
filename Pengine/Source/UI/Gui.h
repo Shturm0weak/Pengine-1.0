@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/Core.h"
+#include "../Core/Animation2DManager.h"
 #include "Character.h"
 #include <stdarg.h>
 
@@ -81,6 +82,15 @@ namespace Pengine {
 			glm::vec2 m_ShadowOffset = glm::vec2(0.0f);
 		};
 
+		struct UIAnimator
+		{
+		public:
+			float m_Timer = 0.0f;
+			float m_Counter = 0.0f;
+
+			bool Play(Animation2DManager::Animation2D* animation, glm::vec2 position, glm::vec2 size, float speed);
+		};
+
 		Theme m_Theme;
 
 		float m_RelativeHeight = 1080.0f;
@@ -97,6 +107,8 @@ namespace Pengine {
 		std::map <std::wstring, bool> m_NegativeInputs;
 		std::map <std::wstring, std::wstring> m_DoubleInput;
 		std::map <std::wstring, float> m_ScrollBars;
+
+		std::map <std::string, UIAnimator> m_Animations;
 
 		std::wstring m_CurrentPressed;
 		std::wstring m_CurrentDown;
@@ -165,7 +177,10 @@ namespace Pengine {
 		// @position is top-left corner.
 		void Text(const std::wstring& text, glm::vec2 position, ...);
 		
-		void Image(glm::vec2 position, Texture* texture = nullptr, glm::vec2 size = { 0.0f, 0.0f });
+		bool Animation(const std::string& label, glm::vec2 position, Animation2DManager::Animation2D* animation, 
+			glm::vec2 size = { 0.0f, 0.0f }, float speed = 8.0f);
+
+		void Image(glm::vec2 position, Texture* texture = nullptr, glm::vec2 size = { 0.0f, 0.0f }, std::vector<float> uv = {});
 		
 		void Bar(glm::vec2 position, float value, float maxValue, glm::vec2 size = { 0.0f, 0.0f });
 		

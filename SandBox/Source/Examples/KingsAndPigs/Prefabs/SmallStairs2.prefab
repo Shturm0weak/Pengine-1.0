@@ -1,0 +1,45 @@
+GameObjects:
+  - GameObject: 135122392670308599
+    Name: SmallStairs2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/SmallStairs2.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5, -3.44444466, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Decorations (32x32).png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0.714285731
+        - 0.666666687
+        - 0.857142866
+        - 0.666666687
+        - 0.857142866
+        - 0.833333313
+        - 0.714285731
+        - 0.833333313
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0.349999994]
+      Size: [0.5, 0.150000006]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Wall
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false

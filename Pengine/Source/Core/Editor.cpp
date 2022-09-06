@@ -597,7 +597,7 @@ void Editor::AssetBrowser()
 		}
 
 		const float padding = 16.0f;
-		const float thumbnailSize = 128.0f;
+		const float thumbnailSize = 128.0f * m_ThumbnailScale;
 		const float cellSize = padding + thumbnailSize;
 		const float panelWidth = ImGui::GetContentRegionAvail().x;
 		
@@ -613,8 +613,8 @@ void Editor::AssetBrowser()
 
 		const bool leftMouseButtonDoubleClicked = ImGui::IsMouseDoubleClicked(GLFW_MOUSE_BUTTON_1);
 
-		const ImTextureID folderIconId = (ImTextureID)TextureManager::GetInstance().Get("FolderIcon")->GetRendererID();
-		const ImTextureID fileIconId = (ImTextureID)TextureManager::GetInstance().Get("FileIcon")->GetRendererID();
+		const ImTextureID folderIconId = (ImTextureID)TextureManager::GetInstance().GetByName("FolderIcon")->GetRendererID();
+		const ImTextureID fileIconId = (ImTextureID)TextureManager::GetInstance().GetByName("FileIcon")->GetRendererID();
 
 		bool iconHovered = false;
 
@@ -630,7 +630,7 @@ void Editor::AssetBrowser()
 			const ImTextureID currentIcon = directoryIter.is_directory() ? folderIconId : fileIconId;
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			ImGui::PushID(filename.c_str());
-			ImGui::ImageButton(currentIcon, { thumbnailSize , thumbnailSize }, ImVec2(0, 1), ImVec2(1, 0));
+			ImGui::ImageButton(currentIcon, { thumbnailSize, thumbnailSize }, ImVec2(0, 1), ImVec2(1, 0));
 			ImGui::PopID();
 
 			iconHovered = iconHovered ? iconHovered : ImGui::IsItemHovered();
@@ -815,12 +815,15 @@ void Editor::Environment()
 
 		ImGui::SliderFloat("Intensity", &Environment::GetInstance().m_GlobalIntensity, 0.0f, 10.0f);
 		
+		const char* windowModes[] = { "Windowed", "Fullscreen" };
+		if (ImGui::Combo("Window mode", &m_SelectedWindowMode, windowModes, 2))
+		{
+			Window::GetInstance().SetWindowMode((Window::WindowMode)m_SelectedWindowMode);
+		}
+
 		if (ImGui::CollapsingHeader("Bloom"))
 		{
 			ImGui::Checkbox("Is Enabled", &Environment::GetInstance().m_BloomSettings.m_IsEnabled);
-			ImGui::Checkbox("DownSampling", &Environment::GetInstance().m_BloomSettings.m_DownSampling);
-			ImGui::Checkbox("UpSampling", &Environment::GetInstance().m_BloomSettings.m_UpSampling);
-			ImGui::SliderFloat("UpScalingScale", &Environment::GetInstance().m_BloomSettings.m_UpScalingScale, 0.0f, 10.0f);
 			ImGui::SliderFloat("Threshold", &Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold, 0.0f, 2.0f);
 			ImGui::SliderFloat("Gamma", &Environment::GetInstance().m_BloomSettings.m_Gamma, 0.0f, 5.0);
 			ImGui::SliderFloat("Exposure", &Environment::GetInstance().m_BloomSettings.m_Exposure, 0.0f, 5.0);
@@ -846,8 +849,8 @@ void Editor::ToolBar()
 	{
 		const float size = ImGui::GetWindowHeight() - 4.0f;
 		ImTextureID icon = EntryPoint::GetApplication().GetState() == Application::ApplicationState::Edit ?
-			(ImTextureID)TextureManager::GetInstance().Get("PlayButton")->GetRendererID()
-			: (ImTextureID)TextureManager::GetInstance().Get("StopButton")->GetRendererID();
+			(ImTextureID)TextureManager::GetInstance().GetByName("PlayButton")->GetRendererID()
+			: (ImTextureID)TextureManager::GetInstance().GetByName("StopButton")->GetRendererID();
 		if (ImGui::ImageButton(icon, { size, size }))
 		{
 			if (EntryPoint::GetApplication().GetState() == Application::ApplicationState::Play)
@@ -914,9 +917,9 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
 						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 							r2d->SetTexture(texture);
-							}, Utils::GetNameFromFilePath(path));
+							}, path);
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -926,7 +929,7 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 				ImGui::PushID(r2d->GetTexture()->GetRendererID() + 100000);
 				if (ImGui::Button("Reset"))
 				{
-					r2d->SetTexture(TextureManager::GetInstance().Get("White"));
+					r2d->SetTexture(TextureManager::GetInstance().White());
 				}
 				ImGui::PopID();
 				
@@ -939,9 +942,9 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
 						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 							r2d->SetNormalTexture(texture);
-							}, Utils::GetNameFromFilePath(path));
+							}, path);
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -951,7 +954,7 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 				ImGui::PushID(r2d->GetNormalTexture()->GetRendererID() + 100001);
 				if (ImGui::Button("Reset"))
 				{
-					r2d->SetNormalTexture(TextureManager::GetInstance().Get("White"));
+					r2d->SetNormalTexture(TextureManager::GetInstance().White());
 				}
 				ImGui::PopID();
 
@@ -970,9 +973,9 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
 						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 							r2d->SetEmissiveMaskTexture(texture);
-							}, Utils::GetNameFromFilePath(path));
+							}, path);
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -982,7 +985,7 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 				ImGui::PushID(r2d->GetEmissiveMaskTexture()->GetRendererID() + 100003);
 				if (ImGui::Button("Reset"))
 				{
-					r2d->SetEmissiveMaskTexture(TextureManager::GetInstance().Get("White"));
+					r2d->SetEmissiveMaskTexture(TextureManager::GetInstance().White());
 				}
 				ImGui::PopID();
 
@@ -1107,12 +1110,33 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 					ImGui::EndDragDropTarget();
 				}
 
-				if (ImGui::ListBox("Animations", &m_Animation2DComponent.m_Selected, anim2d->GetAnimationsNames(), anim2d->m_Animations.size()))
+				for (size_t i = 0; i < anim2d->m_Animations.size(); i++)
 				{
-					if (m_Animation2DComponent.m_Selected >= 0)
+					Animation2DManager::Animation2D* anim = anim2d->m_Animations[i];
+					
+					ImGui::PushID(anim);
+					if (ImGui::Button("-"))
 					{
-						anim2d->m_CurrentAnimation = anim2d->m_Animations[m_Animation2DComponent.m_Selected];
+						anim2d->RemoveAnimation(anim);
 					}
+					ImGui::PopID();
+
+					ImGui::SameLine();
+
+					ImGuiStyle* style = &ImGui::GetStyle();
+					ImVec4 tempNameColor = style->Colors[ImGuiCol_Text];
+
+					if (anim2d->m_CurrentAnimation == anim)
+					{
+						style->Colors[ImGuiCol_Text] = ImVec4(0.0f, 0.8f, 1.0f, 1.0f);
+					}
+
+					if (ImGui::Button(anim->GetName().c_str()))
+					{
+						anim2d->m_CurrentAnimation = anim;
+					}
+
+					style->Colors[ImGuiCol_Text] = tempNameColor;
 				}
 
 				if (ImGui::Button("Clear"))
@@ -1124,8 +1148,8 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 
 				const float size = 32.0f;
 				ImTextureID icon = anim2d->m_Play ?
-					(ImTextureID)TextureManager::GetInstance().Get("StopButton")->GetRendererID()
-					: (ImTextureID)TextureManager::GetInstance().Get("PlayButton")->GetRendererID();
+					(ImTextureID)TextureManager::GetInstance().GetByName("StopButton")->GetRendererID()
+					: (ImTextureID)TextureManager::GetInstance().GetByName("PlayButton")->GetRendererID();
 				if (ImGui::ImageButton(icon, { size, size }))
 				{
 					if (anim2d->m_Play)
@@ -1178,16 +1202,16 @@ void Editor::ParticleEmitterComponent(GameObject* gameObject)
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
 						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
 							particleEmitter->m_Texture = texture;
-						}, Utils::GetNameFromFilePath(path));
+						}, path);
 					}
 					ImGui::EndDragDropTarget();
 				}
 
 				if (ImGui::Button("WhiteTexture"))
 				{
-					particleEmitter->m_Texture = TextureManager::GetInstance().Get("White");
+					particleEmitter->m_Texture = TextureManager::GetInstance().White();
 				}
 			}
 		}
@@ -1265,7 +1289,17 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 						std::string type = prop.get_type().get_name();
 						std::string name = prop.get_name();
 
-						if (ReflectedProps::is_float(type))
+						if (ReflectedProps::is_bool(type))
+						{
+							bool value = prop.get_value(component).to_float();
+							ImGui::PushID(std::string(component->GetType() + name).c_str());
+							if (ImGui::Checkbox(name.c_str(), &value))
+							{
+								prop.set_value(component, value);
+							}
+							ImGui::PopID();
+						}
+						else if (ReflectedProps::is_float(type))
 						{
 							float value = prop.get_value(component).to_float();
 							ImGui::PushID(std::string(component->GetType() + name).c_str());
@@ -1305,6 +1339,22 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 							{
 								prop.set_value(component, std::string(buffer));
 							}
+
+							if (ImGui::BeginDragDropTarget())
+							{
+								if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+								{
+									std::string path((const char*)payload->Data);
+									path.resize(payload->DataSize);
+									prop.set_value(component, path);
+								}
+								else if(const ImGuiPayload * payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
+								{
+									prop.set_value(component, m_SelectedGameObjects[0]->GetName());
+								}
+								ImGui::EndDragDropTarget();
+							}
+
 							ImGui::PopID();
 						}
 						else if (ReflectedProps::is_vec2(type))
@@ -1810,7 +1860,14 @@ void Editor::Update(Scene* scene)
 	bool optFullscreen = optFullscreenPersistant;
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
-	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+	ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoDocking;
+
+#ifdef STANDALONE
+	dockspace_flags |= ImGuiDockNodeFlags_NoTabBar;
+#else
+	windowFlags |= ImGuiWindowFlags_MenuBar;
+#endif
+
 	if (optFullscreen)
 	{
 		ImGuiViewport* viewport = ImGui::GetMainViewport();
@@ -1845,19 +1902,20 @@ void Editor::Update(Scene* scene)
 
 	style.WindowMinSize.x = minWinSizeX;
 
+#ifndef STANDALONE
 	if (m_ShowNavigation)
 	{
 		Navigation();
 	}
+	ShortCuts();
+#endif
 
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0, 0 });
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2{ 0.0f, 0.0f });
 
 	Viewport& viewport = Viewport::GetInstance();
 	viewport.Update();
 
 	EntryPoint::GetApplication().OnImGuiRender();
-
-	ShortCuts();
 
 	if (!m_IsEnabled)
 	{
@@ -1957,7 +2015,7 @@ void Editor::FilePopUpMenu()
 		}
 		if (ImGui::MenuItem("Exit"))
 		{
-
+			Window::GetInstance().Exit();
 		}
 		ImGui::EndMenu();
 	}
@@ -1991,6 +2049,7 @@ void Editor::Settings()
 		ImGui::Checkbox("Snap", &m_Snap);
 		ImGui::Checkbox("Draw colliders", &m_DrawColliders);
 		ImGui::SliderInt("Line width", &m_LineWidth, 1, 5);
+		ImGui::SliderFloat("Thumbnail scale", &m_ThumbnailScale, 0.1f, 5.0f);
 		if (ImGui::SliderFloat("Master volume", &SoundManager::GetInstance().m_MasterVolume, 0.0f, 1.0f))
 		{
 			SoundManager::GetInstance().UpdateVolume();
@@ -2150,7 +2209,7 @@ void Editor::Animation2DMenu::Update()
 			{
 				std::string path((const char*)payload->Data);
 				path.resize(payload->DataSize);
-				Texture* texture = TextureManager::GetInstance().Get(Utils::GetNameFromFilePath(path));
+				Texture* texture = TextureManager::GetInstance().GetByFilePath(path);
 				if (m_Animation)
 				{
 					if (texture)

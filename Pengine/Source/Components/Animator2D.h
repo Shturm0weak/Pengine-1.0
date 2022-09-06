@@ -15,9 +15,6 @@ namespace Pengine
 	{
 	private:
 
-		const char** m_AnimationsNames = nullptr;
-		const char** GetAnimationsNames();
-
 		class Renderer2D* m_Renderer2D = nullptr;
 		Animation2DManager::Animation2D* m_CurrentAnimation = nullptr;
 
@@ -30,7 +27,7 @@ namespace Pengine
 		friend class Editor;
 	public:
 
-		std::vector<std::function<void()>> m_EndCallbacks;
+		std::vector<std::function<bool()>> m_EndCallbacks;
 		std::vector<Animation2DManager::Animation2D*> m_Animations;
 
 		static IComponent* Create(GameObject* owner);

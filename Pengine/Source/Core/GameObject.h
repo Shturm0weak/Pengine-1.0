@@ -27,8 +27,12 @@ namespace Pengine
 		Scene* m_Scene = nullptr;
 
 		UUID m_UUID = UUID();
-		
+
+		float m_CreationTime = 0.0f;
+
 		bool m_IsSerializable = true;
+		bool m_IsEnabled = true;
+		bool m_IsSelectable = true;
 
 		void Move(GameObject&& gameObject) noexcept;
 
@@ -39,9 +43,6 @@ namespace Pengine
 		friend class LuaState;
 	public:
 
-		bool m_IsEnabled = true;
-		bool m_IsSelectable = true;
-		
 		GameObject(GameObject&& gameObject) noexcept;
 		GameObject(const GameObject& gameObject);
 		GameObject(const std::string& name = "Unnamed", const Transform& transform = Transform());
@@ -71,10 +72,12 @@ namespace Pengine
 		
 		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
 
+		float GetCreationTime() const { return m_CreationTime; }
+
 		void Delete();
 		
-		void DeleteLater();
-		
+		void DeleteLater(float seconds = 0.0f);
+
 		bool IsPrefab() const { return !m_PrefabFilePath.empty(); }
 		
 		std::string GetName() const { return m_Name; }
@@ -91,6 +94,10 @@ namespace Pengine
 		
 		void RemoveChild(GameObject* child);
 		
+		void SetCopyableTransform(bool copyable);
+
+		GameObject* GetChildByName(const std::string& name);
+
 		bool HasOwner() const { return m_Owner != nullptr; }
 		
 		GameObject* GetOwner() const { return m_Owner; }

@@ -1,0 +1,11 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Fall (34x28).png
+    UVs:
+      - 0
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0
+      - 1

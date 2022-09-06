@@ -7,6 +7,8 @@ using namespace Pengine;
 
 void Transform::Copy(const IComponent& component)
 {
+	if (!m_Copyable) return;
+
 	Transform& transform = *(Transform*)&component;
 	Translate(transform.GetPosition());
 	Rotate(transform.GetRotation());

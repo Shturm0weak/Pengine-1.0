@@ -8,7 +8,7 @@ namespace Pengine
 	struct PENGINE_API Material
 	{
 		glm::vec4 m_Color = { 1.0f, 1.0f, 1.0f, 1.0f };
-		Texture* m_Texture = TextureManager::GetInstance().Get("White");
+		Texture* m_Texture = TextureManager::GetInstance().White();
 	};
 	
 }

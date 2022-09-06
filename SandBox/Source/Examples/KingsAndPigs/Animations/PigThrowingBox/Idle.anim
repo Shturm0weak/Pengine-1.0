@@ -1,0 +1,91 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0
+      - 0
+      - 0.111111112
+      - 0
+      - 0.111111112
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.111111112
+      - 0
+      - 0.222222224
+      - 0
+      - 0.222222224
+      - 1
+      - 0.111111112
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.222222224
+      - 0
+      - 0.333333343
+      - 0
+      - 0.333333343
+      - 1
+      - 0.222222224
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.333333343
+      - 0
+      - 0.444444448
+      - 0
+      - 0.444444448
+      - 1
+      - 0.333333343
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.444444448
+      - 0
+      - 0.555555582
+      - 0
+      - 0.555555582
+      - 1
+      - 0.444444448
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.555555582
+      - 0
+      - 0.666666687
+      - 0
+      - 0.666666687
+      - 1
+      - 0.555555582
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.666666687
+      - 0
+      - 0.777777791
+      - 0
+      - 0.777777791
+      - 1
+      - 0.666666687
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.777777791
+      - 0
+      - 0.888888896
+      - 0
+      - 0.888888896
+      - 1
+      - 0.777777791
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Idle (26x30).png
+    UVs:
+      - 0.888888896
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.888888896
+      - 1

@@ -23,7 +23,7 @@ namespace Pengine
 		
 		Scene* m_Scene = new Scene("Scene");
 		Scene* m_DefaultScene = new Scene("DefaultScene");
-		std::string m_Title = "Application";
+		std::string m_Title = "KingsAndPigs";
 		ApplicationState m_ApplicationState = ApplicationState::Edit;
 		bool m_IsPostStarted = false;
 		bool m_IsStarted = false;
@@ -57,6 +57,8 @@ namespace Pengine
 
 		Scene* GetScene() const { return m_Scene; }
 		
+		Scene* GetDefaultScene() const { return m_DefaultScene; }
+
 		Scene* NewScene(const std::string& title);
 		
 		ApplicationState GetState() const { return m_ApplicationState; }

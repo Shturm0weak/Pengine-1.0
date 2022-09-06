@@ -15,14 +15,12 @@ namespace Pengine
 	{
 	public:
 
-		class Animation2D
+		class Animation2D : public IAsset
 		{
 		private:
 
 			std::vector<Texture*> m_Textures;
 			std::vector<std::vector<float>> m_UVs;
-			std::string m_FilePath;
-			std::string m_Name;
 
 			friend class Animation2DManager;
 			friend class Animator2D;
@@ -33,16 +31,14 @@ namespace Pengine
 			std::vector<Texture*> GetTextures() const { return m_Textures; }
 			
 			std::vector<std::vector<float>> GetUVs() const { return m_UVs; }
-			
-			std::string GetFilePath() const { return m_FilePath; }
-			
-			std::string GetName() const { return m_Name; }
 
 			Animation2D(const std::string& filePath, const std::string& name)
-				: m_FilePath(filePath)
-				, m_Name(name)
 			{
+				SetFilePath(filePath);
+				SetName(name);
 			}
+
+			virtual void Reload() override {}
 
 			void operator=(const Animation2D& animation)
 			{
@@ -70,9 +66,9 @@ namespace Pengine
 		
 		Animation2D* Load(const std::string& filePath);
 		
-		Animation2D* Create(const std::string& name);
+		Animation2D* Create(const std::string& filePath);
 		
-		Animation2D* Get(const std::string& name) const;
+		Animation2D* Get(const std::string& filePath) const;
 
 		void ShutDown();
 	};

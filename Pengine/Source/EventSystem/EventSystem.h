@@ -47,13 +47,15 @@ namespace Pengine
 		void SetProcessingEventsEnabled(bool enabled);
 		
 		void RegisterClient(EventType type, IListener* client);
-		
+
 		void UnregisterClient(EventType type, IListener* client);
 		
 		void UnregisterAll(IListener* client);
 		
 		void SendEvent(IEvent* event);
 		
+		void SendCallbackOnFrame(std::function<void()> callback, size_t frames = 1);
+
 		void ProcessEvents();
 		
 		void ClearEvents();

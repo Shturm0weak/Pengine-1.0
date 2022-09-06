@@ -1,0 +1,232 @@
+GameObjects:
+  - GameObject: 938028157620605695
+    Name: Box
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Examples\KingsAndPigs\Prefabs/Box.prefab
+    Childs:
+      - 5844708672904159814
+      - 2416484955831005410
+      - 6528997161102602829
+      - 5580127739741174305
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.59281522, 0.468872041, 0.468872041]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Idle.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 1
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [0.5, 0.5]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: Pig
+    Animator2D:
+      Speed: 16
+      Play: false
+      Animations:
+        - Source\Examples\KingsAndPigs\Animations\Box\Hit.anim
+        - Source\Examples\KingsAndPigs\Animations\Box\Idle.anim
+        - Source\Examples\KingsAndPigs\Animations\Box\Death.anim
+      Current animation: "Null"
+    Box:
+      m_UVReversedByDefault:
+        Type: bool
+        Value: false
+      m_HasRigidbody:
+        Type: bool
+        Value: false
+      m_Direction:
+        Type: int
+        Value: 1
+      m_Damage:
+        Type: int
+        Value: 1
+      m_DeathSpeed:
+        Type: float
+        Value: 0
+      m_Speed:
+        Type: float
+        Value: 2
+      m_Jump:
+        Type: float
+        Value: 3
+      m_AttackRange:
+        Type: float
+        Value: 0.5
+      m_AttackCoolDown:
+        Type: float
+        Value: 1
+      m_GroundColliderTag:
+        Type: std::string
+        Value: Wall
+      m_EnemyColliderTag:
+        Type: std::string
+        Value: ""
+      m_IgnoreGroundColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          - King
+          - Heart
+          - Pig
+      m_IgnoreAttackColliderTags:
+        Type: class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >
+        Value:
+          []
+    Health:
+      m_CurrentHealth:
+        Type: int
+        Value: 2
+      m_MaxHealth:
+        Type: int
+        Value: 2
+  - GameObject: 5844708672904159814
+    Name: Piece1
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.152777672, -0.0995368958, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 1.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 2416484955831005410
+    Name: Piece2
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.152777672, 0.162037134, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 2.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 6528997161102602829
+    Name: Piece3
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.143518448, 0.180555582, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 3.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 5580127739741174305
+    Name: Piece4
+    Is Enabled: false
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.14814806, -0.0810184479, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.250799984, 0.250799984, 0.250799984]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: Source\Examples\KingsAndPigs\Sprites\08-Box\Box Pieces 4.png
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0

@@ -13,7 +13,10 @@ void TextureManager::DispatchLoadedTextures()
 	for (auto i = m_WaitingForTextures.begin(); i != m_WaitingForTextures.end();)
 	{
 		std::function<void(Texture*)> callback = i->second;
-		Texture* texture = Get(i->first);
+		Texture* texture = GetByFilePath(i->first);
+
+		if (!texture) texture = GetByName(i->first);
+
 		if (texture != nullptr)
 		{
 			callback(texture);
@@ -62,11 +65,12 @@ void TextureManager::AsyncCreate(const std::string& filePath)
 {
 	ThreadPool::GetInstance().Enqueue([=] {
 		if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return;
-		Texture* texture = Get(Utils::GetNameFromFilePath(filePath));
+
+		Texture* texture = GetByFilePath(filePath);
 		if (texture == nullptr)
 		{
 			texture = new Texture(filePath);
-			m_Textures.insert(std::make_pair(texture->GetName(), texture));
+			m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
 
 			texture->LoadInRAM();
 
@@ -91,11 +95,12 @@ void TextureManager::AsyncCreate(const std::string& filePath)
 Texture* TextureManager::Create(const std::string& filePath, bool flip)
 {
 	if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return nullptr;
-	Texture* texture = Get(Utils::GetNameFromFilePath(filePath));
+
+	Texture* texture = GetByFilePath(filePath);
 	if (texture == nullptr)
 	{
 		texture = new Texture(filePath);
-		m_Textures.insert(std::make_pair(texture->GetName(), texture));
+		m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
 
 		texture->LoadInRAM();
 		texture->LoadInVRAM(m_TexParameters);
@@ -110,7 +115,7 @@ Texture* TextureManager::Create(const std::string& filePath, bool flip)
 
 Texture* TextureManager::ColoredTexture(const std::string& name, uint32_t color)
 {
-	Texture* texture = Get(name);
+	Texture* texture = GetByName(name);
 	if (texture)
 	{
 #ifdef _DEBUG
@@ -123,19 +128,26 @@ Texture* TextureManager::ColoredTexture(const std::string& name, uint32_t color)
 	texture->m_Name = name;
 	texture->ColoredTexture(m_TexParameters, color);
 
-	m_Textures.insert(std::make_pair(texture->GetName(), texture));
+	m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
 
 	return texture;
 }
 
-Texture* TextureManager::Get(const std::string& name, bool showErrors)
+Texture* TextureManager::GetByFilePath(const std::string& filePath, bool showErrors) const
 {
-	std::string filename = name;
-	if (Utils::Contains(name, ".png") || Utils::Contains(name, ".jpg") || Utils::Contains(name, ".jpeg"))
+	if (!Utils::Contains(filePath, ".png") 
+		&& !Utils::Contains(filePath, ".jpg") 
+		&& !Utils::Contains(filePath, ".jpeg"))
 	{
-		filename = Utils::RemoveResolution(name);
+		if (showErrors)
+		{
+			Logger::Warning("filepath is incorrect!", "Texture", filePath.c_str());
+		}
+
+		return nullptr;
 	}
-	auto textureIter = m_Textures.find(filename);
+
+	auto textureIter = m_Textures.find(filePath);
 	if (textureIter != m_Textures.end())
 	{
 		return textureIter->second;
@@ -144,16 +156,47 @@ Texture* TextureManager::Get(const std::string& name, bool showErrors)
 	{
 		if (showErrors)
 		{
-			Logger::Warning("doesn't exist!", "Texture", filename.c_str());
+			Logger::Warning("doesn't exist!", "Texture", filePath.c_str());
 		}
 
 		return nullptr;
 	}
 }
 
-void TextureManager::AsyncGet(std::function<void(Texture* t)> callback, const std::string& name)
+Texture* TextureManager::GetByName(const std::string& name, bool showErrors) const
 {
-	Texture* texture = Get(name);
+	for (auto textureIter : m_Textures)
+	{
+		if (textureIter.second->GetName() == name)
+		{
+			return textureIter.second;
+		}
+	}
+
+	if (showErrors)
+	{
+		Logger::Warning("doesn't exist!", "Texture", name.c_str());
+	}
+
+	return nullptr;
+}
+
+void TextureManager::AsyncGetByFilePath(std::function<void(Texture*)> callback, const std::string& filePath)
+{
+	Texture* texture = GetByFilePath(filePath);
+	if (texture != nullptr)
+	{
+		callback(texture);
+	}
+	else
+	{
+		m_WaitingForTextures.insert(std::make_pair(filePath, callback));
+	}
+}
+
+void TextureManager::AsyncGetByName(std::function<void(Texture*)> callback, const std::string& name)
+{
+	Texture* texture = GetByName(name);
 	if (texture != nullptr)
 	{
 		callback(texture);
@@ -164,11 +207,11 @@ void TextureManager::AsyncGet(std::function<void(Texture* t)> callback, const st
 	}
 }
 
-void TextureManager::RemoveFromGetAsync(const std::string& name)
+void TextureManager::RemoveFromGetAsync(const std::string& key)
 {
 	for (auto i = m_WaitingForTextures.begin(); i != m_WaitingForTextures.end();)
 	{
-		if (i->first == name)
+		if (i->first == key)
 		{
 			m_WaitingForTextures.erase(i++);
 		}
@@ -186,6 +229,17 @@ void TextureManager::ResetTexParametersi()
 	m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST };
 	m_TexParameters[2] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE };
 	m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE };
+}
+
+void TextureManager::ReloadAllTextures()
+{
+	for (auto texture : m_Textures)
+	{
+		if (texture.second->GetFilePath() != "White")
+		{
+			texture.second->Reload();
+		}
+	}
 }
 
 std::vector<Texture*> TextureManager::GetTexturesFromFolder(const std::string& filePath)

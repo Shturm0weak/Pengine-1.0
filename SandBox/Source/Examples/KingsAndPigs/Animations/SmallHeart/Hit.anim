@@ -1,0 +1,21 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\12-Live and Coins\Small Heart Hit (18x14).png
+    UVs:
+      - 0
+      - 0
+      - 0.5
+      - 0
+      - 0.5
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\12-Live and Coins\Small Heart Hit (18x14).png
+    UVs:
+      - 0.5
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.5
+      - 1

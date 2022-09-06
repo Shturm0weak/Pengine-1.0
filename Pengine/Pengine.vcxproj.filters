@@ -274,6 +274,7 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Lua\luaaa.hpp" />
+    <ClInclude Include="Source\Events\SetScrollEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">

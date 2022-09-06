@@ -53,6 +53,8 @@ namespace Pengine
 		
 		bool IsInitializedPhysics() const { return m_IsInitializedPhysics; }
 
+		bool IsCollided() const;
+
 		void ApplyAngularImpulse(float impulse, bool wake);
 		
 		void ApplyForce(const glm::vec2& force, const glm::vec2& point, bool wake);

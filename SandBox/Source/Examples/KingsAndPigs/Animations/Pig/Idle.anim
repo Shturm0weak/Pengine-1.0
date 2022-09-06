@@ -1,0 +1,111 @@
+Textures:
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0
+      - 0
+      - 0.0909090936
+      - 0
+      - 0.0909090936
+      - 1
+      - 0
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.0909090936
+      - 0
+      - 0.181818187
+      - 0
+      - 0.181818187
+      - 1
+      - 0.0909090936
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.181818187
+      - 0
+      - 0.272727281
+      - 0
+      - 0.272727281
+      - 1
+      - 0.181818187
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.272727281
+      - 0
+      - 0.363636374
+      - 0
+      - 0.363636374
+      - 1
+      - 0.272727281
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.363636374
+      - 0
+      - 0.454545468
+      - 0
+      - 0.454545468
+      - 1
+      - 0.363636374
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.454545468
+      - 0
+      - 0.545454562
+      - 0
+      - 0.545454562
+      - 1
+      - 0.454545468
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.545454562
+      - 0
+      - 0.636363626
+      - 0
+      - 0.636363626
+      - 1
+      - 0.545454562
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.636363626
+      - 0
+      - 0.727272749
+      - 0
+      - 0.727272749
+      - 1
+      - 0.636363626
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.727272749
+      - 0
+      - 0.818181813
+      - 0
+      - 0.818181813
+      - 1
+      - 0.727272749
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.818181813
+      - 0
+      - 0.909090936
+      - 0
+      - 0.909090936
+      - 1
+      - 0.818181813
+      - 1
+  - FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Idle (34x28).png
+    UVs:
+      - 0.909090936
+      - 0
+      - 1
+      - 0
+      - 1
+      - 1
+      - 0.909090936
+      - 1

@@ -12,7 +12,11 @@ namespace Pengine
 
 		static Application* m_Application;
 
+		bool m_StartState = false;
+
 		void PrepareResources();
+
+		void OnStartState();
 	public:
 
 		EntryPoint() = default;

@@ -30,7 +30,7 @@ void ParticleEmitter::OnStart()
 
 void ParticleEmitter::OnUpdate()
 {
-	if (!m_Owner->m_IsEnabled) return;
+	if (!m_Owner->IsEnabled()) return;
 
 	ThreadPool::GetInstance().Enqueue([=]()
 	{
