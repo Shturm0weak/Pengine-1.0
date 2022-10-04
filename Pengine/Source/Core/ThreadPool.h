@@ -42,15 +42,16 @@ namespace Pengine
 		struct SyncParams
 		{
 		public:
-			std::mutex s_Mtx;
-			std::mutex s_ExtraMtx;
-			std::atomic<bool>* s_Ready = nullptr;
-			std::condition_variable s_CondVar;
+			std::mutex m_Mtx;
+			std::mutex m_ExtraMtx;
+			std::atomic<bool>* m_Ready = nullptr;
+			std::condition_variable m_CondVar;
+			size_t m_Threads = 0;
 
-			SyncParams();
+			SyncParams(size_t threads);
 			~SyncParams();
 
-			void SetThreadFinished(size_t index);
+			void SetThreadFinished(size_t index, bool isFinished = true);
 			
 			void WaitForAllThreads();
 		};

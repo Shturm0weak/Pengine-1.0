@@ -275,6 +275,11 @@
     </ClInclude>
     <ClInclude Include="Source\Lua\luaaa.hpp" />
     <ClInclude Include="Source\Events\SetScrollEvent.h" />
+    <ClInclude Include="Source\Components\DirectionalLight.h" />
+    <ClInclude Include="Source\Core\Instancing.h" />
+    <ClInclude Include="Source\Core\Raycast3D.h" />
+    <ClInclude Include="Source\Core\BoundingBox.h" />
+    <ClInclude Include="Source\Enums\Colors.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -452,5 +457,10 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OpenGL\Material.cpp" />
+    <ClCompile Include="Source\Components\DirectionalLight.cpp" />
+    <ClCompile Include="Source\Core\Instancing.cpp" />
+    <ClCompile Include="Source\Core\BoundingBox.cpp" />
+    <ClCompile Include="Source\Core\Raycast3D.cpp" />
   </ItemGroup>
 </Project>

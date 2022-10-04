@@ -67,6 +67,7 @@ namespace Pengine
 		float m_ThumbnailScale = 0.8f;
 
 		int m_SelectedWindowMode = 0;
+		int m_SelectedCameraType = 0;
 
 		bool m_IsActiveAssetList = false;
 
@@ -138,6 +139,10 @@ namespace Pengine
 		
 		void PointLight2DComponent(GameObject* gameObject);
 
+		void DirectionalLightComponent(GameObject* gameObject);
+
+		void Renderer3DComponent(GameObject* gameObject);
+
 		void UserDefinedComponents(GameObject* gameObject);
 
 		void OnApplicationStop();
@@ -194,6 +199,8 @@ namespace Pengine
 		int m_LineWidth = 1;
 
 		static Editor& GetInstance();
+
+		Scene& GetCurrentScene() const { return *m_CurrentScene; }
 
 		void ResetStats();
 		

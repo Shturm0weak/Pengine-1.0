@@ -1,0 +1,199 @@
+#include "Raycast3D.h"
+
+#include "GameObject.h"
+#include "Mesh.h"
+#include "../Components/Renderer3D.h"
+
+using namespace Pengine;
+
+std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObject*> gameObjects, const glm::vec3& start,
+	const glm::vec3& direction, Hit3D& hit, float length, bool AABB, std::vector<std::string> ignoreMask)
+{
+	std::map<float, GameObject*> gameObjectsByDistance;
+	size_t gameObjectsSize = gameObjects.size();
+	for (GameObject* gameObject : gameObjects)
+	{
+		bool hasTag = ignoreMask.empty() ? true : false;
+		/*for (size_t j = 0; j < ignoreMask.size(); j++)
+		{
+			if (gameObject->m_Tag == ignoreMask[j])
+			{
+				hasTag = true;
+				break;
+			}
+		}*/
+
+		if (!hasTag)
+		{
+			continue;
+		}
+
+		Mesh* mesh = nullptr;
+		if (Renderer3D* r3d = gameObject->m_ComponentManager.GetComponent<Renderer3D>())
+		{
+			if (r3d->m_Mesh)
+			{
+				mesh = r3d->m_Mesh;
+			}
+			else
+			{
+				continue;
+			}
+		}
+
+		bool isIntersected = false;
+		if (AABB)
+		{
+			isIntersected = IntersectBoxAABB(start, direction, hit, length, mesh->m_BoundingBox, gameObject->m_Transform);
+		}
+		else
+		{
+			isIntersected = IntersectBoxOBB(start, direction, hit, length, mesh->m_BoundingBox, gameObject->m_Transform);
+		}
+		if (isIntersected)
+		{
+			gameObjectsByDistance.emplace(hit.m_Distance, hit.m_Object);
+		}
+	}
+
+	if (gameObjectsByDistance.size() > 0)
+	{
+		hit.m_Object = gameObjectsByDistance.begin()->second;
+		hit.m_Point = direction * gameObjectsByDistance.begin()->first;
+		hit.m_Distance = gameObjectsByDistance.begin()->first;
+	}
+	else
+	{
+		hit.m_Object = nullptr;
+		hit.m_Point = { 0.0f, 0.0f, 0.0f };
+		hit.m_Distance = 0.0f;
+	}
+	return gameObjectsByDistance;
+}
+
+bool Raycast3D::IntersectTriangle(const const glm::vec3& start, const glm::vec3& direction, Hit3D& hit,
+	float length, const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& planeNorm)
+{
+	glm::dvec3 end = direction * length;
+	glm::dvec3 rayDelta = end - glm::dvec3(start);
+	glm::dvec3 rayToPlaneDelta = a - start;
+	double ratio = glm::dot(rayToPlaneDelta, glm::dvec3(planeNorm));
+	glm::dvec3 proj = glm::dvec3(planeNorm) * ratio;
+	double vp = glm::dot(rayDelta, glm::dvec3(planeNorm));
+	if (vp >= -0.0001 && vp <= 0.0001)
+	{
+		return false;
+	}
+	double wp = glm::dot(rayToPlaneDelta, glm::dvec3(planeNorm));
+	double t = wp / vp;
+	glm::dvec3 iPos = rayDelta * t + glm::dvec3(start);
+	hit.m_Point = iPos;
+	hit.m_Distance = glm::distance(glm::dvec3(start), iPos);
+	glm::dvec3 edge0 = b - a;
+	glm::dvec3 edge1 = c - b;
+	glm::dvec3 edge2 = a - c;
+	glm::dvec3 c0 = iPos - glm::dvec3(a);
+	glm::dvec3 c1 = iPos - glm::dvec3(b);
+	glm::dvec3 c2 = iPos - glm::dvec3(c);
+
+	if (glm::dot(glm::dvec3(planeNorm), glm::cross(edge0, c0)) > 0.0 &&
+		glm::dot(glm::dvec3(planeNorm), glm::cross(edge1, c1)) > 0.0 &&
+		glm::dot(glm::dvec3(planeNorm), glm::cross(edge2, c2)) > 0.0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Raycast3D::IntersectBoxAABB(const glm::vec3& start, const glm::vec3& direction, Hit3D& hit,
+	float length, const BoundingBox& boundingBox, const Transform& transform)
+{
+	glm::vec3 bMin = transform.GetScaleMat4() * glm::dvec4(boundingBox.m_Min, 1.0f);
+	glm::vec3 bMax = transform.GetScaleMat4() * glm::dvec4(boundingBox.m_Max, 1.0f);
+
+	glm::vec3 transformStart = start - transform.GetPosition();
+
+	float txMin = (bMin.x - transformStart.x) / direction.x;
+	float txMax = (bMax.x - transformStart.x) / direction.x;
+	if (txMax < txMin)
+	{
+		float temp = txMax;
+		txMax = txMin;
+		txMin = temp;
+	}
+
+	float tyMin = (bMin.y - transformStart.y) / direction.y;
+	float tyMax = (bMax.y - transformStart.y) / direction.y;
+	if (tyMax < tyMin)
+	{
+		float temp = tyMax;
+		tyMax = tyMin;
+		tyMin = temp;
+	}
+
+	float tzMin = (bMin.z - transformStart.z) / direction.z;
+	float tzMax = (bMax.z - transformStart.z) / direction.z;
+	if (tzMax < tzMin)
+	{
+		float temp = tzMax;
+		tzMax = tzMin;
+		tzMin = temp;
+	}
+
+	float tMin = (txMin > tyMin) ? txMin : tyMin;
+	float tMax = (txMax < tyMax) ? txMax : tyMax;
+
+	if (txMin > tyMax || tyMin > txMax) return false;
+	if (tMin > tzMax || tzMin > tMax) return false;
+	if (tzMin > tMin) tMin = tzMin;
+	if (tzMax < tMax) tMax = tzMax;
+	hit.m_Distance = tMin;
+	hit.m_Object = transform.GetOwner();
+	hit.m_Point = tMin * direction + start;
+
+	return true;
+}
+
+bool Raycast3D::IntersectBoxOBB(const glm::vec3& start, const glm::vec3& direction, Hit3D& hit,
+	float length, const BoundingBox& boundingBox, const Transform& transform)
+{
+	glm::vec3 transformedDirection = direction * length;
+	glm::vec3 bMin = glm::vec3(transform.GetScaleMat4() * glm::dvec4(boundingBox.m_Min, 1.0f));
+	glm::vec3 bMax = glm::vec3(transform.GetScaleMat4() * glm::dvec4(boundingBox.m_Max, 1.0f));
+	const float* transformPtr = glm::value_ptr(transform.GetTransform());
+	glm::vec3 axis;
+	glm::vec3 bbRayDelta = transform.GetPosition() - start;
+
+	float tMin = 0, tMax = FLT_MAX, nomLen, denomLen, tmp, min, max;
+	size_t p = 0;
+
+	for (size_t i = 0; i < 3; i++)
+	{
+		p = i * 4;
+		axis = glm::vec3(transformPtr[p], transformPtr[p + 1], transformPtr[p + 2]);
+		axis = glm::normalize(axis);
+		nomLen = glm::dot(axis, bbRayDelta);
+		denomLen = glm::dot(transformedDirection, axis);
+		if (glm::abs(denomLen) > 0.00001f)
+		{
+			min = (nomLen + bMin[i]) / denomLen;
+			max = (nomLen + bMax[i]) / denomLen;
+
+			if (min > max) { tmp = min; min = max; max = tmp; }
+			if (min > tMin) tMin = min;
+			if (max < tMax) tMax = max;
+
+			if (tMax < tMin) return false;
+
+		}
+		else if (-nomLen + bMin[i] > 0 || -nomLen + bMax[i] < 0) return false;
+	}
+
+	hit.m_Distance = tMin;
+	hit.m_Object = transform.GetOwner();
+	hit.m_Point = tMin * direction + start;
+	return true;
+}

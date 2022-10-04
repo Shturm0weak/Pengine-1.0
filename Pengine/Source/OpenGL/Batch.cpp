@@ -247,7 +247,6 @@ void Batch::Submit(Character* character)
 	if (m_UIWrapper.m_TextureSlotIndex > m_MaxTextureSlots - 1 || m_UIWrapper.m_IndexCount >= RENDERER_INDICES_SIZE)
 	{
 		Batch::GetInstance().EndUI();
-		Batch::GetInstance().FlushUI();
 		Batch::GetInstance().BeginUI();
 	}
 
@@ -444,10 +443,9 @@ void Batch::Submit(float* mesh, const glm::vec4& color, const glm::vec2& positio
 
 void Batch::Submit(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color)
 {
-	if (m_LineWrapper.m_IndexCount >= RENDERER_INDICES_SIZE_LINES)
+	if (m_LineWrapper.m_IndexCount >= RENDERER_MAX_LINES)
 	{
 		Batch::GetInstance().EndLines();
-		Batch::GetInstance().FlushLines();
 		Batch::GetInstance().BeginLines();
 	}
 
@@ -470,7 +468,6 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	if (m_GOWrapper.m_TextureSlotIndex > m_MaxTextureSlots - 1 || m_GOWrapper.m_IndexCount >= RENDERER_INDICES_SIZE)
 	{
 		Batch::GetInstance().EndGameObjects();
-		Batch::GetInstance().FlushGameObjects();
 		Batch::GetInstance().BeginGameObjects();
 	}
 
@@ -694,8 +691,6 @@ void Batch::FlushGameObjects()
 
 void Batch::FlushLines()
 {
-	Window::GetInstance().Clear({ 0.0f, 0.0f, 0.0f, 0.0f });
-
 	glBindVertexArray(m_LineWrapper.m_Vao);
 	m_LineWrapper.m_Ibo.Bind();
 

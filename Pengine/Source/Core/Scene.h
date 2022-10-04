@@ -9,6 +9,7 @@
 #include "../Components/CircleCollider2D.h"
 #include "../Components/ParticleEmitter.h"
 #include "../Components/PointLight2D.h"
+#include "../Components/DirectionalLight.h"
 #include "Box2D/include/box2d/b2_world.h"
 
 #include <vector>
@@ -30,6 +31,8 @@ namespace Pengine
 		std::vector<IRenderer*> m_Renderers3D;
 		std::vector<ParticleEmitter*> m_ParticleEmitters;
 		std::vector<PointLight2D*> m_PointLights2D;
+		std::vector<DirectionalLight*> m_DirectionalLight;
+		std::map<Mesh*, std::vector<Renderer3D*>> m_InstancedObjects;
 
 		std::string m_Title = "Scene";
 		std::string m_FilePath = "None";
@@ -39,6 +42,12 @@ namespace Pengine
 		
 		void OnPhysicsUpdate();
 
+		void Render();
+
+		void RenderBoundingBoxes();
+
+		void ShutDown();
+
 		std::vector<GameObject*> SelectGameObject(std::vector<GameObject*> ignoreMask = std::vector<GameObject*>(),
 			int maxGameObjects = 1);
 
@@ -46,6 +55,7 @@ namespace Pengine
 			const Transform& transform, const UUID& uuid);
 		friend ICollider2D* BoxCollider2D::IntersectTrigger();
 		friend ICollider2D* CircleCollider2D::IntersectTrigger();
+		friend void Renderer3D::Render();
 		friend IComponent* Renderer2D::Create(GameObject* owner);
 		friend IComponent* Renderer3D::Create(GameObject* owner);
 		friend IComponent* Rigidbody2D::Create(GameObject* owner);
@@ -53,6 +63,7 @@ namespace Pengine
 		friend IComponent* CircleCollider2D::Create(GameObject* owner);
 		friend IComponent* ParticleEmitter::Create(GameObject* owner);
 		friend IComponent* PointLight2D::Create(GameObject* owner);
+		friend IComponent* DirectionalLight::Create(GameObject* owner);
 		friend void GameObject::Delete();
 		friend void GameObject::DeleteLater(float seconds);
 		friend void Renderer2D::Delete();
@@ -62,13 +73,18 @@ namespace Pengine
 		friend void CircleCollider2D::Delete();
 		friend void ParticleEmitter::Delete();
 		friend void PointLight2D::Delete();
+		friend void DirectionalLight::Delete();
 		friend void Renderer2D::SetLayer(int layer);
-
+		
+		friend class Instancing;
 		friend class Application;
 		friend class Editor;
 		friend class Serializer;
 		friend class Raycast2D;
 		friend class Batch;
+		friend class Renderer;
+		friend class Renderer3D;
+		friend class EntryPoint;
 	public:
 
 		std::mutex m_Mutex;
@@ -99,10 +115,6 @@ namespace Pengine
 		const std::vector<GameObject*>& GetGameObjects() const { return m_GameObjects; }
 		
 		void OnRegisterClients();
-
-		void Render();
-		
-		void ShutDown();
 		
 		void Clear();
 	};

@@ -4,6 +4,7 @@
 #include "Viewport.h"
 #include "Input.h"
 #include "Environment.h"
+#include "Logger.h"
 #include "../EventSystem/EventSystem.h"
 
 using namespace Pengine;
@@ -49,6 +50,81 @@ void Camera::MoveOrthographic()
 	}
 }
 
+void Camera::MovePerspective()
+{
+	if (Viewport::GetInstance().IsHovered()
+		&& Input::Mouse::IsMousePressed(Keycode::MOUSE_BUTTON_2))
+	{
+		Window::GetInstance().DisableCursor();
+		m_IsMoving = true;
+	}
+
+	if (!m_IsMoving) return;
+
+	Viewport::GetInstance().ClampCursor();
+
+	glm::vec3 rotation = m_Transform.GetRotation();
+	if (rotation.y > glm::two_pi<float>() || rotation.y < -glm::two_pi<float>())
+	{
+		rotation.y = 0.0f;
+	}
+	if (rotation.x > glm::two_pi<float>() || rotation.x < -glm::two_pi<float>())
+	{
+		rotation.x = 0.0f;
+	}
+	
+	m_Transform.Rotate(glm::vec3(rotation.x, rotation.y, 0.0f));
+
+	float speed = m_Speed;
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_LEFT_SHIFT))
+	{
+		speed *= 10.0f;
+	}
+
+	float rotationSpeed = 1.0f;
+
+	glm::vec3 back = m_Transform.GetBack();
+
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_W))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() +
+			glm::vec3(-back.x, back.y, -back.z) * Time::GetDeltaTime() * speed);
+	}
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_S))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() +
+			glm::vec3(back.x, -back.y, back.z) * Time::GetDeltaTime() * speed);
+	}
+
+	glm::vec2 delta = Viewport::GetInstance().GetUIDragDelta() * 0.1f;
+
+	m_Transform.Rotate(glm::vec3(rotation.x + glm::radians(delta.y),
+		rotation.y - glm::radians(delta.x), 0));
+
+	UpdateViewProjection();
+
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_A))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() -
+			m_Transform.GetRight() * Time::GetDeltaTime() * speed);
+	}
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_D))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() +
+			m_Transform.GetRight() * Time::GetDeltaTime() * speed);
+	}
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_E))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() +
+			m_Transform.GetUp() * Time::GetDeltaTime() * speed);
+	}
+	if (Input::KeyBoard::IsKeyDown(Keycode::KEY_Q))
+	{
+		m_Transform.Translate(m_Transform.GetPosition() -
+			m_Transform.GetUp() * Time::GetDeltaTime() * speed);
+	}
+}
+
 Camera::Camera()
 {
 	m_Transform.SetOnRotationCallback(std::bind(&Camera::UpdateViewProjection, this));
@@ -66,42 +142,81 @@ void Camera::operator=(const Camera& camera)
 	Copy(camera);
 }
 
-void Camera::SetOrthographic(const glm::vec2& size, float zNear, float zFar)
+glm::vec3 Camera::GetMouseDirection()
+{
+	glm::dvec2 normalizedMousePosition = Viewport::GetInstance().GetNormalizedMousePosition();
+	glm::dvec4 clipCoords = glm::dvec4(normalizedMousePosition.x, normalizedMousePosition.y, -1.0f, 1.0f);
+	glm::dvec4 eyeCoords = clipCoords * glm::inverse(m_ProjectionMat4);
+	eyeCoords.z = -1.0f; eyeCoords.w = 0.0f;
+	glm::dvec3 mouseRay = (glm::dvec3)(glm::inverse(m_ViewMat4) * eyeCoords);
+	return glm::normalize(mouseRay);
+}
+
+void Camera::SetSize(const glm::vec2& size)
 {
 	m_Size = size;
-	m_Zfar = zFar;
-	m_Znear = zNear;
-	const float ratio = m_Size.x / m_Size.y;
+
+	UpdateProjection();
+}
+
+void Camera::SetOrthographic(const glm::vec2& size)
+{
+	m_Size = size;
+	const float ratio = GetAspect();
 	m_ProjectionMat4 = glm::ortho(-ratio * m_ZoomScale, ratio * m_ZoomScale, -1.0f * m_ZoomScale,
 		1.0f * m_ZoomScale, m_Znear, m_Zfar);
 	m_Type = CameraType::ORTHOGRAPHIC;
 	UpdateViewProjection();
 }
 
-void Camera::SetPerspective(const glm::vec2& size, float fov, float zNear, float zFar)
+void Camera::SetPerspective(const glm::vec2& size)
 {
-	m_Size = size;
-	m_Zfar = zFar;
-	m_Znear = zNear;
-	m_Fov = fov;
-	m_ProjectionMat4 = glm::perspective(m_Fov, m_Size.x / m_Size.y, m_Znear, m_Zfar);
+	if (size.x == 0 || size.y == 0)
+	{
+		m_Size = { 1.0f, 1.0f };
+	}
+	else
+	{
+		m_Size = size;
+	}
+
+	m_ProjectionMat4 = glm::perspective(m_Fov, GetAspect(), m_Znear, m_Zfar);
 	m_Type = CameraType::PERSPECTIVE;
 	UpdateViewProjection();
 }
 
-void Camera::UpdateProjection(const glm::vec2& size)
+void Camera::SetType(CameraType type)
+{
+	switch (type)
+	{
+	case CameraType::ORTHOGRAPHIC:
+	{
+		SetOrthographic(m_Size);
+		break;
+	}
+	case CameraType::PERSPECTIVE:
+	{
+		SetPerspective(m_Size);
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void Camera::UpdateProjection()
 {
 	switch (m_Type)
 	{
 	case CameraType::PERSPECTIVE:
 	{
-		SetPerspective(size, m_Fov, m_Znear, m_Zfar);
+		SetPerspective(m_Size);
 		break;
 	}
 	case CameraType::ORTHOGRAPHIC:
 	default:
 	{
-		SetOrthographic(size, m_Znear, m_Zfar);
+		SetOrthographic(m_Size);
 		break;
 	}
 	}
@@ -109,16 +224,17 @@ void Camera::UpdateProjection(const glm::vec2& size)
 
 void Camera::Movement()
 {
-	//Viewport::GetInstance().IsFocused() == false;
-	if (Viewport::GetInstance().IsHovered() == false)
+	if (Input::Mouse::IsMouseReleased(Keycode::MOUSE_BUTTON_2))
 	{
-		return;
+		Window::GetInstance().ShowCursor();
+		m_IsMoving = false;
 	}
 
 	switch (m_Type)
 	{
 	case CameraType::PERSPECTIVE:
 	{
+		MovePerspective();
 		break;
 	}
 	case CameraType::ORTHOGRAPHIC:
@@ -137,6 +253,28 @@ void Camera::SetZoom(float zoom)
 	{
 		m_ZoomScale -= zoom * m_ZoomSensetivity;
 		m_ZoomScale = glm::clamp(m_ZoomScale, 0.0f, 1000.f);
-		UpdateProjection(m_Size);
+		
+		UpdateProjection();
 	}
+}
+
+void Camera::SetFov(float fov)
+{
+	m_Fov = fov;
+
+	UpdateProjection();
+}
+
+void Camera::SetZNear(float zNear)
+{
+	m_Znear = zNear;
+
+	UpdateProjection();
+}
+
+void Camera::SetZFar(float zFar)
+{
+	m_Zfar = zFar;
+
+	UpdateProjection();
 }

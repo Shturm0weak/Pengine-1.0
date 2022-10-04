@@ -36,13 +36,17 @@ void Transform::Move(Transform&& transform) noexcept
 	m_FollowOwner = transform.m_FollowOwner;
 }
 
-void Transform::UpdateBack()
+void Transform::UpdateVectors()
 {
 	const float cosPitch = cos(m_Rotation.x);
 	m_Back.z = cos(m_Rotation.y) * cosPitch;
 	m_Back.x = sin(m_Rotation.y) * cosPitch;
 	m_Back.y = sin(m_Rotation.x);
 	m_Back = glm::normalize(m_Back);
+
+	glm::mat4 inverseTransform = glm::inverse(GetTransform());
+	m_Up = glm::normalize(glm::vec3(inverseTransform[0][1],
+		inverseTransform[1][1], inverseTransform[2][1]));
 }
 
 void Transform::operator=(const Transform& transform)
@@ -134,7 +138,7 @@ void Transform::Rotate(const glm::vec3& rotation)
 {
 	m_Rotation = rotation;
 	m_RotationMat4 = glm::toMat4(glm::quat(m_Rotation));
-	UpdateBack();
+	UpdateVectors();
 	if (m_OnRotationCallback)
 	{
 		m_OnRotationCallback();

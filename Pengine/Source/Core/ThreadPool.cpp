@@ -65,36 +65,38 @@ void ThreadPool::Enqueue(Task task)
 	m_CondVar.notify_one();
 }
 
-ThreadPool::SyncParams::SyncParams()
+ThreadPool::SyncParams::SyncParams(size_t threads)
+	: m_Threads(threads)
 {
-	size_t numThreads = ThreadPool::GetInstance().GetThreadsAmount();
-	s_Ready = new std::atomic<bool>[numThreads];
-	for (size_t i = 0; i < numThreads; i++)
+	m_Ready = new std::atomic<bool>[m_Threads];
+	for (size_t i = 0; i < m_Threads; i++)
 	{
-		s_Ready[i] = true;
+		m_Ready[i] = true;
 	}
 }
 
 ThreadPool::SyncParams::~SyncParams()
 {
-	delete[] s_Ready;
+	delete[] m_Ready;
 }
 
-void ThreadPool::SyncParams::SetThreadFinished(size_t index)
+void ThreadPool::SyncParams::SetThreadFinished(size_t index, bool isFinished)
 {
-	std::lock_guard lock(s_Mtx);
-	s_Ready[index] = true;
-	s_CondVar.notify_all();
+	std::lock_guard lock(m_Mtx);
+	m_Ready[index] = isFinished;
+	if (isFinished)
+	{
+		m_CondVar.notify_all();
+	}
 }
 
 void ThreadPool::SyncParams::WaitForAllThreads()
 {
-	size_t numThreads = ThreadPool::GetInstance().GetThreadsAmount();
-	std::unique_lock<std::mutex> lock(s_Mtx);
-	s_CondVar.wait(lock, [=] {
-		for (size_t i = 0; i < numThreads; i++)
+	std::unique_lock<std::mutex> lock(m_Mtx);
+	m_CondVar.wait(lock, [=] {
+		for (size_t i = 0; i < m_Threads; i++)
 		{
-			if (s_Ready[i] == false)
+			if (m_Ready[i] == false)
 			{
 				return false;
 			}

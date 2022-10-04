@@ -30,7 +30,9 @@ int Window::CreateWindowInstance(const std::string& title,
 		return -1;
 	}
 
-	m_Window = glfwCreateWindow(size.x, size.y, m_Title.c_str(), monitor, NULL);
+	SetSize(size);
+
+	m_Window = glfwCreateWindow(m_Size.x, m_Size.y, m_Title.c_str(), monitor, NULL);
 
 	if (!m_Window)
 	{
@@ -105,6 +107,13 @@ Window& Window::GetInstance()
 	return window;
 }
 
+glm::dvec2 Window::GetCursorPosition()
+{
+	m_PreviousCursorPosition = m_CursorPosition;
+	glfwGetCursorPos(Window::GetWindow(), &m_CursorPosition.x, &m_CursorPosition.y);
+	return m_CursorPosition;
+}
+
 void Window::SetWindowSize(const glm::ivec2 size)
 {
 	glfwSetWindowSize(m_Window, size.x, size.y);
@@ -173,6 +182,7 @@ void Window::SetTitle(const std::string& title)
 void Window::NewFrame()
 {
 	SetScrollOffset({ 0.0f, 0.0f });
+	GetCursorPosition();
 	Editor::GetInstance().ResetStats();
 	EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONUPDATE));
 	Window::GetInstance().Clear();
@@ -224,9 +234,33 @@ void Window::SetVSyncEnabled(bool enabled)
 
 void Window::Clear(const glm::vec4& color) const
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearDepth(1.0f);
 	glClearColor(color.x, color.y, color.y, color.w);
+}
+
+void Window::ClampCursorPosition()
+{
+	glm::dvec2 cursorPosition = GetCursorPosition();
+	glm::dvec2 newCursorPos = cursorPosition;
+	if (cursorPosition.x > m_Size.x)
+	{
+		newCursorPos.x = 0.0f;
+	}
+	else if (cursorPosition.x < 0.0f)
+	{
+		newCursorPos.x = m_Size.x;
+	}
+	if (cursorPosition.y > m_Size.y)
+	{
+		newCursorPos.y = 0.0f;
+	}
+	else if (cursorPosition.y < 0.0f)
+	{
+		newCursorPos.y = m_Size.y;
+	}
+
+	glfwSetCursorPos(m_Window, newCursorPos.x, newCursorPos.y);
 }
 
 void Window::ShutDown()
@@ -235,4 +269,24 @@ void Window::ShutDown()
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
+}
+
+void Window::DisableCursor()
+{
+	glfwSetInputMode(Window::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+int Window::GetCursorMode()
+{
+	return glfwGetInputMode(Window::GetWindow(), GLFW_CURSOR);
+}
+
+void Window::ShowCursor()
+{
+	glfwSetInputMode(Window::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void Window::HideCursor()
+{
+	glfwSetInputMode(Window::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }

@@ -1,15 +1,14 @@
 Title: CampFire
 Environment:
   Global Intensity: 0
+  Directional Light: 0
   Blur passes: 20
   Brightness threshold: 0.460000008
   Exposure: 0.200000003
   Gamma: 1.5
   Pixels blured: 6
   IsEnabled: true
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 8481551987396142628
+  - GameObject: 11492672846623666518
     Name: CampFire
     Is Enabled: true
     Is Selectable: true
@@ -70,7 +69,7 @@ GameObjects:
       Constant: 0
       Linear: 1.20756125
       Quadratic: 1.20756125
-  - GameObject: 9724928702314674002
+  - GameObject: 3375833539331016078
     Name: Box
     Is Enabled: true
     Is Selectable: true
@@ -102,7 +101,7 @@ GameObjects:
       Is Normal used: true
       Ambient: 1.30000007
       Emmisive Mask Intensity: 0
-  - GameObject: 1348064737836154986
+  - GameObject: 16473852982846955499
     Name: Floor
     Is Enabled: true
     Is Selectable: true
@@ -134,7 +133,7 @@ GameObjects:
       Is Normal used: true
       Ambient: 1.20000005
       Emmisive Mask Intensity: 0
-  - GameObject: 9253789085132853499
+  - GameObject: 6444385620314846010
     Name: CampFire
     Is Enabled: true
     Is Selectable: true
@@ -180,7 +179,7 @@ GameObjects:
       Constant: 0
       Linear: 1.20756125
       Quadratic: 1.20756125
-  - GameObject: 2955283083222917626
+  - GameObject: 15311569172647108415
     Name: Box
     Is Enabled: true
     Is Selectable: true

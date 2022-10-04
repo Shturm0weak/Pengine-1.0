@@ -28,6 +28,8 @@ namespace Pengine
 
 		float m_GlobalIntensity = 1.0f;
 	
+		bool m_DepthTest = true;
+
 		Environment();
 		Environment(const Environment&) = delete;
 		Environment& operator=(const Environment&) { return *this; }
@@ -54,6 +56,8 @@ namespace Pengine
 		void SetGlobalIntensity(float globalIntensity = 1.0f) { m_GlobalIntensity = glm::clamp(globalIntensity, 0.0f, FLT_MAX); }
 	
 		float GetGlobalIntensity() const { return m_GlobalIntensity; }
+
+		void SetDepthTest(bool depthTest);
 	};
 
 }

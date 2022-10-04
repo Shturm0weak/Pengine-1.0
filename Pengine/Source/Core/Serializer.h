@@ -37,6 +37,12 @@ namespace Pengine
 		static void SerializeEnvironment(YAML::Emitter& out);
 
 		static void DeserializeEnvironment(YAML::Node& in);
+
+		static std::string GenerateMetaFilePath(const std::string& filePath, const std::string& name);
+
+		static std::string SerializeMeshMeta(const std::string& filePath, Pengine::Mesh::Meta meta);
+
+		static Mesh::Meta DeserializeMeshMeta(const std::string& filePath);
 		
 		static void SerializeTransform(YAML::Emitter& out, const Transform& transform);
 		
@@ -52,6 +58,10 @@ namespace Pengine
 		
 		static void DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObject, std::unordered_map<GameObject*, std::vector<size_t>>& childs);
 		
+		static void SerializeRenderer3D(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeRenderer3D(YAML::Node& in, ComponentManager& componentManager);
+
 		static void SerializeRenderer2D(YAML::Emitter& out, ComponentManager& componentManager);
 		
 		static void DeSerializeRenderer2D(YAML::Node& in, ComponentManager& componentManager);
@@ -84,10 +94,13 @@ namespace Pengine
 
 		static void DeSerializePointLight(YAML::Node& in, ComponentManager& componentManager);
 
+		static void SerializeDirectionalLight(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& componentManager);
+
 		static void SerializeUserDefinedComponents(YAML::Emitter& out, ComponentManager& componentManager);
 
 		static void DeserializeUserDefinedComponents(YAML::Node& in, ComponentManager& componentManager);
-
 	};
 
 }

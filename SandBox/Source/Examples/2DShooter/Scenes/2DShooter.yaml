@@ -1,15 +1,14 @@
 Title: 2DShooter
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 10
   Brightness threshold: 0.800000012
   Exposure: 0.0500000007
   Gamma: 1
   Pixels blured: 6
   IsEnabled: true
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,19 +23,19 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 11561569106104033271
+  - GameObject: 12656500340317608759
     Name: Background
     Is Enabled: true
     Is Selectable: false
     Prefab File Path: ""
     Childs:
-      - 13465723408866015562
-      - 5376492217088092884
-      - 14276241430731821773
-      - 13171586471811309276
-      - 1910966922025735407
-      - 1625564129018277671
-      - 548391302087363091
+      - 2082832588097377123
+      - 7542713038818185948
+      - 14514426914192764038
+      - 14965397882694262095
+      - 3524756231981437755
+      - 1726294065344548008
+      - 15795270997870717158
     Transform:
       Follow owner: true
       Position: [0, 0, 0]
@@ -62,23 +61,23 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 13465723408866015562
+  - GameObject: 2082832588097377123
     Name: Ground1
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 5377629865956557583
-      - 8607748194298001459
-      - 16634311313065429765
-      - 9360689881454790666
-      - 17265790041467571124
-      - 5397164181464775618
-      - 12604006445089893838
-      - 13626239452890140877
-      - 3726234084224791220
-      - 1544340969401335285
-      - 91746586853621761
+      - 18231272388037317105
+      - 14265487590214502829
+      - 2723194343607890386
+      - 13648228226279622312
+      - 16566058506282916665
+      - 136590481246223930
+      - 7622657995684639129
+      - 10556753453166497284
+      - 18363939234839783592
+      - 8191238278753472723
+      - 2392313888391621931
     Transform:
       Follow owner: true
       Position: [-7.00286579, -1.08022952, 0]
@@ -96,7 +95,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 5377629865956557583
+  - GameObject: 18231272388037317105
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -128,7 +127,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 8607748194298001459
+  - GameObject: 14265487590214502829
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -160,7 +159,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 16634311313065429765
+  - GameObject: 2723194343607890386
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -192,7 +191,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 9360689881454790666
+  - GameObject: 13648228226279622312
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -224,7 +223,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 17265790041467571124
+  - GameObject: 16566058506282916665
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -256,7 +255,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 5397164181464775618
+  - GameObject: 136590481246223930
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -288,7 +287,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 12604006445089893838
+  - GameObject: 7622657995684639129
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -320,7 +319,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 13626239452890140877
+  - GameObject: 10556753453166497284
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -352,7 +351,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 3726234084224791220
+  - GameObject: 18363939234839783592
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -384,7 +383,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 1544340969401335285
+  - GameObject: 8191238278753472723
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -416,7 +415,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 91746586853621761
+  - GameObject: 2392313888391621931
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -448,23 +447,23 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 5376492217088092884
+  - GameObject: 7542713038818185948
     Name: Ground1
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 10260002634193302877
-      - 13470523854970241053
-      - 2605091296251581124
-      - 3857691092288946111
-      - 700894988995238474
-      - 5823082077354917532
-      - 13746021468490634042
-      - 4903562277487600990
-      - 15962702106119450563
-      - 18325451058609130052
-      - 6405013804549704440
+      - 741142914801434711
+      - 10803425774643885495
+      - 16090740628437957127
+      - 18355512024293715306
+      - 17289577483645103678
+      - 7706035912594363079
+      - 13385525927140038685
+      - 10925837252217857925
+      - 6443438022365082298
+      - 16156408620540592443
+      - 14133729524417912268
     Transform:
       Follow owner: true
       Position: [5.01361179, -0.37893948, 0]
@@ -482,7 +481,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 10260002634193302877
+  - GameObject: 741142914801434711
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -514,7 +513,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 13470523854970241053
+  - GameObject: 10803425774643885495
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -546,7 +545,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 2605091296251581124
+  - GameObject: 16090740628437957127
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -578,7 +577,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 3857691092288946111
+  - GameObject: 18355512024293715306
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -610,7 +609,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 700894988995238474
+  - GameObject: 17289577483645103678
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -642,7 +641,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 5823082077354917532
+  - GameObject: 7706035912594363079
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -674,7 +673,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 13746021468490634042
+  - GameObject: 13385525927140038685
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -706,7 +705,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 4903562277487600990
+  - GameObject: 10925837252217857925
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -738,7 +737,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 15962702106119450563
+  - GameObject: 6443438022365082298
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -770,7 +769,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 18325451058609130052
+  - GameObject: 16156408620540592443
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -802,7 +801,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 6405013804549704440
+  - GameObject: 14133729524417912268
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -834,21 +833,21 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 14276241430731821773
+  - GameObject: 14514426914192764038
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 11229112066052173527
-      - 886047647285126251
-      - 18074494583009590256
+      - 16579809185573072199
+      - 8898170390524837234
+      - 12109562114962632828
     Transform:
       Follow owner: true
       Position: [-1.0100286, -0.661890924, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 11229112066052173527
+  - GameObject: 16579809185573072199
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -892,7 +891,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 886047647285126251
+  - GameObject: 8898170390524837234
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -936,7 +935,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 18074494583009590256
+  - GameObject: 12109562114962632828
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -980,21 +979,21 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 13171586471811309276
+  - GameObject: 14965397882694262095
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 3613362619195965952
-      - 9476163069995053517
-      - 7597420714886950041
+      - 4690970961369191981
+      - 11748855430834193769
+      - 12000968298702223183
     Transform:
       Follow owner: true
       Position: [11.0451288, -0.761461556, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 3613362619195965952
+  - GameObject: 4690970961369191981
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -1038,7 +1037,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 9476163069995053517
+  - GameObject: 11748855430834193769
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -1082,7 +1081,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 7597420714886950041
+  - GameObject: 12000968298702223183
     Name: Stairs
     Is Enabled: true
     Is Selectable: true
@@ -1126,23 +1125,23 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 1910966922025735407
+  - GameObject: 3524756231981437755
     Name: Ground1
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 14812991308125579161
-      - 1438536913458960941
-      - 13680588147869470036
-      - 1312732254495022711
-      - 10577345897022813590
-      - 7952955512095426194
-      - 515775306926000911
-      - 11280467402768123139
-      - 4136842691992406300
-      - 3848223014229996605
-      - 11520010798172779778
+      - 626198928953404887
+      - 14776764400528996208
+      - 3624438706527107652
+      - 3250560649226255328
+      - 3077016237055939507
+      - 697299027043776063
+      - 2553232761665611674
+      - 16462921266660774106
+      - 11357194065229407618
+      - 16188234566071162570
+      - 674210227098622979
     Transform:
       Follow owner: true
       Position: [17.0265064, -0.808738887, 0]
@@ -1160,7 +1159,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 14812991308125579161
+  - GameObject: 626198928953404887
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1192,7 +1191,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 1438536913458960941
+  - GameObject: 14776764400528996208
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1224,7 +1223,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 13680588147869470036
+  - GameObject: 3624438706527107652
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1256,7 +1255,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 1312732254495022711
+  - GameObject: 3250560649226255328
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1288,7 +1287,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 10577345897022813590
+  - GameObject: 3077016237055939507
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1320,7 +1319,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 7952955512095426194
+  - GameObject: 697299027043776063
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1352,7 +1351,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 515775306926000911
+  - GameObject: 2553232761665611674
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1384,7 +1383,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 11280467402768123139
+  - GameObject: 16462921266660774106
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1416,7 +1415,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 4136842691992406300
+  - GameObject: 11357194065229407618
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1448,7 +1447,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 3848223014229996605
+  - GameObject: 16188234566071162570
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1480,7 +1479,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 11520010798172779778
+  - GameObject: 674210227098622979
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1512,23 +1511,23 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 1625564129018277671
+  - GameObject: 1726294065344548008
     Name: Ground1
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 7997144907779231438
-      - 9401349490704229114
-      - 2770158160260446062
-      - 2795688956122436255
-      - 15778547240601933807
-      - 709448878421477506
-      - 11912413306822280620
-      - 367272841128194860
-      - 1011278106196839618
-      - 6420408735337380525
-      - 17123572926636282570
+      - 13380266218821574285
+      - 4596637208218594344
+      - 8666874391712030212
+      - 11844219210075848211
+      - 17403822142548281426
+      - 2662541907853742061
+      - 10295570594436870970
+      - 17543658469091392076
+      - 15371950416183623360
+      - 14610674712345955119
+      - 8632917550063282552
     Transform:
       Follow owner: true
       Position: [28.6790886, -0.774355829, 0]
@@ -1546,7 +1545,7 @@ GameObjects:
     Rigidbody2D:
       Type: 0
       Fixed rotation: true
-  - GameObject: 7997144907779231438
+  - GameObject: 13380266218821574285
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1578,7 +1577,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 9401349490704229114
+  - GameObject: 4596637208218594344
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1610,7 +1609,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 2770158160260446062
+  - GameObject: 8666874391712030212
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1642,7 +1641,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 2795688956122436255
+  - GameObject: 11844219210075848211
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1674,7 +1673,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 15778547240601933807
+  - GameObject: 17403822142548281426
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1706,7 +1705,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 709448878421477506
+  - GameObject: 2662541907853742061
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1738,7 +1737,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 11912413306822280620
+  - GameObject: 10295570594436870970
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1770,7 +1769,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 367272841128194860
+  - GameObject: 17543658469091392076
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1802,7 +1801,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 1011278106196839618
+  - GameObject: 15371950416183623360
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1834,7 +1833,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 6420408735337380525
+  - GameObject: 14610674712345955119
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1866,7 +1865,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 17123572926636282570
+  - GameObject: 8632917550063282552
     Name: Platform
     Is Enabled: true
     Is Selectable: true
@@ -1898,7 +1897,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
-  - GameObject: 548391302087363091
+  - GameObject: 15795270997870717158
     Name: Circle
     Is Enabled: true
     Is Selectable: true
@@ -1930,13 +1929,13 @@ GameObjects:
       Is Normal used: false
       Ambient: 5
       Emmisive Mask Intensity: 0
-  - GameObject: 1326155953258300658
+  - GameObject: 11258652153596752989
     Name: Player
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: Source/Examples/2DShooter/Prefabs/Player.prefab
     Childs:
-      - 5951682142644237614
+      - 12532029744237332203
     Transform:
       Follow owner: true
       Position: [0, 0, 0]
@@ -1983,15 +1982,15 @@ GameObjects:
         - Source\Examples\2DShooter\Animations\RedSoldierDeath.anim
         - Source\Examples\2DShooter\Animations\RedSoldierJump.anim
       Current animation: "Null"
-  - GameObject: 15224543109378704269
+  - GameObject: 10725279341256006447
     Name: Enemy
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
     Childs:
-      - 9890404044022096187
-      - 3478280629184232454
-      - 7240336935309385777
+      - 14554927721463606165
+      - 3347800174851739610
+      - 17632110283935303617
     Transform:
       Follow owner: true
       Position: [-7.74657726, 0.72830987, 0]
@@ -2038,7 +2037,7 @@ GameObjects:
         - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
         - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
       Current animation: Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
-  - GameObject: 9890404044022096187
+  - GameObject: 14554927721463606165
     Name: MuzzleFlash
     Is Enabled: false
     Is Selectable: true
@@ -2070,7 +2069,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 5
       Emmisive Mask Intensity: 0
-  - GameObject: 3478280629184232454
+  - GameObject: 3347800174851739610
     Name: StartPosition
     Is Enabled: true
     Is Selectable: true
@@ -2082,7 +2081,7 @@ GameObjects:
       Position: [-11.686264, -0.198659897, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 7240336935309385777
+  - GameObject: 17632110283935303617
     Name: EndPosition
     Is Enabled: true
     Is Selectable: true
@@ -2094,15 +2093,15 @@ GameObjects:
       Position: [-2.12395024, -0.163712144, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 13340488689920478368
+  - GameObject: 17583753658446580869
     Name: Enemy
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
     Childs:
-      - 3454504942899372985
-      - 9741014202736825534
-      - 10710006136661456646
+      - 1604015526726524606
+      - 11812386967633500786
+      - 4182191806608463849
     Transform:
       Follow owner: true
       Position: [17.4946194, 0.827625632, 0]
@@ -2149,7 +2148,7 @@ GameObjects:
         - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
         - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
       Current animation: Source/Examples/2DShooter/Animations/GreenSoldierIdle.anim
-  - GameObject: 3454504942899372985
+  - GameObject: 1604015526726524606
     Name: MuzzleFlash
     Is Enabled: false
     Is Selectable: true
@@ -2181,7 +2180,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 5
       Emmisive Mask Intensity: 0
-  - GameObject: 9741014202736825534
+  - GameObject: 11812386967633500786
     Name: StartPosition
     Is Enabled: true
     Is Selectable: true
@@ -2193,7 +2192,7 @@ GameObjects:
       Position: [12.3021612, -0.164709806, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 10710006136661456646
+  - GameObject: 4182191806608463849
     Name: EndPosition
     Is Enabled: true
     Is Selectable: true
@@ -2205,15 +2204,15 @@ GameObjects:
       Position: [21.8587685, 0.0230164528, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 6358832885674007735
+  - GameObject: 4682808497729682385
     Name: Enemy
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: Source/Examples/2DShooter/Prefabs/Enemy.prefab
     Childs:
-      - 17756165952607578679
-      - 17652958137718952321
-      - 13965222889627326626
+      - 15177509001818738126
+      - 2385163626206446131
+      - 1469733095761153093
     Transform:
       Follow owner: true
       Position: [29.4455338, 1.3904109, 0]
@@ -2260,7 +2259,7 @@ GameObjects:
         - Source/Examples/2DShooter/Animations/GreenSoldierDeath.anim
         - Source/Examples/2DShooter/Animations/GreenSoldierJump.anim
       Current animation: Source/Examples/2DShooter/Animations/GreenSoldierRun.anim
-  - GameObject: 17756165952607578679
+  - GameObject: 15177509001818738126
     Name: MuzzleFlash
     Is Enabled: false
     Is Selectable: true
@@ -2292,7 +2291,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 5
       Emmisive Mask Intensity: 0
-  - GameObject: 17652958137718952321
+  - GameObject: 2385163626206446131
     Name: StartPosition
     Is Enabled: true
     Is Selectable: true
@@ -2304,7 +2303,7 @@ GameObjects:
       Position: [24.0314827, 0.0899193287, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 13965222889627326626
+  - GameObject: 1469733095761153093
     Name: EndPosition
     Is Enabled: true
     Is Selectable: true
@@ -2316,43 +2315,43 @@ GameObjects:
       Position: [33.5441322, 0.107893288, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 5071307481269674841
+  - GameObject: 150385587833442630
     Name: Lights
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 14299794811003125126
-      - 14738456462483867274
-      - 6456826366176670056
-      - 11931097143036879930
-      - 1442019743701668173
-      - 10553695238143469660
-      - 1742483557397150680
-      - 15909009127861584709
-      - 11637789969481371767
-      - 4838853022068135910
-      - 3714858560059843460
-      - 11968273314788907503
-      - 5388972305962308567
-      - 4746507254544173172
-      - 14647821272987992458
-      - 2717630776063636383
-      - 1595049450219380310
-      - 5366074328425932984
-      - 17574106801386092868
-      - 7839618765165635629
-      - 9954457469981929103
-      - 6689382318345502079
-      - 16146532890597628109
-      - 7958105732111161257
-      - 1126014283638814177
+      - 6721105008053339237
+      - 12513446558945121482
+      - 13347860572068106335
+      - 2029072538013439377
+      - 4446642210814682885
+      - 10129566757697494036
+      - 15644431161804491316
+      - 3668857411584569458
+      - 11424246968313331952
+      - 13188371004808801316
+      - 14357297215552043999
+      - 10327224306319985875
+      - 15059810948482860826
+      - 1549847068986874973
+      - 14057423408948381968
+      - 15685458236184489460
+      - 16332285555107053680
+      - 4737206267512992728
+      - 3904477607096758058
+      - 6358010938153707594
+      - 12929485279150535693
+      - 18207038498557383539
+      - 11004066222606796564
+      - 17650034796966414340
+      - 12935969800192140586
     Transform:
       Follow owner: true
       Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 14299794811003125126
+  - GameObject: 6721105008053339237
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2384,7 +2383,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 14738456462483867274
+  - GameObject: 12513446558945121482
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2416,7 +2415,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 6456826366176670056
+  - GameObject: 13347860572068106335
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2448,7 +2447,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 11931097143036879930
+  - GameObject: 2029072538013439377
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2480,7 +2479,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 1442019743701668173
+  - GameObject: 4446642210814682885
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2512,7 +2511,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 10553695238143469660
+  - GameObject: 10129566757697494036
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2544,7 +2543,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 1742483557397150680
+  - GameObject: 15644431161804491316
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2576,7 +2575,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 15909009127861584709
+  - GameObject: 3668857411584569458
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2608,7 +2607,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 11637789969481371767
+  - GameObject: 11424246968313331952
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2640,7 +2639,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 4838853022068135910
+  - GameObject: 13188371004808801316
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2672,7 +2671,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 3714858560059843460
+  - GameObject: 14357297215552043999
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2704,7 +2703,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 11968273314788907503
+  - GameObject: 10327224306319985875
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2736,7 +2735,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 5388972305962308567
+  - GameObject: 15059810948482860826
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2768,7 +2767,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 4746507254544173172
+  - GameObject: 1549847068986874973
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2800,7 +2799,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 14647821272987992458
+  - GameObject: 14057423408948381968
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2832,7 +2831,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 2717630776063636383
+  - GameObject: 15685458236184489460
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2864,7 +2863,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 1595049450219380310
+  - GameObject: 16332285555107053680
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2896,7 +2895,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 5366074328425932984
+  - GameObject: 4737206267512992728
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2928,7 +2927,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 17574106801386092868
+  - GameObject: 3904477607096758058
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2960,7 +2959,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 7839618765165635629
+  - GameObject: 6358010938153707594
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -2992,7 +2991,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 9954457469981929103
+  - GameObject: 12929485279150535693
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -3024,7 +3023,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 6689382318345502079
+  - GameObject: 18207038498557383539
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -3056,7 +3055,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 16146532890597628109
+  - GameObject: 11004066222606796564
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -3088,7 +3087,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 7958105732111161257
+  - GameObject: 17650034796966414340
     Name: Light
     Is Enabled: true
     Is Selectable: true
@@ -3120,7 +3119,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 7
       Emmisive Mask Intensity: 0
-  - GameObject: 5951682142644237614
+  - GameObject: 12532029744237332203
     Name: MuzzleFlash
     Is Enabled: false
     Is Selectable: true
@@ -3152,7 +3151,7 @@ GameObjects:
       Is Normal used: false
       Ambient: 5
       Emmisive Mask Intensity: 0
-  - GameObject: 1126014283638814177
+  - GameObject: 12935969800192140586
     Name: Light
     Is Enabled: true
     Is Selectable: true

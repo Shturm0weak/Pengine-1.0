@@ -6,11 +6,11 @@
 namespace Pengine
 {
 
-	class PointLight2D : public IComponent
+	class PENGINE_API PointLight2D : public IComponent
 	{
 	public:
 
-		glm::vec3 m_Color = { 1.0f,1.0f,1.0f };
+		glm::vec3 m_Color = { 1.0f, 1.0f, 1.0f };
 
 		float m_Constant = 1.0f;
 		float m_Linear = 0.09f;

@@ -1,0 +1,270 @@
+Title: 3D
+Environment:
+  Global Intensity: 1
+  Directional Light: 1
+  Blur passes: 10
+  Brightness threshold: 0.52700001
+  Exposure: 0.00999999978
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DepthTest: true
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-5.95214844, 3.63423419, -12.2905989]
+    Rotation: [-0.23035562, 3.12076998, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.58389997
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 10000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 3503526979309807712
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 5, 0]
+      Rotation: [0.853266835, 0.228648812, 0.382548124]
+      Scale: [0.999999702, 0.99999994, 1.00000012]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - GameObject: 4138220036039060738
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      Ambient: [0.300000012, 0.300000012, 0.300000012]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 1
+      Shininess: 64
+      Solid: 1
+      BaseColor: White
+  - GameObject: 7702868342511576056
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      Ambient: [0.300000012, 0.300000012, 0.300000012]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 1
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 16823289511111916631
+    Name: Cone
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cone.meta
+      Ambient: [0.300000012, 0.300000012, 0.300000012]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 1
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 8404910505132650066
+    Name: Cylinder
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-9, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cylinder.meta
+      Ambient: [0.300000012, 0.300000012, 0.300000012]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 1
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 542236171046268213
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [0.300000012, 0.300000012, 0.300000012]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 1
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 554033217648626362
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12, 0, -7]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [0.050999999, 0.363329351, 1]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 15
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 15138818691421761877
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-9, 0, -7]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [1, 0.050999999, 0.050999999]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 10
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 14668385576532912710
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6, 0, -7]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [1, 0.706243634, 0.0717299581]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 8
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 3980841524759420335
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3, 0, -7]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [0.253592014, 1, 0.0928270221]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 8
+      Shininess: 32
+      Solid: 1
+      BaseColor: White
+  - GameObject: 6658569755396652970
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, -7]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      Ambient: [0.799337208, 0.0675105453, 1]
+      Diffuse: [0.300000012, 0.300000012, 0.300000012]
+      Specular: [0.300000012, 0.300000012, 0.300000012]
+      Scale: 8
+      Shininess: 32
+      Solid: 1
+      BaseColor: White

@@ -20,6 +20,9 @@ namespace Pengine
 		glm::ivec2 m_Size = { 800, 600 };
 		glm::vec2 m_ScrollOffset = { 0.0f, 0.0f };
 
+		glm::dvec2 m_CursorPosition;
+		glm::dvec2 m_PreviousCursorPosition;
+
 		std::string m_Title = "Application";
 
 		ImGuiContext* m_ImGuiContext = nullptr;
@@ -50,6 +53,10 @@ namespace Pengine
 		
 		glm::vec2 GetScrollOffset() const { return m_ScrollOffset; }
 		
+		glm::dvec2 GetCursorPosition();
+
+		glm::dvec2 GetPreviousCursorPosition() const { return m_PreviousCursorPosition; }
+
 		void SetWindowSize(const glm::ivec2 size);
 
 		void Exit();
@@ -78,7 +85,17 @@ namespace Pengine
 		
 		void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 1.0f }) const;
 
+		void ClampCursorPosition();
+
 		void ShutDown();
+
+		void DisableCursor();
+		
+		void ShowCursor();
+		
+		void HideCursor();
+
+		int GetCursorMode();
 	};
 
 }

@@ -17,12 +17,20 @@ namespace Pengine
 	{
 	private:
 
-		Material m_Material;
-
-		friend class Serializer;
-	public:
+		void EraseFromInstancing();
+		void AddToInstancing();
 
 		Mesh* m_Mesh = nullptr;
+
+		friend class Serializer;
+		friend class Editor;
+		friend class Scene;
+		friend class Raycast3D;
+	public:
+
+		Material m_Material;
+
+		bool m_BackFaceCulling = true;
 
 		Renderer3D() = default;
 		
@@ -36,7 +44,7 @@ namespace Pengine
 		
 		virtual void Delete() override;
 
-		void SetMesh(Mesh* mesh) { m_Mesh = mesh; }
+		void SetMesh(Mesh* mesh);
 	};
 
 }

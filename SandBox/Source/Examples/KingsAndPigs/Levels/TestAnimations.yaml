@@ -1,15 +1,14 @@
 Title: TestAnimations
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 8
   Brightness threshold: 0.949999988
   Exposure: 0.100000001
   Gamma: 2.20000005
   Pixels blured: 6
   IsEnabled: true
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 3143260156062057134
+  - GameObject: 8162171981470900760
     Name: Cannon
     Is Enabled: true
     Is Selectable: true
@@ -62,7 +61,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\Cannon\CannonShoot.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\Cannon\CannonShoot.anim
-  - GameObject: 12550442807120251858
+  - GameObject: 832119812435717174
     Name: BombOn
     Is Enabled: true
     Is Selectable: true
@@ -100,7 +99,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\Bomb\BombOn.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\Bomb\BombOn.anim
-  - GameObject: 7183219267906416598
+  - GameObject: 15185466681023944232
     Name: BombBoom
     Is Enabled: true
     Is Selectable: true
@@ -138,7 +137,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\Bomb\BombBoom.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\Bomb\BombBoom.anim
-  - GameObject: 10282820916318794919
+  - GameObject: 14869098993517330110
     Name: KingHuman
     Is Enabled: true
     Is Selectable: true
@@ -180,7 +179,7 @@ GameObjects:
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Attack.anim
-  - GameObject: 3972591843253448627
+  - GameObject: 9255790208016659828
     Name: KingHuman
     Is Enabled: true
     Is Selectable: true
@@ -222,7 +221,7 @@ GameObjects:
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Dead.anim
-  - GameObject: 11190497523152423685
+  - GameObject: 6775847756440408653
     Name: KingHuman
     Is Enabled: true
     Is Selectable: true
@@ -264,7 +263,7 @@ GameObjects:
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Hit.anim
-  - GameObject: 6175065695310656565
+  - GameObject: 1305019934514821383
     Name: KingHuman
     Is Enabled: true
     Is Selectable: true
@@ -306,7 +305,7 @@ GameObjects:
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
-  - GameObject: 15257315010613427608
+  - GameObject: 4875427100549243486
     Name: KingHuman
     Is Enabled: true
     Is Selectable: true
@@ -348,7 +347,7 @@ GameObjects:
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Idle.anim
         - Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\KingHuman\Run.anim
-  - GameObject: 11574929771395498145
+  - GameObject: 2494152457135824851
     Name: Pig
     Is Enabled: true
     Is Selectable: true
@@ -386,7 +385,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\Pig\Attack.anim
-  - GameObject: 2756771886620429029
+  - GameObject: 6856748653186131876
     Name: Pig
     Is Enabled: true
     Is Selectable: true
@@ -424,7 +423,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\PigThrowingBox\Idle.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\PigThrowingBox\Idle.anim
-  - GameObject: 4417716807778412378
+  - GameObject: 9378546424544646511
     Name: Pig
     Is Enabled: true
     Is Selectable: true
@@ -462,7 +461,7 @@ GameObjects:
       Animations:
         - Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Idle.anim
       Current animation: Source\Examples\KingsAndPigs\Animations\PigThrowingBomb\Idle.anim
-  - GameObject: 13682734153926334570
+  - GameObject: 4708445298087433418
     Name: Pig
     Is Enabled: true
     Is Selectable: true

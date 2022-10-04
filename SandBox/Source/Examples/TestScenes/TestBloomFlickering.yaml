@@ -1,15 +1,14 @@
 Title: TestBloomFlickering
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 10
   Brightness threshold: 0.5
   Exposure: 0.0199999996
   Gamma: 1.5
   Pixels blured: 6
   IsEnabled: true
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 8122242838880485124
+  - GameObject: 1597041199583876863
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -40,6 +39,7 @@ GameObjects:
       Color: [0.143459916, 0.381990254, 1, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -54,3 +54,4 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 5
+      Emmisive Mask Intensity: 0

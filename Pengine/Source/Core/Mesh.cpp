@@ -1,5 +1,8 @@
 #include "Mesh.h"
 
+#include "Instancing.h"
+#include "Serializer.h"
+
 using namespace Pengine;
 
 Mesh::Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices,
@@ -19,6 +22,17 @@ Mesh::Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::v
 	}
 	m_Va.AddBuffer(m_Vb, m_Layout);
 	m_Ib.Initialize(&m_Indices[0], m_Indices.size());
+
+	Instancing::GetInstance().Create(this);
+}
+
+Mesh::Meta Mesh::GenerateMeta()
+{
+	Meta meta;
+	meta.m_FilePath = Utils::GetDirectoryFromFilePath(m_FilePath) + "/" + m_Name + ".meta";
+	meta.m_Name = m_Name;
+
+	return meta;
 }
 
 void Mesh::Bind() const

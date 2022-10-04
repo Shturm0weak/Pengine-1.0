@@ -19,6 +19,7 @@ namespace Pengine
 		glm::vec3 m_PositionDelta;
 		glm::vec3 m_Rotation;
 		glm::vec3 m_Back;
+		glm::vec3 m_Up;
 
 		std::function<void()> m_OnRotationCallback;
 		std::function<void()> m_OnTranslationCallback;
@@ -27,7 +28,7 @@ namespace Pengine
 		bool m_Copyable = true;
 
 		void Move(Transform&& transform) noexcept;
-		void UpdateBack();
+		void UpdateVectors();
 
 		friend class GameObject;
 		friend class Editor;
@@ -68,7 +69,7 @@ namespace Pengine
 		
 		glm::vec3 GetBack() const { return m_Back; };
 		
-		glm::vec3 GetUp() const { return glm::normalize(glm::vec3(m_RotationMat4[0][1], m_RotationMat4[1][1], m_RotationMat4[2][1])); };
+		glm::vec3 GetUp() const { return m_Up; };
 		
 		glm::vec3 GetForward() const { return glm::normalize(glm::vec3(-m_Back.x, m_Back.y, -m_Back.z)); };
 		

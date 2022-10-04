@@ -12,6 +12,7 @@
 #include "TextureAtlasManager.h"
 #include "Timer.h"
 #include "ReflectionSystem.h"
+#include "Instancing.h"
 #include "../UI/Gui.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
@@ -64,7 +65,9 @@ void Editor::Debug()
 			ImGui::Text("Events: %zu", EventSystem::GetInstance().m_CurrentEvents.size());
 			ImGui::Text("Lua states: %zu", LuaStateManager::GetInstance().m_LuaStates.size());
 			ImGui::Text("Raw Lua states: %zu", LuaStateManager::GetInstance().m_LuaStatesRaw.size());
-			
+			ImGui::Text("Instanced meshes: %zu", m_CurrentScene->m_InstancedObjects.size());
+			ImGui::Text("Meshes: %zu", MeshManager::GetInstance().m_Meshes.size());
+
 			size_t amount = 0;
 			for (size_t i = 0; i < m_CurrentScene->m_Renderer2DLayers.size(); i++)
 			{
@@ -670,6 +673,10 @@ void Editor::AssetBrowser()
 						}
 					}
 				}
+				else if (fileType == "obj" && ImGui::MenuItem("Load"))
+				{
+					MeshManager::GetInstance().GenerateMeshMeta(path);
+				}
 
 				ImGui::EndPopup();
 			}
@@ -767,21 +774,37 @@ void Editor::Properties()
 			ParticleEmitterComponent(gameObject);
 			ScriptComponent(gameObject);
 			PointLight2DComponent(gameObject);
+			DirectionalLightComponent(gameObject);
+			Renderer3DComponent(gameObject);
 
 			UserDefinedComponents(gameObject);
 
 			ImGui::NewLine();
 
-			glm::mat4 transform = gameObject->m_Transform.GetTransform();
-			glm::vec4 a = transform * glm::vec4(-0.5f, -0.5f, 0.0f, 1.0f);
-			glm::vec4 b = transform * glm::vec4(0.5f, -0.5f, 0.0f, 1.0f);
-			glm::vec4 c = transform * glm::vec4(0.5f, 0.5f, 0.0f, 1.0f);
-			glm::vec4 d = transform * glm::vec4(-0.5f, 0.5f, 0.0f, 1.0f);
+			if (Environment::GetInstance().GetMainCamera()->GetType() == Camera::CameraType::ORTHOGRAPHIC)
+			{
+				glm::mat4 transform = gameObject->m_Transform.GetTransform();
+				glm::vec4 a = transform * glm::vec4(-0.5f, -0.5f, 0.0f, 1.0f);
+				glm::vec4 b = transform * glm::vec4(0.5f, -0.5f, 0.0f, 1.0f);
+				glm::vec4 c = transform * glm::vec4(0.5f, 0.5f, 0.0f, 1.0f);
+				glm::vec4 d = transform * glm::vec4(-0.5f, 0.5f, 0.0f, 1.0f);
 
-			Visualizer::DrawLine(a, b, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
-			Visualizer::DrawLine(b, c, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
-			Visualizer::DrawLine(c, d, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
-			Visualizer::DrawLine(d, a, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+				Visualizer::DrawLine(a, b, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+				Visualizer::DrawLine(b, c, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+				Visualizer::DrawLine(c, d, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+				Visualizer::DrawLine(d, a, glm::vec4(1.0f, 1.0f, 0.0f, 1.0f));
+			}
+			else if (Environment::GetInstance().GetMainCamera()->GetType() == Camera::CameraType::PERSPECTIVE)
+			{
+				if (Renderer3D* r3d = gameObject->m_ComponentManager.GetComponent<Renderer3D>())
+				{
+					if (r3d->m_Mesh)
+					{
+						Visualizer::DrawWireFrameCube(gameObject->m_Transform.GetPositionMat4(), gameObject->m_Transform.GetRotationMat4()
+							, gameObject->m_Transform.GetScaleMat4(), r3d->m_Mesh->m_BoundingBox.m_Min, r3d->m_Mesh->m_BoundingBox.m_Max);
+					}
+				}
+			}
 		}
 		ImGui::End();
 	}
@@ -813,6 +836,11 @@ void Editor::Environment()
 			Window::GetInstance().SetVSyncEnabled(Window::GetInstance().m_VSync);
 		}
 
+		if (ImGui::Checkbox("Depth Test", &Environment::GetInstance().m_DepthTest))
+		{
+			Environment::GetInstance().SetDepthTest(Environment::GetInstance().m_DepthTest);
+		}
+
 		ImGui::SliderFloat("Intensity", &Environment::GetInstance().m_GlobalIntensity, 0.0f, 10.0f);
 		
 		const char* windowModes[] = { "Windowed", "Fullscreen" };
@@ -834,9 +862,29 @@ void Editor::Environment()
 		if (ImGui::CollapsingHeader("Main camera"))
 		{
 			std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+
+			m_SelectedCameraType = (int)camera->GetType();
+			const char* cameraTypes[] = { "Orthographic", "Perspective" };
+			if (ImGui::Combo("Camera type", &m_SelectedCameraType, cameraTypes, 2))
+			{
+				camera->SetType((Camera::CameraType)m_SelectedCameraType);
+			}
+
 			ImGui::DragFloat("Speed", &camera->m_Speed, 1.0f, 0.0f, 100.0f);
 			ImGui::DragFloat("Zoom sensetivity", &camera->m_ZoomSensetivity, 0.1f, 0.1f, 5.0f);
-			camera->m_Fov = glm::radians(camera->m_Fov);
+			if (ImGui::SliderAngle("Fov", &camera->m_Fov, 0.0f, 90.0f))
+			{
+				camera->UpdateProjection();
+			}
+			if (ImGui::SliderFloat("Z far", &camera->m_Zfar, 0.0f, 10000.0f))
+			{
+				camera->UpdateProjection();
+			}
+			if (ImGui::SliderFloat("Z near", &camera->m_Znear, 0.0f, 1.0f))
+			{
+				camera->UpdateProjection();
+			}
+
 			TransformComponent(camera->m_Transform);
 		}
 		ImGui::End();
@@ -1262,10 +1310,108 @@ void Editor::PointLight2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Point Light 2D"))
 			{
-				ImGui::SliderFloat("Constant", &pointLight2D->m_Constant, 0, 1);
-				ImGui::SliderFloat("Linear", &pointLight2D->m_Linear, 0, 0.100f);
-				ImGui::SliderFloat("Quadratic", &pointLight2D->m_Quadratic, 0, 0.100);
+				ImGui::SliderFloat("Constant", &pointLight2D->m_Constant, 0.0f, 1.0f);
+				ImGui::SliderFloat("Linear", &pointLight2D->m_Linear, 0.0f, 0.100f);
+				ImGui::SliderFloat("Quadratic", &pointLight2D->m_Quadratic, 0.0f, 0.1f);
 				ImGui::ColorEdit3("Color", &pointLight2D->m_Color[0]);
+			}
+		}
+	}
+}
+
+void Editor::DirectionalLightComponent(GameObject* gameObject)
+{
+	DirectionalLight* directionalLight = gameObject->m_ComponentManager.GetComponent<DirectionalLight>();
+	if (directionalLight)
+	{
+		if (RemoveComponentMenu(gameObject, directionalLight))
+		{
+			if (ImGui::CollapsingHeader("Directional Light "))
+			{
+				ImGui::SliderFloat("Intensity", &directionalLight->m_Intensity, 0.0f, 10.0f);
+				ImGui::ColorEdit3("Color", &directionalLight->m_Color[0]);
+			}
+		}
+	}
+}
+
+void Editor::Renderer3DComponent(GameObject* gameObject)
+{
+	Renderer3D* r3d = gameObject->m_ComponentManager.GetComponent<Renderer3D>();
+	if (r3d)
+	{
+		if (RemoveComponentMenu(gameObject, r3d))
+		{
+			if (ImGui::CollapsingHeader("Renderer3D"))
+			{
+				if (ImGui::CollapsingHeader("Mesh"))
+				{
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						{
+							std::string path((const char*)payload->Data);
+							path.resize(payload->DataSize);
+
+							if (Utils::Contains(path, ".meta"))
+							{
+								MeshManager::GetInstance().LoadAsync(path,
+									[r3d](Mesh* mesh)
+								{
+									r3d->SetMesh(mesh);
+								});
+							}
+						}
+
+						ImGui::EndDragDropTarget();
+					}
+
+					ImGui::Text("FilePath: %s", r3d->m_Mesh ? r3d->m_Mesh->GetFilePath().c_str() : "None");
+					ImGui::Text("Name: %s", r3d->m_Mesh ? r3d->m_Mesh->GetName().c_str() : "None");
+
+					if (r3d->m_Mesh)
+					{
+						ImGui::Text("Min: %f %f %f", r3d->m_Mesh->m_BoundingBox.m_Min.x, r3d->m_Mesh->m_BoundingBox.m_Min.y, r3d->m_Mesh->m_BoundingBox.m_Min.z);
+						ImGui::Text("Max: %f %f %f", r3d->m_Mesh->m_BoundingBox.m_Max.x, r3d->m_Mesh->m_BoundingBox.m_Max.y, r3d->m_Mesh->m_BoundingBox.m_Max.z);
+					}
+				}
+				
+				if (ImGui::CollapsingHeader("Material"))
+				{
+					ImGui::Image((ImTextureID)r3d->m_Material.m_BaseColor->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						{
+							std::string path((const char*)payload->Data);
+							path.resize(payload->DataSize);
+							TextureManager::GetInstance().AsyncCreate(path);
+							TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+								r3d->m_Material.m_BaseColor = texture;
+								}, path);
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+					ImGui::SameLine();
+
+					ImGui::PushID(r3d->m_Material.m_BaseColor->GetRendererID() + 100000);
+
+					if (ImGui::Button("Reset"))
+					{
+						r3d->m_Material.m_BaseColor = TextureManager::GetInstance().White();
+					}
+
+					ImGui::ColorEdit3("Ambient", &r3d->m_Material.m_Ambient[0], ImGuiColorEditFlags_Float);
+					ImGui::ColorEdit3("Diffuse", &r3d->m_Material.m_Diffuse[0], ImGuiColorEditFlags_Float);
+					ImGui::ColorEdit3("Specular", &r3d->m_Material.m_Specular[0], ImGuiColorEditFlags_Float);
+					ImGui::SliderFloat("Scale", &r3d->m_Material.m_Scale, 0.0f, 15.0f);
+					ImGui::SliderFloat("Shininess", &r3d->m_Material.m_Shininess, 0.0f, 64.0f);
+					ImGui::SliderFloat("Solid", &r3d->m_Material.m_Solid, 0.0f, 1.0f);
+					
+					ImGui::PopID();
+				}
 			}
 		}
 	}
@@ -1276,7 +1422,7 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 	if (gameObject->m_ComponentManager.GetComponents().size() > 0) ImGui::Text("User-defined components");
 	for (IComponent* component : gameObject->m_ComponentManager.GetComponents())
 	{
-		if (Utils::IsUserDefinedComponent(component->GetType()))
+		if (Utils::IsUserDefinedComponent(component->GetType()) && !component->GetType().size() == 0)
 		{
 			if (RemoveComponentMenu(gameObject, component))
 			{
@@ -1827,6 +1973,14 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 		{
 			gameObject->m_ComponentManager.AddComponent<PointLight2D>();
 		}
+		if (ImGui::MenuItem("DirectionalLight"))
+		{
+			gameObject->m_ComponentManager.AddComponent<DirectionalLight>();
+		}
+		if (ImGui::MenuItem("Renderer3D"))
+		{
+			gameObject->m_ComponentManager.AddComponent<Renderer3D>();
+		}
 
 		for (auto& registeredClass : ReflectionSystem::GetInstance().m_RegisteredClasses)
 		{
@@ -2049,6 +2203,7 @@ void Editor::Settings()
 		ImGui::Checkbox("Snap", &m_Snap);
 		ImGui::Checkbox("Draw colliders", &m_DrawColliders);
 		ImGui::SliderInt("Line width", &m_LineWidth, 1, 5);
+		ImGui::SliderInt("Instanced objects to threads", &Instancing::GetInstance().m_SizeOfObjectToThreads, 1, 1000);
 		ImGui::SliderFloat("Thumbnail scale", &m_ThumbnailScale, 0.1f, 5.0f);
 		if (ImGui::SliderFloat("Master volume", &SoundManager::GetInstance().m_MasterVolume, 0.0f, 1.0f))
 		{

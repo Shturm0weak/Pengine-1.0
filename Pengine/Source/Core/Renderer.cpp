@@ -9,6 +9,7 @@
 #include "Timer.h"
 #include "Visualizer.h"
 #include "Application.h"
+#include "Instancing.h"
 #include "../UI/Gui.h"
 #include "../OpenGL/Batch.h"
 #include "../OpenGL/Shader.h"
@@ -41,7 +42,7 @@ void Renderer::Initialize()
 
     TextureManager::GetInstance().ResetTexParametersi();
 
-    Logger::Success("Viewport has been initialized!");
+    Logger::Success("Renderer has been initialized!");
 }
 
 void Renderer::BeginScene()
@@ -226,12 +227,15 @@ void Renderer::Render(class Application* application)
         Batch::GetInstance().BeginGameObjects();
         {
             application->m_Scene->Render();
+            Instancing::GetInstance().Render(application->m_Scene->m_InstancedObjects);
             Visualizer::RenderQuads();
             Visualizer::RenderCircles();
         }
         Batch::GetInstance().EndGameObjects();
     }
     EndScene();
+
+    Instancing::GetInstance().PrepareVertexAtrrib(application->m_Scene->m_InstancedObjects);
 
     BeginUI();
     {

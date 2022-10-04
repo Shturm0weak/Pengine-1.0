@@ -17,7 +17,7 @@ void VertexBuffer::Initialize(const void* data, uint32_t size, bool Static)
 	}
 	else
 	{
-		glBufferData(GL_ARRAY_BUFFER, size, NULL, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
 	}
 }
 
@@ -44,5 +44,5 @@ void VertexBuffer::UnBind() const
 
 void VertexBuffer::Invalidate() const
 {
-	//glInvalidateBufferData(m_RendererID); OpenGL 4.6
+	glDeleteBuffers(1, &m_RendererID);
 }

@@ -1150,5 +1150,9 @@ namespace objl
 		static Pengine::Mesh* Load(const std::string& filePath);
 
 		static void LoadAsync(const std::string& filePath, std::function<void(Pengine::Mesh*)> callback);
+
+		static void LoadAsyncToViewport(const std::string& filePath);
+
+		static void GenerateMeshMeta(const std::string& filePath);
 	};
 }

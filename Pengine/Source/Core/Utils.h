@@ -122,7 +122,7 @@ namespace Pengine
 		}
 
 		template<class T>
-		inline bool IsThere(const std::vector<T>& vector, T object)
+		inline bool IsThere(const std::vector<T>& vector, const T& object)
 		{
 			return std::find(vector.begin(), vector.end(), object) != vector.end();
 		}

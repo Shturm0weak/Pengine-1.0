@@ -1,15 +1,14 @@
 Title: Default
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 8
   Brightness threshold: 0.769999981
   Exposure: 0.137999997
   Gamma: 2.20000005
   Pixels blured: 6
   IsEnabled: false
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 4082235372478561200
+  - GameObject: 17139331219630337566
     Name: Character
     Is Enabled: true
     Is Selectable: true
@@ -66,7 +65,7 @@ GameObjects:
         - Source\Examples\Adventure\Animations\Attack2.anim
         - Source\Examples\Adventure\Animations\Attack3.anim
       Current animation: Source\Examples\Adventure\Animations\Attack2.anim
-  - GameObject: 10229290541346742251
+  - GameObject: 1641190046749335089
     Name: Character
     Is Enabled: true
     Is Selectable: true
@@ -108,7 +107,7 @@ GameObjects:
         - Source\Examples\Adventure\Animations\Attack2.anim
         - Source\Examples\Adventure\Animations\Attack3.anim
       Current animation: Source\Examples\Adventure\Animations\Attack1.anim
-  - GameObject: 9779858793210957922
+  - GameObject: 17819281633652708095
     Name: Character
     Is Enabled: true
     Is Selectable: true
@@ -150,7 +149,7 @@ GameObjects:
         - Source\Examples\Adventure\Animations\Attack2.anim
         - Source\Examples\Adventure\Animations\Attack3.anim
       Current animation: Source\Examples\Adventure\Animations\Attack3.anim
-  - GameObject: 17213683120956927255
+  - GameObject: 7020158543043598296
     Name: Character
     Is Enabled: true
     Is Selectable: true
@@ -192,7 +191,7 @@ GameObjects:
         - Source\Examples\Adventure\Animations\Attack2.anim
         - Source\Examples\Adventure\Animations\Attack3.anim
       Current animation: Source\Examples\Adventure\Animations\Idle2.anim
-  - GameObject: 15207085878142055488
+  - GameObject: 16534172245565360970
     Name: Character
     Is Enabled: true
     Is Selectable: true

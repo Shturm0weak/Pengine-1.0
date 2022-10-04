@@ -1,12 +1,14 @@
 Title: TestBloomCircles
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 20
   Brightness threshold: 0.800000012
   Exposure: 0.0299999993
   Gamma: 1
   Pixels blured: 6
   IsEnabled: true
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -21,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 7608969260178166536
+  - GameObject: 12573743534661384982
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -37,6 +39,7 @@ GameObjects:
       Color: [0.113924026, 0.562601686, 1, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -51,7 +54,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 5
-  - GameObject: 2508928440235047891
+      Emmisive Mask Intensity: 0
+  - GameObject: 10279147047455399022
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -67,6 +71,7 @@ GameObjects:
       Color: [1, 0.113924026, 0.113924026, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -81,7 +86,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 5
-  - GameObject: 11150177723554928238
+      Emmisive Mask Intensity: 0
+  - GameObject: 15924583845659704131
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -97,6 +103,7 @@ GameObjects:
       Color: [1, 0.629866958, 0.113924026, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -111,7 +118,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 5
-  - GameObject: 1960957330802317108
+      Emmisive Mask Intensity: 0
+  - GameObject: 8757498796589300720
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -127,6 +135,7 @@ GameObjects:
       Color: [0.337980151, 1, 0.219409287, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -141,7 +150,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 4.02699995
-  - GameObject: 17055456947497119784
+      Emmisive Mask Intensity: 0
+  - GameObject: 9775278691630979598
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -157,6 +167,7 @@ GameObjects:
       Color: [0.298456132, 0.219409287, 1, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -171,7 +182,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 5
-  - GameObject: 1150657590184944626
+      Emmisive Mask Intensity: 0
+  - GameObject: 3823855604742636850
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -187,6 +199,7 @@ GameObjects:
       Color: [1, 0.219409287, 0.812263131, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -201,7 +214,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 4.64599991
-  - GameObject: 15976023361762867188
+      Emmisive Mask Intensity: 0
+  - GameObject: 9659760535472015159
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -217,6 +231,7 @@ GameObjects:
       Color: [1, 0.970998228, 0.236286938, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -231,7 +246,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 4.64599991
-  - GameObject: 1904681716502793445
+      Emmisive Mask Intensity: 0
+  - GameObject: 9579685875002333983
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -247,6 +263,7 @@ GameObjects:
       Color: [0.584308088, 1, 0.236286938, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -261,7 +278,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 4.64599991
-  - GameObject: 4038765288163918488
+      Emmisive Mask Intensity: 0
+  - GameObject: 8167772344026269414
     Name: Unnamed
     Is Enabled: true
     Is Selectable: true
@@ -277,6 +295,7 @@ GameObjects:
       Color: [0.1690256, 0.852320671, 0.653386772, 1]
       Texture: Source/Images/WhiteCirlce.png
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -291,3 +310,4 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 4.64599991
+      Emmisive Mask Intensity: 0

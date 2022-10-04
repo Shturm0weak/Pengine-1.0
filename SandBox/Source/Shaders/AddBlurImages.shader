@@ -29,11 +29,11 @@ void main()
     vec4 textureColor = vec4(0.0, 0.0, 0.0, 0.0);
     vec4 sourceColor = texture(u_BlurTextures[0], uv);
 
-    float brightness = dot(sourceColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-    if (brightness > u_Brightness)
-    {
-        textureColor += sourceColor;
-    }
+    //float brightness = dot(sourceColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+    //if (brightness > u_Brightness)
+    //{
+    //    textureColor += sourceColor;
+    //}
 
     for (int i = 1; i < u_BlurTexturesSize; i++)
     {

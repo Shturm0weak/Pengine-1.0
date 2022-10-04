@@ -743,7 +743,7 @@ Camera Serializer::DeserializeCamera(YAML::Node& in)
 
 		if (auto& fovData = cameraIn["Fov"])
 		{
-			camera.m_Fov = fovData.as<float>();
+			camera.SetFov(fovData.as<float>());
 		}
 
 		if (auto& zoomData = cameraIn["Zoom"])
@@ -758,12 +758,12 @@ Camera Serializer::DeserializeCamera(YAML::Node& in)
 
 		if (auto& zNearData = cameraIn["Z near"])
 		{
-			camera.m_Znear = zNearData.as<float>();
+			camera.SetZNear(zNearData.as<float>());
 		}
 
 		if (auto& zFarData = cameraIn["Z far"])
 		{
-			camera.m_Zfar = zFarData.as<float>();
+			camera.SetZFar(zFarData.as<float>());
 		}
 
 		if (auto& speedData = cameraIn["Speed"])
@@ -773,11 +773,11 @@ Camera Serializer::DeserializeCamera(YAML::Node& in)
 
 		if (auto& typeData = cameraIn["Type"])
 		{
-			camera.m_Type = (Camera::CameraType)typeData.as<int>();
+			camera.SetType((Camera::CameraType)typeData.as<int>());
 		}
 	}
 	
-	camera.UpdateProjection(camera.m_Size);
+	camera.UpdateProjection();
 	
 	return camera;
 }
@@ -788,12 +788,14 @@ void Serializer::SerializeEnvironment(YAML::Emitter& out)
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Global Intensity" << YAML::Value << Environment::GetInstance().GetGlobalIntensity();
+	out << YAML::Key << "Directional Light" << YAML::Value << Environment::GetInstance().GetGlobalIntensity();
 	out << YAML::Key << "Blur passes" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BlurPasses;
 	out << YAML::Key << "Brightness threshold" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold;
 	out << YAML::Key << "Exposure" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Exposure;
 	out << YAML::Key << "Gamma" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Gamma;
 	out << YAML::Key << "Pixels blured" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_PixelsBlured;
 	out << YAML::Key << "IsEnabled" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_IsEnabled;
+	out << YAML::Key << "DepthTest" << YAML::Value << Environment::GetInstance().m_DepthTest;
 	out << YAML::EndMap;
 }
 
@@ -835,7 +837,76 @@ void Serializer::DeserializeEnvironment(YAML::Node& in)
 		{
 			Environment::GetInstance().m_BloomSettings.m_IsEnabled = isEnabledData.as<bool>();
 		}
+
+		if (auto& depthTestData = environmentIn["DepthTest"])
+		{
+			Environment::GetInstance().SetDepthTest(depthTestData.as<bool>());
+		}
 	}
+}
+
+std::string Serializer::GenerateMetaFilePath(const std::string& filePath, const std::string& name)
+{
+	return Utils::GetDirectoryFromFilePath(filePath) + "/" + name + ".meta";
+}
+
+std::string Serializer::SerializeMeshMeta(const std::string& filePath, Pengine::Mesh::Meta meta)
+{
+	std::string metaFilePath = GenerateMetaFilePath(meta.m_FilePath, meta.m_Name);
+
+	YAML::Emitter out;
+
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Mesh";
+	out << YAML::BeginMap;
+	
+	out << YAML::Key << "Name" << YAML::Value << meta.m_Name;
+	out << YAML::Key << "FilePath" << YAML::Value << meta.m_FilePath;
+
+	out << YAML::EndMap;
+	
+	out << YAML::EndMap;
+
+	std::ofstream fout(metaFilePath);
+	fout << out.c_str();
+
+	Logger::Success("has been serialized!", "Mesh meta", metaFilePath.c_str());
+
+	return metaFilePath;
+}
+
+Mesh::Meta Serializer::DeserializeMeshMeta(const std::string& filePath)
+{
+	if (filePath.empty())
+	{
+		return {};
+	}
+
+	std::ifstream stream(filePath);
+	std::stringstream strStream;
+
+	strStream << stream.rdbuf();
+
+	YAML::Node data = YAML::LoadMesh(strStream.str())["Mesh"];
+	if (!data)
+	{
+		return {};
+	}
+
+	Mesh::Meta meta;
+	
+	if (auto& nameData = data["Name"])
+	{
+		meta.m_Name = nameData.as<std::string>();
+	}
+
+	if (auto& filePathData = data["FilePath"])
+	{
+		meta.m_FilePath = filePathData.as<std::string>();
+	}
+
+	return meta;
 }
 
 void Serializer::SerializeTransform(YAML::Emitter& out, const Transform& transform)
@@ -922,6 +993,7 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	SerializeGameObjectChilds(out, gameObject);
 	SerializeTransform(out, gameObject.m_Transform);
 	SerializeRenderer2D(out, gameObject.m_ComponentManager);
+	SerializeRenderer3D(out, gameObject.m_ComponentManager);
 	SerializeBoxCollider2D(out, gameObject.m_ComponentManager);
 	SerializeCircleCollider2D(out, gameObject.m_ComponentManager);
 	SerializeRigidbody2D(out, gameObject.m_ComponentManager);
@@ -929,6 +1001,7 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	SerializeParticleEmitter(out, gameObject.m_ComponentManager);
 	SerializeScript(out, gameObject.m_ComponentManager);
 	SerializePointLight(out, gameObject.m_ComponentManager);
+	SerializeDirectionalLight(out, gameObject.m_ComponentManager);
 	SerializeUserDefinedComponents(out, gameObject.m_ComponentManager);
 
 	out << YAML::EndMap;
@@ -966,6 +1039,7 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 
 	DeserializeGameObjectChilds(in, gameObject, childs);
 	DeSerializeRenderer2D(in, gameObject->m_ComponentManager);
+	DeSerializeRenderer3D(in, gameObject->m_ComponentManager);
 	DeSerializeBoxCollider2D(in, gameObject->m_ComponentManager);
 	DeSerializeCircleCollider2D(in, gameObject->m_ComponentManager);
 	DeSerializeRigidbody2D(in, gameObject->m_ComponentManager);
@@ -973,6 +1047,7 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 	DeSerializeParticleEmitter(in, gameObject->m_ComponentManager);
 	DeSerializeScript(in, gameObject->m_ComponentManager);
 	DeSerializePointLight(in, gameObject->m_ComponentManager);
+	DeSerializeDirectionalLight(in, gameObject->m_ComponentManager);
 	DeserializeUserDefinedComponents(in, gameObject->m_ComponentManager);
 }
 
@@ -1000,6 +1075,96 @@ void Serializer::DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObj
 		}
 		
 		childs.insert(pair);
+	}
+}
+
+void Serializer::SerializeRenderer3D(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	Renderer3D* r3d = componentManager.GetComponent<Renderer3D>();
+	if (r3d != nullptr)
+	{
+		out << YAML::Key << "Renderer3D";
+
+		out << YAML::BeginMap;
+		
+		out << YAML::Key << "Mesh" << YAML::Value << r3d->m_Mesh->GenerateMeta().m_FilePath;
+
+		out << YAML::Key << "Ambient" << YAML::Value << r3d->m_Material.m_Ambient;
+		out << YAML::Key << "Diffuse" << YAML::Value << r3d->m_Material.m_Diffuse;
+		out << YAML::Key << "Specular" << YAML::Value << r3d->m_Material.m_Specular;
+		out << YAML::Key << "Scale" << YAML::Value << r3d->m_Material.m_Scale;
+		out << YAML::Key << "Shininess" << YAML::Value << r3d->m_Material.m_Shininess;
+		out << YAML::Key << "Solid" << YAML::Value << r3d->m_Material.m_Solid;
+		out << YAML::Key << "BaseColor" << YAML::Value << (r3d->m_Material.m_BaseColor ? r3d->m_Material.m_BaseColor->GetFilePath() : "White");
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& renderer3DIn = in["Renderer3D"])
+	{
+		Renderer3D* r3d = componentManager.AddComponent<Renderer3D>();
+
+		if (auto& meshData = renderer3DIn["Mesh"])
+		{
+			std::string filePath = meshData.as<std::string>();
+			if (Utils::Contains(filePath, ".meta"))
+			{
+				MeshManager::GetInstance().LoadAsync(filePath,
+					[r3d](Mesh* mesh)
+				{
+					r3d->SetMesh(mesh);
+				});
+			}
+		}
+
+		if (auto& baseColorData = renderer3DIn["BaseColor"])
+		{
+			std::string baseColorFilePath = baseColorData.as<std::string>();
+			if (baseColorFilePath == "White")
+			{
+				r3d->m_Material.m_BaseColor = TextureManager::GetInstance().White();
+			}
+			else
+			{
+				TextureManager::GetInstance().AsyncCreate(baseColorFilePath);
+				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+					r3d->m_Material.m_BaseColor = texture;
+					}, baseColorFilePath);
+			}
+		}
+
+		if (auto& ambientData = renderer3DIn["Ambient"])
+		{
+			r3d->m_Material.m_Ambient = ambientData.as<glm::vec3>();
+		}
+
+		if (auto& diffuseData = renderer3DIn["Diffuse"])
+		{
+			r3d->m_Material.m_Diffuse = diffuseData.as<glm::vec3>();
+		}
+
+		if (auto& specularData = renderer3DIn["Specular"])
+		{
+			r3d->m_Material.m_Specular = specularData.as<glm::vec3>();
+		}
+
+		if (auto& scaleData = renderer3DIn["Scale"])
+		{
+			r3d->m_Material.m_Scale = scaleData.as<float>();
+		}
+
+		if (auto& shininessData = renderer3DIn["Shininess"])
+		{
+			r3d->m_Material.m_Shininess = shininessData.as<float>();
+		}
+
+		if (auto& solidData = renderer3DIn["Solid"])
+		{
+			r3d->m_Material.m_Solid = solidData.as<float>();
+		}
 	}
 }
 
@@ -1570,6 +1735,39 @@ void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& compone
 		if (auto& quadraticData = pointLight2DIn["Quadratic"])
 		{
 			pointLight2D->m_Quadratic = quadraticData.as<float>();
+		}
+	}
+}
+
+void Serializer::SerializeDirectionalLight(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	DirectionalLight* directionalLight = componentManager.GetComponent<DirectionalLight>();
+	if (directionalLight)
+	{
+		out << YAML::Key << "Directional Light";
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Color" << YAML::Value << directionalLight->m_Color;
+		out << YAML::Key << "Intensity" << YAML::Value << directionalLight->m_Intensity;
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& directionalLightIn = in["Directional Light"])
+	{
+		DirectionalLight* directionalLight = componentManager.AddComponent<DirectionalLight>();
+
+		if (auto& colorData = directionalLightIn["Color"])
+		{
+			directionalLight->m_Color = colorData.as<glm::vec3>();
+		}
+
+		if (auto& intensityData = directionalLightIn["Intensity"])
+		{
+			directionalLight->m_Intensity = intensityData.as<float>();
 		}
 	}
 }

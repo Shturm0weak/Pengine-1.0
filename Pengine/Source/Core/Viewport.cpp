@@ -71,7 +71,7 @@ void Viewport::Update()
 	void* texture = nullptr;
 
 #ifndef STANDALONE
-	if (IsFocused())
+	if (IsFocused() && !Input::Mouse::IsMouseDown(Keycode::MOUSE_BUTTON_2))
 	{
 		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_W))
 		{
@@ -131,6 +131,8 @@ void Viewport::Update()
 
 	SetPosition(glm::vec2(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y));
 
+	m_ImGuiMousePosition = ImGui::GetMousePos();
+
 	texture = reinterpret_cast<void*>(m_FrameBufferViewport->m_Textures[0]);
     ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	
@@ -156,31 +158,37 @@ void Viewport::Update()
 				};
 				EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 			}
+			else if (resolution == "obj")
+			{
+				MeshManager::GetInstance().LoadAsyncToViewport(path);
+			}
 		}
 		ImGui::EndDragDropTarget();
 	}
 
+	glm::dvec2 normalizedMousePosition;
+	glfwGetCursorPos(Window::GetInstance().GetWindow(), &normalizedMousePosition.x, &normalizedMousePosition.y);
+
+	m_NormalizedMousePosition = normalizedMousePosition;
+	m_NormalizedMousePosition -= glm::vec2(m_Position.x, m_Position.y);
+	m_NormalizedMousePosition /= glm::vec2(m_Size.x, m_Size.y);
+	m_NormalizedMousePosition *= 2.0;
+	m_NormalizedMousePosition -= 1.0;
+	m_NormalizedMousePosition = glm::clamp(m_NormalizedMousePosition, glm::vec2(-1.0, -1.0), glm::vec2(1.0, 1.0));
+	m_NormalizedMousePosition.y *= -1.0;
+
 	std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+	glm::vec2 cameraPosition = camera->m_Transform.GetPosition();
 
-	glm::vec2 cameraPos = camera->m_Transform.GetPosition();
-	glm::dvec2 normalizedcursorPosition;
-	glfwGetCursorPos(Window::GetInstance().GetWindow(), &normalizedcursorPosition.x, &normalizedcursorPosition.y);
-	normalizedcursorPosition -= glm::dvec2(m_Position.x, m_Position.y);
-	normalizedcursorPosition /= glm::dvec2(m_Size.x, m_Size.y);
-	normalizedcursorPosition *= 2.0;
-	normalizedcursorPosition -= 1.0;
-	normalizedcursorPosition = glm::clamp(normalizedcursorPosition, glm::dvec2(-1.0, -1.0), glm::dvec2(1.0, 1.0));
-	normalizedcursorPosition.y *= -1.0;
-
-	glm::vec2 cursorPosition = normalizedcursorPosition * (double)camera->GetZoom();
+	glm::vec2 cursorPosition = m_NormalizedMousePosition * camera->GetZoom();
 	cursorPosition.x *= camera->GetAspect();
-	cursorPosition += glm::dvec2(cameraPos.x, cameraPos.y);
+	cursorPosition += glm::vec2(cameraPosition.x, cameraPosition.y);
 
 	m_PreviousMousePosition = m_MousePosition;
 	m_MousePosition = cursorPosition;
 
 	m_PreviousUIMousePosition = m_UIMousePosition;
-	m_UIMousePosition = normalizedcursorPosition;
+	m_UIMousePosition = m_NormalizedMousePosition;
 	m_UIMousePosition *= Gui::GetInstance().m_RelativeHeight * 0.5f;
 	m_UIMousePosition.x *= camera->GetAspect();
 
@@ -221,19 +229,19 @@ void Viewport::Update()
 		transformParamsDiff[i].m_Scale = gameObjects[i]->m_Transform.GetScale() - averageScale;
 	}
 
-	ImGuizmo::SetOrthographic(true);
+	ImGuizmo::SetOrthographic(!(bool)camera->GetType());
 	ImGuizmo::SetDrawlist();
 
 	float windowWidth = (float)ImGui::GetWindowWidth();
 	float windowHeight = (float)ImGui::GetWindowHeight();
 	ImGuizmo::SetRect(m_Position.x, m_Position.y, windowWidth, windowHeight);
 
-	glm::mat4 ProjectionMat4 = camera->GetProjectionMat4();
-	glm::mat4 ViewMat4 = camera->GetViewMat4();
+	glm::mat4 projectionMat4 = camera->GetProjectionMat4();
+	glm::mat4 viewMat4 = camera->GetViewMat4();
 	glm::mat4 transformMat4 = glm::translate(glm::mat4(1.0f), averagePosition)
 		* glm::toMat4(glm::quat(averageRotation))
 		* glm::scale(glm::mat4(1.0f), averageScale);
-	ImGuizmo::Manipulate(glm::value_ptr(ViewMat4), glm::value_ptr(ProjectionMat4),
+	ImGuizmo::Manipulate(glm::value_ptr(viewMat4), glm::value_ptr(projectionMat4),
 		(ImGuizmo::OPERATION)m_GizmoOperation, ImGuizmo::LOCAL, glm::value_ptr(transformMat4));
 
 	if (ImGuizmo::IsUsing())
@@ -263,6 +271,8 @@ void Viewport::Update()
 		}
 	}
 
+	m_IsClamped = false;
+
     ImGui::PopStyleVar();
     ImGui::End();
 }
@@ -282,7 +292,7 @@ void Viewport::Resize(const glm::ivec2& size)
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
 
     std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
-    camera->UpdateProjection(m_Size);
+    camera->SetSize(m_Size);
 	Gui::GetInstance().RecalculateProjectionMatrix();
 
 	glm::vec2 newSize = size;
@@ -292,5 +302,40 @@ void Viewport::Resize(const glm::ivec2& size)
 		newSize *= 0.5f;
 		Renderer::GetInstance().m_FrameBufferBlur[i + 0]->Resize(newSize);
 		Renderer::GetInstance().m_FrameBufferBlur[i + 1]->Resize(newSize);
+	}
+}
+
+void Viewport::ClampCursor()
+{
+	ImGui::SetCurrentContext(Window::GetInstance().GetImGuiContext());
+	ImVec2 newCursorPos = m_ImGuiMousePosition;
+
+	float offset = -2.0f;
+
+	if (m_ImGuiMousePosition.x > m_Size.x + m_Position.x + offset)
+	{
+		newCursorPos.x = m_Position.x - offset;
+		m_IsClamped = true;
+	}
+	else if (m_ImGuiMousePosition.x < m_Position.x - offset)
+	{
+		newCursorPos.x = m_Size.x + m_Position.x + offset;
+		m_IsClamped = true;
+	}
+
+	if (m_ImGuiMousePosition.y > m_Size.y + offset + m_Position.y - 22.0f)
+	{
+		newCursorPos.y = m_Position.y - offset;
+		m_IsClamped = true;
+	}
+	else if (m_ImGuiMousePosition.y < m_Position.y + offset)
+	{
+		newCursorPos.y = m_Size.y + m_Position.y - 22.0f + offset;
+		m_IsClamped = true;
+	}
+
+	if (m_IsClamped)
+	{
+		glfwSetCursorPos(Window::GetInstance().GetWindow(), newCursorPos.x, newCursorPos.y);
 	}
 }

@@ -1,15 +1,14 @@
 Title: TestBloom
 Environment:
   Global Intensity: 1
+  Directional Light: 1
   Blur passes: 10
   Brightness threshold: 0.5
   Exposure: 0.0500000007
   Gamma: 1.5
   Pixels blured: 6
   IsEnabled: true
-  DownSampling: false
-  UpSampling: false
-  UpScalingScale: 1
+  DepthTest: false
 Camera:
   Transform:
     Follow owner: true
@@ -24,7 +23,7 @@ Camera:
   Speed: 5
   Type: 0
 GameObjects:
-  - GameObject: 12543233394876077456
+  - GameObject: 1249908128418077385
     Name: BlueCircle
     Is Enabled: true
     Is Selectable: true
@@ -40,6 +39,7 @@ GameObjects:
       Color: [0.329113901, 0.413068414, 1, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -54,7 +54,8 @@ GameObjects:
       Outer radius: 2.5
       Is Normal used: false
       Ambient: 10
-  - GameObject: 11721543418983455576
+      Emmisive Mask Intensity: 0
+  - GameObject: 15543744066258294452
     Name: RedLightSword
     Is Enabled: true
     Is Selectable: true
@@ -70,6 +71,7 @@ GameObjects:
       Color: [1, 0.151898742, 0.151898742, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -84,7 +86,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 7
-  - GameObject: 6931913935437151123
+      Emmisive Mask Intensity: 0
+  - GameObject: 7708739865643063444
     Name: BlueLightSword
     Is Enabled: true
     Is Selectable: true
@@ -100,6 +103,7 @@ GameObjects:
       Color: [0.329411775, 0.411764711, 1, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -114,7 +118,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 9
-  - GameObject: 12435011192564372312
+      Emmisive Mask Intensity: 0
+  - GameObject: 5380778270050250109
     Name: OrangeLightSword
     Is Enabled: true
     Is Selectable: true
@@ -130,6 +135,7 @@ GameObjects:
       Color: [1, 0.350798488, 0.0675105453, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -144,7 +150,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 15
-  - GameObject: 5708994282519824408
+      Emmisive Mask Intensity: 0
+  - GameObject: 15817330730230448866
     Name: GreenLightSword
     Is Enabled: true
     Is Selectable: true
@@ -160,6 +167,7 @@ GameObjects:
       Color: [0.114725232, 1, 0.0675105453, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -174,7 +182,8 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 10
-  - GameObject: 8815855591852583473
+      Emmisive Mask Intensity: 0
+  - GameObject: 3788400134383395233
     Name: RedLightSword
     Is Enabled: true
     Is Selectable: true
@@ -190,6 +199,7 @@ GameObjects:
       Color: [1, 0.0675105453, 0.0675105453, 1]
       Texture: White
       Normal Texture: White
+      Emissive Mask Texture: White
       UV:
         - 0
         - 0
@@ -204,3 +214,4 @@ GameObjects:
       Outer radius: 0
       Is Normal used: false
       Ambient: 10
+      Emmisive Mask Intensity: 0

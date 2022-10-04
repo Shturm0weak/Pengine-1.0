@@ -58,5 +58,6 @@
     <None Include="Source\Shaders\Default3D.shader" />
     <None Include="Source\Shaders\DefaultLines.shader" />
     <None Include="Source\Shaders\UI.shader" />
+    <None Include="Source\Shaders\Instancing3D.shader" />
   </ItemGroup>
 </Project>

@@ -27,6 +27,8 @@ using namespace Pengine;
 
 void EntryPoint::PrepareResources()
 {
+    ThreadPool::GetInstance().Initialize();
+
     std::vector<float> vertices =
     {
         -0.5f, -0.5f, 0.0f, 0.0f,
@@ -42,14 +44,13 @@ void EntryPoint::PrepareResources()
 
     const std::vector<uint32_t> layouts = { 2, 2 };
 
-    MeshManager::GetInstance().Create("Quad", vertices, indices, layouts);
+    MeshManager::GetInstance().Create("Quad", vertices, indices, layouts, "Quad");
 
     TextureManager::GetInstance().ResetTexParametersi();
     TextureManager::GetInstance().ColoredTexture("White", 0xFFFFFFFF);
     
     Renderer::GetInstance().Initialize();
     Viewport::GetInstance().Initialize();
-    ThreadPool::GetInstance().Initialize();
 
     Utils::LoadShadersFromFolder("Source/Shaders");
     Utils::LoadTexturesFromFolder("Source/Images");
@@ -58,6 +59,9 @@ void EntryPoint::PrepareResources()
 
     Environment::GetInstance().SetEditorCamera(std::make_shared<Camera>());
     Environment::GetInstance().UseEditorCameraAsMain();
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void EntryPoint::OnStartState()
@@ -104,6 +108,11 @@ void EntryPoint::OnUpdate()
     {
         Window::GetInstance().NewFrame();
         {
+#ifdef STANDALONE
+            Editor::GetInstance().SetEnabled(false);
+#else
+            Environment::GetInstance().GetMainCamera()->Movement();
+#endif
             EventSystem::GetInstance().ProcessEvents();
             Timer::UpdateCallbacks();
 
@@ -118,12 +127,6 @@ void EntryPoint::OnUpdate()
             SoundManager::GetInstance().UpdateSourceState();
 
             Renderer::GetInstance().Render(m_Application);
-
-#ifdef STANDALONE
-            Editor::GetInstance().SetEnabled(false);
-#else
-            Environment::GetInstance().GetMainCamera()->Movement();
-#endif
 
             Editor::GetInstance().Update(m_Application->GetScene());
         }

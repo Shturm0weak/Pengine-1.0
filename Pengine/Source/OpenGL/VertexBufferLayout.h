@@ -40,7 +40,8 @@ namespace Pengine
 		const std::vector<VertexBufferElement>& GetElements() const { return m_Elements; }
 		uint32_t GetStride() const { return m_Stride; }
 
-		void Clear() { 
+		void Clear()
+		{ 
 			m_Stride = 0;
 			m_Elements.clear(); 
 		}

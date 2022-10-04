@@ -21,6 +21,7 @@
 #include "../Vendor/ImGui/backends/imgui_impl_glfw.h"
 #include "../Vendor/ImGui/backends/imgui_impl_opengl3.h"
 
+#include "../Enums/Colors.h"
 #include "Time.h"
 
 #include <string>

@@ -6,6 +6,8 @@
 #include "Input.h"
 #include "Editor.h"
 #include "Visualizer.h"
+#include "Environment.h"
+#include "Raycast3D.h"
 #include "../Lua/LuaStateManager.h"
 #include "../Components/Renderer2D.h"
 #include "../Components/Renderer3D.h"
@@ -98,7 +100,7 @@ void Scene::OnPhysicsUpdate()
 			{
 				offset = c2d->GetOffset();
 
-				gameObjectIter->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, 0.0f));
+				gameObjectIter->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, gameObjectIter->m_Transform.GetPosition().z));
 				gameObjectIter->m_Transform.Rotate(glm::vec3(0.0f, 0.0f, body->GetAngle()));
 			}
 		}
@@ -119,30 +121,118 @@ Scene::Scene(const Scene& scene)
 std::vector<GameObject*> Scene::SelectGameObject(std::vector<GameObject*> ignoreMask, int maxGameObjects)
 {
 	std::vector<GameObject*> gameObjects;
-	for (auto& gameObject : m_GameObjects)
+
+	if (Environment::GetInstance().GetMainCamera()->GetType() == Camera::CameraType::ORTHOGRAPHIC)
 	{
-		if (!gameObject->m_IsSelectable) continue;
-
-		const float rect[8] =
+		for (auto& gameObject : m_GameObjects)
 		{
-			-0.5f, -0.5f,
-			 0.5f, -0.5f,
-			 0.5f,  0.5f,
-			-0.5f,  0.5f
-		};
+			if (!gameObject->m_IsSelectable) continue;
 
-		glm::vec4 mousePosition = glm::inverse(gameObject->m_Transform.GetTransform())
-			* glm::vec4(Viewport::GetInstance().GetMousePosition(), 0.0f, 1.0f);
-		if (Utils::IsPointInsideRect(mousePosition, rect))
-		{
-			if (!Utils::IsThere(ignoreMask, gameObject))
+			const float rect[8] =
 			{
-				gameObjects.push_back(gameObject);
-			
-				if (maxGameObjects == gameObjects.size())
+				-0.5f, -0.5f,
+				 0.5f, -0.5f,
+				 0.5f,  0.5f,
+				-0.5f,  0.5f
+			};
+
+			const glm::vec4 mousePosition = glm::inverse(gameObject->m_Transform.GetTransform())
+				* glm::vec4(Viewport::GetInstance().GetMousePosition(), 0.0f, 1.0f);
+			if (Utils::IsPointInsideRect(mousePosition, rect))
+			{
+				if (!Utils::IsThere(ignoreMask, gameObject))
 				{
-					return gameObjects;
+					gameObjects.push_back(gameObject);
+
+					if (maxGameObjects == gameObjects.size())
+					{
+						return gameObjects;
+					}
 				}
+			}
+		}
+	}
+	else if (Environment::GetInstance().GetMainCamera()->GetType() == Camera::CameraType::PERSPECTIVE)
+	{
+		Raycast3D::Hit3D hit;
+		std::map<float, class GameObject*> gameObjectsByDistance;
+		std::vector<GameObject*> gameObjectsToRayCast;
+
+		for (auto instancedObject : m_InstancedObjects)
+		{
+			for (Renderer3D* r3d : instancedObject.second)
+			{
+				gameObjectsToRayCast.push_back(r3d->GetOwner());
+			}
+		}
+		
+		const glm::vec3 start = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+		const glm::vec3 direction = Environment::GetInstance().GetMainCamera()->GetMouseDirection();
+		gameObjectsByDistance = Raycast3D::RayCast(gameObjectsToRayCast, start, direction, hit, FLT_MAX, false);
+
+		std::map<float, class GameObject*> gameObjectsByDistanceToTriangle;
+
+		for (auto gameObjectByDistance : gameObjectsByDistance)
+		{
+			if (Renderer3D* r3d = gameObjectByDistance.second->m_ComponentManager.GetComponent<Renderer3D>())
+			{
+				const std::vector<float>& vertexAttributes = r3d->m_Mesh->GetVertexAttributes();
+				const size_t vertexOffset = Mesh::GetVertexOffset();
+
+				const std::vector<uint32_t>& indices = r3d->m_Mesh->GetIndices();
+				const size_t indicesSize = indices.size();
+
+				for (size_t i = 0; i < indicesSize; i+=3)
+				{
+					const size_t i0 = indices[i + 0] * vertexOffset;
+					const size_t i1 = indices[i + 1] * vertexOffset;
+					const size_t i2 = indices[i + 2] * vertexOffset;
+
+					glm::vec3 a = { vertexAttributes[i0 + 0], vertexAttributes[i0 + 1], vertexAttributes[i0 + 2] };
+					glm::vec3 b = { vertexAttributes[i1 + 0], vertexAttributes[i1 + 1], vertexAttributes[i1 + 2] };
+					glm::vec3 c = { vertexAttributes[i2 + 0], vertexAttributes[i2 + 1], vertexAttributes[i2 + 2] };
+
+					/*glm::vec3 n1 = { vertexAttributes[i0 + 3], vertexAttributes[i0 + 4], vertexAttributes[i0 + 5] };
+					glm::vec3 n2 = { vertexAttributes[i1 + 3], vertexAttributes[i1 + 4], vertexAttributes[i1 + 5] };
+					glm::vec3 n3 = { vertexAttributes[i2 + 3], vertexAttributes[i2 + 4], vertexAttributes[i2 + 5] };*/
+
+					const glm::mat4 transform = gameObjectByDistance.second->m_Transform.GetTransform();
+					const glm::mat4 rotation = gameObjectByDistance.second->m_Transform.GetRotationMat4();
+					const glm::vec3 position = gameObjectByDistance.second->m_Transform.GetPosition();
+
+					a = glm::vec3(transform * glm::vec4(a, 1.0f));
+					b = glm::vec3(transform * glm::vec4(b, 1.0f));
+					c = glm::vec3(transform * glm::vec4(c, 1.0f));
+
+					glm::vec3 n = glm::normalize(glm::cross((b - a), (c - a)));
+
+					/*Visualizer::DrawLine(a, b, Colors::Yellow());
+					Visualizer::DrawLine(b, c, Colors::Yellow());
+					Visualizer::DrawLine(c, a, Colors::Yellow());
+
+					Visualizer::DrawLine(a, n1 + a, Colors::Blue());
+					Visualizer::DrawLine(b, n2 + b, Colors::Blue());
+					Visualizer::DrawLine(c, n3 + c, Colors::Blue());
+
+					Visualizer::DrawLine({}, n, Colors::Red());*/
+
+					if (Raycast3D::IntersectTriangle(start, direction, hit, FLT_MAX, a, b, c, n))
+					{
+						gameObjectsByDistanceToTriangle.emplace(hit.m_Distance, gameObjectByDistance.second);
+
+						break;
+					}
+				}
+			}
+		}
+
+		for (auto gameObjectByDistanceToTriangle : gameObjectsByDistanceToTriangle)
+		{
+			gameObjects.push_back(gameObjectByDistanceToTriangle.second);
+
+			if (maxGameObjects == gameObjects.size())
+			{
+				return gameObjects;
 			}
 		}
 	}
@@ -163,7 +253,7 @@ void Scene::OnRegisterClients()
 
 void Scene::Render()
 {
-	size_t size = m_Renderer2DLayers.size();
+	const size_t size = m_Renderer2DLayers.size();
 	if (size == 0) return;
 	for (int i = size - 1; i >= 0; i--)
 	{
@@ -198,17 +288,17 @@ void Scene::Render()
 		{
 			if (gameObject->m_IsEnabled)
 			{
-				if (BoxCollider2D* bc2d = gameObject->m_ComponentManager.GetComponent<BoxCollider2D>())
+				if (const BoxCollider2D* bc2d = gameObject->m_ComponentManager.GetComponent<BoxCollider2D>())
 				{
-					glm::vec2 size = bc2d->GetSize();
+					const glm::vec2 size = bc2d->GetSize();
 
 					Transform transform = bc2d->GetOwner()->m_Transform;
 					transform.Translate({ bc2d->GetPosition(), 0.0f });
-					glm::mat4 transformMat = transform.GetTransform();
-					glm::vec4 a = transformMat * glm::vec4(-size.x, -size.y, 0.0f, 1.0f);
-					glm::vec4 b = transformMat * glm::vec4( size.x, -size.y, 0.0f, 1.0f);
-					glm::vec4 c = transformMat * glm::vec4( size.x,  size.y, 0.0f, 1.0f);
-					glm::vec4 d = transformMat * glm::vec4(-size.x,  size.y, 0.0f, 1.0f);
+					const glm::mat4 transformMat = transform.GetTransform();
+					const glm::vec4 a = transformMat * glm::vec4(-size.x, -size.y, 0.0f, 1.0f);
+					const glm::vec4 b = transformMat * glm::vec4( size.x, -size.y, 0.0f, 1.0f);
+					const glm::vec4 c = transformMat * glm::vec4( size.x,  size.y, 0.0f, 1.0f);
+					const glm::vec4 d = transformMat * glm::vec4(-size.x,  size.y, 0.0f, 1.0f);
 
 					Visualizer::DrawLine(a, b, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 					Visualizer::DrawLine(b, c, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -216,15 +306,44 @@ void Scene::Render()
 					Visualizer::DrawLine(d, a, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 				}
 
-				if (CircleCollider2D* cc2d = gameObject->m_ComponentManager.GetComponent<CircleCollider2D>())
+				if (const CircleCollider2D* cc2d = gameObject->m_ComponentManager.GetComponent<CircleCollider2D>())
 				{
 					Transform transform = cc2d->GetOwner()->m_Transform;
 					transform.Translate({ cc2d->GetPosition(), 0.0f });
-					float radius = cc2d->GetRadius() * gameObject->m_Transform.GetScale().x;
+					const float radius = cc2d->GetRadius() * gameObject->m_Transform.GetScale().x;
 					Visualizer::DrawCircle(radius - Editor::GetInstance().m_LineWidth * 0.01f, radius,
 						transform.GetPositionMat4() * glm::scale(glm::mat4(1.0f), glm::vec3(radius * 2.0f)),
 						glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 				}
+			}
+		}
+	
+		RenderBoundingBoxes();
+	}
+}
+
+void Scene::RenderBoundingBoxes()
+{
+	for (const IRenderer* ir : m_Renderers3D)
+	{
+		const Renderer3D* r3d = (Renderer3D*)ir;
+		if (const Mesh* mesh = r3d->m_Mesh)
+		{
+			const Transform& transform = r3d->GetOwner()->m_Transform;
+			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
+				mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
+		}
+	}
+
+	for (auto instancedObjectIter : m_InstancedObjects)
+	{
+		for (const Renderer3D* r3d : instancedObjectIter.second)
+		{
+			if (Mesh* mesh = r3d->m_Mesh)
+			{
+				const Transform& transform = r3d->GetOwner()->m_Transform;
+				Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
+					mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
 			}
 		}
 	}

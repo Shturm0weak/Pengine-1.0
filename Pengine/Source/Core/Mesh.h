@@ -2,6 +2,7 @@
 
 #include "Core.h"
 #include "Asset.h"
+#include "BoundingBox.h"
 #include "../OpenGL/IndexBuffer.h"
 #include "../OpenGL/VertexArray.h"
 #include "../OpenGL/VertexBuffer.h"
@@ -18,6 +19,14 @@ namespace Pengine
 		std::vector<uint32_t> m_Indices;
 	public:
 		
+		struct Meta
+		{
+			std::string m_Name;
+			std::string m_FilePath;
+		};
+
+		BoundingBox m_BoundingBox;
+
 		VertexArray m_Va;
 		VertexBuffer m_Vb;
 		IndexBuffer m_Ib;
@@ -25,12 +34,16 @@ namespace Pengine
 		std::vector<uint32_t> m_Layouts;
 
 		Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices,
-			const std::vector<uint32_t>& layouts, const std::string& filePath = "None");
+			const std::vector<uint32_t>& layouts, const std::string& filePath);
 		
+		static size_t GetVertexOffset() { return 12; }
+
 		const std::vector<float>& GetVertexAttributes() const { return m_VertexAttributes; }
 		
 		const std::vector<uint32_t>& GetIndices() const { return m_Indices; }
 		
+		Meta GenerateMeta();
+
 		void Bind() const;
 		
 		void UnBind() const;
