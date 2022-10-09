@@ -1,0 +1,20 @@
+GameObjects:
+  - GameObject: 5950133575568244924
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/SpotLight.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.999999881, 1, 0.999999881]
+    SpotLight:
+      Color: [1, 1, 1]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432647

@@ -95,7 +95,7 @@ namespace Pengine
     class PENGINE_API ReflectionSystem
     {
     private:
-    
+
         ReflectionSystem() = default;
         ReflectionSystem(const ReflectionSystem&) = delete;
         ReflectionSystem& operator=(const ReflectionSystem&) { return *this; }
@@ -105,7 +105,7 @@ namespace Pengine
             {
                 delete registeredClass.second.m_Class;
             }
-    
+
             m_RegisteredClasses.clear();
         };
     public:
@@ -118,7 +118,7 @@ namespace Pengine
                 callback();
             }
         };
-    
+
         struct RegisteredClass
         {
             void* m_Class = nullptr;
@@ -136,8 +136,8 @@ namespace Pengine
 
         static ReflectionSystem& GetInstance() { static ReflectionSystem reflectionSystem; return reflectionSystem; }
     };
-    
-    #define RTTR_REGISTRATION_USER_DEFINED(type)                            \
+
+#define RTTR_REGISTRATION_USER_DEFINED(type)                            \
     static void rttr_auto_register_reflection_function_##type();            \
     namespace                                                               \
     {                                                                       \
@@ -152,7 +152,7 @@ namespace Pengine
     static const rttr__auto__register__##type RTTR_CAT(RTTR_CAT(auto_register__, __LINE__), type); \
     static void rttr_auto_register_reflection_function_##type()
 
-    #define REGISTER_CLASS(type) RTTR_REGISTRATION_USER_DEFINED(type) \
+#define REGISTER_CLASS(type) RTTR_REGISTRATION_USER_DEFINED(type) \
     { \
         Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.insert( \
             std::make_pair(std::string(typeid(type).name()).substr(6), \
@@ -161,7 +161,16 @@ namespace Pengine
         )); \
     }
 
-    #define PROPERTY(baseClass, _type, _name, value) _type _name = value; \
+#define REGISTER_ASSET(type) RTTR_REGISTRATION_USER_DEFINED(type) \
+    { \
+        Pengine::ReflectionSystem::GetInstance().m_RegisteredClasses.insert( \
+            std::make_pair(std::string(typeid(type).name()).substr(6), \
+            Pengine::ReflectionSystem::RegisteredClass( new rttr::registration::class_<type>(std::string(typeid(type).name()).substr(6).c_str()), \
+            [](void*) {}) \
+        )); \
+    }
+
+#define PROPERTY(baseClass, _type, _name, value) _type _name = value; \
     private: \
     Pengine::ReflectionSystem::ReflectionWrapper RW##_name = Pengine::ReflectionSystem::ReflectionWrapper([=] \
     { \

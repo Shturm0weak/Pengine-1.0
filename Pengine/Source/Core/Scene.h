@@ -8,8 +8,9 @@
 #include "../Components/BoxCollider2D.h"
 #include "../Components/CircleCollider2D.h"
 #include "../Components/ParticleEmitter.h"
-#include "../Components/PointLight2D.h"
+#include "../Components/PointLight.h"
 #include "../Components/DirectionalLight.h"
+#include "../Components/SpotLight.h"
 #include "Box2D/include/box2d/b2_world.h"
 
 #include <vector>
@@ -30,8 +31,9 @@ namespace Pengine
 		std::vector<Rigidbody2D*> m_Rigidbody2D;
 		std::vector<IRenderer*> m_Renderers3D;
 		std::vector<ParticleEmitter*> m_ParticleEmitters;
-		std::vector<PointLight2D*> m_PointLights2D;
-		std::vector<DirectionalLight*> m_DirectionalLight;
+		std::vector<PointLight*> m_PointLights;
+		std::vector<SpotLight*> m_SpotLights;
+		std::vector<DirectionalLight*> m_DirectionalLights;
 		std::map<Mesh*, std::vector<Renderer3D*>> m_InstancedObjects;
 
 		std::string m_Title = "Scene";
@@ -62,7 +64,8 @@ namespace Pengine
 		friend IComponent* BoxCollider2D::Create(GameObject* owner); 
 		friend IComponent* CircleCollider2D::Create(GameObject* owner);
 		friend IComponent* ParticleEmitter::Create(GameObject* owner);
-		friend IComponent* PointLight2D::Create(GameObject* owner);
+		friend IComponent* PointLight::Create(GameObject* owner);
+		friend IComponent* SpotLight::Create(GameObject* owner);
 		friend IComponent* DirectionalLight::Create(GameObject* owner);
 		friend void GameObject::Delete();
 		friend void GameObject::DeleteLater(float seconds);
@@ -72,7 +75,8 @@ namespace Pengine
 		friend void BoxCollider2D::Delete();
 		friend void CircleCollider2D::Delete();
 		friend void ParticleEmitter::Delete();
-		friend void PointLight2D::Delete();
+		friend void PointLight::Delete();
+		friend void SpotLight::Delete();
 		friend void DirectionalLight::Delete();
 		friend void Renderer2D::SetLayer(int layer);
 		

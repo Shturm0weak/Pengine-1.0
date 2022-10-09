@@ -23,6 +23,26 @@ namespace Pengine
 			bool m_IsEnabled = true;
 		} m_BloomSettings;
 
+		struct ShadowsSettings
+		{
+			std::vector<float> m_CascadesDistance = { 100.0f, 300.0f };
+			int m_Pcf = 2;
+			float m_Texels = 1.0f;
+			float m_Bias = 0.005f;
+			float m_ZFarScale = 1.0f;
+			float m_Fog = 0.2f;
+			bool m_IsEnabled = true;
+			bool m_IsVisualized = false;
+
+			struct Blur
+			{
+				bool m_IsEnabled = false;
+				int m_BlurPasses = 4;
+				int m_PixelsBlured = 6;
+
+			} m_Blur;
+		} m_ShadowsSettings;
+
 		std::shared_ptr<class Camera> m_EditorCamera;
 		std::shared_ptr<class Camera> m_MainCamera;
 
@@ -38,6 +58,7 @@ namespace Pengine
 		friend class Editor;
 		friend class Renderer;
 		friend class Serializer;
+		friend class Instancing;
 		friend class Application;
 	public:
 

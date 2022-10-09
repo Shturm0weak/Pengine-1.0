@@ -26,19 +26,14 @@ uniform float u_Brightness;
 
 void main()
 {
-    vec4 textureColor = vec4(0.0, 0.0, 0.0, 0.0);
-    vec4 sourceColor = texture(u_BlurTextures[0], uv);
+    vec4 textureColor = vec4(0.0);
 
-    //float brightness = dot(sourceColor.rgb, vec3(0.2126, 0.7152, 0.0722));
-    //if (brightness > u_Brightness)
-    //{
-    //    textureColor += sourceColor;
-    //}
-
-    for (int i = 1; i < u_BlurTexturesSize; i++)
+    for (int i = 0; i < u_BlurTexturesSize; i++)
     {
-        textureColor += texture(u_BlurTextures[i], uv);
+        vec4 mip = texture(u_BlurTextures[i], uv);
+        mip = vec4(vec3(1.0) - exp(-mip.rgb * u_Exposure), mip.a);
+        textureColor += clamp(mip, 0.0, 1.0);
     }
 
-    fragColor = vec4(vec3(1.0) - exp(-textureColor.rgb * u_Exposure), textureColor.a);
+    fragColor = textureColor;
 }

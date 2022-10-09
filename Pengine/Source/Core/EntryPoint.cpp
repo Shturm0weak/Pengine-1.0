@@ -59,9 +59,6 @@ void EntryPoint::PrepareResources()
 
     Environment::GetInstance().SetEditorCamera(std::make_shared<Camera>());
     Environment::GetInstance().UseEditorCameraAsMain();
-
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void EntryPoint::OnStartState()
@@ -146,5 +143,6 @@ void EntryPoint::OnClose()
     MeshManager::GetInstance().ShutDown();
     MemoryManager::GetInstance().ShutDown();
     ThreadPool::GetInstance().Shutdown();
+    MaterialManager::GetInstance().ShutDown();
     Logger::Success("Application has been closed!");
 }

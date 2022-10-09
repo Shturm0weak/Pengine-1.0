@@ -1,0 +1,684 @@
+Title: 3DTest
+Environment:
+  Global Intensity: 1
+  Directional Light: 1
+  Blur passes: 10
+  Brightness threshold: 0.52700001
+  Exposure: 0.00999999978
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DepthTest: true
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [2.16412878, 20.2013798, 30.2694473]
+    Rotation: [-0.074298501, 0.0328055546, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 10000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 9238167533423320431
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [2.07259893, 0, 0]
+      Scale: [1, 0.999998808, 0.999998808]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 0
+  - GameObject: 12229657883632236537
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [25, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 16509282683492812613
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-24, 6, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 5, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 8029935249043456289
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [24, 6, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 5, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 16870437455882057695
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12, 9, 0]
+      Rotation: [0, 0, -0.884369671]
+      Scale: [0.99999994, 7, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 11277629287336039956
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [12, 10, 0]
+      Rotation: [0, 0, -2.06872606]
+      Scale: [0.999999404, 5, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 9598443946171304575
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 9, 0]
+      Rotation: [0, 0, -2.62526369]
+      Scale: [1, 5.00000191, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    BoxCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Size: [1, 1]
+      Density: 1
+      Friction: 0.5
+      Restitution: 0
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 0
+      Fixed rotation: false
+  - GameObject: 1747173262445568676
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-15, 16, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 18212652450556931166
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [13, 15, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 17217650553688252842
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, 26, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 7128708605370578703
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4, 21, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 8063245903452928733
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-16, 24, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 2126355069892654889
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4, 21, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 4522774406685654110
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8, 28, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 1965637363263976423
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1, 30, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+  - GameObject: 998515167199334644
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.0249757767, 24.6980839, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: ""
+      m_Name:
+        Type: std::string
+        Value: ""
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: ""
+      m_ShaderFilePath:
+        Type: std::string
+        Value: ""
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    PointLight:
+      Color: [1, 0.0886076093, 0.0886076093]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.100000001
+  - GameObject: 1708629546695622192
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12.1598969, 21.7711754, -1.90734863e-06]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Materials/Material.mat
+      m_Name:
+        Type: std::string
+        Value: Material
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    PointLight:
+      Color: [0.0717299581, 0.306735456, 1]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.100000001
+  - GameObject: 9090326411718919270
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [15.5495968, 27.5888958, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Materials/Material.mat
+      m_Name:
+        Type: std::string
+        Value: Material
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    PointLight:
+      Color: [0.132243752, 1, 0.109704614]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.100000001
+  - GameObject: 1294211373593307349
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.6939821, 29.9768028, 9.53674316e-07]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    PointLight:
+      Color: [1, 0.0886076093, 0.0886076093]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.100000001
+  - GameObject: 10192211316876933224
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.30992746, 33.5050964, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+    CircleCollider2D:
+      Trigger: false
+      Offset: [0, 0]
+      Radius: 1
+      Density: 1
+      Friction: 0.5
+      Restitution: 0.5
+      Restitution threshold: 0.5
+      Tag: ""
+    Rigidbody2D:
+      Type: 1
+      Fixed rotation: false
+    PointLight:
+      Color: [0.132243752, 1, 0.109704614]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.100000001

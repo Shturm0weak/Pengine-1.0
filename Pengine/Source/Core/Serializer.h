@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Animation2DManager.h"
 #include "yaml-cpp/yaml.h"
+#include "Environment.h"
 
 #include <vector>
 
@@ -38,11 +39,19 @@ namespace Pengine
 
 		static void DeserializeEnvironment(YAML::Node& in);
 
+		static void SerializeShadows(YAML::Emitter& out);
+
+		static Environment::ShadowsSettings DeserializeShadows(YAML::Node& in);
+
 		static std::string GenerateMetaFilePath(const std::string& filePath, const std::string& name);
 
-		static std::string SerializeMeshMeta(const std::string& filePath, Pengine::Mesh::Meta meta);
+		static std::string SerializeMeshMeta(Mesh::Meta meta);
 
 		static Mesh::Meta DeserializeMeshMeta(const std::string& filePath);
+
+		static std::string SerializeTextureMeta(Texture::Meta meta);
+
+		static Texture::Meta DeserializeTextureMeta(const std::string& filePath);
 		
 		static void SerializeTransform(YAML::Emitter& out, const Transform& transform);
 		
@@ -94,6 +103,10 @@ namespace Pengine
 
 		static void DeSerializePointLight(YAML::Node& in, ComponentManager& componentManager);
 
+		static void SerializeSpotLight(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeSpotLight(YAML::Node& in, ComponentManager& componentManager);
+
 		static void SerializeDirectionalLight(YAML::Emitter& out, ComponentManager& componentManager);
 
 		static void DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& componentManager);
@@ -101,6 +114,16 @@ namespace Pengine
 		static void SerializeUserDefinedComponents(YAML::Emitter& out, ComponentManager& componentManager);
 
 		static void DeserializeUserDefinedComponents(YAML::Node& in, ComponentManager& componentManager);
+
+		static void SerializeMaterial(const std::string& filePath, Material* material);
+
+		static Material* DeserializeMaterial(const std::string& filePath);
+
+		template<typename T>
+		static void SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* Class);
+
+		template<typename T>
+		static void DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* Class);
 	};
 
 }

@@ -38,6 +38,8 @@ namespace Pengine
 		void Delete(Texture* texture);
 		
 		void AsyncCreate(const std::string& filePath);
+
+		void AsyncCreate(Texture::Meta meta);
 		
 		Texture* White() const { return GetByName("White"); }
 
@@ -62,6 +64,8 @@ namespace Pengine
 		std::vector<Texture*> GetTexturesFromFolder(const std::string& filePath);
 		
 		std::vector<Texture::TexParameteri> GetTexParamertersi() const { return m_TexParameters; }
+
+		std::vector<int> GetDefaultTexParamertersIndices() const;
 	};
 
 }

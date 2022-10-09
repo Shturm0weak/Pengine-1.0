@@ -4,6 +4,7 @@
 #include "../Core/Component.h"
 
 #include <functional>
+#include <vector>
 
 namespace Pengine
 {
@@ -21,8 +22,8 @@ namespace Pengine
 		glm::vec3 m_Back;
 		glm::vec3 m_Up;
 
-		std::function<void()> m_OnRotationCallback;
-		std::function<void()> m_OnTranslationCallback;
+		std::vector<std::function<void()>> m_OnRotationCallbacks;
+		std::vector<std::function<void()>> m_OnTranslationCallbacks;
 
 		bool m_FollowOwner = true;
 		bool m_Copyable = true;
@@ -85,9 +86,9 @@ namespace Pengine
 
 		void SetCopyable(bool copyable) { m_Copyable = copyable; }
 		
-		void SetOnRotationCallback(std::function<void()> callback) { m_OnRotationCallback = callback; }
+		void SetOnRotationCallback(std::function<void()> callback) { m_OnRotationCallbacks.emplace_back(callback); }
 		
-		void SetOnTranslationCallback(std::function<void()> callback) { m_OnTranslationCallback = callback; }
+		void SetOnTranslationCallback(std::function<void()> callback) { m_OnTranslationCallbacks.emplace_back(callback); }
 		
 		void Translate(const glm::vec3& position);
 		

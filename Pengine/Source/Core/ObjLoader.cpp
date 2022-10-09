@@ -209,7 +209,7 @@ void objl::Loader::LoadAsyncToViewport(const std::string& filePath)
 			meta.m_Name = curMesh.MeshName;
 			meta.m_FilePath = filePath;
 
-			meshesFilePath.emplace_back(meta.m_Name, Pengine::Serializer::SerializeMeshMeta(filePath, meta));
+			meshesFilePath.emplace_back(meta.m_Name, Pengine::Serializer::SerializeMeshMeta(meta));
 
 			std::vector<float> vertexAttributes;
 			glm::vec3 minBoundingBox = { FLT_MAX, FLT_MAX, FLT_MAX };
@@ -324,7 +324,7 @@ void objl::Loader::GenerateMeshMeta(const std::string& filePath)
 			meta.m_Name = curMesh.MeshName;
 			meta.m_FilePath = filePath;
 
-			Pengine::Serializer::SerializeMeshMeta(filePath, meta);
+			Pengine::Serializer::SerializeMeshMeta(meta);
 		}
 	}
 }

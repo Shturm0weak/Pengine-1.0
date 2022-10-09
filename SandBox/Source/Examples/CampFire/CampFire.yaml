@@ -64,7 +64,7 @@ GameObjects:
     Script:
       FilePaths:
         - Source\Scripts\CampFire.lua
-    Point Light 2D:
+    PointLight:
       Color: [1, 1, 1]
       Constant: 0
       Linear: 1.20756125
@@ -174,7 +174,7 @@ GameObjects:
     Script:
       FilePaths:
         - Source\Scripts\CampFire.lua
-    Point Light 2D:
+    PointLight:
       Color: [1, 1, 1]
       Constant: 0
       Linear: 1.20756125

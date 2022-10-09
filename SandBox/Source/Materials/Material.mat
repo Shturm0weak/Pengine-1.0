@@ -1,0 +1,31 @@
+Material:
+  m_FilePath:
+    Type: std::string
+    Value: Source/Materials/Material.mat
+  m_Name:
+    Type: std::string
+    Value: Material
+  m_BaseColorFilePath:
+    Type: std::string
+    Value: White
+  m_ShaderFilePath:
+    Type: std::string
+    Value: Instancing3D.shader
+  m_Ambient:
+    Type: struct glm::vec<3,float,0>
+    Value: [0.100000001, 0.100000001, 0.100000001]
+  m_Diffuse:
+    Type: struct glm::vec<3,float,0>
+    Value: [0.300000012, 0.300000012, 0.300000012]
+  m_Specular:
+    Type: struct glm::vec<3,float,0>
+    Value: [0.200000003, 0.200000003, 0.200000003]
+  m_Shininess:
+    Type: float
+    Value: 64
+  m_Scale:
+    Type: float
+    Value: 1
+  m_Solid:
+    Type: float
+    Value: 1

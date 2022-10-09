@@ -140,7 +140,11 @@
     <None Include="Source\Shaders\DefaultLines.shader" />
     <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
     <None Include="Source\Shaders\Instancing3D.shader" />
+    <None Include="Source\Shaders\Depth.shader" />
+    <None Include="Source\Shaders\Instancing3DDepth.shader" />
+    <None Include="Source\Shaders\InstancingShadows.shader" />
     <None Include="Source\Shaders\UI.shader" />
+    <None Include="Source\Shaders\Visualizer.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -26,7 +26,7 @@ bool Texture::LoadInRAM(bool flip)
 	}
 }
 
-bool Texture::LoadInVRAM(const std::vector<TexParameteri>& texParameters, bool unloadFromRAM)
+bool Texture::LoadInVRAM(const std::vector<TexParameteri>& texParameters, const std::vector<int>& texParametersIndices, bool unloadFromRAM)
 {
 	if (m_LocalBuffer == nullptr)
 	{
@@ -39,17 +39,24 @@ bool Texture::LoadInVRAM(const std::vector<TexParameteri>& texParameters, bool u
 	glGenTextures(1, &m_RendererID);
 	glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
-	m_IsLinear = texParameters[0].m_Param == GL_LINEAR;
+	m_Meta.m_Name = m_Name;
+	m_Meta.m_FilePath = m_FilePath;
 
-	for (size_t i = 0; i < texParameters.size(); i++)
+	for (size_t i = 0; i < texParametersIndices.size(); i++)
 	{
-		glTexParameteri(texParameters[i].m_Target, texParameters[i].m_Pname, texParameters[i].m_Param);
+		size_t index = texParametersIndices[i];
+		m_Meta.m_Params[index] = texParameters[index].m_Param;
+		glTexParameteri(texParameters[index].m_Target, texParameters[index].m_Pname, texParameters[index].m_Param);
 	}
+
+	GLfloat maxAnisotropy;
+	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &maxAnisotropy);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, maxAnisotropy);
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -77,14 +84,16 @@ void Texture::UnLoadFromVRAM()
 	m_RendererID = UINT32_MAX;
 }
 
-void Texture::ColoredTexture(const std::vector<TexParameteri>& texParameters, uint32_t color)
+void Texture::ColoredTexture(const std::vector<TexParameteri>& texParameters, const std::vector<int>& texParametersIndices, uint32_t color)
 {
 	glGenTextures(1, &m_RendererID);
 	glBindTexture(GL_TEXTURE_2D, m_RendererID);
 
-	for (size_t i = 0; i < texParameters.size(); i++)
+	for (size_t i = 0; i < texParametersIndices.size(); i++)
 	{
-		glTexParameteri(texParameters[i].m_Target, texParameters[i].m_Pname, texParameters[i].m_Param);
+		size_t index = texParametersIndices[i];
+		m_Meta.m_Params[index] = texParameters[index].m_Param;
+		glTexParameteri(texParameters[index].m_Target, texParameters[index].m_Pname, texParameters[index].m_Param);
 	}
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16, 1, 1, 0, GL_RGBA, GL_UNSIGNED_BYTE, &color);
@@ -103,18 +112,17 @@ Texture::~Texture()
 	UnLoadFromVRAM();
 }
 
-void Texture::Reload()
+void Texture::Reload(const std::vector<Texture::TexParameteri>& params, const std::vector<int>& texParametersIndices)
 {
 	if (m_FilePath == "None") return;
 
-	std::vector<Texture::TexParameteri> params = TextureManager::GetInstance().GetTexParamertersi();
 	ThreadPool::GetInstance().Enqueue([=] {
 		UnLoadFromRAM();
 		LoadInRAM();
 
 		std::function<void()> callback = std::function<void()>([=] {
 			UnLoadFromVRAM();
-			LoadInVRAM(params);
+			LoadInVRAM(params, texParametersIndices);
 		});
 		EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 	});
@@ -129,4 +137,39 @@ void Texture::Bind(unsigned int slot) const
 void Texture::UnBind() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+Texture::Meta Texture::GenerateMeta()
+{
+	Meta meta;
+
+	meta.m_Name = m_Name;
+	meta.m_FilePath = Utils::GetDirectoryFromFilePath(m_FilePath) + "/" + m_Name + ".meta";
+	meta.m_Params = m_Meta.m_Params;
+
+	return meta;
+}
+
+void Texture::Reload()
+{
+	if (m_FilePath == "None") return;
+
+	ThreadPool::GetInstance().Enqueue([=] {
+		UnLoadFromRAM();
+		LoadInRAM();
+
+		std::function<void()> callback = std::function<void()>([=] {
+			UnLoadFromVRAM();
+
+			LoadInVRAM(
+			{ 
+				{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_Meta.m_Params[0] },
+				{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_Meta.m_Params[1]},
+				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_Meta.m_Params[2] },
+				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_Meta.m_Params[3] }
+			},
+			TextureManager::GetInstance().GetDefaultTexParamertersIndices());
+		});
+		EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+	});
 }

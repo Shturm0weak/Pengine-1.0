@@ -118,9 +118,9 @@ void Transform::Translate(const glm::vec3& position)
 	m_PositionDelta = position - m_PreviousPosition;
 
 	m_PositionMat4 = glm::translate(glm::mat4(1.0f), position);
-	if (m_OnTranslationCallback)
+	for (auto& onTranslationCallback : m_OnTranslationCallbacks)
 	{
-		m_OnTranslationCallback();
+		onTranslationCallback();
 	}
 
 	if (m_Owner)
@@ -139,9 +139,9 @@ void Transform::Rotate(const glm::vec3& rotation)
 	m_Rotation = rotation;
 	m_RotationMat4 = glm::toMat4(glm::quat(m_Rotation));
 	UpdateVectors();
-	if (m_OnRotationCallback)
+	for (auto& onRotationCallback : m_OnRotationCallbacks)
 	{
-		m_OnRotationCallback();
+		onRotationCallback();
 	}
 }
 

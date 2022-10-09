@@ -25,24 +25,33 @@ namespace Pengine
 		unsigned char* m_LocalBuffer = nullptr;
 		uint32_t m_RendererID = UINT_MAX;
 		int m_width = 0, m_height = 0, m_BPP = 0;
-		bool m_IsLinear = false;
+
+		struct Meta
+		{
+			std::string m_FilePath;
+			std::string m_Name;
+			std::vector<int> m_Params = std::vector<int>(4);
+		} m_Meta;
 
 		bool LoadInRAM(bool flip = true);
-		bool LoadInVRAM(const std::vector<TexParameteri>& texParameters, bool unloadFromRAM = true);
+		bool LoadInVRAM(const std::vector<TexParameteri>& texParameters, const std::vector<int>& texParametersIndices, bool unloadFromRAM = true);
 
 		void UnLoadFromRAM();
 		void UnLoadFromVRAM();
 
-		void ColoredTexture(const std::vector<TexParameteri>& texParameters, uint32_t color);
+		void ColoredTexture(const std::vector<TexParameteri>& texParameters, const std::vector<int>& texParametersIndices, uint32_t color);
 
 		friend class TextureManager;
 		friend class Editor;
+		friend class Serializer;
 	public:
 
 		Texture(const std::string& filePath);
 		~Texture();
 
 		virtual void Reload() override;
+
+		void Reload(const std::vector<Texture::TexParameteri>& params, const std::vector<int>& texParametersIndices);
 		
 		void Bind(unsigned int slot = 0) const;
 		
@@ -52,7 +61,8 @@ namespace Pengine
 		
 		glm::vec2 GetSize() const { return { m_width, m_height }; }
 		
-		bool IsLinear() const { return m_IsLinear; }
+		Meta GenerateMeta();
+
 	};
 
 }

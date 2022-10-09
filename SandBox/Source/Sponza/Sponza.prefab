@@ -1,0 +1,6489 @@
+GameObjects:
+  - GameObject: 14113696146159412880
+    Name: Sponza
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Sponza/Sponza.prefab
+    Childs:
+      - 2664528745880879359
+      - 7530664206719382623
+      - 10870322885203007805
+      - 4720472224015566090
+      - 10442983915843785637
+      - 14724317773099046419
+      - 12911845268169594591
+      - 14211823574335248850
+      - 3002497407365661566
+      - 11800122542622583698
+      - 11669558270594313045
+      - 955949771959208207
+      - 17088318070516134540
+      - 4216926336354453658
+      - 10340544413651879806
+      - 12658430870551255358
+      - 14441936835088644596
+      - 12539975034075187681
+      - 12025177801993494572
+      - 3704513212699047089
+      - 7601340900320533513
+      - 14251026884103640883
+      - 2308908345768891954
+      - 8091724502845271448
+      - 12760204801104383415
+      - 5998717812089885838
+      - 6645766436534452978
+      - 5323720208300385089
+      - 16454432627057975557
+      - 7565548341955350338
+      - 9861761012508145227
+      - 6627506710544230227
+      - 11070073039336754163
+      - 7329945661241740619
+      - 1370145857723852758
+      - 2008157590078070431
+      - 11097596579666966442
+      - 15270967564769771757
+      - 5089479599632336373
+      - 15888095315095120375
+      - 5437787338623613868
+      - 12195870173339066319
+      - 557568407419471501
+      - 4238635384987363067
+      - 1299363613275291846
+      - 12081398324378390189
+      - 15524787841623643023
+      - 10140241486261915259
+      - 3732507554933120161
+      - 13172197318474576278
+      - 15837377547782241516
+      - 14418800026118064390
+      - 4816067008252042419
+      - 6112056328052226590
+      - 16282436594957510024
+      - 11485665217607646521
+      - 5434389479133747479
+      - 16617046852917700025
+      - 15482027769727124417
+      - 15513641502984116362
+      - 13204804291443695630
+      - 10562089900153305381
+      - 12368758839131624228
+      - 16822345265316805104
+      - 7159315107969974951
+      - 12511151210867819789
+      - 15840452756290478478
+      - 18292126495106979106
+      - 1334370515774345706
+      - 15169998693488337896
+      - 5228744494264626088
+      - 8866913861574674574
+      - 1028787690843748580
+      - 12247539262401040034
+      - 7455155949549510688
+      - 2062653259900053186
+      - 977477953088885590
+      - 9088686034988833391
+      - 2545759290952544106
+      - 6526985600591395141
+      - 14922593064663042303
+      - 18052904424077272445
+      - 17694980176371132156
+      - 1371721833642764164
+      - 17385350706510050456
+      - 1221475278677426975
+      - 17722265779015792475
+      - 10498783032695289796
+      - 9261406048257644537
+      - 2371870738943220665
+      - 18045304213441579557
+      - 158877488682213502
+      - 15839329845817863525
+      - 11868173063565540061
+      - 2229951449791096385
+      - 14143938936281241907
+      - 17390267463944878968
+      - 571887265708599551
+      - 5687830639295963575
+      - 17758496266685312678
+      - 3607725074450304157
+      - 15474511459573333521
+      - 18193809628489890831
+      - 8431942754395306472
+      - 8192446470585310569
+      - 11719306831218304547
+      - 9262292640011056591
+      - 10291579420468266290
+      - 9765287744570291681
+      - 1290424337610666557
+      - 10202354174042482325
+      - 13818733614243290532
+      - 930435657697117657
+      - 8856799686250012980
+      - 17491312285407288980
+      - 14283067625091955705
+      - 17434729512497872742
+      - 15701794378171352113
+      - 13589728745454521103
+      - 6449102720134298383
+      - 7850680384014425350
+      - 7107072994738539762
+      - 11033696495139968599
+      - 6066043331366288507
+      - 7001916271773050350
+      - 1185953091999371019
+      - 6274800406587524909
+      - 10408870908430747102
+      - 16033883553778886267
+      - 7440798035636211389
+      - 2661043320463345998
+      - 12192178009969077732
+      - 17319960680906261300
+      - 6424418865265340699
+      - 6219470842972545672
+      - 6726033069351804353
+      - 3693887675842441364
+      - 5922176257478410367
+      - 12957471985977446752
+      - 14361479762676624276
+      - 8217390977433493700
+      - 2336998091914352331
+      - 16596221807271133056
+      - 17074222804262883516
+      - 14864140489444276212
+      - 4025817420076843712
+      - 6558715056528356589
+      - 6504060986778376067
+      - 13107424886115192776
+      - 7765654364356622368
+      - 9229070780061997084
+      - 13021575430734768046
+      - 4827353732760405691
+      - 13437624332851082226
+      - 7618632560151365624
+      - 1679382812745887480
+      - 1894086085839732668
+      - 4633594781128038087
+      - 15274875344640565009
+      - 13431679027059310906
+      - 17895369028813902197
+      - 16553230149395033069
+      - 1283439502509033097
+      - 10504958643149535435
+      - 1509417411846693336
+      - 8104182088826149887
+      - 2639753722846532964
+      - 3549456550165042381
+      - 3935587190378046911
+      - 10521517936735798022
+      - 13737171790858394930
+      - 5889648341804366943
+      - 15156942917828449696
+      - 1576411819276018023
+      - 11259487062159840648
+      - 5621364003078353962
+      - 4246600202152921653
+      - 7335910741356066278
+      - 9942623665041611560
+      - 11368458375701879184
+      - 14985906311002125725
+      - 18326674373676488679
+      - 10286430799863747169
+      - 6942269463492958099
+      - 5166052058146902014
+      - 16279738722717526598
+      - 9982768530346232206
+      - 7862759921652885231
+      - 8809015933088647862
+      - 15936855068746548993
+      - 17722059408274964391
+      - 3060511089870153605
+      - 15383487797629573501
+      - 11653663863216113348
+      - 6368211432544720681
+      - 1918151075855570874
+      - 10000549555111912809
+      - 1646127527294092630
+      - 8186473805193036524
+      - 11797086745457254947
+      - 1248836379894809486
+      - 16308047853220554395
+      - 1122147539327082291
+      - 3675015856218833991
+      - 9681594308674599990
+      - 17521020270211929054
+      - 13008867575055521554
+      - 3325881370038518198
+      - 6297156660268560312
+      - 10045771478781699169
+      - 7252411675266316659
+      - 939698508109249015
+      - 9756611432009180799
+      - 17551833951423908644
+      - 12962450418374695166
+      - 16832166471945372103
+      - 11320682735495342870
+      - 12853682894326602378
+      - 13333331402906589921
+      - 14235374872019216727
+      - 7582515025198096408
+      - 5178836988840856700
+      - 5120399117453093314
+      - 15348303207149794166
+      - 2095705621948751839
+      - 15492229347040071471
+      - 1587768068228576427
+      - 6232472806181809652
+      - 9590381777243552283
+      - 1830291508432626205
+      - 14456862057011500098
+      - 14646450603686202779
+      - 6247032715905137487
+      - 2406488594089116049
+      - 4706578645213025654
+      - 13270500777333152036
+      - 2759505831563441596
+      - 15834261776006011511
+      - 14468662282493280416
+      - 8472505227305697809
+      - 12927923503078578531
+      - 8023824491158914318
+      - 4166268169486781151
+      - 15912100077940533858
+      - 7559272374838204119
+      - 185748792720524827
+      - 929478336119041875
+      - 13640933088290996536
+      - 14287528041825350426
+      - 3089757191419161106
+      - 14632727510904718913
+      - 2482295108755453379
+      - 7448543404633271525
+      - 6093741794278339120
+      - 1383426479049841576
+      - 4496323226022738118
+      - 3681557796697221361
+      - 8457603346193094000
+      - 11639177079662347897
+      - 2607232062484036840
+      - 13126028639754645856
+      - 13741924671381017274
+      - 9193138122014843685
+      - 14663618840807356898
+      - 561412446855712890
+      - 1310451231109241258
+      - 168728468085015850
+      - 3256769903591910821
+      - 633142408440651960
+      - 15069611567062274976
+      - 2945028784761446842
+      - 2596268885783754255
+      - 14479451636779353984
+      - 13353938524949051516
+      - 12549358150248383231
+      - 10719735237847084852
+      - 7145306583599617636
+      - 3534588579351427288
+      - 2352849829944128022
+      - 5259378016311863418
+      - 4229063966033088848
+      - 12193524655861622023
+      - 9082394408397663183
+      - 1415672864934238754
+      - 11616747602967318440
+      - 3573621346179919473
+      - 913187619733987637
+      - 10389587817192384499
+      - 17670552674606585515
+      - 3958128489434466145
+      - 13506294424435053964
+      - 952319419237937134
+      - 6728658739745962372
+      - 15317664449571882297
+      - 849247690996047902
+      - 5057161979868416822
+      - 4934848030252203389
+      - 527922511980060475
+      - 13006925920402599709
+      - 14730782356017086759
+      - 17792013045877188591
+      - 1882552222814705069
+      - 12009233314646101248
+      - 14720895577416191831
+      - 4847669062909896886
+      - 3436242723466025172
+      - 11868292056283005674
+      - 12177004594571483362
+      - 2606289092729103293
+      - 4184853453298539660
+      - 4765169731260361449
+      - 1662816375039826006
+      - 7581072003799056621
+      - 9978229985588127684
+      - 5762372592713053223
+      - 5829920817430024765
+      - 2692763975472453323
+      - 8072642975998501452
+      - 15698126019543660768
+      - 13099869753970863136
+      - 8364949366409748055
+      - 1343826963214015957
+      - 12670467312909726178
+      - 8299040733787159535
+      - 15415740089325290140
+      - 1051220017697594474
+      - 17347557960652253016
+      - 12736084710417597911
+      - 4346115791622913343
+      - 1809258198269498659
+      - 5048568382357304829
+      - 3557025372550532595
+      - 17057361905082030143
+      - 10561765070121686464
+      - 15175674169997366330
+      - 14181235087692080935
+      - 310789363781610946
+      - 13910280476423391069
+      - 2689960252079626687
+      - 1174724280030618031
+      - 9692357981571091254
+      - 12715423257703994252
+      - 1455889734793421730
+      - 261823948889867875
+      - 9537340661264437591
+      - 6761441036372762227
+      - 3540657352228658669
+      - 8102805401181899156
+      - 14418496069648729712
+      - 563822442040656696
+      - 426244115189102043
+      - 12903068117467449314
+      - 10807414542558094918
+      - 15350515728158481965
+      - 2917398309356494976
+      - 2920876957110738580
+      - 14342449640770487095
+      - 14458138057624096672
+      - 11807179599123131493
+      - 8234983309783456082
+      - 17520461755661649974
+      - 12601138724230949513
+      - 3925751995077707807
+      - 9158529344831186688
+      - 13093808961702242277
+      - 53165027890005187
+      - 15400825855280963961
+      - 6568497850982495870
+      - 11367748785818854249
+      - 4292755087123407467
+      - 10345122927584022109
+      - 650691634886056840
+      - 18216653465847273786
+      - 11425220764416230153
+      - 6911563245473120374
+      - 11014830829330492066
+      - 7684701277623172257
+      - 15633275746178110224
+      - 12753572646512774410
+      - 7288404351723817539
+      - 6904348351328772067
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 2664528745880879359
+    Name: sponza_236
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_236.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7530664206719382623
+    Name: sponza_328
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_328.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
+  - GameObject: 10870322885203007805
+    Name: sponza_329
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_329.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
+  - GameObject: 4720472224015566090
+    Name: sponza_237
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_237.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10442983915843785637
+    Name: sponza_261
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_261.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14724317773099046419
+    Name: sponza_99
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_99.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 12911845268169594591
+    Name: sponza_98
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_98.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 14211823574335248850
+    Name: sponza_320
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_320.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
+  - GameObject: 3002497407365661566
+    Name: sponza_321
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_321.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
+  - GameObject: 11800122542622583698
+    Name: sponza_322
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_322.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
+  - GameObject: 11669558270594313045
+    Name: sponza_323
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_323.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
+  - GameObject: 955949771959208207
+    Name: sponza_324
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_324.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
+  - GameObject: 17088318070516134540
+    Name: sponza_325
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_325.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
+  - GameObject: 4216926336354453658
+    Name: sponza_326
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 0.99999994, 0.99999994]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_326.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
+  - GameObject: 10340544413651879806
+    Name: sponza_327
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_327.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
+  - GameObject: 12658430870551255358
+    Name: sponza_263
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_263.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14441936835088644596
+    Name: sponza_150
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_150.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12539975034075187681
+    Name: sponza_265
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_265.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12025177801993494572
+    Name: sponza_156
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_156.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3704513212699047089
+    Name: sponza_155
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_155.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7601340900320533513
+    Name: sponza_266
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_266.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14251026884103640883
+    Name: sponza_117
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_117.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Floor.mat
+  - GameObject: 2308908345768891954
+    Name: sponza_116
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_116.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 8091724502845271448
+    Name: sponza_115
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_115.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 12760204801104383415
+    Name: sponza_114
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_114.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 5998717812089885838
+    Name: sponza_113
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_113.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6645766436534452978
+    Name: sponza_220
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_220.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 5323720208300385089
+    Name: sponza_223
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_223.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 16454432627057975557
+    Name: sponza_222
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_222.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7565548341955350338
+    Name: sponza_229
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_229.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9861761012508145227
+    Name: sponza_228
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_228.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6627506710544230227
+    Name: sponza_119
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_119.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 11070073039336754163
+    Name: sponza_118
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_118.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 7329945661241740619
+    Name: sponza_75
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_75.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 1370145857723852758
+    Name: sponza_74
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_74.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Details.mat
+  - GameObject: 2008157590078070431
+    Name: sponza_77
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_77.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 11097596579666966442
+    Name: sponza_76
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_76.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 15270967564769771757
+    Name: sponza_71
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_71.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Details.mat
+  - GameObject: 5089479599632336373
+    Name: sponza_70
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_70.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Details.mat
+  - GameObject: 15888095315095120375
+    Name: sponza_73
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_73.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Details.mat
+  - GameObject: 5437787338623613868
+    Name: sponza_72
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_72.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Details.mat
+  - GameObject: 12195870173339066319
+    Name: sponza_90
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_90.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 557568407419471501
+    Name: sponza_79
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_79.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 4238635384987363067
+    Name: sponza_78
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_78.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 1299363613275291846
+    Name: sponza_97
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_97.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 12081398324378390189
+    Name: sponza_96
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_96.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 15524787841623643023
+    Name: sponza_95
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_95.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 10140241486261915259
+    Name: sponza_343
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_343.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 3732507554933120161
+    Name: sponza_340
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_340.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 13172197318474576278
+    Name: sponza_341
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_341.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15837377547782241516
+    Name: sponza_346
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_346.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 14418800026118064390
+    Name: sponza_347
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_347.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 4816067008252042419
+    Name: sponza_94
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_94.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6112056328052226590
+    Name: sponza_345
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_345.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 16282436594957510024
+    Name: sponza_348
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_348.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 11485665217607646521
+    Name: sponza_349
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_349.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 5434389479133747479
+    Name: sponza_93
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_93.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 16617046852917700025
+    Name: sponza_92
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_92.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 15482027769727124417
+    Name: sponza_188
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_188.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 15513641502984116362
+    Name: sponza_189
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_189.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13204804291443695630
+    Name: sponza_184
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_184.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10562089900153305381
+    Name: sponza_185
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_185.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12368758839131624228
+    Name: sponza_186
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_186.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 16822345265316805104
+    Name: sponza_187
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_187.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7159315107969974951
+    Name: sponza_180
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_180.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12511151210867819789
+    Name: sponza_181
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_181.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 15840452756290478478
+    Name: sponza_182
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_182.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 18292126495106979106
+    Name: sponza_183
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_183.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1334370515774345706
+    Name: sponza_122
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_122.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 15169998693488337896
+    Name: sponza_123
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_123.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 5228744494264626088
+    Name: sponza_120
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_120.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 8866913861574674574
+    Name: sponza_121
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_121.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 1028787690843748580
+    Name: sponza_126
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_126.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12247539262401040034
+    Name: sponza_127
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_127.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7455155949549510688
+    Name: sponza_171
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_171.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2062653259900053186
+    Name: sponza_209
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_209.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 977477953088885590
+    Name: sponza_208
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_208.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9088686034988833391
+    Name: sponza_207
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_207.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2545759290952544106
+    Name: sponza_206
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_206.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6526985600591395141
+    Name: sponza_205
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_205.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 14922593064663042303
+    Name: sponza_204
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_204.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 18052904424077272445
+    Name: sponza_203
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_203.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 17694980176371132156
+    Name: sponza_202
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_202.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1371721833642764164
+    Name: sponza_201
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_201.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 17385350706510050456
+    Name: sponza_200
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_200.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1221475278677426975
+    Name: sponza_173
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_173.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 17722265779015792475
+    Name: sponza_59
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_59.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 10498783032695289796
+    Name: sponza_58
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_58.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 9261406048257644537
+    Name: sponza_172
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_172.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2371870738943220665
+    Name: sponza_53
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_53.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 18045304213441579557
+    Name: sponza_52
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_52.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 158877488682213502
+    Name: sponza_51
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_51.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 15839329845817863525
+    Name: sponza_50
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_50.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 11868173063565540061
+    Name: sponza_57
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_57.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 2229951449791096385
+    Name: sponza_56
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_56.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 14143938936281241907
+    Name: sponza_55
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_55.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 17390267463944878968
+    Name: sponza_54
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_54.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 571887265708599551
+    Name: sponza_282
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_282.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
+  - GameObject: 5687830639295963575
+    Name: sponza_175
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_175.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 17758496266685312678
+    Name: sponza_177
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_177.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3607725074450304157
+    Name: sponza_286
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_286.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
+  - GameObject: 15474511459573333521
+    Name: sponza_176
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_176.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 18193809628489890831
+    Name: sponza_218
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_218.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8431942754395306472
+    Name: sponza_219
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_219.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8192446470585310569
+    Name: sponza_214
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_214.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11719306831218304547
+    Name: sponza_215
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_215.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9262292640011056591
+    Name: sponza_216
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_216.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10291579420468266290
+    Name: sponza_217
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_217.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9765287744570291681
+    Name: sponza_210
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_210.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1290424337610666557
+    Name: sponza_211
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_211.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10202354174042482325
+    Name: sponza_212
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_212.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13818733614243290532
+    Name: sponza_213
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_213.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 930435657697117657
+    Name: sponza_260
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_260.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 8856799686250012980
+    Name: sponza_28
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_28.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 17491312285407288980
+    Name: sponza_29
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_29.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 14283067625091955705
+    Name: sponza_26
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_26.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 17434729512497872742
+    Name: sponza_27
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_27.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 15701794378171352113
+    Name: sponza_24
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_24.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 13589728745454521103
+    Name: sponza_25
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_25.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6449102720134298383
+    Name: sponza_22
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_22.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 7850680384014425350
+    Name: sponza_23
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_23.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 7107072994738539762
+    Name: sponza_20
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_20.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 11033696495139968599
+    Name: sponza_21
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_21.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 6066043331366288507
+    Name: sponza_269
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_269.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 7001916271773050350
+    Name: sponza_268
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_268.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 1185953091999371019
+    Name: sponza_159
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_159.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6274800406587524909
+    Name: sponza_158
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_158.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10408870908430747102
+    Name: sponza_153
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_153.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 16033883553778886267
+    Name: sponza_152
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_152.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7440798035636211389
+    Name: sponza_151
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_151.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2661043320463345998
+    Name: sponza_262
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_262.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12192178009969077732
+    Name: sponza_157
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_157.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 17319960680906261300
+    Name: sponza_264
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_264.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 6424418865265340699
+    Name: sponza_267
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_267.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 6219470842972545672
+    Name: sponza_154
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_154.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6726033069351804353
+    Name: sponza_302
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_302.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 3693887675842441364
+    Name: sponza_91
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_91.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 5922176257478410367
+    Name: sponza_306
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_306.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12957471985977446752
+    Name: sponza_307
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_307.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14361479762676624276
+    Name: sponza_304
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_304.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 8217390977433493700
+    Name: sponza_305
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_305.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 2336998091914352331
+    Name: sponza_276
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_276.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 16596221807271133056
+    Name: sponza_303
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_303.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 17074222804262883516
+    Name: sponza_300
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_300.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14864140489444276212
+    Name: sponza_301
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_301.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 4025817420076843712
+    Name: sponza_277
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_277.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 6558715056528356589
+    Name: sponza_308
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_308.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 6504060986778376067
+    Name: sponza_309
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_309.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 13107424886115192776
+    Name: sponza_142
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_142.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7765654364356622368
+    Name: sponza_143
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_143.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9229070780061997084
+    Name: sponza_144
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_144.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13021575430734768046
+    Name: sponza_145
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_145.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4827353732760405691
+    Name: sponza_146
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_146.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13437624332851082226
+    Name: sponza_147
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_147.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7618632560151365624
+    Name: sponza_05
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_05.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 1679382812745887480
+    Name: sponza_06
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_06.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 1894086085839732668
+    Name: sponza_07
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_07.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 4633594781128038087
+    Name: sponza_00
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_00.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 15274875344640565009
+    Name: sponza_01
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_01.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 13431679027059310906
+    Name: sponza_03
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_03.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Shiled.mat
+  - GameObject: 17895369028813902197
+    Name: sponza_08
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_08.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 16553230149395033069
+    Name: sponza_09
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_09.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 1283439502509033097
+    Name: sponza_139
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_139.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10504958643149535435
+    Name: sponza_138
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_138.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1509417411846693336
+    Name: sponza_135
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_135.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8104182088826149887
+    Name: sponza_134
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_134.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2639753722846532964
+    Name: sponza_137
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_137.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3549456550165042381
+    Name: sponza_136
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_136.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3935587190378046911
+    Name: sponza_131
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_131.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10521517936735798022
+    Name: sponza_130
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_130.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13737171790858394930
+    Name: sponza_133
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_133.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 5889648341804366943
+    Name: sponza_132
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_132.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 15156942917828449696
+    Name: sponza_243
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_243.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1576411819276018023
+    Name: sponza_242
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_242.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11259487062159840648
+    Name: sponza_241
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_241.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 5621364003078353962
+    Name: sponza_240
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_240.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4246600202152921653
+    Name: sponza_247
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_247.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7335910741356066278
+    Name: sponza_246
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_246.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9942623665041611560
+    Name: sponza_245
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_245.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11368458375701879184
+    Name: sponza_244
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_244.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 14985906311002125725
+    Name: sponza_249
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_249.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 18326674373676488679
+    Name: sponza_248
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_248.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10286430799863747169
+    Name: sponza_17
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_17.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 6942269463492958099
+    Name: sponza_16
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_16.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 5166052058146902014
+    Name: sponza_15
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_15.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 16279738722717526598
+    Name: sponza_14
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_14.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 9982768530346232206
+    Name: sponza_13
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_13.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 7862759921652885231
+    Name: sponza_12
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_12.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 8809015933088647862
+    Name: sponza_11
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_11.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 15936855068746548993
+    Name: sponza_10
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_10.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 17722059408274964391
+    Name: sponza_19
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_19.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 3060511089870153605
+    Name: sponza_18
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_18.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Floor.mat
+  - GameObject: 15383487797629573501
+    Name: sponza_250
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_250.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11653663863216113348
+    Name: sponza_251
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_251.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6368211432544720681
+    Name: sponza_252
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_252.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1918151075855570874
+    Name: sponza_253
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_253.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10000549555111912809
+    Name: sponza_254
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_254.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1646127527294092630
+    Name: sponza_255
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_255.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8186473805193036524
+    Name: sponza_256
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_256.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11797086745457254947
+    Name: sponza_257
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_257.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
+  - GameObject: 1248836379894809486
+    Name: sponza_258
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_258.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 16308047853220554395
+    Name: sponza_259
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_259.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 1122147539327082291
+    Name: sponza_128
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_128.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3675015856218833991
+    Name: sponza_129
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_129.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9681594308674599990
+    Name: sponza_351
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_351.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 17521020270211929054
+    Name: sponza_62
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_62.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 13008867575055521554
+    Name: sponza_63
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_63.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 3325881370038518198
+    Name: sponza_60
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_60.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 6297156660268560312
+    Name: sponza_61
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_61.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 10045771478781699169
+    Name: sponza_66
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_66.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 7252411675266316659
+    Name: sponza_67
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_67.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 939698508109249015
+    Name: sponza_64
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_64.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 9756611432009180799
+    Name: sponza_65
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_65.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 17551833951423908644
+    Name: sponza_68
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_68.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 12962450418374695166
+    Name: sponza_69
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_69.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 16832166471945372103
+    Name: sponza_225
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_225.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 11320682735495342870
+    Name: sponza_333
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_333.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 12853682894326602378
+    Name: sponza_224
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_224.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13333331402906589921
+    Name: sponza_227
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_227.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 14235374872019216727
+    Name: sponza_359
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_359.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 7582515025198096408
+    Name: sponza_358
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_358.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 5178836988840856700
+    Name: sponza_226
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_226.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 5120399117453093314
+    Name: sponza_355
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_355.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15348303207149794166
+    Name: sponza_354
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_354.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 2095705621948751839
+    Name: sponza_357
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_357.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15492229347040071471
+    Name: sponza_356
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_356.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 1587768068228576427
+    Name: sponza_221
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_221.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6232472806181809652
+    Name: sponza_350
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_350.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 9590381777243552283
+    Name: sponza_353
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_353.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 1830291508432626205
+    Name: sponza_352
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_352.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 14456862057011500098
+    Name: sponza_112
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_112.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 14646450603686202779
+    Name: sponza_294
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_294.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 6247032715905137487
+    Name: sponza_111
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_111.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 2406488594089116049
+    Name: sponza_167
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_167.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4706578645213025654
+    Name: sponza_110
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_110.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 13270500777333152036
+    Name: sponza_296
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_296.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 2759505831563441596
+    Name: sponza_165
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_165.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 15834261776006011511
+    Name: sponza_198
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_198.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 14468662282493280416
+    Name: sponza_197
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_197.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8472505227305697809
+    Name: sponza_196
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_196.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12927923503078578531
+    Name: sponza_195
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_195.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8023824491158914318
+    Name: sponza_194
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_194.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4166268169486781151
+    Name: sponza_193
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_193.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 15912100077940533858
+    Name: sponza_192
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_192.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7559272374838204119
+    Name: sponza_191
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_191.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 185748792720524827
+    Name: sponza_190
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_190.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 929478336119041875
+    Name: sponza_291
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_291.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 13640933088290996536
+    Name: sponza_292
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_292.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14287528041825350426
+    Name: sponza_293
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_293.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 3089757191419161106
+    Name: sponza_104
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_104.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 14632727510904718913
+    Name: sponza_105
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_105.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 2482295108755453379
+    Name: sponza_238
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_238.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 7448543404633271525
+    Name: sponza_239
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_239.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 6093741794278339120
+    Name: sponza_100
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_100.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 1383426479049841576
+    Name: sponza_101
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_101.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 4496323226022738118
+    Name: sponza_102
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_102.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 3681557796697221361
+    Name: sponza_103
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_103.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 8457603346193094000
+    Name: sponza_232
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_232.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11639177079662347897
+    Name: sponza_233
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_233.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2607232062484036840
+    Name: sponza_230
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_230.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13126028639754645856
+    Name: sponza_231
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_231.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 13741924671381017274
+    Name: sponza_108
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_108.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 9193138122014843685
+    Name: sponza_109
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_109.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 14663618840807356898
+    Name: sponza_234
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_234.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 561412446855712890
+    Name: sponza_235
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_235.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1310451231109241258
+    Name: sponza_48
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_48.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 168728468085015850
+    Name: sponza_49
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_49.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 3256769903591910821
+    Name: sponza_40
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_40.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 633142408440651960
+    Name: sponza_41
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_41.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 15069611567062274976
+    Name: sponza_42
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_42.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 2945028784761446842
+    Name: sponza_43
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_43.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 2596268885783754255
+    Name: sponza_44
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_44.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 14479451636779353984
+    Name: sponza_45
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_45.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 13353938524949051516
+    Name: sponza_46
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_46.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 12549358150248383231
+    Name: sponza_47
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_47.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 10719735237847084852
+    Name: sponza_364
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_364.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 7145306583599617636
+    Name: sponza_199
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_199.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 3534588579351427288
+    Name: sponza_287
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_287.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
+  - GameObject: 2352849829944128022
+    Name: sponza_170
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_170.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 5259378016311863418
+    Name: sponza_285
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_285.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
+  - GameObject: 4229063966033088848
+    Name: sponza_284
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_284.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricRed.mat
+  - GameObject: 12193524655861622023
+    Name: sponza_283
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_283.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
+  - GameObject: 9082394408397663183
+    Name: sponza_174
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_174.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1415672864934238754
+    Name: sponza_281
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_281.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 11616747602967318440
+    Name: sponza_280
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_280.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 3573621346179919473
+    Name: sponza_179
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_179.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 913187619733987637
+    Name: sponza_178
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_178.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10389587817192384499
+    Name: sponza_289
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_289.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
+  - GameObject: 17670552674606585515
+    Name: sponza_288
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_288.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricRed.mat
+  - GameObject: 3958128489434466145
+    Name: sponza_377
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_377.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Lion.mat
+  - GameObject: 13506294424435053964
+    Name: sponza_376
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_376.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Vase.mat
+  - GameObject: 952319419237937134
+    Name: sponza_375
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_375.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Vase.mat
+  - GameObject: 6728658739745962372
+    Name: sponza_374
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_374.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Vase.mat
+  - GameObject: 15317664449571882297
+    Name: sponza_373
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_373.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Vase.mat
+  - GameObject: 849247690996047902
+    Name: sponza_372
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_372.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 5057161979868416822
+    Name: sponza_371
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_371.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 4934848030252203389
+    Name: sponza_370
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_370.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 527922511980060475
+    Name: sponza_362
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_362.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 13006925920402599709
+    Name: sponza_379
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_379.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 14730782356017086759
+    Name: sponza_378
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_378.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Lion.mat
+  - GameObject: 17792013045877188591
+    Name: sponza_124
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_124.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 1882552222814705069
+    Name: sponza_290
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_290.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12009233314646101248
+    Name: sponza_368
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_368.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 14720895577416191831
+    Name: sponza_166
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_166.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4847669062909896886
+    Name: sponza_295
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_295.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 3436242723466025172
+    Name: sponza_164
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_164.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 11868292056283005674
+    Name: sponza_297
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_297.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12177004594571483362
+    Name: sponza_162
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_162.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2606289092729103293
+    Name: sponza_163
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_163.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4184853453298539660
+    Name: sponza_160
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_160.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 4765169731260361449
+    Name: sponza_161
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_161.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 1662816375039826006
+    Name: sponza_332
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_332.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 7581072003799056621
+    Name: sponza_125
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_125.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 9978229985588127684
+    Name: sponza_298
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_298.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 5762372592713053223
+    Name: sponza_299
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_299.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 5829920817430024765
+    Name: sponza_168
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_168.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2692763975472453323
+    Name: sponza_169
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_169.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 8072642975998501452
+    Name: sponza_331
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_331.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15698126019543660768
+    Name: sponza_365
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_365.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 13099869753970863136
+    Name: sponza_366
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_366.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 8364949366409748055
+    Name: sponza_367
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_367.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 1343826963214015957
+    Name: sponza_360
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_360.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 12670467312909726178
+    Name: sponza_361
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_361.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 8299040733787159535
+    Name: sponza_330
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_330.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15415740089325290140
+    Name: sponza_363
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_363.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 1051220017697594474
+    Name: sponza_337
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_337.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 17347557960652253016
+    Name: sponza_369
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_369.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VasePlant.mat
+  - GameObject: 12736084710417597911
+    Name: sponza_336
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_336.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 4346115791622913343
+    Name: sponza_335
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_335.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 1809258198269498659
+    Name: sponza_334
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_334.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat
+  - GameObject: 5048568382357304829
+    Name: sponza_311
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_311.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 3557025372550532595
+    Name: sponza_310
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_310.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 17057361905082030143
+    Name: sponza_313
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_313.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 10561765070121686464
+    Name: sponza_312
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_312.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 15175674169997366330
+    Name: sponza_315
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_315.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14181235087692080935
+    Name: sponza_314
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_314.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 310789363781610946
+    Name: sponza_317
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_317.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 13910280476423391069
+    Name: sponza_316
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_316.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 2689960252079626687
+    Name: sponza_319
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_319.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 1174724280030618031
+    Name: sponza_318
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_318.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 9692357981571091254
+    Name: sponza_31
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_31.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 12715423257703994252
+    Name: sponza_30
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_30.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 1455889734793421730
+    Name: sponza_33
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_33.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 261823948889867875
+    Name: sponza_32
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_32.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 9537340661264437591
+    Name: sponza_35
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_35.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 6761441036372762227
+    Name: sponza_34
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_34.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 3540657352228658669
+    Name: sponza_37
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_37.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 8102805401181899156
+    Name: sponza_36
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_36.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 14418496069648729712
+    Name: sponza_39
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_39.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Arch.mat
+  - GameObject: 563822442040656696
+    Name: sponza_38
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_38.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 426244115189102043
+    Name: sponza_148
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_148.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 12903068117467449314
+    Name: sponza_149
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_149.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 10807414542558094918
+    Name: sponza_278
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_278.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 15350515728158481965
+    Name: sponza_279
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_279.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 2917398309356494976
+    Name: sponza_140
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_140.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 2920876957110738580
+    Name: sponza_141
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_141.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnRound.mat
+  - GameObject: 14342449640770487095
+    Name: sponza_274
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_274.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 14458138057624096672
+    Name: sponza_275
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_275.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Thorn.mat
+  - GameObject: 11807179599123131493
+    Name: sponza_272
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_272.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 8234983309783456082
+    Name: sponza_273
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_273.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 17520461755661649974
+    Name: sponza_270
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_270.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 12601138724230949513
+    Name: sponza_271
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_271.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FlagPole.mat
+  - GameObject: 3925751995077707807
+    Name: sponza_382
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_382.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 9158529344831186688
+    Name: sponza_380
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_380.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Roof.mat
+  - GameObject: 13093808961702242277
+    Name: sponza_381
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_381.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Roof.mat
+  - GameObject: 53165027890005187
+    Name: sponza_342
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_342.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 15400825855280963961
+    Name: sponza_106
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_106.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6568497850982495870
+    Name: sponza_339
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_339.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 11367748785818854249
+    Name: sponza_338
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_338.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Chain.mat
+  - GameObject: 4292755087123407467
+    Name: sponza_88
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_88.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 10345122927584022109
+    Name: sponza_89
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_89.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 650691634886056840
+    Name: sponza_107
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_107.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 18216653465847273786
+    Name: sponza_84
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_84.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 11425220764416230153
+    Name: sponza_85
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_85.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6911563245473120374
+    Name: sponza_86
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_86.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 11014830829330492066
+    Name: sponza_87
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_87.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 7684701277623172257
+    Name: sponza_80
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_80.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 15633275746178110224
+    Name: sponza_81
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_81.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 12753572646512774410
+    Name: sponza_82
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_82.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 7288404351723817539
+    Name: sponza_83
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_83.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 6904348351328772067
+    Name: sponza_344
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Sponza\Mesh/sponza_344.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/VaseRound.mat

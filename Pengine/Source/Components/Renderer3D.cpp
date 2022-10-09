@@ -15,7 +15,7 @@ void Renderer3D::Copy(const IComponent& component)
 {
 	Renderer3D& r2d = *(Renderer3D*)&component;
 	SetMesh(r2d.m_Mesh);
-	m_Material = r2d.m_Material;
+    SetMaterial(r2d.m_Material->Inherit());
 	m_Type = component.GetType();
 }
 
@@ -36,24 +36,24 @@ void Renderer3D::Render()
 	m_Shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
 	m_Shader->SetUniformMat4f("u_Transform", m_Owner->m_Transform.GetTransform());
 
-	glm::vec3 scale = { m_Material.m_Scale, m_Material.m_Scale, m_Material.m_Scale };
+	glm::vec3 scale = { m_Material->m_Scale, m_Material->m_Scale, m_Material->m_Scale };
 
-	m_Shader->SetUniform3fv("u_Material.ambient", m_Material.m_Ambient * scale);
-	m_Shader->SetUniform3fv("u_Material.diffuse", m_Material.m_Diffuse * scale);
-	m_Shader->SetUniform3fv("u_Material.specular", m_Material.m_Specular * scale);
-	m_Shader->SetUniform1f("u_Material.shininess", m_Material.m_Shininess);
-	m_Shader->SetUniform1f("u_Material.solid", m_Material.m_Solid);
+	m_Shader->SetUniform3fv("u_Material.ambient", m_Material->m_Ambient * scale);
+	m_Shader->SetUniform3fv("u_Material.diffuse", m_Material->m_Diffuse * scale);
+	m_Shader->SetUniform3fv("u_Material.specular", m_Material->m_Specular * scale);
+	m_Shader->SetUniform1f("u_Material.shininess", m_Material->m_Shininess);
+	m_Shader->SetUniform1f("u_Material.solid", m_Material->m_Solid);
 	glActiveTexture(GL_TEXTURE0 + 0);
-	glBindTexture(GL_TEXTURE_2D, m_Material.m_BaseColor->GetRendererID());
+	glBindTexture(GL_TEXTURE_2D, m_Material->m_BaseColor->GetRendererID());
 	m_Shader->SetUniform1i("u_Material.baseColor", 0);
 
-	if (GetOwner()->GetScene()->m_DirectionalLight.empty())
+	if (GetOwner()->GetScene()->m_DirectionalLights.empty())
 	{
 		m_Shader->SetUniform1f("u_DirectionalLight.intensity", 0.0f);
 	}
 	else
 	{
-		DirectionalLight* directionalLight = GetOwner()->GetScene()->m_DirectionalLight[0];
+		DirectionalLight* directionalLight = GetOwner()->GetScene()->m_DirectionalLights[0];
 
 		m_Shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
 		m_Shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->m_Color);
@@ -126,12 +126,14 @@ IComponent* Renderer3D::Create(GameObject* owner)
 	Renderer3D* r3d = MemoryManager::GetInstance().Allocate<Renderer3D>();
 	r3d->m_Owner = owner;
 	r3d->m_Type = Utils::GetTypeName<Renderer3D>();
+	r3d->SetMaterial(MaterialManager::GetInstance().Load("Source/Materials/Material.mat"));
 
 	return r3d;
 }
 
 void Renderer3D::Delete()
 {
+	SetMaterial(MaterialManager::GetInstance().Load("Source/Materials/Material.mat"));
 	EraseFromInstancing();
 	MemoryManager::GetInstance().FreeMemory<Renderer3D>(static_cast<IAllocator*>(this));
 }
@@ -148,4 +150,14 @@ void Renderer3D::SetMesh(Mesh* mesh)
 	m_Mesh = mesh;
 
 	AddToInstancing();
+}
+
+void Renderer3D::SetMaterial(Material* material)
+{
+	if (m_Material && m_Material->IsInherited())
+	{
+		delete m_Material;
+	}
+
+	m_Material = material;
 }

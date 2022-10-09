@@ -14,41 +14,36 @@
 
 #include <fstream>
 #include <string>
+#include <vector>
 
 using namespace Pengine;
 
 namespace ReflectedProps
 {
 
-#define EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(_name, type) \
-bool deserialize_reflected_##_name##_property(YAML::Node& in, IComponent* component, rttr::property prop) \
+#define EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(_name, _propType, _in, _prop, _class) \
+if (auto& propData = _in[_prop.get_name()]) \
 { \
-	using namespace glm; \
-	using namespace std; \
-	if (auto& propData = in[prop.get_name()]) \
+	if (auto& propTypeData = propData["Type"]) \
 	{ \
-		if (auto& propTypeData = propData["Type"]) \
+		if (ReflectedProps::is_##_name(propTypeData.as<std::string>())) \
 		{ \
-			if (ReflectedProps::is_##_name(propTypeData.as<std::string>())) \
+			if (auto& propValueData = propData["Value"]) \
 			{ \
-				if (auto& propValueData = propData["Value"]) \
-				{ \
-					prop.set_value(component, propValueData.as<type>()); \
-					return true; \
-				} \
+				prop.set_value(_class, propValueData.as<_propType>()); \
+				continue; \
 			} \
 		} \
 	} \
-	return false; \
-}
+} \
 
-#define	DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type, type)
+#define	DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(_propType, _in, _prop, _class) EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(_propType, _propType, _in, _prop, _class)
 
 #define SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(type) \
 if (ReflectedProps::is_##type(prop.get_type().get_name())) \
 { \
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_##type(); \
-	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(component).get_value<type>(); \
+	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(Class).get_value<type>(); \
 }
 
 #define SERIALIZE_REFLECTED_VECTOR_PROPERTY(type) \
@@ -57,7 +52,7 @@ if (Utils::Contains(prop.get_type().get_name(), ReflectedProps::get_vector##type
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_vector##type(); \
 	out << YAML::Key << "Value" << YAML::Value << YAML::BeginSeq; \
 \
-	vector<type> value = prop.get_value(component).get_value<vector<type>>(); \
+	vector<type> value = prop.get_value(Class).get_value<vector<type>>(); \
 \
 	for (size_t i = 0; i < value.size(); i++) \
 	{ \
@@ -66,42 +61,6 @@ if (Utils::Contains(prop.get_type().get_name(), ReflectedProps::get_vector##type
 \
 	out << YAML::EndSeq; \
 }
-
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
-DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
-
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint, std::vector<int>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint64_t, std::vector<__int64>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint32_t, std::vector<unsigned int>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorfloat, std::vector<float>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordouble, std::vector<double>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorbool, std::vector<bool>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec2, std::vector<glm::vec2>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec3, std::vector<glm::vec3>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec4, std::vector<glm::vec4>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec2, std::vector<glm::ivec2>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec3, std::vector<glm::ivec3>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec4, std::vector<glm::ivec4>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec2, std::vector<glm::dvec2>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec3, std::vector<glm::dvec3>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec4, std::vector<glm::dvec4>)
-EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorstring, std::vector<std::string>)
 
 }
 
@@ -784,18 +743,23 @@ Camera Serializer::DeserializeCamera(YAML::Node& in)
 
 void Serializer::SerializeEnvironment(YAML::Emitter& out)
 {
+	Environment& environment = Environment::GetInstance();
+
 	out << YAML::Key << "Environment";
 	out << YAML::BeginMap;
 
-	out << YAML::Key << "Global Intensity" << YAML::Value << Environment::GetInstance().GetGlobalIntensity();
-	out << YAML::Key << "Directional Light" << YAML::Value << Environment::GetInstance().GetGlobalIntensity();
-	out << YAML::Key << "Blur passes" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BlurPasses;
-	out << YAML::Key << "Brightness threshold" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold;
-	out << YAML::Key << "Exposure" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Exposure;
-	out << YAML::Key << "Gamma" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_Gamma;
-	out << YAML::Key << "Pixels blured" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_PixelsBlured;
-	out << YAML::Key << "IsEnabled" << YAML::Value << Environment::GetInstance().m_BloomSettings.m_IsEnabled;
-	out << YAML::Key << "DepthTest" << YAML::Value << Environment::GetInstance().m_DepthTest;
+	out << YAML::Key << "Global Intensity" << YAML::Value << environment.GetGlobalIntensity();
+	out << YAML::Key << "Directional Light" << YAML::Value << environment.GetGlobalIntensity();
+	out << YAML::Key << "Blur passes" << YAML::Value << environment.m_BloomSettings.m_BlurPasses;
+	out << YAML::Key << "Brightness threshold" << YAML::Value << environment.m_BloomSettings.m_BrightnessThreshold;
+	out << YAML::Key << "Exposure" << YAML::Value << environment.m_BloomSettings.m_Exposure;
+	out << YAML::Key << "Gamma" << YAML::Value << environment.m_BloomSettings.m_Gamma;
+	out << YAML::Key << "Pixels blured" << YAML::Value << environment.m_BloomSettings.m_PixelsBlured;
+	out << YAML::Key << "IsEnabled" << YAML::Value << environment.m_BloomSettings.m_IsEnabled;
+	out << YAML::Key << "DepthTest" << YAML::Value << environment.m_DepthTest;
+
+	SerializeShadows(out);
+
 	out << YAML::EndMap;
 }
 
@@ -803,46 +767,146 @@ void Serializer::DeserializeEnvironment(YAML::Node& in)
 {
 	if (auto& environmentIn = in["Environment"])
 	{
+		Environment& environment = Environment::GetInstance();
+
 		if (auto& globalIntensityData = environmentIn["Global Intensity"])
 		{
-			Environment::GetInstance().SetGlobalIntensity(globalIntensityData.as<float>());
+			environment.SetGlobalIntensity(globalIntensityData.as<float>());
 		}
 
 		if (auto& blurPassesData = environmentIn["Blur passes"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_BlurPasses = blurPassesData.as<int>();
+			environment.m_BloomSettings.m_BlurPasses = blurPassesData.as<int>();
 		}
 
 		if (auto& brightnessThresholdData = environmentIn["Brightness threshold"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold = brightnessThresholdData.as<float>();
+			environment.m_BloomSettings.m_BrightnessThreshold = brightnessThresholdData.as<float>();
 		}
 
 		if (auto& exposureData = environmentIn["Exposure"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_Exposure = exposureData.as<float>();
+			environment.m_BloomSettings.m_Exposure = exposureData.as<float>();
 		}
 
 		if (auto& GammaData = environmentIn["Gamma"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_Gamma = GammaData.as<float>();
+			environment.m_BloomSettings.m_Gamma = GammaData.as<float>();
 		}
 
 		if (auto& pixelsbluredData = environmentIn["Pixels blured"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_PixelsBlured = pixelsbluredData.as<int>();
+			environment.m_BloomSettings.m_PixelsBlured = pixelsbluredData.as<int>();
 		}
 
 		if (auto& isEnabledData = environmentIn["IsEnabled"])
 		{
-			Environment::GetInstance().m_BloomSettings.m_IsEnabled = isEnabledData.as<bool>();
+			environment.m_BloomSettings.m_IsEnabled = isEnabledData.as<bool>();
 		}
 
 		if (auto& depthTestData = environmentIn["DepthTest"])
 		{
-			Environment::GetInstance().SetDepthTest(depthTestData.as<bool>());
+			environment.SetDepthTest(depthTestData.as<bool>());
+		}
+
+		environment.m_ShadowsSettings = DeserializeShadows(environmentIn);
+	}
+}
+
+void Serializer::SerializeShadows(YAML::Emitter& out)
+{
+	Environment::ShadowsSettings& shadows = Environment::GetInstance().m_ShadowsSettings;
+
+	out << YAML::Key << "Shadows";
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Bias" << YAML::Value << shadows.m_Bias;
+	out << YAML::Key << "IsEnabled" << YAML::Value << shadows.m_IsEnabled;
+	out << YAML::Key << "IsVisualized" << YAML::Value << shadows.m_IsVisualized;
+	out << YAML::Key << "Pcf" << YAML::Value << shadows.m_Pcf;
+	out << YAML::Key << "Fog" << YAML::Value << shadows.m_Fog;
+	out << YAML::Key << "Texels" << YAML::Value << shadows.m_Texels;
+	out << YAML::Key << "ZFarScale" << YAML::Value << shadows.m_ZFarScale;
+	out << YAML::Key << "CascadesDistance" << YAML::Value << shadows.m_CascadesDistance;
+
+	out << YAML::Key << "Blur";
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Passes" << YAML::Value << shadows.m_Blur.m_BlurPasses;
+	out << YAML::Key << "IsEnabled" << YAML::Value << shadows.m_Blur.m_IsEnabled;
+	out << YAML::Key << "PixelsBlured" << YAML::Value << shadows.m_Blur.m_PixelsBlured;
+
+	out << YAML::EndMap;
+
+	out << YAML::EndMap;
+}
+
+Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
+{
+	Environment::ShadowsSettings shadows;
+
+	if (auto& shadowsIn = in["Shadows"])
+	{
+		if (auto& biasData = shadowsIn["Bias"])
+		{
+			shadows.m_Bias = biasData.as<float>();
+		}
+
+		if (auto& isEnabledData = shadowsIn["IsEnabled"])
+		{
+			shadows.m_IsEnabled = isEnabledData.as<bool>();
+		}
+
+		if (auto& isVisualizedData = shadowsIn["IsVisualized"])
+		{
+			shadows.m_IsVisualized = isVisualizedData.as<bool>();
+		}
+
+		if (auto& pcfData = shadowsIn["Pcf"])
+		{
+			shadows.m_Pcf = pcfData.as<int>();
+		}
+
+		if (auto& fogData = shadowsIn["Fog"])
+		{
+			shadows.m_Fog = fogData.as<float>();
+		}
+
+		if (auto& zFarScaleData = shadowsIn["ZFarScale"])
+		{
+			shadows.m_ZFarScale = zFarScaleData.as<float>();
+		}
+
+		if (auto& texelsData = shadowsIn["Texels"])
+		{
+			shadows.m_Texels = texelsData.as<float>();
+		}
+
+		if (auto& cascadesDistanceData = shadowsIn["CascadesDistance"])
+		{
+			shadows.m_CascadesDistance = cascadesDistanceData.as<std::vector<float>>();
+		}
+
+		if (auto& blurData = shadowsIn["Blur"])
+		{
+			if (auto& blurPasses = blurData["Passes"])
+			{
+				shadows.m_Blur.m_BlurPasses = blurPasses.as<int>();
+			}
+
+			if (auto& isEnabled = blurData["IsEnabled"])
+			{
+				shadows.m_Blur.m_IsEnabled = isEnabled.as<bool>();
+			}
+
+			if (auto& pixelsBlured = blurData["PixelsBlured"])
+			{
+				shadows.m_Blur.m_PixelsBlured = pixelsBlured.as<int>();
+			}
 		}
 	}
+
+	return shadows;
 }
 
 std::string Serializer::GenerateMetaFilePath(const std::string& filePath, const std::string& name)
@@ -850,7 +914,7 @@ std::string Serializer::GenerateMetaFilePath(const std::string& filePath, const 
 	return Utils::GetDirectoryFromFilePath(filePath) + "/" + name + ".meta";
 }
 
-std::string Serializer::SerializeMeshMeta(const std::string& filePath, Pengine::Mesh::Meta meta)
+std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
 {
 	std::string metaFilePath = GenerateMetaFilePath(meta.m_FilePath, meta.m_Name);
 
@@ -904,6 +968,71 @@ Mesh::Meta Serializer::DeserializeMeshMeta(const std::string& filePath)
 	if (auto& filePathData = data["FilePath"])
 	{
 		meta.m_FilePath = filePathData.as<std::string>();
+	}
+
+	return meta;
+}
+
+std::string Serializer::SerializeTextureMeta(Texture::Meta meta)
+{
+	std::string metaFilePath = GenerateMetaFilePath(meta.m_FilePath, meta.m_Name);
+
+	YAML::Emitter out;
+
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Texture";
+	out << YAML::BeginMap;
+
+	out << YAML::Key << "Name" << YAML::Value << meta.m_Name;
+	out << YAML::Key << "FilePath" << YAML::Value << meta.m_FilePath;
+	out << YAML::Key << "Params" << YAML::Value << meta.m_Params;
+
+	out << YAML::EndMap;
+
+	out << YAML::EndMap;
+
+	std::ofstream fout(metaFilePath);
+	fout << out.c_str();
+
+	Logger::Success("has been serialized!", "Texture meta", metaFilePath.c_str());
+
+	return metaFilePath;
+}
+
+Texture::Meta Serializer::DeserializeTextureMeta(const std::string& filePath)
+{
+	if (filePath.empty())
+	{
+		return {};
+	}
+
+	std::ifstream stream(filePath);
+	std::stringstream strStream;
+
+	strStream << stream.rdbuf();
+
+	YAML::Node data = YAML::LoadMesh(strStream.str())["Texture"];
+	if (!data)
+	{
+		return {};
+	}
+
+	Texture::Meta meta;
+
+	if (auto& nameData = data["Name"])
+	{
+		meta.m_Name = nameData.as<std::string>();
+	}
+
+	if (auto& filePathData = data["FilePath"])
+	{
+		meta.m_FilePath = filePathData.as<std::string>();
+	}
+
+	if (auto& paramsData = data["Params"])
+	{
+		meta.m_Params = paramsData.as<std::vector<int>>();
 	}
 
 	return meta;
@@ -1000,6 +1129,7 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	SerializeAnimator2D(out, gameObject.m_ComponentManager);
 	SerializeParticleEmitter(out, gameObject.m_ComponentManager);
 	SerializeScript(out, gameObject.m_ComponentManager);
+	SerializeSpotLight(out, gameObject.m_ComponentManager);
 	SerializePointLight(out, gameObject.m_ComponentManager);
 	SerializeDirectionalLight(out, gameObject.m_ComponentManager);
 	SerializeUserDefinedComponents(out, gameObject.m_ComponentManager);
@@ -1046,6 +1176,7 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 	DeSerializeAnimator2D(in, gameObject->m_ComponentManager);
 	DeSerializeParticleEmitter(in, gameObject->m_ComponentManager);
 	DeSerializeScript(in, gameObject->m_ComponentManager);
+	DeSerializeSpotLight(in, gameObject->m_ComponentManager);
 	DeSerializePointLight(in, gameObject->m_ComponentManager);
 	DeSerializeDirectionalLight(in, gameObject->m_ComponentManager);
 	DeserializeUserDefinedComponents(in, gameObject->m_ComponentManager);
@@ -1089,13 +1220,18 @@ void Serializer::SerializeRenderer3D(YAML::Emitter& out, ComponentManager& compo
 		
 		out << YAML::Key << "Mesh" << YAML::Value << r3d->m_Mesh->GenerateMeta().m_FilePath;
 
-		out << YAML::Key << "Ambient" << YAML::Value << r3d->m_Material.m_Ambient;
-		out << YAML::Key << "Diffuse" << YAML::Value << r3d->m_Material.m_Diffuse;
-		out << YAML::Key << "Specular" << YAML::Value << r3d->m_Material.m_Specular;
-		out << YAML::Key << "Scale" << YAML::Value << r3d->m_Material.m_Scale;
-		out << YAML::Key << "Shininess" << YAML::Value << r3d->m_Material.m_Shininess;
-		out << YAML::Key << "Solid" << YAML::Value << r3d->m_Material.m_Solid;
-		out << YAML::Key << "BaseColor" << YAML::Value << (r3d->m_Material.m_BaseColor ? r3d->m_Material.m_BaseColor->GetFilePath() : "White");
+		out << YAML::Key << "IsInherited" << YAML::Value << r3d->m_Material->IsInherited();
+
+		if (r3d->m_Material->IsInherited())
+		{
+			auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
+			rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
+			SerializeRttrType<Material>(out, materialClass, r3d->m_Material);
+		}
+		else
+		{
+			out << YAML::Key << "Material" << YAML::Value << r3d->m_Material->GetFilePath();
+		}
 
 		out << YAML::EndMap;
 	}
@@ -1125,45 +1261,36 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 			std::string baseColorFilePath = baseColorData.as<std::string>();
 			if (baseColorFilePath == "White")
 			{
-				r3d->m_Material.m_BaseColor = TextureManager::GetInstance().White();
+				r3d->m_Material->m_BaseColor = TextureManager::GetInstance().White();
 			}
 			else
 			{
 				TextureManager::GetInstance().AsyncCreate(baseColorFilePath);
 				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
-					r3d->m_Material.m_BaseColor = texture;
-					}, baseColorFilePath);
+					r3d->m_Material->m_BaseColor = texture;
+				}, baseColorFilePath);
 			}
 		}
 
-		if (auto& ambientData = renderer3DIn["Ambient"])
+		bool isInherited = false;
+		if (auto& isInheritedData = renderer3DIn["IsInherited"])
 		{
-			r3d->m_Material.m_Ambient = ambientData.as<glm::vec3>();
+			isInherited = isInheritedData.as<bool>();
 		}
 
-		if (auto& diffuseData = renderer3DIn["Diffuse"])
+		if (isInherited)
 		{
-			r3d->m_Material.m_Diffuse = diffuseData.as<glm::vec3>();
+			r3d->SetMaterial(r3d->m_Material->Inherit());
+			auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
+			rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
+			DeserializeRttrType<Material>(renderer3DIn, materialClass, r3d->m_Material);
 		}
-
-		if (auto& specularData = renderer3DIn["Specular"])
+		else
 		{
-			r3d->m_Material.m_Specular = specularData.as<glm::vec3>();
-		}
-
-		if (auto& scaleData = renderer3DIn["Scale"])
-		{
-			r3d->m_Material.m_Scale = scaleData.as<float>();
-		}
-
-		if (auto& shininessData = renderer3DIn["Shininess"])
-		{
-			r3d->m_Material.m_Shininess = shininessData.as<float>();
-		}
-
-		if (auto& solidData = renderer3DIn["Solid"])
-		{
-			r3d->m_Material.m_Solid = solidData.as<float>();
+			if (auto& MaterialData = renderer3DIn["Material"])
+			{
+				r3d->SetMaterial(MaterialManager::GetInstance().Load(MaterialData.as<std::string>(), true));
+			}
 		}
 	}
 }
@@ -1696,16 +1823,16 @@ void Serializer::DeSerializeScript(YAML::Node& in, ComponentManager& componentMa
 
 void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& componentManager)
 {
-	PointLight2D* pointLight2D = componentManager.GetComponent<PointLight2D>();
-	if (pointLight2D)
+	PointLight* pointLight = componentManager.GetComponent<PointLight>();
+	if (pointLight)
 	{
-		out << YAML::Key << "Point Light 2D";
+		out << YAML::Key << "PointLight";
 		out << YAML::BeginMap;
 
-		out << YAML::Key << "Color" << YAML::Value << pointLight2D->m_Color;
-		out << YAML::Key << "Constant" << YAML::Value << pointLight2D->m_Constant;
-		out << YAML::Key << "Linear" << YAML::Value << pointLight2D->m_Linear;
-		out << YAML::Key << "Quadratic" << YAML::Value << pointLight2D->m_Quadratic;
+		out << YAML::Key << "Color" << YAML::Value << pointLight->m_Color;
+		out << YAML::Key << "Constant" << YAML::Value << pointLight->m_Constant;
+		out << YAML::Key << "Linear" << YAML::Value << pointLight->m_Linear;
+		out << YAML::Key << "Quadratic" << YAML::Value << pointLight->m_Quadratic;
 
 		out << YAML::EndMap;
 	}
@@ -1713,28 +1840,85 @@ void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& compo
 
 void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& componentManager)
 {
-	if (auto& pointLight2DIn = in["Point Light 2D"])
+	if (auto& pointLightIn = in["PointLight"])
 	{
-		PointLight2D* pointLight2D = componentManager.AddComponent<PointLight2D>();
+		PointLight* pointLight = componentManager.AddComponent<PointLight>();
 
-		if (auto& colorData = pointLight2DIn["Color"])
+		if (auto& colorData = pointLightIn["Color"])
 		{
-			pointLight2D->m_Color = colorData.as<glm::vec3>();
+			pointLight->m_Color = colorData.as<glm::vec3>();
 		}
 
-		if (auto& constantData = pointLight2DIn["Constant"])
+		if (auto& constantData = pointLightIn["Constant"])
 		{
-			pointLight2D->m_Constant = constantData.as<float>();
+			pointLight->m_Constant = constantData.as<float>();
 		}
 
-		if (auto& linearData = pointLight2DIn["Linear"])
+		if (auto& linearData = pointLightIn["Linear"])
 		{
-			pointLight2D->m_Linear = linearData.as<float>();
+			pointLight->m_Linear = linearData.as<float>();
 		}
 
-		if (auto& quadraticData = pointLight2DIn["Quadratic"])
+		if (auto& quadraticData = pointLightIn["Quadratic"])
 		{
-			pointLight2D->m_Quadratic = quadraticData.as<float>();
+			pointLight->m_Quadratic = quadraticData.as<float>();
+		}
+	}
+}
+
+void Serializer::SerializeSpotLight(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	SpotLight* spotLight = componentManager.GetComponent<SpotLight>();
+	if (spotLight)
+	{
+		out << YAML::Key << "SpotLight";
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Color" << YAML::Value << spotLight->m_Color;
+		out << YAML::Key << "Constant" << YAML::Value << spotLight->m_Constant;
+		out << YAML::Key << "Linear" << YAML::Value << spotLight->m_Linear;
+		out << YAML::Key << "Quadratic" << YAML::Value << spotLight->m_Quadratic;
+		out << YAML::Key << "InnerCutOff" << YAML::Value << spotLight->GetInnerCutOff();
+		out << YAML::Key << "OuterCutOff" << YAML::Value << spotLight->GetOuterCutOfff();
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeSpotLight(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& spotLighttIn = in["SpotLight"])
+	{
+		SpotLight* spotLight = componentManager.AddComponent<SpotLight>();
+
+		if (auto& colorData = spotLighttIn["Color"])
+		{
+			spotLight->m_Color = colorData.as<glm::vec3>();
+		}
+
+		if (auto& constantData = spotLighttIn["Constant"])
+		{
+			spotLight->m_Constant = constantData.as<float>();
+		}
+
+		if (auto& linearData = spotLighttIn["Linear"])
+		{
+			spotLight->m_Linear = linearData.as<float>();
+		}
+
+		if (auto& quadraticData = spotLighttIn["Quadratic"])
+		{
+			spotLight->m_Quadratic = quadraticData.as<float>();
+		}
+
+		if (auto& innerCutOffData = spotLighttIn["InnerCutOff"])
+		{
+			spotLight->SetInnerCutOff(innerCutOffData.as<float>());
+		}
+
+		if (auto& outerCutOffData = spotLighttIn["OuterCutOff"])
+		{
+			spotLight->SetOuterCutOff(outerCutOffData.as<float>());
 		}
 	}
 }
@@ -1774,9 +1958,6 @@ void Serializer::DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& c
 
 void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentManager& componentManager)
 {
-	using namespace glm;
-	using namespace std;
-
 	for (IComponent* component : componentManager.GetComponents())
 	{
 		if (Utils::IsUserDefinedComponent(component->GetType()))
@@ -1785,70 +1966,7 @@ void Serializer::SerializeUserDefinedComponents(YAML::Emitter& out, ComponentMan
 			out << YAML::BeginMap;
 
 			rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
-			for (auto& prop : componentClass.get_properties())
-			{
-				out << YAML::Key << prop.get_name();
-				out << YAML::BeginMap;
-
-				if (prop.get_type().is_array())
-				{
-					SERIALIZE_REFLECTED_VECTOR_PROPERTY(float)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(double)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(bool)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int64_t)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(string)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint32_t)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint64_t)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec2)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec3)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec4)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec2)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec3)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec4)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec2)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec3)
-					else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec4)
-				}
-				else if (prop.get_type().is_pointer())
-				{
-					if (auto& value = prop.get_value(component))
-					{
-						if (value.can_convert<IAsset*>())
-						{
-							std::string type = prop.get_type().get_name();
-							IAsset* asset = value.get_value<IAsset*>();
-							if (asset)
-							{
-								out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_asset();
-								out << YAML::Key << "Value" << YAML::Value << asset->GetFilePath();
-							}
-						}
-					}
-				}
-				else
-				{
-					SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
-					else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
-				}
-
-				out << YAML::EndMap;
-			}
+			SerializeRttrType<IComponent>(out, componentClass, component);
 
 			out << YAML::EndMap;
 		}
@@ -1866,72 +1984,217 @@ void Serializer::DeserializeUserDefinedComponents(YAML::Node& in, ComponentManag
 				registeredClass.second.m_AddComponentCallBack(&componentManager);
 				IComponent* component = componentManager.GetComponent(registeredClass.first);
 				rttr::type componentClass = rttr::type::get_by_name(registeredClass.first.c_str());
+				DeserializeRttrType<IComponent>(componentData, componentClass, component);
+			}
+		}
+	}
+}
 
-				for (auto& prop : componentClass.get_properties())
+void Serializer::SerializeMaterial(const std::string& filePath, Material* material)
+{
+	if (filePath.empty() || filePath == "None")
+	{
+		return;
+	}
+
+	auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
+	if (registeredClass != ReflectionSystem::GetInstance().m_RegisteredClasses.end())
+	{
+		YAML::Emitter out;
+
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Material";
+		out << YAML::BeginMap;
+
+		rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
+
+		SerializeRttrType<Material>(out, materialClass, material);
+
+		out << YAML::EndMap;
+
+		out << YAML::EndMap;
+
+		std::ofstream fout(filePath);
+		fout << out.c_str();
+
+		Logger::Success("has been serialized!", "Mesh meta", filePath.c_str());
+	}
+}
+
+Material* Serializer::DeserializeMaterial(const std::string& filePath)
+{
+	Material* material = new Material();
+
+	material->GenerateFromFilePath(filePath);
+
+	if (filePath.empty() || filePath == "None")
+	{
+		return material;
+	}
+
+	std::ifstream stream(filePath);
+	std::stringstream strStream;
+
+	strStream << stream.rdbuf();
+
+	YAML::Node data = YAML::LoadMesh(strStream.str())["Material"];
+	if (!data)
+	{
+		return material;
+	}
+
+	auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
+	if (registeredClass != ReflectionSystem::GetInstance().m_RegisteredClasses.end())
+	{
+		rttr::type componentClass = rttr::type::get_by_name(registeredClass->first.c_str());
+		DeserializeRttrType<Material>(data, componentClass, material);
+	}
+
+	if (Utils::Contains(material->m_BaseColorFilePath, ".meta"))
+	{
+		Texture::Meta meta = DeserializeTextureMeta(material->m_BaseColorFilePath);
+		TextureManager::GetInstance().AsyncCreate(meta);
+		TextureManager::GetInstance().AsyncGetByFilePath(
+			[=](Texture* texture)
+		{
+			material->SetBaseColor(texture, meta.m_FilePath);
+		}, meta.m_FilePath);
+	}
+	else
+	{
+		TextureManager::GetInstance().AsyncCreate(material->m_BaseColorFilePath);
+		TextureManager::GetInstance().AsyncGetByFilePath(
+			[=](Texture* texture)
+		{
+				material->SetBaseColor(texture, material->m_BaseColorFilePath);
+		}, material->m_BaseColorFilePath);
+	}
+
+	return material;
+}
+
+template<typename T>
+void Serializer::SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* Class)
+{
+	using namespace glm;
+	using namespace std;
+
+	for (auto& prop : type.get_properties())
+	{
+		out << YAML::Key << prop.get_name();
+		out << YAML::BeginMap;
+
+		if (prop.get_type().is_array())
+		{
+			SERIALIZE_REFLECTED_VECTOR_PROPERTY(float)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(double)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(bool)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(int64_t)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(string)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint32_t)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(uint64_t)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec2)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec3)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(vec4)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec2)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec3)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(ivec4)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec2)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec3)
+			else SERIALIZE_REFLECTED_VECTOR_PROPERTY(dvec4)
+		}
+		else
+		{
+			SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3)
+			else SERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4)
+		}
+
+		out << YAML::EndMap;
+	}
+}
+
+template<typename T>
+void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* Class)
+{
+	using namespace glm;
+	using namespace std;
+	for (auto& prop : type.get_properties())
+	{
+		// Maybe it is better to make a dispatcher function with callbacks
+		// and call it here, so we don't need to explicitly write each function by hand.
+
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4, in, prop, Class)
+
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint, std::vector<int>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint64_t, std::vector<__int64>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint32_t, std::vector<unsigned int>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorfloat, std::vector<float>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordouble, std::vector<double>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorbool, std::vector<bool>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec2, std::vector<glm::vec2>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec3, std::vector<glm::vec3>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec4, std::vector<glm::vec4>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec2, std::vector<glm::ivec2>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec3, std::vector<glm::ivec3>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec4, std::vector<glm::ivec4>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec2, std::vector<glm::dvec2>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec3, std::vector<glm::dvec3>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec4, std::vector<glm::dvec4>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorstring, std::vector<std::string>, in, prop, Class)
+
+		if (auto& propData = in[prop.get_name()])
+		{
+			if (auto& propTypeData = propData["Type"])
+			{
+				if (ReflectedProps::is_asset(propTypeData.as<std::string>()))
 				{
-					// Maybe it is better to make a dispatcher function with callbacks
-					// and call it here, so we don't need to explicitly write each function by hand.
-
-					ReflectedProps::deserialize_reflected_int_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_float_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_double_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_uint32_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_int64_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_uint64_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_string_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_bool_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_ivec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_ivec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_ivec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_dvec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_dvec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_dvec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_dvec4_property(componentData, component, prop);
-
-					ReflectedProps::deserialize_reflected_vectorint_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorfloat_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectordouble_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorint64_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectoruint32_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectoruint64_t_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorstring_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorbool_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorvec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorvec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorvec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorivec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorivec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectorivec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectordvec2_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectordvec3_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectordvec4_property(componentData, component, prop);
-					ReflectedProps::deserialize_reflected_vectordvec4_property(componentData, component, prop);
-
-					//if (auto& propData = componentData[prop.get_name()])
-					//{
-					//	if (auto& propTypeData = propData["Type"])
-					//	{
-					//		if (ReflectedProps::is_asset(propTypeData.as<std::string>()))
-					//		{
-					//			if (auto& propValueData = propData["Value"])
-					//			{
-					//				std::string assetFilePath = propValueData.as<std::string>();
-					//				if (assetFilePath == "White" || Utils::MatchType(assetFilePath, {"jpeg", "png", "jpg"}))
-					//				{
-					//					TextureManager::GetInstance().AsyncCreate(assetFilePath);
-					//					TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture)
-					//						{
-					//							prop.set_value(component, texture);
-					//						}
-					//					, Utils::GetNameFromFilePath(assetFilePath));
-					//				}
-					//			}
-					//		}
-					//	}
-					//}
+					if (auto& propValueData = propData["Value"])
+					{
+						std::string assetFilePath = propValueData.as<std::string>();
+						if (assetFilePath == "White" || Utils::MatchType(assetFilePath, { "jpeg", "png", "jpg" }))
+						{
+							TextureManager::GetInstance().AsyncCreate(assetFilePath);
+							TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture)
+								{
+									prop.set_value(Class, texture);
+								}
+							, Utils::GetNameFromFilePath(assetFilePath));
+						}
+					}
 				}
 			}
 		}

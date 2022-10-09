@@ -1,0 +1,8 @@
+Texture:
+  Name: sponza_ceiling_a_diff
+  FilePath: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+  Params:
+    - 9729
+    - 9729
+    - 10497
+    - 10497

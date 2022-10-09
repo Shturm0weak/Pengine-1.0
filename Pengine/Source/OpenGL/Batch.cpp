@@ -627,12 +627,12 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& positionMat4
 	Submit(mesh, transform, color, textures);
 }
 
-void Batch::FlushGameObjects()
+void Batch::FlushGameObjects(bool isVisualizer)
 {
 	glBindVertexArray(m_GOWrapper.m_Vao);
 	m_GOWrapper.m_Ibo.Bind();
 
-	Shader* shader = Shader::Get("Default2D");
+	Shader* shader = m_GameObjectsShader;
 	shader->Bind();
 	int samplers[32];
 	for (unsigned int i = m_GOWrapper.m_StartTextureSlotIndex; i < m_GOWrapper.m_TextureSlotIndex; i++)
@@ -644,33 +644,40 @@ void Batch::FlushGameObjects()
 	{
 		samplers[i] = i;
 	}
-
-	shader->SetUniform1f("u_GlobalIntensity", Environment::GetInstance().GetGlobalIntensity());
+	
 	shader->SetUniform1iv("u_Texture", samplers);
 	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 	//shader->SetUniform2fv("u_Resolution", Viewport::GetInstance().GetSize());
 
-	char buffer[64];
-	Scene* scene = EntryPoint::GetApplication().GetScene();
-	int pointLightSize = scene->m_PointLights2D.size();
-	shader->SetUniform1i("pointLightSize", pointLightSize);
-	for (int i = 0; i < pointLightSize; i++)
+	if (!isVisualizer)
 	{
-		PointLight2D* pointLight2D = scene->m_PointLights2D[i];
-		sprintf(buffer, "pointLights[%i].position", i);
-		shader->SetUniform3fv(buffer, pointLight2D->GetOwner()->m_Transform.GetPosition());
-		sprintf(buffer, "pointLights[%i].color", i);
-		shader->SetUniform3fv(buffer, pointLight2D->m_Color);
-		sprintf(buffer, "pointLights[%i].constant", i);
-		shader->SetUniform1f(buffer, pointLight2D->m_Constant);
-		sprintf(buffer, "pointLights[%i]._linear", i);
-		shader->SetUniform1f(buffer, pointLight2D->m_Linear);
-		sprintf(buffer, "pointLights[%i].quadratic", i);
-		shader->SetUniform1f(buffer, pointLight2D->m_Quadratic);
-	}
+		shader->SetUniform1f("u_GlobalIntensity", Environment::GetInstance().GetGlobalIntensity());
 
+		char buffer[64];
+		Scene* scene = EntryPoint::GetApplication().GetScene();
+		int pointLightSize = scene->m_PointLights.size();
+		shader->SetUniform1i("pointLightSize", pointLightSize);
+		for (int i = 0; i < pointLightSize; i++)
+		{
+			PointLight* pointLight2D = scene->m_PointLights[i];
+			sprintf(buffer, "pointLights[%i].position", i);
+			shader->SetUniform3fv(buffer, pointLight2D->GetOwner()->m_Transform.GetPosition());
+			sprintf(buffer, "pointLights[%i].color", i);
+			shader->SetUniform3fv(buffer, pointLight2D->m_Color);
+			sprintf(buffer, "pointLights[%i].constant", i);
+			shader->SetUniform1f(buffer, pointLight2D->m_Constant);
+			sprintf(buffer, "pointLights[%i]._linear", i);
+			shader->SetUniform1f(buffer, pointLight2D->m_Linear);
+			sprintf(buffer, "pointLights[%i].quadratic", i);
+			shader->SetUniform1f(buffer, pointLight2D->m_Quadratic);
+		}
+	}
+	
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glDisable(GL_CULL_FACE);
+
 	glDrawElements(GL_TRIANGLES, m_GOWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
@@ -699,8 +706,10 @@ void Batch::FlushLines()
 	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 
 	glLineWidth(Editor::GetInstance().m_LineWidth);
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glDrawElements(GL_LINES, m_LineWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 	
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
@@ -780,12 +789,12 @@ void Batch::BeginGameObjects()
 	m_GOWrapper.m_IndexCount = 0;
 }
 
-void Batch::EndGameObjects()
+void Batch::EndGameObjects(bool isVisualizer)
 {
 	uint32_t dataSize = (uint8_t*)m_GOWrapper.m_Buffer - (uint8_t*)m_GOWrapper.m_BufferPtr;
 	glBindBuffer(GL_ARRAY_BUFFER, m_GOWrapper.m_Vbo);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, dataSize, m_GOWrapper.m_BufferPtr);
-	FlushGameObjects();
+	FlushGameObjects(isVisualizer);
 }
 
 void Batch::BeginUI()

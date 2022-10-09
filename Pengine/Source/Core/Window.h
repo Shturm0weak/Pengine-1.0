@@ -83,8 +83,12 @@ namespace Pengine
 		
 		void AddScrollOffset(const glm::vec2& offset) { m_ScrollOffset += offset; }
 		
-		void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 1.0f }) const;
+		void Clear(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 1.0f }, float depth = 1.0f) const;
 
+		void ClearColor(const glm::vec4& color = { 0.0f, 0.0f, 0.0f, 1.0f }) const;
+
+		void ClearDepth(float depth = 1.0f) const;
+		
 		void ClampCursorPosition();
 
 		void ShutDown();

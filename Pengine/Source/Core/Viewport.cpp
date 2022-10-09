@@ -97,8 +97,15 @@ void Viewport::Update()
 	ImGui::End();
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("SceneColor", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("UI", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferUI->m_Textures[0]);
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
@@ -116,6 +123,23 @@ void Viewport::Update()
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Shadows", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferShadowsBlur[0]->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferCSM.size(); i++)
+	{
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+		ImGui::Begin(std::string("Shadows" + std::to_string(i)).c_str(), nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+		texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
+		ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+		ImGui::PopStyleVar();
+		ImGui::End();
+	}
 #endif
 
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
@@ -142,8 +166,8 @@ void Viewport::Update()
 		{
 			std::string path((const char*)payload->Data);
 			path.resize(payload->DataSize);
-			std::string resolution = Utils::GetResolutionFromFilePath(path);
-			if (resolution == "yaml")
+			std::string format = Utils::GetResolutionFromFilePath(path);
+			if (format == "yaml")
 			{
 				auto callback = [=]() {
 					Serializer::DeserializeScene(path);
@@ -151,16 +175,20 @@ void Viewport::Update()
 				EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 			
 			}
-			else if (resolution == "prefab")
+			else if (format == "prefab")
 			{
 				auto callback = [=]() {
 					Serializer::DeserializePrefab(path);
 				};
 				EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 			}
-			else if (resolution == "obj")
+			else if (format == "obj")
 			{
 				MeshManager::GetInstance().LoadAsyncToViewport(path);
+			}
+			else if (format == "mat")
+			{
+				Editor::GetInstance().DropMaterialOnViewport(path);
 			}
 		}
 		ImGui::EndDragDropTarget();
@@ -284,12 +312,16 @@ void Viewport::ShutDown()
 
 void Viewport::Resize(const glm::ivec2& size)
 {
+	TextureManager::GetInstance().ResetTexParametersi();
+
     m_Size = size;
 
     m_FrameBufferViewport->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferScene->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferShadows->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferOutline->Resize(m_Size);
 
     std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
     camera->SetSize(m_Size);
@@ -302,6 +334,16 @@ void Viewport::Resize(const glm::ivec2& size)
 		newSize *= 0.5f;
 		Renderer::GetInstance().m_FrameBufferBlur[i + 0]->Resize(newSize);
 		Renderer::GetInstance().m_FrameBufferBlur[i + 1]->Resize(newSize);
+	}
+
+	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferCSM.size(); i++)
+	{
+		Renderer::GetInstance().m_FrameBufferCSM[i]->Resize(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Params.m_Size);
+	}
+
+	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferShadowsBlur.size(); i++)
+	{
+		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->m_Params.m_Size);
 	}
 }
 

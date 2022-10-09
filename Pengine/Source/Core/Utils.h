@@ -271,6 +271,13 @@ namespace Pengine
 			return replacedString;
 		}
 
+		PENGINE_API inline std::string Replace(const std::string& string, char what, char to)
+		{
+			std::string replacedString = string;
+			std::replace(replacedString.begin(), replacedString.end(), what, to);
+			return replacedString;
+		}
+
 		PENGINE_API inline std::string GetDirectoryFromFilePath(const std::string& path)
 		{
 			size_t index = path.find_last_of("/");

@@ -74,31 +74,35 @@ std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObje
 bool Raycast3D::IntersectTriangle(const const glm::vec3& start, const glm::vec3& direction, Hit3D& hit,
 	float length, const glm::vec3& a, const glm::vec3& b, const glm::vec3& c, const glm::vec3& planeNorm)
 {
-	glm::dvec3 end = direction * length;
-	glm::dvec3 rayDelta = end - glm::dvec3(start);
-	glm::dvec3 rayToPlaneDelta = a - start;
-	double ratio = glm::dot(rayToPlaneDelta, glm::dvec3(planeNorm));
-	glm::dvec3 proj = glm::dvec3(planeNorm) * ratio;
-	double vp = glm::dot(rayDelta, glm::dvec3(planeNorm));
+	glm::vec3 end = direction * length;
+	glm::vec3 rayDelta = end - start;
+	glm::vec3 rayToPlaneDelta = a - start;
+	float vp = glm::dot(rayDelta, planeNorm);
 	if (vp >= -0.0001 && vp <= 0.0001)
 	{
 		return false;
 	}
-	double wp = glm::dot(rayToPlaneDelta, glm::dvec3(planeNorm));
-	double t = wp / vp;
-	glm::dvec3 iPos = rayDelta * t + glm::dvec3(start);
-	hit.m_Point = iPos;
-	hit.m_Distance = glm::distance(glm::dvec3(start), iPos);
-	glm::dvec3 edge0 = b - a;
-	glm::dvec3 edge1 = c - b;
-	glm::dvec3 edge2 = a - c;
-	glm::dvec3 c0 = iPos - glm::dvec3(a);
-	glm::dvec3 c1 = iPos - glm::dvec3(b);
-	glm::dvec3 c2 = iPos - glm::dvec3(c);
 
-	if (glm::dot(glm::dvec3(planeNorm), glm::cross(edge0, c0)) > 0.0 &&
-		glm::dot(glm::dvec3(planeNorm), glm::cross(edge1, c1)) > 0.0 &&
-		glm::dot(glm::dvec3(planeNorm), glm::cross(edge2, c2)) > 0.0)
+	float wp = glm::dot(rayToPlaneDelta, planeNorm);
+	float t = wp / vp;
+	glm::vec3 point = rayDelta * t + start;
+	hit.m_Point = point;
+	hit.m_Distance = glm::distance(start, point);
+	glm::vec3 edge0 = b - a;
+	glm::vec3 edge1 = c - b;
+	glm::vec3 edge2 = a - c;
+	glm::vec3 c0 = point - a;
+	glm::vec3 c1 = point - b;
+	glm::vec3 c2 = point - c;
+
+	if (glm::dot(glm::normalize(point - start), direction) < 0.0f)
+	{
+		return false;
+	}
+
+	if (glm::dot(planeNorm, glm::cross(edge0, c0)) > 0.0f &&
+		glm::dot(planeNorm, glm::cross(edge1, c1)) > 0.0f &&
+		glm::dot(planeNorm, glm::cross(edge2, c2)) > 0.0f)
 	{
 		return true;
 	}

@@ -15,12 +15,17 @@ namespace Pengine
 		Renderer(const Renderer&) = delete;
 		Renderer& operator=(const Renderer&) { return *this; }
 		~Renderer() = default;
-	public:
 
 		class FrameBuffer* m_FrameBufferScene = nullptr;
 		class FrameBuffer* m_FrameBufferUI = nullptr; 
 		class FrameBuffer* m_FrameBufferBloom = nullptr;
+		class FrameBuffer* m_FrameBufferOutline = nullptr;
+		class FrameBuffer* m_FrameBufferShadows = nullptr;
 		std::vector<class FrameBuffer*> m_FrameBufferBlur;
+		std::vector<class FrameBuffer*> m_FrameBufferCSM;
+		std::vector<class FrameBuffer*> m_FrameBufferShadowsBlur;
+
+		std::vector<glm::mat4> m_LightSpaceMatrices;
 
 		static Renderer& GetInstance();
 
@@ -36,7 +41,20 @@ namespace Pengine
 
 		void ComposeFinalImage();
 
+		void RenderCascadeShadowMaps(class Scene* scene);
+
+		void RenderCascadeShadowsToScene(class Scene* scene);
+
+		glm::mat4 Renderer::GetLightSpaceMatrix(class DirectionalLight* light, const float nearPlane, const float farPlane);
+
+		std::vector<glm::mat4> GetLightSpaceMatrices(class DirectionalLight* light);
+
 		void RenderFullScreenQuad();
+
+		void RenderOutline();
+
+		void Blur(class FrameBuffer* frameBufferSource, const std::vector<class FrameBuffer*>& frameBuffers, int blurPasses,
+			float brightnessThreshold, int pixelsBlured);
 
 		// The best that I can get, though it is not perfect.
 		// 1. Create several frame buffers for horizontal and vertical blur and each new framebuffer is half a size of a previous one.
@@ -47,6 +65,10 @@ namespace Pengine
 		void Render(class Application* application);
 
 		void ShutDown();
+
+		friend class Instancing;
+		friend class Viewport;
+		friend class EntryPoint;
 	};
 
 }

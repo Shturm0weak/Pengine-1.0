@@ -1,0 +1,17 @@
+GameObjects:
+  - GameObject: 12557079415873314211
+    Name: Cylinder
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Cylinder.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cylinder.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat

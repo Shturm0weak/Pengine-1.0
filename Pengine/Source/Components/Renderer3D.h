@@ -6,7 +6,7 @@
 #include "../Core/Allocator.h"
 #include "../Core/TextureManager.h"
 #include "IRenderer.h"
-#include "../OpenGL/Material.h"
+#include "../Core/MaterialManager.h"
 
 #include <map>
 
@@ -26,9 +26,10 @@ namespace Pengine
 		friend class Editor;
 		friend class Scene;
 		friend class Raycast3D;
+		friend class Renderer;
 	public:
 
-		Material m_Material;
+		Material* m_Material = nullptr;
 
 		bool m_BackFaceCulling = true;
 
@@ -45,6 +46,8 @@ namespace Pengine
 		virtual void Delete() override;
 
 		void SetMesh(Mesh* mesh);
+
+		void SetMaterial(Material* material);
 	};
 
 }

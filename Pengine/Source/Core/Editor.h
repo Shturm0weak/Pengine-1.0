@@ -11,6 +11,12 @@ namespace Pengine
 	{
 	private:
 
+		struct OutlineParams
+		{
+			glm::vec3 m_Color = { 1.0f, 1.0f, 0.0f };
+			int m_Thickness = 2;
+		} m_OutlineParams;
+
 		struct Animation2DMenu
 		{
 			Animation2DManager::Animation2D* m_Animation = nullptr;
@@ -100,7 +106,6 @@ namespace Pengine
 		void DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
-
 		void DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags);
 		
 		void DrawChilds(GameObject* gameOBject);
@@ -137,7 +142,9 @@ namespace Pengine
 		
 		void ScriptComponent(GameObject* gameObject);
 		
-		void PointLight2DComponent(GameObject* gameObject);
+		void PointLightComponent(GameObject* gameObject);
+		
+		void SpotLightComponent(GameObject* gameObject);
 
 		void DirectionalLightComponent(GameObject* gameObject);
 
@@ -169,8 +176,11 @@ namespace Pengine
 
 		bool RemoveComponentMenu(GameObject* gameObject, IComponent* component);
 
+		void DropMaterialOnViewport(const std::string& filePath);
+
 		friend class Viewport;
 		friend class Scene;
+		friend class Renderer;
 	public:
 
 		struct Stats
@@ -188,15 +198,16 @@ namespace Pengine
 			double m_RenderComposeTime = 0.0;
 		} m_Stats;
 
+		bool m_DrawLights = true;
 		bool m_DrawColliders = false;
 		bool m_PolygonMode = false;
-		
-		bool m_ShowNavigation = true;
-
+		bool m_DrawBoundingBoxes = false;
 		bool m_Snap = false;
 		float m_SnapThreshold = 1.0f;
 
 		int m_LineWidth = 1;
+
+		bool m_ShowNavigation = true;
 
 		static Editor& GetInstance();
 

@@ -1,0 +1,18 @@
+GameObjects:
+  - GameObject: 7979160920603846050
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/PointLight.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    PointLight:
+      Color: [1, 1, 1]
+      Constant: 0.790000021
+      Linear: 0
+      Quadratic: 0.100000001

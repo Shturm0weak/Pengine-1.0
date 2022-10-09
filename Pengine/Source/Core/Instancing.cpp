@@ -2,6 +2,9 @@
 
 #include "Environment.h"
 #include "Editor.h"
+#include "Renderer.h"
+#include "Viewport.h"
+#include "../OpenGL/FrameBuffer.h"
 
 using namespace Pengine;
 
@@ -20,48 +23,120 @@ Instancing& Instancing::GetInstance()
 
 void Instancing::Create(Mesh* mesh)
 {
-	m_Buffers.insert(std::make_pair(mesh, glBuffers()));
-	m_Buffers.rbegin()->second.m_VboDynamic.Initialize(nullptr, 1, false);
+	m_BuffersByMesh.insert(std::make_pair(mesh, DynamicBuffer()));
+	m_BuffersByMesh.rbegin()->second.m_VboDynamic.Initialize(nullptr, 1, false);
 }
 
 void Instancing::Render(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
 {
-	Shader* shader = Shader::Get("Instancing3D");
-
-	for (auto iter = instancedObjects.begin(); iter != instancedObjects.end(); iter++)
+	if (instancedObjects.empty())
 	{
-		auto gliter = m_Buffers.find(iter->first);
-		if (gliter == m_Buffers.end())
-			continue;
+		return;
+	}
 
-		size_t objectsSize = iter->second.size();
+	Shader* shader = Shader::Get("Instancing3D");
+	shader->Bind();
+
+	Environment& environment = Environment::GetInstance();
+
+	shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
+	shader->SetUniformMat4f("u_ViewProjection", environment.GetMainCamera()->GetViewProjectionMat4());
+	shader->SetUniform2fv("u_ViewportSize", (glm::vec2)Viewport::GetInstance().GetSize());
+	shader->SetUniformMat4f("u_View", environment.GetMainCamera()->GetViewMat4());
+	shader->SetUniformfv("u_CascadesDistance", environment.m_ShadowsSettings.m_CascadesDistance);
+	shader->SetUniform1i("u_Pcf", environment.m_ShadowsSettings.m_Pcf);
+	shader->SetUniform1f("u_Fog", environment.m_ShadowsSettings.m_Fog);
+	shader->SetUniform1f("u_Bias", environment.m_ShadowsSettings.m_Bias);
+	shader->SetUniform1f("u_FarPlane", environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
+	shader->SetUniform1i("u_ShadowsEnabled", environment.m_ShadowsSettings.m_IsEnabled);
+	shader->SetUniform1i("u_IsShadowBlurEnabled", environment.m_ShadowsSettings.m_Blur.m_IsEnabled);
+	shader->SetUniform1i("u_ShadowsVisualized", environment.m_ShadowsSettings.m_IsVisualized);
+	shader->SetUniform1i("u_CascadesCount", (int)environment.m_ShadowsSettings.m_CascadesDistance.size());
+	shader->SetUniform1f("u_Texels", (int)environment.m_ShadowsSettings.m_Texels);
+	shader->SetUniformMat4fv("u_LightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
+
+	Scene* scene = instancedObjects.begin()->second[0]->GetOwner()->GetScene();
+
+	if (scene->m_DirectionalLights.empty())
+	{
+		shader->SetUniform1f("u_DirectionalLight.intensity", 0.0f);
+	}
+	else
+	{
+		DirectionalLight* directionalLight = scene->m_DirectionalLights[0];
+
+		shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetDirection());
+		shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->m_Color);
+		shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
+	}
+
+	int pointLightsSize = scene->m_PointLights.size();
+	shader->SetUniform1i("pointLightsSize", pointLightsSize);
+	char uniformBuffer[64];
+	for (int i = 0; i < pointLightsSize; i++)
+	{
+		PointLight* pointLight = scene->m_PointLights[i];
+		sprintf(uniformBuffer, "pointLights[%i].position", i);
+		shader->SetUniform3fv(uniformBuffer, pointLight->GetOwner()->m_Transform.GetPosition());
+		sprintf(uniformBuffer, "pointLights[%i].color", i);
+		shader->SetUniform3fv(uniformBuffer, pointLight->m_Color);
+		sprintf(uniformBuffer, "pointLights[%i].constant", i);
+		shader->SetUniform1f(uniformBuffer, pointLight->m_Constant);
+		sprintf(uniformBuffer, "pointLights[%i]._linear", i);
+		shader->SetUniform1f(uniformBuffer, pointLight->m_Linear);
+		sprintf(uniformBuffer, "pointLights[%i].quadratic", i);
+		shader->SetUniform1f(uniformBuffer, pointLight->m_Quadratic);
+	}
+
+	int spotLightsSize = scene->m_SpotLights.size();
+	shader->SetUniform1i("spotLightsSize", spotLightsSize);
+	for (int i = 0; i < spotLightsSize; i++)
+	{
+		SpotLight* spotLight = scene->m_SpotLights[i];
+		sprintf(uniformBuffer, "spotLights[%i].position", i);
+		shader->SetUniform3fv(uniformBuffer, spotLight->GetOwner()->m_Transform.GetPosition());
+		sprintf(uniformBuffer, "spotLights[%i].direction", i);
+		shader->SetUniform3fv(uniformBuffer, spotLight->GetDirection());
+		sprintf(uniformBuffer, "spotLights[%i].color", i);
+		shader->SetUniform3fv(uniformBuffer, spotLight->m_Color);
+		sprintf(uniformBuffer, "spotLights[%i].constant", i);
+		shader->SetUniform1f(uniformBuffer, spotLight->m_Constant);
+		sprintf(uniformBuffer, "spotLights[%i]._linear", i);
+		shader->SetUniform1f(uniformBuffer, spotLight->m_Linear);
+		sprintf(uniformBuffer, "spotLights[%i].quadratic", i);
+		shader->SetUniform1f(uniformBuffer, spotLight->m_Quadratic);
+		sprintf(uniformBuffer, "spotLights[%i].innerCutOff", i);
+		shader->SetUniform1f(uniformBuffer, (spotLight->m_CosInnerCutOff));
+		sprintf(uniformBuffer, "spotLights[%i].outerCutOff", i);
+		shader->SetUniform1f(uniformBuffer, (spotLight->m_CosOuterCutOff));
+	}
+
+	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
+	{
+		auto buffer = m_BuffersByMesh.find(instancedObject->first);
+		if (buffer == m_BuffersByMesh.end())
+		{
+			continue;
+		}
+
+		size_t objectsSize = instancedObject->second.size();
 		if (objectsSize == 0)
+		{
 			continue;
+		}
 
-		shader->Bind();
+		if (!buffer->second.m_VertAttrib)
+		{
+			continue;
+		}
+
 		glActiveTexture(GL_TEXTURE0 + 0);
 		glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
-		gliter->second.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
+		buffer->second.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
 
-		Environment& environment = Environment::GetInstance();
-
-		shader->SetUniformMat4f("u_ViewProjection", environment.GetMainCamera()->GetViewProjectionMat4());
-		shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
-
-		if (iter->second[0]->GetOwner()->GetScene()->m_DirectionalLight.empty())
-		{
-			shader->SetUniform1f("u_DirectionalLight.intensity", 0.0f);
-		}
-		else
-		{
-			DirectionalLight* directionalLight = iter->second[0]->GetOwner()->GetScene()->m_DirectionalLight[0];
-
-			shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
-			shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->m_Color);
-			shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
-		}
-		
-		Editor::GetInstance().m_Stats.m_Vertices += gliter->first->GetIndices().size() * objectsSize;
+		Editor::GetInstance().m_Stats.m_Indices += buffer->first->GetIndices().size() * objectsSize;
+		Editor::GetInstance().m_Stats.m_Vertices += ((buffer->second.m_Size + buffer->first->GetVertexAttributes().size()) / m_SizeOfAttribs)
+			* objectsSize;
 		Editor::GetInstance().m_Stats.m_DrawCalls++;
 
 		if (objectsSize > m_SizeOfObjectToThreads - 1)
@@ -69,40 +144,56 @@ void Instancing::Render(const std::map<Mesh*, std::vector<Renderer3D*>>& instanc
 			m_SyncParams.WaitForAllThreads();
 		}
 
-		gliter->first->m_Va.Bind();
-		gliter->first->m_Ib.Bind();
-		gliter->first->m_Vb.Bind();
-		gliter->second.m_VboDynamic.Invalidate();
-		gliter->second.m_VboDynamic.Initialize(gliter->second.m_VertAttrib, 4 * m_SizeOfAttribs * objectsSize, false);
-		gliter->second.m_LayoutDynamic.Clear();
-		gliter->second.m_LayoutDynamic.Push<float>(3);
-		gliter->second.m_LayoutDynamic.Push<float>(3);
-		gliter->second.m_LayoutDynamic.Push<float>(3);
-		gliter->second.m_LayoutDynamic.Push<float>(3);
-		gliter->second.m_LayoutDynamic.Push<float>(3);
-		gliter->second.m_LayoutDynamic.Push<float>(2);
-		gliter->second.m_LayoutDynamic.Push<float>(4);
-		gliter->second.m_LayoutDynamic.Push<float>(4);
-		gliter->second.m_LayoutDynamic.Push<float>(4);
-		gliter->second.m_LayoutDynamic.Push<float>(4);
-		gliter->first->m_Va.AddBuffer(gliter->second.m_VboDynamic, gliter->second.m_LayoutDynamic, 4, 1);
+		buffer->first->m_Va.Bind();
+		buffer->first->m_Ib.Bind();
+		buffer->first->m_Vb.Bind();
+		buffer->second.m_VboDynamic.Bind();
+		glBufferData(GL_ARRAY_BUFFER, buffer->second.m_Size * sizeof(float), buffer->second.m_VertAttrib, GL_DYNAMIC_DRAW);
+		buffer->second.m_LayoutDynamic.Clear();
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(2);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->first->m_Va.AddBuffer(buffer->second.m_VboDynamic, buffer->second.m_LayoutDynamic, 4, 1);
 
 		int samplers[32];
-		for (unsigned int i = 1; i < gliter->second.m_TextureSlotsIndex; i++)
+		for (unsigned int i = m_TextureOffset; i < buffer->second.m_TextureSlotsIndex; i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, gliter->second.m_TextureSlots[i]);
+			glBindTexture(GL_TEXTURE_2D, buffer->second.m_TextureSlots[i]);
 		}
 		for (unsigned int i = 0; i < maxTextureSlots; i++)
 		{
 			samplers[i] = i;
 		}
-
 		shader->SetUniform1iv("u_Texture", samplers);
 
-		if (!iter->second[0]->m_BackFaceCulling)
+		if (environment.m_ShadowsSettings.m_Blur.m_IsEnabled)
 		{
-			glDisable(GL_CULL_FACE);
+			glActiveTexture(GL_TEXTURE0 + 1);
+			glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferShadowsBlur[0]->m_Textures[0]);
+		}
+		else
+		{
+			std::vector<int> csm(Renderer::GetInstance().m_FrameBufferCSM.size());
+			for (size_t i = 0; i < csm.size(); i++)
+			{
+				glActiveTexture(GL_TEXTURE0 + i + 1);
+				glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
+				csm[i] = i + 1;
+				shader->SetUniform1iv("u_CSM", &csm[0], csm.size());
+			}
+		}
+
+		if (instancedObject->second[0]->m_BackFaceCulling)
+		{
+			glEnable(GL_CULL_FACE);
 		}
 
 		if (Editor::GetInstance().m_PolygonMode)
@@ -110,93 +201,160 @@ void Instancing::Render(const std::map<Mesh*, std::vector<Renderer3D*>>& instanc
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		}
 
-		glDrawElementsInstanced(GL_TRIANGLES, gliter->first->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, iter->second.size());
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glDrawElementsInstanced(GL_TRIANGLES, buffer->first->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glEnable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);
 
-		shader->UnBind();
-		gliter->first->m_Ib.UnBind();
-		gliter->first->m_Va.UnBind();
+		buffer->first->m_Ib.UnBind();
+		buffer->first->m_Va.UnBind();
 
-		gliter->second.m_TextureSlotsIndex = 1;
-		for (unsigned int i = gliter->second.m_TextureSlotsIndex; i < 32; i++)
+		buffer->second.m_TextureSlotsIndex = m_TextureOffset;
+		for (unsigned int i = buffer->second.m_TextureSlotsIndex; i < 32; i++)
 		{
-			gliter->second.m_TextureSlots[i] = 0;
+			buffer->second.m_TextureSlots[i] = 0;
 			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, gliter->second.m_TextureSlots[0]);
+			glBindTexture(GL_TEXTURE_2D, buffer->second.m_TextureSlots[0]);
 		}
 
 		glDisable(GL_TEXTURE_2D_ARRAY);
+	}
+
+	shader->UnBind();
+}
+
+void Instancing::RenderAllObjects(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
+{
+	if (instancedObjects.empty())
+	{
+		return;
+	}
+
+	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
+	{
+		auto buffer = m_BuffersByMesh.find(instancedObject->first);
+		if (buffer == m_BuffersByMesh.end())
+		{
+			continue;
+		}
+
+		size_t objectsSize = instancedObject->second.size();
+		if (objectsSize == 0)
+		{
+			continue;
+		}
+
+		if (!buffer->second.m_VertAttrib)
+		{
+			continue;
+		}
+
+		Editor::GetInstance().m_Stats.m_Indices += buffer->first->GetIndices().size() * objectsSize;
+		Editor::GetInstance().m_Stats.m_Vertices += ((buffer->second.m_Size + buffer->first->GetVertexAttributes().size()) / m_SizeOfAttribs)
+			* objectsSize;
+		Editor::GetInstance().m_Stats.m_DrawCalls++;
+
+		buffer->first->m_Va.Bind();
+		buffer->first->m_Ib.Bind();
+		buffer->first->m_Vb.Bind();
+		buffer->second.m_VboDynamic.Bind();
+		glBufferData(GL_ARRAY_BUFFER, buffer->second.m_Size * sizeof(float), buffer->second.m_VertAttrib, GL_DYNAMIC_DRAW);
+		buffer->second.m_LayoutDynamic.Clear();
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(3);
+		buffer->second.m_LayoutDynamic.Push<float>(2);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->second.m_LayoutDynamic.Push<float>(4);
+		buffer->first->m_Va.AddBuffer(buffer->second.m_VboDynamic, buffer->second.m_LayoutDynamic, 4, 1);
+
+		glDrawElementsInstanced(GL_TRIANGLES, buffer->first->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
+
+		buffer->first->m_Ib.UnBind();
+		buffer->first->m_Va.UnBind();
 	}
 }
 
 void Instancing::PrepareVertexAtrrib(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
 {
-	for (auto iter = instancedObjects.begin(); iter != instancedObjects.end(); iter++)
+	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
 	{
-		auto gliter = m_Buffers.find(iter->first);
-		if (gliter == m_Buffers.end()) continue;
-
-		size_t objectsSize = iter->second.size();
-		if (objectsSize == 0) continue;
-
-		if (gliter->second.m_PrevObjectSize != objectsSize || gliter->second.m_VertAttrib == nullptr)
+		auto buffer = m_BuffersByMesh.find(instancedObject->first);
+		if (buffer == m_BuffersByMesh.end())
 		{
-			delete[] gliter->second.m_VertAttrib;
-			gliter->second.m_VertAttrib = nullptr;
-			gliter->second.m_VertAttrib = new float[objectsSize * m_SizeOfAttribs];
+			continue;
 		}
 
-		gliter->second.m_PrevObjectSize = objectsSize;
+		size_t objectsSize = instancedObject->second.size();
+		if (objectsSize == 0)
+		{
+			continue;
+		}
+
+		if (buffer->second.m_PrevObjectSize != objectsSize || buffer->second.m_VertAttrib == nullptr)
+		{
+			delete[] buffer->second.m_VertAttrib;
+			buffer->second.m_Size = objectsSize * m_SizeOfAttribs;
+			buffer->second.m_VertAttrib = new float[buffer->second.m_Size];
+		}
+
+		buffer->second.m_PrevObjectSize = objectsSize;
 
 		if (objectsSize < m_SizeOfObjectToThreads)
 		{
 			for (size_t i = 0; i < objectsSize; i++)
 			{
 				int m_TextureIndex = 0;
-				Renderer3D& r3d = *(iter->second[i]);
-
 				bool isFound = false;
-				if (r3d.m_Material.m_BaseColor != TextureManager::GetInstance().White())
+				Renderer3D& r3d = *(instancedObject->second[i]);
+				Material& material = *r3d.m_Material;
+
+				if (material.m_BaseColor != TextureManager::GetInstance().White())
 				{
-					auto iter = std::find(gliter->second.m_TextureSlots.begin(), gliter->second.m_TextureSlots.end(), r3d.m_Material.m_BaseColor->GetRendererID());
-					if (iter != gliter->second.m_TextureSlots.end())
+					auto instancedObject = std::find(buffer->second.m_TextureSlots.begin(), buffer->second.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
+					if (instancedObject != buffer->second.m_TextureSlots.end())
 					{
-						m_TextureIndex = (iter - gliter->second.m_TextureSlots.begin());
+						m_TextureIndex = (instancedObject - buffer->second.m_TextureSlots.begin());
 						isFound = true;
 					}
 					if (!isFound)
 					{
-						if (gliter->second.m_TextureSlotsIndex >= 32)
+						if (buffer->second.m_TextureSlotsIndex >= 32)
 						{
 							Logger::Warning("limit of texture slots, texture will be set to white!");
 						}
 						else
 						{
-							m_TextureIndex = gliter->second.m_TextureSlotsIndex;
-							gliter->second.m_TextureSlots[gliter->second.m_TextureSlotsIndex] = r3d.m_Material.m_BaseColor->GetRendererID();
-							gliter->second.m_TextureSlotsIndex++;
+							m_TextureIndex = buffer->second.m_TextureSlotsIndex;
+							buffer->second.m_TextureSlots[buffer->second.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
+							buffer->second.m_TextureSlotsIndex++;
 						}
 					}
 				}
 
 				GameObject& owner = *(r3d.GetOwner());
 
-				glm::vec3 ambient = r3d.m_Material.m_Ambient * r3d.m_Material.m_Scale;
-				glm::vec3 diffuse = r3d.m_Material.m_Diffuse * r3d.m_Material.m_Scale;
-				glm::vec3 specular = r3d.m_Material.m_Specular * r3d.m_Material.m_Scale;
+				glm::vec3 ambient = material.m_Ambient * material.m_Scale;
+				glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
+				glm::vec3 specular = material.m_Specular * material.m_Scale;
 
-				float* posPtr = &gliter->second.m_VertAttrib[i * m_SizeOfAttribs];
-				memcpy(posPtr, &owner.m_Transform.GetPosition()[0], 12);
-				memcpy(&posPtr[3], &owner.m_Transform.GetScale()[0], 12);
-				memcpy(&posPtr[6], &ambient[0], 12);
-				memcpy(&posPtr[9], &diffuse[0], 12);
-				memcpy(&posPtr[12], &specular[0], 12);
-				posPtr[15] = (float)m_TextureIndex;
-				posPtr[16] = r3d.m_Material.m_Shininess;
+				float* startPtr = &buffer->second.m_VertAttrib[i * m_SizeOfAttribs];
+				memcpy(startPtr, &owner.m_Transform.GetPosition()[0], 12);
+				memcpy(&startPtr[3], &owner.m_Transform.GetScale()[0], 12);
+				memcpy(&startPtr[6], &ambient[0], 12);
+				memcpy(&startPtr[9], &diffuse[0], 12);
+				memcpy(&startPtr[12], &specular[0], 12);
+				startPtr[15] = (float)m_TextureIndex;
+				startPtr[16] = material.m_Shininess;
 				const float* view = glm::value_ptr(owner.m_Transform.GetRotationMat4());
-				memcpy(&posPtr[17], view, 64);
+				memcpy(&startPtr[17], view, 64);
 			}
 
 			continue;
@@ -251,51 +409,52 @@ void Instancing::PrepareVertexAtrrib(const std::map<Mesh*, std::vector<Renderer3
 				for (size_t i = k * dif; i < thisSegmentOfObjectsV; i++)
 				{
 					int m_TextureIndex = 0;
-					Renderer3D& r3d = *(iter->second[i]);
-
 					bool isFound = false;
-					if (r3d.m_Material.m_BaseColor != TextureManager::GetInstance().White())
+					Renderer3D& r3d = *(instancedObject->second[i]);
+					Material& material = *r3d.m_Material;
+
+					if (material.m_BaseColor != TextureManager::GetInstance().White())
 					{
-						auto iter = std::find(gliter->second.m_TextureSlots.begin(), gliter->second.m_TextureSlots.end(), r3d.m_Material.m_BaseColor->GetRendererID());
-						if (iter != gliter->second.m_TextureSlots.end())
+						auto instancedObject = std::find(buffer->second.m_TextureSlots.begin(), buffer->second.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
+						if (instancedObject != buffer->second.m_TextureSlots.end())
 						{
-							m_TextureIndex = (iter - gliter->second.m_TextureSlots.begin());
+							m_TextureIndex = (instancedObject - buffer->second.m_TextureSlots.begin());
 							isFound = true;
 						}
 						if (!isFound)
 						{
-							if (gliter->second.m_TextureSlotsIndex >= 32)
+							if (buffer->second.m_TextureSlotsIndex >= 32)
 							{
 								Logger::Warning("limit of texture slots, texture will be set to white!");
 							}
 							else
 							{
 								//std::lock_guard lg(m_SyncParams.m_Mtx);
-								m_TextureIndex = gliter->second.m_TextureSlotsIndex;
-								gliter->second.m_TextureSlots[gliter->second.m_TextureSlotsIndex] = r3d.m_Material.m_BaseColor->GetRendererID();
-								gliter->second.m_TextureSlotsIndex++;
+								m_TextureIndex = buffer->second.m_TextureSlotsIndex;
+								buffer->second.m_TextureSlots[buffer->second.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
+								buffer->second.m_TextureSlotsIndex++;
 							}
 						}
 					}
 
 					GameObject& owner = *(r3d.GetOwner());
 
-					glm::vec3 ambient = r3d.m_Material.m_Ambient * r3d.m_Material.m_Scale;
-					glm::vec3 diffuse = r3d.m_Material.m_Diffuse * r3d.m_Material.m_Scale;
-					glm::vec3 specular = r3d.m_Material.m_Specular * r3d.m_Material.m_Scale;
+					glm::vec3 ambient = material.m_Ambient * material.m_Scale;
+					glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
+					glm::vec3 specular = material.m_Specular * material.m_Scale;
 
-					float* posPtr = &gliter->second.m_VertAttrib[i * m_SizeOfAttribs];
-					memcpy(posPtr, &owner.m_Transform.GetPosition()[0], 12);
-					memcpy(&posPtr[3], &owner.m_Transform.GetScale()[0], 12);
-					memcpy(&posPtr[6], &ambient[0], 12);
-					memcpy(&posPtr[9], &diffuse[0], 12);
-					memcpy(&posPtr[12], &specular[0], 12);
-					posPtr[15] = (float)m_TextureIndex;
-					posPtr[16] = r3d.m_Material.m_Shininess;
+					float* startPtr = &buffer->second.m_VertAttrib[i * m_SizeOfAttribs];
+					memcpy(startPtr, &owner.m_Transform.GetPosition()[0], 12);
+					memcpy(&startPtr[3], &owner.m_Transform.GetScale()[0], 12);
+					memcpy(&startPtr[6], &ambient[0], 12);
+					memcpy(&startPtr[9], &diffuse[0], 12);
+					memcpy(&startPtr[12], &specular[0], 12);
+					startPtr[15] = (float)m_TextureIndex;
+					startPtr[16] = material.m_Shininess;
 					const float* view = glm::value_ptr(owner.m_Transform.GetRotationMat4());
-					memcpy(&posPtr[17], view, 64);
+					memcpy(&startPtr[17], view, 64);
 				}
-				
+
 				m_SyncParams.SetThreadFinished(k);
 			});
 		}
@@ -309,52 +468,53 @@ void Instancing::PrepareVertexAtrrib(const std::map<Mesh*, std::vector<Renderer3
 			m_SyncParams.m_Ready[threads - 1] = false;
 			for (int i = (threads - 1) * dif; i < objectsSize; i++)
 			{
-				Renderer3D& r3d = *(iter->second[i]);
 				int m_TextureIndex = 0;
-
 				bool isFound = false;
-				if (r3d.m_Material.m_BaseColor != TextureManager::GetInstance().White())
+				Renderer3D& r3d = *(instancedObject->second[i]);
+				Material& material = *r3d.m_Material;
+
+				if (material.m_BaseColor != TextureManager::GetInstance().White())
 				{
-					auto iter = std::find(gliter->second.m_TextureSlots.begin(), gliter->second.m_TextureSlots.end(), r3d.m_Material.m_BaseColor->GetRendererID());
-					if (iter != gliter->second.m_TextureSlots.end())
+					auto instancedObject = std::find(buffer->second.m_TextureSlots.begin(), buffer->second.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
+					if (instancedObject != buffer->second.m_TextureSlots.end())
 					{
-						m_TextureIndex = (iter - gliter->second.m_TextureSlots.begin());
+						m_TextureIndex = (instancedObject - buffer->second.m_TextureSlots.begin());
 						isFound = true;
 					}
 					if (!isFound)
 					{
-						if (gliter->second.m_TextureSlotsIndex >= 32)
+						if (buffer->second.m_TextureSlotsIndex >= 32)
 						{
 							Logger::Warning("limit of texture slots, texture will be set to white!");
 						}
 						else
 						{
 							//std::lock_guard lg(m_SyncParams.m_Mtx);
-							m_TextureIndex = gliter->second.m_TextureSlotsIndex;
-							gliter->second.m_TextureSlots[gliter->second.m_TextureSlotsIndex] = r3d.m_Material.m_BaseColor->GetRendererID();
-							gliter->second.m_TextureSlotsIndex++;
+							m_TextureIndex = buffer->second.m_TextureSlotsIndex;
+							buffer->second.m_TextureSlots[buffer->second.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
+							buffer->second.m_TextureSlotsIndex++;
 						}
 					}
 				}
 
 				GameObject& owner = *(r3d.GetOwner());
 
-				glm::vec3 ambient = r3d.m_Material.m_Ambient * r3d.m_Material.m_Scale;
-				glm::vec3 diffuse = r3d.m_Material.m_Diffuse * r3d.m_Material.m_Scale;
-				glm::vec3 specular = r3d.m_Material.m_Specular * r3d.m_Material.m_Scale;
+				glm::vec3 ambient = material.m_Ambient * material.m_Scale;
+				glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
+				glm::vec3 specular = material.m_Specular * material.m_Scale;
 
-				float* posPtr = &gliter->second.m_VertAttrib[i * m_SizeOfAttribs];
-				memcpy(posPtr, &owner.m_Transform.GetPosition()[0], 12);
-				memcpy(&posPtr[3], &owner.m_Transform.GetScale()[0], 12);
-				memcpy(&posPtr[6], &ambient[0], 12);
-				memcpy(&posPtr[9], &diffuse[0], 12);
-				memcpy(&posPtr[12], &specular[0], 12);
-				posPtr[15] = (float)m_TextureIndex;
-				posPtr[16] = r3d.m_Material.m_Shininess;
+				float* startPtr = &buffer->second.m_VertAttrib[i * m_SizeOfAttribs];
+				memcpy(startPtr, &owner.m_Transform.GetPosition()[0], 12);
+				memcpy(&startPtr[3], &owner.m_Transform.GetScale()[0], 12);
+				memcpy(&startPtr[6], &ambient[0], 12);
+				memcpy(&startPtr[9], &diffuse[0], 12);
+				memcpy(&startPtr[12], &specular[0], 12);
+				startPtr[15] = (float)m_TextureIndex;
+				startPtr[16] = material.m_Shininess;
 				const float* view = glm::value_ptr(owner.m_Transform.GetRotationMat4());
-				memcpy(&posPtr[17], view, 64);
+				memcpy(&startPtr[17], view, 64);
 			}
-			
+
 			m_SyncParams.SetThreadFinished(threads - 1);
 		});
 	}
@@ -362,9 +522,8 @@ void Instancing::PrepareVertexAtrrib(const std::map<Mesh*, std::vector<Renderer3
 
 void Instancing::ShutDown()
 {
-	//for (auto buffer : m_Buffers)
-	//{
-	//	delete buffer.second.m_LayoutDynamic;
-	//	delete buffer.second.m_VboDynamic;
-	//}
+	for (auto buffer : m_BuffersByMesh)
+	{
+		delete buffer.second.m_VertAttrib;
+	}
 }

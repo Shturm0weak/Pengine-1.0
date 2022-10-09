@@ -206,19 +206,21 @@ std::vector<GameObject*> Scene::SelectGameObject(std::vector<GameObject*> ignore
 
 					glm::vec3 n = glm::normalize(glm::cross((b - a), (c - a)));
 
-					/*Visualizer::DrawLine(a, b, Colors::Yellow());
-					Visualizer::DrawLine(b, c, Colors::Yellow());
-					Visualizer::DrawLine(c, a, Colors::Yellow());
-
-					Visualizer::DrawLine(a, n1 + a, Colors::Blue());
-					Visualizer::DrawLine(b, n2 + b, Colors::Blue());
-					Visualizer::DrawLine(c, n3 + c, Colors::Blue());
-
-					Visualizer::DrawLine({}, n, Colors::Red());*/
-
 					if (Raycast3D::IntersectTriangle(start, direction, hit, FLT_MAX, a, b, c, n))
 					{
 						gameObjectsByDistanceToTriangle.emplace(hit.m_Distance, gameObjectByDistance.second);
+
+						/*Visualizer::DrawLine(a, b, Colors::Yellow(), 2.0f);
+						Visualizer::DrawLine(b, c, Colors::Yellow(), 2.0f);
+						Visualizer::DrawLine(c, a, Colors::Yellow(), 2.0f);
+
+						Visualizer::DrawLine(a, n1 + a, Colors::Blue());
+						Visualizer::DrawLine(b, n2 + b, Colors::Blue());
+						Visualizer::DrawLine(c, n3 + c, Colors::Blue());
+
+						Visualizer::DrawLine({}, n, Colors::Red());
+
+						Visualizer::DrawLine(start, start + direction, Colors::Blue(), 2.0f);*/
 
 						break;
 					}
@@ -317,9 +319,41 @@ void Scene::Render()
 				}
 			}
 		}
-	
+	}
+
+	if (Editor::GetInstance().m_DrawBoundingBoxes)
+	{
 		RenderBoundingBoxes();
 	}
+
+	if (Editor::GetInstance().m_DrawLights)
+	{
+		std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+		
+		for (DirectionalLight* directionalLight : m_DirectionalLights)
+		{
+			Transform& transform = directionalLight->GetOwner()->m_Transform;
+			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
+				TextureManager::GetInstance().GetByFilePath("Source/UIimages/Sun.png"));
+		}
+
+		for (SpotLight* spotLight : m_SpotLights)
+		{
+			Transform& transform = spotLight->GetOwner()->m_Transform;
+			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
+				TextureManager::GetInstance().GetByFilePath("Source/UIimages/SpotLight.png"));
+		}
+
+		for (PointLight* pointLight : m_PointLights)
+		{
+			Transform& transform = pointLight->GetOwner()->m_Transform;
+			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
+				TextureManager::GetInstance().GetByFilePath("Source/UIimages/PointLight.png"));
+		}
+	}	
 }
 
 void Scene::RenderBoundingBoxes()

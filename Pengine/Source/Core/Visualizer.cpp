@@ -9,16 +9,24 @@ using namespace Pengine;
 
 void Visualizer::RenderLines()
 {
-	Window::GetInstance().Clear({ 0.0f, 0.0f, 0.0f, 0.0f });
-
 	Batch::GetInstance().BeginLines();
+
+	std::vector<LineParams> linesForTheNextFrame(1000);
 
 	size_t size = m_Lines.size();
 	for (size_t i = 0; i < size; i++)
 	{
-		Batch::GetInstance().Submit(m_Lines[i].m_Start, m_Lines[i].m_End, m_Lines[i].m_Color);
+		LineParams& line = m_Lines[i];
+		Batch::GetInstance().Submit(line.m_Start, line.m_End, line.m_Color);
+
+		line.duration -= Time::GetDeltaTime();
+		if (line.duration > 0.0f)
+		{
+			linesForTheNextFrame.emplace_back(line);
+		}
 	}
 	m_Lines.clear();
+	m_Lines = std::move(linesForTheNextFrame);
 
 	Batch::GetInstance().EndLines();
 }
@@ -45,9 +53,9 @@ void Visualizer::RenderCircles()
 	m_Circles.clear();
 }
 
-void Visualizer::DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color)
+void Visualizer::DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color, float duration)
 {
-	m_Lines.push_back({ start, end, color });
+	m_Lines.push_back({ start, end, color, duration });
 }
 
 void Visualizer::DrawQuad(const glm::mat4& transform, const glm::vec4& color, Texture* texture)
@@ -61,16 +69,6 @@ void Visualizer::DrawWireFrameCube(const glm::mat4& position, const glm::mat4& r
 	glm::vec3 scaleVector = Utils::GetScale(scale);
 
 	// AntiClockWise, First digit is 0 - FrontFacePoint, 1 - BackFacePoint.
-	/*glm::vec3 point00 = position * rotation * glm::vec4(min.x * scaleVector.x, min.y * scaleVector.y, min.z * scaleVector.z, 1.0f);
-	glm::vec3 point01 = position * rotation * glm::vec4(max.x * scaleVector.x, min.y * scaleVector.y, min.z * scaleVector.z, 1.0f);
-	glm::vec3 point02 = position * rotation * glm::vec4(max.x * scaleVector.x, max.y * scaleVector.y, min.z * scaleVector.z, 1.0f);
-	glm::vec3 point03 = position * rotation * glm::vec4(min.x * scaleVector.x, max.y * scaleVector.y, min.z * scaleVector.z, 1.0f);
-
-	glm::vec3 point10 = position * rotation * glm::vec4(min.x * scaleVector.x, min.y * scaleVector.y, max.z * scaleVector.z, 1.0f);
-	glm::vec3 point11 = position * rotation * glm::vec4(max.x * scaleVector.x, min.y * scaleVector.y, max.z * scaleVector.z, 1.0f);
-	glm::vec3 point12 = position * rotation * glm::vec4(max.x * scaleVector.x, max.y * scaleVector.y, max.z * scaleVector.z, 1.0f);
-	glm::vec3 point13 = position * rotation * glm::vec4(min.x * scaleVector.x, max.y * scaleVector.y, max.z * scaleVector.z, 1.0f);*/
-
 	glm::vec3 point00 = position * rotation * (glm::vec4(min.x, min.y, min.z, 1.0f) * scale);
 	glm::vec3 point01 = position * rotation * (glm::vec4(max.x, min.y, min.z, 1.0f) * scale);
 	glm::vec3 point02 = position * rotation * (glm::vec4(max.x, max.y, min.z, 1.0f) * scale);

@@ -1,0 +1,17 @@
+GameObjects:
+  - GameObject: 12725931927892846583
+    Name: Torus
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Torus.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Torus.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat

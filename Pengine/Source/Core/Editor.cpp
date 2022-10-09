@@ -13,6 +13,7 @@
 #include "Timer.h"
 #include "ReflectionSystem.h"
 #include "Instancing.h"
+#include "MaterialManager.h"
 #include "../UI/Gui.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
@@ -773,7 +774,8 @@ void Editor::Properties()
 			Animator2DComponent(gameObject);
 			ParticleEmitterComponent(gameObject);
 			ScriptComponent(gameObject);
-			PointLight2DComponent(gameObject);
+			SpotLightComponent(gameObject);
+			PointLightComponent(gameObject);
 			DirectionalLightComponent(gameObject);
 			Renderer3DComponent(gameObject);
 
@@ -824,6 +826,8 @@ void Editor::Environment()
 {
 	if (ImGui::Begin("Environment"))
 	{
+		Pengine::Environment& environment = Environment::GetInstance();
+		
 		char name[32];
 		strcpy(name, m_CurrentScene->m_Title.c_str());
 		if (ImGui::InputText("Scene title", name, sizeof(name)))
@@ -838,10 +842,10 @@ void Editor::Environment()
 
 		if (ImGui::Checkbox("Depth Test", &Environment::GetInstance().m_DepthTest))
 		{
-			Environment::GetInstance().SetDepthTest(Environment::GetInstance().m_DepthTest);
+			environment.SetDepthTest(environment.m_DepthTest);
 		}
 
-		ImGui::SliderFloat("Intensity", &Environment::GetInstance().m_GlobalIntensity, 0.0f, 10.0f);
+		ImGui::SliderFloat("Intensity", &environment.m_GlobalIntensity, 0.0f, 10.0f);
 		
 		const char* windowModes[] = { "Windowed", "Fullscreen" };
 		if (ImGui::Combo("Window mode", &m_SelectedWindowMode, windowModes, 2))
@@ -851,17 +855,67 @@ void Editor::Environment()
 
 		if (ImGui::CollapsingHeader("Bloom"))
 		{
-			ImGui::Checkbox("Is Enabled", &Environment::GetInstance().m_BloomSettings.m_IsEnabled);
-			ImGui::SliderFloat("Threshold", &Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold, 0.0f, 2.0f);
-			ImGui::SliderFloat("Gamma", &Environment::GetInstance().m_BloomSettings.m_Gamma, 0.0f, 5.0);
-			ImGui::SliderFloat("Exposure", &Environment::GetInstance().m_BloomSettings.m_Exposure, 0.0f, 5.0);
-			ImGui::SliderInt("Pixels", &Environment::GetInstance().m_BloomSettings.m_PixelsBlured, 1, 6);
-			ImGui::SliderInt("Blur passes", &Environment::GetInstance().m_BloomSettings.m_BlurPasses, 3, 20);
+			ImGui::Checkbox("Is Enabled", &environment.m_BloomSettings.m_IsEnabled);
+			ImGui::SliderFloat("Threshold", &environment.m_BloomSettings.m_BrightnessThreshold, 0.0f, 2.0f);
+			ImGui::SliderFloat("Gamma", &environment.m_BloomSettings.m_Gamma, 0.0f, 5.0);
+			ImGui::SliderFloat("Exposure", &environment.m_BloomSettings.m_Exposure, 0.0f, 5.0);
+			ImGui::SliderInt("Pixels", &environment.m_BloomSettings.m_PixelsBlured, 1, 6);
+			ImGui::SliderInt("Blur passes", &environment.m_BloomSettings.m_BlurPasses, 3, 20);
+		}
+
+		if (ImGui::CollapsingHeader("Shadows"))
+		{
+			ImGui::PushID("ShadowsSettings");
+			ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_IsEnabled);
+			ImGui::Checkbox("Is Visualized", &environment.m_ShadowsSettings.m_IsVisualized);
+			ImGui::SliderFloat("Bias", &environment.m_ShadowsSettings.m_Bias, 0.001f, 0.005f);
+			ImGui::SliderInt("Pcf", &environment.m_ShadowsSettings.m_Pcf, 0, 10);
+			ImGui::SliderFloat("Fog", &environment.m_ShadowsSettings.m_Fog, 0.0f, 1.0f);
+			ImGui::SliderFloat("Texel size", &environment.m_ShadowsSettings.m_Texels, 0.0f, 2.0f);
+			ImGui::SliderFloat("Z far scale", &environment.m_ShadowsSettings.m_ZFarScale, 0.0f, 2.0f);
+
+			for (size_t i = 0; i < environment.m_ShadowsSettings.m_CascadesDistance.size(); ++i)
+			{
+				if (i == 0)
+				{
+					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i], 
+						environment.GetMainCamera()->GetZNear(),
+						environment.m_ShadowsSettings.m_CascadesDistance[i + 1]);
+				}
+				else if (i < environment.m_ShadowsSettings.m_CascadesDistance.size() + 1)
+				{
+					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i],
+						environment.m_ShadowsSettings.m_CascadesDistance[i - 1],
+						environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
+				}
+				else if (i < environment.m_ShadowsSettings.m_CascadesDistance.size())
+				{
+					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i],
+						environment.m_ShadowsSettings.m_CascadesDistance[i - 1],
+						environment.m_ShadowsSettings.m_CascadesDistance[i + 1]);
+				}
+			}
+
+			ImGui::Text(std::string("Cascade " + std::to_string(environment.m_ShadowsSettings.m_CascadesDistance.size() + 1) + " : %f").c_str(),
+				environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
+
+			ImGui::PopID();
+
+			ImGui::PushID("ShadowBlurSettings");
+
+			if(ImGui::CollapsingHeader("Blur"))
+			{
+				ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_Blur.m_IsEnabled);
+				ImGui::SliderInt("Pixels Blured", &environment.m_ShadowsSettings.m_Blur.m_PixelsBlured, 1, 6);
+				ImGui::SliderInt("Passes", &environment.m_ShadowsSettings.m_Blur.m_BlurPasses, 1, 10);
+			}
+
+			ImGui::PopID();
 		}
 
 		if (ImGui::CollapsingHeader("Main camera"))
 		{
-			std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+			std::shared_ptr<Camera> camera = environment.GetMainCamera();
 
 			m_SelectedCameraType = (int)camera->GetType();
 			const char* cameraTypes[] = { "Orthographic", "Perspective" };
@@ -1301,19 +1355,50 @@ void Editor::ScriptComponent(GameObject* gameObject)
 	}
 }
 
-void Editor::PointLight2DComponent(GameObject* gameObject)
+void Editor::PointLightComponent(GameObject* gameObject)
 {
-	PointLight2D* pointLight2D = gameObject->m_ComponentManager.GetComponent<PointLight2D>();
-	if (pointLight2D)
+	PointLight* pointLight = gameObject->m_ComponentManager.GetComponent<PointLight>();
+	if (pointLight)
 	{
-		if (RemoveComponentMenu(gameObject, pointLight2D))
+		if (RemoveComponentMenu(gameObject, pointLight))
 		{
-			if (ImGui::CollapsingHeader("Point Light 2D"))
+			if (ImGui::CollapsingHeader("Point Light"))
 			{
-				ImGui::SliderFloat("Constant", &pointLight2D->m_Constant, 0.0f, 1.0f);
-				ImGui::SliderFloat("Linear", &pointLight2D->m_Linear, 0.0f, 0.100f);
-				ImGui::SliderFloat("Quadratic", &pointLight2D->m_Quadratic, 0.0f, 0.1f);
-				ImGui::ColorEdit3("Color", &pointLight2D->m_Color[0]);
+				ImGui::SliderFloat("Constant", &pointLight->m_Constant, 0.0f, 1.0f);
+				ImGui::SliderFloat("Linear", &pointLight->m_Linear, 0.0f, 0.100f);
+				ImGui::SliderFloat("Quadratic", &pointLight->m_Quadratic, 0.0f, 0.1f);
+				ImGui::ColorEdit3("Color", &pointLight->m_Color[0]);
+			}
+		}
+	}
+}
+
+void Editor::SpotLightComponent(GameObject* gameObject)
+{
+	SpotLight* spotLight = gameObject->m_ComponentManager.GetComponent<SpotLight>();
+	if (spotLight)
+	{
+		if (RemoveComponentMenu(gameObject, spotLight))
+		{
+			if (ImGui::CollapsingHeader("Spot Light"))
+			{
+				ImGui::SliderFloat("Constant", &spotLight->m_Constant, 0.0f, 1.0f);
+				ImGui::SliderFloat("Linear", &spotLight->m_Linear, 0.0f, 0.100f);
+				ImGui::SliderFloat("Quadratic", &spotLight->m_Quadratic, 0.0f, 0.1f);
+
+				float innerCutOff = spotLight->GetInnerCutOff();
+				if (ImGui::SliderAngle("Inner CutOff", &innerCutOff, 0.0f, 180.0f))
+				{
+					spotLight->SetInnerCutOff(innerCutOff);
+				}
+
+				float outerCutOff = spotLight->GetOuterCutOfff();
+				if (ImGui::SliderAngle("Outer CutOff", &outerCutOff, 0.0f, 180.0f))
+				{
+					spotLight->SetOuterCutOff(outerCutOff);
+				}
+
+				ImGui::ColorEdit3("Color", &spotLight->m_Color[0]);
 			}
 		}
 	}
@@ -1378,7 +1463,39 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 				
 				if (ImGui::CollapsingHeader("Material"))
 				{
-					ImGui::Image((ImTextureID)r3d->m_Material.m_BaseColor->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						{
+							std::string path((const char*)payload->Data);
+							path.resize(payload->DataSize);
+
+							if (Utils::Contains(path, ".mat"))
+							{
+								r3d->SetMaterial(MaterialManager::GetInstance().Load(path));
+							}
+						}
+
+						ImGui::EndDragDropTarget();
+					}
+
+					if (r3d->m_Material->IsInherited() && ImGui::Button("Deinherited"))
+					{
+						r3d->SetMaterial(MaterialManager::GetInstance().Load(r3d->m_Material->GetFilePath()));
+					}
+					else if (!r3d->m_Material->IsInherited() && ImGui::Button("Inherited"))
+					{
+						r3d->SetMaterial(r3d->m_Material->Inherit());
+					}
+
+					ImGui::Text("FilePath: %s", r3d->m_Material ? r3d->m_Material->GetFilePath().c_str() : "None");
+					ImGui::Text("Name: %s", r3d->m_Material ? r3d->m_Material->GetName().c_str() : "None");
+
+					if (ImGui::ImageButton((ImTextureID)r3d->m_Material->m_BaseColor->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+					{
+						m_TextureMenu.m_IsActive = true;
+						m_TextureMenu.m_Texture = r3d->m_Material->m_BaseColor;
+					}
 
 					if (ImGui::BeginDragDropTarget())
 					{
@@ -1386,30 +1503,51 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 						{
 							std::string path((const char*)payload->Data);
 							path.resize(payload->DataSize);
-							TextureManager::GetInstance().AsyncCreate(path);
-							TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
-								r3d->m_Material.m_BaseColor = texture;
+
+							if (Utils::Contains(path, ".meta"))
+							{
+								Texture::Meta meta = Serializer::DeserializeTextureMeta(path);
+								TextureManager::GetInstance().AsyncCreate(meta);
+								TextureManager::GetInstance().AsyncGetByFilePath(
+									[=](Texture* texture)
+								{
+									r3d->m_Material->SetBaseColor(texture, path);
+								}, meta.m_FilePath);
+							}
+							else
+							{
+								TextureManager::GetInstance().AsyncCreate(path);
+								TextureManager::GetInstance().AsyncGetByFilePath(
+									[=](Texture* texture) 
+								{
+									r3d->m_Material->SetBaseColor(texture, path);
 								}, path);
+							}
 						}
 						ImGui::EndDragDropTarget();
 					}
 
 					ImGui::SameLine();
 
-					ImGui::PushID(r3d->m_Material.m_BaseColor->GetRendererID() + 100000);
+					ImGui::PushID(r3d->m_Material->m_BaseColor->GetRendererID() + 100000);
 
 					if (ImGui::Button("Reset"))
 					{
-						r3d->m_Material.m_BaseColor = TextureManager::GetInstance().White();
+						r3d->m_Material->m_BaseColor = TextureManager::GetInstance().White();
 					}
 
-					ImGui::ColorEdit3("Ambient", &r3d->m_Material.m_Ambient[0], ImGuiColorEditFlags_Float);
-					ImGui::ColorEdit3("Diffuse", &r3d->m_Material.m_Diffuse[0], ImGuiColorEditFlags_Float);
-					ImGui::ColorEdit3("Specular", &r3d->m_Material.m_Specular[0], ImGuiColorEditFlags_Float);
-					ImGui::SliderFloat("Scale", &r3d->m_Material.m_Scale, 0.0f, 15.0f);
-					ImGui::SliderFloat("Shininess", &r3d->m_Material.m_Shininess, 0.0f, 64.0f);
-					ImGui::SliderFloat("Solid", &r3d->m_Material.m_Solid, 0.0f, 1.0f);
-					
+					ImGui::ColorEdit3("Ambient", &r3d->m_Material->m_Ambient[0], ImGuiColorEditFlags_Float);
+					ImGui::ColorEdit3("Diffuse", &r3d->m_Material->m_Diffuse[0], ImGuiColorEditFlags_Float);
+					ImGui::ColorEdit3("Specular", &r3d->m_Material->m_Specular[0], ImGuiColorEditFlags_Float);
+					ImGui::SliderFloat("Scale", &r3d->m_Material->m_Scale, 0.0f, 15.0f);
+					ImGui::SliderFloat("Shininess", &r3d->m_Material->m_Shininess, 0.0f, 64.0f);
+					ImGui::SliderFloat("Solid", &r3d->m_Material->m_Solid, 0.0f, 1.0f);
+
+					if (!r3d->m_Material->IsInherited() && ImGui::Button("Save"))
+					{
+						Serializer::SerializeMaterial(r3d->m_Material->GetFilePath(), r3d->m_Material);
+					}
+
 					ImGui::PopID();
 				}
 			}
@@ -1894,13 +2032,33 @@ void Editor::TextureMenu()
 			ImGui::Text("Name: %s", m_TextureMenu.m_Texture->GetName().c_str());
 			ImGui::Text("FilePath: %s", m_TextureMenu.m_Texture->GetFilePath().c_str());
 			ImGui::Text("Size: %.0f %.0f", m_TextureMenu.m_Texture->GetSize().x, m_TextureMenu.m_Texture->GetSize().y);
-			if (ImGui::Checkbox("Linear", &m_TextureMenu.m_Texture->m_IsLinear))
+			if (ImGui::Button("Linear"))
 			{
 				std::string name = m_TextureMenu.m_Texture->GetName();
-				TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_TextureMenu.m_Texture->m_IsLinear ? GL_LINEAR : GL_NEAREST };
-				TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_TextureMenu.m_Texture->m_IsLinear ? GL_LINEAR : GL_NEAREST };
-				m_TextureMenu.m_Texture->Reload();
+				TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
+				TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
+				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 0, 1 });
 				TextureManager::GetInstance().ResetTexParametersi();
+			}
+			if (ImGui::Button("Repeat"))
+			{
+				std::string name = m_TextureMenu.m_Texture->GetName();
+				TextureManager::GetInstance().m_TexParameters[2] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT };
+				TextureManager::GetInstance().m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT };
+				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 2, 3 });
+				TextureManager::GetInstance().ResetTexParametersi();
+			}
+			if (ImGui::Button("Clamp"))
+			{
+				std::string name = m_TextureMenu.m_Texture->GetName();
+				TextureManager::GetInstance().m_TexParameters[2] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE };
+				TextureManager::GetInstance().m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE };
+				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 2, 3 });
+				TextureManager::GetInstance().ResetTexParametersi();
+			}
+			if (ImGui::Button("Save"))
+			{
+				Serializer::SerializeTextureMeta(m_TextureMenu.m_Texture->m_Meta);
 			}
 		}
 		ImGui::End();
@@ -1945,11 +2103,11 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 		{
 			gameObject->m_ComponentManager.AddComponent<Renderer2D>();
 		}
-		if (ImGui::MenuItem("BoxCollider2D"))
+		if (ImGui::MenuItem("Box Collider2D"))
 		{
 			gameObject->m_ComponentManager.AddComponent<BoxCollider2D>();
 		}
-		if (ImGui::MenuItem("CircleCollider2D"))
+		if (ImGui::MenuItem("Circle Collider2D"))
 		{
 			gameObject->m_ComponentManager.AddComponent<CircleCollider2D>();
 		}
@@ -1969,11 +2127,15 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 		{
 			gameObject->m_ComponentManager.AddComponent<Script>();
 		}
-		if (ImGui::MenuItem("PointLight2D"))
+		if (ImGui::MenuItem("Point Light"))
 		{
-			gameObject->m_ComponentManager.AddComponent<PointLight2D>();
+			gameObject->m_ComponentManager.AddComponent<PointLight>();
 		}
-		if (ImGui::MenuItem("DirectionalLight"))
+		if (ImGui::MenuItem("Spot Light"))
+		{
+			gameObject->m_ComponentManager.AddComponent<SpotLight>();
+		}
+		if (ImGui::MenuItem("Directional Light"))
 		{
 			gameObject->m_ComponentManager.AddComponent<DirectionalLight>();
 		}
@@ -1984,7 +2146,7 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 
 		for (auto& registeredClass : ReflectionSystem::GetInstance().m_RegisteredClasses)
 		{
-			if (ImGui::MenuItem(registeredClass.first.c_str()))
+			if (Utils::IsUserDefinedComponent(registeredClass.first) && ImGui::MenuItem(registeredClass.first.c_str()))
 			{
 				registeredClass.second.m_AddComponentCallBack(&gameObject->m_ComponentManager);
 			}
@@ -2200,15 +2362,27 @@ void Editor::Settings()
 	if (ImGui::Begin("Settings"))
 	{
 		ImGui::Checkbox("Polygon mode", &m_PolygonMode);
+		ImGui::Checkbox("Draw Bounding Boxes", &m_DrawBoundingBoxes);
+		ImGui::Checkbox("Draw Lights", &m_DrawLights);
 		ImGui::Checkbox("Snap", &m_Snap);
 		ImGui::Checkbox("Draw colliders", &m_DrawColliders);
 		ImGui::SliderInt("Line width", &m_LineWidth, 1, 5);
 		ImGui::SliderInt("Instanced objects to threads", &Instancing::GetInstance().m_SizeOfObjectToThreads, 1, 1000);
 		ImGui::SliderFloat("Thumbnail scale", &m_ThumbnailScale, 0.1f, 5.0f);
+
 		if (ImGui::SliderFloat("Master volume", &SoundManager::GetInstance().m_MasterVolume, 0.0f, 1.0f))
 		{
 			SoundManager::GetInstance().UpdateVolume();
 		}
+
+		if (ImGui::CollapsingHeader("Outline"))
+		{
+			ImGui::PushID("Outline");
+			ImGui::ColorEdit3("Color", &m_OutlineParams.m_Color[0]);
+			ImGui::SliderInt("Color", &m_OutlineParams.m_Thickness, 1, 5);
+			ImGui::PopID();
+		}
+
 		ImGui::End();
 	}
 }
@@ -2311,6 +2485,19 @@ bool Editor::RemoveComponentMenu(GameObject* gameObject, IComponent* component)
 	ImGui::PopID();
 	ImGui::SameLine();
 	return true;
+}
+
+void Editor::DropMaterialOnViewport(const std::string& filePath)
+{
+	std::vector<GameObject*> selectedGameObjects = m_CurrentScene->SelectGameObject({}, 1);
+	if (selectedGameObjects.size() == 1)
+	{
+		GameObject* selectedGameObject = selectedGameObjects[0];
+		if (Renderer3D* r3d = selectedGameObject->m_ComponentManager.GetComponent<Renderer3D>())
+		{
+			r3d->SetMaterial(MaterialManager::GetInstance().Load(filePath));
+		}
+	}
 }
 
 void Editor::ResetStats()

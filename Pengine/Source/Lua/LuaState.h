@@ -205,8 +205,8 @@ namespace Pengine
 		static class Animator2D* LuaGetAnimator2D(class GameObject* gameObject);
 		static class Animator2D* LuaAddAnimator2D(class GameObject* gameObject);
 
-		static class PointLight2D* LuaGetPointLight2D(class GameObject* gameObject);
-		static class PointLight2D* LuaAddPointLight2D(class GameObject* gameObject);
+		static class PointLight* LuaGetPointLight2D(class GameObject* gameObject);
+		static class PointLight* LuaAddPointLight2D(class GameObject* gameObject);
 
 		static class Texture* LuaGetTexture(const std::string& name);
 		static class Texture* LuaCreateTexture(const std::string& filePath);

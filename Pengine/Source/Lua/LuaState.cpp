@@ -120,14 +120,14 @@ Animator2D* LuaState::LuaAddAnimator2D(GameObject* gameObject)
 	return gameObject ? gameObject->m_ComponentManager.AddComponent<Animator2D>() : nullptr;
 }
 
-PointLight2D *LuaState::LuaGetPointLight2D(GameObject* gameObject)
+PointLight *LuaState::LuaGetPointLight2D(GameObject* gameObject)
 {
-	return gameObject ? gameObject->m_ComponentManager.GetComponent<PointLight2D>() : nullptr;;
+	return gameObject ? gameObject->m_ComponentManager.GetComponent<PointLight>() : nullptr;;
 }
 
-PointLight2D* LuaState::LuaAddPointLight2D(GameObject* gameObject)
+PointLight* LuaState::LuaAddPointLight2D(GameObject* gameObject)
 {
-	return gameObject ? gameObject->m_ComponentManager.AddComponent<PointLight2D>() : nullptr;;
+	return gameObject ? gameObject->m_ComponentManager.AddComponent<PointLight>() : nullptr;;
 }
 
 Texture* LuaState::LuaGetTexture(const std::string& name)
@@ -348,14 +348,14 @@ void LuaState::RegisterFunction(LuaState* l)
 	a2d.fun("GetSpeed", &Animator2D::GetSpeed);
 	a2d.fun("SetPlay", &Animator2D::SetPlay);
 
-	LuaClass<PointLight2D> pl2d(l->m_L, "PointLight2D");
+	LuaClass<PointLight> pl2d(l->m_L, "PointLight2D");
 	pl2d.ctor<GameObject*>("Get", LuaGetPointLight2D, nullptr);
 	pl2d.ctor<GameObject*>("Add", LuaAddPointLight2D, nullptr);
-	pl2d.fun("Copy", &PointLight2D::Copy);
-	pl2d.fun("SetConstant", &PointLight2D::SetConstant);
-	pl2d.fun("SetLinear", &PointLight2D::SetLinear);
-	pl2d.fun("SetQuadratic", &PointLight2D::SetQuadratic);
-	pl2d.fun("SetColor", &PointLight2D::SetColor);
+	pl2d.fun("Copy", &PointLight::Copy);
+	pl2d.fun("SetConstant", &PointLight::SetConstant);
+	pl2d.fun("SetLinear", &PointLight::SetLinear);
+	pl2d.fun("SetQuadratic", &PointLight::SetQuadratic);
+	pl2d.fun("SetColor", &PointLight::SetColor);
 
 	LuaClass<ICollider2D> ic2d(l->m_L, "ICollider2D");
 	ic2d.ctor("Get", &LuaState::LuaGetICollider2D, nullptr);

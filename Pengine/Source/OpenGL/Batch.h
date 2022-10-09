@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IndexBuffer.h"
+#include "Shader.h"
 
 #include <array>
 #include <vector>
@@ -126,6 +127,8 @@ namespace Pengine
 			0.0f, 1.0f
 		};
 
+		Shader* m_GameObjectsShader = nullptr;
+
 		void InitializeGameObjects();
 		
 		void InitializeLines();
@@ -156,7 +159,9 @@ namespace Pengine
 		void Submit(const std::vector<float>& mesh, const glm::mat4& positionMat4, const glm::mat4& rotationMat4,
 			const glm::mat4& scaleMat4, const glm::vec4& color, std::vector<class Texture*> textures);
 		
-		void FlushGameObjects();
+		void SetGameOjbectsShader(Shader* shader) { m_GameObjectsShader = shader; }
+
+		void FlushGameObjects(bool isVisualizer = false);
 		
 		void FlushLines();
 		
@@ -168,7 +173,7 @@ namespace Pengine
 		
 		void BeginGameObjects();
 		
-		void EndGameObjects();
+		void EndGameObjects(bool isVisualizer = false);
 		
 		void BeginUI();
 		

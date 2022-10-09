@@ -1,0 +1,31 @@
+Material:
+  m_FilePath:
+    Type: std::string
+    Value: Source/Sponza/Materials/VaseRound.mat
+  m_Name:
+    Type: std::string
+    Value: VaseRound
+  m_BaseColorFilePath:
+    Type: std::string
+    Value: Source\Sponza\Textures\vase_round.png
+  m_ShaderFilePath:
+    Type: std::string
+    Value: Instancing3D.shader
+  m_Ambient:
+    Type: struct glm::vec<3,float,0>
+    Value: [1, 1, 1]
+  m_Diffuse:
+    Type: struct glm::vec<3,float,0>
+    Value: [1, 1, 1]
+  m_Specular:
+    Type: struct glm::vec<3,float,0>
+    Value: [1, 1, 1]
+  m_Shininess:
+    Type: float
+    Value: 32
+  m_Scale:
+    Type: float
+    Value: 1
+  m_Solid:
+    Type: float
+    Value: 1

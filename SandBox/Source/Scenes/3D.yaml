@@ -9,21 +9,35 @@ Environment:
   Pixels blured: 6
   IsEnabled: true
   DepthTest: true
+  Shadows:
+    Bias: 0
+    IsEnabled: true
+    IsVisualized: false
+    Pcf: 1
+    Texels: 1
+    ZFarScale: 0.200000003
+    CascadesDistance:
+      - 10
+      - 50
+    Blur:
+      BlurPasses: 1
+      IsEnabled: true
+      PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [-5.95214844, 3.63423419, -12.2905989]
-    Rotation: [-0.23035562, 3.12076998, 0]
+    Position: [-13.9793644, 3.59001923, 0.749664843]
+    Rotation: [-0.850045204, -1.84860945, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
   Zoom Sensetivity: 0.25
-  Z near: 0.100000001
-  Z far: 10000
+  Z near: 0.00100000005
+  Z far: 1000
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 3503526979309807712
+  - GameObject: 17601475315407689899
     Name: Sun
     Is Enabled: true
     Is Selectable: true
@@ -58,7 +72,7 @@ GameObjects:
     Directional Light:
       Color: [1, 1, 1]
       Intensity: 1
-  - GameObject: 4138220036039060738
+  - GameObject: 14170979921629589050
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -72,14 +86,9 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
-      Ambient: [0.300000012, 0.300000012, 0.300000012]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 1
-      Shininess: 64
-      Solid: 1
-      BaseColor: White
-  - GameObject: 7702868342511576056
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 4566269593331367225
     Name: Cube
     Is Enabled: true
     Is Selectable: true
@@ -88,19 +97,14 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-3, 0, 0]
+      Position: [-3, -4.70832348, -3.95244813]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [25, 1, 25]
     Renderer3D:
       Mesh: Source\Meshes/Cube.meta
-      Ambient: [0.300000012, 0.300000012, 0.300000012]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 1
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 16823289511111916631
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 10833170200367000548
     Name: Cone
     Is Enabled: true
     Is Selectable: true
@@ -114,14 +118,9 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Cone.meta
-      Ambient: [0.300000012, 0.300000012, 0.300000012]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 1
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 8404910505132650066
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 2504603710370237783
     Name: Cylinder
     Is Enabled: true
     Is Selectable: true
@@ -135,14 +134,9 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Cylinder.meta
-      Ambient: [0.300000012, 0.300000012, 0.300000012]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 1
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 542236171046268213
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 11560256351576348129
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -156,14 +150,9 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [0.300000012, 0.300000012, 0.300000012]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 1
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 554033217648626362
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 3149766467271624972
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -177,14 +166,38 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [0.050999999, 0.363329351, 1]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 15
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 15138818691421761877
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source\Materials\Emissive.mat
+      m_Name:
+        Type: std::string
+        Value: Emissive
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.897468388, 0.100000024, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.897000015, 0.100000001, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.897000015, 0.100000001, 1]
+      m_Shininess:
+        Type: float
+        Value: 1
+      m_Scale:
+        Type: float
+        Value: 5
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 14522275231313622324
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -194,18 +207,42 @@ GameObjects:
     Transform:
       Follow owner: true
       Position: [-9, 0, -7]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Rotation: [-0.0710632354, 0, 0]
+      Scale: [1.00000024, 1.00000024, 0.999988139]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [1, 0.050999999, 0.050999999]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 10
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 14668385576532912710
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source\Materials\Emissive.mat
+      m_Name:
+        Type: std::string
+        Value: Emissive
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.396202564, 1, 0.100000024]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.395999998, 1, 0.100000001]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.395999998, 1, 0.100000001]
+      m_Shininess:
+        Type: float
+        Value: 1
+      m_Scale:
+        Type: float
+        Value: 5
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 715474085655356219
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -219,14 +256,38 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [1, 0.706243634, 0.0717299581]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 8
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 3980841524759420335
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source\Materials\Emissive.mat
+      m_Name:
+        Type: std::string
+        Value: Emissive
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 0.965822756, 0.100000024]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 0.966000021, 0.100000001]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 0.966000021, 0.100000001]
+      m_Shininess:
+        Type: float
+        Value: 1
+      m_Scale:
+        Type: float
+        Value: 5
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 14210718686897610405
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -240,14 +301,38 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [0.253592014, 1, 0.0928270221]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 8
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
-  - GameObject: 6658569755396652970
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source\Materials\Emissive.mat
+      m_Name:
+        Type: std::string
+        Value: Emissive
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.100000024, 0.305063486, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.100000001, 0.305000007, 0.100000001]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [0.100000001, 0.305000007, 0.100000001]
+      m_Shininess:
+        Type: float
+        Value: 1
+      m_Scale:
+        Type: float
+        Value: 12.9020004
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 17705119266783354806
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -261,10 +346,21 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
-      Ambient: [0.799337208, 0.0675105453, 1]
-      Diffuse: [0.300000012, 0.300000012, 0.300000012]
-      Specular: [0.300000012, 0.300000012, 0.300000012]
-      Scale: 8
-      Shininess: 32
-      Solid: 1
-      BaseColor: White
+      IsInherited: false
+      Material: Source\Materials\Emissive.mat
+  - GameObject: 1032505325392426671
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Cube.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12.7259655, -2.74117565, 9.5585165]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat

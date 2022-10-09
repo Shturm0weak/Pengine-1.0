@@ -232,11 +232,23 @@ void Window::SetVSyncEnabled(bool enabled)
 	glfwSwapInterval(m_VSync);
 }
 
-void Window::Clear(const glm::vec4& color) const
+void Window::Clear(const glm::vec4& color, float depth) const
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearDepth(1.0f);
 	glClearColor(color.x, color.y, color.y, color.w);
+	glClearDepth(depth);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void Window::ClearColor(const glm::vec4& color) const
+{
+	glClearColor(color.x, color.y, color.y, color.w);
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Window::ClearDepth(float depth) const
+{
+	glClearDepth(depth);
+	glClear(GL_DEPTH_BUFFER_BIT);
 }
 
 void Window::ClampCursorPosition()

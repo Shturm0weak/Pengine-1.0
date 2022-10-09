@@ -24,8 +24,8 @@ namespace Pengine
 		glm::vec2 m_Size;
 
 		float m_ZoomScale = 1.0f;
-		float m_Znear = 0.0001f;
-		float m_Zfar = 10000.0f;
+		float m_Znear = 0.1f;
+		float m_Zfar = 1000.0f;
 		float m_Fov = glm::radians(90.0f);
 		float m_Speed = 5.0f;
 		float m_ZoomSensetivity = 0.25f;

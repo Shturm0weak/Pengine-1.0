@@ -16,6 +16,8 @@ namespace Pengine
 			glm::vec3 m_Start;
 			glm::vec3 m_End;
 			glm::vec4 m_Color;
+
+			float duration;
 		};
 
 		struct QuadParams
@@ -47,7 +49,7 @@ namespace Pengine
 		friend class Renderer;
 	public:
 
-		static void DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color);
+		static void DrawLine(const glm::vec3& start, const glm::vec3& end, const glm::vec4& color, float duration = 0.0f);
 		
 		static void DrawQuad(const glm::mat4& transform, const glm::vec4& color = glm::vec4(1.0f), class Texture* texture = nullptr);
 		
