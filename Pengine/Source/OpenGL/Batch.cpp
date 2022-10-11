@@ -645,6 +645,9 @@ void Batch::FlushGameObjects(bool isVisualizer)
 		samplers[i] = i;
 	}
 	
+	glActiveTexture(GL_TEXTURE0 + 0);
+	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
+
 	shader->SetUniform1iv("u_Texture", samplers);
 	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 	//shader->SetUniform2fv("u_Resolution", Viewport::GetInstance().GetSize());

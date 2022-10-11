@@ -17,6 +17,7 @@ namespace Pengine
 		~Renderer() = default;
 
 		class FrameBuffer* m_FrameBufferScene = nullptr;
+		class FrameBuffer* m_FrameBufferG = nullptr;
 		class FrameBuffer* m_FrameBufferUI = nullptr; 
 		class FrameBuffer* m_FrameBufferBloom = nullptr;
 		class FrameBuffer* m_FrameBufferOutline = nullptr;
@@ -48,6 +49,12 @@ namespace Pengine
 		glm::mat4 Renderer::GetLightSpaceMatrix(class DirectionalLight* light, const float nearPlane, const float farPlane);
 
 		std::vector<glm::mat4> GetLightSpaceMatrices(class DirectionalLight* light);
+
+		void RenderDeferred(Scene* scene);
+
+		void BeginGBuffer();
+
+		void EndGBuffer();
 
 		void RenderFullScreenQuad();
 

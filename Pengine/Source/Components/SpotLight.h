@@ -26,6 +26,7 @@ namespace Pengine
 		float m_CosOuterCutOff = glm::cos(m_OuterCutOff);
 
 		friend class Instancing;
+		friend class Renderer;
 	public:
 
 		virtual IComponent* New(GameObject* owner) override;

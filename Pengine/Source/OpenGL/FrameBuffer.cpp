@@ -4,25 +4,25 @@
 
 using namespace Pengine;
 
-FrameBuffer::FrameBuffer(const FrameBufferParams& params, const std::vector<Texture::TexParameteri>& texParameters)
+FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std::vector<Texture::TexParameteri>& texParameters)
 {
 	m_Params = params;
 
 	glGenFramebuffers(1, &m_Fbo);
 
-	for (uint32_t i = 0; i < params.m_TexturesAmount; i++)
+	for (uint32_t i = 0; i < params.size(); i++)
 	{
 		m_Textures.push_back(0);
 		glGenTextures(1, &m_Textures[i]);
 		glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
 		glTexImage2D(GL_TEXTURE_2D,
 			0,
-			params.m_TextureInternalFormat,
-			params.m_Size.x,
-			params.m_Size.y,
+			params[i].m_TextureInternalFormat,
+			params[i].m_Size.x,
+			params[i].m_Size.y,
 			0,
-			params.m_TextureFormat,
-			params.TextureType,
+			params[i].m_TextureFormat,
+			params[i].m_TextureType,
 			NULL);
 
 		for (size_t i = 0; i < texParameters.size(); i++)
@@ -38,20 +38,15 @@ FrameBuffer::FrameBuffer(const FrameBufferParams& params, const std::vector<Text
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		glBindFramebuffer(GL_FRAMEBUFFER, m_Fbo);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, params.m_FrameBufferAttachment + i, GL_TEXTURE_2D, m_Textures[i], 0);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, params[i].m_FrameBufferAttachment, GL_TEXTURE_2D, m_Textures[i], 0);
 	}
 
-	if (params.m_HasRBO)
+	std::vector<uint32_t> attachments;
+	for (FrameBufferParams param : m_Params)
 	{
-		glGenRenderbuffers(1, &m_Rbo);
-		glBindRenderbuffer(GL_RENDERBUFFER, m_Rbo);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, params.m_Size.x, params.m_Size.y);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Rbo);
+		attachments.emplace_back(param.m_FrameBufferAttachment);
 	}
-
-	if (!params.m_ReadBuffer) glReadBuffer(GL_NONE);
-	if (!params.m_DrawBuffer) glDrawBuffer(GL_NONE);
-
+	glDrawBuffers(m_Params.size(), &attachments[0]);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 	{
@@ -74,27 +69,41 @@ FrameBuffer::~FrameBuffer()
 
 void FrameBuffer::Resize(const glm::ivec2& size)
 {
-	m_Params.m_Size = size;
-	for (uint32_t i = 0; i < m_Textures.size(); i++)
+	for (uint32_t i = 0; i < m_Params.size(); i++)
 	{
+		m_Params[i].m_Size = size;
 		glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
 		glTexImage2D(GL_TEXTURE_2D,
 			0,
-			m_Params.m_TextureInternalFormat,
-			m_Params.m_Size.x,
-			m_Params.m_Size.y,
+			m_Params[i].m_TextureInternalFormat,
+			m_Params[i].m_Size.x,
+			m_Params[i].m_Size.y,
 			0,
-			m_Params.m_TextureFormat,
-			m_Params.TextureType,
+			m_Params[i].m_TextureFormat,
+			m_Params[i].m_TextureType,
 			NULL);
-
 		glBindTexture(GL_TEXTURE_2D, 0);
-		if (m_Params.m_HasRBO)
+
+		if (m_Rbo > 0)
 		{
 			glBindRenderbuffer(GL_RENDERBUFFER, m_Rbo);
-			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Params.m_Size.x, m_Params.m_Size.y);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Params[0].m_Size.x, m_Params[0].m_Size.y);
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Rbo);
 		}
+	}
+}
+
+void FrameBuffer::GenerateRbo()
+{
+	Bind();
+	glGenRenderbuffers(1, &m_Rbo);
+	glBindRenderbuffer(GL_RENDERBUFFER, m_Rbo);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Params[0].m_Size.x, m_Params[0].m_Size.y);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Rbo);
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+	{
+		Logger::Error("Framebuffer is not complete!");
 	}
 }
 

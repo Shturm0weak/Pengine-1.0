@@ -53,13 +53,13 @@ void Viewport::SetPosition(const glm::ivec2 position)
 void Viewport::Initialize()
 {
     glm::ivec2 size = Window::GetInstance().GetSize();
-    FrameBuffer::FrameBufferParams params = { size , 1, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
-		GL_UNSIGNED_BYTE, true, true, true };
+    FrameBuffer::FrameBufferParams params = { size, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
+		GL_UNSIGNED_BYTE };
 
 	TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
 	TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
 
-    m_FrameBufferViewport = new FrameBuffer(params, TextureManager::GetInstance().GetTexParamertersi());
+	m_FrameBufferViewport = new FrameBuffer({ params }, TextureManager::GetInstance().GetTexParamertersi());
 
 	TextureManager::GetInstance().ResetTexParametersi();
 
@@ -102,6 +102,34 @@ void Viewport::Update()
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Albedo", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferG->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Position", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferG->m_Textures[1]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Normal", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferG->m_Textures[2]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	/*ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Depth", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[4]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();*/
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("UI", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
@@ -318,6 +346,7 @@ void Viewport::Resize(const glm::ivec2& size)
 
     m_FrameBufferViewport->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferScene->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferG->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferShadows->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
@@ -336,14 +365,9 @@ void Viewport::Resize(const glm::ivec2& size)
 		Renderer::GetInstance().m_FrameBufferBlur[i + 1]->Resize(newSize);
 	}
 
-	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferCSM.size(); i++)
-	{
-		Renderer::GetInstance().m_FrameBufferCSM[i]->Resize(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Params.m_Size);
-	}
-
 	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferShadowsBlur.size(); i++)
 	{
-		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->m_Params.m_Size);
+		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(size);
 	}
 }
 

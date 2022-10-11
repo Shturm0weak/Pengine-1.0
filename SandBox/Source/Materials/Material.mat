@@ -13,13 +13,13 @@ Material:
     Value: Instancing3D.shader
   m_Ambient:
     Type: struct glm::vec<3,float,0>
-    Value: [0.100000001, 0.100000001, 0.100000001]
+    Value: [1, 1, 1]
   m_Diffuse:
     Type: struct glm::vec<3,float,0>
-    Value: [0.300000012, 0.300000012, 0.300000012]
+    Value: [1, 1, 1]
   m_Specular:
     Type: struct glm::vec<3,float,0>
-    Value: [0.200000003, 0.200000003, 0.200000003]
+    Value: [1, 1, 1]
   m_Shininess:
     Type: float
     Value: 64

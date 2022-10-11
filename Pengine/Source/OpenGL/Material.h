@@ -28,7 +28,7 @@ namespace Pengine
 		friend class Serializer;
 	public:
 
-		bool IsInherited() const { return (char)m_IsInherited == 1; }
+		bool IsInherited() const { return m_IsInherited; }
 
 		Texture* m_BaseColor = TextureManager::GetInstance().White();
 

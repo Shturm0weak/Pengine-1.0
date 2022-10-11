@@ -32,7 +32,7 @@ namespace Pengine
 		ThreadPool::SyncParams m_SyncParams;
 
 		// Position, Scale, Ambient, Diffuse, Specular, RotationMat4, TextureIndex, Shininess
-		size_t m_SizeOfAttribs = 3 + 3 + 3 + 3 + 3 + 16 + 1 + 1;
+		size_t m_SizeOfAttribs = 3 + 3 + 3 + 16 + 1 + 1;
 		int m_SizeOfObjectToThreads = 100;
 		int m_TextureOffset = 5;
 
@@ -47,6 +47,8 @@ namespace Pengine
 		void Create(Mesh* mesh);
 
 		void Render(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+
+		void RenderGBuffer(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
 		void RenderAllObjects(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 

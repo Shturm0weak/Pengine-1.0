@@ -136,9 +136,12 @@
     <None Include="Source\Shaders\Blur.shader" />
     <None Include="Source\Shaders\ComposeFinalImage.shader" />
     <None Include="Source\Shaders\Default2D.shader" />
+    <None Include="Source\Shaders\Default2DGBuffer.shader" />
     <None Include="Source\Shaders\Default3D.shader" />
     <None Include="Source\Shaders\DefaultLines.shader" />
+    <None Include="Source\Shaders\Deferred.shader" />
     <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Instancing3D.shader" />
     <None Include="Source\Shaders\Depth.shader" />
     <None Include="Source\Shaders\Instancing3DDepth.shader" />

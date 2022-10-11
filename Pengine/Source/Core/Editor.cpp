@@ -619,6 +619,8 @@ void Editor::AssetBrowser()
 
 		const ImTextureID folderIconId = (ImTextureID)TextureManager::GetInstance().GetByName("FolderIcon")->GetRendererID();
 		const ImTextureID fileIconId = (ImTextureID)TextureManager::GetInstance().GetByName("FileIcon")->GetRendererID();
+		const ImTextureID metaIconId = (ImTextureID)TextureManager::GetInstance().GetByName("MetaIcon")->GetRendererID();
+		const ImTextureID materialIconId = (ImTextureID)TextureManager::GetInstance().GetByName("MaterialIcon")->GetRendererID();
 
 		bool iconHovered = false;
 
@@ -631,7 +633,25 @@ void Editor::AssetBrowser()
 			}
 
 			const std::string filename = Utils::GetNameFromFilePath(path, -1);
-			const ImTextureID currentIcon = directoryIter.is_directory() ? folderIconId : fileIconId;
+			const std::string format = Utils::GetResolutionFromFilePath(path);
+			ImTextureID currentIcon;
+			if (directoryIter.is_directory())
+			{
+				currentIcon = folderIconId;
+			}
+			else if (format == "mat")
+			{
+				currentIcon = materialIconId;
+			}
+			else if (format == "meta")
+			{
+				currentIcon = metaIconId;
+			}
+			else
+			{
+				currentIcon = fileIconId;
+			}
+
 			ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
 			ImGui::PushID(filename.c_str());
 			ImGui::ImageButton(currentIcon, { thumbnailSize, thumbnailSize }, ImVec2(0, 1), ImVec2(1, 0));

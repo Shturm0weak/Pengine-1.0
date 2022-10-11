@@ -1,5 +1,5 @@
 GameObjects:
-  - GameObject: 14014937571147122940
+  - GameObject: 3923399582311346838
     Name: Sun
     Is Enabled: true
     Is Selectable: true
@@ -11,26 +11,6 @@ GameObjects:
       Position: [0, 0, 0]
       Rotation: [0.959931076, 0, 0]
       Scale: [0.999999702, 0.999999881, 1]
-    Renderer2D:
-      Color: [1, 1, 1, 1]
-      Texture: White
-      Normal Texture: White
-      Emissive Mask Texture: White
-      UV:
-        - 0
-        - 0
-        - 1
-        - 0
-        - 1
-        - 1
-        - 0
-        - 1
-      Layer: 0
-      Inner radius: 0
-      Outer radius: 0
-      Is Normal used: false
-      Ambient: 1
-      Emmisive Mask Intensity: 0
     Directional Light:
       Color: [1, 1, 1]
       Intensity: 1
