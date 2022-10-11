@@ -31,6 +31,5 @@ x64/
 *.la
 
 # Executables
-*.exe
 *.out
 *.app
