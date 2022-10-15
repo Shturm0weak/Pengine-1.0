@@ -66,5 +66,6 @@
     <None Include="Source\Shaders\Deferred.shader" />
     <None Include="Source\Shaders\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Default2DGBuffer.shader" />
+    <None Include="Source\Shaders\SSAO.shader" />
   </ItemGroup>
 </Project>

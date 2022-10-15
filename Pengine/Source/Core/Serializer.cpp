@@ -404,7 +404,7 @@ TextureAtlas* Serializer::DeSerializeTextureAtlas(const std::string& filePath)
 		return nullptr;
 	}
 
-	TextureAtlas* textureAtlas = TextureAtlasManager::GetInstance().Create(Utils::GetNameFromFilePath(filePath, 2));
+	TextureAtlas* textureAtlas = TextureAtlasManager::GetInstance().Create(Utils::GetNameFromFilePath(filePath));
 	textureAtlas->m_FilePath = filePath;
 	
 	if (auto& sizeData = data["Size"])
@@ -414,13 +414,11 @@ TextureAtlas* Serializer::DeSerializeTextureAtlas(const std::string& filePath)
 
 	if (auto& textureData = data["Texture"])
 	{
-		Texture* texture = TextureManager::GetInstance().Create(textureData.as<std::string>());
-		if (!texture)
+		TextureManager::GetInstance().AsyncLoad(textureData.as<std::string>(),
+			[=](Texture* texture)
 		{
-			texture = TextureManager::GetInstance().White();
-		}
-
-		textureAtlas->m_Texture = texture;
+			textureAtlas->m_Texture;
+		});
 	}
 
 	return textureAtlas;
@@ -459,11 +457,11 @@ void Serializer::SerializeAnimation2D(Animation2DManager::Animation2D* animation
 	fout << out.c_str();
 }
 
-Animation2DManager::Animation2D* Serializer::DeSerializeAnimation2D(const std::string& filePath)
+void Serializer::DeSerializeAnimation2D(const std::string& filePath, Animation2DManager::Animation2D* animation)
 {
 	if (filePath.empty())
 	{
-		return nullptr;
+		return;
 	}
 
 	std::ifstream stream(filePath);
@@ -474,21 +472,25 @@ Animation2DManager::Animation2D* Serializer::DeSerializeAnimation2D(const std::s
 	YAML::Node data = YAML::LoadMesh(strStream.str());
 	if (!data)
 	{
-		return nullptr;
+		return;
 	}
 
-	Animation2DManager::Animation2D* animation = new Animation2DManager::Animation2D(filePath, Utils::GetNameFromFilePath(filePath, 4));
+	animation->m_Textures.clear();
+	animation->m_UVs.clear();
 
 	if (auto textures = data["Textures"])
 	{
 		for (auto texture : textures)
 		{
-			animation->m_Textures.push_back(TextureManager::GetInstance().Create(texture["FilePath"].as<std::string>()));
-			animation->m_UVs.push_back(texture["UVs"].as<std::vector<float>>());
+			std::vector<float> uvs = texture["UVs"].as<std::vector<float>>();
+			TextureManager::GetInstance().Create(texture["FilePath"].as<std::string>(),
+				[=](Texture* texture)
+			{
+					animation->m_Textures.push_back(texture);
+					animation->m_UVs.push_back(uvs);
+			});
 		}
 	}
-
-	return animation;
 }
 
 void Serializer::SerializePrefab(const std::string& filePath, GameObject& gameObject)
@@ -566,7 +568,7 @@ GameObject* Serializer::DeserializePrefab(const std::string filePath)
 		gameObject.first->m_UUID = UUID::Generate();
 	}
 
-	Logger::Success("has been deserialized!", "Prefab", Utils::GetNameFromFilePath(filePath, 6).c_str());
+	Logger::Success("has been deserialized!", "Prefab", Utils::GetNameFromFilePath(filePath).c_str());
 
 	return childs.begin()->first;
 }
@@ -588,7 +590,7 @@ void Serializer::SerializeScene(Scene& scene)
 
 	std::string filePath = scene.m_FilePath == "None" ? "Source/Scenes/" + scene.GetTitle() + ".yaml" : scene.m_FilePath;
 
-	if (Utils::GetNameFromFilePath(filePath, 4) != scene.m_Title)
+	if (Utils::GetNameFromFilePath(filePath) != scene.m_Title)
 	{
 		filePath = Utils::ReplaceNameFromFilePath(filePath, scene.m_Title, 4);
 	}
@@ -635,7 +637,7 @@ Scene* Serializer::DeserializeScene(const std::string filePath)
 	}
 	else
 	{
-		scene->m_Title = Utils::GetNameFromFilePath(filePath, 4);
+		scene->m_Title = Utils::GetNameFromFilePath(filePath);
 	}
 
 	scene->m_FilePath = filePath;
@@ -914,6 +916,11 @@ std::string Serializer::GenerateMetaFilePath(const std::string& filePath, const 
 	return Utils::GetDirectoryFromFilePath(filePath) + "/" + name + ".meta";
 }
 
+std::string Serializer::GenerateMetaFilePathFromFilePath(const std::string& filePath, size_t formatCount)
+{
+	return filePath.substr(0, filePath.size() - 1 - formatCount) + ".meta";
+}
+
 std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
 {
 	std::string metaFilePath = GenerateMetaFilePath(meta.m_FilePath, meta.m_Name);
@@ -942,7 +949,7 @@ std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
 
 Mesh::Meta Serializer::DeserializeMeshMeta(const std::string& filePath)
 {
-	if (filePath.empty())
+	if (filePath.empty() || !Utils::Contains(filePath, ".meta"))
 	{
 		return {};
 	}
@@ -1002,7 +1009,7 @@ std::string Serializer::SerializeTextureMeta(Texture::Meta meta)
 
 Texture::Meta Serializer::DeserializeTextureMeta(const std::string& filePath)
 {
-	if (filePath.empty())
+	if (filePath.empty() || !Utils::Contains(filePath, ".meta"))
 	{
 		return {};
 	}
@@ -1256,22 +1263,6 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 			}
 		}
 
-		if (auto& baseColorData = renderer3DIn["BaseColor"])
-		{
-			std::string baseColorFilePath = baseColorData.as<std::string>();
-			if (baseColorFilePath == "White")
-			{
-				r3d->m_Material->m_BaseColor = TextureManager::GetInstance().White();
-			}
-			else
-			{
-				TextureManager::GetInstance().AsyncCreate(baseColorFilePath);
-				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
-					r3d->m_Material->m_BaseColor = texture;
-				}, baseColorFilePath);
-			}
-		}
-
 		bool isInherited = false;
 		if (auto& isInheritedData = renderer3DIn["IsInherited"])
 		{
@@ -1284,6 +1275,12 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 			auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
 			rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
 			DeserializeRttrType<Material>(renderer3DIn, materialClass, r3d->m_Material);
+
+			TextureManager::GetInstance().AsyncLoad(r3d->m_Material->m_BaseColorFilePath,
+				[=](Texture* texture)
+			{
+				r3d->m_Material->SetBaseColor(texture, r3d->m_Material->m_BaseColorFilePath);
+			});
 		}
 		else
 		{
@@ -1348,10 +1345,11 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			}
 			else
 			{
-				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncLoad(textureFilePath,
+					[=](Texture* texture)
+				{
 					r2d->SetTexture(texture);
-				}, textureFilePath);
+				});
 			}
 		}
 
@@ -1364,10 +1362,11 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			}
 			else
 			{
-				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncLoad(textureFilePath,
+					[=](Texture* texture) 
+				{
 					r2d->SetNormalTexture(texture);
-					}, textureFilePath);
+				});
 			}
 		}
 
@@ -1380,10 +1379,11 @@ void Serializer::DeSerializeRenderer2D(YAML::Node& in, ComponentManager& compone
 			}
 			else
 			{
-				TextureManager::GetInstance().AsyncCreate(textureFilePath);
-				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+				TextureManager::GetInstance().AsyncLoad(textureFilePath,
+					[=](Texture* texture) 
+				{
 					r2d->SetEmissiveMaskTexture(texture);
-					}, textureFilePath);
+				});
 			}
 		}
 
@@ -1678,6 +1678,7 @@ void Serializer::SerializeParticleEmitter(YAML::Emitter& out, ComponentManager& 
 		out << YAML::Key << "Scale" << YAML::Value << particleEmitter->m_Scale;
 		out << YAML::Key << "Texture" << YAML::Value << particleEmitter->m_Texture->GetFilePath();
 		out << YAML::Key << "Time to spawn" << YAML::Value << particleEmitter->m_TimeToSpawn;
+		out << YAML::Key << "Facing mode" << YAML::Value << (int)particleEmitter->m_FacingMode;
 		out << YAML::EndMap;
 	}
 }
@@ -1768,6 +1769,11 @@ void Serializer::DeSerializeParticleEmitter(YAML::Node& in, ComponentManager& co
 			particleEmitter->m_TimeToSpawn = timeToSpawnData.as<glm::vec2>();
 		}
 
+		if (auto& facingModeData = particleEmitterIn["Facing mode"])
+		{
+			particleEmitter->m_FacingMode = (ParticleEmitter::FacingMode)facingModeData.as<int>();
+		}
+
 		if (auto& textureData = particleEmitterIn["Texture"])
 		{
 			if (textureData.as<std::string>() == "White")
@@ -1776,9 +1782,11 @@ void Serializer::DeSerializeParticleEmitter(YAML::Node& in, ComponentManager& co
 			}
 			else
 			{
-				TextureManager::GetInstance().AsyncCreate(textureData.as<std::string>());
-				TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
-					particleEmitter->m_Texture = texture; }, textureData.as<std::string>());
+				TextureManager::GetInstance().AsyncLoad(textureData.as<std::string>(),
+					[=](Texture* texture) 
+				{
+					particleEmitter->m_Texture = texture; 
+				});
 			}
 		}
 	}
@@ -2051,25 +2059,11 @@ Material* Serializer::DeserializeMaterial(const std::string& filePath)
 		DeserializeRttrType<Material>(data, componentClass, material);
 	}
 
-	if (Utils::Contains(material->m_BaseColorFilePath, ".meta"))
+	TextureManager::GetInstance().AsyncLoad(material->m_BaseColorFilePath,
+		[=](Texture* texture)
 	{
-		Texture::Meta meta = DeserializeTextureMeta(material->m_BaseColorFilePath);
-		TextureManager::GetInstance().AsyncCreate(meta);
-		TextureManager::GetInstance().AsyncGetByFilePath(
-			[=](Texture* texture)
-		{
-			material->SetBaseColor(texture, meta.m_FilePath);
-		}, meta.m_FilePath);
-	}
-	else
-	{
-		TextureManager::GetInstance().AsyncCreate(material->m_BaseColorFilePath);
-		TextureManager::GetInstance().AsyncGetByFilePath(
-			[=](Texture* texture)
-		{
-				material->SetBaseColor(texture, material->m_BaseColorFilePath);
-		}, material->m_BaseColorFilePath);
-	}
+			material->SetBaseColor(texture, material->m_BaseColorFilePath);
+	});
 
 	return material;
 }
@@ -2187,12 +2181,11 @@ void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* 
 						std::string assetFilePath = propValueData.as<std::string>();
 						if (assetFilePath == "White" || Utils::MatchType(assetFilePath, { "jpeg", "png", "jpg" }))
 						{
-							TextureManager::GetInstance().AsyncCreate(assetFilePath);
-							TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture)
-								{
-									prop.set_value(Class, texture);
-								}
-							, Utils::GetNameFromFilePath(assetFilePath));
+							TextureManager::GetInstance().AsyncLoad(assetFilePath,
+								[=](Texture* texture)
+							{
+								prop.set_value(Class, texture);
+							});
 						}
 					}
 				}

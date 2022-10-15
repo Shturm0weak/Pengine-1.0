@@ -13,7 +13,7 @@ TextureAtlasManager& TextureAtlasManager::GetInstance()
 
 TextureAtlas* TextureAtlasManager::Load(const std::string& filePath)
 {
-	auto textureAtlasIter = m_TextureAtlases.find(Utils::GetNameFromFilePath(filePath, 2));
+	auto textureAtlasIter = m_TextureAtlases.find(Utils::GetNameFromFilePath(filePath));
 	if (textureAtlasIter != m_TextureAtlases.end())
 	{
 		TextureAtlas* textureAtlas = Serializer::DeSerializeTextureAtlas(filePath);

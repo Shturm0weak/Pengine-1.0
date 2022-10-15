@@ -4,6 +4,7 @@
 #include "../Events/OnMainThreadCallback.h"
 #include "../Core/Application.h"
 #include "../Core/Timer.h"
+#include "../Core/ThreadPool.h"
 
 using namespace Pengine;
 
@@ -136,9 +137,14 @@ void EventSystem::UnregisterAll(IListener* client)
 
 void EventSystem::SendEvent(IEvent* event)
 {
-	std::lock_guard<std::mutex> lock(m_Mutex);
-
 	assert(event);
+
+	std::unique_lock<std::mutex> lock(m_Mutex);
+	m_CondVar.wait(lock,
+		[=]
+		{
+			return !m_IsDispatchingEvents || ThreadPool::GetInstance().IsMainThread();
+		});
 
 	if (m_IsProcessingEvents == false 
 		|| (event->GetType() != EventType::ONMAINTHREADPROCESS && AlreadySended(event)))
@@ -188,6 +194,8 @@ void EventSystem::ProcessEvents()
 		return;
 	}
 
+	m_IsDispatchingEvents = true;
+
 	while (m_CurrentEvents.size() > 0)
 	{
 		IEvent* currentEvent = m_CurrentEvents.front();
@@ -195,6 +203,11 @@ void EventSystem::ProcessEvents()
 		DispatchEvent(currentEvent);
 		delete currentEvent;
 	}
+
+	m_IsDispatchingEvents = false;
+
+	std::lock_guard<std::mutex> lock(m_Mutex);
+	m_CondVar.notify_all();
 }
 
 void EventSystem::ClearEvents()

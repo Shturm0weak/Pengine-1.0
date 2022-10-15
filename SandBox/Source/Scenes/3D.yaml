@@ -27,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [24.9362183, 7.39506817, -2.12878227]
-    Rotation: [-0.414098531, 2.04062819, 0]
+    Position: [-5.76900768, 0.872805297, -2.89473248]
+    Rotation: [-0.0860390514, 2.30474615, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -38,7 +38,7 @@ Camera:
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 8786045764514916115
+  - GameObject: 6671389041120385862
     Name: Sun
     Is Enabled: true
     Is Selectable: true
@@ -73,7 +73,7 @@ GameObjects:
     Directional Light:
       Color: [1, 1, 1]
       Intensity: 1
-  - GameObject: 1963288841654663952
+  - GameObject: 8866565011432507302
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -89,7 +89,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/Arch.mat
-  - GameObject: 6401101209821839738
+  - GameObject: 4180462505993468506
     Name: Cube
     Is Enabled: true
     Is Selectable: true
@@ -105,7 +105,7 @@ GameObjects:
       Mesh: Source\Meshes/Cube.meta
       IsInherited: false
       Material: Source/Materials/Material.mat
-  - GameObject: 15499104689169459220
+  - GameObject: 15003650164820639173
     Name: Cone
     Is Enabled: true
     Is Selectable: true
@@ -121,7 +121,7 @@ GameObjects:
       Mesh: Source\Meshes/Cone.meta
       IsInherited: false
       Material: Source/Materials/Material.mat
-  - GameObject: 17181277501768415336
+  - GameObject: 5013159086772234783
     Name: Cylinder
     Is Enabled: true
     Is Selectable: true
@@ -136,8 +136,8 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Cylinder.meta
       IsInherited: false
-      Material: Source/Materials/Material.mat
-  - GameObject: 13246685566124654420
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 16311489024232877733
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -153,7 +153,7 @@ GameObjects:
       Mesh: Source\Meshes/Torus.meta
       IsInherited: false
       Material: Source/Materials/Material.mat
-  - GameObject: 3169373082054892690
+  - GameObject: 15369267875745058431
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -198,7 +198,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 10502929339999136892
+  - GameObject: 1915367885286480802
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -243,7 +243,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11701854009036443608
+  - GameObject: 5641389068730187236
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -288,7 +288,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9870406678411632520
+  - GameObject: 14878458985898224076
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -333,7 +333,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 18284085853045581608
+  - GameObject: 10119765755684817893
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -349,7 +349,7 @@ GameObjects:
       Mesh: Source\Meshes/Torus.meta
       IsInherited: false
       Material: Source\Materials\Emissive.mat
-  - GameObject: 5432861729970414167
+  - GameObject: 9552501421322300770
     Name: Cube
     Is Enabled: true
     Is Selectable: true
@@ -365,7 +365,7 @@ GameObjects:
       Mesh: Source\Meshes/Cube.meta
       IsInherited: false
       Material: Source/Materials/Material.mat
-  - GameObject: 6905161672919347256
+  - GameObject: 1429192280696288994
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -381,7 +381,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/Bricks.mat
-  - GameObject: 1673443731128042599
+  - GameObject: 7120328416480900647
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -397,7 +397,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/Ceiling.mat
-  - GameObject: 11339485531230476746
+  - GameObject: 11221519222860054341
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -413,7 +413,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/ColumnSquare.mat
-  - GameObject: 9412511899280273226
+  - GameObject: 15369370741316172497
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -429,7 +429,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/CurtainBlue.mat
-  - GameObject: 10611015725925685498
+  - GameObject: 18037840721925353090
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -445,7 +445,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/CurtainGreen.mat
-  - GameObject: 4306118723865419469
+  - GameObject: 3807237258374773855
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -461,7 +461,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/CurtainRed.mat
-  - GameObject: 2887190257355328000
+  - GameObject: 1286669640004113957
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -477,7 +477,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/FabricBlue.mat
-  - GameObject: 8899713665820716077
+  - GameObject: 7378618888420761430
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -493,7 +493,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/FabricRed.mat
-  - GameObject: 10470060704620217312
+  - GameObject: 15042984666969061677
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -509,7 +509,7 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsInherited: false
       Material: Source/Sponza/Materials/FabricGreen.mat
-  - GameObject: 2315142054348440525
+  - GameObject: 454230892222684483
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -554,7 +554,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12105964877325469244
+  - GameObject: 12876905135757738150
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -599,7 +599,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16739869958922619353
+  - GameObject: 16444164577115315597
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -644,7 +644,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5206826460477828202
+  - GameObject: 3879747146172514570
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -689,7 +689,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8674265524194069363
+  - GameObject: 13951773612422877024
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -734,7 +734,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9502177933815626773
+  - GameObject: 7276387891633265066
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -779,7 +779,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17066503105679835951
+  - GameObject: 9324077035489747201
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -824,7 +824,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7352130767887163942
+  - GameObject: 16718799308889257903
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -869,7 +869,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1706191364180998301
+  - GameObject: 4622687632838013875
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -914,7 +914,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5424581368766397586
+  - GameObject: 11133723832753290240
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -959,7 +959,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 4469909737139565452
+  - GameObject: 7205152824766924842
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1004,7 +1004,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2840012878569943535
+  - GameObject: 17269811893696010344
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1049,7 +1049,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11085483629792665477
+  - GameObject: 15404267792584736096
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1094,7 +1094,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2552204959541380247
+  - GameObject: 5187172304468625279
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1139,7 +1139,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 13221687046318816715
+  - GameObject: 8369783564803260356
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1184,7 +1184,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1590431117087015131
+  - GameObject: 2023145556835506005
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1229,7 +1229,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 829700792101823354
+  - GameObject: 5717090086746772116
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1274,7 +1274,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12897007640044506656
+  - GameObject: 17665168563321257202
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1319,7 +1319,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5527657302708022940
+  - GameObject: 1642224865711439876
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1364,7 +1364,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15745542186192780544
+  - GameObject: 5282938439323291414
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1409,7 +1409,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11589393450729131200
+  - GameObject: 15061388116239013089
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1454,7 +1454,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 874535747467795602
+  - GameObject: 7746719738332963572
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1499,7 +1499,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12943849861596010417
+  - GameObject: 9035132715209107224
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1544,7 +1544,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15792493511303776044
+  - GameObject: 15445803826032433014
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1589,7 +1589,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9129478681960989645
+  - GameObject: 12317059340313539564
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1634,7 +1634,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5433340301057587181
+  - GameObject: 4116683885084380355
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1679,7 +1679,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5580954994115281315
+  - GameObject: 17572309379524423442
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1724,7 +1724,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 18883014739452488
+  - GameObject: 6840568672010490560
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1769,7 +1769,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11202308134729122904
+  - GameObject: 16412328419713200920
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1814,7 +1814,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 14722308137007672248
+  - GameObject: 7992999508935656198
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1859,7 +1859,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 13623564765780829173
+  - GameObject: 5177497380074277064
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1904,7 +1904,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9623405408548511814
+  - GameObject: 2040239720343731199
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1949,7 +1949,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15804767163358648137
+  - GameObject: 8807265345720771485
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1994,7 +1994,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 13808791431258919997
+  - GameObject: 12347143493419780137
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2039,7 +2039,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 18377627514782085635
+  - GameObject: 11293443132813782900
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2084,7 +2084,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7685567944044318711
+  - GameObject: 10655251130184180690
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2129,7 +2129,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7229854299953875082
+  - GameObject: 3785626951377630174
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2174,7 +2174,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8070751135131039334
+  - GameObject: 4077948836404279945
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2219,7 +2219,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11700073364329999908
+  - GameObject: 6693514608137846484
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2264,7 +2264,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1390706553252197073
+  - GameObject: 11705416390736030034
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2309,7 +2309,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9919963311045033558
+  - GameObject: 2439428831068410588
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2354,7 +2354,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17813344070862473622
+  - GameObject: 388376848753230648
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2399,7 +2399,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8379676255153534646
+  - GameObject: 6436481253953651002
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2444,7 +2444,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 3589811023333167010
+  - GameObject: 58616674308274370
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2489,7 +2489,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1087650557773837621
+  - GameObject: 16955324008599791077
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2534,7 +2534,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 13186584856744489021
+  - GameObject: 17001236528369457355
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2579,7 +2579,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17908376712247348338
+  - GameObject: 15061007148327873815
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2624,7 +2624,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1311627922828890579
+  - GameObject: 14045477218049611511
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2669,7 +2669,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5744053318537880619
+  - GameObject: 14255604035508377707
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2714,7 +2714,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9518409127841995343
+  - GameObject: 11038513298721257200
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2759,7 +2759,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 4883911413080361361
+  - GameObject: 16585832520529994381
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2804,7 +2804,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16281233873586255749
+  - GameObject: 15660640225201715214
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2849,7 +2849,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 10651215273854474223
+  - GameObject: 925983914612210012
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2894,7 +2894,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16491666923328132246
+  - GameObject: 10873378763138638798
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2939,7 +2939,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12741020105971527606
+  - GameObject: 5320216324600030676
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2984,7 +2984,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16789221541611364544
+  - GameObject: 8101648534916380363
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3029,7 +3029,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2550797802087846451
+  - GameObject: 2000079013727211111
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3074,7 +3074,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7895104098705194785
+  - GameObject: 16744100171441526753
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3119,7 +3119,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 14756084456079509489
+  - GameObject: 3303129558195197560
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3164,7 +3164,7 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12464712223079066909
+  - GameObject: 17692007368692907081
     Name: Sphere
     Is Enabled: true
     Is Selectable: true

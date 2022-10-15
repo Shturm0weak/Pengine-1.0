@@ -137,7 +137,14 @@ Texture* LuaState::LuaGetTexture(const std::string& name)
 
 Texture* LuaState::LuaCreateTexture(const std::string& filePath)
 {
-	return TextureManager::GetInstance().Create(filePath);
+	Texture* returnTexture;
+	TextureManager::GetInstance().Create(filePath,
+		[&](Texture* texture)
+	{
+		returnTexture = texture;
+	});
+
+	return returnTexture;
 }
 
 Shader* LuaState::LuaGetShader(const std::string& name)

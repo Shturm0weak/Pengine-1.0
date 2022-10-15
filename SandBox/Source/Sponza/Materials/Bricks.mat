@@ -7,7 +7,7 @@ Material:
     Value: Bricks
   m_BaseColorFilePath:
     Type: std::string
-    Value: Source\Sponza\Textures\spnza_bricks_a_diff.meta
+    Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
   m_ShaderFilePath:
     Type: std::string
     Value: Instancing3D.shader

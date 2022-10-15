@@ -21,7 +21,7 @@ namespace Pengine
 		
 		static void SerializeAnimation2D(Animation2DManager::Animation2D* animation);
 		
-		static Animation2DManager::Animation2D* DeSerializeAnimation2D(const std::string& filePath);
+		static void DeSerializeAnimation2D(const std::string& filePath, Animation2DManager::Animation2D* animation);
 		
 		static void SerializePrefab(const std::string& filePath, GameObject& gameObject);
 		
@@ -44,6 +44,8 @@ namespace Pengine
 		static Environment::ShadowsSettings DeserializeShadows(YAML::Node& in);
 
 		static std::string GenerateMetaFilePath(const std::string& filePath, const std::string& name);
+
+		static std::string GenerateMetaFilePathFromFilePath(const std::string& filePath, size_t formatCount = 3);
 
 		static std::string SerializeMeshMeta(Mesh::Meta meta);
 

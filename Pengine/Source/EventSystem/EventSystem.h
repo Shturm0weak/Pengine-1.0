@@ -27,6 +27,8 @@ namespace Pengine
 		bool m_IsProcessingEvents = true;
 		
 		std::mutex m_Mutex;
+		std::condition_variable m_CondVar;
+		bool m_IsDispatchingEvents = false;
 
 		void DispatchEvent(IEvent* event);
 

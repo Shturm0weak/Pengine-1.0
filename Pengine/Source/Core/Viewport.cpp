@@ -139,6 +139,20 @@ void Viewport::Update()
 	ImGui::End();
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("SSAO", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferSSAOBlur[0]->m_Textures[0]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("SSAO Noise", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_SSAO);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("Bloom", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferBloom->m_Textures[0]);
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
@@ -351,6 +365,7 @@ void Viewport::Resize(const glm::ivec2& size)
 	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferOutline->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferSSAO->Resize(m_Size);
 
     std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
     camera->SetSize(m_Size);
@@ -367,7 +382,12 @@ void Viewport::Resize(const glm::ivec2& size)
 
 	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferShadowsBlur.size(); i++)
 	{
-		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(size);
+		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(m_Size);
+	}
+
+	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferSSAOBlur.size(); i++)
+	{
+		Renderer::GetInstance().m_FrameBufferSSAOBlur[i]->Resize(m_Size);
 	}
 }
 

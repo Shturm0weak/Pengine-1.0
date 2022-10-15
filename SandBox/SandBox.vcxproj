@@ -146,6 +146,7 @@
     <None Include="Source\Shaders\Depth.shader" />
     <None Include="Source\Shaders\Instancing3DDepth.shader" />
     <None Include="Source\Shaders\InstancingShadows.shader" />
+    <None Include="Source\Shaders\SSAO.shader" />
     <None Include="Source\Shaders\UI.shader" />
     <None Include="Source\Shaders\Visualizer.shader" />
   </ItemGroup>

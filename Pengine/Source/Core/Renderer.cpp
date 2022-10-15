@@ -29,6 +29,12 @@ void Renderer::Initialize()
 
     FrameBuffer::FrameBufferParams params = { size, GL_COLOR_ATTACHMENT0, GL_RGBA32F, GL_RGBA, GL_FLOAT };
 
+    TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST };
+    TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST };
+
+    FrameBuffer::FrameBufferParams paramsSSAO = { size, GL_COLOR_ATTACHMENT0, GL_RGBA32F, GL_RGBA32F, GL_FLOAT };
+    m_FrameBufferSSAO = new FrameBuffer({ params }, TextureManager::GetInstance().GetTexParamertersi());
+
     TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
     TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
 
@@ -50,10 +56,13 @@ void Renderer::Initialize()
     m_FrameBufferUI = new FrameBuffer({ params }, TextureManager::GetInstance().GetTexParamertersi());
     m_FrameBufferBloom = new FrameBuffer({ params }, TextureManager::GetInstance().GetTexParamertersi());
     
-    FrameBuffer::FrameBufferParams shadowsBlurParams = { size, GL_COLOR_ATTACHMENT0, GL_RGBA32F, GL_RGBA,
+    FrameBuffer::FrameBufferParams blurParams = { size, GL_COLOR_ATTACHMENT0, GL_RGBA32F, GL_RGBA,
         GL_FLOAT };
-    m_FrameBufferShadowsBlur.push_back(new FrameBuffer({ shadowsBlurParams }, TextureManager::GetInstance().GetTexParamertersi()));
-    m_FrameBufferShadowsBlur.push_back(new FrameBuffer({ shadowsBlurParams }, TextureManager::GetInstance().GetTexParamertersi()));
+    m_FrameBufferShadowsBlur.push_back(new FrameBuffer({ blurParams }, TextureManager::GetInstance().GetTexParamertersi()));
+    m_FrameBufferShadowsBlur.push_back(new FrameBuffer({ blurParams }, TextureManager::GetInstance().GetTexParamertersi()));
+
+    m_FrameBufferSSAOBlur.push_back(new FrameBuffer({ blurParams }, TextureManager::GetInstance().GetTexParamertersi()));
+    m_FrameBufferSSAOBlur.push_back(new FrameBuffer({ blurParams }, TextureManager::GetInstance().GetTexParamertersi()));
 
     for (size_t i = 0; i < 12; i += 2)
     {
@@ -80,37 +89,24 @@ void Renderer::Initialize()
 
     TextureManager::GetInstance().ResetTexParametersi();
 
+    GenerateSSAOKernel();
+    GenerateSSAONoiseTexture();
+
     Logger::Success("Renderer has been initialized!");
 }
 
-void Renderer::BeginScene()
+void Renderer::Begin(FrameBuffer* frameBuffer, const glm::vec4& clearColor, float depth)
 {
-    m_FrameBufferScene->Bind();
+    frameBuffer->Bind();
     Viewport& viewport = Viewport::GetInstance();
     viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
     glViewport(0, 0, viewport.m_Size.x, viewport.m_Size.y);
-    Window::GetInstance().Clear();
+    Window::GetInstance().Clear(clearColor, depth);
 }
 
-void Renderer::EndScene()
+void Renderer::End(FrameBuffer* frameBuffer)
 {
-    m_FrameBufferScene->UnBind();
-    Viewport& viewport = Viewport::GetInstance();
-    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
-}
-
-void Renderer::BeginUI()
-{
-    m_FrameBufferUI->Bind();
-    Viewport& viewport = Viewport::GetInstance();
-    viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
-    glViewport(0, 0, viewport.m_Size.x, viewport.m_Size.y);
-    Window::GetInstance().Clear({ 0.0f, 0.0f, 0.0f, 0.0f });
-}
-
-void Renderer::EndUI()
-{
-    m_FrameBufferUI->UnBind();
+    frameBuffer->UnBind();
     Viewport& viewport = Viewport::GetInstance();
     glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
 }
@@ -147,6 +143,62 @@ void Renderer::ComposeFinalImage()
 
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
+}
+
+void Renderer::GenerateSSAOKernel()
+{
+    m_SSAOKernel.clear();
+
+    auto ourLerp = [](float a, float b, float f)
+    {
+        return a + f * (b - a);
+    };
+
+    // generate sample kernel
+    // ----------------------
+    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+    std::default_random_engine generator;
+    for (unsigned int i = 0; i < Environment::GetInstance().m_SSAO.m_KernelSize; ++i)
+    {
+        glm::vec3 sample(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, randomFloats(generator));
+        sample = glm::normalize(sample);
+        sample *= randomFloats(generator);
+        float scale = float(i) / (float)Environment::GetInstance().m_SSAO.m_KernelSize;
+
+        // scale samples s.t. they're more aligned to center of kernel
+        scale = ourLerp(0.1f, 1.0f, scale * scale);
+        sample *= scale;
+        m_SSAOKernel.push_back(sample);
+    }
+}
+
+void Renderer::GenerateSSAONoiseTexture()
+{
+    std::uniform_real_distribution<GLfloat> randomFloats(0.0, 1.0); // generates random floats between 0.0 and 1.0
+    std::default_random_engine generator;
+
+    // generate noise texture
+    // ----------------------
+    int dimension = Environment::GetInstance().m_SSAO.m_NoiseTextureDimension;
+    std::vector<glm::vec3> ssaoNoise;
+    for (int i = 0; i < dimension * dimension; i++)
+    {
+        glm::vec3 noise(randomFloats(generator) * 2.0 - 1.0, randomFloats(generator) * 2.0 - 1.0, 0.0f); // rotate around z-axis (in tangent space)
+        ssaoNoise.push_back(noise);
+    }
+    if (m_SSAO != 0)
+    {
+        glDeleteTextures(1, &m_SSAO);
+        m_SSAO = 0;
+    }
+
+    glGenTextures(1, &m_SSAO);
+    glBindTexture(GL_TEXTURE_2D, m_SSAO);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, dimension, dimension, 0, GL_RGB, GL_FLOAT, &ssaoNoise[0]);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }
 
 void Renderer::RenderCascadeShadowMaps(Scene* scene)
@@ -365,9 +417,13 @@ void Renderer::RenderDeferred(Scene* scene)
     glActiveTexture(GL_TEXTURE0 + 2);
     glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[2]);
 
+    glActiveTexture(GL_TEXTURE0 + 7);
+    glBindTexture(GL_TEXTURE_2D, m_FrameBufferSSAOBlur[0]->m_Textures[0]);
+
     shader->SetUniform1i("u_Albedo", 0);
     shader->SetUniform1i("u_WorldPosition", 1);
     shader->SetUniform1i("u_Normal", 2);
+    shader->SetUniform1i("u_SSAOTexture", 7);
 
     Environment& environment = Environment::GetInstance();
 
@@ -386,6 +442,7 @@ void Renderer::RenderDeferred(Scene* scene)
     shader->SetUniform1i("u_CascadesCount", (int)environment.m_ShadowsSettings.m_CascadesDistance.size());
     shader->SetUniform1f("u_Texels", (int)environment.m_ShadowsSettings.m_Texels);
     shader->SetUniformMat4fv("u_LightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
+    shader->SetUniform1i("u_SSAOEnabled", (int)environment.m_SSAO.m_IsEnabled);
 
     if (scene->m_DirectionalLights.empty())
     {
@@ -466,22 +523,6 @@ void Renderer::RenderDeferred(Scene* scene)
     RenderFullScreenQuad();
 }
 
-void Renderer::BeginGBuffer()
-{
-    m_FrameBufferG->Bind();
-    Viewport& viewport = Viewport::GetInstance();
-    viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
-    glViewport(0, 0, m_FrameBufferG->m_Params[0].m_Size.x, m_FrameBufferG->m_Params[0].m_Size.y);
-    Window::GetInstance().Clear();
-}
-
-void Renderer::EndGBuffer()
-{
-    m_FrameBufferG->UnBind();
-    Viewport& viewport = Viewport::GetInstance();
-    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
-}
-
 void Renderer::RenderFullScreenQuad()
 {
     Mesh* quad = MeshManager::GetInstance().Get("Quad");
@@ -523,12 +564,6 @@ void Renderer::RenderOutline()
     };
 
     Viewport& viewport = Viewport::GetInstance();
-
-    m_FrameBufferOutline->Bind();
-    viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
-    glViewport(0, 0, viewport.m_Size.x, viewport.m_Size.y);
-
-    Window::GetInstance().Clear();
    
     std::vector<GameObject*> gameObjects = Editor::GetInstance().GetSelectedGameObjects();
     for (auto& gameObject : gameObjects)
@@ -539,9 +574,49 @@ void Renderer::RenderOutline()
             DrawOutlineObject(child);
         }
     }
+}
 
-    m_FrameBufferOutline->UnBind();
+void Renderer::RenderSSAO()
+{
+    Viewport& viewport = Viewport::GetInstance();
+
+    Shader* shader = Shader::Get("SSAO");
+    shader->Bind();
+
+    // Send kernel + rotation 
+    for (unsigned int i = 0; i < Environment::GetInstance().m_SSAO.m_KernelSize; ++i)
+    {
+        shader->SetUniform3fv("u_Samples[" + std::to_string(i) + "]", m_SSAOKernel[i]);
+    }
+    shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
+    shader->SetUniform3fv("u_CameraPosition", Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition());
+    shader->SetUniform3fv("u_CameraDirection", glm::normalize(Environment::GetInstance().GetMainCamera()->m_Transform.GetForward()));
+    shader->SetUniform2fv("u_Resolution", glm::vec2(viewport.GetSize()));
+    shader->SetUniform1f("u_Radius", Environment::GetInstance().m_SSAO.m_Radius);
+    shader->SetUniform1f("u_Bias", Environment::GetInstance().m_SSAO.m_Bias);
+    shader->SetUniform1i("u_KernelSize", Environment::GetInstance().m_SSAO.m_KernelSize);
+    shader->SetUniform1f("u_NoiseSize", (float)Environment::GetInstance().m_SSAO.m_NoiseTextureDimension);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[1]);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[2]);
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, m_SSAO);
+
+    shader->SetUniform1i("u_Position", 0);
+    shader->SetUniform1i("u_Normal", 1);
+    shader->SetUniform1i("u_Noise", 2);
+
+    m_FrameBufferSSAO->Bind();
+    viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
     glViewport(0, 0, viewport.m_Size.x, viewport.m_Size.y);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    RenderFullScreenQuad();
+
+    m_FrameBufferSSAO->UnBind();
+    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
 }
 
 void Renderer::Blur(FrameBuffer* frameBufferSource, const std::vector<FrameBuffer*>& frameBuffers, int blurPasses,
@@ -624,64 +699,58 @@ void Renderer::Bloom()
     shader->SetUniform1f("u_Exposure", bloomSettings.m_Exposure);
     shader->SetUniform1f("u_Brightness", Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold);
 
-    m_FrameBufferBloom->Bind();
-    viewport = Viewport::GetInstance();
-    viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
-    glViewport(0, 0, viewport.m_Size.x, viewport.m_Size.y);
-    Window::GetInstance().Clear();
-
-    RenderFullScreenQuad();
-    
-    m_FrameBufferBloom->UnBind();
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
-    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
+    Begin(m_FrameBufferBloom);
+    {
+        RenderFullScreenQuad();
+    }
+    End(m_FrameBufferBloom);
 }
-
-#define DEFERRED
 
 void Renderer::Render(Application* application)
 {
     Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderTime);
 
-    BeginGBuffer();
-    {
-        Instancing::GetInstance().RenderGBuffer(application->m_Scene->m_InstancedObjects);
-    }
-    EndGBuffer();
+    GeometryPass(application->m_Scene);
 
+    Instancing::GetInstance().PrepareVertexAtrrib(application->m_Scene->m_InstancedObjects);
+    application->m_Scene->PrepareVisualizer();
+
+    ShadowPass(application->m_Scene);
+    SSAOPass(application->m_Scene);
+    LightingPass(application->m_Scene);
+    PostProcessingPass(application);
+}
+
+void Renderer::GeometryPass(Scene* scene)
+{
+    Begin(m_FrameBufferG);
+    {
+        Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderGBufferTime);
+        Instancing::GetInstance().RenderGBuffer(scene->m_InstancedObjects);
+    }
+    End(m_FrameBufferG);
+}
+
+void Renderer::SSAOPass(Scene* scene)
+{
     Environment& environment = Environment::GetInstance();
 
-    if (environment.m_ShadowsSettings.m_IsEnabled)
+    if (environment.m_SSAO.m_IsEnabled)
     {
-        RenderCascadeShadowMaps(application->m_Scene);
-
-        if (environment.m_ShadowsSettings.m_Blur.m_IsEnabled)
-        {
-            RenderCascadeShadowsToScene(application->m_Scene);
-            Blur(m_FrameBufferShadows, m_FrameBufferShadowsBlur, environment.m_ShadowsSettings.m_Blur.m_BlurPasses,
-                0.0f, environment.m_ShadowsSettings.m_Blur.m_PixelsBlured);
-        }
+        RenderSSAO();
+        Blur(m_FrameBufferSSAO, m_FrameBufferSSAOBlur, environment.m_SSAO.m_Blur.m_BlurPasses,
+            0.0f, environment.m_SSAO.m_Blur.m_PixelsBlured);
     }
+}
 
-  /*  BeginScene();
+void Renderer::LightingPass(Scene* scene)
+{
+    Begin(m_FrameBufferScene);
     {
         Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderSceneTime);
-        Instancing::GetInstance().Render(application->m_Scene->m_InstancedObjects);
 
-        Batch::GetInstance().SetGameOjbectsShader(Shader::Get("Default2D"));
-        Batch::GetInstance().BeginGameObjects();
-        {
-            application->m_Scene->Render();
-        }
-        Batch::GetInstance().EndGameObjects();
-    }
-    EndScene();*/
+        RenderDeferred(scene);
 
-    BeginScene();
-    {
-        RenderDeferred(application->m_Scene);
-       
         glBindFramebuffer(GL_READ_FRAMEBUFFER, m_FrameBufferG->m_Fbo);
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FrameBufferScene->m_Fbo); // write to default framebuffer
         glBlitFramebuffer(
@@ -694,67 +763,112 @@ void Renderer::Render(Application* application)
         Batch::GetInstance().SetGameOjbectsShader(Shader::Get("Default2D"));
         Batch::GetInstance().BeginGameObjects();
         {
-            application->m_Scene->Render();
+            scene->Render();
         }
         Batch::GetInstance().EndGameObjects();
     }
-    EndScene();
+    End(m_FrameBufferScene);
+}
 
-    Instancing::GetInstance().PrepareVertexAtrrib(application->m_Scene->m_InstancedObjects);
+void Renderer::ShadowPass(Scene* scene)
+{
+    Environment& environment = Environment::GetInstance();
 
-    BeginUI();
+    if (environment.m_ShadowsSettings.m_IsEnabled)
     {
-        Batch::GetInstance().SetGameOjbectsShader(Shader::Get("Visualizer"));
-        Batch::GetInstance().BeginGameObjects();
+        Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderShadowsTime);
+
+        RenderCascadeShadowMaps(scene);
+
+        if (environment.m_ShadowsSettings.m_Blur.m_IsEnabled)
+        {
+            RenderCascadeShadowsToScene(scene);
+            Blur(m_FrameBufferShadows, m_FrameBufferShadowsBlur, environment.m_ShadowsSettings.m_Blur.m_BlurPasses,
+                0.0f, environment.m_ShadowsSettings.m_Blur.m_PixelsBlured);
+        }
+    }
+}
+
+void Renderer::PostProcessingPass(Application* application)
+{
+    Environment& environment = Environment::GetInstance();
+    Batch& batch = Batch::GetInstance();
+    Editor& editor = Editor::GetInstance();
+    Viewport& viewport = Viewport::GetInstance();
+
+    Begin(m_FrameBufferUI, { 0.0f, 0.0f, 0.0f, 0.0f });
+    {
+        batch.SetGameOjbectsShader(Shader::Get("Visualizer"));
+        batch.BeginGameObjects();
         {
             Visualizer::RenderQuads();
             Visualizer::RenderCircles();
         }
-        Batch::GetInstance().EndGameObjects(true);
+        batch.EndGameObjects(true);
 
         {
-            Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderLinesTime);
+            Timer timer = Timer(false, &editor.m_Stats.m_RenderLinesTime);
             Visualizer::RenderLines();
         }
 
-        Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderUITime);
+        Timer timer = Timer(false, &editor.m_Stats.m_RenderUITime);
         //Gui::GetInstance().Begin(); It is called in Window::NewFrame for allowing OnGuiRender calls from components.
         {
             application->OnGuiRender();
         }
         Gui::GetInstance().End();
     }
-    EndUI();
+    End(m_FrameBufferUI);
 
     {
-        Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderBloomTime);
+        Timer timer = Timer(false, &editor.m_Stats.m_RenderBloomTime);
         if (environment.m_BloomSettings.m_IsEnabled)
         {
             Bloom();
         }
     }
 
+    Begin(m_FrameBufferOutline);
     {
         RenderOutline();
     }
+    End(m_FrameBufferOutline);
 
-    Viewport::GetInstance().Begin();
+    viewport.Begin();
     {
-        Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderComposeTime);
+        Timer timer = Timer(false, &editor.m_Stats.m_RenderComposeTime);
         ComposeFinalImage();
     }
-    Viewport::GetInstance().End();
+    viewport.End();
 }
 
 void Renderer::ShutDown()
 {
-    // TO DO: Delete all buffers!
-    delete m_FrameBufferScene;
-    delete m_FrameBufferUI;
     delete m_FrameBufferBloom;
+    delete m_FrameBufferG;
+    delete m_FrameBufferOutline;
+    delete m_FrameBufferScene;
+    delete m_FrameBufferShadows;
+    delete m_FrameBufferSSAO;
+    delete m_FrameBufferUI;
 
     for (size_t i = 0; i < m_FrameBufferBlur.size(); i++)
     {
         delete m_FrameBufferBlur[i];
+    }
+
+    for (size_t i = 0; i < m_FrameBufferCSM.size(); i++)
+    {
+        delete m_FrameBufferCSM[i];
+    }
+
+    for (size_t i = 0; i < m_FrameBufferShadowsBlur.size(); i++)
+    {
+        delete m_FrameBufferShadowsBlur[i];
+    }
+
+    for (size_t i = 0; i < m_FrameBufferSSAOBlur.size(); i++)
+    {
+        delete m_FrameBufferSSAOBlur[i];
     }
 }

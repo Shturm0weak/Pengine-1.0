@@ -283,7 +283,10 @@ void Scene::Render()
 			particleEmitter->Render();
 		}
 	}
+}
 
+void Scene::PrepareVisualizer()
+{
 	if (Editor::GetInstance().m_DrawColliders)
 	{
 		for (auto& gameObject : m_GameObjects)
@@ -298,9 +301,9 @@ void Scene::Render()
 					transform.Translate({ bc2d->GetPosition(), 0.0f });
 					const glm::mat4 transformMat = transform.GetTransform();
 					const glm::vec4 a = transformMat * glm::vec4(-size.x, -size.y, 0.0f, 1.0f);
-					const glm::vec4 b = transformMat * glm::vec4( size.x, -size.y, 0.0f, 1.0f);
-					const glm::vec4 c = transformMat * glm::vec4( size.x,  size.y, 0.0f, 1.0f);
-					const glm::vec4 d = transformMat * glm::vec4(-size.x,  size.y, 0.0f, 1.0f);
+					const glm::vec4 b = transformMat * glm::vec4(size.x, -size.y, 0.0f, 1.0f);
+					const glm::vec4 c = transformMat * glm::vec4(size.x, size.y, 0.0f, 1.0f);
+					const glm::vec4 d = transformMat * glm::vec4(-size.x, size.y, 0.0f, 1.0f);
 
 					Visualizer::DrawLine(a, b, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 					Visualizer::DrawLine(b, c, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -329,7 +332,7 @@ void Scene::Render()
 	if (Editor::GetInstance().m_DrawLights)
 	{
 		std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
-		
+
 		for (DirectionalLight* directionalLight : m_DirectionalLights)
 		{
 			Transform& transform = directionalLight->GetOwner()->m_Transform;
@@ -353,7 +356,7 @@ void Scene::Render()
 			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
 				TextureManager::GetInstance().GetByFilePath("Source/UIimages/PointLight.png"));
 		}
-	}	
+	}
 }
 
 void Scene::RenderBoundingBoxes()

@@ -34,7 +34,7 @@ namespace Pengine
 		std::vector<PointLight*> m_PointLights;
 		std::vector<SpotLight*> m_SpotLights;
 		std::vector<DirectionalLight*> m_DirectionalLights;
-		std::map<Mesh*, std::vector<Renderer3D*>> m_InstancedObjects;
+		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_InstancedObjects;
 
 		std::string m_Title = "Scene";
 		std::string m_FilePath = "None";
@@ -45,6 +45,8 @@ namespace Pengine
 		void OnPhysicsUpdate();
 
 		void Render();
+
+		void PrepareVisualizer();
 
 		void RenderBoundingBoxes();
 

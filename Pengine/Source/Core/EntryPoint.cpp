@@ -47,7 +47,7 @@ void EntryPoint::PrepareResources()
     MeshManager::GetInstance().Create("Quad", vertices, indices, layouts, "Quad");
 
     TextureManager::GetInstance().ResetTexParametersi();
-    TextureManager::GetInstance().ColoredTexture("White", 0xFFFFFFFF);
+    TextureManager::GetInstance().m_White = TextureManager::GetInstance().ColoredTexture("White", 0xFFFFFFFF);
     
     Renderer::GetInstance().Initialize();
     Viewport::GetInstance().Initialize();

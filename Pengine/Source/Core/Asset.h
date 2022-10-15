@@ -19,7 +19,7 @@ namespace Pengine
 			COPY_PROPERTIES(IAsset, asset)
 		}
 
-		void GenerateFromFilePath(const std::string& filePath, size_t formatSize = 3);
+		void GenerateFromFilePath(const std::string& filePath);
 
 		void SetFilePath(const std::string& filePath) { m_FilePath = filePath; }
 		

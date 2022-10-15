@@ -2,6 +2,7 @@
 
 #include "../Core/Scene.h"
 #include "../Core/ThreadPool.h"
+#include "../Core/Environment.h"
 #include "../EventSystem/EventSystem.h"
 #include "../OpenGL/Batch.h"
 #include "../Events/OnMainThreadCallback.h"
@@ -17,6 +18,8 @@ void ParticleEmitter::Delete()
 
 void ParticleEmitter::OnStart()
 {
+	m_MeshVertexAttributes = MeshManager::GetInstance().Get("Quad")->GetVertexAttributes();
+
 	m_Particles.resize(m_ParticlesSize);
 	std::random_device random;
 	std::mt19937 engine(random());
@@ -103,6 +106,7 @@ void ParticleEmitter::Copy(const IComponent& component)
 	m_Gravity = particleEmitter.m_Gravity;
 	m_Loop = particleEmitter.m_Loop;
 	m_Intensity = particleEmitter.m_Intensity;
+	m_FacingMode = particleEmitter.m_FacingMode;
 	m_Type = component.GetType();
 }
 
@@ -112,9 +116,39 @@ void ParticleEmitter::Render()
 	for (size_t i = 0; i < size; i++)
 	{
 		if (!m_Particles[i].m_IsEnabled) continue;
-		const std::vector<float>& meshVertexAttributes = MeshManager::GetInstance().Get("Quad")->GetVertexAttributes();
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Owner->m_Transform.GetPosition() + m_Particles[i].m_Position) * glm::scale(glm::mat4(1.0f), m_Particles[i].m_Scale);
-		Batch::GetInstance().Submit(meshVertexAttributes, transform, m_Particles[i].m_Color, { m_Particles[i].m_Texture }, { 0.0f, 0.0f, 0.0f, m_Intensity });
+
+		glm::mat4 transform;
+
+		switch (m_FacingMode)
+		{
+		case FacingMode::DEFAULT:
+		{
+			transform = glm::translate(glm::mat4(1.0f), m_Owner->m_Transform.GetPosition() + m_Particles[i].m_Position) * glm::scale(glm::mat4(1.0f), m_Particles[i].m_Scale);
+			break;
+		}
+		case FacingMode::SPHERICAL:
+		{
+			const glm::vec3 position = m_Owner->m_Transform.GetPosition() + m_Particles[i].m_Position;
+			transform = glm::translate(glm::mat4(1.0f), position) *
+				glm::scale(glm::mat4(1.0f), m_Particles[i].m_Scale) *
+				glm::inverse(glm::lookAt(glm::vec3(0.0f), Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition()
+					- position, glm::vec3(0.0f, 1.0f, 0.0f)));
+			break;
+		}
+		case FacingMode::CYLINDRICAL:
+		{
+			const glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+			const glm::vec3 position = m_Owner->m_Transform.GetPosition() + m_Particles[i].m_Position;
+			transform = glm::translate(glm::mat4(1.0f), position) *
+				glm::scale(glm::mat4(1.0f), m_Particles[i].m_Scale) *
+				glm::inverse(glm::lookAt(glm::vec3(0.0f), glm::vec3(cameraPosition.x, position.y, cameraPosition.z) - position, glm::vec3(0.0f, 1.0f, 0.0f)));
+			break;
+		}
+		default:
+			break;
+		}
+
+		Batch::GetInstance().Submit(m_MeshVertexAttributes, transform, m_Particles[i].m_Color, { m_Particles[i].m_Texture }, { 0.0f, 0.0f, 0.0f, m_Intensity });
 	}
 }
 

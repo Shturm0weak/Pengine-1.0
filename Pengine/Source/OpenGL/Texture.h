@@ -26,7 +26,7 @@ namespace Pengine
 		uint32_t m_RendererID = UINT_MAX;
 		int m_width = 0, m_height = 0, m_BPP = 0;
 
-		struct Meta
+		struct PENGINE_API Meta
 		{
 			std::string m_FilePath;
 			std::string m_Name;

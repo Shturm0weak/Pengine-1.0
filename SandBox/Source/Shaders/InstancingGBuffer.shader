@@ -51,11 +51,6 @@ flat in int textureIndex;
 void main()
 {
 	vec4 textureColor = texture(u_Texture[textureIndex], uv);
-	if (textureColor.a <= 0.0)
-	{
-		discard;
-	}
-
 	baseColor = textureColor * vec4(ambient, 1.0) * vertexColor;
 	positionColor = worldPosition;
 	normalColor = vec4(normal, 1.0);

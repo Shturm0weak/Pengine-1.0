@@ -16,8 +16,10 @@ namespace Pengine
 
 		std::multimap<std::string, std::function<void(Texture*)>> m_WaitingForTextures;
 		std::unordered_map<std::string, Texture*> m_Textures;
+		std::vector<std::string> m_TexturesIsLoading;
 		std::vector<Texture::TexParameteri> m_TexParameters;
-		
+		Texture* m_White = nullptr;
+
 		void DispatchLoadedTextures();
 
 		TextureManager() = default;
@@ -37,13 +39,11 @@ namespace Pengine
 		
 		void Delete(Texture* texture);
 		
-		void AsyncCreate(const std::string& filePath);
+		void AsyncLoad(const std::string& filePath, std::function<void(Texture*)> callback);
 
-		void AsyncCreate(Texture::Meta meta);
-		
-		Texture* White() const { return GetByName("White"); }
+		Texture* White() const { return m_White; }
 
-		Texture* Create(const std::string& filePath, bool flip = true);
+		void Create(const std::string& filePath, std::function<void(Texture*)> callback, bool flip = true);
 		
 		Texture* ColoredTexture(const std::string& name, uint32_t color);
 		
@@ -61,9 +61,13 @@ namespace Pengine
 		
 		void ReloadAllTextures();
 
+		Texture::Meta GenerateTextureMeta(const std::string& filePath);
+
 		std::vector<Texture*> GetTexturesFromFolder(const std::string& filePath);
 		
 		std::vector<Texture::TexParameteri> GetTexParamertersi() const { return m_TexParameters; }
+
+		std::vector<int> GetMetaTexParams() const;
 
 		std::vector<int> GetDefaultTexParamertersIndices() const;
 	};

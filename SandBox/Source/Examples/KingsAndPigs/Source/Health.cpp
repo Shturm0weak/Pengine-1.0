@@ -42,7 +42,11 @@ Health::Health()
 	m_IdleAnimation = Animation2DManager::GetInstance().Load("Source\\Examples\\KingsAndPigs\\Animations\\SmallHeart\\Idle.anim");
 	m_HitAnimation = Animation2DManager::GetInstance().Load("Source\\Examples\\KingsAndPigs\\Animations\\SmallHeart\\Hit.anim");
 
-	m_BarTexture = TextureManager::GetInstance().Create("Source\\Examples\\KingsAndPigs\\Sprites\\12-Live and Coins\\Live Bar.png");
+	TextureManager::GetInstance().Create("Source\\Examples\\KingsAndPigs\\Sprites\\12-Live and Coins\\Live Bar.png",
+		[this](Texture* texture)
+	{
+		m_BarTexture = texture;
+	});
 }
 
 void Health::DrawHearts(bool isHit)

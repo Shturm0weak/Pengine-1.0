@@ -61,7 +61,12 @@ Font::~Font()
 
 void Font::LoadFont(const std::string& filename, const std::string& pathToTextureAtlas)
 {
-	m_FontAtlas = TextureManager::GetInstance().Create(pathToTextureAtlas);
+	TextureManager::GetInstance().Create(pathToTextureAtlas,
+		[this](Texture* texture)
+	{
+		m_FontAtlas = texture;
+	});
+	
 	std::ifstream in_file;
 	in_file.open(filename);
 	if (in_file.is_open()) 

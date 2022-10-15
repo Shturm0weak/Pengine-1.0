@@ -14,7 +14,7 @@ bool Texture::LoadInRAM(bool flip)
 	if (m_LocalBuffer == nullptr)
 	{
 		stbi_set_flip_vertically_on_load(flip);
-		m_LocalBuffer = stbi_load(m_FilePath.c_str(), &m_width, &m_height, &m_BPP, 4);
+		m_LocalBuffer = stbi_load(m_Meta.m_FilePath.c_str(), &m_width, &m_height, &m_BPP, 4);
 		return true;
 	}
 	else
@@ -144,7 +144,7 @@ Texture::Meta Texture::GenerateMeta()
 	Meta meta;
 
 	meta.m_Name = m_Name;
-	meta.m_FilePath = Utils::GetDirectoryFromFilePath(m_FilePath) + "/" + m_Name + ".meta";
+	meta.m_FilePath = m_FilePath;
 	meta.m_Params = m_Meta.m_Params;
 
 	return meta;

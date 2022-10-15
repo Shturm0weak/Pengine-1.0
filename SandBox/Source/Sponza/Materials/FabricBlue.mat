@@ -7,7 +7,7 @@ Material:
     Value: FabricBlue
   m_BaseColorFilePath:
     Type: std::string
-    Value: Source\Sponza\Textures\sponza_fabric_blue_diff.meta
+    Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
   m_ShaderFilePath:
     Type: std::string
     Value: Instancing3D.shader

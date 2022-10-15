@@ -2,7 +2,7 @@
 
 #include "ThreadPool.h"
 
-#include <map>
+#include <unordered_map>
 #include <condition_variable>
 #include <mutex>
 #include <array>
@@ -27,7 +27,7 @@ namespace Pengine
 			float* m_VertAttrib = nullptr;
 		};
 
-		std::map<Mesh*, DynamicBuffer> m_BuffersByMesh;
+		std::unordered_map<Mesh*, DynamicBuffer> m_BuffersByMesh;
 		size_t m_NThreads;
 		ThreadPool::SyncParams m_SyncParams;
 
@@ -46,13 +46,13 @@ namespace Pengine
 
 		void Create(Mesh* mesh);
 
-		void Render(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
-		void RenderGBuffer(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
-		void RenderAllObjects(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void RenderAllObjects(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
-		void PrepareVertexAtrrib(const std::map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
 		void ShutDown();
 	};

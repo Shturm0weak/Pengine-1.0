@@ -14,6 +14,13 @@ namespace Pengine
 	{
 	private:
 
+		enum class FacingMode
+		{
+			DEFAULT,
+			SPHERICAL,
+			CYLINDRICAL
+		} m_FacingMode = FacingMode::DEFAULT;
+
 		struct Particle
 		{
 			glm::vec4 m_Color = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -44,6 +51,8 @@ namespace Pengine
 		float m_Acceleration = 1.0f;
 		float m_Intensity = 1.0f;
 		bool m_Loop = true;
+
+		std::vector<float> m_MeshVertexAttributes;
 
 		friend class Editor;
 		friend class Serializer;

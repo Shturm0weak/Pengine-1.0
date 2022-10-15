@@ -67,16 +67,21 @@ uniform float u_FarPlane;
 uniform float u_Texels;
 uniform float u_Fog;
 uniform bool u_IsShadowBlurEnabled;
+uniform bool u_SSAOEnabled;
 
 uniform sampler2D u_WorldPosition;
 uniform sampler2D u_Normal;
 uniform sampler2D u_Albedo;
+
+uniform sampler2D u_SSAOTexture;
 
 in vec2 uv;
 
 vec4 worldPosition = texture(u_WorldPosition, uv);
 vec3 normal = texture(u_Normal, uv).xyz;
 vec3 albedo = texture(u_Albedo, uv).xyz;
+
+float ambientOcclusion = texture(u_SSAOTexture, uv).x;
 
 vec3 viewDirection = normalize(u_CameraPosition - worldPosition.xyz);
 
@@ -178,6 +183,11 @@ vec3 DirectionalLightCompute()
 
 	vec3 ambient = 0.3 * u_DirectionalLight.color * albedo;
 
+	if (u_SSAOEnabled)
+	{
+		ambient *= ambientOcclusion;
+	}
+
 	vec3 lightDirection = normalize(u_DirectionalLight.direction);
 	float diffuseStrength = max(dot(normal, lightDirection), 0.0);
 	vec3 diffuse = u_DirectionalLight.color * diffuseStrength * albedo;
@@ -193,6 +203,11 @@ vec3 DirectionalLightCompute()
 vec3 PointLightCompute(PointLight light)
 {
 	vec3 ambient = light.color * albedo;
+
+	if (u_SSAOEnabled)
+	{
+		ambient *= ambientOcclusion;
+	}
 
 	vec3 lightDirection = normalize(light.position - worldPosition.xyz);
 	float diffuseStrength = max(dot(normal, lightDirection), 0.0);
@@ -225,6 +240,11 @@ vec3 SpotLightCompute(SpotLight light)
 		float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
 
 		vec3 ambient = light.color * albedo;
+
+		if (u_SSAOEnabled)
+		{
+			ambient *= ambientOcclusion;
+		}
 
 		float diffuseStrength = max(dot(normal, lightDirection), 0.0);
 		vec3 diffuse = light.color * diffuseStrength * albedo;
@@ -268,5 +288,5 @@ void main()
 		result += SpotLightCompute(spotLights[i]);
 	}
 
-	fragColor = vec4(result, 1.0);
+	fragColor = vec4(vec3(result), 1.0);
 }

@@ -190,6 +190,8 @@ namespace Pengine
 			size_t m_Indices = 0;
 			static size_t s_AllocationsCount;
 			double m_RenderTime = 0.0;
+			double m_RenderGBufferTime = 0.0;
+			double m_RenderShadowsTime = 0.0;
 			double m_RenderSceneTime = 0.0;
 			double m_RenderBloomTime = 0.0;
 			double m_RenderUITime = 0.0;

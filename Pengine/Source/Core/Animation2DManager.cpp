@@ -23,14 +23,13 @@ Animation2DManager::Animation2D* Animation2DManager::Load(const std::string& fil
 	auto animIter = m_Animations.find(filePath);
 	if (animIter != m_Animations.end())
 	{
-		Animation2D* newAnimation = Serializer::DeSerializeAnimation2D(filePath);
-		*animIter->second = *newAnimation;
-		delete newAnimation;
+		Serializer::DeSerializeAnimation2D(filePath, animIter->second);
 		return animIter->second;
 	}
 	else
 	{
-		Animation2D* animation = Serializer::DeSerializeAnimation2D(filePath);
+		Animation2D* animation = new Animation2DManager::Animation2D(filePath, Utils::GetNameFromFilePath(filePath));
+		Serializer::DeSerializeAnimation2D(filePath, animation);
 		m_Animations.insert(std::make_pair(filePath, animation));
 		return animation;
 	}
@@ -46,7 +45,7 @@ Animation2DManager::Animation2D* Animation2DManager::Create(const std::string& f
 	Animation2D* animation2D = Get(filePath);
 	if (!animation2D)
 	{
-		animation2D = new Animation2D(filePath, Utils::GetNameFromFilePath(filePath, 4));
+		animation2D = new Animation2D(filePath, Utils::GetNameFromFilePath(filePath));
 		m_Animations.insert(std::make_pair(filePath, animation2D));
 	}
 

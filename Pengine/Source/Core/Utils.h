@@ -254,14 +254,21 @@ namespace Pengine
 			return path.substr(0, index + 1) + newName + path.substr(path.length() - resolutionLength - 1, path.length());
 		}
 
-		PENGINE_API inline std::string GetNameFromFilePath(const std::string& path, int resolutionLength = 3)
+		PENGINE_API inline std::string GetNameFromFilePath(const std::string& path)
 		{
-			size_t index = path.find_last_of("/");
-			if (index == std::string::npos)
+			size_t slash = path.find_last_of("/");
+			if (slash == std::string::npos)
 			{
-				index = path.find_last_of("\\");
+				slash = path.find_last_of("\\");
 			}
-			return path.substr(index + 1, path.length() - index - 2 - resolutionLength);
+
+			size_t dot = path.find_last_of(".");
+			if (dot == std::string::npos)
+			{
+				dot = path.length();
+			}
+
+			return path.substr(slash + 1, path.length() - slash - 2 - (path.length() - dot - 1));
 		}
 
 		PENGINE_API inline std::string ReplaceSlashWithDoubleSlash(const std::string& string)
@@ -288,6 +295,16 @@ namespace Pengine
 			return path.substr(0, index);
 		}
 
+		PENGINE_API inline std::string ReplaceFormat(const std::string& path, const std::string& newFormat)
+		{
+			size_t index = path.find_last_of(".");
+			if (index == std::string::npos)
+			{
+				return path;
+			}
+			return path.substr(0, index) + newFormat;
+		}
+
 		PENGINE_API inline std::string GetResolutionFromFilePath(const std::string& path)
 		{
 			size_t index = path.find_last_of(".");
@@ -311,6 +328,11 @@ namespace Pengine
 			return false;
 		}
 
+		PENGINE_API inline bool IsTextureFile(const std::string& filePath)
+		{
+			return (Utils::MatchType(filePath, { "jpeg", "png", "jpg" }));
+		}
+
 		PENGINE_API inline void LoadShadersFromFolder(const std::string& path)
 		{
 			std::vector<std::string> shaders;
@@ -320,7 +342,7 @@ namespace Pengine
 				size_t index = 0;
 				index = shaders.back().find("\\", index);
 				shaders.back().replace(index, 1, "/");
-				Shader::Create(GetNameFromFilePath(shaders.back(), 6), shaders.back());
+				Shader::Create(GetNameFromFilePath(shaders.back()), shaders.back());
 			}
 		}
 
@@ -330,15 +352,24 @@ namespace Pengine
 			std::vector<Texture*> texturesPtr;
 			for (const auto& entry : fs::directory_iterator(path))
 			{
+				if (entry.is_directory())
+				{
+					continue;
+				}
+
 				std::string pathToTexture = entry.path().string();
 				textures.push_back(entry.path().string());
 				size_t index = 0;
 				index = textures.back().find("\\", index);
 				textures.back().replace(index, 1, "/");
-				if (auto texture = TextureManager::GetInstance().Create(textures.back()))
+				TextureManager::GetInstance().Create(textures.back(),
+					[&](Texture* texture)
 				{
-					texturesPtr.push_back(texture);
-				}
+					if (texture)
+					{
+						texturesPtr.push_back(texture);
+					}
+				});
 			}
 
 			return texturesPtr;

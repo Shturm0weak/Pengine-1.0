@@ -14,6 +14,7 @@
 #include "ReflectionSystem.h"
 #include "Instancing.h"
 #include "MaterialManager.h"
+#include "Renderer.h"
 #include "../UI/Gui.h"
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
@@ -47,6 +48,8 @@ void Editor::Debug()
 			ImGui::Text("UI: %.3fms", (float)m_Stats.m_RenderUITime);
 			ImGui::Text("Lines: %.3fms", (float)m_Stats.m_RenderLinesTime);
 			ImGui::Text("Editor: %.3fms", (float)m_Stats.m_RenderEditor);
+			ImGui::Text("GBuffer: %.3fms", (float)m_Stats.m_RenderGBufferTime);
+			ImGui::Text("Shadows: %.3fms", (float)m_Stats.m_RenderShadowsTime);
 		}
 
 		if (ImGui::CollapsingHeader("Render Stats"))
@@ -632,7 +635,7 @@ void Editor::AssetBrowser()
 				continue;
 			}
 
-			const std::string filename = Utils::GetNameFromFilePath(path, -1);
+			const std::string filename = Utils::GetNameFromFilePath(path);
 			const std::string format = Utils::GetResolutionFromFilePath(path);
 			ImTextureID currentIcon;
 			if (directoryIter.is_directory())
@@ -865,6 +868,32 @@ void Editor::Environment()
 			environment.SetDepthTest(environment.m_DepthTest);
 		}
 
+		if (ImGui::CollapsingHeader("SSAO"))
+		{
+			ImGui::Checkbox("Is Enabled", &Environment::GetInstance().m_SSAO.m_IsEnabled);
+			ImGui::SliderFloat("Radius", &Environment::GetInstance().m_SSAO.m_Radius, 0.0f, 5.0f);
+			ImGui::SliderFloat("Bias", &Environment::GetInstance().m_SSAO.m_Bias, 0.0f, 0.1f);
+			if (ImGui::SliderInt("Kernel Size", &Environment::GetInstance().m_SSAO.m_KernelSize, 2, 64))
+			{
+				Renderer::GetInstance().GenerateSSAOKernel();
+			}
+
+			if (ImGui::SliderInt("Noise Size", &Environment::GetInstance().m_SSAO.m_NoiseTextureDimension, 4, 64))
+			{
+				Renderer::GetInstance().GenerateSSAONoiseTexture();
+			}
+
+			ImGui::PushID("SSAOBlurSettings");
+
+			if (ImGui::CollapsingHeader("Blur"))
+			{
+				ImGui::SliderInt("Pixels Blured", &environment.m_SSAO.m_Blur.m_PixelsBlured, 1, 6);
+				ImGui::SliderInt("Passes", &environment.m_SSAO.m_Blur.m_BlurPasses, 1, 10);
+			}
+
+			ImGui::PopID();
+		}
+
 		ImGui::SliderFloat("Intensity", &environment.m_GlobalIntensity, 0.0f, 10.0f);
 		
 		const char* windowModes[] = { "Windowed", "Fullscreen" };
@@ -1038,10 +1067,11 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 					{
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
-						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncLoad(path,
+							[=](Texture* texture) 
+						{
 							r2d->SetTexture(texture);
-							}, path);
+						});
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -1063,10 +1093,11 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 					{
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
-						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncLoad(path,
+							[=](Texture* texture) 
+						{
 							r2d->SetNormalTexture(texture);
-							}, path);
+						});
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -1094,10 +1125,11 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 					{
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
-						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncLoad(path,
+							[=](Texture* texture) 
+						{
 							r2d->SetEmissiveMaskTexture(texture);
-							}, path);
+						});
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -1298,6 +1330,13 @@ void Editor::ParticleEmitterComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Particle emitter"))
 			{
+				int facingMode = (int)particleEmitter->m_FacingMode;
+				const char* facingModes[] = { "Default", "Spherical", "Cylindrical" };
+				if (ImGui::Combo("Camera type", &facingMode, facingModes, 3))
+				{
+					particleEmitter->m_FacingMode = (ParticleEmitter::FacingMode)facingMode;
+				}
+
 				ImGui::ColorEdit4("ColorStart", &(particleEmitter->m_ColorStart[0]));
 				ImGui::ColorEdit4("ColorEnd", &(particleEmitter->m_ColorEnd[0]));
 				ImGui::Checkbox("Loop", &particleEmitter->m_Loop);
@@ -1323,10 +1362,11 @@ void Editor::ParticleEmitterComponent(GameObject* gameObject)
 					{
 						std::string path((const char*)payload->Data);
 						path.resize(payload->DataSize);
-						TextureManager::GetInstance().AsyncCreate(path);
-						TextureManager::GetInstance().AsyncGetByFilePath([=](Texture* texture) {
+						TextureManager::GetInstance().AsyncLoad(path,
+							[=](Texture* texture) 
+						{
 							particleEmitter->m_Texture = texture;
-						}, path);
+						});
 					}
 					ImGui::EndDragDropTarget();
 				}
@@ -1524,25 +1564,11 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 							std::string path((const char*)payload->Data);
 							path.resize(payload->DataSize);
 
-							if (Utils::Contains(path, ".meta"))
+							TextureManager::GetInstance().AsyncLoad(path,
+								[=](Texture* texture) 
 							{
-								Texture::Meta meta = Serializer::DeserializeTextureMeta(path);
-								TextureManager::GetInstance().AsyncCreate(meta);
-								TextureManager::GetInstance().AsyncGetByFilePath(
-									[=](Texture* texture)
-								{
-									r3d->m_Material->SetBaseColor(texture, path);
-								}, meta.m_FilePath);
-							}
-							else
-							{
-								TextureManager::GetInstance().AsyncCreate(path);
-								TextureManager::GetInstance().AsyncGetByFilePath(
-									[=](Texture* texture) 
-								{
-									r3d->m_Material->SetBaseColor(texture, path);
-								}, path);
-							}
+								r3d->m_Material->SetBaseColor(texture, path);
+							});
 						}
 						ImGui::EndDragDropTarget();
 					}
@@ -2707,7 +2733,11 @@ void Editor::TextureAtlasMenu::Update()
 				{
 					std::string path((const char*)payload->Data);
 					path.resize(payload->DataSize);
-					m_TextureAtlas->SetTexture(TextureManager::GetInstance().Create(path));
+					TextureManager::GetInstance().AsyncLoad(path,
+						[=](Texture* texture)
+					{
+						m_TextureAtlas->SetTexture(texture);
+					});
 				}
 				ImGui::EndDragDropTarget();
 			}

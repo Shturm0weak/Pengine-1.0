@@ -36,12 +36,28 @@ namespace Pengine
 
 			struct Blur
 			{
-				bool m_IsEnabled = false;
-				int m_BlurPasses = 4;
+				int m_BlurPasses = 1;
 				int m_PixelsBlured = 6;
+				bool m_IsEnabled = true;
 
 			} m_Blur;
 		} m_ShadowsSettings;
+
+		struct SSAOSettings
+		{
+			int m_KernelSize = 16;
+			float m_Radius = 1.0f;
+			float m_Bias = 0.0f;
+			int m_NoiseTextureDimension = 4;
+
+			struct Blur
+			{
+				int m_BlurPasses = 1;
+				int m_PixelsBlured = 6;
+			} m_Blur;
+			
+			bool m_IsEnabled = true;
+		} m_SSAO;
 
 		std::shared_ptr<class Camera> m_EditorCamera;
 		std::shared_ptr<class Camera> m_MainCamera;

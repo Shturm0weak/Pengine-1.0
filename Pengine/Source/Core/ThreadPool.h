@@ -63,6 +63,8 @@ namespace Pengine
 		void Shutdown();
 		
 		void Enqueue(Task task);
+
+		bool IsMainThread() const { return m_MainId == std::this_thread::get_id(); }
 	};
 
 }

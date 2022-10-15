@@ -5,33 +5,51 @@ using namespace Pengine;
 void ThreadPool::Initialize()
 {
 	m_ThreadsAmount = std::thread::hardware_concurrency() - 1;
-	for (unsigned int i = 0u; i < m_ThreadsAmount; ++i)
+
+	for (int i = 0u; i < m_ThreadsAmount; i++)
 	{
 		m_Threads.emplace_back([=] {
 			while (true)
 			{
 				if (m_MainId == std::this_thread::get_id())
+				{
 					return;
-				auto iter = m_IsThreadBusy.find(std::this_thread::get_id());
+				}
+
+				auto isThreadBusy = m_IsThreadBusy.find(std::this_thread::get_id());
 
 				Task task;
 				{
 					std::unique_lock <std::mutex> umutex(m_Mutex);
-					m_CondVar.wait(umutex, [=] { return m_IsStoped || !m_Tasks.empty(); });
-					if (m_Tasks.empty() && m_IsStoped) break;
+					m_CondVar.wait(umutex, 
+						[=] 
+					{ 
+						return m_IsStoped || !m_Tasks.empty(); 
+					});
+					
+					if (m_Tasks.empty() && m_IsStoped)
+					{
+						break;
+					}
 
 					task = std::move(m_Tasks.front());
 					m_Tasks.pop();
 
-					if (iter != m_IsThreadBusy.end())
-						iter->second = true;
+					if (isThreadBusy != m_IsThreadBusy.end())
+					{
+						isThreadBusy->second = true;
+					}
 					//std::cout << std::this_thread::get_id() << std::endl;
 				}
 				task();
-				if (iter != m_IsThreadBusy.end())
-					iter->second = false;
+
+				if (isThreadBusy != m_IsThreadBusy.end())
+				{
+					isThreadBusy->second = false;
+				}
 			}
-			});
+		});
+
 		m_IsThreadBusy.insert(std::make_pair(m_Threads.back().get_id(), false));
 	}
 	Logger::Success("ThreadPool has been initialized!");
@@ -49,7 +67,9 @@ void ThreadPool::Shutdown()
 		std::unique_lock <std::mutex> umutex(m_Mutex);
 		m_IsStoped = true;
 	}
+
 	m_CondVar.notify_all();
+
 	for (std::thread& thread : m_Threads)
 	{
 		thread.detach();
@@ -62,6 +82,7 @@ void ThreadPool::Enqueue(Task task)
 		std::unique_lock<std::mutex> lock{ m_Mutex };
 		m_Tasks.emplace(std::move(task));
 	}
+
 	m_CondVar.notify_one();
 }
 
@@ -84,6 +105,7 @@ void ThreadPool::SyncParams::SetThreadFinished(size_t index, bool isFinished)
 {
 	std::lock_guard lock(m_Mtx);
 	m_Ready[index] = isFinished;
+
 	if (isFinished)
 	{
 		m_CondVar.notify_all();
@@ -93,7 +115,9 @@ void ThreadPool::SyncParams::SetThreadFinished(size_t index, bool isFinished)
 void ThreadPool::SyncParams::WaitForAllThreads()
 {
 	std::unique_lock<std::mutex> lock(m_Mtx);
-	m_CondVar.wait(lock, [=] {
+	m_CondVar.wait(lock, 
+		[=]
+	{
 		for (size_t i = 0; i < m_Threads; i++)
 		{
 			if (m_Ready[i] == false)
@@ -101,6 +125,7 @@ void ThreadPool::SyncParams::WaitForAllThreads()
 				return false;
 			}
 		}
+
 		return true;
 	});
 }

@@ -2,7 +2,9 @@
 
 #include "Utils.h"
 
-void Pengine::IAsset::GenerateFromFilePath(const std::string& filePath, size_t formatSize)
+using namespace Pengine;
+
+void IAsset::GenerateFromFilePath(const std::string& filePath)
 {
 	if (filePath.empty())
 	{
@@ -10,5 +12,5 @@ void Pengine::IAsset::GenerateFromFilePath(const std::string& filePath, size_t f
 	}
 
 	m_FilePath = filePath;
-	m_Name = Utils::GetNameFromFilePath(filePath, formatSize);
+	m_Name = Utils::GetNameFromFilePath(filePath);
 }

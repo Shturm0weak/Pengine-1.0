@@ -3,6 +3,7 @@
 #include "ThreadPool.h"
 #include "Logger.h"
 #include "Utils.h"
+#include "Serializer.h"
 #include "../EventSystem/EventSystem.h"
 #include "../Events/OnMainThreadCallback.h"
 
@@ -19,7 +20,10 @@ void TextureManager::DispatchLoadedTextures()
 
 		if (texture != nullptr)
 		{
-			callback(texture);
+			if (callback)
+			{
+				callback(texture);
+			}
 			m_WaitingForTextures.erase(i++);
 		}
 		else
@@ -61,94 +65,125 @@ void TextureManager::Delete(Texture* texture)
 	}
 }
 
-void TextureManager::AsyncCreate(const std::string& filePath)
+void TextureManager::AsyncLoad(const std::string& filePath, std::function<void(Texture*)> callback)
 {
-	ThreadPool::GetInstance().Enqueue([=] {
-		Texture* texture = GetByFilePath(filePath);
-		if (texture == nullptr)
-		{
-			if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return;
-			
-			texture = new Texture(filePath);
-
-			texture->LoadInRAM();
-
-			std::vector<Texture::TexParameteri> params = m_TexParameters;
-
-			std::function<void()> callback = std::function<void()>([=] {
-				texture->LoadInVRAM(params, GetDefaultTexParamertersIndices());
-				m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
-				DispatchLoadedTextures();
-			});
-			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
-		}
-		else
-		{
-			std::function<void()> callback = std::function<void()>([=] {
-				DispatchLoadedTextures();
-			});
-			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
-		}
-	});
-}
-
-void TextureManager::AsyncCreate(Texture::Meta meta)
-{
-	ThreadPool::GetInstance().Enqueue([=] {
-		Texture* texture = GetByFilePath(meta.m_FilePath);
-		if (texture == nullptr)
-		{
-			if (!Utils::MatchType(meta.m_FilePath, { "jpeg", "png", "jpg" })) return;
-
-			texture = new Texture(meta.m_FilePath);
-
-			texture->LoadInRAM();
-
-			std::vector<Texture::TexParameteri> params =
-			{
-				{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, meta.m_Params[0] },
-				{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, meta.m_Params[1]},
-				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, meta.m_Params[2] },
-				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, meta.m_Params[3] }
-			};
-
-			std::function<void()> callback = std::function<void()>([=] {
-				texture->LoadInVRAM(params, GetDefaultTexParamertersIndices());
-				m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
-				DispatchLoadedTextures();
-			});
-			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
-		}
-		else
-		{
-			std::function<void()> callback = std::function<void()>([=] {
-				texture->Reload();
-				DispatchLoadedTextures();
-			});
-			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
-		}
-	});
-}
-
-Texture* TextureManager::Create(const std::string& filePath, bool flip)
-{
-	Texture* texture = GetByFilePath(filePath);
-	if (texture == nullptr)
+	if (!Utils::IsTextureFile(filePath) && !Utils::Contains(filePath, ".meta"))
 	{
-		if (!Utils::MatchType(filePath, { "jpeg", "png", "jpg" })) return nullptr;
-		
-		texture = new Texture(filePath);
-		m_Textures.insert(std::make_pair(texture->GetFilePath(), texture));
+		return;
+	}
+
+	std::string fomattedFilePath = Utils::Replace(filePath, '\\', '/');
+	std::string metaFilePath = Utils::ReplaceFormat(fomattedFilePath, ".meta");
+
+	Texture::Meta meta = Serializer::DeserializeTextureMeta(metaFilePath);
+
+	if (meta.m_Name == "")
+	{
+		meta = GenerateTextureMeta(filePath);
+		Serializer::SerializeTextureMeta(meta);
+	}
+
+	Texture* texture = nullptr;
+
+	if (texture = GetByFilePath(meta.m_FilePath))
+	{
+		callback(texture);
+
+		return;
+	}
+
+	if (Utils::IsThere<std::string>(m_TexturesIsLoading, meta.m_FilePath))
+	{
+		m_WaitingForTextures.emplace(meta.m_FilePath, callback);
+
+		return;
+	}
+
+	m_TexturesIsLoading.emplace_back(meta.m_FilePath);
+
+	ThreadPool::GetInstance().Enqueue([=] {
+		Texture* texture = new Texture(meta.m_FilePath);
+		texture->m_Meta = meta;
 
 		texture->LoadInRAM();
-		texture->LoadInVRAM(m_TexParameters, GetDefaultTexParamertersIndices());
-		DispatchLoadedTextures();
-		return texture;
-	}
-	else
+
+		std::vector<Texture::TexParameteri> params =
+		{
+			{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, meta.m_Params[0] },
+			{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, meta.m_Params[1]},
+			{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, meta.m_Params[2] },
+			{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, meta.m_Params[3] }
+		};
+
+		std::function<void()> mainThreadCallback = std::function<void()>([=] {
+			texture->LoadInVRAM(params, GetDefaultTexParamertersIndices());
+			m_Textures.insert(std::make_pair(meta.m_FilePath, texture));
+			DispatchLoadedTextures();
+			callback(texture);
+			Utils::Erase<std::string>(m_TexturesIsLoading, meta.m_FilePath);
+		});
+		EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(mainThreadCallback, EventType::ONMAINTHREADPROCESS));
+	});
+}
+
+void TextureManager::Create(const std::string& filePath, std::function<void(Texture*)> callback, bool flip)
+{
+	if (!Utils::IsTextureFile(filePath) && !Utils::Contains(filePath, ".meta"))
 	{
-		return texture;
+		return;
 	}
+
+	std::string fomattedFilePath = Utils::Replace(filePath, '\\', '/');
+	std::string metaFilePath = Utils::ReplaceFormat(fomattedFilePath, ".meta");
+
+	Texture::Meta meta = Serializer::DeserializeTextureMeta(metaFilePath);
+
+	if (meta.m_Name == "")
+	{
+		meta = GenerateTextureMeta(filePath);
+		Serializer::SerializeTextureMeta(meta);
+	}
+
+	Texture* texture = nullptr;
+
+	if (texture = GetByFilePath(meta.m_FilePath))
+	{
+		callback(texture);
+
+		return;
+	}
+
+	if (Utils::IsThere<std::string>(m_TexturesIsLoading, meta.m_FilePath))
+	{
+		if (callback)
+		{
+			m_WaitingForTextures.emplace(meta.m_FilePath, callback);
+		}
+
+		return;
+	}
+
+	m_TexturesIsLoading.emplace_back(meta.m_FilePath);
+
+	texture = new Texture(meta.m_FilePath);
+	texture->m_Meta = meta;
+
+	texture->LoadInRAM();
+
+	std::vector<Texture::TexParameteri> params =
+	{
+		{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, meta.m_Params[0] },
+		{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, meta.m_Params[1]},
+		{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, meta.m_Params[2] },
+		{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, meta.m_Params[3] }
+	};
+
+	texture->LoadInVRAM(params, GetDefaultTexParamertersIndices());
+	m_Textures.insert(std::make_pair(meta.m_FilePath, texture));
+	Utils::Erase<std::string>(m_TexturesIsLoading, meta.m_FilePath);
+	DispatchLoadedTextures();
+
+	callback(texture);
 }
 
 Texture* TextureManager::ColoredTexture(const std::string& name, uint32_t color)
@@ -176,18 +211,6 @@ Texture* TextureManager::GetByFilePath(const std::string& filePath, bool showErr
 	if (filePath == "White")
 	{
 		return White();
-	}
-
-	if (!Utils::Contains(filePath, ".png") 
-		&& !Utils::Contains(filePath, ".jpg") 
-		&& !Utils::Contains(filePath, ".jpeg"))
-	{
-		if (showErrors)
-		{
-			Logger::Warning("filepath is incorrect!", "Texture", filePath.c_str());
-		}
-
-		return nullptr;
 	}
 
 	auto textureIter = m_Textures.find(filePath);
@@ -285,6 +308,16 @@ void TextureManager::ReloadAllTextures()
 	}
 }
 
+Texture::Meta TextureManager::GenerateTextureMeta(const std::string& filePath)
+{
+	Texture::Meta meta;
+	meta.m_FilePath = filePath;
+	meta.m_Name = Utils::GetNameFromFilePath(filePath);
+	meta.m_Params = GetMetaTexParams();
+
+	return meta;
+}
+
 std::vector<Texture*> TextureManager::GetTexturesFromFolder(const std::string& filePath)
 {
 	std::vector<Texture*> textures;
@@ -295,11 +328,26 @@ std::vector<Texture*> TextureManager::GetTexturesFromFolder(const std::string& f
 		std::string filename = directoryIter.path().string();
 		if (Utils::Contains(filename, "png") || Utils::Contains(filename, "jpg"))
 		{
-			textures.push_back(Create(filename));
+			Create(filename,
+				[&](Texture* texture)
+			{
+				textures.push_back(texture);
+			});
 		}
 	}
 
 	return textures;
+}
+
+std::vector<int> TextureManager::GetMetaTexParams() const
+{
+	std::vector<int> params(m_TexParameters.size());
+	for (size_t i = 0; i < m_TexParameters.size(); i++)
+	{
+		params[i] = m_TexParameters[i].m_Param;
+	}
+
+	return params;
 }
 
 std::vector<int> TextureManager::GetDefaultTexParamertersIndices() const

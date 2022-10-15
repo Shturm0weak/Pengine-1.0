@@ -17,6 +17,7 @@ namespace Pengine
 		~Renderer() = default;
 
 		class FrameBuffer* m_FrameBufferScene = nullptr;
+		class FrameBuffer* m_FrameBufferSSAO = nullptr;
 		class FrameBuffer* m_FrameBufferG = nullptr;
 		class FrameBuffer* m_FrameBufferUI = nullptr; 
 		class FrameBuffer* m_FrameBufferBloom = nullptr;
@@ -25,22 +26,26 @@ namespace Pengine
 		std::vector<class FrameBuffer*> m_FrameBufferBlur;
 		std::vector<class FrameBuffer*> m_FrameBufferCSM;
 		std::vector<class FrameBuffer*> m_FrameBufferShadowsBlur;
+		std::vector<class FrameBuffer*> m_FrameBufferSSAOBlur;
 
 		std::vector<glm::mat4> m_LightSpaceMatrices;
+
+		uint32_t m_SSAO = 0;
+		std::vector<glm::vec3> m_SSAOKernel;
 
 		static Renderer& GetInstance();
 
 		void Initialize();
 
-		void BeginScene();
+		void Begin(FrameBuffer* frameBuffer, const glm::vec4& clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), float depth = 1.0f);
 
-		void EndScene();
-
-		void BeginUI();
-
-		void EndUI();
+		void End(FrameBuffer* frameBuffer);
 
 		void ComposeFinalImage();
+
+		void GenerateSSAOKernel();
+
+		void GenerateSSAONoiseTexture();
 
 		void RenderCascadeShadowMaps(class Scene* scene);
 
@@ -52,14 +57,12 @@ namespace Pengine
 
 		void RenderDeferred(Scene* scene);
 
-		void BeginGBuffer();
-
-		void EndGBuffer();
-
 		void RenderFullScreenQuad();
 
 		void RenderOutline();
 
+		void RenderSSAO();
+		
 		void Blur(class FrameBuffer* frameBufferSource, const std::vector<class FrameBuffer*>& frameBuffers, int blurPasses,
 			float brightnessThreshold, int pixelsBlured);
 
@@ -71,11 +74,22 @@ namespace Pengine
 
 		void Render(class Application* application);
 
+		void GeometryPass(Scene* scene);
+
+		void SSAOPass(Scene* scene);
+
+		void LightingPass(Scene* scene);
+
+		void ShadowPass(Scene* scene);
+
+		void PostProcessingPass(Application* application);
+
 		void ShutDown();
 
 		friend class Instancing;
 		friend class Viewport;
 		friend class EntryPoint;
+		friend class Editor;
 	};
 
 }
