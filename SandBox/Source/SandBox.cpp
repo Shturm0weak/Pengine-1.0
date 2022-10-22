@@ -1,13 +1,13 @@
 #include "Core/EntryPoint.h"
 
-#include "Examples/KingsAndPigs/Source/KingsAndPigs.h"
+#include "Sponza/Sponza.h"
 
 using namespace Pengine;
 
 int main()
 {
 	EntryPoint entrypoint;
-	KingsAndPigs application;
+	Sponza application;
 
 #ifdef STANDALONE
 	ShowWindow(GetConsoleWindow(), SW_HIDE);

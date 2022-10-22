@@ -1,0 +1,8 @@
+Texture:
+  Name: vase_dif
+  FilePath: Source\Sponza\Textures\vase_dif.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

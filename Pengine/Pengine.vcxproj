@@ -88,7 +88,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dl
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes\rttr;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -96,6 +96,9 @@ IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dl
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,6 +139,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClInclude Include="Source\Components\Renderer3D.h" />
     <ClInclude Include="Source\Components\Rigidbody2D.h" />
     <ClInclude Include="Source\Components\Script.h" />
+    <ClInclude Include="Source\Components\Spline.h" />
     <ClInclude Include="Source\Components\SpotLight.h" />
     <ClInclude Include="Source\Components\Transform.h" />
     <ClInclude Include="Source\Core\Allocator.h" />
@@ -218,6 +222,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClCompile Include="Source\Components\Renderer3D.cpp" />
     <ClCompile Include="Source\Components\Rigidbody2D.cpp" />
     <ClCompile Include="Source\Components\Script.cpp" />
+    <ClCompile Include="Source\Components\Spline.cpp" />
     <ClCompile Include="Source\Components\SpotLight.cpp" />
     <ClCompile Include="Source\Components\Transform.cpp" />
     <ClCompile Include="Source\Core\Allocator.cpp" />

@@ -152,6 +152,8 @@ namespace Pengine
 
 		void UserDefinedComponents(GameObject* gameObject);
 
+		void SplineComponent(GameObject* gameObject);
+
 		void OnApplicationStop();
 		
 		void OnApplicationPlay();
@@ -198,6 +200,9 @@ namespace Pengine
 			double m_RenderLinesTime = 0.0;
 			double m_RenderEditor = 0.0;
 			double m_RenderComposeTime = 0.0;
+			double m_NewFrameTime = 0.0;
+			double m_EndFrameTime = 0.0;
+			double m_RenderSSAOTime = 0.0;
 		} m_Stats;
 
 		bool m_DrawLights = true;

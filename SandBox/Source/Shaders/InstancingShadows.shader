@@ -24,20 +24,24 @@ struct DirectionalLight
 	float intensity;
 };
 
+struct Shadows
+{
+	sampler2D CSM[3];
+	mat4 lightSpaceMatricies[3];
+	mat4 view;
+	float cascadesDistance[3];
+	int cascadesCount;
+	int pcf;
+	bool isVisualized;
+	float bias;
+	float farPlane;
+	float texels;
+	float fog;
+};
+
 uniform DirectionalLight u_DirectionalLight;
-uniform sampler2D u_CSM[3];
-uniform mat4 u_LightSpaceMatricies[32];
-uniform mat4 u_View;
+uniform Shadows u_Shadows;
 uniform vec3 u_CameraPosition;
-uniform float u_CascadesDistance[32];
-uniform int u_CascadesCount;
-uniform int u_Pcf;
-uniform bool u_ShadowsEnabled;
-uniform bool u_ShadowsVisualized;
-uniform float u_Bias;
-uniform float u_FarPlane;
-uniform float u_Texels;
-uniform float u_Fog;
 
 uniform sampler2D u_WorldPosition;
 uniform sampler2D u_Normal;
@@ -50,12 +54,12 @@ vec3 normal = texture(u_Normal, uv).xyz;
 
 vec3 ShadowCompute()
 {
-	float depth = abs((u_View * worldPosition).z);
+	float depth = abs((u_Shadows.view * worldPosition).z);
 
 	int layer = -1;
-	for (int i = 0; i < u_CascadesCount; ++i)
+	for (int i = 0; i < u_Shadows.cascadesCount; ++i)
 	{
-		if (depth < u_CascadesDistance[i])
+		if (depth < u_Shadows.cascadesDistance[i])
 		{
 			layer = i;
 			break;
@@ -63,10 +67,10 @@ vec3 ShadowCompute()
 	}
 	if (layer == -1)
 	{
-		layer = u_CascadesCount;
+		layer = u_Shadows.cascadesCount;
 	}
 
-	vec4 lightSpacePosition = u_LightSpaceMatricies[layer] * worldPosition;
+	vec4 lightSpacePosition = u_Shadows.lightSpaceMatricies[layer] * worldPosition;
 	vec3 projectedCoords = lightSpacePosition.xyz / lightSpacePosition.w;
 
 	projectedCoords = projectedCoords * 0.5 + 0.5;
@@ -79,26 +83,26 @@ vec3 ShadowCompute()
 		return shadow;
 	}
 
-	float bias = clamp(u_Bias * tan(acos(dot(normal, u_DirectionalLight.direction))), 0.0, 0.005);
-	if (layer == u_CascadesCount)
+	float bias = clamp(u_Shadows.bias * tan(acos(dot(normal, u_DirectionalLight.direction))), 0.0, 0.005);
+	if (layer == u_Shadows.cascadesCount)
 	{
-		bias *= 1.0 / (u_FarPlane * 0.5);
+		bias *= 1.0 / (u_Shadows.farPlane * 0.5);
 	}
 	else
 	{
-		bias *= 1.0 / (u_CascadesDistance[layer] * 0.5);
+		bias *= 1.0 / (u_Shadows.cascadesDistance[layer] * 0.5);
 	}
 
-	int pcf = layer == 0 ? u_Pcf : 0;
+	int pcf = layer == 0 ? u_Shadows.pcf : 0;
 
-	vec2 texelSize = u_Texels / textureSize(u_CSM[layer], 0);
+	vec2 texelSize = u_Shadows.texels / textureSize(u_Shadows.CSM[layer], 0);
 	for (int x = -pcf; x <= pcf; ++x)
 	{
 		for (int y = -pcf; y <= pcf; ++y)
 		{
-			float pcfDepth = texture(u_CSM[layer], projectedCoords.xy + vec2(x, y) * texelSize).r;
+			float pcfDepth = texture(u_Shadows.CSM[layer], projectedCoords.xy + vec2(x, y) * texelSize).r;
 
-			if (u_ShadowsVisualized)
+			if (u_Shadows.isVisualized)
 			{
 				shadow[layer] = currentDepth - bias > pcfDepth ? 1.0 : 0.0;
 			}
@@ -109,7 +113,7 @@ vec3 ShadowCompute()
 		}
 	}
 
-	if (u_ShadowsVisualized)
+	if (u_Shadows.isVisualized)
 	{
 		shadow[layer] /= ((pcf * 2 + 1) * (pcf * 2 + 1));
 	}
@@ -119,10 +123,10 @@ vec3 ShadowCompute()
 	}
 
 	float shadowDistance = distance(worldPosition.xyz, u_CameraPosition);
-	float farPlaneEdge = u_FarPlane * (1.0 - u_Fog);
+	float farPlaneEdge = u_Shadows.farPlane * (1.0 - u_Shadows.fog);
 	if (shadowDistance > farPlaneEdge)
 	{
-		float shadowFog = clamp((shadowDistance - farPlaneEdge) / (u_FarPlane * u_Fog), 0.0, 1.0);
+		float shadowFog = clamp((shadowDistance - farPlaneEdge) / (u_Shadows.farPlane * u_Shadows.fog), 0.0, 1.0);
 		shadow *= (1.0 - shadowFog);
 	}
 

@@ -112,7 +112,7 @@ void main()
 	}
 
 	vec4 textureColor = texture(u_Texture[int(textureData[0])], uv);
-	if (textureColor.a < 0.05)
+	if (textureColor.a < 0.1)
 	{
 		discard;
 	}

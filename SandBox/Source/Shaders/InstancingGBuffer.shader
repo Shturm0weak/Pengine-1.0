@@ -23,7 +23,8 @@ flat out int textureIndex;
 void main()
 {
 	uv = uvA;
-	normal = normalize(transpose(inverse(mat3(transformA))) * normalA);
+	//normal = normalize(transpose(inverse(mat3(transformA))) * normalA);
+	normal = normalize(mat3(transformA) * normalA);
 	vertexColor = vertexColorA;
 	worldPosition = transformA * vec4(positionA, 1.0);
 	ambient = ambientAD;
@@ -51,6 +52,12 @@ flat in int textureIndex;
 void main()
 {
 	vec4 textureColor = texture(u_Texture[textureIndex], uv);
+
+	if (textureColor.a < 0.5)
+	{
+		discard;
+	}
+
 	baseColor = textureColor * vec4(ambient, 1.0) * vertexColor;
 	positionColor = worldPosition;
 	normalColor = vec4(normal, 1.0);

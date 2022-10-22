@@ -54,6 +54,7 @@ class property_wrapper<member_object_ptr, A(C::*), void, Acc_Level, return_as_co
         bool set_value(instance& object, argument& arg) const
         {
             C* ptr = object.try_convert<C>();
+            
             if (ptr && arg.is_type<A>())
                 return property_accessor<A>::set_value((ptr->*m_acc), arg);
             else

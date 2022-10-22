@@ -26,15 +26,6 @@ Mesh::Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::v
 	Instancing::GetInstance().Create(this);
 }
 
-Mesh::Meta Mesh::GenerateMeta()
-{
-	Meta meta;
-	meta.m_FilePath = Utils::GetDirectoryFromFilePath(m_FilePath) + "/" + m_Name + ".meta";
-	meta.m_Name = m_Name;
-
-	return meta;
-}
-
 void Mesh::Bind() const
 {
 	m_Ib.Bind();

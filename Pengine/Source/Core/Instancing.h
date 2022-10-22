@@ -25,13 +25,15 @@ namespace Pengine
 			size_t m_PrevObjectSize = 0;
 			size_t m_Size = 0;
 			float* m_VertAttrib = nullptr;
+			bool m_AllocateNewBuffer = true;
 		};
 
-		std::unordered_map<Mesh*, DynamicBuffer> m_BuffersByMesh;
+		std::unordered_map<Mesh*, DynamicBuffer> m_OpaqueBuffersByMesh;
+		std::unordered_map<Mesh*, DynamicBuffer> m_ShadowsBuffersByMesh;
 		size_t m_NThreads;
 		ThreadPool::SyncParams m_SyncParams;
 
-		// Position, Scale, Ambient, Diffuse, Specular, RotationMat4, TextureIndex, Shininess
+		// Ambient, Diffuse, Specular, transformMat4, TextureIndex, Shininess
 		size_t m_SizeOfAttribs = 3 + 3 + 3 + 16 + 1 + 1;
 		int m_SizeOfObjectToThreads = 100;
 		int m_TextureOffset = 5;
@@ -46,13 +48,20 @@ namespace Pengine
 
 		void Create(Mesh* mesh);
 
-		void Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
+			std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh);
 
-		void RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
+			std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh);
 
-		void RenderAllObjects(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+		void RenderShadowsObjects(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
+			std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh);
 
 		void PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+
+		void BindBuffers(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
+
+		void BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects);
 
 		void ShutDown();
 	};

@@ -1,0 +1,8 @@
+Texture:
+  Name: Idle
+  FilePath: Source\Examples\KingsAndPigs\Sprites\11-Door\Idle.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -1,0 +1,8 @@
+Texture:
+  Name: Normal
+  FilePath: Source\Examples\CampFire\Sprites\Normal.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

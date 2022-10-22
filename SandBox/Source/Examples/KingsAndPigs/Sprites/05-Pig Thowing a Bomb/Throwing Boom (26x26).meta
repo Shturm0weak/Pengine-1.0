@@ -1,0 +1,8 @@
+Texture:
+  Name: Throwing Boom (26x26)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\05-Pig Thowing a Bomb\Throwing Boom (26x26).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

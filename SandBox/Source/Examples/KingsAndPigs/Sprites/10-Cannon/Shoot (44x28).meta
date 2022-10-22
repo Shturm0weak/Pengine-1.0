@@ -1,0 +1,8 @@
+Texture:
+  Name: Shoot (44x28)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\10-Cannon\Shoot (44x28).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

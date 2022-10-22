@@ -11,6 +11,7 @@
 #include "../Components/Animator2D.h"
 #include "../Components/ParticleEmitter.h"
 #include "../Components/Script.h"
+#include "../Components/Spline.h"
 
 #include <fstream>
 #include <string>
@@ -835,7 +836,6 @@ void Serializer::SerializeShadows(YAML::Emitter& out)
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Passes" << YAML::Value << shadows.m_Blur.m_BlurPasses;
-	out << YAML::Key << "IsEnabled" << YAML::Value << shadows.m_Blur.m_IsEnabled;
 	out << YAML::Key << "PixelsBlured" << YAML::Value << shadows.m_Blur.m_PixelsBlured;
 
 	out << YAML::EndMap;
@@ -896,11 +896,6 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 				shadows.m_Blur.m_BlurPasses = blurPasses.as<int>();
 			}
 
-			if (auto& isEnabled = blurData["IsEnabled"])
-			{
-				shadows.m_Blur.m_IsEnabled = isEnabled.as<bool>();
-			}
-
 			if (auto& pixelsBlured = blurData["PixelsBlured"])
 			{
 				shadows.m_Blur.m_PixelsBlured = pixelsBlured.as<int>();
@@ -934,6 +929,7 @@ std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
 	
 	out << YAML::Key << "Name" << YAML::Value << meta.m_Name;
 	out << YAML::Key << "FilePath" << YAML::Value << meta.m_FilePath;
+	out << YAML::Key << "CullFace" << YAML::Value << meta.m_CullFace;
 
 	out << YAML::EndMap;
 	
@@ -975,6 +971,11 @@ Mesh::Meta Serializer::DeserializeMeshMeta(const std::string& filePath)
 	if (auto& filePathData = data["FilePath"])
 	{
 		meta.m_FilePath = filePathData.as<std::string>();
+	}
+
+	if (auto& cullFaceData = data["CullFace"])
+	{
+		meta.m_CullFace = cullFaceData.as<bool>();
 	}
 
 	return meta;
@@ -1140,6 +1141,7 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	SerializePointLight(out, gameObject.m_ComponentManager);
 	SerializeDirectionalLight(out, gameObject.m_ComponentManager);
 	SerializeUserDefinedComponents(out, gameObject.m_ComponentManager);
+	SerializeSpline(out, gameObject.m_ComponentManager);
 
 	out << YAML::EndMap;
 }
@@ -1187,6 +1189,7 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 	DeSerializePointLight(in, gameObject->m_ComponentManager);
 	DeSerializeDirectionalLight(in, gameObject->m_ComponentManager);
 	DeserializeUserDefinedComponents(in, gameObject->m_ComponentManager);
+	DeSerializeSpline(in, gameObject->m_ComponentManager);
 }
 
 void Serializer::SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameObject)
@@ -1225,9 +1228,18 @@ void Serializer::SerializeRenderer3D(YAML::Emitter& out, ComponentManager& compo
 
 		out << YAML::BeginMap;
 		
-		out << YAML::Key << "Mesh" << YAML::Value << r3d->m_Mesh->GenerateMeta().m_FilePath;
+		if (r3d->m_Mesh)
+		{
+			out << YAML::Key << "Mesh" << YAML::Value << r3d->m_Mesh->GetFilePath();
+		}
+
+		out << YAML::Key << "IsOpaque" << YAML::Value << r3d->m_IsOpaque;
+
+		out << YAML::Key << "DrawShadows" << YAML::Value << r3d->m_DrawShadows;
 
 		out << YAML::Key << "IsInherited" << YAML::Value << r3d->m_Material->IsInherited();
+
+		out << YAML::Key << "LodsDistance" << YAML::Value << r3d->m_LodsDistance;
 
 		if (r3d->m_Material->IsInherited())
 		{
@@ -1240,6 +1252,15 @@ void Serializer::SerializeRenderer3D(YAML::Emitter& out, ComponentManager& compo
 			out << YAML::Key << "Material" << YAML::Value << r3d->m_Material->GetFilePath();
 		}
 
+		std::vector<std::string> lods;
+		lods.reserve(3);
+		for (size_t i = 0; i < 3; i++)
+		{
+			lods.push_back(r3d->m_Lods[i] ? r3d->m_Lods[i]->GetFilePath() : "None");
+		}
+
+		out << YAML::Key << "Lods" << YAML::Value << lods;
+
 		out << YAML::EndMap;
 	}
 }
@@ -1250,16 +1271,67 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 	{
 		Renderer3D* r3d = componentManager.AddComponent<Renderer3D>();
 
-		if (auto& meshData = renderer3DIn["Mesh"])
+		auto loadMesh = [r3d](const std::string& filePath, size_t lod)
 		{
-			std::string filePath = meshData.as<std::string>();
 			if (Utils::Contains(filePath, ".meta"))
 			{
 				MeshManager::GetInstance().LoadAsync(filePath,
-					[r3d](Mesh* mesh)
+					[r3d, lod](Mesh* mesh)
 				{
-					r3d->SetMesh(mesh);
+					r3d->SetMesh(mesh, lod);
+					r3d->m_CurrentLOD = -1;
 				});
+			}
+			else
+			{
+				MeshManager::GetInstance().LoadAsync(Serializer::GenerateMetaFilePathFromFilePath(filePath),
+					[r3d, lod](Mesh* mesh)
+				{
+					r3d->SetMesh(mesh, lod);
+					r3d->m_CurrentLOD = -1;
+				});
+			}
+		};
+
+		if (auto& meshData = renderer3DIn["Mesh"])
+		{
+			loadMesh(meshData.as<std::string>(), 0);
+		}
+
+		if (auto& lodsData = renderer3DIn["Lods"])
+		{
+			std::vector<std::string> lods = lodsData.as<std::vector<std::string>>();
+
+			for (size_t i = 0; i < lods.size(); i++)
+			{
+				if (lods[i] != "None")
+				{
+					loadMesh(lods[i], i);
+				}
+			}
+		}
+
+		if (auto& drawShadowsData = renderer3DIn["DrawShadows"])
+		{
+			if (r3d->m_Mesh)
+			{
+				r3d->SetDrawShadows(drawShadowsData.as<bool>());
+			}
+			else
+			{
+				r3d->m_DrawShadows = drawShadowsData.as<bool>();
+			}
+		}
+
+		if (auto& isOpaqueData = renderer3DIn["IsOpaque"])
+		{
+			if (r3d->m_Mesh)
+			{
+				r3d->SetOpaque(isOpaqueData.as<bool>());
+			}
+			else
+			{
+				r3d->m_IsOpaque = isOpaqueData.as<bool>();
 			}
 		}
 
@@ -1267,6 +1339,11 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 		if (auto& isInheritedData = renderer3DIn["IsInherited"])
 		{
 			isInherited = isInheritedData.as<bool>();
+		}
+
+		if (auto& lodsDistanceData = renderer3DIn["LodsDistance"])
+		{
+			r3d->m_LodsDistance = lodsDistanceData.as<std::vector<float>>();
 		}
 
 		if (isInherited)
@@ -1960,6 +2037,33 @@ void Serializer::DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& c
 		if (auto& intensityData = directionalLightIn["Intensity"])
 		{
 			directionalLight->m_Intensity = intensityData.as<float>();
+		}
+	}
+}
+
+void Serializer::SerializeSpline(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	Spline* spline = componentManager.GetComponent<Spline>();
+	if (spline)
+	{
+		out << YAML::Key << "Spline";
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Speed" << YAML::Value << spline->m_Speed;
+
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeSpline(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& splineIn = in["Spline"])
+	{
+		Spline* spline = componentManager.AddComponent<Spline>();
+
+		if (auto& speedData = splineIn["Speed"])
+		{
+			spline->m_Speed = speedData.as<float>();
 		}
 	}
 }

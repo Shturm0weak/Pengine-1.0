@@ -1,0 +1,8 @@
+Texture:
+  Name: TriangleDown
+  FilePath: Source/UIimages/TriangleDown.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

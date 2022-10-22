@@ -1,0 +1,8 @@
+Texture:
+  Name: vase_round
+  FilePath: Source\Sponza\Textures\vase_round.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -158,12 +158,17 @@ std::vector<GameObject*> Scene::SelectGameObject(std::vector<GameObject*> ignore
 		std::map<float, class GameObject*> gameObjectsByDistance;
 		std::vector<GameObject*> gameObjectsToRayCast;
 
-		for (auto instancedObject : m_InstancedObjects)
+		for (auto opaqueByMesh : m_OpaqueByMesh)
 		{
-			for (Renderer3D* r3d : instancedObject.second)
+			for (Renderer3D* r3d : opaqueByMesh.second)
 			{
 				gameObjectsToRayCast.push_back(r3d->GetOwner());
 			}
+		}
+
+		for (auto transparentByDistance : m_TransparentByDistance)
+		{
+			gameObjectsToRayCast.push_back(transparentByDistance->GetOwner());
 		}
 		
 		const glm::vec3 start = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
@@ -268,20 +273,17 @@ void Scene::Render()
 		}
 	}
 
-	for (auto& r3d : m_Renderers3D)
-	{
-		if (r3d->GetOwner()->m_IsEnabled)
-		{
-			r3d->Render();
-		}
-	}
-
 	for (auto& particleEmitter : m_ParticleEmitters)
 	{
 		if (particleEmitter->GetOwner()->m_IsEnabled)
 		{
 			particleEmitter->Render();
 		}
+	}
+
+	for (auto& r3d : m_TransparentByDistance)
+	{
+		r3d->Render();
 	}
 }
 
@@ -359,11 +361,25 @@ void Scene::PrepareVisualizer()
 	}
 }
 
+void Scene::SortTransparent()
+{
+	glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+
+	auto isFurther = [cameraPosition](Renderer3D* a, Renderer3D* b)
+	{
+		float distanceA = glm::length2(cameraPosition - a->m_Mesh->m_BoundingBox.GetTransformedCenter(a->GetOwner()->m_Transform.GetPosition()));
+		float distanceB = glm::length2(cameraPosition - b->m_Mesh->m_BoundingBox.GetTransformedCenter(b->GetOwner()->m_Transform.GetPosition()));
+
+		return distanceA > distanceB;
+	};
+
+	std::sort(m_TransparentByDistance.begin(), m_TransparentByDistance.end(), isFurther);
+}
+
 void Scene::RenderBoundingBoxes()
 {
-	for (const IRenderer* ir : m_Renderers3D)
+	for (const Renderer3D* r3d : m_Renderers3D)
 	{
-		const Renderer3D* r3d = (Renderer3D*)ir;
 		if (const Mesh* mesh = r3d->m_Mesh)
 		{
 			const Transform& transform = r3d->GetOwner()->m_Transform;
@@ -372,9 +388,9 @@ void Scene::RenderBoundingBoxes()
 		}
 	}
 
-	for (auto instancedObjectIter : m_InstancedObjects)
+	for (auto opaqueByMesh : m_OpaqueByMesh)
 	{
-		for (const Renderer3D* r3d : instancedObjectIter.second)
+		for (const Renderer3D* r3d : opaqueByMesh.second)
 		{
 			if (Mesh* mesh = r3d->m_Mesh)
 			{
@@ -382,6 +398,16 @@ void Scene::RenderBoundingBoxes()
 				Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
 					mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
 			}
+		}
+	}
+
+	for (auto transparentByDistance : m_TransparentByDistance)
+	{
+		if (Mesh* mesh = transparentByDistance->m_Mesh)
+		{
+			const Transform& transform = transparentByDistance->GetOwner()->m_Transform;
+			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
+				mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
 		}
 	}
 }

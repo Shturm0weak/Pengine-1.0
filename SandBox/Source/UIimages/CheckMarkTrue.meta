@@ -1,0 +1,8 @@
+Texture:
+  Name: CheckMarkTrue
+  FilePath: Source/UIimages/CheckMarkTrue.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

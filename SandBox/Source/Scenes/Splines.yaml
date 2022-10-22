@@ -1,124 +1,123 @@
 Title: Splines
 Environment:
   Global Intensity: 1
-  Blur passes: 8
+  Directional Light: 1
+  Blur passes: 3
   Brightness threshold: 1.10000002
   Exposure: 0.0500000007
-  Gamma: 1
+  Gamma: 2.20000005
   Pixels blured: 6
-  IsEnabled: true
+  IsEnabled: false
+  DepthTest: true
+  Shadows:
+    Bias: 0.00499999989
+    IsEnabled: false
+    IsVisualized: false
+    Pcf: 2
+    Fog: 0.200000003
+    Texels: 1
+    ZFarScale: 1
+    CascadesDistance:
+      - 100
+      - 300
+    Blur:
+      Passes: 1
+      PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [0, 0, 0]
-    Rotation: [0, 0, 0]
+    Position: [3.09891963, 6.99710417, 2.68904972]
+    Rotation: [-1.23265076, 1.11444986, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
-  Zoom: 6.25
+  Zoom: 1
   Zoom Sensetivity: 0.25
-  Z near: -1
-  Z far: 10000
+  Z near: 0.100000001
+  Z far: 1000
   Speed: 5
-  Type: 0
+  Type: 1
 GameObjects:
-  - GameObject: 2152441048356371072
-    Name: Point
+  - GameObject: 13662059004707996492
+    Name: Sun
     Is Enabled: true
     Is Selectable: true
-    Prefab File Path: ""
+    Prefab File Path: Source\Prefabs\3D/Sun.prefab
     Childs:
       []
     Transform:
       Follow owner: true
-      Position: [-11.0569096, 3.94308901, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 8422050628121826360
-    Name: Point
+      Position: [0, 0, 0]
+      Rotation: [0.959931076, 0, 0]
+      Scale: [0.999999702, 0.999999881, 1]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - GameObject: 7947750617457456762
+    Name: Cube
     Is Enabled: true
     Is Selectable: true
-    Prefab File Path: ""
+    Prefab File Path: Source\Prefabs\3D/Cube.prefab
     Childs:
       []
     Transform:
       Follow owner: true
-      Position: [-11.3821135, 1.64634132, 0]
+      Position: [0, -6.2078042, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 1254436739434352271
-    Name: Point
+      Scale: [25, 1, 25]
+    Renderer3D:
+      Mesh: Source\Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Materials/Material.mat
+      m_Name:
+        Type: std::string
+        Value: Material
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 4635484624113680203
+    Name: Spline
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      []
+      - 8545323861689650985
+      - 2830580752160920945
+      - 9762399546278976236
+      - 15370188099719876382
     Transform:
       Follow owner: true
-      Position: [-8.96341324, -0.934960246, 0]
+      Position: [0, 7.45587873, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-  - GameObject: 7156760953997517196
-    Name: Point
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-5.63007975, -2.35772324, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 5337451294020150591
-    Name: Point
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [8.29958344, -0.898911238, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 608020414592296091
-    Name: Point
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [1.07723606, 1.19918644, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 5369550892620044318
-    Name: Point
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-2.96747971, 3.98373961, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 8144657371756747828
-    Name: Point
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-7.58129978, 4.55284452, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 3927201202971897151
-    Name: Agent
+    Spline:
+      Speed: 1
+  - GameObject: 8545323861689650985
+    Name: Segment
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
@@ -129,23 +128,86 @@ GameObjects:
       Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    Renderer2D:
-      Color: [1, 0.962025285, 0, 1]
-      Texture: White
-      Normal Texture: White
-      Emissive Mask Texture: White
-      UV:
-        - 0
-        - 0
-        - 1
-        - 0
-        - 1
-        - 1
-        - 0
-        - 1
-      Layer: 0
-      Inner radius: 0
-      Outer radius: 0.5
-      Is Normal used: false
-      Ambient: 1
-      Emmisive Mask Intensity: 0
+  - GameObject: 2830580752160920945
+    Name: Segment
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 9762399546278976236
+    Name: Segment
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 15370188099719876382
+    Name: Segment
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 9676914980012418900
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.389999986, 0.389999986, 0.389999986]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Materials/Material.mat
+      m_Name:
+        Type: std::string
+        Value: Material
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1

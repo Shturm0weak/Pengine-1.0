@@ -1,0 +1,8 @@
+Texture:
+  Name: lion
+  FilePath: Source\Sponza\Textures\lion.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

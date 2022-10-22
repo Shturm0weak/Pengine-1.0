@@ -6,7 +6,6 @@
 #include "../EventSystem/EventSystem.h"
 #include "../OpenGL/Batch.h"
 #include "../Events/OnMainThreadCallback.h"
-#include "../EventSystem/EventSystem.h"
 
 using namespace Pengine;
 

@@ -19,6 +19,7 @@ namespace Pengine
 		class FrameBuffer* m_FrameBufferScene = nullptr;
 		class FrameBuffer* m_FrameBufferSSAO = nullptr;
 		class FrameBuffer* m_FrameBufferG = nullptr;
+		class FrameBuffer* m_FrameBufferGDownSampled = nullptr;
 		class FrameBuffer* m_FrameBufferUI = nullptr; 
 		class FrameBuffer* m_FrameBufferBloom = nullptr;
 		class FrameBuffer* m_FrameBufferOutline = nullptr;
@@ -62,7 +63,7 @@ namespace Pengine
 		void RenderOutline();
 
 		void RenderSSAO();
-		
+
 		void Blur(class FrameBuffer* frameBufferSource, const std::vector<class FrameBuffer*>& frameBuffers, int blurPasses,
 			float brightnessThreshold, int pixelsBlured);
 
@@ -73,6 +74,8 @@ namespace Pengine
 		void Bloom();
 
 		void Render(class Application* application);
+
+		void SortLods(Scene* scene);
 
 		void GeometryPass(Scene* scene);
 

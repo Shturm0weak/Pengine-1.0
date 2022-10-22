@@ -16,9 +16,9 @@ namespace Pengine
 		struct BloomSettings
 		{
 			float m_BrightnessThreshold = 1.1f;
-			float m_Gamma = 1.0f;
+			float m_Gamma = 2.2f;
 			float m_Exposure = 0.05f;
-			int m_BlurPasses = 8;
+			int m_BlurPasses = 3;
 			int m_PixelsBlured = 6;
 			bool m_IsEnabled = true;
 		} m_BloomSettings;
@@ -38,15 +38,13 @@ namespace Pengine
 			{
 				int m_BlurPasses = 1;
 				int m_PixelsBlured = 6;
-				bool m_IsEnabled = true;
-
 			} m_Blur;
 		} m_ShadowsSettings;
 
 		struct SSAOSettings
 		{
-			int m_KernelSize = 16;
-			float m_Radius = 1.0f;
+			int m_KernelSize = 10;
+			float m_Radius = 0.5f;
 			float m_Bias = 0.0f;
 			int m_NoiseTextureDimension = 4;
 

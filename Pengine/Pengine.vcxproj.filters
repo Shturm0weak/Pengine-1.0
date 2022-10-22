@@ -282,6 +282,7 @@
     <ClInclude Include="Source\Enums\Colors.h" />
     <ClInclude Include="Source\Core\MaterialManager.h" />
     <ClInclude Include="Source\Components\SpotLight.h" />
+    <ClInclude Include="Source\Components\Spline.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -467,5 +468,6 @@
     <ClCompile Include="Source\Core\MaterialManager.cpp" />
     <ClCompile Include="Source\Core\Asset.cpp" />
     <ClCompile Include="Source\Components\SpotLight.cpp" />
+    <ClCompile Include="Source\Components\Spline.cpp" />
   </ItemGroup>
 </Project>

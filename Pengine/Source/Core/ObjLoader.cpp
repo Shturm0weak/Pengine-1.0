@@ -80,10 +80,11 @@ Pengine::Mesh* objl::Loader::Load(const std::string& filePath)
 			std::vector<uint32_t> layouts = { 3, 3, 2, 4 };
 
 			Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Create(curMesh.MeshName, vertexAttributes, curMesh.Indices, layouts, filePath);
-			mesh->m_BoundingBox = { minBoundingBox, maxBoundingBox };
+			mesh->m_BoundingBox = { minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
 			
 			if (curMesh.MeshName == meta.m_Name)
 			{
+				mesh->m_CullFace = meta.m_CullFace;
 				meshToReturn = mesh;
 			}
 
@@ -170,7 +171,10 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 					std::vector<uint32_t> layouts = { 3, 3, 2, 4 };
 
 					Pengine::MeshManager::GetInstance().CreateAsync(curMesh.MeshName, vertexAttributesTemp, indicesTemp, layouts, callback, filePath);
-					Pengine::MeshManager::GetInstance().Get(filePath)->m_BoundingBox = { minBoundingBox, maxBoundingBox };
+					Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Get(filePath);
+					mesh->m_BoundingBox =
+					{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
+					mesh->m_CullFace = meta.m_CullFace;
 				};
 				Pengine::EventSystem::GetInstance().SendEvent(new Pengine::OnMainThreadCallback(callbackMainThread, Pengine::EventType::ONMAINTHREADPROCESS));
 			}
@@ -184,7 +188,9 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 					std::string metaFilePath = Pengine::Serializer::GenerateMetaFilePath(meta.m_FilePath, curMesh.MeshName);
 
 					Pengine::MeshManager::GetInstance().Create(curMesh.MeshName, vertexAttributesTemp, indicesTemp, layouts, metaFilePath);
-					Pengine::MeshManager::GetInstance().Get(metaFilePath)->m_BoundingBox = { minBoundingBox, maxBoundingBox };
+					Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Get(metaFilePath);
+					mesh->m_BoundingBox =
+					{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
 				};
 				Pengine::EventSystem::GetInstance().SendEvent(new Pengine::OnMainThreadCallback(callbackMainThread, Pengine::EventType::ONMAINTHREADPROCESS));
 			}
@@ -275,7 +281,8 @@ void objl::Loader::LoadAsyncToViewport(const std::string& filePath)
 				std::vector<unsigned int> indicesTemp = curMesh.Indices;
 
 				Pengine::MeshManager::GetInstance().Create(meshesFilePath.back().first, vertexAttributesTemp, indicesTemp, layouts, meshesFilePath.back().second);
-				Pengine::MeshManager::GetInstance().Get(meshesFilePath.back().second)->m_BoundingBox = { minBoundingBox, maxBoundingBox };
+				Pengine::MeshManager::GetInstance().Get(meshesFilePath.back().second)->m_BoundingBox = 
+				{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
 			};
 			Pengine::EventSystem::GetInstance().SendEvent(new Pengine::OnMainThreadCallback(callbackMainThread, Pengine::EventType::ONMAINTHREADPROCESS));
 		}
@@ -323,6 +330,7 @@ void objl::Loader::GenerateMeshMeta(const std::string& filePath)
 			Pengine::Mesh::Meta meta;
 			meta.m_Name = curMesh.MeshName;
 			meta.m_FilePath = filePath;
+			meta.m_CullFace = true;
 
 			Pengine::Serializer::SerializeMeshMeta(meta);
 		}

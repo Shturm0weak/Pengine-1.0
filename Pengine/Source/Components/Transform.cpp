@@ -136,6 +136,7 @@ void Transform::Translate(const glm::vec3& position)
 
 void Transform::Rotate(const glm::vec3& rotation)
 {
+	glm::vec3 previousRotation = m_Rotation;
 	m_Rotation = rotation;
 	m_RotationMat4 = glm::toMat4(glm::quat(m_Rotation));
 	UpdateVectors();
@@ -143,11 +144,36 @@ void Transform::Rotate(const glm::vec3& rotation)
 	{
 		onRotationCallback();
 	}
+
+	glm::vec3 rotationDelta = m_Rotation - previousRotation;
+
+	if (m_Owner)
+	{
+		m_Owner->ForChilds([=](GameObject& child) {
+			if (child.m_Transform.m_FollowOwner)
+			{
+				child.m_Transform.Rotate(child.m_Transform.m_Rotation + rotationDelta);
+			}
+		});
+	}
 }
 
 void Transform::Scale(const glm::vec3& scale)
 {
+	glm::vec3 previousScale = GetScale();
 	m_ScaleMat4 = glm::scale(glm::mat4(1.0f), scale);
+
+	glm::vec3 scaleDelta = scale - previousScale;
+
+	if (m_Owner)
+	{
+		m_Owner->ForChilds([=](GameObject& child) {
+			if (child.m_Transform.m_FollowOwner)
+			{
+				child.m_Transform.Scale(child.m_Transform.GetScale() + scaleDelta);
+			}
+		});
+	}
 }
 
 void Transform::LogTransform()

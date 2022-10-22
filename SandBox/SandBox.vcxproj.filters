@@ -36,6 +36,7 @@
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h" />
+    <ClInclude Include="Source\Sponza\Sponza.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SandBox.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
+    <ClCompile Include="Source\Sponza\Sponza.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Examples\KingsAndPigs\TestAnimations.yaml" />
@@ -67,5 +69,7 @@
     <None Include="Source\Shaders\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Default2DGBuffer.shader" />
     <None Include="Source\Shaders\SSAO.shader" />
+    <None Include="Source\Sponza\Sponza.prefab" />
+    <None Include="Source\Sponza\Sponza.yaml" />
   </ItemGroup>
 </Project>

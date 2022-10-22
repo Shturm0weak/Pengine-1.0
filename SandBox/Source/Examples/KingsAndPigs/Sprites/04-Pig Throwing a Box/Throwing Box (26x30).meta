@@ -1,0 +1,8 @@
+Texture:
+  Name: Throwing Box (26x30)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\04-Pig Throwing a Box\Throwing Box (26x30).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

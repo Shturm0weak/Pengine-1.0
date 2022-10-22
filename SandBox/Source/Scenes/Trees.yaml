@@ -1,0 +1,2651 @@
+Title: Trees
+Environment:
+  Global Intensity: 1
+  Directional Light: 1
+  Blur passes: 3
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DepthTest: true
+  Shadows:
+    Bias: 0.00499999989
+    IsEnabled: true
+    IsVisualized: false
+    Pcf: 2
+    Fog: 0.200000003
+    Texels: 1
+    ZFarScale: 1
+    CascadesDistance:
+      - 30
+      - 100
+    Blur:
+      Passes: 1
+      PixelsBlured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-292.72998, 151.400833, -102.028793]
+    Rotation: [-0.422765046, -2.4316709, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 1000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 9715075154498378817
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sun.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0.959931076, 0, 0]
+      Scale: [0.999999702, 0.999999881, 1]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - GameObject: 8874186746917454333
+    Name: Tree1
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree1.prefab
+    Childs:
+      - 13401569233859789400
+      - 15802808278974131872
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13401569233859789400
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v01_m01_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 15802808278974131872
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v01_m01.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 17397022133221234504
+    Name: Tree2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree2.prefab
+    Childs:
+      - 13298457426357815180
+      - 10412934937674136658
+    Transform:
+      Follow owner: true
+      Position: [-34.6204071, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 13298457426357815180
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-34.6204071, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v02_m01.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 10412934937674136658
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-34.6204071, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v02_m01_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 15274614419399130289
+    Name: Plane
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1000, 1, 1000]
+    Renderer3D:
+      Mesh: Source\Meshes/Plane.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Materials/Material.mat
+      m_Name:
+        Type: std::string
+        Value: Material
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 64
+      m_Scale:
+        Type: float
+        Value: 0.699999988
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 1178640733408094848
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 65571242422080169
+      - 16915006001306961618
+    Transform:
+      Follow owner: true
+      Position: [-63.7454529, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 65571242422080169
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-63.7454529, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Leaves.mat
+  - GameObject: 16915006001306961618
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-63.7454529, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 17256783791395318695
+    Name: Tree4
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree4.prefab
+    Childs:
+      - 6841627260421534937
+      - 15451102539602983762
+    Transform:
+      Follow owner: true
+      Position: [-106.646851, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6841627260421534937
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-106.646851, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m01.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 15451102539602983762
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-106.646851, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m01_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 2260996543593961781
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 8838868837653697776
+      - 6347816908593234324
+    Transform:
+      Follow owner: true
+      Position: [-147.55687, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8838868837653697776
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-147.55687, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Leaves.mat
+  - GameObject: 6347816908593234324
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-147.55687, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 7835546146762977670
+    Name: Tree6
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree6.prefab
+    Childs:
+      - 5790109071062368794
+      - 4006118617421406004
+    Transform:
+      Follow owner: true
+      Position: [-202.063721, 0.391172409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5790109071062368794
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-202.063721, 0.391172409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 4006118617421406004
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-202.063721, 0.391172409, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 7889603132401881664
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 1252759576683500412
+      - 3869583069385680029
+    Transform:
+      Follow owner: true
+      Position: [-56.3734665, 0, -52.8249474]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 1252759576683500412
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-56.3734665, 0, -52.8249474]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 3869583069385680029
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-56.3734665, 0, -52.8249474]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 1410516316679719789
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 6716133085961693040
+      - 15045660248743978612
+    Transform:
+      Follow owner: true
+      Position: [-136.199738, 7.62939453e-06, 47.554966]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6716133085961693040
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-136.199738, 7.62939453e-06, 47.554966]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 15045660248743978612
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-136.199738, 7.62939453e-06, 47.554966]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 17143487504338105713
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 4646063817397214227
+      - 14890992452531173429
+    Transform:
+      Follow owner: true
+      Position: [-190.946991, 7.62939453e-06, 76.3937378]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 4646063817397214227
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-190.946991, 7.62939453e-06, 76.3937378]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 14890992452531173429
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-190.946991, 7.62939453e-06, 76.3937378]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 17086214713112929559
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 3811319956597848267
+      - 2493575260986954993
+    Transform:
+      Follow owner: true
+      Position: [-49.7098846, 7.62939453e-06, 67.6556549]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 3811319956597848267
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-49.7098846, 7.62939453e-06, 67.6556549]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2493575260986954993
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-49.7098846, 7.62939453e-06, 67.6556549]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2334979171318024364
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 1880599241742368585
+      - 16273392254493794023
+    Transform:
+      Follow owner: true
+      Position: [97.7372894, 7.62939453e-06, -55.1306419]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 1880599241742368585
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [97.7372894, 7.62939453e-06, -55.1306419]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 16273392254493794023
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [97.7372894, 7.62939453e-06, -55.1306419]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 7280268830421898061
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 318989796216019764
+      - 372165648245421556
+    Transform:
+      Follow owner: true
+      Position: [-24.8666, 7.62939453e-06, -94.2777939]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 318989796216019764
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-24.8666, 7.62939453e-06, -94.2777939]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 372165648245421556
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-24.8666, 7.62939453e-06, -94.2777939]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 12909630212702898696
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 17005345838996876038
+      - 15203425185633770140
+    Transform:
+      Follow owner: true
+      Position: [-265.530579, 7.62939453e-06, 50.5747719]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17005345838996876038
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-265.530579, 7.62939453e-06, 50.5747719]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 15203425185633770140
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-265.530579, 7.62939453e-06, 50.5747719]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 12969281740527456249
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 10801872929136932242
+      - 2699999214299359312
+    Transform:
+      Follow owner: true
+      Position: [-306.752319, -4.71179283e-06, 122.682541]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 10801872929136932242
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-306.752319, -8.97095561e-07, 122.682541]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2699999214299359312
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-306.752319, -4.71179283e-06, 122.682541]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 4950817752729364019
+    Name: Tree5
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree5.prefab
+    Childs:
+      - 5693495143777551046
+      - 7472329546881199876
+    Transform:
+      Follow owner: true
+      Position: [-239.355286, 7.62939453e-06, 167.085602]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5693495143777551046
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-239.355286, 7.62939453e-06, 167.085602]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 7472329546881199876
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-239.355286, 7.62939453e-06, 167.085602]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v05_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 3912883028035866732
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 5290012795375511187
+      - 10416140583677945357
+    Transform:
+      Follow owner: true
+      Position: [24.516922, 0, 26.8718147]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 5290012795375511187
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [24.516922, 0, 26.8718147]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 10416140583677945357
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [24.516922, 0, 26.8718147]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2523664799674197182
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 8993426566036384437
+      - 4899024041934911819
+    Transform:
+      Follow owner: true
+      Position: [-15.6795769, 0, 79.6414795]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8993426566036384437
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-15.6795769, 0, 79.6414795]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 4899024041934911819
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-15.6795769, 0, 79.6414795]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 13901260570917136117
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 12049728469998697851
+      - 2476613164636897573
+    Transform:
+      Follow owner: true
+      Position: [-61.3459473, 0, 144.657043]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 12049728469998697851
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-61.3459473, 0, 144.657043]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2476613164636897573
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-61.3459473, 0, 144.657043]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 15258497775662867463
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 8449329463637123144
+      - 9570583209237815550
+    Transform:
+      Follow owner: true
+      Position: [-140.766083, 0, 201.161652]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8449329463637123144
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-140.766083, 0, 201.161652]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 9570583209237815550
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-140.766083, 0, 201.161652]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 434747776115028745
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 15601954350591049801
+      - 16649348774730235749
+    Transform:
+      Follow owner: true
+      Position: [-219.994003, -7.95793949e-06, 261.478455]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 15601954350591049801
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-219.994003, -7.95793949e-06, 261.478455]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 16649348774730235749
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-219.994003, -7.95793949e-06, 261.478455]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2660000158133942023
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 7257845817047449476
+      - 2816403257245984362
+    Transform:
+      Follow owner: true
+      Position: [-128.733704, -5.03020237e-06, -54.8951569]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 7257845817047449476
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-128.733704, -5.03020237e-06, -54.8951569]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 2816403257245984362
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-128.733704, -5.03020237e-06, -54.8951569]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 13799003553182921263
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 1087968826372072294
+      - 14056643600635026521
+    Transform:
+      Follow owner: true
+      Position: [-203.333008, -5.52217716e-06, -39.1719208]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 1087968826372072294
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-203.333008, -5.52217716e-06, -39.1719208]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 14056643600635026521
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-203.333008, -5.52217716e-06, -39.1719208]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 11799832680769291819
+    Name: Tree3
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree3.prefab
+    Childs:
+      - 8269499709847889878
+      - 5633423904134302456
+    Transform:
+      Follow owner: true
+      Position: [-276.6586, 2.02803903e-06, 12.8595753]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8269499709847889878
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-276.6586, 2.02803903e-06, 12.8595753]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 5633423904134302456
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-276.6586, 2.02803903e-06, 12.8595753]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v03_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 8407484482764395205
+    Name: Tree6
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree6.prefab
+    Childs:
+      - 8788428018271427157
+      - 11384808554057391803
+    Transform:
+      Follow owner: true
+      Position: [-178.669556, 0.391172707, -47.8952484]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8788428018271427157
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-178.669556, 0.391172707, -47.8952484]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 11384808554057391803
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-178.669556, 0.391172707, -47.8952484]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 17252689528401824108
+    Name: Tree6
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree6.prefab
+    Childs:
+      - 8163287985722705206
+      - 8398162693212112718
+    Transform:
+      Follow owner: true
+      Position: [-106.870636, 0.391172707, -87.545929]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 8163287985722705206
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-106.870636, 0.391172707, -87.545929]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 8398162693212112718
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-106.870636, 0.391172707, -87.545929]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 12940279989826772655
+    Name: Tree6
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree6.prefab
+    Childs:
+      - 14875900808018661575
+      - 6128042975322420947
+    Transform:
+      Follow owner: true
+      Position: [-158.691422, 0.391172945, -87.0484695]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 14875900808018661575
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-158.691422, 0.391172945, -87.0484695]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Leaves.mat
+      m_Name:
+        Type: std::string
+        Value: Leaves
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos leaf color a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1
+  - GameObject: 6128042975322420947
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-158.691422, 0.391172945, -87.0484695]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: true
+      m_FilePath:
+        Type: std::string
+        Value: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+      m_Name:
+        Type: std::string
+        Value: Gledista_Triacanthos_0
+      m_BaseColorFilePath:
+        Type: std::string
+        Value: Source\Trees\Textures\gleditsia triacanthos bark a1.jpg
+      m_ShaderFilePath:
+        Type: std::string
+        Value: Instancing3D.shader
+      m_Ambient:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Diffuse:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Specular:
+        Type: struct glm::vec<3,float,0>
+        Value: [1, 1, 1]
+      m_Shininess:
+        Type: float
+        Value: 32
+      m_Scale:
+        Type: float
+        Value: 1
+      m_Solid:
+        Type: float
+        Value: 1

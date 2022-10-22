@@ -1,0 +1,19 @@
+GameObjects:
+  - GameObject: 9432870114082636099
+    Name: Plane
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Plane.obj
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Materials/Material.mat

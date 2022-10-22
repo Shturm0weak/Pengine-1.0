@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Logger.h"
 #include "Editor.h"
+#include "Timer.h"
 #include "../EventSystem/EventSystem.h"
 #include "../Events/SetScrollEvent.h"
 #include "../UI/Gui.h"
@@ -181,11 +182,10 @@ void Window::SetTitle(const std::string& title)
 
 void Window::NewFrame()
 {
+	Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_NewFrameTime);
 	SetScrollOffset({ 0.0f, 0.0f });
 	GetCursorPosition();
-	Editor::GetInstance().ResetStats();
 	EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONUPDATE));
-	Window::GetInstance().Clear();
 	Logger::UpdateTime();
 	Time::CalculateDeltaTime();
 	Input::ResetInput();
@@ -198,7 +198,7 @@ void Window::NewFrame()
 
 void Window::EndFrame() const
 {
-	ImGui::EndFrame();
+	Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_EndFrameTime);
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	glfwSwapBuffers(m_Window);

@@ -113,6 +113,10 @@ namespace Pengine
 
 		static void DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& componentManager);
 
+		static void SerializeSpline(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeSpline(YAML::Node& in, ComponentManager& componentManager);
+
 		static void SerializeUserDefinedComponents(YAML::Emitter& out, ComponentManager& componentManager);
 
 		static void DeserializeUserDefinedComponents(YAML::Node& in, ComponentManager& componentManager);

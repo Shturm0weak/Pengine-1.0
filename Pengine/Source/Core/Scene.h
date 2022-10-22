@@ -29,12 +29,14 @@ namespace Pengine
 		std::vector<BoxCollider2D*> m_BoxColliders2D;
 		std::vector<CircleCollider2D*> m_CircleColliders2D;
 		std::vector<Rigidbody2D*> m_Rigidbody2D;
-		std::vector<IRenderer*> m_Renderers3D;
 		std::vector<ParticleEmitter*> m_ParticleEmitters;
 		std::vector<PointLight*> m_PointLights;
 		std::vector<SpotLight*> m_SpotLights;
 		std::vector<DirectionalLight*> m_DirectionalLights;
-		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_InstancedObjects;
+		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_OpaqueByMesh;
+		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_ShadowsByMesh;
+		std::vector<Renderer3D*> m_TransparentByDistance;
+		std::vector<Renderer3D*> m_Renderers3D;
 
 		std::string m_Title = "Scene";
 		std::string m_FilePath = "None";
@@ -47,6 +49,8 @@ namespace Pengine
 		void Render();
 
 		void PrepareVisualizer();
+
+		void SortTransparent();
 
 		void RenderBoundingBoxes();
 

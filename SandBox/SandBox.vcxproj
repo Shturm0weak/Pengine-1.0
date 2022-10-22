@@ -113,6 +113,7 @@
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
     <ClInclude Include="Source\Examples\TestRTTRSystem.h" />
     <ClInclude Include="Source\Examples\UI\UI.h" />
+    <ClInclude Include="Source\Sponza\Sponza.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
@@ -124,6 +125,7 @@
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
     <ClCompile Include="Source\SandBox.cpp" />
+    <ClCompile Include="Source\Sponza\Sponza.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pengine\Pengine.vcxproj">
@@ -149,6 +151,8 @@
     <None Include="Source\Shaders\SSAO.shader" />
     <None Include="Source\Shaders\UI.shader" />
     <None Include="Source\Shaders\Visualizer.shader" />
+    <None Include="Source\Sponza\Sponza.prefab" />
+    <None Include="Source\Sponza\Sponza.yaml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

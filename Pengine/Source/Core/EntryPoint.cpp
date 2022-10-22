@@ -90,7 +90,7 @@ void EntryPoint::OnStart()
     PrepareResources();
 
 #ifdef STANDALONE
-    Serializer::DeserializeScene("Source/Examples/KingsAndPigs/Levels/Level1.yaml");
+    Serializer::DeserializeScene("Source/Sponza/Sponza.yaml");
 #endif
 }
 

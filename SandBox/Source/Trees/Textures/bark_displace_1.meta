@@ -1,0 +1,8 @@
+Texture:
+  Name: bark_displace_1
+  FilePath: Source\Trees\Textures\bark_displace_1.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

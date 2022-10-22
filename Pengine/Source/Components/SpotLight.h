@@ -27,6 +27,7 @@ namespace Pengine
 
 		friend class Instancing;
 		friend class Renderer;
+		friend class Renderer3D;
 	public:
 
 		virtual IComponent* New(GameObject* owner) override;

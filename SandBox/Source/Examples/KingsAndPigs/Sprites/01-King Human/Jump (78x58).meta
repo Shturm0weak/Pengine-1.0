@@ -1,0 +1,8 @@
+Texture:
+  Name: Jump (78x58)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\01-King Human\Jump (78x58).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -1,0 +1,50 @@
+GameObjects:
+  - GameObject: 5304636116918571624
+    Name: Tree2
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Trees\Prefabs/Tree2.prefab
+    Childs:
+      - 1873582498701682007
+      - 1717735314133268481
+    Transform:
+      Follow owner: true
+      Position: [-69.3010406, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 1873582498701682007
+    Name: Trunk
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-69.3010406, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v02_m01.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat
+  - GameObject: 1717735314133268481
+    Name: Crown
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-69.3010406, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [0.5, 0.5, 0.5]
+    Renderer3D:
+      Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v02_m01_2.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      Material: Source/Trees/Materials/Gledista_Triacanthos_0.mat

@@ -1,0 +1,8 @@
+Texture:
+  Name: Hit
+  FilePath: Source\Examples\KingsAndPigs\Sprites\08-Box\Hit.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

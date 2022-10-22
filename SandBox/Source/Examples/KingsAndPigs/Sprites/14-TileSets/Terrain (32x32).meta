@@ -1,0 +1,8 @@
+Texture:
+  Name: Terrain (32x32)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\14-TileSets\Terrain (32x32).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

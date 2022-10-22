@@ -1,0 +1,295 @@
+Title: Materials
+Environment:
+  Global Intensity: 1
+  Directional Light: 1
+  Blur passes: 8
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 1
+  Pixels blured: 6
+  IsEnabled: true
+  DepthTest: true
+  Shadows:
+    Bias: 0.00499999989
+    IsEnabled: true
+    IsVisualized: false
+    Pcf: 2
+    Fog: 0.200000003
+    Texels: 1
+    ZFarScale: 1
+    CascadesDistance:
+      - 100
+      - 300
+    Blur:
+      Passes: 4
+      IsEnabled: false
+      PixelsBlured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [18.3442612, 4.78158903, -13.4440098]
+    Rotation: [-0.291636705, 3.58590746, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 1000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 18303283503571288156
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sun.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 5, 0]
+      Rotation: [0.959931076, 0, 0]
+      Scale: [0.999999702, 0.999999881, 1]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - GameObject: 10060838657010221118
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/EmissiveBlue.mat
+  - GameObject: 1162159291984659832
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source\Materials\Emissive.mat
+  - GameObject: 3556447128313960821
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Materials/Material.mat
+  - GameObject: 11398455243320965746
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Bricks.mat
+  - GameObject: 3317031676293360176
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [9, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Ceiling.mat
+  - GameObject: 3771964093821876860
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [12, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Column.mat
+  - GameObject: 7217450673444984799
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [15, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
+  - GameObject: 3419363923011396738
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [18, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
+  - GameObject: 11367823194357084146
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [21, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
+  - GameObject: 4195747534580909452
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [24, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
+  - GameObject: 14888343340245992932
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [27, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
+  - GameObject: 7609055252916150723
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [30, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
+  - GameObject: 10575421924402121324
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [33, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/FabricRed.mat
+  - GameObject: 2611528748103730971
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [36, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Floor.mat
+  - GameObject: 224241693301451058
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [39, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes/Sphere.meta
+      IsInherited: false
+      Material: Source/Sponza/Materials/Roof.mat

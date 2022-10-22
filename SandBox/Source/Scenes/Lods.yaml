@@ -1,0 +1,79 @@
+Title: Lods
+Environment:
+  Global Intensity: 1
+  Directional Light: 1
+  Blur passes: 3
+  Brightness threshold: 1.10000002
+  Exposure: 0.0500000007
+  Gamma: 2.20000005
+  Pixels blured: 6
+  IsEnabled: true
+  DepthTest: true
+  Shadows:
+    Bias: 0.00499999989
+    IsEnabled: true
+    IsVisualized: false
+    Pcf: 2
+    Fog: 0.200000003
+    Texels: 1
+    ZFarScale: 1
+    CascadesDistance:
+      - 100
+      - 300
+    Blur:
+      Passes: 1
+      PixelsBlured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [-4.68567944, 4.25703716, 6.65694666]
+    Rotation: [-0.427906722, -0.631026745, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 1000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 13946298301223691382
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sun.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0.959931076, 0, 0]
+      Scale: [0.999999702, 0.999999881, 1]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 1
+  - GameObject: 2211729630256690539
+    Name: Lods
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source\Meshes\Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 20
+        - 40
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Cube.meta
+        - Source\Meshes\Cylinder.meta
+        - Source\Meshes\Sphere.meta

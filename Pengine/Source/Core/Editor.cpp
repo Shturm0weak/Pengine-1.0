@@ -23,6 +23,7 @@
 #include "../Components/Animator2D.h"
 #include "../Components/ParticleEmitter.h"
 #include "../Components/Script.h"
+#include "../Components/Spline.h"
 #include "../Audio/SoundManager.h"
 #include "../Lua/LuaStateManager.h"
 #include "Box2D/include/box2d/b2_fixture.h"
@@ -43,6 +44,7 @@ void Editor::Debug()
 		{
 			ImGui::Text("GPU: %.3fms", (float)m_Stats.m_RenderTime);
 			ImGui::Text("Bloom: %.3fms", (float)m_Stats.m_RenderBloomTime);
+			ImGui::Text("SSAO: %.3fms", (float)m_Stats.m_RenderSSAOTime);
 			ImGui::Text("Scene: %.3fms", (float)m_Stats.m_RenderSceneTime);
 			ImGui::Text("Compose: %.3fms", (float)m_Stats.m_RenderComposeTime);
 			ImGui::Text("UI: %.3fms", (float)m_Stats.m_RenderUITime);
@@ -50,6 +52,8 @@ void Editor::Debug()
 			ImGui::Text("Editor: %.3fms", (float)m_Stats.m_RenderEditor);
 			ImGui::Text("GBuffer: %.3fms", (float)m_Stats.m_RenderGBufferTime);
 			ImGui::Text("Shadows: %.3fms", (float)m_Stats.m_RenderShadowsTime);
+			ImGui::Text("New Frame: %.3fms", (float)m_Stats.m_NewFrameTime);
+			ImGui::Text("End Frame: %.3fms", (float)m_Stats.m_EndFrameTime);
 		}
 
 		if (ImGui::CollapsingHeader("Render Stats"))
@@ -69,7 +73,7 @@ void Editor::Debug()
 			ImGui::Text("Events: %zu", EventSystem::GetInstance().m_CurrentEvents.size());
 			ImGui::Text("Lua states: %zu", LuaStateManager::GetInstance().m_LuaStates.size());
 			ImGui::Text("Raw Lua states: %zu", LuaStateManager::GetInstance().m_LuaStatesRaw.size());
-			ImGui::Text("Instanced meshes: %zu", m_CurrentScene->m_InstancedObjects.size());
+			ImGui::Text("Instanced meshes: %zu", m_CurrentScene->m_OpaqueByMesh.size());
 			ImGui::Text("Meshes: %zu", MeshManager::GetInstance().m_Meshes.size());
 
 			size_t amount = 0;
@@ -79,6 +83,8 @@ void Editor::Debug()
 			}
 			ImGui::Text("Renderers layer 2D: %zu", amount);
 		}
+
+		ResetStats();
 
 		ImGui::End();
 	}
@@ -801,6 +807,7 @@ void Editor::Properties()
 			PointLightComponent(gameObject);
 			DirectionalLightComponent(gameObject);
 			Renderer3DComponent(gameObject);
+			SplineComponent(gameObject);
 
 			UserDefinedComponents(gameObject);
 
@@ -954,7 +961,6 @@ void Editor::Environment()
 
 			if(ImGui::CollapsingHeader("Blur"))
 			{
-				ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_Blur.m_IsEnabled);
 				ImGui::SliderInt("Pixels Blured", &environment.m_ShadowsSettings.m_Blur.m_PixelsBlured, 1, 6);
 				ImGui::SliderInt("Passes", &environment.m_ShadowsSettings.m_Blur.m_BlurPasses, 1, 10);
 			}
@@ -1489,38 +1495,63 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Renderer3D"))
 			{
-				if (ImGui::CollapsingHeader("Mesh"))
+				auto lodSection = [r3d](const std::string& label, size_t lod)
 				{
-					if (ImGui::BeginDragDropTarget())
+					if (ImGui::CollapsingHeader(label.c_str()))
 					{
-						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						if (ImGui::BeginDragDropTarget())
 						{
-							std::string path((const char*)payload->Data);
-							path.resize(payload->DataSize);
-
-							if (Utils::Contains(path, ".meta"))
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
 							{
-								MeshManager::GetInstance().LoadAsync(path,
-									[r3d](Mesh* mesh)
+								std::string path((const char*)payload->Data);
+								path.resize(payload->DataSize);
+
+								if (Utils::Contains(path, ".meta"))
 								{
-									r3d->SetMesh(mesh);
-								});
+									MeshManager::GetInstance().LoadAsync(path,
+										[r3d, lod](Mesh* mesh)
+									{
+										r3d->SetMesh(mesh, lod);
+									});
+								}
+							}
+
+							ImGui::EndDragDropTarget();
+						}
+
+						Mesh* mesh = r3d->m_Lods[lod];
+
+						ImGui::Text("FilePath: %s", mesh ? mesh->GetFilePath().c_str() : "None");
+						ImGui::Text("Name: %s", mesh ? mesh->GetName().c_str() : "None");
+						
+						if (mesh)
+						{
+							ImGui::Text("Min: %f %f %f", mesh->m_BoundingBox.m_Min.x, mesh->m_BoundingBox.m_Min.y, mesh->m_BoundingBox.m_Min.z);
+							ImGui::Text("Max: %f %f %f", mesh->m_BoundingBox.m_Max.x, mesh->m_BoundingBox.m_Max.y, mesh->m_BoundingBox.m_Max.z);
+
+							if (ImGui::Checkbox("CullFace", &mesh->m_CullFace))
+							{
+								Mesh::Meta meta = Serializer::DeserializeMeshMeta(mesh->GetFilePath());
+								meta.m_CullFace = mesh->m_CullFace;
+								Serializer::SerializeMeshMeta(meta);
 							}
 						}
 
-						ImGui::EndDragDropTarget();
+						if (lod < r3d->m_LodsDistance.size())
+						{
+							ImGui::PushID(std::string("Distance" + std::to_string(lod)).c_str());
+							ImGui::SliderFloat("Distance", &r3d->m_LodsDistance[lod],
+								lod == 0 ? 0.0f : r3d->m_LodsDistance[lod - 1],
+								lod + 1 == r3d->m_LodsDistance.size() ? 1000.0f : r3d->m_LodsDistance[lod + 1]);
+							ImGui::PopID();
+						}
 					}
+				};
 
-					ImGui::Text("FilePath: %s", r3d->m_Mesh ? r3d->m_Mesh->GetFilePath().c_str() : "None");
-					ImGui::Text("Name: %s", r3d->m_Mesh ? r3d->m_Mesh->GetName().c_str() : "None");
+				lodSection("LOD1", 0);
+				lodSection("LOD2", 1);
+				lodSection("LOD3", 2);
 
-					if (r3d->m_Mesh)
-					{
-						ImGui::Text("Min: %f %f %f", r3d->m_Mesh->m_BoundingBox.m_Min.x, r3d->m_Mesh->m_BoundingBox.m_Min.y, r3d->m_Mesh->m_BoundingBox.m_Min.z);
-						ImGui::Text("Max: %f %f %f", r3d->m_Mesh->m_BoundingBox.m_Max.x, r3d->m_Mesh->m_BoundingBox.m_Max.y, r3d->m_Mesh->m_BoundingBox.m_Max.z);
-					}
-				}
-				
 				if (ImGui::CollapsingHeader("Material"))
 				{
 					if (ImGui::BeginDragDropTarget())
@@ -1595,6 +1626,18 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 					}
 
 					ImGui::PopID();
+				}
+
+				bool opaque = r3d->m_IsOpaque;
+				if (ImGui::Checkbox("Is Opaque", &opaque))
+				{
+					r3d->SetOpaque(opaque);
+				}
+
+				bool drawShadows = r3d->m_DrawShadows;
+				if (ImGui::Checkbox("Draw Shadows", &drawShadows))
+				{
+					r3d->SetDrawShadows(drawShadows);
 				}
 			}
 		}
@@ -2021,6 +2064,22 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 	}
 }
 
+void Editor::SplineComponent(GameObject* gameObject)
+{
+	Spline* spline = gameObject->m_ComponentManager.GetComponent<Spline>();
+	if (spline)
+	{
+		if (RemoveComponentMenu(gameObject, spline))
+		{
+			if (ImGui::CollapsingHeader("Spline"))
+			{
+				ImGui::SliderFloat("Speed", &spline->m_Speed, 0.0f, 5.0f);
+				ImGui::Checkbox("Visualize", &spline->m_Visualize);
+			}
+		}
+	}
+}
+
 void Editor::OnApplicationStop()
 {
 	EventSystem::GetInstance().SendEvent(new IEvent(EventType::ONCLOSE));
@@ -2189,6 +2248,10 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 		{
 			gameObject->m_ComponentManager.AddComponent<Renderer3D>();
 		}
+		if (ImGui::MenuItem("Spline"))
+		{
+			gameObject->m_ComponentManager.AddComponent<Spline>();
+		}
 
 		for (auto& registeredClass : ReflectionSystem::GetInstance().m_RegisteredClasses)
 		{
@@ -2279,6 +2342,8 @@ void Editor::Update(Scene* scene)
 
 	EntryPoint::GetApplication().OnImGuiRender();
 
+	Debug();
+
 	if (!m_IsEnabled)
 	{
 		ImGui::PopStyleVar();
@@ -2290,7 +2355,6 @@ void Editor::Update(Scene* scene)
 	Properties();
 	AssetBrowser();
 	Hierarchy();
-	Debug();
 	AssetList();
 	TextureMenu();
 	TextMenu();
@@ -2548,10 +2612,7 @@ void Editor::DropMaterialOnViewport(const std::string& filePath)
 
 void Editor::ResetStats()
 {
-	m_Stats.m_DrawCalls = 0;
-	m_Stats.m_Vertices = 0;
-	m_Stats.m_Indices = 0;
-	m_Stats.m_RenderTime = 0;
+	m_Stats = Stats();
 }
 
 void Editor::SetDarkThemeColors()

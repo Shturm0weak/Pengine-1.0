@@ -1,0 +1,8 @@
+Texture:
+  Name: sponza_flagpole_diff
+  FilePath: Source\Sponza\Textures\sponza_flagpole_diff.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

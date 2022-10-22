@@ -1,0 +1,8 @@
+Texture:
+  Name: FolderIcon
+  FilePath: Source/UIimages/EditorIcons/FolderIcon.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

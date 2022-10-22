@@ -1,0 +1,8 @@
+Texture:
+  Name: FireLoop
+  FilePath: Source\Examples\CampFire\Sprites\FireLoop.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

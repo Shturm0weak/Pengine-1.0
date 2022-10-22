@@ -9,9 +9,12 @@ namespace Pengine
 	{
 		glm::vec3 m_Min;
 		glm::vec3 m_Max;
+		glm::vec3 m_Center;
 
-		void GetTransformed(const glm::mat4& position, const glm::mat4& rotation, const glm::mat4& scale,
+		void GetTransformedBoundaries(const glm::mat4& position, const glm::mat4& rotation, const glm::mat4& scale,
 			glm::vec3& min, glm::vec3& max);
+
+		glm::vec3 GetTransformedCenter(const glm::vec3& position);
 	};
 
 }

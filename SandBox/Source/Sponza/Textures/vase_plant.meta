@@ -1,0 +1,8 @@
+Texture:
+  Name: vase_plant
+  FilePath: Source\Sponza\Textures\vase_plant.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

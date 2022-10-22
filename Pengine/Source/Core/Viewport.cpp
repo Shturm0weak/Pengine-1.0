@@ -124,13 +124,6 @@ void Viewport::Update()
 	ImGui::PopStyleVar();
 	ImGui::End();
 
-	/*ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("Depth", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferScene->m_Textures[4]);
-	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-	ImGui::PopStyleVar();
-	ImGui::End();*/
-
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("UI", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferUI->m_Textures[0]);
@@ -358,9 +351,12 @@ void Viewport::Resize(const glm::ivec2& size)
 
     m_Size = size;
 
+	//Logger::Log(std::string("Size: " + std::to_string(size.x) + " " + std::to_string(size.y)).c_str());
+
     m_FrameBufferViewport->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferScene->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferG->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferGDownSampled->Resize(m_Size / 2);
 	Renderer::GetInstance().m_FrameBufferShadows->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
@@ -382,7 +378,7 @@ void Viewport::Resize(const glm::ivec2& size)
 
 	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferShadowsBlur.size(); i++)
 	{
-		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(m_Size);
+		Renderer::GetInstance().m_FrameBufferShadowsBlur[i]->Resize(m_Size / 2);
 	}
 
 	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferSSAOBlur.size(); i++)
@@ -393,7 +389,6 @@ void Viewport::Resize(const glm::ivec2& size)
 
 void Viewport::ClampCursor()
 {
-	ImGui::SetCurrentContext(Window::GetInstance().GetImGuiContext());
 	ImVec2 newCursorPos = m_ImGuiMousePosition;
 
 	float offset = -2.0f;

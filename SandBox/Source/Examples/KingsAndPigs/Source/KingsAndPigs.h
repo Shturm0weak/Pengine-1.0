@@ -32,7 +32,7 @@ public:
 		return totalLength;
 	}
 
-	float GetNormalizedOffset(float t)  const
+	float GetNormalizedOffset(float t) const
 	{
 		int i = 0;
 		while (t > m_Lengths[i])

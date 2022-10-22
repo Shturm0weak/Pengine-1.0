@@ -1,0 +1,8 @@
+Texture:
+  Name: Hit (34x28)
+  FilePath: Source\Examples\KingsAndPigs\Sprites\03-Pig\Hit (34x28).png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071
