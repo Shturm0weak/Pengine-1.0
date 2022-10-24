@@ -14,7 +14,7 @@ using namespace Pengine;
 Shader::Shader(const std::string& name, const std::string& filepath) : m_Name(name),m_FilePath(filepath), m_RendererID(0)
 {
 	ShaderProgramSource source = Parseshader(filepath);
-	m_RendererID = CreateShader(source.m_VertexSource, source.m_FragmentSource);
+	m_RendererID = CreateShader(source.m_VertexSource, source.m_GeometrySource, source.m_FragmentSource);
 	Logger::Success("has been loaded!", "Shader", name.c_str());
 }
 
@@ -109,6 +109,11 @@ void Shader::SetUniformMat4f(const std::string& name, const glm::mat4& matrix)
 	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
 }
 
+void Shader::SetUniformMat3f(const std::string& name, const glm::mat3& matrix)
+{
+	glUniformMatrix3fv(GetUniformLocation(name), 1, GL_FALSE, &matrix[0][0]);
+}
+
 void Shader::SetUniformMat4fv(const std::string& name, const std::vector<glm::mat4>& matrices)
 {
 	if (!matrices.empty())
@@ -121,22 +126,8 @@ void Shader::Reload()
 {
 	glDeleteProgram(m_RendererID);
 	ShaderProgramSource source = Parseshader(m_FilePath);
-	m_RendererID = CreateShader(source.m_VertexSource, source.m_FragmentSource);
+	m_RendererID = CreateShader(source.m_VertexSource, source.m_GeometrySource, source.m_FragmentSource);
 	Logger::Success("has been updated!", "Shader", m_Name.c_str());
-}
-
-const char ** Shader::GetListOfShaders()
-{
-	if (s_NamesOfShaders != nullptr)
-		delete[] s_NamesOfShaders;
-	s_NamesOfShaders = new const char*[s_Shaders.size()];
-	uint32_t i = 0;
-	for (auto mesh = s_Shaders.begin(); mesh != s_Shaders.end(); mesh++)
-	{
-		s_NamesOfShaders[i] = mesh->first.c_str();
-		i++;
-	}
-	return s_NamesOfShaders;
 }
 
 void Shader::SetUniform2fv(const std::string& name, const glm::vec2& vec2)
@@ -167,27 +158,36 @@ ShaderProgramSource Shader::Parseshader(const std::string& filepath)
 
 	enum class shadertype {
 
-		NONE = -1, VERTEX = 0, FRAGMENT = 1
+		NONE = -1, VERTEX = 0, GEOMETRY = 1, FRAGMENT = 2
 
 	};
 
-	shadertype shadertp = shadertype::NONE;
+	shadertype type = shadertype::NONE;
 	std::string line;
-	std::string buf;
-	std::stringstream ss[2];
+	std::stringstream ss[3];
 	while (getline(stream, line))
 	{
 		if (line.find("#shader") != std::string::npos)
 		{
-			if (line.find("vertex") != std::string::npos) 
-				shadertp = shadertype::VERTEX;
+			if (line.find("vertex") != std::string::npos)
+			{
+				type = shadertype::VERTEX;
+			}
+			else if (line.find("geometry") != std::string::npos)
+			{
+				type = shadertype::GEOMETRY;
+			}
 			else if (line.find("fragment") != std::string::npos)
-				shadertp = shadertype::FRAGMENT;
+			{
+				type = shadertype::FRAGMENT;
+			}
 		}
 		else
-			ss[(int)shadertp] << line << '\n';
+		{
+			ss[(int)type] << line << '\n';
+		}
 	}
-	return { ss[0].str(),ss[1].str() };
+	return { ss[0].str(), ss[1].str(), ss[2].str() };
 }
 
 uint32_t Shader::CompileShader(uint32_t type, const std::string& source) 
@@ -216,19 +216,40 @@ uint32_t Shader::CompileShader(uint32_t type, const std::string& source)
 	return id;
 }
 
-uint32_t Shader::CreateShader(const std::string& vertexShader, const std::string& FragmentShader)
+uint32_t Shader::CreateShader(
+	const std::string& vertexShader, 
+	const std::string& geometryShader,
+	const std::string& FragmentShader)
 {
 	uint32_t programm = glCreateProgram();
-	uint32_t vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-	uint32_t fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
 
-	glAttachShader(programm, vs);
-	glAttachShader(programm, fs);
+	uint32_t vs;
+	uint32_t gs;
+	uint32_t fs;
+
+	if (!vertexShader.empty())
+	{
+		vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
+		glAttachShader(programm, vs);
+		glDeleteShader(vs);
+	}
+
+	if (!geometryShader.empty())
+	{
+		gs = CompileShader(GL_GEOMETRY_SHADER, geometryShader);
+		glAttachShader(programm, gs);
+		glDeleteShader(gs);
+	}
+
+	if (!FragmentShader.empty())
+	{
+		fs = CompileShader(GL_FRAGMENT_SHADER, FragmentShader);
+		glAttachShader(programm, fs);
+		glDeleteShader(fs);
+	}
+
 	glLinkProgram(programm);
 	glValidateProgram(programm);
-
-	glDeleteShader(vs);
-	glDeleteShader(fs);
 
 	return programm;
 }

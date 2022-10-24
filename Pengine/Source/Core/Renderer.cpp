@@ -227,15 +227,22 @@ void Renderer::RenderCascadeShadowMaps(Scene* scene)
 
     Viewport& viewport = Viewport::GetInstance();
 
-    Shader* shader = Shader::Get("Instancing3DDepth");
+    Shader* shader = Shader::Get("Instancing3DDepthDirShadows");
     shader->Bind();
+
+    for (size_t i = 0; i < m_FrameBufferCSM.size(); i++)
+    {
+        m_FrameBufferCSM[i]->Bind();
+        viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
+        glViewport(0, 0, m_FrameBufferCSM[i]->m_Params[0].m_Size.x, m_FrameBufferCSM[i]->m_Params[0].m_Size.y);
+        Window::GetInstance().Clear();
+    }
 
     for (size_t i = 0; i < m_LightSpaceMatrices.size(); i++)
     {
         shader->SetUniformMat4f("u_ViewProjection", m_LightSpaceMatrices[i]);
 
         m_FrameBufferCSM[i]->Bind();
-        Window::GetInstance().Clear();
         viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
         glViewport(0, 0, m_FrameBufferCSM[i]->m_Params[0].m_Size.x, m_FrameBufferCSM[i]->m_Params[0].m_Size.y);
 
@@ -273,6 +280,36 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     shader->SetUniform1f("u_Shadows.texels", (int)environment.m_ShadowsSettings.m_Texels);
     shader->SetUniformMat4fv("u_Shadows.lightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
 
+    const size_t maxPointLights = 32;
+    int pointShadowSamplers[maxPointLights];
+    for (size_t i = 0; i < maxPointLights; i++)
+    {
+        pointShadowSamplers[i] = i;
+    }
+
+    size_t offset = 5;
+    int pointLightsSize = scene->m_PointLights.size();
+    shader->SetUniform1i("u_PointLightsSize", pointLightsSize);
+    char uniformBuffer[64];
+    for (int i = 0; i < pointLightsSize; i++)
+    {
+        PointLight* pointLight = scene->m_PointLights[i];
+        sprintf(uniformBuffer, "u_PointLight[%i].position", i);
+        shader->SetUniform3fv(uniformBuffer, pointLight->GetOwner()->m_Transform.GetPosition());
+        sprintf(uniformBuffer, "u_PointLight[%i].farPlane", i);
+        shader->SetUniform1f(uniformBuffer, pointLight->m_ZFar);
+        sprintf(uniformBuffer, "u_PointLight[%i].fog", i);
+        shader->SetUniform1f(uniformBuffer, pointLight->m_Fog);
+        pointShadowSamplers[i] = offset;
+
+        glActiveTexture(GL_TEXTURE0 + offset);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, m_FrameBufferPointLights[i]->m_Textures[0]);
+        
+        offset++;
+    }
+
+    shader->SetUniform1iv("u_PointLightShadowMap", pointShadowSamplers, maxPointLights);
+
     glActiveTexture(GL_TEXTURE0 + 0);
     glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[1]);
 
@@ -288,8 +325,8 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
         glActiveTexture(GL_TEXTURE0 + i + 2);
         glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
         csm[i] = i + 2;
-        shader->SetUniform1iv("u_Shadows.CSM", &csm[0], csm.size());
     }
+    shader->SetUniform1iv("u_Shadows.CSM", &csm[0], csm.size());
 
     m_FrameBufferShadows->Bind();
     viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
@@ -299,6 +336,40 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     RenderFullScreenQuad();
 
     m_FrameBufferShadows->UnBind();
+
+    shader->UnBind();
+    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
+}
+
+void Renderer::RenderPointLightShadows(Scene* scene)
+{
+    Viewport& viewport = Viewport::GetInstance();
+
+    Shader* shader = Shader::Get("Instancing3DDepthPointShadows");
+    shader->Bind();
+
+    for (auto& pointLight : scene->m_PointLights)
+    {
+        for (size_t i = 0; i < 6; ++i)
+        {
+            shader->SetUniformMat4f("u_Projection[" + std::to_string(i) + "]", pointLight->m_ShadowsTransforms[i]);
+        }
+
+        shader->SetUniform3fv("u_LightPosition", pointLight->GetOwner()->m_Transform.GetPosition());
+        shader->SetUniform1f("u_FarPlane", pointLight->m_ZFar);
+
+        viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
+        glViewport(0, 0, pointLight->m_ShadowsCubeMap->m_Params[0].m_Size.x, pointLight->m_ShadowsCubeMap->m_Params[0].m_Size.y);
+        pointLight->m_ShadowsCubeMap->Bind();
+        Window::GetInstance().ClearDepth();
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+        glEnable(GL_DEPTH_CLAMP);
+        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh, Instancing::GetInstance().m_ShadowsBuffersByMesh);
+        glDisable(GL_DEPTH_CLAMP);
+        glCullFace(GL_BACK);
+    }
 
     shader->UnBind();
     glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
@@ -511,8 +582,7 @@ void Renderer::RenderFullScreenQuad()
     quad->m_Va.Bind();
     quad->m_Ib.Bind();
 
-    Editor::GetInstance().m_Stats.m_Vertices += (float)quad->GetVertexAttributes().size() / (float)quad->m_Layout.GetElements().size();
-    Editor::GetInstance().m_Stats.m_Indices += quad->m_Ib.GetCount();
+    Editor::GetInstance().m_Stats.m_Triangles += quad->m_Ib.GetCount() / 3;
     Editor::GetInstance().m_Stats.m_DrawCalls++;
 
     glDrawElements(GL_TRIANGLES, quad->m_Ib.GetCount(), GL_UNSIGNED_INT, nullptr);
@@ -531,7 +601,7 @@ void Renderer::RenderOutline()
             shader->SetUniformMat4f("u_TransformViewProjected", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4() * gameObject->m_Transform.GetTransform());
 
             Editor::GetInstance().m_Stats.m_DrawCalls++;
-            Editor::GetInstance().m_Stats.m_Indices = r3d->m_Mesh->m_Indices.size();
+            Editor::GetInstance().m_Stats.m_Triangles = r3d->m_Mesh->m_Indices.size() / 3;
 
             r3d->m_Mesh->m_Va.Bind();
             r3d->m_Mesh->m_Ib.Bind();
@@ -705,45 +775,20 @@ void Renderer::Bloom()
 void Renderer::Render(Application* application)
 {
     Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderTime);
+    Scene* scene = application->m_Scene;
 
-    SortLods(application->m_Scene);
+    scene->PrepareToRender();
 
-    GeometryPass(application->m_Scene);
-    ShadowPass(application->m_Scene);
+    GeometryPass(scene);
+    ShadowPass(scene);
 
-    Instancing::GetInstance().PrepareVertexAtrrib(application->m_Scene->m_OpaqueByMesh);
-    application->m_Scene->PrepareVisualizer();
-    application->m_Scene->SortTransparent();
+    Instancing::GetInstance().PrepareVertexAtrrib(scene->m_OpaqueByMesh);
+    scene->PrepareVisualizer();
+    scene->SortTransparent();
     
-    SSAOPass(application->m_Scene);
-    LightingPass(application->m_Scene);
+    SSAOPass(scene);
+    LightingPass(scene);
     PostProcessingPass(application);
-}
-
-void Renderer::SortLods(Scene* scene)
-{
-    std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
-    glm::vec3 cameraPosition = camera->m_Transform.GetPosition();
-
-    for (auto& r3d : scene->m_Renderers3D)
-    {
-        std::vector<float> lodsDistance = r3d->m_LodsDistance;
-        glm::vec3 position = r3d->GetOwner()->m_Transform.GetPosition();
-        float distance2 = glm::distance2(cameraPosition, position);
-            
-        if (distance2 < lodsDistance[0] * lodsDistance[0])
-        {
-            r3d->SetCurrentLod(0);
-        }
-        else if (distance2 < lodsDistance[1] * lodsDistance[1])
-        {
-            r3d->SetCurrentLod(1);
-        }
-        else
-        {
-            r3d->SetCurrentLod(2);
-        }
-    }
 }
 
 void Renderer::GeometryPass(Scene* scene)
@@ -806,7 +851,9 @@ void Renderer::ShadowPass(Scene* scene)
         Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderShadowsTime);
 
         Instancing::GetInstance().BindShadowsBuffers(scene->m_ShadowsByMesh);
+        
         RenderCascadeShadowMaps(scene);
+        RenderPointLightShadows(scene);
         RenderCascadeShadowsToScene(scene);
         Blur(m_FrameBufferShadows, m_FrameBufferShadowsBlur, environment.m_ShadowsSettings.m_Blur.m_BlurPasses,
             0.0f, environment.m_ShadowsSettings.m_Blur.m_PixelsBlured);

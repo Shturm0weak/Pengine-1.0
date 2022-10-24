@@ -9,8 +9,6 @@
 using namespace Pengine;
 
 Instancing::Instancing()
-	: m_NThreads(1)
-	, m_SyncParams(m_NThreads)
 {
 	Logger::Success("Instancing has been initialized!");
 }
@@ -28,11 +26,14 @@ void Instancing::Create(Mesh* mesh)
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(2);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
 	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
+	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
+	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
+	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
+	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
 
 	m_OpaqueBuffersByMesh.insert(bufferByMesh);
 
@@ -46,6 +47,8 @@ void Instancing::Create(Mesh* mesh)
 	m_ShadowsBuffersByMesh.insert(shadowBufferByMesh);
 }
 
+/*
+ * Deprecated. 
 void Instancing::Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
 	std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh)
 {
@@ -164,27 +167,20 @@ void Instancing::Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>
 		glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
 		dynamicBuffer.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
 
-		Editor::GetInstance().m_Stats.m_Indices += mesh.m_Ib.GetCount() * objectsSize;
-		Editor::GetInstance().m_Stats.m_Vertices += ((dynamicBuffer.m_Size + mesh.GetVertexAttributes().size()) / m_SizeOfAttribs)
-			* objectsSize;
+		Editor::GetInstance().m_Stats.m_Triangles += (mesh.m_Ib.GetCount() * objectsSize) / 3;
 		Editor::GetInstance().m_Stats.m_DrawCalls++;
-
-		if (objectsSize > m_SizeOfObjectToThreads - 1)
-		{
-			m_SyncParams.WaitForAllThreads();
-		}
 
 		mesh.m_Va.Bind();
 		mesh.m_Ib.Bind();
 		mesh.m_Vb.Bind();
 
 		int samplers[32];
-		for (unsigned int i = m_TextureOffset; i < dynamicBuffer.m_TextureSlotsIndex; i++)
+		for (size_t i = m_TextureOffset; i < dynamicBuffer.m_TextureSlotsIndex; i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, dynamicBuffer.m_TextureSlots[i]);
 		}
-		for (unsigned int i = 0; i < maxTextureSlots; i++)
+		for (size_t i = 0; i < maxTextureSlots; i++)
 		{
 			samplers[i] = i;
 		}
@@ -208,7 +204,7 @@ void Instancing::Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>
 		glDrawElementsInstanced(GL_TRIANGLES, mesh.m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
 
 		dynamicBuffer.m_TextureSlotsIndex = m_TextureOffset;
-		for (unsigned int i = dynamicBuffer.m_TextureSlotsIndex; i < 32; i++)
+		for (size_t i = dynamicBuffer.m_TextureSlotsIndex; i < 32; i++)
 		{
 			dynamicBuffer.m_TextureSlots[i] = 0;
 		}
@@ -219,6 +215,7 @@ void Instancing::Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>
 
 	shader->UnBind();
 }
+*/
 
 void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
 	std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh)
@@ -263,13 +260,7 @@ void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Rende
 			continue;
 		}
 
-		glActiveTexture(GL_TEXTURE0 + 0);
-		glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
-		dynamicBuffer.m_TextureSlots[0] = TextureManager::GetInstance().White()->GetRendererID();
-
-		Editor::GetInstance().m_Stats.m_Indices += mesh.m_Ib.GetCount() * objectsSize;
-		Editor::GetInstance().m_Stats.m_Vertices += ((dynamicBuffer.m_Size + mesh.GetVertexAttributes().size()) / m_SizeOfAttribs)
-			* objectsSize;
+		Editor::GetInstance().m_Stats.m_Triangles += (mesh.m_Ib.GetCount() * objectsSize) / 3;
 		Editor::GetInstance().m_Stats.m_DrawCalls++;
 
 		mesh.m_Va.Bind();
@@ -277,12 +268,12 @@ void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Rende
 		mesh.m_Vb.Bind();
 		
 		int samplers[32];
-		for (unsigned int i = m_TextureOffset; i < dynamicBuffer.m_TextureSlotsIndex; i++)
+		for (size_t i = 0; i < dynamicBuffer.m_TextureSlotsIndex; i++)
 		{
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, dynamicBuffer.m_TextureSlots[i]);
 		}
-		for (unsigned int i = 0; i < maxTextureSlots; i++)
+		for (size_t i = 0; i < maxTextureSlots; i++)
 		{
 			samplers[i] = i;
 		}
@@ -304,8 +295,8 @@ void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Rende
 
 		glDrawElementsInstanced(GL_TRIANGLES, mesh.m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
 
-		dynamicBuffer.m_TextureSlotsIndex = m_TextureOffset;
-		for (unsigned int i = dynamicBuffer.m_TextureSlotsIndex; i < 32; i++)
+		dynamicBuffer.m_TextureSlotsIndex = 0;
+		for (size_t i = 0; i < 32; i++)
 		{
 			dynamicBuffer.m_TextureSlots[i] = 0;
 		}
@@ -347,9 +338,7 @@ void Instancing::RenderShadowsObjects(const std::unordered_map<Mesh*, std::vecto
 			continue;
 		}
 
-		Editor::GetInstance().m_Stats.m_Indices += mesh.m_Ib.GetCount() * objectsSize;
-		Editor::GetInstance().m_Stats.m_Vertices += ((dynamicBuffer.m_Size + mesh.GetVertexAttributes().size()) / m_SizeOfAttribs)
-			* objectsSize;
+		Editor::GetInstance().m_Stats.m_Triangles += (mesh.m_Ib.GetCount() * objectsSize) / 3;
 		Editor::GetInstance().m_Stats.m_DrawCalls++;
 
 		mesh.m_Va.Bind();
@@ -406,219 +395,74 @@ void Instancing::PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector
 		dynamicShadowsBuffer.m_PrevObjectSize = objectsSize;
 
 		// TODO: Chacing texture index in Renderer3D by calling GetTextureIndex and pass it here!
-
-		if (objectsSize < m_SizeOfObjectToThreads)
+		for (size_t i = 0; i < objectsSize; i++)
 		{
-			for (size_t i = 0; i < objectsSize; i++)
+			Renderer3D& r3d = *(instancedObject->second[i]);
+			Material& material = *r3d.m_Material;
+				
+			rejectedShadows += !r3d.m_DrawShadows;
+
+			auto bindTexture = [&dynamicBuffer](Texture* texture)
 			{
 				int textureIndex = 0;
-				bool isFound = false;
-				Renderer3D& r3d = *(instancedObject->second[i]);
-				Material& material = *r3d.m_Material;
 				
-				rejectedShadows += !r3d.m_DrawShadows;
-
-				if (material.m_BaseColor != TextureManager::GetInstance().White())
+				auto instancedObject = std::find(dynamicBuffer.m_TextureSlots.begin(), dynamicBuffer.m_TextureSlots.end(), texture->GetRendererID());
+				if (instancedObject != dynamicBuffer.m_TextureSlots.end())
 				{
-					auto instancedObject = std::find(dynamicBuffer.m_TextureSlots.begin(), dynamicBuffer.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
-					if (instancedObject != dynamicBuffer.m_TextureSlots.end())
+					textureIndex = (instancedObject - dynamicBuffer.m_TextureSlots.begin());
+				}
+				else
+				{
+					if (dynamicBuffer.m_TextureSlotsIndex >= 32)
 					{
-						textureIndex = (instancedObject - dynamicBuffer.m_TextureSlots.begin());
-						isFound = true;
+						Logger::Warning("limit of texture slots, texture will be set to white!");
 					}
-					if (!isFound)
+					else
 					{
-						if (dynamicBuffer.m_TextureSlotsIndex >= 32)
-						{
-							Logger::Warning("limit of texture slots, texture will be set to white!");
-						}
-						else
-						{
-							textureIndex = dynamicBuffer.m_TextureSlotsIndex;
-							dynamicBuffer.m_TextureSlots[dynamicBuffer.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
-							dynamicBuffer.m_TextureSlotsIndex++;
-						}
+						textureIndex = dynamicBuffer.m_TextureSlotsIndex;
+						dynamicBuffer.m_TextureSlots[dynamicBuffer.m_TextureSlotsIndex] = texture->GetRendererID();
+						dynamicBuffer.m_TextureSlotsIndex++;
 					}
 				}
 
-				GameObject& owner = *(r3d.GetOwner());
+				return textureIndex;
+			};
+			
+			int baseColorIndex = bindTexture(r3d.m_Material->m_BaseColor);
+			int NormalMapIndex = bindTexture(r3d.m_Material->m_NormalMap);
 
-				glm::vec3 ambient = material.m_Ambient * material.m_Scale;
-				glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
-				glm::vec3 specular = material.m_Specular * material.m_Scale;
+			GameObject& owner = *(r3d.GetOwner());
 
-				float* startPtr = &dynamicBuffer.m_VertAttrib[i * m_SizeOfAttribs];
-				memcpy(&startPtr[0], &ambient[0], 12);
-				memcpy(&startPtr[3], &diffuse[0], 12);
-				memcpy(&startPtr[6], &specular[0], 12);
-				startPtr[9] = (float)textureIndex;
-				startPtr[10] = material.m_Shininess;
-				const float* transform = glm::value_ptr(owner.m_Transform.GetTransform());
-				memcpy(&startPtr[11], transform, 64);
+			const glm::vec3 ambient = material.m_Ambient * material.m_Scale;
+			const glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
+			const glm::vec3 specular = material.m_Specular * material.m_Scale;
 
-				if (r3d.m_DrawShadows)
-				{
-					float* startPtr = &dynamicShadowsBuffer.m_VertAttrib[(i - rejectedShadows) * 16];
-					memcpy(&startPtr[0], transform, 64);
-				}
-			}
+			float* startPtr = &dynamicBuffer.m_VertAttrib[i * m_SizeOfAttribs];
+			memcpy(&startPtr[0], &ambient[0], 12);
+			memcpy(&startPtr[3], &diffuse[0], 12);
+			memcpy(&startPtr[6], &specular[0], 12);
 
-			continue;
-		}
+			startPtr[9] = (float)baseColorIndex;
+			startPtr[10] = (float)NormalMapIndex;
+			startPtr[11] = material.m_Shininess;
+			startPtr[12] = (float)material.m_UseNormalMap;
 
-		for (size_t i = 0; i < m_NThreads; i++)
-		{
-			m_SyncParams.m_Ready[i] = true;
-		}
+			const glm::mat4 transformMat4 = owner.m_Transform.GetTransform();
+			const float* transform = glm::value_ptr(transformMat4);
+			memcpy(&startPtr[13], transform, 64);
 
-		int threads = objectsSize > m_NThreads ? m_NThreads : objectsSize;
-		float dif = (float)objectsSize / (float)threads;
-		for (int k = 0; k < threads - 1; k++)
-		{
-			//glm::vec4 color;
-			//if (k % 2 == 0)
-			//{
-			//	color = glm::vec4((float)k / (float)m_NThreads);
-			//	color[1] = 1.0f;
-			//	color[3] = 1.0f;
-			//}
-			//else
-			//{
-			//	color = glm::vec4((float)k / (float)m_NThreads);
-			//	color[0] = 1.0f;
-			//	color[3] = 1.0f;
-			//}
+			const glm::mat3 inverseTransformMat3 = glm::transpose(owner.m_Transform.GetInverseTransform());
+			const float* inverseTransform = glm::value_ptr(inverseTransformMat3);
+			memcpy(&startPtr[29], inverseTransform, 36);
 
-			//if (k == 0)
-			//	color = COLORS::Red;
-			//else if (k == 1)
-			//	color = COLORS::Green;
-			//else if (k == 2)
-			//	color = COLORS::Yellow;
-			//else if (k == 3)
-			//	color = COLORS::Brown;
-			//else if (k == 4)
-			//	color = COLORS::Silver;
-			//else if (k == 5)
-			//	color = COLORS::DarkGray;
-			//else if (k == 6)
-			//	color = COLORS::Orange;
-
-			if ((size_t)(k * dif) >= (size_t)(k * dif + dif))
+			if (r3d.m_DrawShadows)
 			{
-				break;
+				float* startPtr = &dynamicShadowsBuffer.m_VertAttrib[(i - rejectedShadows) * 16];
+				memcpy(&startPtr[0], transform, 64);
 			}
-
-			ThreadPool::GetInstance().Enqueue([=, &_dynamicBuffer = dynamicBuffer] {
-				m_SyncParams.m_Ready[k] = false;
-				size_t thisSegmentOfObjectsV = k * dif + dif;
-				for (size_t i = k * dif; i < thisSegmentOfObjectsV; i++)
-				{
-					int textureIndex = 0;
-					bool isFound = false;
-					Renderer3D& r3d = *(instancedObject->second[i]);
-					Material& material = *r3d.m_Material;
-					
-					if (material.m_BaseColor != TextureManager::GetInstance().White())
-					{
-						auto instancedObject = std::find(dynamicBuffer.m_TextureSlots.begin(), dynamicBuffer.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
-						if (instancedObject != dynamicBuffer.m_TextureSlots.end())
-						{
-							textureIndex = (instancedObject - dynamicBuffer.m_TextureSlots.begin());
-							isFound = true;
-						}
-						if (!isFound)
-						{
-							if (dynamicBuffer.m_TextureSlotsIndex >= 32)
-							{
-								Logger::Warning("limit of texture slots, texture will be set to white!");
-							}
-							else
-							{
-								std::lock_guard<std::mutex> lock(m_SyncParams.m_Mtx);
-								textureIndex = dynamicBuffer.m_TextureSlotsIndex;
-								_dynamicBuffer.m_TextureSlots[dynamicBuffer.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
-								_dynamicBuffer.m_TextureSlotsIndex++;
-							}
-						}
-					}
-
-					GameObject& owner = *(r3d.GetOwner());
-
-					glm::vec3 ambient = material.m_Ambient * material.m_Scale;
-					glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
-					glm::vec3 specular = material.m_Specular * material.m_Scale;
-
-					float* startPtr = &dynamicBuffer.m_VertAttrib[i * m_SizeOfAttribs];
-					memcpy(&startPtr[0], &ambient[0], 12);
-					memcpy(&startPtr[3], &diffuse[0], 12);
-					memcpy(&startPtr[6], &specular[0], 12);
-					startPtr[9] = (float)textureIndex;
-					startPtr[10] = material.m_Shininess;
-					const float* view = glm::value_ptr(owner.m_Transform.GetTransform());
-					memcpy(&startPtr[11], view, 64);
-				}
-
-				m_SyncParams.SetThreadFinished(k);
-			});
 		}
 
-		if ((size_t)((threads - 1) * dif) >= objectsSize)
-		{
-			return;
-		}
-
-		ThreadPool::GetInstance().Enqueue([=, &_dynamicBuffer = dynamicBuffer] {
-			m_SyncParams.m_Ready[threads - 1] = false;
-			for (int i = (threads - 1) * dif; i < objectsSize; i++)
-			{
-				int textureIndex = 0;
-				bool isFound = false;
-				Renderer3D& r3d = *(instancedObject->second[i]);
-				Material& material = *r3d.m_Material;
-				
-				if (material.m_BaseColor != TextureManager::GetInstance().White())
-				{
-					auto instancedObject = std::find(dynamicBuffer.m_TextureSlots.begin(), dynamicBuffer.m_TextureSlots.end(), material.m_BaseColor->GetRendererID());
-					if (instancedObject != dynamicBuffer.m_TextureSlots.end())
-					{
-						textureIndex = (instancedObject - dynamicBuffer.m_TextureSlots.begin());
-						isFound = true;
-					}
-					if (!isFound)
-					{
-						if (dynamicBuffer.m_TextureSlotsIndex >= 32)
-						{
-							Logger::Warning("limit of texture slots, texture will be set to white!");
-						}
-						else
-						{
-							std::lock_guard<std::mutex> lock(m_SyncParams.m_Mtx);
-							textureIndex = dynamicBuffer.m_TextureSlotsIndex;
-							_dynamicBuffer.m_TextureSlots[dynamicBuffer.m_TextureSlotsIndex] = material.m_BaseColor->GetRendererID();
-							_dynamicBuffer.m_TextureSlotsIndex++;
-						}
-					}
-				}
-
-				GameObject& owner = *(r3d.GetOwner());
-
-				glm::vec3 ambient = material.m_Ambient * material.m_Scale;
-				glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
-				glm::vec3 specular = material.m_Specular * material.m_Scale;
-
-				float* startPtr = &dynamicBuffer.m_VertAttrib[i * m_SizeOfAttribs];
-				memcpy(&startPtr[0], &ambient[0], 12);
-				memcpy(&startPtr[3], &diffuse[0], 12);
-				memcpy(&startPtr[6], &specular[0], 12);
-				startPtr[9] = (float)textureIndex;
-				startPtr[10] = material.m_Shininess;
-				const float* view = glm::value_ptr(owner.m_Transform.GetTransform());
-				memcpy(&startPtr[11], view, 64);
-			}
-
-			m_SyncParams.SetThreadFinished(threads - 1);
-		});
+		continue;
 	}
 }
 
@@ -628,8 +472,6 @@ void Instancing::BindBuffers(const std::unordered_map<Mesh*, std::vector<Rendere
 	{
 		return;
 	}
-
-	m_SyncParams.WaitForAllThreads();
 
 	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
 	{
@@ -665,7 +507,7 @@ void Instancing::BindBuffers(const std::unordered_map<Mesh*, std::vector<Rendere
 			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib);
 		}
 
-		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, 4, 1);
+		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
 	}
 }
 
@@ -710,7 +552,7 @@ void Instancing::BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<
 			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib);
 		}
 
-		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, 4, 1);
+		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
 	}
 }
 

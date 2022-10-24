@@ -8,6 +8,9 @@ Material:
   m_BaseColorFilePath:
     Type: std::string
     Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+  m_NormalMapFilePath:
+    Type: std::string
+    Value: Source\Sponza\Textures\sponza_fabric_blue_diff_NRM.png
   m_ShaderFilePath:
     Type: std::string
     Value: Instancing3D.shader
@@ -29,3 +32,6 @@ Material:
   m_Solid:
     Type: float
     Value: 1
+  m_UseNormalMap:
+    Type: bool
+    Value: true

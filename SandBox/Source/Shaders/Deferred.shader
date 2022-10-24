@@ -78,6 +78,7 @@ in vec2 uv;
 vec4 worldPosition = texture(u_WorldPosition, uv);
 vec3 normal = texture(u_Normal, uv).xyz;
 vec3 albedo = texture(u_Albedo, uv).xyz;
+vec3 shadow = vec3(0.0);
 
 float ssao = texture(u_SSAO.color, uv).x;
 
@@ -85,13 +86,7 @@ vec3 viewDirection = normalize(u_CameraPosition - worldPosition.xyz);
 
 vec3 DirectionalLightCompute()
 {
-	vec3 shadow = vec3(0.0);
-	if (u_Shadows.isEnabled)
-	{
-		shadow = texture(u_Shadows.color, gl_FragCoord.xy / u_ViewportSize).rgb;
-	}
-
-	vec3 ambient = 0.3 * u_DirectionalLight.color * albedo;
+	vec3 ambient = 0.3 * u_DirectionalLight.color;
 
 	if (u_SSAO.isEnabled)
 	{
@@ -100,19 +95,19 @@ vec3 DirectionalLightCompute()
 
 	vec3 lightDirection = normalize(u_DirectionalLight.direction);
 	float diffuseStrength = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = u_DirectionalLight.color * diffuseStrength * albedo;
+	vec3 diffuse = u_DirectionalLight.color * diffuseStrength;
 
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32.0);
 	if (diffuseStrength == 0.0) specularf = 0.0;
-	vec3 specular = u_DirectionalLight.color * (specularf) * albedo;
+	vec3 specular = u_DirectionalLight.color * (specularf);
 
-	return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * u_DirectionalLight.intensity;
+	return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * u_DirectionalLight.intensity * albedo;
 }
 
 vec3 PointLightCompute(PointLight light)
 {
-	vec3 ambient = light.color * albedo;
+	vec3 ambient = light.color;
 
 	if (u_SSAO.isEnabled)
 	{
@@ -121,12 +116,12 @@ vec3 PointLightCompute(PointLight light)
 
 	vec3 lightDirection = normalize(light.position - worldPosition.xyz);
 	float diffuseStrength = max(dot(normal, lightDirection), 0.0);
-	vec3 diffuse = light.color * diffuseStrength * albedo;
+	vec3 diffuse = light.color * diffuseStrength;
 
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32);
 	if (diffuseStrength == 0.0) specularf = 0.0;
-	vec3 specular = light.color * specularf * albedo;
+	vec3 specular = light.color * specularf;
 
 	float distance = length(light.position - worldPosition.xyz);
 	float attenuation = 1.0 / (light.constant + light._linear * distance +
@@ -136,7 +131,7 @@ vec3 PointLightCompute(PointLight light)
 	specular *= attenuation;
 	diffuse *= attenuation;
 
-	return (ambient + diffuse + specular);
+	return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * albedo;
 }
 
 vec3 SpotLightCompute(SpotLight light)
@@ -149,7 +144,7 @@ vec3 SpotLightCompute(SpotLight light)
 		float epsilon = light.innerCutOff - light.outerCutOff;
 		float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
 
-		vec3 ambient = light.color * albedo;
+		vec3 ambient = light.color;
 
 		if (u_SSAO.isEnabled)
 		{
@@ -157,12 +152,12 @@ vec3 SpotLightCompute(SpotLight light)
 		}
 
 		float diffuseStrength = max(dot(normal, lightDirection), 0.0);
-		vec3 diffuse = light.color * diffuseStrength * albedo;
+		vec3 diffuse = light.color * diffuseStrength;
 
 		vec3 halfwayDirection = normalize(lightDirection + viewDirection);
 		float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32);
 		if (diffuseStrength == 0.0) specularf = 0.0;
-		vec3 specular = light.color * specularf * albedo;
+		vec3 specular = light.color * specularf;
 
 		float distance = length(light.position - worldPosition.xyz);
 		float attenuation = 1.0 / (light.constant + light._linear * distance +
@@ -176,7 +171,7 @@ vec3 SpotLightCompute(SpotLight light)
 		specular *= intensity;
 		diffuse *= intensity;
 
-		return (ambient + diffuse + specular);
+		return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * albedo;
 	}
 	else  // Use ambient light, so scene isn't completely dark outside the spotlight.
 	{
@@ -186,6 +181,11 @@ vec3 SpotLightCompute(SpotLight light)
 
 void main()
 {
+	if (u_Shadows.isEnabled)
+	{
+		shadow = texture(u_Shadows.color, gl_FragCoord.xy / u_ViewportSize).rgb;
+	}
+
 	vec3 result = DirectionalLightCompute();
 
 	for (int i = 0; i < pointLightsSize; i++)

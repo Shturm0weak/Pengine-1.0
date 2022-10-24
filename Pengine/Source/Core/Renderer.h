@@ -28,6 +28,7 @@ namespace Pengine
 		std::vector<class FrameBuffer*> m_FrameBufferCSM;
 		std::vector<class FrameBuffer*> m_FrameBufferShadowsBlur;
 		std::vector<class FrameBuffer*> m_FrameBufferSSAOBlur;
+		std::vector<class FrameBuffer*> m_FrameBufferPointLights;
 
 		std::vector<glm::mat4> m_LightSpaceMatrices;
 
@@ -52,6 +53,8 @@ namespace Pengine
 
 		void RenderCascadeShadowsToScene(class Scene* scene);
 
+		void RenderPointLightShadows(class Scene* scene);
+
 		glm::mat4 Renderer::GetLightSpaceMatrix(class DirectionalLight* light, const float nearPlane, const float farPlane);
 
 		std::vector<glm::mat4> GetLightSpaceMatrices(class DirectionalLight* light);
@@ -75,8 +78,6 @@ namespace Pengine
 
 		void Render(class Application* application);
 
-		void SortLods(Scene* scene);
-
 		void GeometryPass(Scene* scene);
 
 		void SSAOPass(Scene* scene);
@@ -93,6 +94,7 @@ namespace Pengine
 		friend class Viewport;
 		friend class EntryPoint;
 		friend class Editor;
+		friend class PointLight;
 	};
 
 }

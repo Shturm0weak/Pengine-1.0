@@ -50,6 +50,8 @@ namespace Pengine
 
 		void PrepareVisualizer();
 
+		void PrepareToRender();
+
 		void SortTransparent();
 
 		void RenderBoundingBoxes();

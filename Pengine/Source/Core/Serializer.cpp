@@ -1313,26 +1313,12 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 
 		if (auto& drawShadowsData = renderer3DIn["DrawShadows"])
 		{
-			if (r3d->m_Mesh)
-			{
-				r3d->SetDrawShadows(drawShadowsData.as<bool>());
-			}
-			else
-			{
-				r3d->m_DrawShadows = drawShadowsData.as<bool>();
-			}
+			r3d->m_DrawShadows = drawShadowsData.as<bool>();
 		}
 
 		if (auto& isOpaqueData = renderer3DIn["IsOpaque"])
 		{
-			if (r3d->m_Mesh)
-			{
-				r3d->SetOpaque(isOpaqueData.as<bool>());
-			}
-			else
-			{
-				r3d->m_IsOpaque = isOpaqueData.as<bool>();
-			}
+			r3d->m_IsOpaque = isOpaqueData.as<bool>();
 		}
 
 		bool isInherited = false;
@@ -1918,6 +1904,9 @@ void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "Constant" << YAML::Value << pointLight->m_Constant;
 		out << YAML::Key << "Linear" << YAML::Value << pointLight->m_Linear;
 		out << YAML::Key << "Quadratic" << YAML::Value << pointLight->m_Quadratic;
+		out << YAML::Key << "ZFar" << YAML::Value << pointLight->m_ZFar;
+		out << YAML::Key << "ZNear" << YAML::Value << pointLight->m_ZNear;
+		out << YAML::Key << "Fog" << YAML::Value << pointLight->m_Fog;
 
 		out << YAML::EndMap;
 	}
@@ -1947,6 +1936,21 @@ void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& compone
 		if (auto& quadraticData = pointLightIn["Quadratic"])
 		{
 			pointLight->m_Quadratic = quadraticData.as<float>();
+		}
+
+		if (auto& zNearData = pointLightIn["ZNear"])
+		{
+			pointLight->m_ZNear = zNearData.as<float>();
+		}
+
+		if (auto& zFarData = pointLightIn["ZFar"])
+		{
+			pointLight->m_ZFar = zFarData.as<float>();
+		}
+
+		if (auto& fogData = pointLightIn["Fog"])
+		{
+			pointLight->m_Fog = fogData.as<float>();
 		}
 	}
 }
@@ -2167,6 +2171,12 @@ Material* Serializer::DeserializeMaterial(const std::string& filePath)
 		[=](Texture* texture)
 	{
 			material->SetBaseColor(texture, material->m_BaseColorFilePath);
+	});
+
+	TextureManager::GetInstance().AsyncLoad(material->m_NormalMapFilePath,
+		[=](Texture* texture)
+	{
+		material->SetNormalMap(texture, material->m_NormalMapFilePath);
 	});
 
 	return material;

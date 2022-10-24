@@ -8,7 +8,8 @@
 namespace Pengine
 {
 
-	class PENGINE_API FrameBuffer {
+	class PENGINE_API FrameBuffer
+	{
 	public:
 
 		struct FrameBufferParams
@@ -18,6 +19,8 @@ namespace Pengine
 			uint32_t m_TextureInternalFormat = GL_RGBA;
 			uint32_t m_TextureFormat = GL_RGBA;
 			uint32_t m_TextureType = GL_UNSIGNED_BYTE;
+			bool m_CubeMap = false;
+			bool m_DepthMap = false;
 		};
 
 		std::vector<FrameBufferParams> m_Params;
@@ -26,10 +29,11 @@ namespace Pengine
 		std::vector<unsigned int> m_Textures;
 
 		FrameBuffer(const std::vector<FrameBufferParams>& params, const std::vector<Texture::TexParameteri>& texParameters);
+		FrameBuffer() = default;
 		~FrameBuffer();
 
 		void Resize(const glm::ivec2& size);
-		
+
 		void GenerateRbo();
 
 		void Bind() const;

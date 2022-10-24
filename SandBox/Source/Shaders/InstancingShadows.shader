@@ -39,20 +39,31 @@ struct Shadows
 	float fog;
 };
 
+struct PointLight
+{
+	vec3 position;
+	float farPlane;
+	float fog;
+};
+
+#define MAX_LIGHT 32
+uniform PointLight u_PointLight[MAX_LIGHT];
+uniform samplerCube u_PointLightShadowMap[MAX_LIGHT];
+uniform int u_PointLightsSize;
+
 uniform DirectionalLight u_DirectionalLight;
 uniform Shadows u_Shadows;
 uniform vec3 u_CameraPosition;
 
 uniform sampler2D u_WorldPosition;
 uniform sampler2D u_Normal;
-uniform sampler2D u_Albedo;
 
 in vec2 uv;
 
 vec4 worldPosition = texture(u_WorldPosition, uv);
 vec3 normal = texture(u_Normal, uv).xyz;
 
-vec3 ShadowCompute()
+vec3 DirectionalShadowCompute()
 {
 	float depth = abs((u_Shadows.view * worldPosition).z);
 
@@ -133,7 +144,41 @@ vec3 ShadowCompute()
 	return shadow;
 }
 
+vec3 PointShadowCompute(int i)
+{
+	vec3 toLight = worldPosition.xyz - u_PointLight[i].position;
+	float closestDepth = texture(u_PointLightShadowMap[i], toLight).r;
+	closestDepth *= u_PointLight[i].farPlane;
+	float currentDepth = length(toLight);
+	float bias = 0.05;
+	float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
+
+	if (currentDepth > u_PointLight[i].farPlane || dot(normalize(toLight), normal) > 0.0)
+	{
+		return vec3(0.0);
+	}
+
+	shadow *= (1.0 - (currentDepth / u_PointLight[i].farPlane));
+	shadow = clamp(shadow, 0.1, 1.0);
+
+	float farPlaneEdge = u_PointLight[i].farPlane * (1.0 - u_PointLight[i].fog);
+	if (currentDepth > farPlaneEdge)
+	{
+		float shadowFog = clamp((currentDepth - farPlaneEdge) / (u_PointLight[i].farPlane * u_PointLight[i].fog), 0.0, 1.0);
+		shadow *= (1.0 - shadowFog);
+	}
+
+	return vec3(shadow);
+}
+
 void main()
 {
-	fragColor = vec4(ShadowCompute(), 1.0);
+	vec3 result = DirectionalShadowCompute();
+
+	for (int i = 0; i < u_PointLightsSize; i++)
+	{
+		result += PointShadowCompute(i);
+	}
+
+	fragColor = vec4(result, 1.0);
 }

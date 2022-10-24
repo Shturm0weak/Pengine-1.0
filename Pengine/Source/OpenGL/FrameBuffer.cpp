@@ -14,16 +14,36 @@ FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std
 	{
 		m_Textures.push_back(0);
 		glGenTextures(1, &m_Textures[i]);
-		glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
-		glTexImage2D(GL_TEXTURE_2D,
-			0,
-			params[i].m_TextureInternalFormat,
-			params[i].m_Size.x,
-			params[i].m_Size.y,
-			0,
-			params[i].m_TextureFormat,
-			params[i].m_TextureType,
-			NULL);
+
+		if (params[i].m_CubeMap)
+		{
+			glBindTexture(GL_TEXTURE_CUBE_MAP, m_Textures[i]);
+			for (size_t j = 0; j < 6; j++)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j,
+					0,
+					params[i].m_TextureInternalFormat,
+					params[i].m_Size.x,
+					params[i].m_Size.y,
+					0,
+					params[i].m_TextureFormat,
+					params[i].m_TextureType,
+					NULL);
+			}
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
+			glTexImage2D(GL_TEXTURE_2D,
+				0,
+				params[i].m_TextureInternalFormat,
+				params[i].m_Size.x,
+				params[i].m_Size.y,
+				0,
+				params[i].m_TextureFormat,
+				params[i].m_TextureType,
+				NULL);
+		}
 
 		for (size_t i = 0; i < texParameters.size(); i++)
 		{
@@ -35,10 +55,22 @@ FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std
 			}
 		}
 
-		glBindTexture(GL_TEXTURE_2D, 0);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, m_Fbo);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, params[i].m_FrameBufferAttachment, GL_TEXTURE_2D, m_Textures[i], 0);
+		
+		if (params[i].m_CubeMap)
+		{
+			glFramebufferTexture(GL_FRAMEBUFFER, params[i].m_FrameBufferAttachment, m_Textures[i], 0);
+		}
+		else
+		{
+			glFramebufferTexture2D(GL_FRAMEBUFFER, params[i].m_FrameBufferAttachment, GL_TEXTURE_2D, m_Textures[i], 0);
+		}
+
+		if (params[i].m_DepthMap)
+		{
+			glDrawBuffer(GL_NONE);
+			glReadBuffer(GL_NONE);
+		}
 	}
 
 	std::vector<uint32_t> attachments;
@@ -72,17 +104,37 @@ void FrameBuffer::Resize(const glm::ivec2& size)
 	for (uint32_t i = 0; i < m_Params.size(); i++)
 	{
 		m_Params[i].m_Size = size;
-		glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
-		glTexImage2D(GL_TEXTURE_2D,
-			0,
-			m_Params[i].m_TextureInternalFormat,
-			m_Params[i].m_Size.x,
-			m_Params[i].m_Size.y,
-			0,
-			m_Params[i].m_TextureFormat,
-			m_Params[i].m_TextureType,
-			NULL);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		if (m_Params[i].m_CubeMap)
+		{
+			glBindTexture(GL_TEXTURE_CUBE_MAP, m_Textures[i]);
+			for (size_t j = 0; j < 6; j++)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j,
+					0,
+					m_Params[i].m_TextureInternalFormat,
+					m_Params[i].m_Size.x,
+					m_Params[i].m_Size.y,
+					0,
+					m_Params[i].m_TextureFormat,
+					m_Params[i].m_TextureType,
+					NULL);
+			}
+			glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+		}
+		else
+		{
+			glBindTexture(GL_TEXTURE_2D, m_Textures[i]);
+			glTexImage2D(GL_TEXTURE_2D,
+				0,
+				m_Params[i].m_TextureInternalFormat,
+				m_Params[i].m_Size.x,
+				m_Params[i].m_Size.y,
+				0,
+				m_Params[i].m_TextureFormat,
+				m_Params[i].m_TextureType,
+				NULL);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 
 		if (m_Rbo > 0)
 		{

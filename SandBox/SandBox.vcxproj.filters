@@ -62,7 +62,7 @@
     <None Include="Source\Shaders\UI.shader" />
     <None Include="Source\Shaders\Instancing3D.shader" />
     <None Include="Source\Shaders\Depth.shader" />
-    <None Include="Source\Shaders\Instancing3DDepth.shader" />
+    <None Include="Source\Shaders\Instancing3DDepthDirShadows.shader" />
     <None Include="Source\Shaders\InstancingShadows.shader" />
     <None Include="Source\Shaders\Visualizer.shader" />
     <None Include="Source\Shaders\Deferred.shader" />
@@ -71,5 +71,6 @@
     <None Include="Source\Shaders\SSAO.shader" />
     <None Include="Source\Sponza\Sponza.prefab" />
     <None Include="Source\Sponza\Sponza.yaml" />
+    <None Include="Source\Shaders\Instancing3DDepthPointShadows.shader" />
   </ItemGroup>
 </Project>

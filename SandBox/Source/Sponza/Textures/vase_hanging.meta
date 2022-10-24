@@ -1,0 +1,8 @@
+Texture:
+  Name: vase_hanging
+  FilePath: Source\Sponza\Textures\vase_hanging.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

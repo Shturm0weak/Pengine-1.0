@@ -1,18 +1,18 @@
 GameObjects:
-  - GameObject: 11638234300597671834
+  - GameObject: 13235523868968438557
     Name: Tree6
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: Source\Trees\Prefabs/Tree6.prefab
     Childs:
-      - 13270892400599296430
-      - 18252772802152910728
+      - 8552947441656887471
+      - 60894597464109311
     Transform:
       Follow owner: true
-      Position: [-59.2319336, 3.80683787e-08, -11.2188215]
-      Rotation: [0, 0.312188119, 0]
-      Scale: [0.94860369, 0.948601484, 0.948601425]
-  - GameObject: 13270892400599296430
+      Position: [0, 1.92338916e-06, 0]
+      Rotation: [0, 0.960021436, 0]
+      Scale: [0.920145631, 0.920143604, 0.920142949]
+  - GameObject: 8552947441656887471
     Name: Crown
     Is Enabled: true
     Is Selectable: true
@@ -21,16 +21,16 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-59.2319336, 3.80683787e-08, -11.2188215]
-      Rotation: [0, 0.312188119, 0]
-      Scale: [0.148603693, 0.148601487, 0.148601428]
+      Position: [0, 1.92338916e-06, 0]
+      Rotation: [0, 0.960021436, 0]
+      Scale: [0.120145634, 0.120143607, 0.120142952]
     Renderer3D:
       Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
       IsOpaque: true
       DrawShadows: true
       IsInherited: true
       LodsDistance:
-        - 300
+        - 1000
         - 1000
       m_FilePath:
         Type: std::string
@@ -66,7 +66,7 @@ GameObjects:
         - Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001.meta
         - None
         - None
-  - GameObject: 18252772802152910728
+  - GameObject: 60894597464109311
     Name: Trunk
     Is Enabled: true
     Is Selectable: true
@@ -75,16 +75,16 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-59.2319336, 3.80683787e-08, -11.2188215]
-      Rotation: [0, 0.312188119, 0]
-      Scale: [0.148603693, 0.148601487, 0.148601428]
+      Position: [0, 1.92338916e-06, 0]
+      Rotation: [0, 0.960021436, 0]
+      Scale: [0.120145634, 0.120143607, 0.120142952]
     Renderer3D:
       Mesh: Source\Trees\Meshes/Gleditsia_triacanthos_v06_m001_2.meta
       IsOpaque: true
       DrawShadows: true
       IsInherited: true
       LodsDistance:
-        - 300
+        - 1000
         - 1000
       m_FilePath:
         Type: std::string

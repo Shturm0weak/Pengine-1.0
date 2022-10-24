@@ -13,23 +13,31 @@ namespace Pengine
 	{
 	private:
 
+		glm::mat4 m_TransformMat4;
 		glm::mat4 m_PositionMat4;
 		glm::mat4 m_RotationMat4;
 		glm::mat4 m_ScaleMat4;
+		glm::mat3 m_InverseTransformMat3;
 		glm::vec3 m_PreviousPosition;
 		glm::vec3 m_PositionDelta;
+		glm::vec3 m_PreviousScale;
+		glm::vec3 m_ScaleDelta;
 		glm::vec3 m_Rotation;
+		glm::vec3 m_PreviousRotation;
+		glm::vec3 m_RotationDelta;
 		glm::vec3 m_Back;
 		glm::vec3 m_Up;
 
 		std::vector<std::function<void()>> m_OnRotationCallbacks;
 		std::vector<std::function<void()>> m_OnTranslationCallbacks;
+		std::vector<std::function<void()>> m_OnScaleCallbacks;
 
 		bool m_FollowOwner = true;
 		bool m_Copyable = true;
 
 		void Move(Transform&& transform) noexcept;
 		void UpdateVectors();
+		void UpdateTransforms();
 
 		friend class GameObject;
 		friend class Editor;
@@ -58,25 +66,27 @@ namespace Pengine
 		
 		glm::mat4 GetScaleMat4() const { return m_ScaleMat4; }
 		
-		glm::vec3 GetPreviousPosition() const;
+		glm::vec3 GetPreviousPosition() const { return m_PreviousPosition; }
 		
-		glm::vec3 GetPositionDelta() const;
+		glm::vec3 GetPositionDelta() const { return m_PositionDelta; }
 		
 		glm::vec3 GetPosition() const;
 		
-		glm::vec3 GetRotation() const;
+		glm::vec3 GetRotation() const { return m_Rotation; }
 		
 		glm::vec3 GetScale() const;
 		
-		glm::vec3 GetBack() const { return m_Back; };
+		glm::vec3 GetBack() const { return m_Back; }
 		
-		glm::vec3 GetUp() const { return m_Up; };
+		glm::vec3 GetUp() const { return m_Up; }
 		
-		glm::vec3 GetForward() const { return glm::normalize(glm::vec3(-m_Back.x, m_Back.y, -m_Back.z)); };
+		glm::vec3 GetForward() const { return glm::normalize(glm::vec3(-m_Back.x, m_Back.y, -m_Back.z)); }
 		
-		glm::vec3 GetRight() const { return glm::normalize(glm::cross(GetForward(), GetUp())); };
+		glm::vec3 GetRight() const { return glm::normalize(glm::cross(GetForward(), GetUp())); }
 		
-		glm::mat4 GetTransform() const;
+		glm::mat4 GetTransform() const { return m_TransformMat4; }
+
+		glm::mat3 GetInverseTransform() const { return m_InverseTransformMat3; }
 		
 		bool GetFollorOwner() const { return m_FollowOwner; }
 		
@@ -89,6 +99,8 @@ namespace Pengine
 		void SetOnRotationCallback(std::function<void()> callback) { m_OnRotationCallbacks.emplace_back(callback); }
 		
 		void SetOnTranslationCallback(std::function<void()> callback) { m_OnTranslationCallbacks.emplace_back(callback); }
+
+		void SetOnScaleCallback(std::function<void()> callback) { m_OnScaleCallbacks.emplace_back(callback); }
 		
 		void Translate(const glm::vec3& position);
 		

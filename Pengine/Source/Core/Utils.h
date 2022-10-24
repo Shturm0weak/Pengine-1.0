@@ -254,6 +254,17 @@ namespace Pengine
 			return path.substr(0, index + 1) + newName + path.substr(path.length() - resolutionLength - 1, path.length());
 		}
 
+		PENGINE_API inline std::string RemoveDirectoryFromFilePath(const std::string& path)
+		{
+			size_t slash = path.find_last_of("/");
+			if (slash == std::string::npos)
+			{
+				slash = path.find_last_of("\\");
+			}
+
+			return path.substr(slash + 1, path.length() - slash);
+		}
+
 		PENGINE_API inline std::string GetNameFromFilePath(const std::string& path)
 		{
 			size_t slash = path.find_last_of("/");

@@ -188,8 +188,7 @@ namespace Pengine
 		struct Stats
 		{
 			size_t m_DrawCalls = 0;
-			size_t m_Vertices = 0;
-			size_t m_Indices = 0;
+			size_t m_Triangles = 0;
 			static size_t s_AllocationsCount;
 			double m_RenderTime = 0.0;
 			double m_RenderGBufferTime = 0.0;
@@ -205,14 +204,13 @@ namespace Pengine
 			double m_RenderSSAOTime = 0.0;
 		} m_Stats;
 
+		float m_SnapThreshold = 1.0f;
+		int m_LineWidth = 1;
+		bool m_Snap = false;
 		bool m_DrawLights = true;
 		bool m_DrawColliders = false;
 		bool m_PolygonMode = false;
 		bool m_DrawBoundingBoxes = false;
-		bool m_Snap = false;
-		float m_SnapThreshold = 1.0f;
-
-		int m_LineWidth = 1;
 
 		bool m_ShowNavigation = true;
 

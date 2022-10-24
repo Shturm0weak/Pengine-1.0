@@ -158,17 +158,12 @@ std::vector<GameObject*> Scene::SelectGameObject(std::vector<GameObject*> ignore
 		std::map<float, class GameObject*> gameObjectsByDistance;
 		std::vector<GameObject*> gameObjectsToRayCast;
 
-		for (auto opaqueByMesh : m_OpaqueByMesh)
+		for (Renderer3D* r3d : m_Renderers3D)
 		{
-			for (Renderer3D* r3d : opaqueByMesh.second)
+			if (r3d->GetOwner()->IsSelectable())
 			{
 				gameObjectsToRayCast.push_back(r3d->GetOwner());
 			}
-		}
-
-		for (auto transparentByDistance : m_TransparentByDistance)
-		{
-			gameObjectsToRayCast.push_back(transparentByDistance->GetOwner());
 		}
 		
 		const glm::vec3 start = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
@@ -361,6 +356,37 @@ void Scene::PrepareVisualizer()
 	}
 }
 
+void Scene::PrepareToRender()
+{
+	m_OpaqueByMesh.clear();
+	m_TransparentByDistance.clear();
+	m_ShadowsByMesh.clear();
+
+	glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+
+	for (Renderer3D* r3d : m_Renderers3D)
+	{
+		r3d->SortLods(cameraPosition);
+
+		if (Mesh* mesh = r3d->m_Mesh)
+		{
+			if (r3d->m_IsOpaque)
+			{
+				m_OpaqueByMesh[mesh].emplace_back(r3d);
+
+				if (r3d->m_DrawShadows)
+				{
+					m_ShadowsByMesh[mesh].emplace_back(r3d);
+				}
+			}
+			else
+			{
+				m_TransparentByDistance.emplace_back(r3d);
+			}
+		}
+	}
+}
+
 void Scene::SortTransparent()
 {
 	glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
@@ -383,29 +409,6 @@ void Scene::RenderBoundingBoxes()
 		if (const Mesh* mesh = r3d->m_Mesh)
 		{
 			const Transform& transform = r3d->GetOwner()->m_Transform;
-			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
-				mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
-		}
-	}
-
-	for (auto opaqueByMesh : m_OpaqueByMesh)
-	{
-		for (const Renderer3D* r3d : opaqueByMesh.second)
-		{
-			if (Mesh* mesh = r3d->m_Mesh)
-			{
-				const Transform& transform = r3d->GetOwner()->m_Transform;
-				Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
-					mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
-			}
-		}
-	}
-
-	for (auto transparentByDistance : m_TransparentByDistance)
-	{
-		if (Mesh* mesh = transparentByDistance->m_Mesh)
-		{
-			const Transform& transform = transparentByDistance->GetOwner()->m_Transform;
 			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
 				mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
 		}

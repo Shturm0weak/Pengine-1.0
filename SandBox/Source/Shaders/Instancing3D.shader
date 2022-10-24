@@ -4,36 +4,48 @@
 layout(location = 0) in vec3 positionA;
 layout(location = 1) in vec3 normalA;
 layout(location = 2) in vec2 uvA;
-layout(location = 3) in vec4 vertexColorA;
-layout(location = 4) in vec3 ambientAD;
-layout(location = 5) in vec3 diffuseAD;
-layout(location = 6) in vec3 specularAD;
-layout(location = 7) in vec2 miscAD;
-layout(location = 8) in mat4 transformA;
+layout(location = 3) in vec3 tangentA;
+layout(location = 4) in vec3 bitangentA;
+layout(location = 5) in vec3 ambientAD;
+layout(location = 6) in vec3 diffuseAD;
+layout(location = 7) in vec3 specularAD;
+layout(location = 8) in vec4 miscAD;
+layout(location = 9) in mat4 transformA;
+layout(location = 13) in mat3 inverseTransformA;
 
 uniform mat4 u_ViewProjection;
 
 out vec2 uv;
-out vec3 normal;
-out vec4 vertexColor;
+out vec3 n;
 out vec4 worldPosition;
 out vec3 ambient;
 out vec3 diffuse;
 out vec3 specular;
-out float shininess;
-flat out int textureIndex;
+out mat3 TBN;
+flat out float shininess;
+flat out int useNormalMap;
+flat out int baseColorIndex;
+flat out int normalMapIndex;
 
 void main()
 {
 	uv = uvA;
-	normal = normalize(transpose(inverse(mat3(transformA))) * normalA);
-	vertexColor = vertexColorA;
+
+	n = normalize(inverseTransformA * normalA);
+	vec3 tangent = normalize(inverseTransformA * tangentA);
+	vec3 bitangent = normalize(inverseTransformA * bitangentA);
+	TBN = (mat3(tangent, bitangent, n));
+
 	worldPosition = transformA * vec4(positionA, 1.0);
+
 	ambient = ambientAD;
 	diffuse = diffuseAD;
 	specular = specularAD;
-	shininess = miscAD[1];
-	textureIndex = int(miscAD[0]);
+
+	baseColorIndex = int(miscAD[0]);
+	normalMapIndex = int(miscAD[1]);
+	shininess = miscAD[2];
+	useNormalMap = int(miscAD[3]);
 
 	gl_Position = u_ViewProjection * worldPosition;
 }
@@ -95,16 +107,19 @@ uniform float u_Fog;
 uniform bool u_IsShadowBlurEnabled;
 
 in vec2 uv;
-in vec3 normal;
-in vec4 vertexColor;
+in vec3 n;
 in vec4 worldPosition;
 in vec3 ambient;
 in vec3 diffuse;
 in vec3 specular;
-in float shininess;
-flat in int textureIndex;
+in mat3 TBN;
+flat in float shininess;
+flat in int baseColorIndex;
+flat in int normalMapIndex;
+flat in int useNormalMap;
 
 vec3 viewDirection = normalize(u_CameraPosition - worldPosition.xyz);
+vec3 normal = n;
 
 vec3 ShadowCompute()
 {
@@ -202,7 +217,7 @@ vec3 DirectionalLightCompute()
 		}
 	}
 	
-	vec3 baseColor = texture(u_Texture[textureIndex], uv).xyz;
+	vec3 baseColor = texture(u_Texture[baseColorIndex], uv).xyz;
 	vec3 ambient = 0.3 * u_DirectionalLight.color * ambient * baseColor;
 
 	vec3 lightDirection = normalize(u_DirectionalLight.direction);
@@ -219,7 +234,7 @@ vec3 DirectionalLightCompute()
 
 vec3 PointLightCompute(PointLight light)
 {
-	vec3 baseColor = texture(u_Texture[textureIndex], uv).xyz;
+	vec3 baseColor = texture(u_Texture[baseColorIndex], uv).xyz;
 	vec3 ambient = light.color * ambient * baseColor;
 
 	vec3 lightDirection = normalize(light.position - worldPosition.xyz);
@@ -252,7 +267,7 @@ vec3 SpotLightCompute(SpotLight light)
 		float epsilon = light.innerCutOff - light.outerCutOff;
 		float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
 
-		vec3 baseColor = texture(u_Texture[textureIndex], uv).xyz;
+		vec3 baseColor = texture(u_Texture[baseColorIndex], uv).xyz;
 		vec3 ambient = light.color * ambient * baseColor;
 
 		float diffuseStrength = max(dot(normal, lightDirection), 0.0);
@@ -285,9 +300,16 @@ vec3 SpotLightCompute(SpotLight light)
 
 void main()
 {
-	if (texture(u_Texture[textureIndex], uv).a <= 0.0)
+	if (texture(u_Texture[baseColorIndex], uv).a <= 0.0)
 	{
 		discard;
+	}
+
+	if (useNormalMap == 1)
+	{
+		normal = texture(u_Texture[normalMapIndex], uv).xyz;
+		normal *= normal * 2.0 - 1.0;
+		normal = normalize(TBN * normal);
 	}
 
 	vec3 result = DirectionalLightCompute();

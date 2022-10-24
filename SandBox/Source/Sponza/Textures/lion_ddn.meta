@@ -1,0 +1,8 @@
+Texture:
+  Name: lion_ddn
+  FilePath: Source\Sponza\Textures\lion_ddn.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

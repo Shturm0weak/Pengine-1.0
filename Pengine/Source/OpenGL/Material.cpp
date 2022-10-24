@@ -15,3 +15,9 @@ void Material::SetBaseColor(Texture* texture, const std::string& filePath)
     m_BaseColorFilePath = filePath;
     m_BaseColor = texture;
 }
+
+void Material::SetNormalMap(Texture* texture, const std::string& filePath)
+{
+    m_NormalMapFilePath = filePath;
+    m_NormalMap = texture;
+}

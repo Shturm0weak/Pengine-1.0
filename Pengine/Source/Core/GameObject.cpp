@@ -199,7 +199,7 @@ void GameObject::ResetWithPrefab()
 			Copy(*prefab);
 			SetCopyableTransform(true);
 
-			prefab->DeleteLater();
+			prefab->Delete();
 		}
 	};
 	EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));

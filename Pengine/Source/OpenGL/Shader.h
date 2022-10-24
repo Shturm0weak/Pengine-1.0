@@ -10,6 +10,7 @@ namespace Pengine
 	struct PENGINE_API ShaderProgramSource
 	{
 		std::string m_VertexSource;
+		std::string m_GeometrySource;
 		std::string m_FragmentSource;
 	};
 
@@ -33,8 +34,6 @@ namespace Pengine
 		~Shader();
 	public:
 
-		static const char** GetListOfShaders();
-		
 		static Shader* Create(const std::string& name, const std::string& path);
 		
 		static Shader* Get(const std::string& name, bool showErrors = true);
@@ -51,7 +50,7 @@ namespace Pengine
 
 		ShaderProgramSource Parseshader(const std::string& filepath);
 		
-		uint32_t CreateShader(const std::string& vertexShader, const std::string& FragmentShader);
+		uint32_t CreateShader(const std::string& vertexShader, const std::string& geometryShader, const std::string& FragmentShader);
 		
 		uint32_t CompileShader(uint32_t type, const std::string& source);
 
@@ -70,6 +69,7 @@ namespace Pengine
 		void SetUniform1f(const std::string& name, float v0);
 
 		void SetUniformMat4f(const std::string& name,const glm::mat4& matrix);
+		void SetUniformMat3f(const std::string& name,const glm::mat3& matrix);
 		void SetUniformMat4fv(const std::string& name, const std::vector<glm::mat4>& matrices);
 
 		friend class Editor;

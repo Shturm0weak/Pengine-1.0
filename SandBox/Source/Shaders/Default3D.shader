@@ -4,21 +4,27 @@
 layout(location = 0) in vec3 positionA;
 layout(location = 1) in vec3 normalA;
 layout(location = 2) in vec2 uvA;
-layout(location = 3) in vec4 vertexColorA;
+layout(location = 3) in vec3 tangentA;
+layout(location = 4) in vec3 bitangentA;
 
 uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
+uniform mat3 u_InverseTransform;
 
 out vec2 uv;
-out vec3 normal;
-out vec4 vertexColor;
+out vec3 n;
 out vec4 worldPosition;
+out mat3 TBN;
 
 void main()
 {
 	uv = uvA;
-	normal = normalize(transpose(inverse(mat3(u_Transform))) * normalA);
-	vertexColor = vertexColorA;
+
+	n = normalize(u_InverseTransform * normalA);
+	vec3 tangent = normalize(u_InverseTransform * tangentA);
+	vec3 bitangent = normalize(u_InverseTransform * bitangentA);
+	TBN = (mat3(tangent, bitangent, n));
+
 	worldPosition = u_Transform * vec4(positionA, 1.0);
 	gl_Position = u_ViewProjection * worldPosition;
 }
@@ -34,7 +40,6 @@ struct DirectionalLight
 	vec3 color;
 	float intensity;
 };
-
 
 struct PointLight
 {
@@ -60,11 +65,13 @@ struct SpotLight
 struct Material
 {
 	sampler2D baseColor;
+	sampler2D normalMap;
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
 	float shininess;
 	float solid;
+	int useNormalMap;
 };
 
 #define MAX_LIGHT 32
@@ -77,12 +84,14 @@ uniform vec3 u_CameraPosition;
 uniform Material u_Material;
 
 in vec2 uv;
-in vec3 normal;
-in vec4 vertexColor;
+in vec3 n;
 in vec4 worldPosition;
+in mat3 TBN;
 
 vec3 viewDirection = normalize(u_CameraPosition - worldPosition.xyz);
-vec3 baseColor = texture(u_Material.baseColor, uv).xyz;
+vec4 baseColorRGBA = texture(u_Material.baseColor, uv);
+vec3 baseColor = baseColorRGBA.xyz;
+vec3 normal = n;
 
 vec3 DirectionalLightCompute()
 {
@@ -166,6 +175,18 @@ vec3 SpotLightCompute(SpotLight light)
 
 void main()
 {
+	if (baseColorRGBA.a < 0.5)
+	{
+		discard;
+	}
+
+	if (u_Material.useNormalMap == 1)
+	{
+		normal = texture(u_Material.normalMap, uv).xyz;
+		normal *= normal * 2.0 - 1.0;
+		normal = normalize(TBN * normal);
+	}
+
 	vec3 result = DirectionalLightCompute();
 
 	for (int i = 0; i < pointLightsSize; i++)

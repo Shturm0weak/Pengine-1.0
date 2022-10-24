@@ -38,7 +38,9 @@ namespace Pengine
 		Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices,
 			const std::vector<uint32_t>& layouts, const std::string& filePath);
 		
-		static size_t GetVertexOffset() { return 12; }
+		static size_t GetVertexOffset() { return 14; }
+
+		static size_t GetStaticAttributeVertexOffset() { return 5; }
 
 		const std::vector<float>& GetVertexAttributes() const { return m_VertexAttributes; }
 		

@@ -18,17 +18,8 @@ namespace Pengine
 	{
 	private:
 
-		void EraseFromInstancing();
-		void AddToInstancing();
-
-		void EraseFromTransparent();
-		void AddToTransparent();
-
-		void EraseFromShadows();
-		void AddToShadows();
-
 		std::vector<Mesh*> m_Lods = { nullptr, nullptr, nullptr };
-		std::vector<float> m_LodsDistance = { 50.0f, 100.0f };
+		std::vector<float> m_LodsDistance = { 1000.0f, 1000.0f };
 		size_t m_CurrentLOD = 0;
 		Mesh* m_Mesh = nullptr;
 
@@ -57,13 +48,11 @@ namespace Pengine
 		
 		virtual void Delete() override;
 
+		void SortLods(const glm::vec3& cameraPosition);
+
 		void SetMesh(Mesh* mesh, size_t lod = 0);
 
-		void SetOpaque(bool isOpaque = true);
-
 		void SetMaterial(Material* material);
-
-		void SetDrawShadows(bool drawShadows);
 
 		void SetCurrentLod(size_t lod);
 	};

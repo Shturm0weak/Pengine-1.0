@@ -2,8 +2,8 @@ Title: 3D
 Environment:
   Global Intensity: 1
   Directional Light: 1
-  Blur passes: 10
-  Brightness threshold: 0.52700001
+  Blur passes: 3
+  Brightness threshold: 11
   Exposure: 0.00999999978
   Gamma: 2.20000005
   Pixels blured: 6
@@ -21,14 +21,13 @@ Environment:
       - 10
       - 50
     Blur:
-      Passes: 4
-      IsEnabled: true
+      Passes: 1
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [-5.76900768, 0.872805297, -2.89473248]
-    Rotation: [-0.0860390514, 2.30474615, 0]
+    Position: [5.66015339, 21.1048374, -26.8969879]
+    Rotation: [-0.757427752, -3.71437454, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -38,7 +37,7 @@ Camera:
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 6671389041120385862
+  - GameObject: 3937625822247069962
     Name: Sun
     Is Enabled: true
     Is Selectable: true
@@ -48,32 +47,12 @@ GameObjects:
     Transform:
       Follow owner: true
       Position: [0, 5, 0]
-      Rotation: [0.853266835, 0.228648812, 0.382548124]
-      Scale: [0.999999702, 0.99999994, 1.00000012]
-    Renderer2D:
-      Color: [1, 1, 1, 1]
-      Texture: White
-      Normal Texture: White
-      Emissive Mask Texture: White
-      UV:
-        - 0
-        - 0
-        - 1
-        - 0
-        - 1
-        - 1
-        - 0
-        - 1
-      Layer: 0
-      Inner radius: 0
-      Outer radius: 0
-      Is Normal used: false
-      Ambient: 1
-      Emmisive Mask Intensity: 0
+      Rotation: [1.08210409, 0, 0]
+      Scale: [0.999999642, 1, 1]
     Directional Light:
       Color: [1, 1, 1]
-      Intensity: 1
-  - GameObject: 8866565011432507302
+      Intensity: 0.100000001
+  - GameObject: 3668866001965437086
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -87,9 +66,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/Arch.mat
-  - GameObject: 4180462505993468506
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 16819910025678273609
     Name: Cube
     Is Enabled: true
     Is Selectable: true
@@ -103,9 +91,18 @@ GameObjects:
       Scale: [25, 1, 25]
     Renderer3D:
       Mesh: Source\Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Materials/Material.mat
-  - GameObject: 15003650164820639173
+      Lods:
+        - Source\Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7977348276986839716
     Name: Cone
     Is Enabled: true
     Is Selectable: true
@@ -119,10 +116,19 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Cone.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Materials/Material.mat
-  - GameObject: 5013159086772234783
-    Name: Cylinder
+      Lods:
+        - Source\Meshes/Cone.meta
+        - None
+        - None
+  - GameObject: 18077684031712773104
+    Name: PointLight
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
@@ -130,14 +136,18 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-9, 0, 0]
+      Position: [2.44686985, 3.28644061, 4.15425444]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    Renderer3D:
-      Mesh: Source\Meshes/Cylinder.meta
-      IsInherited: false
-      Material: Source/Sponza/Materials/Bricks.mat
-  - GameObject: 16311489024232877733
+    PointLight:
+      Color: [1, 1, 1]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+  - GameObject: 12373308994809936150
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -151,9 +161,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Materials/Material.mat
-  - GameObject: 15369267875745058431
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 6827443076014023218
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -167,7 +186,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source\Materials\Emissive.mat
@@ -175,6 +199,9 @@ GameObjects:
         Type: std::string
         Value: Emissive
       m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_NormalMapFilePath:
         Type: std::string
         Value: White
       m_ShaderFilePath:
@@ -198,7 +225,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1915367885286480802
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 7086999029756315616
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -212,7 +246,12 @@ GameObjects:
       Scale: [1.00000024, 1.00000024, 0.999988139]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source\Materials\Emissive.mat
@@ -220,6 +259,9 @@ GameObjects:
         Type: std::string
         Value: Emissive
       m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_NormalMapFilePath:
         Type: std::string
         Value: White
       m_ShaderFilePath:
@@ -243,7 +285,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5641389068730187236
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 11933578768100711922
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -257,7 +306,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source\Materials\Emissive.mat
@@ -265,6 +319,9 @@ GameObjects:
         Type: std::string
         Value: Emissive
       m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_NormalMapFilePath:
         Type: std::string
         Value: White
       m_ShaderFilePath:
@@ -288,7 +345,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 14878458985898224076
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 1502312815100629932
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -302,7 +366,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source\Materials\Emissive.mat
@@ -310,6 +379,9 @@ GameObjects:
         Type: std::string
         Value: Emissive
       m_BaseColorFilePath:
+        Type: std::string
+        Value: White
+      m_NormalMapFilePath:
         Type: std::string
         Value: White
       m_ShaderFilePath:
@@ -329,11 +401,18 @@ GameObjects:
         Value: 1
       m_Scale:
         Type: float
-        Value: 12.9020004
+        Value: 255
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 10119765755684817893
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 4176822679039488847
     Name: Torus
     Is Enabled: true
     Is Selectable: true
@@ -347,9 +426,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Torus.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source\Materials\Emissive.mat
-  - GameObject: 9552501421322300770
+      Lods:
+        - Source\Meshes/Torus.meta
+        - None
+        - None
+  - GameObject: 2876046990851086732
     Name: Cube
     Is Enabled: true
     Is Selectable: true
@@ -363,9 +451,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Materials/Material.mat
-  - GameObject: 1429192280696288994
+      Lods:
+        - Source\Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5683478954789256467
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -379,9 +476,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/Bricks.mat
-  - GameObject: 7120328416480900647
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 17782560797531803786
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -395,9 +501,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
-  - GameObject: 11221519222860054341
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 4369518761302311768
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -411,9 +526,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
-  - GameObject: 15369370741316172497
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5556706725465755156
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -427,9 +551,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
-  - GameObject: 18037840721925353090
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 8456964073120998434
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -443,9 +576,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
-  - GameObject: 3807237258374773855
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 2433500140841265193
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -459,9 +601,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
-  - GameObject: 1286669640004113957
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 18116399267042929554
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -475,9 +626,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
-  - GameObject: 7378618888420761430
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 7001614406654244090
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -491,9 +651,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
-  - GameObject: 15042984666969061677
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 1142046336850158933
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -507,9 +676,18 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
-  - GameObject: 454230892222684483
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 2891036107455361668
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -523,7 +701,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -533,6 +716,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -554,7 +740,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12876905135757738150
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 7324429288900844021
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -568,7 +761,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -578,6 +776,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -599,7 +800,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16444164577115315597
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 9264603823968543979
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -613,7 +821,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -623,6 +836,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -644,7 +860,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 3879747146172514570
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 1142230920021896838
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -658,7 +881,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -668,6 +896,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -689,7 +920,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 13951773612422877024
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 10599674681613407739
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -703,7 +941,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -713,6 +956,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -734,7 +980,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7276387891633265066
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 15308557062039911481
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -748,7 +1001,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -758,6 +1016,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -779,7 +1040,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9324077035489747201
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 4143373880516454027
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -793,7 +1061,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -803,6 +1076,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -824,7 +1100,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16718799308889257903
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 14163977956571779812
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -838,7 +1121,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -848,6 +1136,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -869,7 +1160,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 4622687632838013875
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 6025178226127395275
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -883,7 +1181,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -893,6 +1196,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -914,7 +1220,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11133723832753290240
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 10091308165810335173
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -928,7 +1241,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -938,6 +1256,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -959,7 +1280,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7205152824766924842
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 3542647461848967072
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -973,7 +1301,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -983,6 +1316,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1004,7 +1340,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17269811893696010344
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 238230319631925927
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1018,7 +1361,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -1028,6 +1376,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1049,7 +1400,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15404267792584736096
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 17585235476021330251
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1063,7 +1421,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -1073,6 +1436,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1094,7 +1460,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5187172304468625279
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 11203051304150972592
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1108,7 +1481,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -1118,6 +1496,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1139,7 +1520,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8369783564803260356
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 4621935767116028087
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1153,7 +1541,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -1163,6 +1556,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1184,7 +1580,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2023145556835506005
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 3220749068843898789
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1198,7 +1601,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -1208,6 +1616,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1229,7 +1640,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5717090086746772116
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5653941482659617931
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1243,7 +1661,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -1253,6 +1676,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1274,7 +1700,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17665168563321257202
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 13917601243899983855
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1288,7 +1721,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -1298,6 +1736,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1319,7 +1760,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 1642224865711439876
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 16122186525490126083
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1333,7 +1781,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -1343,6 +1796,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1364,7 +1820,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5282938439323291414
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5733602292411416425
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1378,7 +1841,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -1388,6 +1856,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1409,7 +1880,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15061388116239013089
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 1150495037901420520
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1423,7 +1901,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -1433,6 +1916,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1454,7 +1940,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7746719738332963572
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 7201187111187593460
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1468,7 +1961,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -1478,6 +1976,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1499,7 +2000,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 9035132715209107224
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5138381487270188880
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1513,7 +2021,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -1523,6 +2036,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1544,7 +2060,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15445803826032433014
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 2700715109075597348
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1558,7 +2081,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -1568,6 +2096,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1589,7 +2120,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12317059340313539564
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 17156922644403928136
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1603,7 +2141,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -1613,6 +2156,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1634,7 +2180,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 4116683885084380355
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 10814386928616910593
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1648,7 +2201,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -1658,6 +2216,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1679,7 +2240,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17572309379524423442
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 4884133549425820321
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1693,7 +2261,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -1703,6 +2276,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1724,7 +2300,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 6840568672010490560
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5883945131314370848
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1738,7 +2321,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -1748,6 +2336,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1769,7 +2360,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16412328419713200920
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 9926033720390641919
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1783,7 +2381,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -1793,6 +2396,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1814,7 +2420,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 7992999508935656198
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 18002136137087841283
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1828,7 +2441,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -1838,6 +2456,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1859,7 +2480,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5177497380074277064
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 2143516965596750812
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1873,7 +2501,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -1883,6 +2516,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1904,7 +2540,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2040239720343731199
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 9483858357290056278
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1918,7 +2561,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -1928,6 +2576,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1949,7 +2600,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8807265345720771485
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 14068821259665650651
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -1963,7 +2621,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -1973,6 +2636,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -1994,7 +2660,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 12347143493419780137
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 3035858569633596612
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2008,7 +2681,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -2018,6 +2696,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2039,7 +2720,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11293443132813782900
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 13608529638801415256
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2053,7 +2741,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -2063,6 +2756,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2084,7 +2780,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 10655251130184180690
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5468023825779282600
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2098,7 +2801,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -2108,6 +2816,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2129,7 +2840,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 3785626951377630174
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5951611780741590012
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2143,7 +2861,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -2153,6 +2876,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2174,7 +2900,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 4077948836404279945
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 15346187989152597820
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2188,7 +2921,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -2198,6 +2936,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2219,7 +2960,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 6693514608137846484
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 1263745938229429321
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2233,7 +2981,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -2243,6 +2996,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2264,7 +3020,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11705416390736030034
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 7949333951947232132
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2278,7 +3041,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -2288,6 +3056,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2309,7 +3080,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2439428831068410588
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 9273734152255535792
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2323,7 +3101,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -2333,6 +3116,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2354,7 +3140,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 388376848753230648
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5422571238808827609
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2368,7 +3161,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -2378,6 +3176,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2399,7 +3200,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 6436481253953651002
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 11139868389448496335
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2413,7 +3221,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -2423,6 +3236,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2444,7 +3260,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 58616674308274370
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 517589412172173280
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2458,7 +3281,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -2468,6 +3296,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2489,7 +3320,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16955324008599791077
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 6280162881696873312
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2503,7 +3341,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -2513,6 +3356,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2534,7 +3380,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17001236528369457355
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 13987860301374292174
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2548,7 +3401,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -2558,6 +3416,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2579,7 +3440,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15061007148327873815
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 17657112219348214073
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2593,7 +3461,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -2603,6 +3476,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2624,7 +3500,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 14045477218049611511
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 12610965808922983126
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2638,7 +3521,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -2648,6 +3536,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2669,7 +3560,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 14255604035508377707
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 5011892407103841620
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2683,7 +3581,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -2693,6 +3596,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2714,7 +3620,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 11038513298721257200
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 12768843747693663815
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2728,7 +3641,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -2738,6 +3656,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2759,7 +3680,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16585832520529994381
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 18362562596161547640
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2773,7 +3701,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Arch.mat
@@ -2783,6 +3716,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_arch_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2804,7 +3740,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 15660640225201715214
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 8974158844693155451
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2818,7 +3761,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Bricks.mat
@@ -2828,6 +3776,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2849,7 +3800,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 925983914612210012
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 17107046283508187743
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2863,7 +3821,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/Ceiling.mat
@@ -2873,6 +3836,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2894,7 +3860,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 10873378763138638798
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 15867254558897620650
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2908,7 +3881,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/ColumnSquare.mat
@@ -2918,6 +3896,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_column_c_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2939,7 +3920,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 5320216324600030676
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 14953665955019027198
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2953,7 +3941,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainBlue.mat
@@ -2963,6 +3956,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -2984,7 +3980,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 8101648534916380363
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 7681425919763210770
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -2998,7 +4001,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainGreen.mat
@@ -3008,6 +4016,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -3029,7 +4040,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 2000079013727211111
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 16006757744800606952
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3043,7 +4061,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/CurtainRed.mat
@@ -3053,6 +4076,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_curtain_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -3074,7 +4100,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 16744100171441526753
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 10655155197168694341
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3088,7 +4121,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricBlue.mat
@@ -3098,6 +4136,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -3119,7 +4160,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 3303129558195197560
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 14998778231372057244
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3133,7 +4181,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricRed.mat
@@ -3143,6 +4196,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -3164,7 +4220,14 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
-  - GameObject: 17692007368692907081
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 10389080250201007868
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -3178,7 +4241,12 @@ GameObjects:
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
       IsInherited: true
+      LodsDistance:
+        - 1000
+        - 1000
       m_FilePath:
         Type: std::string
         Value: Source/Sponza/Materials/FabricGreen.mat
@@ -3188,6 +4256,9 @@ GameObjects:
       m_BaseColorFilePath:
         Type: std::string
         Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
+      m_NormalMapFilePath:
+        Type: std::string
+        Value: White
       m_ShaderFilePath:
         Type: std::string
         Value: Instancing3D.shader
@@ -3209,3 +4280,10 @@ GameObjects:
       m_Solid:
         Type: float
         Value: 1
+      m_UseNormalMap:
+        Type: bool
+        Value: false
+      Lods:
+        - Source\Meshes/Sphere.meta
+        - None
+        - None

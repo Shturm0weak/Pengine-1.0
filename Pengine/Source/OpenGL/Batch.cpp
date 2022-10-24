@@ -458,8 +458,6 @@ void Batch::Submit(const glm::vec3& start, const glm::vec3& end, const glm::vec4
 	m_LineWrapper.m_Buffer++;
 
 	m_LineWrapper.m_IndexCount += 2;
-
-	Editor::GetInstance().m_Stats.m_Vertices += 2;
 }
 
 void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>& uv, const glm::mat4& transform,
@@ -543,8 +541,6 @@ void Batch::Submit(const std::vector<float>& vertices, const std::vector<float>&
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_IndexCount += 6;
-
-	Editor::GetInstance().m_Stats.m_Vertices += 4;
 }
 
 void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, const glm::vec4& color, std::vector<class Texture*> textures,
@@ -616,8 +612,6 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& transform, c
 	m_GOWrapper.m_Buffer++;
 
 	m_GOWrapper.m_IndexCount += 6;
-
-	Editor::GetInstance().m_Stats.m_Vertices += 4;
 }
 
 void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& positionMat4, const glm::mat4& rotationMat4,
@@ -684,7 +678,7 @@ void Batch::FlushGameObjects(bool isVisualizer)
 	glDrawElements(GL_TRIANGLES, m_GOWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
-	Editor::GetInstance().m_Stats.m_Indices += m_GOWrapper.m_IndexCount;
+	Editor::GetInstance().m_Stats.m_Triangles += m_GOWrapper.m_IndexCount / 3;
 
 	shader->UnBind();
 	m_GOWrapper.m_Ibo.UnBind();
@@ -716,7 +710,7 @@ void Batch::FlushLines()
 	glDrawElements(GL_LINES, m_LineWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 	
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
-	Editor::GetInstance().m_Stats.m_Indices += m_LineWrapper.m_IndexCount;
+	Editor::GetInstance().m_Stats.m_Triangles += m_LineWrapper.m_IndexCount / 3;
 
 	shader->UnBind();
 	m_LineWrapper.m_Ibo.UnBind();
@@ -757,7 +751,7 @@ void Batch::FlushUI()
 	glDrawElements(GL_TRIANGLES, m_UIWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
-	Editor::GetInstance().m_Stats.m_Indices += m_UIWrapper.m_IndexCount;
+	Editor::GetInstance().m_Stats.m_Triangles += m_UIWrapper.m_IndexCount / 3;
 
 	shader->UnBind();
 	m_UIWrapper.m_Ibo.UnBind();

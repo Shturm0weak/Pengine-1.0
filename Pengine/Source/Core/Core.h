@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAX_PREALLOCATED_INSTANCES 1
+#define MAX_PREALLOCATED_INSTANCES 1000
 
 #ifdef PENGINE_ENGINE
 #define PENGINE_API __declspec(dllexport)

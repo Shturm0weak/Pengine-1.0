@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -89,6 +89,9 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,10 +146,11 @@
     <None Include="Source\Shaders\DefaultLines.shader" />
     <None Include="Source\Shaders\Deferred.shader" />
     <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\Instancing3DDepthPointShadows.shader" />
     <None Include="Source\Shaders\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Instancing3D.shader" />
     <None Include="Source\Shaders\Depth.shader" />
-    <None Include="Source\Shaders\Instancing3DDepth.shader" />
+    <None Include="Source\Shaders\Instancing3DDepthDirShadows.shader" />
     <None Include="Source\Shaders\InstancingShadows.shader" />
     <None Include="Source\Shaders\SSAO.shader" />
     <None Include="Source\Shaders\UI.shader" />

@@ -1,0 +1,8 @@
+Texture:
+  Name: chain_texture_ddn
+  FilePath: Source\Sponza\Textures\chain_texture_ddn.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

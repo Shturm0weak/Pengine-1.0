@@ -30,12 +30,9 @@ namespace Pengine
 
 		std::unordered_map<Mesh*, DynamicBuffer> m_OpaqueBuffersByMesh;
 		std::unordered_map<Mesh*, DynamicBuffer> m_ShadowsBuffersByMesh;
-		size_t m_NThreads;
-		ThreadPool::SyncParams m_SyncParams;
 
-		// Ambient, Diffuse, Specular, transformMat4, TextureIndex, Shininess
-		size_t m_SizeOfAttribs = 3 + 3 + 3 + 16 + 1 + 1;
-		int m_SizeOfObjectToThreads = 100;
+		// Ambient, Diffuse, Specular, transformMat4, inverseTransformMat3, BaseColorIndex, NormalMapIndex, Shininess, UseNormalMap.
+		size_t m_SizeOfAttribs = 3 + 3 + 3 + 16 + 9 + 1 + 1 + 1 + 1;
 		int m_TextureOffset = 5;
 
 		friend class Renderer;
@@ -48,8 +45,11 @@ namespace Pengine
 
 		void Create(Mesh* mesh);
 
+		/*
+		 * Deprecated. 
 		void Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
 			std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh);
+		*/
 
 		void RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
 			std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh);

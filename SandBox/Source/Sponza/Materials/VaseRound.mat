@@ -7,7 +7,10 @@ Material:
     Value: VaseRound
   m_BaseColorFilePath:
     Type: std::string
-    Value: Source\Sponza\Textures\vase_round.png
+    Value: Source\Sponza\Textures\vase_hanging.png
+  m_NormalMapFilePath:
+    Type: std::string
+    Value: Source\Sponza\Textures\vase_hanging_NRM.png
   m_ShaderFilePath:
     Type: std::string
     Value: Instancing3D.shader
@@ -29,3 +32,6 @@ Material:
   m_Solid:
     Type: float
     Value: 1
+  m_UseNormalMap:
+    Type: bool
+    Value: true

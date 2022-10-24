@@ -59,8 +59,7 @@ void Editor::Debug()
 		if (ImGui::CollapsingHeader("Render Stats"))
 		{
 			ImGui::Text("Drawcalls: %zu", m_Stats.m_DrawCalls);
-			ImGui::Text("Vertices: %zu", m_Stats.m_Vertices);
-			ImGui::Text("Indices: %zu", m_Stats.m_Indices);
+			ImGui::Text("Triangles: %zu", m_Stats.m_Triangles);
 		}
 
 		if (ImGui::CollapsingHeader("Misc"))
@@ -641,7 +640,7 @@ void Editor::AssetBrowser()
 				continue;
 			}
 
-			const std::string filename = Utils::GetNameFromFilePath(path);
+			const std::string filename = Utils::RemoveDirectoryFromFilePath(path);
 			const std::string format = Utils::GetResolutionFromFilePath(path);
 			ImTextureID currentIcon;
 			if (directoryIter.is_directory())
@@ -655,6 +654,17 @@ void Editor::AssetBrowser()
 			else if (format == "meta")
 			{
 				currentIcon = metaIconId;
+			}
+			else if (Utils::IsTextureFile(path))
+			{
+				if (Texture* texture = TextureManager::GetInstance().GetByFilePath(path))
+				{
+					currentIcon = (ImTextureID)texture->GetRendererID();
+				}
+				else
+				{
+					currentIcon = fileIconId;
+				}
 			}
 			else
 			{
@@ -1434,6 +1444,9 @@ void Editor::PointLightComponent(GameObject* gameObject)
 				ImGui::SliderFloat("Linear", &pointLight->m_Linear, 0.0f, 0.100f);
 				ImGui::SliderFloat("Quadratic", &pointLight->m_Quadratic, 0.0f, 0.1f);
 				ImGui::ColorEdit3("Color", &pointLight->m_Color[0]);
+				ImGui::SliderFloat("ZNear", &pointLight->m_ZNear, 0.1, 1.0f);
+				ImGui::SliderFloat("ZFar", &pointLight->m_ZFar, 1.0f, 150.0f);
+				ImGui::SliderFloat("Fog", &pointLight->m_Fog, 0.0f, 1.0f);
 			}
 		}
 	}
@@ -1610,8 +1623,47 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					if (ImGui::Button("Reset"))
 					{
-						r3d->m_Material->m_BaseColor = TextureManager::GetInstance().White();
+						r3d->m_Material->SetBaseColor(TextureManager::GetInstance().White(), TextureManager::GetInstance().White()->GetName());
 					}
+
+					ImGui::PopID();
+
+					if (ImGui::ImageButton((ImTextureID)r3d->m_Material->m_NormalMap->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+					{
+						m_TextureMenu.m_IsActive = true;
+						m_TextureMenu.m_Texture = r3d->m_Material->m_NormalMap;
+					}
+
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						{
+							std::string path((const char*)payload->Data);
+							path.resize(payload->DataSize);
+
+							TextureManager::GetInstance().AsyncLoad(path,
+								[=](Texture* texture)
+							{
+								r3d->m_Material->SetNormalMap(texture, path);
+							});
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+					ImGui::SameLine();
+
+					ImGui::PushID(r3d->m_Material->m_NormalMap->GetRendererID() + 100001);
+
+					ImGui::Checkbox("Use", &r3d->m_Material->m_UseNormalMap);
+
+					ImGui::SameLine();
+
+					if (ImGui::Button("Reset"))
+					{
+						r3d->m_Material->SetNormalMap(TextureManager::GetInstance().White(), TextureManager::GetInstance().White()->GetName());
+					}
+
+					ImGui::PopID();
 
 					ImGui::ColorEdit3("Ambient", &r3d->m_Material->m_Ambient[0], ImGuiColorEditFlags_Float);
 					ImGui::ColorEdit3("Diffuse", &r3d->m_Material->m_Diffuse[0], ImGuiColorEditFlags_Float);
@@ -1624,21 +1676,10 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 					{
 						Serializer::SerializeMaterial(r3d->m_Material->GetFilePath(), r3d->m_Material);
 					}
-
-					ImGui::PopID();
 				}
 
-				bool opaque = r3d->m_IsOpaque;
-				if (ImGui::Checkbox("Is Opaque", &opaque))
-				{
-					r3d->SetOpaque(opaque);
-				}
-
-				bool drawShadows = r3d->m_DrawShadows;
-				if (ImGui::Checkbox("Draw Shadows", &drawShadows))
-				{
-					r3d->SetDrawShadows(drawShadows);
-				}
+				ImGui::Checkbox("Is Opaque", &r3d->m_IsOpaque);
+				ImGui::Checkbox("Draw Shadows", &r3d->m_DrawShadows);
 			}
 		}
 	}
@@ -2342,8 +2383,6 @@ void Editor::Update(Scene* scene)
 
 	EntryPoint::GetApplication().OnImGuiRender();
 
-	Debug();
-
 	if (!m_IsEnabled)
 	{
 		ImGui::PopStyleVar();
@@ -2352,6 +2391,7 @@ void Editor::Update(Scene* scene)
 		return;
 	}
 
+	Debug();
 	Properties();
 	AssetBrowser();
 	Hierarchy();
@@ -2477,7 +2517,6 @@ void Editor::Settings()
 		ImGui::Checkbox("Snap", &m_Snap);
 		ImGui::Checkbox("Draw colliders", &m_DrawColliders);
 		ImGui::SliderInt("Line width", &m_LineWidth, 1, 5);
-		ImGui::SliderInt("Instanced objects to threads", &Instancing::GetInstance().m_SizeOfObjectToThreads, 1, 1000);
 		ImGui::SliderFloat("Thumbnail scale", &m_ThumbnailScale, 0.1f, 5.0f);
 
 		if (ImGui::SliderFloat("Master volume", &SoundManager::GetInstance().m_MasterVolume, 0.0f, 1.0f))
@@ -2491,6 +2530,17 @@ void Editor::Settings()
 			ImGui::ColorEdit3("Color", &m_OutlineParams.m_Color[0]);
 			ImGui::SliderInt("Color", &m_OutlineParams.m_Thickness, 1, 5);
 			ImGui::PopID();
+		}
+
+		if (ImGui::Button("Deinherit all materials"))
+		{
+			for (Renderer3D* r3d : m_CurrentScene->m_Renderers3D)
+			{
+				if (r3d->m_Material->IsInherited())
+				{
+					r3d->SetMaterial(MaterialManager::GetInstance().Load(r3d->m_Material->GetFilePath()));
+				}
+			}
 		}
 
 		ImGui::End();

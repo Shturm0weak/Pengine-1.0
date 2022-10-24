@@ -14,10 +14,12 @@ using namespace Pengine;
 void Renderer3D::Copy(const IComponent& component)
 {
 	Renderer3D& r3d = *(Renderer3D*)&component;
-	SetMesh(r3d.m_Mesh);
     SetMaterial(r3d.m_Material->Inherit());
-	SetOpaque(r3d.m_IsOpaque);
-	SetDrawShadows(r3d.m_DrawShadows);
+	m_Lods = r3d.m_Lods;
+	m_LodsDistance = r3d.m_LodsDistance;
+	m_CurrentLOD = -1;
+	m_IsOpaque = r3d.m_IsOpaque;
+	m_DrawShadows = r3d.m_DrawShadows;
 	m_Type = component.GetType();
 }
 
@@ -37,6 +39,7 @@ void Renderer3D::Render()
 	m_Shader->SetUniformMat4f("u_ViewProjection", environment.GetMainCamera()->GetViewProjectionMat4());
 	m_Shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
 	m_Shader->SetUniformMat4f("u_Transform", m_Owner->m_Transform.GetTransform());
+	m_Shader->SetUniformMat3f("u_InverseTransform", glm::transpose(m_Owner->m_Transform.GetInverseTransform()));
 
 	glm::vec3 scale = { m_Material->m_Scale, m_Material->m_Scale, m_Material->m_Scale };
 
@@ -45,9 +48,14 @@ void Renderer3D::Render()
 	m_Shader->SetUniform3fv("u_Material.specular", m_Material->m_Specular * scale);
 	m_Shader->SetUniform1f("u_Material.shininess", m_Material->m_Shininess);
 	m_Shader->SetUniform1f("u_Material.solid", m_Material->m_Solid);
+	m_Shader->SetUniform1i("u_Material.useNormalMap", m_Material->m_UseNormalMap);
 	glActiveTexture(GL_TEXTURE0 + 0);
 	glBindTexture(GL_TEXTURE_2D, m_Material->m_BaseColor->GetRendererID());
 	m_Shader->SetUniform1i("u_Material.baseColor", 0);
+
+	glActiveTexture(GL_TEXTURE0 + 1);
+	glBindTexture(GL_TEXTURE_2D, m_Material->m_NormalMap->GetRendererID());
+	m_Shader->SetUniform1i("u_Material.normalMap", 1);
 
 	if (GetOwner()->GetScene()->m_DirectionalLights.empty())
 	{
@@ -106,8 +114,7 @@ void Renderer3D::Render()
 	m_Mesh->m_Va.Bind();
 	m_Mesh->m_Ib.Bind();
 	
-	Editor::GetInstance().m_Stats.m_Vertices += (float)m_Mesh->GetVertexAttributes().size() / (float)m_Mesh->m_Layout.GetElements().size();
-	Editor::GetInstance().m_Stats.m_Indices += m_Mesh->m_Ib.GetCount();
+	Editor::GetInstance().m_Stats.m_Triangles += m_Mesh->m_Ib.GetCount() / 3;
 	Editor::GetInstance().m_Stats.m_DrawCalls++;
 
 	if (Editor::GetInstance().m_PolygonMode)
@@ -130,87 +137,6 @@ void Renderer3D::Render()
 	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
 }
 
-void Renderer3D::EraseFromInstancing()
-{
-	Scene* scene = GetOwner()->GetScene();
-
-	auto opaqueByMesh = scene->m_OpaqueByMesh.find(m_Mesh);
-	if (opaqueByMesh != scene->m_OpaqueByMesh.end())
-	{
-		Utils::Erase<Renderer3D>(opaqueByMesh->second, this);
-	}
-}
-
-void Renderer3D::AddToInstancing()
-{
-	Scene* scene = GetOwner()->GetScene();
-
-	auto opaqueByMesh = scene->m_OpaqueByMesh.find(m_Mesh);
-	if (opaqueByMesh != scene->m_OpaqueByMesh.end())
-	{
-		if (!Utils::IsThere<Renderer3D*>(opaqueByMesh->second, this))
-		{
-			opaqueByMesh->second.push_back(this);
-		}
-	}
-	else
-	{
-		scene->m_OpaqueByMesh.emplace(m_Mesh, std::vector<Renderer3D*>() = { this });
-	}
-}
-
-void Renderer3D::EraseFromTransparent()
-{
-	Scene* scene = GetOwner()->GetScene();
-
-	if(Utils::Erase<Renderer3D*>(scene->m_TransparentByDistance, this))
-	{
-		return;
-	}
-}
-
-void Renderer3D::AddToTransparent()
-{
-	std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
-	Scene* scene = GetOwner()->GetScene();
-
-	if (Utils::IsThere<Renderer3D*>(scene->m_TransparentByDistance, this))
-	{
-		return;
-	}
-
-	scene->m_TransparentByDistance.emplace_back(this);
-}
-
-void Renderer3D::EraseFromShadows()
-{
-	Scene* scene = GetOwner()->GetScene();
-
-	auto shadowsByMesh = scene->m_ShadowsByMesh.find(m_Mesh);
-	if (shadowsByMesh != scene->m_ShadowsByMesh.end())
-	{
-		Utils::Erase<Renderer3D>(shadowsByMesh->second, this);
-	}
-}
-
-void Renderer3D::AddToShadows()
-{
-	Scene* scene = GetOwner()->GetScene();
-
-	auto shadowsByMesh = scene->m_ShadowsByMesh.find(m_Mesh);
-	if (shadowsByMesh != scene->m_ShadowsByMesh.end())
-	{
-		if (!Utils::IsThere<Renderer3D*>(shadowsByMesh->second, this))
-		{
-			shadowsByMesh->second.push_back(this);
-		}
-	}
-	else
-	{
-		scene->m_ShadowsByMesh.emplace(m_Mesh, std::vector<Renderer3D*>() = { this });
-	}
-}
-
 IComponent* Renderer3D::Create(GameObject* owner)
 {
 	Renderer3D* r3d = MemoryManager::GetInstance().Allocate<Renderer3D>();
@@ -225,20 +151,29 @@ IComponent* Renderer3D::Create(GameObject* owner)
 void Renderer3D::Delete()
 {
 	SetMaterial(MaterialManager::GetInstance().Load("Source/Materials/Material.mat"));
-	
-	if (m_IsOpaque)
-	{
-		EraseFromInstancing();
-	}
-	else
-	{
-		EraseFromTransparent();
-	}
-
-	EraseFromShadows();
 
 	Utils::Erase<Renderer3D>(GetOwner()->GetScene()->m_Renderers3D, this);
 	MemoryManager::GetInstance().FreeMemory<Renderer3D>(static_cast<IAllocator*>(this));
+}
+
+void Renderer3D::SortLods(const glm::vec3& cameraPosition)
+{
+	std::vector<float> lodsDistance = m_LodsDistance;
+	glm::vec3 position = GetOwner()->m_Transform.GetPosition();
+	float distance2 = glm::distance2(cameraPosition, position);
+
+	if (distance2 < lodsDistance[0] * lodsDistance[0])
+	{
+		SetCurrentLod(0);
+	}
+	else if (distance2 < lodsDistance[1] * lodsDistance[1])
+	{
+		SetCurrentLod(1);
+	}
+	else
+	{
+		SetCurrentLod(2);
+	}
 }
 
 void Renderer3D::SetMesh(Mesh* mesh, size_t lod)
@@ -248,69 +183,8 @@ void Renderer3D::SetMesh(Mesh* mesh, size_t lod)
 		lod = 0;
 	}
 
-	if (m_Mesh)
-	{
-		if (m_IsOpaque)
-		{
-			EraseFromInstancing();
-		}
-		else
-		{
-			EraseFromTransparent();
-		}
-	}
-
-	if (mesh)
-	{
-		m_Mesh = mesh;
-		m_Lods[lod] = m_Mesh;
-
-		if (m_IsOpaque)
-		{
-			AddToInstancing();
-		}
-		else
-		{
-			AddToTransparent();
-		}
-
-		SetDrawShadows(m_DrawShadows);
-	}
-	else
-	{
-		EraseFromShadows();
-
-		m_Mesh = mesh;
-		m_Lods[lod] = m_Mesh;
-	}
-}
-
-void Renderer3D::SetOpaque(bool isOpaque)
-{
-	if (!m_Mesh && isOpaque == m_IsOpaque)
-	{
-		return;
-	}
-
-	if (m_IsOpaque)
-	{
-		EraseFromInstancing();
-	}
-	else
-	{
-		EraseFromTransparent();
-	}
-
-	m_IsOpaque = isOpaque;
-
-	if (m_IsOpaque)
-	{
-		AddToInstancing();
-	}
-	else
-	{
-		AddToTransparent();
-	}
+	m_Mesh = mesh;
+	m_Lods[lod] = m_Mesh;
 }
 
 void Renderer3D::SetMaterial(Material* material)
@@ -321,25 +195,6 @@ void Renderer3D::SetMaterial(Material* material)
 	}
 
 	m_Material = material;
-}
-
-void Renderer3D::SetDrawShadows(bool drawShadows)
-{
-	if (!m_Mesh && drawShadows == m_DrawShadows)
-	{
-		return;
-	}
-
-	m_DrawShadows = drawShadows;
-
-	if (m_DrawShadows)
-	{
-		AddToShadows();
-	}
-	else
-	{
-		EraseFromShadows();
-	}
 }
 
 void Renderer3D::SetCurrentLod(size_t lod)
