@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\ImGui\ImGui.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\ImGui\ImGui.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\ImGui\ImGui.lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -77,7 +77,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <AdditionalIncludeDirectories>$(SolutionDir)Vendor\ImGui;$(SolutionDir)Includes\GLEW;$(SolutionDir)Vendor\ImGui\libs\glfw\include;$(SolutionDir)Vendor\ImGui\misc\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -85,9 +85,6 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -95,7 +92,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\ImGui\ImGui.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\ImGui\ImGui.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\ImGui\ImGui.lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

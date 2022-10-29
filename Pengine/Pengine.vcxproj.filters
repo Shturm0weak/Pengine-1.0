@@ -72,6 +72,9 @@
     <ClInclude Include="Source\Components\CircleCollider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\DirectionalLight.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Components\ICollider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -96,6 +99,12 @@
     <ClInclude Include="Source\Components\Script.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\Spline.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\SpotLight.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Components\Transform.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -109,6 +118,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Asset.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\BoundingBox.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Camera.h">
@@ -144,7 +156,13 @@
     <ClInclude Include="Source\Core\Input.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\Instancing.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Core\Logger.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\MaterialManager.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\MemoryManager.h">
@@ -160,6 +178,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Raycast2D.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\Raycast3D.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\ReflectionSystem.h">
@@ -210,6 +231,9 @@
     <ClInclude Include="Source\Enums\ColoredOutput.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enums\Colors.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Enums\EventType.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -226,6 +250,9 @@
       <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="Source\Events\OnMainThreadCallback.h">
+      <Filter>Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Events\SetScrollEvent.h">
       <Filter>Events</Filter>
     </ClInclude>
     <ClInclude Include="Source\Events\WindowResizeEvent.h">
@@ -273,16 +300,6 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Lua\luaaa.hpp" />
-    <ClInclude Include="Source\Events\SetScrollEvent.h" />
-    <ClInclude Include="Source\Components\DirectionalLight.h" />
-    <ClInclude Include="Source\Core\Instancing.h" />
-    <ClInclude Include="Source\Core\Raycast3D.h" />
-    <ClInclude Include="Source\Core\BoundingBox.h" />
-    <ClInclude Include="Source\Enums\Colors.h" />
-    <ClInclude Include="Source\Core\MaterialManager.h" />
-    <ClInclude Include="Source\Components\SpotLight.h" />
-    <ClInclude Include="Source\Components\Spline.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -298,6 +315,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\CircleCollider2D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\DirectionalLight.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\ICollider2D.cpp">
@@ -321,6 +341,12 @@
     <ClCompile Include="Source\Components\Script.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\Spline.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\SpotLight.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Components\Transform.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -331,6 +357,12 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Application.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Asset.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\BoundingBox.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Camera.cpp">
@@ -363,7 +395,13 @@
     <ClCompile Include="Source\Core\Input.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Core\Instancing.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Core\Logger.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\MaterialManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\MemoryManager.cpp">
@@ -379,6 +417,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Raycast2D.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\Raycast3D.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Renderer.cpp">
@@ -438,6 +479,9 @@
     <ClCompile Include="Source\OpenGL\IndexBuffer.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OpenGL\Material.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Source\OpenGL\Shader.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -460,14 +504,5 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\Material.cpp" />
-    <ClCompile Include="Source\Components\DirectionalLight.cpp" />
-    <ClCompile Include="Source\Core\Instancing.cpp" />
-    <ClCompile Include="Source\Core\BoundingBox.cpp" />
-    <ClCompile Include="Source\Core\Raycast3D.cpp" />
-    <ClCompile Include="Source\Core\MaterialManager.cpp" />
-    <ClCompile Include="Source\Core\Asset.cpp" />
-    <ClCompile Include="Source\Components\SpotLight.cpp" />
-    <ClCompile Include="Source\Components\Spline.cpp" />
   </ItemGroup>
 </Project>

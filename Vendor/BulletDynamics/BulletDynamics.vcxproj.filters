@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Character">
+      <UniqueIdentifier>{72433DA5-DEAD-F11B-27EC-A2C19395CF70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ConstraintSolver">
+      <UniqueIdentifier>{256EF0E8-1167-0F3B-3A99-F4BF26F1EE46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dynamics">
+      <UniqueIdentifier>{3DDC26A7-29A9-81B2-52C2-6F5A3EEEB640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Featherstone">
+      <UniqueIdentifier>{8D11ED14-7974-7CB9-22FA-B46F0E3C483C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MLCPSolvers">
+      <UniqueIdentifier>{1F94868C-8B49-FF81-143E-F95880F2F585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vehicle">
+      <UniqueIdentifier>{6549FED2-D128-7D6E-DA40-0845469FE3CF}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Character\btCharacterControllerInterface.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Character\btKinematicCharacterController.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btBatchedConstraints.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btConeTwistConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btConstraintSolver.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btContactConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btContactSolverInfo.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btFixedConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btGearConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btGeneric6DofConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btGeneric6DofSpring2Constraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btGeneric6DofSpringConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btHinge2Constraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btHingeConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btJacobianEntry.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btNNCGConstraintSolver.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btPoint2PointConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSequentialImpulseConstraintSolver.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSequentialImpulseConstraintSolverMt.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSliderConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSolve2LinearConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSolverBody.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btSolverConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btTypedConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstraintSolver\btUniversalConstraint.h">
+      <Filter>ConstraintSolver</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btActionInterface.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btDiscreteDynamicsWorld.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btDiscreteDynamicsWorldMt.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btDynamicsWorld.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btRigidBody.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btSimpleDynamicsWorld.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Dynamics\btSimulationIslandManagerMt.h">
+      <Filter>Dynamics</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBody.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyConstraintSolver.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyDynamicsWorld.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyFixedConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyGearConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyInplaceSolverIslandCallback.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyJointFeedback.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyJointLimitConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyJointMotor.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyLink.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyLinkCollider.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyMLCPConstraintSolver.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodyPoint2Point.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodySliderConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodySolverConstraint.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodySphericalJointLimit.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="Featherstone\btMultiBodySphericalJointMotor.h">
+      <Filter>Featherstone</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btDantzigLCP.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btDantzigSolver.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btLemkeAlgorithm.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btLemkeSolver.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btMLCPSolver.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btMLCPSolverInterface.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btPATHSolver.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="MLCPSolvers\btSolveProjectedGaussSeidel.h">
+      <Filter>MLCPSolvers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle\btRaycastVehicle.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle\btVehicleRaycaster.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle\btWheelInfo.h">
+      <Filter>Vehicle</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Character\btKinematicCharacterController.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btBatchedConstraints.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btConeTwistConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btContactConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btFixedConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btGearConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btGeneric6DofConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btGeneric6DofSpring2Constraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btGeneric6DofSpringConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btHinge2Constraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btHingeConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btNNCGConstraintSolver.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btPoint2PointConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btSequentialImpulseConstraintSolver.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btSequentialImpulseConstraintSolverMt.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btSliderConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btSolve2LinearConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btTypedConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="ConstraintSolver\btUniversalConstraint.cpp">
+      <Filter>ConstraintSolver</Filter>
+    </ClCompile>
+    <ClCompile Include="Dynamics\btDiscreteDynamicsWorld.cpp">
+      <Filter>Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="Dynamics\btDiscreteDynamicsWorldMt.cpp">
+      <Filter>Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="Dynamics\btRigidBody.cpp">
+      <Filter>Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="Dynamics\btSimpleDynamicsWorld.cpp">
+      <Filter>Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="Dynamics\btSimulationIslandManagerMt.cpp">
+      <Filter>Dynamics</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBody.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyConstraint.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyConstraintSolver.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyDynamicsWorld.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyFixedConstraint.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyGearConstraint.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyJointLimitConstraint.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyJointMotor.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyMLCPConstraintSolver.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodyPoint2Point.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodySliderConstraint.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodySphericalJointLimit.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="Featherstone\btMultiBodySphericalJointMotor.cpp">
+      <Filter>Featherstone</Filter>
+    </ClCompile>
+    <ClCompile Include="MLCPSolvers\btDantzigLCP.cpp">
+      <Filter>MLCPSolvers</Filter>
+    </ClCompile>
+    <ClCompile Include="MLCPSolvers\btLemkeAlgorithm.cpp">
+      <Filter>MLCPSolvers</Filter>
+    </ClCompile>
+    <ClCompile Include="MLCPSolvers\btMLCPSolver.cpp">
+      <Filter>MLCPSolvers</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle\btRaycastVehicle.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle\btWheelInfo.cpp">
+      <Filter>Vehicle</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -70,14 +70,14 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)
 IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Debug &gt; nul)
+IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul)
 IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core_d.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core_d.dll $(SolutionDir)\bin\Debug-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -88,7 +88,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dl
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes\rttr;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -96,23 +96,20 @@ IF EXIST $(SolutionDir)Dlls\rttr_core_d.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dl
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST ..\bin\Release-windows-x86_64\Pengine\Pengine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Pengine\Pengine.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)
 IF EXIST $(SolutionDir)Dlls\lua54.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\lua54.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)
-IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Pengine\Pengine.lib $(SolutionDir)Libs\Release &gt; nul)
+IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul)
 IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls\rttr_core.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)Dlls\rttr_core.dll $(SolutionDir)\bin\Release-windows-x86_64\SandBox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -192,7 +189,6 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClInclude Include="Source\Events\OnMainThreadCallback.h" />
     <ClInclude Include="Source\Events\SetScrollEvent.h" />
     <ClInclude Include="Source\Events\WindowResizeEvent.h" />
-    <ClInclude Include="Source\Lua\luaaa.hpp" />
     <ClInclude Include="Source\Lua\LuaState.h" />
     <ClInclude Include="Source\Lua\LuaStateManager.h" />
     <ClInclude Include="Source\OpenGL\Batch.h" />

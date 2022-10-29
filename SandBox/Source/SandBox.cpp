@@ -1,13 +1,14 @@
 #include "Core/EntryPoint.h"
 
 #include "Sponza/Sponza.h"
+#include "Examples/BulletPhysics.h"
 
 using namespace Pengine;
 
 int main()
 {
 	EntryPoint entrypoint;
-	Sponza application;
+	BulletPhysics application;
 
 #ifdef STANDALONE
 	ShowWindow(GetConsoleWindow(), SW_HIDE);

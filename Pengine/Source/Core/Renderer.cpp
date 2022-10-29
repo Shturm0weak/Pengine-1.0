@@ -288,12 +288,24 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     }
 
     size_t offset = 5;
-    int pointLightsSize = scene->m_PointLights.size();
+
+    std::vector<PointLight*> pointLights;
+    pointLights.reserve(10);
+    std::vector<PointLight*> enabledPointLights = scene->GetEnabledPointLights();
+    for (PointLight* pointLight : enabledPointLights)
+    {
+        if (pointLight->m_DrawShadows)
+        {
+            pointLights.push_back(pointLight);
+        }
+    }
+
+    int pointLightsSize = pointLights.size();
     shader->SetUniform1i("u_PointLightsSize", pointLightsSize);
     char uniformBuffer[64];
     for (int i = 0; i < pointLightsSize; i++)
     {
-        PointLight* pointLight = scene->m_PointLights[i];
+        PointLight* pointLight = pointLights[i];
         sprintf(uniformBuffer, "u_PointLight[%i].position", i);
         shader->SetUniform3fv(uniformBuffer, pointLight->GetOwner()->m_Transform.GetPosition());
         sprintf(uniformBuffer, "u_PointLight[%i].farPlane", i);
@@ -303,7 +315,7 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
         pointShadowSamplers[i] = offset;
 
         glActiveTexture(GL_TEXTURE0 + offset);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, m_FrameBufferPointLights[i]->m_Textures[0]);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, pointLight->m_ShadowsCubeMap->m_Textures[0]);
         
         offset++;
     }
@@ -531,12 +543,13 @@ void Renderer::RenderDeferred(Scene* scene)
         shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
     }
 
-    int pointLightsSize = scene->m_PointLights.size();
+    std::vector<PointLight*> pointLights = scene->GetEnabledPointLights();
+    int pointLightsSize = pointLights.size();
     shader->SetUniform1i("pointLightsSize", pointLightsSize);
     char uniformBuffer[64];
     for (int i = 0; i < pointLightsSize; i++)
     {
-        PointLight* pointLight = scene->m_PointLights[i];
+        PointLight* pointLight = pointLights[i];
         sprintf(uniformBuffer, "pointLights[%i].position", i);
         shader->SetUniform3fv(uniformBuffer, pointLight->GetOwner()->m_Transform.GetPosition());
         sprintf(uniformBuffer, "pointLights[%i].color", i);
@@ -549,11 +562,12 @@ void Renderer::RenderDeferred(Scene* scene)
         shader->SetUniform1f(uniformBuffer, pointLight->m_Quadratic);
     }
 
-    int spotLightsSize = scene->m_SpotLights.size();
+    std::vector<SpotLight*> spotLights = scene->GetEnabledSpotLights();
+    int spotLightsSize = spotLights.size();
     shader->SetUniform1i("spotLightsSize", spotLightsSize);
     for (int i = 0; i < spotLightsSize; i++)
     {
-        SpotLight* spotLight = scene->m_SpotLights[i];
+        SpotLight* spotLight = spotLights[i];
         sprintf(uniformBuffer, "spotLights[%i].position", i);
         shader->SetUniform3fv(uniformBuffer, spotLight->GetOwner()->m_Transform.GetPosition());
         sprintf(uniformBuffer, "spotLights[%i].direction", i);

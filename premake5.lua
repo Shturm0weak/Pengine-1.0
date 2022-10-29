@@ -41,7 +41,10 @@ project "Pengine"
 		"ImGui.lib",
 		"OpenAL32.lib",
 		"Box2D.lib",
-		"Yaml.lib"
+		"Yaml.lib",
+		"BulletDynamics.lib",
+		"BulletCollision.lib",
+		"LinearMath.lib"
 	}
 
 	postbuildcommands {
@@ -71,7 +74,7 @@ project "Pengine"
 		symbols "on"
 		
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Debug"),
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug"),
 			("{COPY} $(SolutionDir)Dlls/rttr_core_d.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 		}
 
@@ -88,7 +91,7 @@ project "Pengine"
 		optimize "Full"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Pengine/Pengine.lib $(SolutionDir)Libs/Release"),
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release"),
 			("{COPY} $(SolutionDir)Dlls/rttr_core.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 		}
 
@@ -126,7 +129,10 @@ project "SandBox"
 		"OpenAL32.lib",
 		"Pengine.lib",
 		"Box2D.lib",
-		"Yaml.lib"
+		"Yaml.lib",
+		"BulletDynamics.lib",
+		"BulletCollision.lib",
+		"LinearMath.lib"
 	}
 
 	files {
@@ -188,10 +194,10 @@ project "ImGui"
 	}
 
 	includedirs {
-		"$(SolutionDir)Vendor/ImGui",
+		"$(SolutionDir)" .. ImGuiLocation,
 		"$(SolutionDir)Includes/GLEW",
-		"$(SolutionDir)Vendor/ImGui/libs/glfw/include",
-		"$(SolutionDir)Vendor/ImGui/misc/freetype"
+		"$(SolutionDir)" .. ImGuiLocation .. "/libs/glfw/include",
+		"$(SolutionDir)" .. ImGuiLocation .. "/misc/freetype"
 	}
 
 	filter "system:windows"
@@ -214,7 +220,7 @@ project "ImGui"
 		symbols "on"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/ImGui/ImGui.lib $(SolutionDir)Libs/Debug")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
 		}
 
 	filter "configurations:Release"
@@ -222,7 +228,7 @@ project "ImGui"
 		optimize "Full"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/ImGui/ImGui.lib $(SolutionDir)Libs/Release")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
 		}
 
 Box2DLocation = "Vendor/Box2D"
@@ -241,12 +247,12 @@ project "Box2D"
 	}
 
 	includedirs {
-		"$(SolutionDir)Vendor/Box2D/include",
-		"$(SolutionDir)Vendor/Box2D/src",
-		"$(SolutionDir)Vendor/Box2D/testbed",
-		"$(SolutionDir)Vendor/Box2D/extern",
-		"$(SolutionDir)Vendor/Box2D/extern/glad/include",
-		"$(SolutionDir)Vendor/Box2D/extern/glfw/include"
+		"$(SolutionDir)" .. Box2DLocation .. "/include",
+		"$(SolutionDir)" .. Box2DLocation .. "/src",
+		"$(SolutionDir)" .. Box2DLocation .. "/testbed",
+		"$(SolutionDir)" .. Box2DLocation .. "/extern",
+		"$(SolutionDir)" .. Box2DLocation .. "/extern/glad/include",
+		"$(SolutionDir)" .. Box2DLocation .. "/extern/glfw/include"
 	}
 
 	filter "system:windows"
@@ -269,7 +275,7 @@ project "Box2D"
 		symbols "on"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Box2D/Box2D.lib $(SolutionDir)Libs/Debug")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
 		}
 
 	filter "configurations:Release"
@@ -277,7 +283,7 @@ project "Box2D"
 		optimize "Full"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Box2D/Box2D.lib $(SolutionDir)Libs/Release")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
 		}
 
 YamlLocation = "Vendor/yaml-cpp"
@@ -296,7 +302,7 @@ project "Yaml"
 	}
 
 	includedirs {
-		"$(SolutionDir)Vendor/yaml-cpp"
+		"$(SolutionDir)" .. YamlLocation
 	}
 
 	filter "system:windows"
@@ -319,7 +325,7 @@ project "Yaml"
 		symbols "on"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Yaml/Yaml.lib $(SolutionDir)Libs/Debug")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
 		}
 
 	filter "configurations:Release"
@@ -327,5 +333,159 @@ project "Yaml"
 		optimize "Full"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/Yaml/Yaml.lib $(SolutionDir)Libs/Release")
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
+		}
+
+BulletDynamicsLocation = "Vendor/BulletDynamics"
+
+project "BulletDynamics"
+	location (BulletDynamicsLocation)
+	kind "StaticLib"
+	language "C++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		BulletDynamicsLocation .. "/**.h",
+		BulletDynamicsLocation .. "/**.cpp"
+	}
+
+	includedirs {
+		"$(SolutionDir)Vendor",
+		"$(SolutionDir)Includes/BulletCommon"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+		flags {
+			"MultiProcessorCompile",
+		}
+
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
+		}
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "Full"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
+		}
+
+BulletCollisionLocation = "Vendor/BulletCollision"
+
+project "BulletCollision"
+	location (BulletCollisionLocation)
+	kind "StaticLib"
+	language "C++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		BulletCollisionLocation .. "/**.h",
+		BulletCollisionLocation .. "/**.cpp"
+	}
+
+	includedirs {
+		"$(SolutionDir)Vendor",
+		"$(SolutionDir)Includes/BulletCommon"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+		flags {
+			"MultiProcessorCompile",
+		}
+
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
+		}
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "Full"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
+		}
+
+
+LinearMathLocation = "Vendor/LinearMath"
+
+project "LinearMath"
+	location (LinearMathLocation)
+	kind "StaticLib"
+	language "C++"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		LinearMathLocation .. "/**.h",
+		LinearMathLocation .. "/**.cpp"
+	}
+
+	includedirs {
+		"$(SolutionDir)Vendor",
+		"$(SolutionDir)Includes/BulletCommon"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+		flags {
+			"MultiProcessorCompile",
+		}
+
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
+		}
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "Full"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
 		}

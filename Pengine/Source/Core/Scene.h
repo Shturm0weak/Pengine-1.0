@@ -58,6 +58,10 @@ namespace Pengine
 
 		void ShutDown();
 
+		std::vector<PointLight*> GetEnabledPointLights() const;
+
+		std::vector<SpotLight*> GetEnabledSpotLights() const;
+
 		std::vector<GameObject*> SelectGameObject(std::vector<GameObject*> ignoreMask = std::vector<GameObject*>(),
 			int maxGameObjects = 1);
 

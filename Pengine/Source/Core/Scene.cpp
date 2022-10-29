@@ -421,6 +421,36 @@ void Scene::ShutDown()
 	delete m_Box2DWorld;
 }
 
+std::vector<PointLight*> Scene::GetEnabledPointLights() const
+{
+	std::vector<PointLight*> pointLights;
+	pointLights.reserve(10);
+	for (size_t i = 0; i < m_PointLights.size(); i++)
+	{
+		if (m_PointLights[i]->GetOwner()->IsEnabled())
+		{
+			pointLights.push_back(m_PointLights[i]);
+		}
+	}
+
+	return pointLights;
+}
+
+std::vector<SpotLight*> Scene::GetEnabledSpotLights() const
+{
+	std::vector<SpotLight*> spotLights;
+	spotLights.reserve(10);
+	for (size_t i = 0; i < m_SpotLights.size(); i++)
+	{
+		if (m_SpotLights[i]->GetOwner()->IsEnabled())
+		{
+			spotLights.push_back(m_SpotLights[i]);
+		}
+	}
+
+	return spotLights;
+}
+
 void Scene::Clear()
 {
 	m_Title = "Scene";

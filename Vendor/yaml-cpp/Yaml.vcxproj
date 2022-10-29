@@ -69,7 +69,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\Yaml\Yaml.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Yaml\Yaml.lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\Yaml\Yaml.lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -92,7 +92,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\Yaml\Yaml.lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\Yaml\Yaml.lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\Yaml\Yaml.lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

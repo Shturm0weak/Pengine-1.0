@@ -98,6 +98,19 @@ Transform::Transform(const glm::vec3& position, const glm::vec3& scale, const gl
 	m_Type = "Pengine::Transform";
 }
 
+void Transform::SetRotationMat4(const glm::mat4& rotationMat4)
+{
+	m_RotationMat4 = rotationMat4;
+
+	UpdateTransforms();
+	UpdateVectors();
+
+	for (auto& onRotationCallback : m_OnRotationCallbacks)
+	{
+		onRotationCallback();
+	}
+}
+
 void Transform::Translate(const glm::vec3& position)
 {
 	m_PreviousPosition = GetPosition();

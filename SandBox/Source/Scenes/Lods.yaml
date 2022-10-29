@@ -10,24 +10,24 @@ Environment:
   IsEnabled: true
   DepthTest: true
   Shadows:
-    Bias: 0.00499999989
+    Bias: 0
     IsEnabled: true
     IsVisualized: false
     Pcf: 2
     Fog: 0.200000003
     Texels: 1
-    ZFarScale: 1
+    ZFarScale: 0.200000003
     CascadesDistance:
-      - 100
-      - 300
+      - 10
+      - 45
     Blur:
       Passes: 1
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [-4.68567944, 4.25703716, 6.65694666]
-    Rotation: [-0.427906722, -0.631026745, 0]
+    Position: [0.788986802, -24.2159805, 31.4284344]
+    Rotation: [-0.503262877, -0.00821703672, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -37,7 +37,7 @@ Camera:
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 13946298301223691382
+  - GameObject: 16186766398818085695
     Name: Sun
     Is Enabled: true
     Is Selectable: true
@@ -51,9 +51,9 @@ GameObjects:
       Scale: [0.999999702, 0.999999881, 1]
     Directional Light:
       Color: [1, 1, 1]
-      Intensity: 1
-  - GameObject: 2211729630256690539
-    Name: Lods
+      Intensity: 0.800000012
+  - GameObject: 9898121139391456715
+    Name: Cube
     Is Enabled: true
     Is Selectable: true
     Prefab File Path: ""
@@ -61,19 +61,3144 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0, 0, 0]
+      Position: [0, -100, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [49.9599991, 49.9599991, 49.9599991]
     Renderer3D:
-      Mesh: Source\Meshes\Cube.meta
+      Mesh: Source/Meshes/Cube.meta
       IsOpaque: true
       DrawShadows: true
       IsInherited: false
       LodsDistance:
-        - 20
-        - 40
+        - 1000
+        - 1000
       Material: Source/Materials/Material.mat
       Lods:
-        - Source\Meshes\Cube.meta
-        - Source\Meshes\Cylinder.meta
-        - Source\Meshes\Sphere.meta
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1349305928452723610
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.1436615, -49, -5.70607567]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3426665681352210264
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.3009553, -49.0000496, -3.2375133]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12594552615459414454
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.21857643, -49.0000191, -0.118496269]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2701078715145845578
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.37750244, -49.0000038, 1.98579705]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8711321505481115516
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.45633459, -49.0000076, 8.05717564]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 268270541585550968
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.789218664, -49.0000038, -7.47008753]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9062284417000527469
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.16198206, -49.0000381, -1.47353828]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 13769729844274122873
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.8355968, -49.0002327, 0.968577623]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6869339102292967783
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.44756532, -49.0000229, 4.29336119]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5044708614920212245
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.41593337, -48.9999924, 7.09821081]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8080254100703652409
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.07964969, -49.0000267, -6.03500557]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7012677020930405002
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.20980155, -49.0000916, -3.97242475]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 11420362812191324546
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.249606609, -49.0005531, 0.356650651]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17507934975041548622
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.65627611, -49.0000343, 3.34613061]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7945294075022802315
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.712922573, -49.0000076, 6.05820656]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 13730393526604367911
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.68078732, -49.0000076, -9.20774269]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3619297082425591395
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.15227151, -49.0000534, -3.34404039]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8721470717117031040
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.70975614, -48.9999962, 1.28174317]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 4756792184990003690
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.90946651, -49.0002327, 4.23887682]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6114259514230232117
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.67908096, -49.0000076, 6.26031637]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3332188961922819695
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.72220325, -49.0000076, -12.8752451]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16350118646893634627
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.81567478, -49.0000114, -6.10125923]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5908661652372713507
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.09671116, -49.0000801, 2.12971139]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3446910812331048333
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.76226759, -49.0001144, 4.31185532]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 15557280068348506757
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.87531376, -49.0000076, 6.20938349]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 4154265462014797191
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-10.7497835, -49.0000076, -9.53201389]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5411533906460741742
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.6852055, -49.0000076, -7.31748438]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17957300359690945161
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.87967968, -49.0000076, -1.39233065]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 274228597809790252
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.0347986, -49.0000038, 1.18662024]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12917425408689696491
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.181428, -49.0000076, 3.79810405]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17925201510423896174
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.57196093, -49.0000076, -11.9616356]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16065875275127316318
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.21744919, -49.0000343, -4.18643761]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1852988482246141204
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.22555685, -47.000679, 0.622142911]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 13387379638445099029
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-5.17350006, -49.0000343, 2.34977627]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9251527278904146039
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.81356645, -49, 6.65338326]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7610894687334779930
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.42226923, -47.000248, -6.61189175]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5770166307483327013
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.05384755, -49.0000725, -2.58120728]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7635245954992092281
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.226493686, -47.000885, 0.739947617]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 14233861643771558208
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.291404843, -49.0001793, 4.11371183]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2612565923667115281
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.60040939, -49.0000076, 8.5105772]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1370267551583666502
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.30428767, -49.0000038, -12.542944]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17059880267000561036
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.83877301, -49.0000305, -0.785900295]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5278505053506720306
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.00991678, -47.0000496, 1.88535297]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7763216484858689889
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.11638451, -47.0003967, 3.94017696]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2939509725010336904
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.367485851, -49.0000496, 11.0233049]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2962148075895027931
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.9437561, -49.0000076, -21.6818657]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 18202098452211877067
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.10312366, -49.0000038, -10.7907085]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 4762820836600256117
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.98227882, -49.0000191, -2.8911612]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 350618749749032140
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.80396509, -47.0001373, 3.88671303]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10004450181478825175
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.25020218, -49.0000076, 7.19489288]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 11589369739433688962
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-10.819912, -49.0000076, -22.443121]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17945274485737009721
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-19.1919575, -49.0000076, -3.83114552]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 15811383502058714389
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-14.5457687, -49.0000076, -0.73390007]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16532813713572439397
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-13.1642008, -49.0000076, 5.97034168]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3298692644117594649
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-19.3653278, -49.0000076, 10.1287737]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 13154783647516082969
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.64619112, -49.0000076, -20.5795364]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5860809831122309702
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.49372005, -49.0000038, -8.32279205]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 4874020186904075788
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.35456896, -45.0012245, 0.438182235]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 15203412280206208648
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.51578712, -49.0000038, 4.36865234]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 18164404391060398243
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-10.2719498, -49.0000076, 7.89853764]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8382770370796128144
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.78021502, -49.0000076, -14.0885096]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1930982683603207751
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.34226799, -47.0001068, -2.5756011]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3553580436784747789
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.13274321, -45.0012398, 0.422233462]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16020861553438634148
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.27579188, -47.0399323, 3.00739884]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10386333596690149780
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.89912212, -47.9965363, 11.6479187]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7836353593022064192
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.49954069, -49.0000076, -18.4799519]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10751983932031541361
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.22502494, -47.0002975, -4.25386095]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16772003095825379130
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.79128456, -47.0000114, 0.0338663571]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6333681795160228016
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.47269154, -45.0003815, 3.69422436]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3251930397081068363
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.167019084, -49.0000076, 14.6377687]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 368328046162080612
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.23975468, -49.0000076, -19.2456856]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3055102164158475311
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.19693851, -49.0000038, -8.27789688]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10288515222209578605
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.72042274, -49.0000496, 0.358732224]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2140244933427110837
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.02603006, -45.0002823, 4.38733673]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10269847723074392015
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.24435091, -49.0000076, 9.39769173]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 206584197374088581
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-12.0458984, -49.0000076, -14.6557035]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7589308353568471605
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-16.5315533, -49.0000076, -4.2196784]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2169015509036395003
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-19.9779987, -49.0000076, 2.37884045]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 15177367080229652106
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-15.0360165, -49.0000076, 7.17806339]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 2556134052375478146
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-13.5969162, -49.0000038, 17.4248371]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3238276490102252929
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.88860011, -49.0000076, -8.08535767]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10162291814072864516
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-9.73736095, -49.0000038, -5.88700771]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12442031050218082670
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.61656523, -43.0021744, 0.334800482]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5910947352488760839
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.78614092, -47.1792526, 5.43818378]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5241628912745554269
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-8.62443161, -49.0000038, 11.445962]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3797143401548905305
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.473115921, -49.0000038, -13.6456566]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 11124590064908486035
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.150650039, -47.8512802, -1.851982]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 14171976000585701045
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.104759909, -43.0015602, 0.411287397]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12619683930644885234
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.09060299, -47.0318298, 2.91512585]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5298999080571749151
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.19695115, -46.9999275, 13.8605223]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1162285919060378130
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.48497438, -49.0000038, -28.6815815]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3718384753530059502
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.42444563, -49.0000229, -7.03137493]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6553096585053725918
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.50521612, -47.000061, -2.15353775]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 10085415980704162213
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.45114231, -43.0005875, 3.77417755]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3087321146436125801
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.78377748, -47.0000343, 6.05698013]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 951046590333637173
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.91424847, -49.0000038, -14.5395899]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9346302329942230389
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.78183174, -49.0000687, -5.18381214]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3782053613974850486
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.5060029, -47.0000839, 1.22211361]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3584706135321204269
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [12.7977457, -49.0000038, 13.9009295]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17140429696502217897
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.01456928, -49.0000076, 15.6165447]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17952098712977223642
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.88984156, -49.0000076, -10.0574007]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3137116028196197565
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.81129026, -47.0000153, 1.96980774]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 1794915852825349329
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-6.25590515, -49.0000076, 5.20036364]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 3952480349877580377
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-14.342823, -49.0000076, 14.8845682]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5749684863347520255
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.47806454, -49.0000076, 17.4038868]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 17543067367619695106
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.93186986, -49.0001259, -5.03604364]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8830646494638913235
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.47794914, -45.0001526, -2.48177791]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 15277237983114516356
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.40849066, -41.0024719, 0.191710532]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 4106894549230385716
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.69802463, -45.1014061, 2.40124917]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 18073800000530978057
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.51096416, -49.0000191, 11.8378191]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9356084110126338230
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.29630709, -45.0005646, -6.25237513]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 7190628960925654123
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.17483115, -45.0003662, -4.2387414]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8166544907626209814
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.407226652, -41.002655, -0.366006404]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6410924088448237451
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [1.15541959, -47.000061, 3.36795187]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9131304635584565518
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.51454782, -49.0000038, 25.0857582]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 6161558587690558771
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.46827459, -46.9999771, -6.29178095]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 938077513975720962
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [5.30140305, -47.7291183, -3.62855649]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 8847242981031214475
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.666367769, -46.9453773, -4.48344278]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 16964727021372667555
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.96336627, -49.0000381, 10.3445702]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12134047580210990869
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [4.05784082, -49.0000076, 14.0169754]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9488914159463110531
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [13.0683479, -49.0000076, 0.400173694]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 12887848720526463201
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.04508734, -48.9999847, -1.78364682]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 9146243155592958041
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.72985554, -45.0001526, 1.79952884]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 5998603384305465483
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.6572685, -49.0000076, 15.4437609]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: 14903859186561113737
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.148469, -49.0000076, 25.0258389]
+      Rotation: [0, 0, 0]
+      Scale: [0.959999979, 0.959999979, 0.959999979]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None

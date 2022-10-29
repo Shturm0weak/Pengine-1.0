@@ -1,0 +1,339 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B91153C5-259D-C089-2EAE-437E9AB81C8A}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BulletCollision</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\bin\Debug-windows-x86_64\BulletCollision\</OutDir>
+    <IntDir>..\..\bin-int\Debug-windows-x86_64\BulletCollision\</IntDir>
+    <TargetName>BulletCollision</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\bin\Release-windows-x86_64\BulletCollision\</OutDir>
+    <IntDir>..\..\bin-int\Release-windows-x86_64\BulletCollision\</IntDir>
+    <TargetName>BulletCollision</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor;$(SolutionDir)Includes\BulletCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor;$(SolutionDir)Includes\BulletCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="BroadphaseCollision\btAxisSweep3.h" />
+    <ClInclude Include="BroadphaseCollision\btAxisSweep3Internal.h" />
+    <ClInclude Include="BroadphaseCollision\btBroadphaseInterface.h" />
+    <ClInclude Include="BroadphaseCollision\btBroadphaseProxy.h" />
+    <ClInclude Include="BroadphaseCollision\btCollisionAlgorithm.h" />
+    <ClInclude Include="BroadphaseCollision\btDbvt.h" />
+    <ClInclude Include="BroadphaseCollision\btDbvtBroadphase.h" />
+    <ClInclude Include="BroadphaseCollision\btDispatcher.h" />
+    <ClInclude Include="BroadphaseCollision\btOverlappingPairCache.h" />
+    <ClInclude Include="BroadphaseCollision\btOverlappingPairCallback.h" />
+    <ClInclude Include="BroadphaseCollision\btQuantizedBvh.h" />
+    <ClInclude Include="BroadphaseCollision\btSimpleBroadphase.h" />
+    <ClInclude Include="CollisionDispatch\SphereTriangleDetector.h" />
+    <ClInclude Include="CollisionDispatch\btActivatingCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btBox2dBox2dCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btBoxBoxCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btBoxBoxDetector.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionConfiguration.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionCreateFunc.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionDispatcher.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionDispatcherMt.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionObject.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionObjectWrapper.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionWorld.h" />
+    <ClInclude Include="CollisionDispatch\btCollisionWorldImporter.h" />
+    <ClInclude Include="CollisionDispatch\btCompoundCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btCompoundCompoundCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btConvex2dConvex2dAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btConvexConcaveCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btConvexConvexAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btConvexPlaneCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btDefaultCollisionConfiguration.h" />
+    <ClInclude Include="CollisionDispatch\btEmptyCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btGhostObject.h" />
+    <ClInclude Include="CollisionDispatch\btHashedSimplePairCache.h" />
+    <ClInclude Include="CollisionDispatch\btInternalEdgeUtility.h" />
+    <ClInclude Include="CollisionDispatch\btManifoldResult.h" />
+    <ClInclude Include="CollisionDispatch\btSimulationIslandManager.h" />
+    <ClInclude Include="CollisionDispatch\btSphereBoxCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btSphereSphereCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btSphereTriangleCollisionAlgorithm.h" />
+    <ClInclude Include="CollisionDispatch\btUnionFind.h" />
+    <ClInclude Include="CollisionShapes\btBox2dShape.h" />
+    <ClInclude Include="CollisionShapes\btBoxShape.h" />
+    <ClInclude Include="CollisionShapes\btBvhTriangleMeshShape.h" />
+    <ClInclude Include="CollisionShapes\btCapsuleShape.h" />
+    <ClInclude Include="CollisionShapes\btCollisionMargin.h" />
+    <ClInclude Include="CollisionShapes\btCollisionShape.h" />
+    <ClInclude Include="CollisionShapes\btCompoundShape.h" />
+    <ClInclude Include="CollisionShapes\btConcaveShape.h" />
+    <ClInclude Include="CollisionShapes\btConeShape.h" />
+    <ClInclude Include="CollisionShapes\btConvex2dShape.h" />
+    <ClInclude Include="CollisionShapes\btConvexHullShape.h" />
+    <ClInclude Include="CollisionShapes\btConvexInternalShape.h" />
+    <ClInclude Include="CollisionShapes\btConvexPointCloudShape.h" />
+    <ClInclude Include="CollisionShapes\btConvexPolyhedron.h" />
+    <ClInclude Include="CollisionShapes\btConvexShape.h" />
+    <ClInclude Include="CollisionShapes\btConvexTriangleMeshShape.h" />
+    <ClInclude Include="CollisionShapes\btCylinderShape.h" />
+    <ClInclude Include="CollisionShapes\btEmptyShape.h" />
+    <ClInclude Include="CollisionShapes\btHeightfieldTerrainShape.h" />
+    <ClInclude Include="CollisionShapes\btMaterial.h" />
+    <ClInclude Include="CollisionShapes\btMiniSDF.h" />
+    <ClInclude Include="CollisionShapes\btMinkowskiSumShape.h" />
+    <ClInclude Include="CollisionShapes\btMultiSphereShape.h" />
+    <ClInclude Include="CollisionShapes\btMultimaterialTriangleMeshShape.h" />
+    <ClInclude Include="CollisionShapes\btOptimizedBvh.h" />
+    <ClInclude Include="CollisionShapes\btPolyhedralConvexShape.h" />
+    <ClInclude Include="CollisionShapes\btScaledBvhTriangleMeshShape.h" />
+    <ClInclude Include="CollisionShapes\btSdfCollisionShape.h" />
+    <ClInclude Include="CollisionShapes\btShapeHull.h" />
+    <ClInclude Include="CollisionShapes\btSphereShape.h" />
+    <ClInclude Include="CollisionShapes\btStaticPlaneShape.h" />
+    <ClInclude Include="CollisionShapes\btStridingMeshInterface.h" />
+    <ClInclude Include="CollisionShapes\btTetrahedronShape.h" />
+    <ClInclude Include="CollisionShapes\btTriangleBuffer.h" />
+    <ClInclude Include="CollisionShapes\btTriangleCallback.h" />
+    <ClInclude Include="CollisionShapes\btTriangleIndexVertexArray.h" />
+    <ClInclude Include="CollisionShapes\btTriangleIndexVertexMaterialArray.h" />
+    <ClInclude Include="CollisionShapes\btTriangleInfoMap.h" />
+    <ClInclude Include="CollisionShapes\btTriangleMesh.h" />
+    <ClInclude Include="CollisionShapes\btTriangleMeshShape.h" />
+    <ClInclude Include="CollisionShapes\btTriangleShape.h" />
+    <ClInclude Include="CollisionShapes\btUniformScalingShape.h" />
+    <ClInclude Include="Gimpact\btBoxCollision.h" />
+    <ClInclude Include="Gimpact\btClipPolygon.h" />
+    <ClInclude Include="Gimpact\btCompoundFromGimpact.h" />
+    <ClInclude Include="Gimpact\btContactProcessing.h" />
+    <ClInclude Include="Gimpact\btContactProcessingStructs.h" />
+    <ClInclude Include="Gimpact\btGImpactBvh.h" />
+    <ClInclude Include="Gimpact\btGImpactBvhStructs.h" />
+    <ClInclude Include="Gimpact\btGImpactCollisionAlgorithm.h" />
+    <ClInclude Include="Gimpact\btGImpactMassUtil.h" />
+    <ClInclude Include="Gimpact\btGImpactQuantizedBvh.h" />
+    <ClInclude Include="Gimpact\btGImpactQuantizedBvhStructs.h" />
+    <ClInclude Include="Gimpact\btGImpactShape.h" />
+    <ClInclude Include="Gimpact\btGenericPoolAllocator.h" />
+    <ClInclude Include="Gimpact\btGeometryOperations.h" />
+    <ClInclude Include="Gimpact\btQuantization.h" />
+    <ClInclude Include="Gimpact\btTriangleShapeEx.h" />
+    <ClInclude Include="Gimpact\gim_array.h" />
+    <ClInclude Include="Gimpact\gim_basic_geometry_operations.h" />
+    <ClInclude Include="Gimpact\gim_bitset.h" />
+    <ClInclude Include="Gimpact\gim_box_collision.h" />
+    <ClInclude Include="Gimpact\gim_box_set.h" />
+    <ClInclude Include="Gimpact\gim_clip_polygon.h" />
+    <ClInclude Include="Gimpact\gim_contact.h" />
+    <ClInclude Include="Gimpact\gim_geom_types.h" />
+    <ClInclude Include="Gimpact\gim_geometry.h" />
+    <ClInclude Include="Gimpact\gim_hash_table.h" />
+    <ClInclude Include="Gimpact\gim_linear_math.h" />
+    <ClInclude Include="Gimpact\gim_math.h" />
+    <ClInclude Include="Gimpact\gim_memory.h" />
+    <ClInclude Include="Gimpact\gim_pair.h" />
+    <ClInclude Include="Gimpact\gim_radixsort.h" />
+    <ClInclude Include="Gimpact\gim_tri_collision.h" />
+    <ClInclude Include="NarrowPhaseCollision\btComputeGjkEpaPenetration.h" />
+    <ClInclude Include="NarrowPhaseCollision\btContinuousConvexCollision.h" />
+    <ClInclude Include="NarrowPhaseCollision\btConvexCast.h" />
+    <ClInclude Include="NarrowPhaseCollision\btConvexPenetrationDepthSolver.h" />
+    <ClInclude Include="NarrowPhaseCollision\btDiscreteCollisionDetectorInterface.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkCollisionDescription.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkConvexCast.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkEpa2.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkEpa3.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkEpaPenetrationDepthSolver.h" />
+    <ClInclude Include="NarrowPhaseCollision\btGjkPairDetector.h" />
+    <ClInclude Include="NarrowPhaseCollision\btManifoldPoint.h" />
+    <ClInclude Include="NarrowPhaseCollision\btMinkowskiPenetrationDepthSolver.h" />
+    <ClInclude Include="NarrowPhaseCollision\btMprPenetration.h" />
+    <ClInclude Include="NarrowPhaseCollision\btPersistentManifold.h" />
+    <ClInclude Include="NarrowPhaseCollision\btPointCollector.h" />
+    <ClInclude Include="NarrowPhaseCollision\btPolyhedralContactClipping.h" />
+    <ClInclude Include="NarrowPhaseCollision\btRaycastCallback.h" />
+    <ClInclude Include="NarrowPhaseCollision\btSimplexSolverInterface.h" />
+    <ClInclude Include="NarrowPhaseCollision\btSubSimplexConvexCast.h" />
+    <ClInclude Include="NarrowPhaseCollision\btVoronoiSimplexSolver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BroadphaseCollision\btAxisSweep3.cpp" />
+    <ClCompile Include="BroadphaseCollision\btBroadphaseProxy.cpp" />
+    <ClCompile Include="BroadphaseCollision\btCollisionAlgorithm.cpp" />
+    <ClCompile Include="BroadphaseCollision\btDbvt.cpp" />
+    <ClCompile Include="BroadphaseCollision\btDbvtBroadphase.cpp" />
+    <ClCompile Include="BroadphaseCollision\btDispatcher.cpp" />
+    <ClCompile Include="BroadphaseCollision\btOverlappingPairCache.cpp" />
+    <ClCompile Include="BroadphaseCollision\btQuantizedBvh.cpp" />
+    <ClCompile Include="BroadphaseCollision\btSimpleBroadphase.cpp" />
+    <ClCompile Include="CollisionDispatch\SphereTriangleDetector.cpp" />
+    <ClCompile Include="CollisionDispatch\btActivatingCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btBox2dBox2dCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btBoxBoxCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btBoxBoxDetector.cpp" />
+    <ClCompile Include="CollisionDispatch\btCollisionDispatcher.cpp" />
+    <ClCompile Include="CollisionDispatch\btCollisionDispatcherMt.cpp" />
+    <ClCompile Include="CollisionDispatch\btCollisionObject.cpp" />
+    <ClCompile Include="CollisionDispatch\btCollisionWorld.cpp" />
+    <ClCompile Include="CollisionDispatch\btCollisionWorldImporter.cpp" />
+    <ClCompile Include="CollisionDispatch\btCompoundCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btCompoundCompoundCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btConvex2dConvex2dAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btConvexConcaveCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btConvexConvexAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btConvexPlaneCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btDefaultCollisionConfiguration.cpp" />
+    <ClCompile Include="CollisionDispatch\btEmptyCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btGhostObject.cpp" />
+    <ClCompile Include="CollisionDispatch\btHashedSimplePairCache.cpp" />
+    <ClCompile Include="CollisionDispatch\btInternalEdgeUtility.cpp" />
+    <ClCompile Include="CollisionDispatch\btManifoldResult.cpp" />
+    <ClCompile Include="CollisionDispatch\btSimulationIslandManager.cpp" />
+    <ClCompile Include="CollisionDispatch\btSphereBoxCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btSphereSphereCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btSphereTriangleCollisionAlgorithm.cpp" />
+    <ClCompile Include="CollisionDispatch\btUnionFind.cpp" />
+    <ClCompile Include="CollisionShapes\btBox2dShape.cpp" />
+    <ClCompile Include="CollisionShapes\btBoxShape.cpp" />
+    <ClCompile Include="CollisionShapes\btBvhTriangleMeshShape.cpp" />
+    <ClCompile Include="CollisionShapes\btCapsuleShape.cpp" />
+    <ClCompile Include="CollisionShapes\btCollisionShape.cpp" />
+    <ClCompile Include="CollisionShapes\btCompoundShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConcaveShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConeShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvex2dShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexHullShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexInternalShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexPointCloudShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexPolyhedron.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexShape.cpp" />
+    <ClCompile Include="CollisionShapes\btConvexTriangleMeshShape.cpp" />
+    <ClCompile Include="CollisionShapes\btCylinderShape.cpp" />
+    <ClCompile Include="CollisionShapes\btEmptyShape.cpp" />
+    <ClCompile Include="CollisionShapes\btHeightfieldTerrainShape.cpp" />
+    <ClCompile Include="CollisionShapes\btMiniSDF.cpp" />
+    <ClCompile Include="CollisionShapes\btMinkowskiSumShape.cpp" />
+    <ClCompile Include="CollisionShapes\btMultiSphereShape.cpp" />
+    <ClCompile Include="CollisionShapes\btMultimaterialTriangleMeshShape.cpp" />
+    <ClCompile Include="CollisionShapes\btOptimizedBvh.cpp" />
+    <ClCompile Include="CollisionShapes\btPolyhedralConvexShape.cpp" />
+    <ClCompile Include="CollisionShapes\btScaledBvhTriangleMeshShape.cpp" />
+    <ClCompile Include="CollisionShapes\btSdfCollisionShape.cpp" />
+    <ClCompile Include="CollisionShapes\btShapeHull.cpp" />
+    <ClCompile Include="CollisionShapes\btSphereShape.cpp" />
+    <ClCompile Include="CollisionShapes\btStaticPlaneShape.cpp" />
+    <ClCompile Include="CollisionShapes\btStridingMeshInterface.cpp" />
+    <ClCompile Include="CollisionShapes\btTetrahedronShape.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleBuffer.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleCallback.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleIndexVertexArray.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleIndexVertexMaterialArray.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleMesh.cpp" />
+    <ClCompile Include="CollisionShapes\btTriangleMeshShape.cpp" />
+    <ClCompile Include="CollisionShapes\btUniformScalingShape.cpp" />
+    <ClCompile Include="Gimpact\btContactProcessing.cpp" />
+    <ClCompile Include="Gimpact\btGImpactBvh.cpp" />
+    <ClCompile Include="Gimpact\btGImpactCollisionAlgorithm.cpp" />
+    <ClCompile Include="Gimpact\btGImpactQuantizedBvh.cpp" />
+    <ClCompile Include="Gimpact\btGImpactShape.cpp" />
+    <ClCompile Include="Gimpact\btGenericPoolAllocator.cpp" />
+    <ClCompile Include="Gimpact\btTriangleShapeEx.cpp" />
+    <ClCompile Include="Gimpact\gim_box_set.cpp" />
+    <ClCompile Include="Gimpact\gim_contact.cpp" />
+    <ClCompile Include="Gimpact\gim_memory.cpp" />
+    <ClCompile Include="Gimpact\gim_tri_collision.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btContinuousConvexCollision.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btConvexCast.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btGjkConvexCast.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btGjkEpa2.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btGjkEpaPenetrationDepthSolver.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btGjkPairDetector.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btMinkowskiPenetrationDepthSolver.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btPersistentManifold.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btPolyhedralContactClipping.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btRaycastCallback.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btSubSimplexConvexCast.cpp" />
+    <ClCompile Include="NarrowPhaseCollision\btVoronoiSimplexSolver.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

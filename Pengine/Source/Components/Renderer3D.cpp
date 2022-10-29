@@ -70,12 +70,13 @@ void Renderer3D::Render()
 		m_Shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
 	}
 	
-	int pointLightsSize = GetOwner()->GetScene()->m_PointLights.size();
+	std::vector<PointLight*> pointLights = GetOwner()->GetScene()->GetEnabledPointLights();
+	int pointLightsSize = pointLights.size();
 	m_Shader->SetUniform1i("pointLightsSize", pointLightsSize);
 	char uniformBuffer[64];
 	for (int i = 0; i < pointLightsSize; i++)
 	{
-		PointLight* pointLight = GetOwner()->GetScene()->m_PointLights[i];
+		PointLight* pointLight = pointLights[i];
 		sprintf(uniformBuffer, "pointLights[%i].position", i);
 		m_Shader->SetUniform3fv(uniformBuffer, pointLight->GetOwner()->m_Transform.GetPosition());
 		sprintf(uniformBuffer, "pointLights[%i].color", i);
@@ -88,11 +89,12 @@ void Renderer3D::Render()
 		m_Shader->SetUniform1f(uniformBuffer, pointLight->m_Quadratic);
 	}
 
-	int spotLightsSize = GetOwner()->GetScene()->m_SpotLights.size();
+	std::vector<SpotLight*> spotLights = GetOwner()->GetScene()->GetEnabledSpotLights();
+	int spotLightsSize = spotLights.size();
 	m_Shader->SetUniform1i("spotLightsSize", spotLightsSize);
 	for (int i = 0; i < spotLightsSize; i++)
 	{
-		SpotLight* spotLight = GetOwner()->GetScene()->m_SpotLights[i];
+		SpotLight* spotLight = spotLights[i];
 		sprintf(uniformBuffer, "spotLights[%i].position", i);
 		m_Shader->SetUniform3fv(uniformBuffer, spotLight->GetOwner()->m_Transform.GetPosition());
 		sprintf(uniformBuffer, "spotLights[%i].direction", i);

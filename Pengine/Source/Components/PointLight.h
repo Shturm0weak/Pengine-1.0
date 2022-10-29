@@ -24,6 +24,7 @@ namespace Pengine
 		float m_ZFar = 150.0f;
 		float m_ZNear = 0.1f;
 		float m_Fog = 0.2f;
+		bool m_DrawShadows = true;
 
 		virtual IComponent* New(GameObject* owner) override;
 

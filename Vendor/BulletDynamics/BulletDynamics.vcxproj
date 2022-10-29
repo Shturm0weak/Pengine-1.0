@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{45122E0F-31E0-2115-1A74-923B06E1FD79}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>BulletDynamics</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\bin\Debug-windows-x86_64\BulletDynamics\</OutDir>
+    <IntDir>..\..\bin-int\Debug-windows-x86_64\BulletDynamics\</IntDir>
+    <TargetName>BulletDynamics</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\bin\Release-windows-x86_64\BulletDynamics\</OutDir>
+    <IntDir>..\..\bin-int\Release-windows-x86_64\BulletDynamics\</IntDir>
+    <TargetName>BulletDynamics</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor;$(SolutionDir)Includes\BulletCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Debug &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <AdditionalIncludeDirectories>$(SolutionDir)Vendor;$(SolutionDir)Includes\BulletCommon;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib\ (xcopy /Q /E /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul) ELSE (xcopy /Q /Y /I $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).lib $(SolutionDir)Libs\Release &gt; nul)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Character\btCharacterControllerInterface.h" />
+    <ClInclude Include="Character\btKinematicCharacterController.h" />
+    <ClInclude Include="ConstraintSolver\btBatchedConstraints.h" />
+    <ClInclude Include="ConstraintSolver\btConeTwistConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btConstraintSolver.h" />
+    <ClInclude Include="ConstraintSolver\btContactConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btContactSolverInfo.h" />
+    <ClInclude Include="ConstraintSolver\btFixedConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btGearConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btGeneric6DofConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btGeneric6DofSpring2Constraint.h" />
+    <ClInclude Include="ConstraintSolver\btGeneric6DofSpringConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btHinge2Constraint.h" />
+    <ClInclude Include="ConstraintSolver\btHingeConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btJacobianEntry.h" />
+    <ClInclude Include="ConstraintSolver\btNNCGConstraintSolver.h" />
+    <ClInclude Include="ConstraintSolver\btPoint2PointConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btSequentialImpulseConstraintSolver.h" />
+    <ClInclude Include="ConstraintSolver\btSequentialImpulseConstraintSolverMt.h" />
+    <ClInclude Include="ConstraintSolver\btSliderConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btSolve2LinearConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btSolverBody.h" />
+    <ClInclude Include="ConstraintSolver\btSolverConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btTypedConstraint.h" />
+    <ClInclude Include="ConstraintSolver\btUniversalConstraint.h" />
+    <ClInclude Include="Dynamics\btActionInterface.h" />
+    <ClInclude Include="Dynamics\btDiscreteDynamicsWorld.h" />
+    <ClInclude Include="Dynamics\btDiscreteDynamicsWorldMt.h" />
+    <ClInclude Include="Dynamics\btDynamicsWorld.h" />
+    <ClInclude Include="Dynamics\btRigidBody.h" />
+    <ClInclude Include="Dynamics\btSimpleDynamicsWorld.h" />
+    <ClInclude Include="Dynamics\btSimulationIslandManagerMt.h" />
+    <ClInclude Include="Featherstone\btMultiBody.h" />
+    <ClInclude Include="Featherstone\btMultiBodyConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodyConstraintSolver.h" />
+    <ClInclude Include="Featherstone\btMultiBodyDynamicsWorld.h" />
+    <ClInclude Include="Featherstone\btMultiBodyFixedConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodyGearConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodyInplaceSolverIslandCallback.h" />
+    <ClInclude Include="Featherstone\btMultiBodyJointFeedback.h" />
+    <ClInclude Include="Featherstone\btMultiBodyJointLimitConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodyJointMotor.h" />
+    <ClInclude Include="Featherstone\btMultiBodyLink.h" />
+    <ClInclude Include="Featherstone\btMultiBodyLinkCollider.h" />
+    <ClInclude Include="Featherstone\btMultiBodyMLCPConstraintSolver.h" />
+    <ClInclude Include="Featherstone\btMultiBodyPoint2Point.h" />
+    <ClInclude Include="Featherstone\btMultiBodySliderConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodySolverConstraint.h" />
+    <ClInclude Include="Featherstone\btMultiBodySphericalJointLimit.h" />
+    <ClInclude Include="Featherstone\btMultiBodySphericalJointMotor.h" />
+    <ClInclude Include="MLCPSolvers\btDantzigLCP.h" />
+    <ClInclude Include="MLCPSolvers\btDantzigSolver.h" />
+    <ClInclude Include="MLCPSolvers\btLemkeAlgorithm.h" />
+    <ClInclude Include="MLCPSolvers\btLemkeSolver.h" />
+    <ClInclude Include="MLCPSolvers\btMLCPSolver.h" />
+    <ClInclude Include="MLCPSolvers\btMLCPSolverInterface.h" />
+    <ClInclude Include="MLCPSolvers\btPATHSolver.h" />
+    <ClInclude Include="MLCPSolvers\btSolveProjectedGaussSeidel.h" />
+    <ClInclude Include="Vehicle\btRaycastVehicle.h" />
+    <ClInclude Include="Vehicle\btVehicleRaycaster.h" />
+    <ClInclude Include="Vehicle\btWheelInfo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Character\btKinematicCharacterController.cpp" />
+    <ClCompile Include="ConstraintSolver\btBatchedConstraints.cpp" />
+    <ClCompile Include="ConstraintSolver\btConeTwistConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btContactConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btFixedConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btGearConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btGeneric6DofConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btGeneric6DofSpring2Constraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btGeneric6DofSpringConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btHinge2Constraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btHingeConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btNNCGConstraintSolver.cpp" />
+    <ClCompile Include="ConstraintSolver\btPoint2PointConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btSequentialImpulseConstraintSolver.cpp" />
+    <ClCompile Include="ConstraintSolver\btSequentialImpulseConstraintSolverMt.cpp" />
+    <ClCompile Include="ConstraintSolver\btSliderConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btSolve2LinearConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btTypedConstraint.cpp" />
+    <ClCompile Include="ConstraintSolver\btUniversalConstraint.cpp" />
+    <ClCompile Include="Dynamics\btDiscreteDynamicsWorld.cpp" />
+    <ClCompile Include="Dynamics\btDiscreteDynamicsWorldMt.cpp" />
+    <ClCompile Include="Dynamics\btRigidBody.cpp" />
+    <ClCompile Include="Dynamics\btSimpleDynamicsWorld.cpp" />
+    <ClCompile Include="Dynamics\btSimulationIslandManagerMt.cpp" />
+    <ClCompile Include="Featherstone\btMultiBody.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyConstraint.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyConstraintSolver.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyDynamicsWorld.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyFixedConstraint.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyGearConstraint.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyJointLimitConstraint.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyJointMotor.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyMLCPConstraintSolver.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodyPoint2Point.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodySliderConstraint.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodySphericalJointLimit.cpp" />
+    <ClCompile Include="Featherstone\btMultiBodySphericalJointMotor.cpp" />
+    <ClCompile Include="MLCPSolvers\btDantzigLCP.cpp" />
+    <ClCompile Include="MLCPSolvers\btLemkeAlgorithm.cpp" />
+    <ClCompile Include="MLCPSolvers\btMLCPSolver.cpp" />
+    <ClCompile Include="Vehicle\btRaycastVehicle.cpp" />
+    <ClCompile Include="Vehicle\btWheelInfo.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -9,7 +9,6 @@ using namespace Pengine;
 void PointLight::Delete()
 {
 	Utils::Erase(m_Owner->GetScene()->m_PointLights, this);
-	Utils::Erase(Renderer::GetInstance().m_FrameBufferPointLights, m_ShadowsCubeMap);
 	delete m_ShadowsCubeMap;
 	delete this;
 }
@@ -31,6 +30,7 @@ void PointLight::Copy(const IComponent& component)
 	m_Fog = pointLight.m_Fog;
 	m_ZFar = pointLight.m_ZFar;
 	m_ZNear = pointLight.m_ZNear;
+	m_DrawShadows = pointLight.m_DrawShadows;
 }
 
 IComponent* PointLight::Create(GameObject* owner)
@@ -52,8 +52,6 @@ IComponent* PointLight::Create(GameObject* owner)
 			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE }
 		}
 	);
-
-	Renderer::GetInstance().m_FrameBufferPointLights.push_back(pointLight->m_ShadowsCubeMap);
 
 	pointLight->m_ShadowsTransforms.resize(6);
 	auto onTranslationCallback = [owner, pointLight, shadowCubeMapSize]()

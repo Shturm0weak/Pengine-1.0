@@ -70,7 +70,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;rttr_core_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -81,7 +81,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -89,41 +89,43 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;rttr_core.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Examples\BulletPhysics.h" />
     <ClInclude Include="Source\Examples\ExampleApplication.h" />
     <ClInclude Include="Source\Examples\ExampleComponent.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Health.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\King.h" />
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
     <ClInclude Include="Source\Examples\TestRTTRSystem.h" />
-    <ClInclude Include="Source\Examples\UI\UI.h" />
     <ClInclude Include="Source\Sponza\Sponza.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Examples\BulletPhysics.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp">
+      <ObjectFileName>$(IntDir)\Controller1.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp" />
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp">
+      <ObjectFileName>$(IntDir)\Health1.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\King.cpp" />
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
@@ -134,29 +136,6 @@
     <ProjectReference Include="..\Pengine\Pengine.vcxproj">
       <Project>{EB708C05-5750-0BA1-6068-9677CCC67102}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Source\Examples\KingsAndPigs\TestAnimations.yaml" />
-    <None Include="Source\Shaders\AddBlurImages.shader" />
-    <None Include="Source\Shaders\Blur.shader" />
-    <None Include="Source\Shaders\ComposeFinalImage.shader" />
-    <None Include="Source\Shaders\Default2D.shader" />
-    <None Include="Source\Shaders\Default2DGBuffer.shader" />
-    <None Include="Source\Shaders\Default3D.shader" />
-    <None Include="Source\Shaders\DefaultLines.shader" />
-    <None Include="Source\Shaders\Deferred.shader" />
-    <None Include="Source\Shaders\DrawFullScreenTexture.shader" />
-    <None Include="Source\Shaders\Instancing3DDepthPointShadows.shader" />
-    <None Include="Source\Shaders\InstancingGBuffer.shader" />
-    <None Include="Source\Shaders\Instancing3D.shader" />
-    <None Include="Source\Shaders\Depth.shader" />
-    <None Include="Source\Shaders\Instancing3DDepthDirShadows.shader" />
-    <None Include="Source\Shaders\InstancingShadows.shader" />
-    <None Include="Source\Shaders\SSAO.shader" />
-    <None Include="Source\Shaders\UI.shader" />
-    <None Include="Source\Shaders\Visualizer.shader" />
-    <None Include="Source\Sponza\Sponza.prefab" />
-    <None Include="Source\Sponza\Sponza.yaml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

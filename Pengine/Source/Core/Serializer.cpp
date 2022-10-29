@@ -1907,6 +1907,7 @@ void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "ZFar" << YAML::Value << pointLight->m_ZFar;
 		out << YAML::Key << "ZNear" << YAML::Value << pointLight->m_ZNear;
 		out << YAML::Key << "Fog" << YAML::Value << pointLight->m_Fog;
+		out << YAML::Key << "DrawShadows" << YAML::Value << pointLight->m_DrawShadows;
 
 		out << YAML::EndMap;
 	}
@@ -1951,6 +1952,11 @@ void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& compone
 		if (auto& fogData = pointLightIn["Fog"])
 		{
 			pointLight->m_Fog = fogData.as<float>();
+		}
+
+		if (auto& drawShadowsData = pointLightIn["DrawShadows"])
+		{
+			pointLight->m_DrawShadows = drawShadowsData.as<bool>();
 		}
 	}
 }

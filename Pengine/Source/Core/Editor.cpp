@@ -1447,6 +1447,7 @@ void Editor::PointLightComponent(GameObject* gameObject)
 				ImGui::SliderFloat("ZNear", &pointLight->m_ZNear, 0.1, 1.0f);
 				ImGui::SliderFloat("ZFar", &pointLight->m_ZFar, 1.0f, 150.0f);
 				ImGui::SliderFloat("Fog", &pointLight->m_Fog, 0.0f, 1.0f);
+				ImGui::Checkbox("Draw Shadows", &pointLight->m_DrawShadows);
 			}
 		}
 	}
