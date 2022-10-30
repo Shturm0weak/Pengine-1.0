@@ -101,6 +101,12 @@ namespace Pengine
 		void SetOnTranslationCallback(std::function<void()> callback) { m_OnTranslationCallbacks.emplace_back(callback); }
 
 		void SetOnScaleCallback(std::function<void()> callback) { m_OnScaleCallbacks.emplace_back(callback); }
+
+		void ClearOnRotationCallbacks() { m_OnRotationCallbacks.clear(); }
+
+		void ClearOnTranslationCallbacks() { m_OnTranslationCallbacks.clear(); }
+		
+		void ClearOnScaleCallbacks() { m_OnScaleCallbacks.clear(); }
 		
 		void SetRotationMat4(const glm::mat4& rotationMat4);
 

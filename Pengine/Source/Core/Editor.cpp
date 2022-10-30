@@ -934,6 +934,7 @@ void Editor::Environment()
 			ImGui::PushID("ShadowsSettings");
 			ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_IsEnabled);
 			ImGui::Checkbox("Is Visualized", &environment.m_ShadowsSettings.m_IsVisualized);
+			ImGui::SliderInt("Max Point Light Shadows", &environment.m_ShadowsSettings.m_MaxPointLightShadows, 1, 10);
 			ImGui::SliderFloat("Bias", &environment.m_ShadowsSettings.m_Bias, 0.001f, 0.005f);
 			ImGui::SliderInt("Pcf", &environment.m_ShadowsSettings.m_Pcf, 0, 10);
 			ImGui::SliderFloat("Fog", &environment.m_ShadowsSettings.m_Fog, 0.0f, 1.0f);
@@ -1447,7 +1448,12 @@ void Editor::PointLightComponent(GameObject* gameObject)
 				ImGui::SliderFloat("ZNear", &pointLight->m_ZNear, 0.1, 1.0f);
 				ImGui::SliderFloat("ZFar", &pointLight->m_ZFar, 1.0f, 150.0f);
 				ImGui::SliderFloat("Fog", &pointLight->m_Fog, 0.0f, 1.0f);
-				ImGui::Checkbox("Draw Shadows", &pointLight->m_DrawShadows);
+
+				bool drawShadows = pointLight->IsDrawShadows();
+				if (ImGui::Checkbox("Draw Shadows", &drawShadows))
+				{
+					pointLight->SetDrawShadows(drawShadows);
+				}
 			}
 		}
 	}

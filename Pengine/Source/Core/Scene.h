@@ -54,6 +54,8 @@ namespace Pengine
 
 		void SortTransparent();
 
+		void SortPointLights();
+
 		void RenderBoundingBoxes();
 
 		void ShutDown();

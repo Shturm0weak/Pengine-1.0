@@ -28,9 +28,13 @@ struct PointLight
 {
 	vec3 position;
 	vec3 color;
+	int shadowMapIndex;
 	float constant;
 	float _linear;
 	float quadratic;
+	float farPlane;
+	float fog;
+	bool drawShadows;
 };
 
 struct SpotLight
@@ -45,7 +49,7 @@ struct SpotLight
 	float outerCutOff;
 };
 
-struct Shadows
+struct DirectionalShadows
 {
 	sampler2D color;
 	bool isEnabled;
@@ -58,16 +62,19 @@ struct SSAO
 };
 
 #define MAX_LIGHT 32
-uniform int pointLightsSize;
-uniform PointLight pointLights[MAX_LIGHT];
-uniform int spotLightsSize;
-uniform SpotLight spotLights[MAX_LIGHT];
+uniform samplerCube u_PointLightsShadowMap[MAX_LIGHT];
+uniform PointLight u_PointLights[MAX_LIGHT];
+uniform int u_PointLightsSize;
+
+uniform int u_SpotLightsSize;
+uniform SpotLight u_SpotLights[MAX_LIGHT];
+
 uniform DirectionalLight u_DirectionalLight;
-uniform Shadows u_Shadows;
+uniform DirectionalShadows u_DirectionalShadows;
+
 uniform SSAO u_SSAO;
 uniform vec3 u_CameraPosition;
 uniform vec2 u_ViewportSize;
-uniform sampler2D u_Texture[32];
 
 uniform sampler2D u_WorldPosition;
 uniform sampler2D u_Normal;
@@ -79,6 +86,7 @@ vec4 worldPosition = texture(u_WorldPosition, uv);
 vec3 normal = texture(u_Normal, uv).xyz;
 vec3 albedo = texture(u_Albedo, uv).xyz;
 vec3 shadow = vec3(0.0);
+vec3 pointShadow = vec3(0.0);
 
 float ssao = texture(u_SSAO.color, uv).x;
 
@@ -105,8 +113,62 @@ vec3 DirectionalLightCompute()
 	return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * u_DirectionalLight.intensity * albedo;
 }
 
+vec3 sampleOffsetDirections[20] = vec3[]
+(
+	vec3(1, 1, 1), vec3(1, -1, 1), vec3(-1, -1, 1), vec3(-1, 1, 1),
+	vec3(1, 1, -1), vec3(1, -1, -1), vec3(-1, -1, -1), vec3(-1, 1, -1),
+	vec3(1, 1, 0), vec3(1, -1, 0), vec3(-1, -1, 0), vec3(-1, 1, 0),
+	vec3(1, 0, 1), vec3(-1, 0, 1), vec3(1, 0, -1), vec3(-1, 0, -1),
+	vec3(0, 1, 1), vec3(0, -1, 1), vec3(0, -1, -1), vec3(0, 1, -1)
+);
+
+vec3 PointShadowCompute(PointLight light)
+{
+	vec3 toLight = worldPosition.xyz - light.position;
+	vec3 toCamera = worldPosition.xyz - u_CameraPosition;
+	float distanceToCamera = length(toCamera);
+	float currentDepth = length(toLight);
+	float bias = 0.0;
+	float diskRadius = (1.0 + (distanceToCamera / light.farPlane)) / 100.0;
+	int samples = 20;
+	for (int i = 0; i < samples; i++)
+	{
+		float closestDepth = texture(u_PointLightsShadowMap[light.shadowMapIndex], toLight + sampleOffsetDirections[i] * diskRadius).r;
+		closestDepth *= light.farPlane; 
+		if (currentDepth - bias > closestDepth)
+		{
+			shadow += 1.0;
+		}
+	}
+	shadow /= float(samples);
+
+	if (currentDepth > light.farPlane || dot(normalize(toLight), normal) > 0.0)
+	{
+		return vec3(0.0);
+	}
+
+	shadow *= (1.0 - (currentDepth / light.farPlane));
+	shadow = clamp(shadow, 0.1, 1.0);
+
+	float farPlaneEdge = light.farPlane * (1.0 - light.fog);
+	if (distanceToCamera > farPlaneEdge)
+	{
+		float shadowFog = clamp((distanceToCamera - farPlaneEdge) / (light.farPlane * light.fog), 0.0, 1.0);
+		shadow *= (1.0 - shadowFog);
+	}
+
+	return vec3(shadow);
+}
+
 vec3 PointLightCompute(PointLight light)
 {
+	vec3 shadow = vec3(0.0);
+
+	if (u_DirectionalShadows.isEnabled && light.drawShadows)
+	{
+		shadow = PointShadowCompute(light);
+	}
+
 	vec3 ambient = light.color;
 
 	if (u_SSAO.isEnabled)
@@ -171,7 +233,7 @@ vec3 SpotLightCompute(SpotLight light)
 		specular *= intensity;
 		diffuse *= intensity;
 
-		return (ambient + (vec3(1.0) - shadow) * (diffuse + specular)) * albedo;
+		return (ambient + (diffuse + specular)) * albedo;
 	}
 	else  // Use ambient light, so scene isn't completely dark outside the spotlight.
 	{
@@ -181,21 +243,21 @@ vec3 SpotLightCompute(SpotLight light)
 
 void main()
 {
-	if (u_Shadows.isEnabled)
+	if (u_DirectionalShadows.isEnabled)
 	{
-		shadow = texture(u_Shadows.color, gl_FragCoord.xy / u_ViewportSize).rgb;
+		shadow = texture(u_DirectionalShadows.color, gl_FragCoord.xy / u_ViewportSize).rgb;
 	}
 
 	vec3 result = DirectionalLightCompute();
 
-	for (int i = 0; i < pointLightsSize; i++)
+	for (int i = 0; i < u_PointLightsSize; i++)
 	{
-		result += PointLightCompute(pointLights[i]);
+		result += PointLightCompute(u_PointLights[i]);
 	}
 
-	for (int i = 0; i < spotLightsSize; i++)
+	for (int i = 0; i < u_SpotLightsSize; i++)
 	{
-		result += SpotLightCompute(spotLights[i]);
+		result += SpotLightCompute(u_SpotLights[i]);
 	}
 
 	fragColor = vec4(vec3(result), 1.0);

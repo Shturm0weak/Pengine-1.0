@@ -328,28 +328,28 @@ void Scene::PrepareVisualizer()
 
 	if (Editor::GetInstance().m_DrawLights)
 	{
-		std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+		const std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
 
 		for (DirectionalLight* directionalLight : m_DirectionalLights)
 		{
-			Transform& transform = directionalLight->GetOwner()->m_Transform;
-			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			const Transform& transform = directionalLight->GetOwner()->m_Transform;
+			const glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
 			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
 				TextureManager::GetInstance().GetByFilePath("Source/UIimages/Sun.png"));
 		}
 
 		for (SpotLight* spotLight : m_SpotLights)
 		{
-			Transform& transform = spotLight->GetOwner()->m_Transform;
-			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			const Transform& transform = spotLight->GetOwner()->m_Transform;
+			const glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
 			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
 				TextureManager::GetInstance().GetByFilePath("Source/UIimages/SpotLight.png"));
 		}
 
 		for (PointLight* pointLight : m_PointLights)
 		{
-			Transform& transform = pointLight->GetOwner()->m_Transform;
-			glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
+			const Transform& transform = pointLight->GetOwner()->m_Transform;
+			const glm::mat4 view = glm::inverse(glm::lookAt(glm::vec3(0.0f), camera->m_Transform.GetPosition() - transform.GetPosition(), glm::vec3(0.0f, 1.0f, 0.0f)));;
 			Visualizer::DrawQuad(transform.GetPositionMat4() * view * transform.GetScaleMat4(), Colors::White(),
 				TextureManager::GetInstance().GetByFilePath("Source/UIimages/PointLight.png"));
 		}
@@ -362,7 +362,7 @@ void Scene::PrepareToRender()
 	m_TransparentByDistance.clear();
 	m_ShadowsByMesh.clear();
 
-	glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+	const glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
 
 	for (Renderer3D* r3d : m_Renderers3D)
 	{
@@ -389,17 +389,38 @@ void Scene::PrepareToRender()
 
 void Scene::SortTransparent()
 {
-	glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+	const glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
 
 	auto isFurther = [cameraPosition](Renderer3D* a, Renderer3D* b)
 	{
-		float distanceA = glm::length2(cameraPosition - a->m_Mesh->m_BoundingBox.GetTransformedCenter(a->GetOwner()->m_Transform.GetPosition()));
-		float distanceB = glm::length2(cameraPosition - b->m_Mesh->m_BoundingBox.GetTransformedCenter(b->GetOwner()->m_Transform.GetPosition()));
+		float distance2A = glm::length2(cameraPosition - a->m_Mesh->m_BoundingBox.GetTransformedCenter(a->GetOwner()->m_Transform.GetPosition()));
+		float distance2B = glm::length2(cameraPosition - b->m_Mesh->m_BoundingBox.GetTransformedCenter(b->GetOwner()->m_Transform.GetPosition()));
 
-		return distanceA > distanceB;
+		return distance2A > distance2B;
 	};
 
 	std::sort(m_TransparentByDistance.begin(), m_TransparentByDistance.end(), isFurther);
+}
+
+void Scene::SortPointLights()
+{
+	const glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+
+	auto isCloser = [cameraPosition](PointLight* a, PointLight* b)
+	{
+		float distance2A = glm::length2(cameraPosition - a->GetOwner()->m_Transform.GetPosition());
+		float distance2B = glm::length2(cameraPosition - b->GetOwner()->m_Transform.GetPosition());
+
+		return distance2A < distance2B;
+	};
+
+	std::sort(m_PointLights.begin(), m_PointLights.end(), isCloser);
+
+	for (PointLight* pointLight : m_PointLights)
+	{
+		float distance2 = glm::length2(cameraPosition - pointLight->GetOwner()->m_Transform.GetPosition());
+		pointLight->m_ShadowsVisible = distance2 < pointLight->m_ZFar * pointLight->m_ZFar * 2.0f;
+	}
 }
 
 void Scene::RenderBoundingBoxes()

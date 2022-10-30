@@ -15,7 +15,7 @@ void main()
 #shader fragment
 #version 330 core
 
-layout(location = 0) out vec4 fragColor;
+layout(location = 0) out vec4 dirShadows;
 
 struct DirectionalLight
 {
@@ -38,18 +38,6 @@ struct Shadows
 	float texels;
 	float fog;
 };
-
-struct PointLight
-{
-	vec3 position;
-	float farPlane;
-	float fog;
-};
-
-#define MAX_LIGHT 32
-uniform PointLight u_PointLight[MAX_LIGHT];
-uniform samplerCube u_PointLightShadowMap[MAX_LIGHT];
-uniform int u_PointLightsSize;
 
 uniform DirectionalLight u_DirectionalLight;
 uniform Shadows u_Shadows;
@@ -144,41 +132,7 @@ vec3 DirectionalShadowCompute()
 	return shadow;
 }
 
-vec3 PointShadowCompute(int i)
-{
-	vec3 toLight = worldPosition.xyz - u_PointLight[i].position;
-	float closestDepth = texture(u_PointLightShadowMap[i], toLight).r;
-	closestDepth *= u_PointLight[i].farPlane;
-	float currentDepth = length(toLight);
-	float bias = 0.05;
-	float shadow = currentDepth - bias > closestDepth ? 1.0 : 0.0;
-
-	if (currentDepth > u_PointLight[i].farPlane || dot(normalize(toLight), normal) > 0.0)
-	{
-		return vec3(0.0);
-	}
-
-	shadow *= (1.0 - (currentDepth / u_PointLight[i].farPlane));
-	shadow = clamp(shadow, 0.1, 1.0);
-
-	float farPlaneEdge = u_PointLight[i].farPlane * (1.0 - u_PointLight[i].fog);
-	if (currentDepth > farPlaneEdge)
-	{
-		float shadowFog = clamp((currentDepth - farPlaneEdge) / (u_PointLight[i].farPlane * u_PointLight[i].fog), 0.0, 1.0);
-		shadow *= (1.0 - shadowFog);
-	}
-
-	return vec3(shadow);
-}
-
 void main()
 {
-	vec3 result = DirectionalShadowCompute();
-
-	for (int i = 0; i < u_PointLightsSize; i++)
-	{
-		result += PointShadowCompute(i);
-	}
-
-	fragColor = vec4(result, 1.0);
+	dirShadows = vec4(DirectionalShadowCompute(), 1.0);
 }

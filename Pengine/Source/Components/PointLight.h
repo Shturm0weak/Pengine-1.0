@@ -13,7 +13,19 @@ namespace Pengine
 		std::vector<glm::mat4> m_ShadowsTransforms;
 		class FrameBuffer* m_ShadowsCubeMap = nullptr;
 
+		/**
+		 * This value is set up by the user and is the flag that indicates that this light source casts shadows.
+		 */
+		bool m_DrawShadows = false;
+		
+		/**
+		 * This value will be calculated during the preparation stage as a flag that indicates
+		 * that the PointLight is out of visible distance (Zfar) and shadows shouln't be rendered.  
+		 */
+		bool m_ShadowsVisible = false;
+
 		friend class Renderer;
+		friend class Scene;
 	public:
 
 		glm::vec3 m_Color = { 1.0f, 1.0f, 1.0f };
@@ -24,7 +36,6 @@ namespace Pengine
 		float m_ZFar = 150.0f;
 		float m_ZNear = 0.1f;
 		float m_Fog = 0.2f;
-		bool m_DrawShadows = true;
 
 		virtual IComponent* New(GameObject* owner) override;
 
@@ -44,6 +55,12 @@ namespace Pengine
 		void SetLinear(float linear) { m_Linear = linear; }
 
 		void SetQuadratic(float quadratic) { m_Quadratic = quadratic; }
+
+		void SetDrawShadows(bool drawShadows);
+
+		bool IsDrawShadows() const { return m_DrawShadows; }
+
+		bool IsRenderShadows() const { return m_DrawShadows && m_ShadowsVisible; }
 	};
 
 }

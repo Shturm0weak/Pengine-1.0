@@ -160,7 +160,7 @@ void Viewport::Update()
 	ImGui::End();
 
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("Shadows", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	ImGui::Begin("Dir Shadows", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferShadowsBlur[0]->m_Textures[0]);
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();

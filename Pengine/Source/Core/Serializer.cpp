@@ -827,6 +827,7 @@ void Serializer::SerializeShadows(YAML::Emitter& out)
 	out << YAML::Key << "IsEnabled" << YAML::Value << shadows.m_IsEnabled;
 	out << YAML::Key << "IsVisualized" << YAML::Value << shadows.m_IsVisualized;
 	out << YAML::Key << "Pcf" << YAML::Value << shadows.m_Pcf;
+	out << YAML::Key << "MaxPointLightShadows" << YAML::Value << shadows.m_MaxPointLightShadows;
 	out << YAML::Key << "Fog" << YAML::Value << shadows.m_Fog;
 	out << YAML::Key << "Texels" << YAML::Value << shadows.m_Texels;
 	out << YAML::Key << "ZFarScale" << YAML::Value << shadows.m_ZFarScale;
@@ -867,6 +868,11 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 		if (auto& pcfData = shadowsIn["Pcf"])
 		{
 			shadows.m_Pcf = pcfData.as<int>();
+		}
+
+		if (auto& maxPointLightShadowsData = shadowsIn["MaxPointLightShadows"])
+		{
+			shadows.m_MaxPointLightShadows = maxPointLightShadowsData.as<int>();
 		}
 
 		if (auto& fogData = shadowsIn["Fog"])
@@ -1907,7 +1913,7 @@ void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "ZFar" << YAML::Value << pointLight->m_ZFar;
 		out << YAML::Key << "ZNear" << YAML::Value << pointLight->m_ZNear;
 		out << YAML::Key << "Fog" << YAML::Value << pointLight->m_Fog;
-		out << YAML::Key << "DrawShadows" << YAML::Value << pointLight->m_DrawShadows;
+		out << YAML::Key << "DrawShadows" << YAML::Value << pointLight->IsDrawShadows();
 
 		out << YAML::EndMap;
 	}
@@ -1956,7 +1962,7 @@ void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& compone
 
 		if (auto& drawShadowsData = pointLightIn["DrawShadows"])
 		{
-			pointLight->m_DrawShadows = drawShadowsData.as<bool>();
+			pointLight->SetDrawShadows(drawShadowsData.as<bool>());
 		}
 	}
 }
