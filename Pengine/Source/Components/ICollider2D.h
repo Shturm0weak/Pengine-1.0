@@ -26,7 +26,7 @@ namespace Pengine
 		float m_RestitutionThreshold = 0.5f;
 		bool m_IsTrigger = false;
 
-		ICollider2D() { m_Type = "ICollider"; }
+		ICollider2D() { m_Type = "ICollider2D"; }
 		
 		void SetTrigger(bool isTrigger) { m_IsTrigger = isTrigger; }
 

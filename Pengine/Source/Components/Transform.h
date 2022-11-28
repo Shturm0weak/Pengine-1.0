@@ -4,7 +4,7 @@
 #include "../Core/Component.h"
 
 #include <functional>
-#include <vector>
+#include <unordered_map>
 
 namespace Pengine
 {
@@ -28,9 +28,9 @@ namespace Pengine
 		glm::vec3 m_Back;
 		glm::vec3 m_Up;
 
-		std::vector<std::function<void()>> m_OnRotationCallbacks;
-		std::vector<std::function<void()>> m_OnTranslationCallbacks;
-		std::vector<std::function<void()>> m_OnScaleCallbacks;
+		std::unordered_map<std::string, std::function<void()>> m_OnRotationCallbacks;
+		std::unordered_map<std::string, std::function<void()>> m_OnTranslationCallbacks;
+		std::unordered_map<std::string, std::function<void()>> m_OnScaleCallbacks;
 
 		bool m_FollowOwner = true;
 		bool m_Copyable = true;
@@ -42,7 +42,6 @@ namespace Pengine
 		friend class GameObject;
 		friend class Editor;
 	public:
-
 
 		Transform(const Transform& transform);
 		Transform(Transform&& transform) noexcept;
@@ -96,11 +95,17 @@ namespace Pengine
 
 		void SetCopyable(bool copyable) { m_Copyable = copyable; }
 		
-		void SetOnRotationCallback(std::function<void()> callback) { m_OnRotationCallbacks.emplace_back(callback); }
+		void SetOnRotationCallback(const std::string& label, std::function<void()> callback) { m_OnRotationCallbacks.emplace(label, callback); }
 		
-		void SetOnTranslationCallback(std::function<void()> callback) { m_OnTranslationCallbacks.emplace_back(callback); }
+		void SetOnTranslationCallback(const std::string& label, std::function<void()> callback) { m_OnTranslationCallbacks.emplace(label, callback); }
 
-		void SetOnScaleCallback(std::function<void()> callback) { m_OnScaleCallbacks.emplace_back(callback); }
+		void SetOnScaleCallback(const std::string& label, std::function<void()> callback) { m_OnScaleCallbacks.emplace(label, callback); }
+
+		void RemoveOnRotationCallback(const std::string& label);
+
+		void RemoveOnTranslationCallback(const std::string& label);
+
+		void RemoveOnScaleCallback(const std::string& label);
 
 		void ClearOnRotationCallbacks() { m_OnRotationCallbacks.clear(); }
 

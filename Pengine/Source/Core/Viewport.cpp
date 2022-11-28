@@ -42,7 +42,6 @@ void Viewport::End()
 {
     glViewport(0, 0, m_PreviousWindowSize.x, m_PreviousWindowSize.y);
     m_FrameBufferViewport->UnBind();
-	Window::GetInstance().Clear();
 }
 
 void Viewport::SetPosition(const glm::ivec2 position)
@@ -134,13 +133,6 @@ void Viewport::Update()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("SSAO", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferSSAOBlur[0]->m_Textures[0]);
-	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
-	ImGui::PopStyleVar();
-	ImGui::End();
-
-	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-	ImGui::Begin("SSAO Noise", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
-	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_SSAO);
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();

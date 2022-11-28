@@ -139,7 +139,6 @@ void EntryPoint::OnClose()
     m_Application->ShutDown();
     Animation2DManager::GetInstance().ShutDown();
     Viewport::GetInstance().ShutDown();
-    Renderer::GetInstance().ShutDown();
     MeshManager::GetInstance().ShutDown();
     MemoryManager::GetInstance().ShutDown();
     ThreadPool::GetInstance().Shutdown();

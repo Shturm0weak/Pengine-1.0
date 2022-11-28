@@ -48,7 +48,7 @@ void ThrowingObject::OnThrow()
 	if (!GetOwner()) return;
 
 	m_A2d = GetOwner()->m_ComponentManager.AddComponent<Animator2D>();
-	m_Ic2d = GetOwner()->m_ComponentManager.GetComponent<ICollider2D>();
+	m_Ic2d = GetOwner()->m_ComponentManager.GetComponentSubClass<ICollider2D>();
 	m_Rb2d = GetOwner()->m_ComponentManager.AddComponent<Rigidbody2D>();
 
 	if (!m_BlowOnCollide)

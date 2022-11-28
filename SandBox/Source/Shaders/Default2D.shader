@@ -106,7 +106,7 @@ vec3 PointLightCompute(PointLight light, vec3 normalMap)
 
 void main()
 {
-	if ((additionalData0.x != 0.0 || additionalData0.y != 0.0) && !RenderCircle(additionalData0.x, additionalData0.y))
+	if ((additionalData0.x > 0.0 || additionalData0.y > 0.0) && !RenderCircle(additionalData0.x, additionalData0.y))
 	{
 		discard;
 	}

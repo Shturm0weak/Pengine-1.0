@@ -11,6 +11,13 @@ namespace Pengine
 	{
 	private:
 
+		class Indent
+		{
+		public:
+			Indent();
+			~Indent();
+		};
+
 		struct OutlineParams
 		{
 			glm::vec3 m_Color = { 1.0f, 1.0f, 0.0f };
@@ -88,22 +95,22 @@ namespace Pengine
 		
 		void Debug();
 		
-		void DrawVec2Control(const std::string& label, glm::vec2& values, float resetValue = 0.0f,
+		bool DrawVec2Control(const std::string& label, glm::vec2& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
-		void DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f,
+		bool DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
-		void DrawVec4Control(const std::string& label, glm::vec4& values, float resetValue = 0.0f,
+		bool DrawVec4Control(const std::string& label, glm::vec4& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 		
-		void DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue = 0.0f,
+		bool DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
-		void DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue = 0.0f,
+		bool DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
-		void DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue = 0.0f,
+		bool DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue = 0.0f,
 			const glm::vec2& limits = glm::vec2(-25.0f, 25.0f), float speed = 0.1f, float columnWidth = 100.0f);
 
 		void DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags);
@@ -131,10 +138,16 @@ namespace Pengine
 		void Renderer2DComponent(GameObject* gameObject);
 		
 		void BoxCollider2DComponent(GameObject* gameObject);
+
+		void BoxCollider3DComponent(GameObject* gameObject);
 		
 		void CircleCollider2DComponent(GameObject* gameObject);
+
+		void SphereCollider3DComponent(GameObject* gameObject);
 		
 		void Rigidbody2DComponent(GameObject* gameObject);
+
+		void Rigidbody3DComponent(GameObject* gameObject);
 		
 		void Animator2DComponent(GameObject* gameObject);
 		

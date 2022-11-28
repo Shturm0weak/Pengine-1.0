@@ -3,6 +3,7 @@
 #include "Core.h"
 
 #include <vector>
+#include <memory>
 
 namespace Pengine
 {
@@ -16,18 +17,18 @@ namespace Pengine
 		Renderer& operator=(const Renderer&) { return *this; }
 		~Renderer() = default;
 
-		class FrameBuffer* m_FrameBufferScene = nullptr;
-		class FrameBuffer* m_FrameBufferSSAO = nullptr;
-		class FrameBuffer* m_FrameBufferG = nullptr;
-		class FrameBuffer* m_FrameBufferGDownSampled = nullptr;
-		class FrameBuffer* m_FrameBufferUI = nullptr; 
-		class FrameBuffer* m_FrameBufferBloom = nullptr;
-		class FrameBuffer* m_FrameBufferOutline = nullptr;
-		class FrameBuffer* m_FrameBufferShadows = nullptr;
-		std::vector<class FrameBuffer*> m_FrameBufferBlur;
-		std::vector<class FrameBuffer*> m_FrameBufferCSM;
-		std::vector<class FrameBuffer*> m_FrameBufferShadowsBlur;
-		std::vector<class FrameBuffer*> m_FrameBufferSSAOBlur;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferScene = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferSSAO = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferG = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferGDownSampled = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferUI = nullptr; 
+		std::shared_ptr<class FrameBuffer> m_FrameBufferBloom = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferOutline = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferShadows = nullptr;
+		std::vector<std::shared_ptr<class FrameBuffer>> m_FrameBufferBlur;
+		std::vector<std::shared_ptr<class FrameBuffer>> m_FrameBufferCSM;
+		std::vector<std::shared_ptr<class FrameBuffer>> m_FrameBufferShadowsBlur;
+		std::vector<std::shared_ptr<class FrameBuffer>> m_FrameBufferSSAOBlur;
 
 		std::vector<glm::mat4> m_LightSpaceMatrices;
 
@@ -38,9 +39,9 @@ namespace Pengine
 
 		void Initialize();
 
-		void Begin(FrameBuffer* frameBuffer, const glm::vec4& clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), float depth = 1.0f);
+		void Begin(std::shared_ptr<FrameBuffer>& frameBuffer, const glm::vec4& clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), float depth = 1.0f);
 
-		void End(FrameBuffer* frameBuffer);
+		void End(std::shared_ptr<FrameBuffer>& frameBuffer);
 
 		void ComposeFinalImage();
 
@@ -48,7 +49,7 @@ namespace Pengine
 
 		void GenerateSSAONoiseTexture();
 
-		void RenderCascadeShadowMaps(class Scene* scene);
+		bool RenderCascadeShadowMaps(class Scene* scene);
 
 		void RenderCascadeShadowsToScene(class Scene* scene);
 
@@ -66,8 +67,8 @@ namespace Pengine
 
 		void RenderSSAO();
 
-		void Blur(class FrameBuffer* frameBufferSource, const std::vector<class FrameBuffer*>& frameBuffers, int blurPasses,
-			float brightnessThreshold, int pixelsBlured);
+		void Blur(std::shared_ptr<class FrameBuffer>& frameBufferSource, std::vector<std::shared_ptr<class FrameBuffer>>& frameBuffers, 
+			int blurPasses, float brightnessThreshold, int pixelsBlured);
 
 		// The best that I can get, though it is not perfect.
 		// 1. Create several frame buffers for horizontal and vertical blur and each new framebuffer is half a size of a previous one.
@@ -86,8 +87,6 @@ namespace Pengine
 		void ShadowPass(Scene* scene);
 
 		void PostProcessingPass(Application* application);
-
-		void ShutDown();
 
 		friend class Instancing;
 		friend class Viewport;

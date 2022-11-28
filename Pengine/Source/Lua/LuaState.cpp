@@ -75,7 +75,7 @@ Rigidbody2D* LuaState::LuaAddRigidBody2D(GameObject* gameObject)
 
 ICollider2D* LuaState::LuaGetICollider2D(GameObject* gameObject)
 {
-	return gameObject ? gameObject->m_ComponentManager.GetComponent<ICollider2D>() : nullptr;
+	return gameObject ? gameObject->m_ComponentManager.GetComponentSubClass<ICollider2D>() : nullptr;
 }
 
 ICollider2D* LuaState::LuaToICollider2D(void* ptr)

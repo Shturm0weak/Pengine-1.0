@@ -20,6 +20,8 @@ void DirectionalLight::Copy(const IComponent& component)
 
 void DirectionalLight::Delete()
 {
+	GetOwner()->m_Transform.RemoveOnRotationCallback("DirectionalLight");
+
 	Utils::Erase(m_Owner->GetScene()->m_DirectionalLights, this);
 	delete this;
 }
@@ -34,7 +36,7 @@ IComponent* DirectionalLight::Create(GameObject* owner)
 	};
 
 	onRotationCallback();
-	owner->m_Transform.SetOnRotationCallback(onRotationCallback);
+	owner->m_Transform.SetOnRotationCallback("DirectionalLight", onRotationCallback);
 
 	owner->GetScene()->m_DirectionalLights.push_back(directionalLight);
 

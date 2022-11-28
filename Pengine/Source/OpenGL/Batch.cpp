@@ -623,6 +623,11 @@ void Batch::Submit(const std::vector<float>& mesh, const glm::mat4& positionMat4
 
 void Batch::FlushGameObjects(bool isVisualizer)
 {
+	if (m_GOWrapper.m_IndexCount == 0)
+	{
+		return;
+	}
+
 	glBindVertexArray(m_GOWrapper.m_Vao);
 	m_GOWrapper.m_Ibo.Bind();
 
@@ -695,6 +700,11 @@ void Batch::FlushGameObjects(bool isVisualizer)
 
 void Batch::FlushLines()
 {
+	if (m_LineWrapper.m_IndexCount == 0)
+	{
+		return;
+	}
+
 	glBindVertexArray(m_LineWrapper.m_Vao);
 	m_LineWrapper.m_Ibo.Bind();
 
@@ -719,6 +729,11 @@ void Batch::FlushLines()
 
 void Batch::FlushUI()
 {
+	if (m_UIWrapper.m_IndexCount == 0)
+	{
+		return;
+	}
+
 	glBindVertexArray(m_UIWrapper.m_Vao);
 	m_UIWrapper.m_Ibo.Bind();
 	Shader* shader = Shader::Get("UI");

@@ -54,9 +54,6 @@ namespace Pengine
 		}
 
 		template<>
-		ICollider2D* GetComponent<ICollider2D>();
-
-		template<>
 		Transform* GetComponent<Transform>();
 
 		template<typename T>

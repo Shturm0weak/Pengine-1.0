@@ -100,6 +100,20 @@ GameObject* GameObject::Create(Scene* scene, const std::string& name, const Tran
 	return gameObject;
 }
 
+bool GameObject::IsEnabled()
+{
+	bool enabled = true;
+
+	GameObject* owner = this;
+	while (owner)
+	{
+		enabled *= owner->m_IsEnabled;
+		owner = owner->GetOwner();
+	}
+
+	return enabled;
+}
+
 void GameObject::Delete()
 {
 	while (m_Childs.size() > 0)

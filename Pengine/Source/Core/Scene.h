@@ -5,13 +5,17 @@
 #include "../Components/Renderer2D.h"
 #include "../Components/Renderer3D.h"
 #include "../Components/Rigidbody2D.h"
+#include "../Components/Rigidbody3D.h"
 #include "../Components/BoxCollider2D.h"
+#include "../Components/BoxCollider3D.h"
 #include "../Components/CircleCollider2D.h"
 #include "../Components/ParticleEmitter.h"
 #include "../Components/PointLight.h"
+#include "../Components/SphereCollider3D.h"
 #include "../Components/DirectionalLight.h"
 #include "../Components/SpotLight.h"
 #include "Box2D/include/box2d/b2_world.h"
+#include "BulletPhysicsWorld.h"
 
 #include <vector>
 #include <unordered_map>
@@ -27,8 +31,11 @@ namespace Pengine
 		std::vector<GameObject*> m_GameObjects;
 		std::vector<std::vector<Renderer2D*>> m_Renderer2DLayers;
 		std::vector<BoxCollider2D*> m_BoxColliders2D;
+		std::vector<BoxCollider3D*> m_BoxColliders3D;
 		std::vector<CircleCollider2D*> m_CircleColliders2D;
+		std::vector<SphereCollider3D*> m_SphereColliders3D;
 		std::vector<Rigidbody2D*> m_Rigidbody2D;
+		std::vector<Rigidbody3D*> m_Rigidbody3D;
 		std::vector<ParticleEmitter*> m_ParticleEmitters;
 		std::vector<PointLight*> m_PointLights;
 		std::vector<SpotLight*> m_SpotLights;
@@ -41,6 +48,7 @@ namespace Pengine
 		std::string m_Title = "Scene";
 		std::string m_FilePath = "None";
 		b2World* m_Box2DWorld = nullptr;
+		BulletPhysicsWorld m_BulletPhysicsWorld;
 
 		void Copy(const Scene& scene);
 		
@@ -59,6 +67,10 @@ namespace Pengine
 		void RenderBoundingBoxes();
 
 		void ShutDown();
+
+		void CreatePhysics();
+
+		void DestroyPhysics();
 
 		std::vector<PointLight*> GetEnabledPointLights() const;
 
@@ -94,6 +106,9 @@ namespace Pengine
 		friend void DirectionalLight::Delete();
 		friend void Renderer2D::SetLayer(int layer);
 		
+		friend class BoxCollider3D;
+		friend class SphereCollider3D;
+		friend class Rigidbody3D;
 		friend class Instancing;
 		friend class Application;
 		friend class Editor;
@@ -105,8 +120,6 @@ namespace Pengine
 		friend class EntryPoint;
 	public:
 
-		std::mutex m_Mutex;
-
 		Scene(const std::string& title);
 		Scene(const Scene& scene);
 		Scene(Scene&& scene) noexcept;
@@ -114,6 +127,8 @@ namespace Pengine
 		void operator=(Scene&& scene) noexcept;
 
 		b2World& GetBox2DWorld() const { return *m_Box2DWorld; }
+
+		BulletPhysicsWorld& GetBulletPhysicsWorld() { return m_BulletPhysicsWorld; }
 		
 		std::string GetTitle() const { return m_Title; }
 		
@@ -132,6 +147,8 @@ namespace Pengine
 		
 		const std::vector<GameObject*>& GetGameObjects() const { return m_GameObjects; }
 		
+		std::vector<BoxCollider3D*> GetBoxColliders3D() const { return m_BoxColliders3D; }
+
 		void OnRegisterClients();
 		
 		void Clear();

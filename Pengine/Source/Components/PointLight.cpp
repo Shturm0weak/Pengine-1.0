@@ -8,8 +8,9 @@ using namespace Pengine;
 
 void PointLight::Delete()
 {
+	GetOwner()->m_Transform.RemoveOnTranslationCallback("PointLight");
+
 	Utils::Erase(m_Owner->GetScene()->m_PointLights, this);
-	delete m_ShadowsCubeMap;
 	delete this;
 }
 
@@ -53,17 +54,19 @@ void PointLight::SetDrawShadows(bool drawShadows)
 	if (m_DrawShadows)
 	{
 		glm::ivec2 shadowCubeMapSize = { 1024, 1024 };
-		m_ShadowsCubeMap = new FrameBuffer(
+		m_ShadowsCubeMap = std::make_shared<FrameBuffer>(
+			std::vector<FrameBuffer::FrameBufferParams>
 			{
 				{ shadowCubeMapSize, GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, true, true }
 			},
-		{
-			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST },
-			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST },
-			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE },
-			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE },
-			{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE }
-		}
+			std::vector<Texture::TexParameteri>
+			{
+				{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_NEAREST },
+				{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_NEAREST },
+				{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE },
+				{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE },
+				{ GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE }
+			}
 		);
 
 		auto onTranslationCallback = [this, shadowCubeMapSize]()
@@ -81,11 +84,16 @@ void PointLight::SetDrawShadows(bool drawShadows)
 
 		onTranslationCallback();
 		GetOwner()->m_Transform.ClearOnTranslationCallbacks();
-		GetOwner()->m_Transform.SetOnTranslationCallback(onTranslationCallback);
+		GetOwner()->m_Transform.SetOnTranslationCallback("PointLight", onTranslationCallback);
 	}
 	else
 	{
 		GetOwner()->m_Transform.ClearOnTranslationCallbacks();
-		delete m_ShadowsCubeMap;
+		m_ShadowsCubeMap.reset();
 	}
+}
+
+bool PointLight::IsRenderShadows() const
+{
+	return m_DrawShadows && m_ShadowsVisible && GetOwner()->IsEnabled();
 }

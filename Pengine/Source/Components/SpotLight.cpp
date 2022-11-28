@@ -7,6 +7,8 @@ using namespace Pengine;
 
 void SpotLight::Delete()
 {
+	GetOwner()->m_Transform.RemoveOnRotationCallback("SpotLight");
+
 	Utils::Erase(m_Owner->GetScene()->m_SpotLights, this);
 	MemoryManager::GetInstance().FreeMemory<SpotLight>(static_cast<IAllocator*>(this));
 }
@@ -41,7 +43,7 @@ IComponent* SpotLight::Create(GameObject* owner)
 	};
 
 	onRotationCallback();
-	owner->m_Transform.SetOnRotationCallback(onRotationCallback);
+	owner->m_Transform.SetOnRotationCallback("SpotLight", onRotationCallback);
 
 	owner->GetScene()->m_SpotLights.push_back(spotLight);
 

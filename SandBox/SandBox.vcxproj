@@ -103,6 +103,7 @@
     <ClInclude Include="Source\Examples\BulletPhysics.h" />
     <ClInclude Include="Source\Examples\ExampleApplication.h" />
     <ClInclude Include="Source\Examples\ExampleComponent.h" />
+    <ClInclude Include="Source\Examples\FirstPersonController.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h" />
@@ -117,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Examples\BulletPhysics.cpp" />
+    <ClCompile Include="Source\Examples\FirstPersonController.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp">
       <ObjectFileName>$(IntDir)\Controller1.obj</ObjectFileName>

@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Mesh.h"
 #include "../Components/Renderer3D.h"
+#include "../Components/BoxCollider3D.h"
 
 using namespace Pengine;
 
@@ -10,7 +11,6 @@ std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObje
 	const glm::vec3& direction, Hit3D& hit, float length, bool AABB, std::vector<std::string> ignoreMask)
 {
 	std::map<float, GameObject*> gameObjectsByDistance;
-	size_t gameObjectsSize = gameObjects.size();
 	for (GameObject* gameObject : gameObjects)
 	{
 		bool hasTag = ignoreMask.empty() ? true : false;
@@ -52,6 +52,7 @@ std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObje
 		}
 		if (isIntersected)
 		{
+			hit.m_Object = gameObject;
 			gameObjectsByDistance.emplace(hit.m_Distance, hit.m_Object);
 		}
 	}
@@ -59,7 +60,7 @@ std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObje
 	if (gameObjectsByDistance.size() > 0)
 	{
 		hit.m_Object = gameObjectsByDistance.begin()->second;
-		hit.m_Point = direction * gameObjectsByDistance.begin()->first;
+		hit.m_Point = direction * gameObjectsByDistance.begin()->first + start;
 		hit.m_Distance = gameObjectsByDistance.begin()->first;
 	}
 	else
@@ -69,6 +70,65 @@ std::map<float, class GameObject*> Raycast3D::RayCast(std::vector<class GameObje
 		hit.m_Distance = 0.0f;
 	}
 	return gameObjectsByDistance;
+}
+
+
+std::map<float, class BoxCollider3D*> Raycast3D::RayCast(std::vector<class BoxCollider3D*> bcs3d, const glm::vec3& start,
+	const glm::vec3& direction, Hit3D& hit, float length, bool AABB, std::vector<std::string> ignoreMask)
+{
+	std::map<float, BoxCollider3D*> bcs3dByDistance;
+	for (BoxCollider3D* bc3d : bcs3d)
+	{
+		GameObject* owner = bc3d->GetOwner();
+		bool hasTag = ignoreMask.empty() ? true : false;
+		/*for (size_t j = 0; j < ignoreMask.size(); j++)
+		{
+			if (gameObject->m_Tag == ignoreMask[j])
+			{
+				hasTag = true;
+				break;
+			}
+		}*/
+
+		if (!hasTag)
+		{
+			continue;
+		}
+
+		bool isIntersected = false;
+
+		Transform transform = owner->m_Transform;
+		transform.Translate(transform.GetPosition() + bc3d->GetOffset());
+		BoundingBox boundingBox = { -bc3d->GetHalfExtent(), bc3d->GetHalfExtent(), { 0.0f, 0.0f, 0.0f } };
+
+		if (AABB)
+		{
+			isIntersected = IntersectBoxAABB(start, direction, hit, length, boundingBox, transform);
+		}
+		else
+		{
+			isIntersected = IntersectBoxOBB(start, direction, hit, length, boundingBox, transform);
+		}
+		if (isIntersected)
+		{
+			hit.m_Object = owner;
+			bcs3dByDistance.emplace(hit.m_Distance, bc3d);
+		}
+	}
+
+	if (bcs3dByDistance.size() > 0)
+	{
+		hit.m_Object = bcs3dByDistance.begin()->second->GetOwner();
+		hit.m_Point = direction * bcs3dByDistance.begin()->first + start;
+		hit.m_Distance = bcs3dByDistance.begin()->first;
+	}
+	else
+	{
+		hit.m_Object = nullptr;
+		hit.m_Point = { 0.0f, 0.0f, 0.0f };
+		hit.m_Distance = 0.0f;
+	}
+	return bcs3dByDistance;
 }
 
 bool Raycast3D::IntersectTriangle(const const glm::vec3& start, const glm::vec3& direction, Hit3D& hit,
@@ -155,7 +215,6 @@ bool Raycast3D::IntersectBoxAABB(const glm::vec3& start, const glm::vec3& direct
 	if (tzMin > tMin) tMin = tzMin;
 	if (tzMax < tMax) tMax = tzMax;
 	hit.m_Distance = tMin;
-	hit.m_Object = transform.GetOwner();
 	hit.m_Point = tMin * direction + start;
 
 	return true;
@@ -197,7 +256,6 @@ bool Raycast3D::IntersectBoxOBB(const glm::vec3& start, const glm::vec3& directi
 	}
 
 	hit.m_Distance = tMin;
-	hit.m_Object = transform.GetOwner();
 	hit.m_Point = tMin * direction + start;
 	return true;
 }

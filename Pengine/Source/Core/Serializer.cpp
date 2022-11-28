@@ -1138,8 +1138,11 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	SerializeRenderer2D(out, gameObject.m_ComponentManager);
 	SerializeRenderer3D(out, gameObject.m_ComponentManager);
 	SerializeBoxCollider2D(out, gameObject.m_ComponentManager);
+	SerializeBoxCollider3D(out, gameObject.m_ComponentManager);
 	SerializeCircleCollider2D(out, gameObject.m_ComponentManager);
+	SerializeSphereCollider3D(out, gameObject.m_ComponentManager);
 	SerializeRigidbody2D(out, gameObject.m_ComponentManager);
+	SerializeRigidbody3D(out, gameObject.m_ComponentManager);
 	SerializeAnimator2D(out, gameObject.m_ComponentManager);
 	SerializeParticleEmitter(out, gameObject.m_ComponentManager);
 	SerializeScript(out, gameObject.m_ComponentManager);
@@ -1186,8 +1189,11 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 	DeSerializeRenderer2D(in, gameObject->m_ComponentManager);
 	DeSerializeRenderer3D(in, gameObject->m_ComponentManager);
 	DeSerializeBoxCollider2D(in, gameObject->m_ComponentManager);
+	DeSerializeBoxCollider3D(in, gameObject->m_ComponentManager);
 	DeSerializeCircleCollider2D(in, gameObject->m_ComponentManager);
+	DeSerializeSphereCollider3D(in, gameObject->m_ComponentManager);
 	DeSerializeRigidbody2D(in, gameObject->m_ComponentManager);
+	DeSerializeRigidbody3D(in, gameObject->m_ComponentManager);
 	DeSerializeAnimator2D(in, gameObject->m_ComponentManager);
 	DeSerializeParticleEmitter(in, gameObject->m_ComponentManager);
 	DeSerializeScript(in, gameObject->m_ComponentManager);
@@ -1564,6 +1570,37 @@ void Serializer::DeSerializeBoxCollider2D(YAML::Node& in, ComponentManager& comp
 	}
 }
 
+void Serializer::SerializeBoxCollider3D(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	BoxCollider3D* bc3d = componentManager.GetComponent<BoxCollider3D>();
+	if (bc3d != nullptr)
+	{
+		out << YAML::Key << "BoxCollider3D";
+		out << YAML::BeginMap;
+		out << YAML::Key << "Offset" << YAML::Value << bc3d->GetOffset();
+		out << YAML::Key << "HalfExtent" << YAML::Value << bc3d->GetHalfExtent();
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeBoxCollider3D(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& boxCollider3DIn = in["BoxCollider3D"])
+	{
+		BoxCollider3D* bc3d = componentManager.AddComponent<BoxCollider3D>();
+
+		if (auto& offsetData = boxCollider3DIn["Offset"])
+		{
+			bc3d->SetOffset(offsetData.as<glm::vec3>());
+		}
+
+		if (auto& halfExtentData = boxCollider3DIn["HalfExtent"])
+		{
+			bc3d->SetHalfExtent(halfExtentData.as<glm::vec3>());
+		}
+	}
+}
+
 void Serializer::SerializeCircleCollider2D(YAML::Emitter& out, ComponentManager& componentManager)
 {
 	CircleCollider2D* cc2d = componentManager.GetComponent<CircleCollider2D>();
@@ -1631,6 +1668,37 @@ void Serializer::DeSerializeCircleCollider2D(YAML::Node& in, ComponentManager& c
 	}
 }
 
+void Serializer::SerializeSphereCollider3D(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	SphereCollider3D* sc3d = componentManager.GetComponent<SphereCollider3D>();
+	if (sc3d)
+	{
+		out << YAML::Key << "SphereCollider3D";
+		out << YAML::BeginMap;
+		out << YAML::Key << "Radius" << YAML::Value << sc3d->GetRadius();
+		out << YAML::Key << "Offset" << YAML::Value << sc3d->GetOffset();
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeSphereCollider3D(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& sphereCollider3DIn = in["SphereCollider3D"])
+	{
+		SphereCollider3D* sc3d = componentManager.AddComponent<SphereCollider3D>();
+
+		if (auto& radiusData = sphereCollider3DIn["Radius"])
+		{
+			sc3d->SetRadius(radiusData.as<float>());
+		}
+
+		if (auto& offsetData = sphereCollider3DIn["Offset"])
+		{
+			sc3d->SetOffset(offsetData.as<glm::vec3>());
+		}
+	}
+}
+
 void Serializer::SerializeRigidbody2D(YAML::Emitter& out, ComponentManager& componentManager)
 {
 	Rigidbody2D* rb2d = componentManager.GetComponent<Rigidbody2D>();
@@ -1646,18 +1714,61 @@ void Serializer::SerializeRigidbody2D(YAML::Emitter& out, ComponentManager& comp
 
 void Serializer::DeSerializeRigidbody2D(YAML::Node& in, ComponentManager& componentManager)
 {
-	if (auto& Rigidbody2DIn = in["Rigidbody2D"])
+	if (auto& rigidbody2DIn = in["Rigidbody2D"])
 	{
 		Rigidbody2D* rb2d = componentManager.AddComponent<Rigidbody2D>();
 
-		if (auto& typeData = Rigidbody2DIn["Type"])
+		if (auto& typeData = rigidbody2DIn["Type"])
 		{
 			rb2d->SetStatic(!((bool)typeData.as<int>()));
 		}
 
-		if (auto& fixedRotationData = Rigidbody2DIn["Fixed rotation"])
+		if (auto& fixedRotationData = rigidbody2DIn["Fixed rotation"])
 		{
 			rb2d->SetFixedRotation(fixedRotationData.as<bool>());
+		}
+	}
+}
+
+void Serializer::SerializeRigidbody3D(YAML::Emitter& out, ComponentManager& componentManager)
+{
+	Rigidbody3D* rb3d = componentManager.GetComponent<Rigidbody3D>();
+	if (rb3d  != nullptr)
+	{
+		out << YAML::Key << "Rigidbody3D";
+		out << YAML::BeginMap;
+		out << YAML::Key << "Mass" << YAML::Value << rb3d->m_Mass;
+		out << YAML::Key << "AllowToSleep" << YAML::Value << rb3d->m_AllowToSleep;
+		out << YAML::Key << "Restitution" << YAML::Value << rb3d->m_Restitution;
+		out << YAML::Key << "Friction" << YAML::Value << rb3d->m_Friction;
+		out << YAML::EndMap;
+	}
+}
+
+void Serializer::DeSerializeRigidbody3D(YAML::Node& in, ComponentManager& componentManager)
+{
+	if (auto& rigidbody3DIn = in["Rigidbody3D"])
+	{
+		Rigidbody3D* rb3d = componentManager.AddComponent<Rigidbody3D>();
+
+		if (auto& massData = rigidbody3DIn["Mass"])
+		{
+			rb3d->m_Mass = massData.as<float>();
+		}
+
+		if (auto& restitutionData = rigidbody3DIn["Restitution"])
+		{
+			rb3d->m_Restitution = restitutionData.as<float>();
+		}
+		
+		if (auto& frictionData = rigidbody3DIn["Friction"])
+		{
+			rb3d->m_Friction = frictionData.as<float>();
+		}
+
+		if (auto& allowToSleepData = rigidbody3DIn["AllowToSleep"])
+		{
+			rb3d->m_AllowToSleep = allowToSleepData.as<bool>();
 		}
 	}
 }

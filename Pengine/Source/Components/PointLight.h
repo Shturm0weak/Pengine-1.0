@@ -3,6 +3,8 @@
 #include "../Core/Core.h"
 #include "../Core/Component.h"
 
+#include <memory>
+
 namespace Pengine
 {
 
@@ -11,7 +13,7 @@ namespace Pengine
 	private:
 
 		std::vector<glm::mat4> m_ShadowsTransforms;
-		class FrameBuffer* m_ShadowsCubeMap = nullptr;
+		std::shared_ptr<class FrameBuffer> m_ShadowsCubeMap;
 
 		/**
 		 * This value is set up by the user and is the flag that indicates that this light source casts shadows.
@@ -60,7 +62,7 @@ namespace Pengine
 
 		bool IsDrawShadows() const { return m_DrawShadows; }
 
-		bool IsRenderShadows() const { return m_DrawShadows && m_ShadowsVisible; }
+		bool IsRenderShadows() const;
 	};
 
 }

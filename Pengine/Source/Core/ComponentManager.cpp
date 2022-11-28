@@ -48,15 +48,6 @@ IComponent* ComponentManager::GetComponent(const std::string& type)
 	return nullptr;
 }
 
-template<>
-ICollider2D* ComponentManager::GetComponent<ICollider2D>()
-{
-	ICollider2D* c2d = nullptr;
-	c2d = GetComponent<BoxCollider2D>();
-	c2d = !c2d ? GetComponent<CircleCollider2D>() : c2d;
-	return c2d;
-}
-
 bool ComponentManager::AddComponent(IComponent* component)
 {
 	if (GetComponent(component->GetType()))

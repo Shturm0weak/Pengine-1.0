@@ -434,13 +434,13 @@ int btDiscreteDynamicsWorld::stepSimulation(btScalar timeStep, int maxSubSteps, 
 			internalSingleStepSimulation(fixedTimeStep);
 			synchronizeMotionStates();
 		}
+
+		clearForces();
 	}
 	else
 	{
 		synchronizeMotionStates();
 	}
-
-	clearForces();
 
 #ifndef BT_NO_PROFILE
 	CProfileManager::Increment_Frame_Counter();

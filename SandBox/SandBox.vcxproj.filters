@@ -63,6 +63,7 @@
     <ClInclude Include="Source\Sponza\Sponza.h">
       <Filter>Sponza</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Examples\FirstPersonController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Examples\BulletPhysics.cpp">
@@ -96,5 +97,6 @@
     <ClCompile Include="Source\Sponza\Sponza.cpp">
       <Filter>Sponza</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Examples\FirstPersonController.cpp" />
   </ItemGroup>
 </Project>

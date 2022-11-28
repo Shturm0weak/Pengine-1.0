@@ -127,8 +127,8 @@ void Camera::MovePerspective()
 
 Camera::Camera()
 {
-	m_Transform.SetOnRotationCallback(std::bind(&Camera::UpdateViewProjection, this));
-	m_Transform.SetOnTranslationCallback(std::bind(&Camera::UpdateViewProjection, this));
+	m_Transform.SetOnRotationCallback("Camera", std::bind(&Camera::UpdateViewProjection, this));
+	m_Transform.SetOnTranslationCallback("Camera", std::bind(&Camera::UpdateViewProjection, this));
 	SetOrthographic(Viewport::GetInstance().GetSize());
 }
 

@@ -56,7 +56,12 @@ namespace Pengine
 		static void DrawWireFrameCube(const glm::mat4& position, const glm::mat4& rotation, const glm::mat4& scale,
 			const glm::vec3& min, const glm::vec3& max, const glm::vec4& color = glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 
-		static void DrawCircle(float innerRadius, float outerRadius, const glm::mat4& transform, const glm::vec4& color = glm::vec4(1.0f), class Texture* texture = nullptr);
+		static void DrawCircle(float innerRadius, float outerRadius, const glm::mat4& transform,
+			const glm::vec4& color = glm::vec4(1.0f), class Texture* texture = nullptr);
+		
+		static void DrawWireFrameSphere(int rows, int cols, float innerRadius, float outerRadius,
+			const glm::mat4& position, const glm::mat4& rotation, const glm::mat4& scale, const glm::vec4& color = glm::vec4(1.0f),
+			class Texture* texture = nullptr);
 	};
 
 }

@@ -80,14 +80,26 @@ namespace Pengine
 		static void SerializeBoxCollider2D(YAML::Emitter& out, ComponentManager& componentManager);
 		
 		static void DeSerializeBoxCollider2D(YAML::Node& in, ComponentManager& componentManager);
+
+		static void SerializeBoxCollider3D(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeBoxCollider3D(YAML::Node& in, ComponentManager& componentManager);
 		
 		static void SerializeCircleCollider2D(YAML::Emitter& out, ComponentManager& componentManager);
 		
 		static void DeSerializeCircleCollider2D(YAML::Node& in, ComponentManager& componentManager);
 		
+		static void SerializeSphereCollider3D(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeSphereCollider3D(YAML::Node& in, ComponentManager& componentManager);
+
 		static void SerializeRigidbody2D(YAML::Emitter& out, ComponentManager& componentManager);
 		
 		static void DeSerializeRigidbody2D(YAML::Node& in, ComponentManager& componentManager);
+
+		static void SerializeRigidbody3D(YAML::Emitter& out, ComponentManager& componentManager);
+
+		static void DeSerializeRigidbody3D(YAML::Node& in, ComponentManager& componentManager);
 		
 		static void SerializeAnimator2D(YAML::Emitter& out, ComponentManager& componentManager);
 		

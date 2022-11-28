@@ -11,7 +11,8 @@ void Visualizer::RenderLines()
 {
 	Batch::GetInstance().BeginLines();
 
-	std::vector<LineParams> linesForTheNextFrame(1000);
+	std::vector<LineParams> linesForTheNextFrame;
+	linesForTheNextFrame.reserve(1000);
 
 	size_t size = m_Lines.size();
 	for (size_t i = 0; i < size; i++)
@@ -103,4 +104,22 @@ void Visualizer::DrawWireFrameCube(const glm::mat4& position, const glm::mat4& r
 void Visualizer::DrawCircle(float innerRadius, float outerRadius, const glm::mat4& transform, const glm::vec4& color, Texture* texture)
 {
 	m_Circles.push_back({ transform, color, texture, innerRadius, outerRadius });
+}
+
+void Visualizer::DrawWireFrameSphere(int rows, int cols, float innerRadius, float outerRadius, const glm::mat4& position,
+	const glm::mat4& rotation,  const glm::mat4& scale, const glm::vec4& color, Texture* texture)
+{
+	const float rowAngleStep = glm::radians(180.0f) / rows;
+	for (size_t i = 0; i < rows; i++)
+	{
+		glm::mat4 transformRotated = position * rotation * glm::toMat4(glm::quat({ i * rowAngleStep, 0.0f, 0.0f })) * scale;
+		m_Circles.push_back({ transformRotated, color, texture, innerRadius, outerRadius });
+	}
+
+	const float colAngleStep = glm::radians(180.0f) / cols;
+	for (size_t i = 0; i < cols; i++)
+	{
+		glm::mat4 transformRotated = position * rotation * glm::toMat4(glm::quat({ 0.0f, glm::radians(90.0f), i * colAngleStep })) * scale;
+		m_Circles.push_back({ transformRotated, color, texture, innerRadius, outerRadius });
+	}
 }

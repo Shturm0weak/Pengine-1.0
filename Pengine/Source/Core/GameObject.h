@@ -68,7 +68,7 @@ namespace Pengine
 		
 		void SetSelectable(bool isSelectable) { m_IsSelectable = isSelectable; }
 		
-		bool IsEnabled() const { return m_IsEnabled; }
+		bool IsEnabled();
 		
 		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
 

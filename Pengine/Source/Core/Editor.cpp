@@ -89,8 +89,10 @@ void Editor::Debug()
 	}
 }
 
-void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+bool Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -112,11 +114,15 @@ void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float 
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f");
+	if (ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -126,11 +132,15 @@ void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float 
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -138,11 +148,15 @@ void Editor::DrawVec2Control(const std::string& label, glm::vec2& values, float 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
-void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue,
+bool Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float resetValue,
 	const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -164,11 +178,15 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -178,11 +196,15 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -192,11 +214,15 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 	if (ImGui::Button("Z", buttonSize))
 	{
 		values.z = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Z", &values.z, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##Z", &values.z, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -204,10 +230,14 @@ void Editor::DrawVec3Control(const std::string& label, glm::vec3& values, float 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
-void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+bool Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -229,11 +259,15 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##X", &values.x, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -243,11 +277,15 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##Y", &values.y, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -257,11 +295,15 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	if (ImGui::Button("Z", buttonSize))
 	{
 		values.z = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##Z", &values.z, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##Z", &values.z, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -271,11 +313,15 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	if (ImGui::Button("W", buttonSize))
 	{
 		values.w = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragFloat("##W", &values.w, speed, limits.x, limits.y, "%.2f");
+	if(ImGui::DragFloat("##W", &values.w, speed, limits.x, limits.y, "%.2f"))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -283,10 +329,14 @@ void Editor::DrawVec4Control(const std::string& label, glm::vec4& values, float 
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
-void Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+bool Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -308,11 +358,15 @@ void Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, floa
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -322,11 +376,15 @@ void Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, floa
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -334,10 +392,14 @@ void Editor::DrawIVec2Control(const std::string& label, glm::ivec2& values, floa
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
-void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+bool Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -359,11 +421,15 @@ void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, floa
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -373,11 +439,15 @@ void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, floa
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -387,11 +457,15 @@ void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, floa
 	if (ImGui::Button("Z", buttonSize))
 	{
 		values.z = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -399,10 +473,14 @@ void Editor::DrawIVec3Control(const std::string& label, glm::ivec3& values, floa
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
-void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
+bool Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, float resetValue, const glm::vec2& limits, float speed, float columnWidth)
 {
+	bool changed = false;
+
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::PushID(label.c_str());
@@ -424,11 +502,15 @@ void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 	if (ImGui::Button("X", buttonSize))
 	{
 		values.x = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##X", &values.x, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -438,11 +520,15 @@ void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 	if (ImGui::Button("Y", buttonSize))
 	{
 		values.y = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##Y", &values.y, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -452,11 +538,15 @@ void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 	if (ImGui::Button("Z", buttonSize))
 	{
 		values.z = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##Z", &values.z, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 	ImGui::SameLine();
 
@@ -466,11 +556,15 @@ void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 	if (ImGui::Button("W", buttonSize))
 	{
 		values.w = resetValue;
+		changed = true;
 	}
 	ImGui::PopStyleColor(3);
 
 	ImGui::SameLine();
-	ImGui::DragInt("##W", &values.w, speed, limits.x, limits.y);
+	if(ImGui::DragInt("##W", &values.w, speed, limits.x, limits.y))
+	{
+		changed = true;
+	}
 	ImGui::PopItemWidth();
 
 	ImGui::PopStyleVar();
@@ -478,6 +572,8 @@ void Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 	ImGui::Columns(1);
 
 	ImGui::PopID();
+
+	return changed;
 }
 
 void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
@@ -485,6 +581,12 @@ void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
 	flags |= gameObject->GetChilds().size() == 0 ? ImGuiTreeNodeFlags_Leaf : 0;
 
 	ImGui::Indent();
+
+	ImGui::PushID(gameObject);
+	ImGui::Checkbox("##IsEnabled", &gameObject->m_IsEnabled);
+	ImGui::PopID();
+
+	ImGui::SameLine();
 
 	ImGuiStyle* style = &ImGui::GetStyle();
 
@@ -565,21 +667,40 @@ void Editor::AssetList()
 void Editor::DrawScene()
 {
 	ImGui::Indent();
-	const bool opened = ImGui::TreeNodeEx((void*)&m_CurrentScene, 0, m_CurrentScene->GetTitle().c_str());
-	if (opened)
+	
+	if (ImGui::TreeNodeEx((void*)&m_CurrentScene, 0, m_CurrentScene->GetTitle().c_str()))
 	{
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
+			{
+				auto callback = [=]() {
+					for (auto child : m_SelectedGameObjects)
+					{
+						if (GameObject* owner = child->GetOwner())
+						{
+							owner->RemoveChild(child);
+						}
+					}
+				};
+				EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+			}
+			ImGui::EndDragDropTarget();
+		}
+
 		ImGui::TreePop();
 
 		const std::vector<GameObject*>& gameObjects = m_CurrentScene->GetGameObjects();
 		for (auto& objectIter : gameObjects)
 		{
 			GameObject* gameObject = objectIter;
-			if (gameObject->GetOwner() != nullptr) continue;
+			if (gameObject->GetOwner()) continue;
 			ImGuiTreeNodeFlags flags = Utils::IsThere<GameObject*>(m_SelectedGameObjects, gameObject)
 				? ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_Selected : 0;
 			DrawNode(gameObject, flags);
 		}
 	}
+	
 	ImGui::Unindent();
 }
 
@@ -774,18 +895,20 @@ void Editor::Properties()
 		for(GameObject* gameObject : m_SelectedGameObjects)
 		{
 			ComponentsMenu(gameObject);
+
 			ImGui::Text("ID: %zu", gameObject->GetUUID());
+
 			char name[32];
 			strcpy(name, gameObject->GetName().c_str());
 			if (ImGui::InputText("Name", name, sizeof(name)))
 			{
 				gameObject->SetName(name);
 			}
+
 			ImGui::Text("Owner: %s", gameObject->HasOwner() ? gameObject->GetOwner()->GetName().c_str() : "Null");
-			ImGui::Checkbox("IsEnabled", &gameObject->m_IsEnabled);
-			ImGui::Checkbox("Serialize", &gameObject->m_IsSerializable);
-			ImGui::Checkbox("Selectable", &gameObject->m_IsSelectable);
-			ImGui::Text(gameObject->m_IsInitialized ? "Initialized: Yes" : "Initialized: No");
+			ImGui::Checkbox("Is Serializable", &gameObject->m_IsSerializable);
+			ImGui::Checkbox("Is Selectable", &gameObject->m_IsSelectable);
+			ImGui::Text(gameObject->m_IsInitialized ? "Is Initialized: Yes" : "Initialized: No");
 
 			if (gameObject->IsPrefab())
 			{
@@ -808,8 +931,11 @@ void Editor::Properties()
 			TransformComponent(gameObject->m_Transform);
 			Renderer2DComponent(gameObject);
 			Rigidbody2DComponent(gameObject);
+			Rigidbody3DComponent(gameObject);
 			BoxCollider2DComponent(gameObject);
+			BoxCollider3DComponent(gameObject);
 			CircleCollider2DComponent(gameObject);
+			SphereCollider3DComponent(gameObject);
 			Animator2DComponent(gameObject);
 			ParticleEmitterComponent(gameObject);
 			ScriptComponent(gameObject);
@@ -1042,6 +1168,8 @@ void Editor::TransformComponent(Transform& transform)
 	ImGui::SameLine();
 	if (ImGui::CollapsingHeader("Transform"))
 	{
+		Indent indent;
+
 		ImGui::Checkbox("Follow owner", &transform.m_FollowOwner);
 		glm::vec3 position = transform.GetPosition();
 		glm::vec3 rotation = glm::degrees(transform.GetRotation());
@@ -1064,6 +1192,8 @@ void Editor::Renderer2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Renderer2D"))
 			{
+				Indent indent;
+
 				int layer = r2d->GetLayer();
 				if (ImGui::SliderInt("Layer", &layer, 0, 9))
 				{
@@ -1188,6 +1318,8 @@ void Editor::BoxCollider2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("BoxCollider2D"))
 			{
+				Indent indent;
+
 				float size[2] = { bc2d->GetSize().x, bc2d->GetSize().y };
 				ImGui::SliderFloat2("Size", size, 0.0f, 10.0f);
 				bc2d->SetSize({ size[0], size[1] });
@@ -1206,6 +1338,33 @@ void Editor::BoxCollider2DComponent(GameObject* gameObject)
 	}
 }
 
+void Editor::BoxCollider3DComponent(GameObject* gameObject)
+{
+	BoxCollider3D* bc3d = gameObject->m_ComponentManager.GetComponent<BoxCollider3D>();
+	if (bc3d)
+	{
+		if (RemoveComponentMenu(gameObject, bc3d))
+		{
+			if (ImGui::CollapsingHeader("BoxCollider3D"))
+			{
+				Indent indent;
+
+				glm::vec3 offset = bc3d->GetOffset();
+				if (DrawVec3Control("Offset", offset, 0.0f))
+				{
+					bc3d->SetOffset(offset);
+				}
+
+				glm::vec3 halfExtent = bc3d->GetHalfExtent();
+				if (DrawVec3Control("Half Extent", halfExtent, 1.0f, { 0.001f, 25.0f }))
+				{
+					bc3d->SetHalfExtent(halfExtent);
+				}
+			}
+		}
+	}
+}
+
 void Editor::CircleCollider2DComponent(GameObject* gameObject)
 {
 	CircleCollider2D* cc2d = gameObject->m_ComponentManager.GetComponent<CircleCollider2D>();
@@ -1215,6 +1374,8 @@ void Editor::CircleCollider2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("CircleCollider2D"))
 			{
+				Indent indent;
+
 				float radius = cc2d->GetRadius();
 				ImGui::SliderFloat("Radius", &radius, 0.0, 10.0f);
 				cc2d->SetRadius(radius);
@@ -1232,6 +1393,31 @@ void Editor::CircleCollider2DComponent(GameObject* gameObject)
 	}
 }
 
+void Editor::SphereCollider3DComponent(GameObject* gameObject)
+{
+	SphereCollider3D* sc3d = gameObject->m_ComponentManager.GetComponent<SphereCollider3D>();
+	if (sc3d)
+	{
+		if (RemoveComponentMenu(gameObject, sc3d))
+		{
+			if (ImGui::CollapsingHeader("SphereCollider3D"))
+			{
+				Indent indent;
+
+				glm::vec3 offset = sc3d->GetOffset();
+				if (DrawVec3Control("Offset", offset, 0.0f))
+				{
+					sc3d->SetOffset(offset);
+				}
+
+				float radius = sc3d->GetRadius();
+				ImGui::SliderFloat("Radius", &radius, 0.0, 10.0f);
+				sc3d->SetRadius(radius);
+			}
+		}
+	}
+}
+
 void Editor::Rigidbody2DComponent(GameObject* gameObject)
 {
 	Rigidbody2D* rb2d = gameObject->m_ComponentManager.GetComponent<Rigidbody2D>();
@@ -1241,6 +1427,8 @@ void Editor::Rigidbody2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Rigidbody2D"))
 			{
+				Indent indent;
+
 				if (ImGui::Checkbox("Fixed rotation", &rb2d->m_FixedRotation))
 				{
 					rb2d->SetFixedRotation(rb2d->m_FixedRotation);
@@ -1256,6 +1444,26 @@ void Editor::Rigidbody2DComponent(GameObject* gameObject)
 	}
 }
 
+void Editor::Rigidbody3DComponent(GameObject* gameObject)
+{
+	Rigidbody3D* rb3d = gameObject->m_ComponentManager.GetComponent<Rigidbody3D>();
+	if (rb3d)
+	{
+		if (RemoveComponentMenu(gameObject, rb3d))
+		{
+			if (ImGui::CollapsingHeader("Rigidbody3D"))
+			{
+				Indent indent;
+
+				ImGui::SliderFloat("Mass", &rb3d->m_Mass, 0.0f, 10.0f);
+				ImGui::SliderFloat("Restitution", &rb3d->m_Restitution, 0.0f, 2.0f);
+				ImGui::SliderFloat("Friction", &rb3d->m_Friction, 0.0f, 1.0f);
+				ImGui::Checkbox("AllowToSleep", &rb3d->m_AllowToSleep);
+			}
+		}
+	}
+}
+
 void Editor::Animator2DComponent(GameObject* gameObject)
 {
 	Animator2D* anim2d = gameObject->m_ComponentManager.GetComponent<Animator2D>();
@@ -1265,6 +1473,8 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Animator 2D"))
 			{
+				Indent indent;
+
 				if (ImGui::BeginDragDropTarget())
 				{
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
@@ -1347,6 +1557,8 @@ void Editor::ParticleEmitterComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Particle emitter"))
 			{
+				Indent indent;
+
 				int facingMode = (int)particleEmitter->m_FacingMode;
 				const char* facingModes[] = { "Default", "Spherical", "Cylindrical" };
 				if (ImGui::Combo("Camera type", &facingMode, facingModes, 3))
@@ -1406,6 +1618,8 @@ void Editor::ScriptComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Script"))
 			{
+				Indent indent;
+
 				if (ImGui::BeginDragDropTarget())
 				{
 					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
@@ -1441,6 +1655,8 @@ void Editor::PointLightComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Point Light"))
 			{
+				Indent indent;
+
 				ImGui::SliderFloat("Constant", &pointLight->m_Constant, 0.0f, 1.0f);
 				ImGui::SliderFloat("Linear", &pointLight->m_Linear, 0.0f, 0.100f);
 				ImGui::SliderFloat("Quadratic", &pointLight->m_Quadratic, 0.0f, 0.1f);
@@ -1468,6 +1684,8 @@ void Editor::SpotLightComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Spot Light"))
 			{
+				Indent indent;
+
 				ImGui::SliderFloat("Constant", &spotLight->m_Constant, 0.0f, 1.0f);
 				ImGui::SliderFloat("Linear", &spotLight->m_Linear, 0.0f, 0.100f);
 				ImGui::SliderFloat("Quadratic", &spotLight->m_Quadratic, 0.0f, 0.1f);
@@ -1499,6 +1717,8 @@ void Editor::DirectionalLightComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Directional Light "))
 			{
+				Indent indent;
+
 				ImGui::SliderFloat("Intensity", &directionalLight->m_Intensity, 0.0f, 10.0f);
 				ImGui::ColorEdit3("Color", &directionalLight->m_Color[0]);
 			}
@@ -1515,10 +1735,14 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Renderer3D"))
 			{
+				Indent indent;
+
 				auto lodSection = [r3d](const std::string& label, size_t lod)
 				{
 					if (ImGui::CollapsingHeader(label.c_str()))
 					{
+						Indent indent;
+
 						if (ImGui::BeginDragDropTarget())
 						{
 							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
@@ -1574,6 +1798,8 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 				if (ImGui::CollapsingHeader("Material"))
 				{
+					Indent indentMaterial;
+
 					if (ImGui::BeginDragDropTarget())
 					{
 						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
@@ -1703,6 +1929,8 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 			{
 				if (ImGui::CollapsingHeader(component->GetType().c_str()))
 				{
+					Indent indent;
+
 					auto& types = rttr::type::get_types();
 					rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
 					for (auto& prop : componentClass.get_properties())
@@ -2121,6 +2349,8 @@ void Editor::SplineComponent(GameObject* gameObject)
 		{
 			if (ImGui::CollapsingHeader("Spline"))
 			{
+				Indent indent;
+
 				ImGui::SliderFloat("Speed", &spline->m_Speed, 0.0f, 5.0f);
 				ImGui::Checkbox("Visualize", &spline->m_Visualize);
 			}
@@ -2260,13 +2490,25 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 		{
 			gameObject->m_ComponentManager.AddComponent<BoxCollider2D>();
 		}
+		if (ImGui::MenuItem("Box Collider3D"))
+		{
+			gameObject->m_ComponentManager.AddComponent<BoxCollider3D>();
+		}
 		if (ImGui::MenuItem("Circle Collider2D"))
 		{
 			gameObject->m_ComponentManager.AddComponent<CircleCollider2D>();
 		}
+		if (ImGui::MenuItem("Sphere Collider3D"))
+		{
+			gameObject->m_ComponentManager.AddComponent<SphereCollider3D>();
+		}
 		if (ImGui::MenuItem("Rigidbody2D"))
 		{
 			gameObject->m_ComponentManager.AddComponent<Rigidbody2D>();
+		}
+		if (ImGui::MenuItem("Rigidbody3D"))
+		{
+			gameObject->m_ComponentManager.AddComponent<Rigidbody3D>();
 		}
 		if (ImGui::MenuItem("Animator 2D"))
 		{
@@ -2917,4 +3159,14 @@ void Editor::TextureAtlasMenu::Update()
 
 		ImGui::End();
 	}
+}
+
+Editor::Indent::Indent()
+{
+	ImGui::Indent();
+}
+
+Editor::Indent::~Indent()
+{
+	ImGui::Unindent();
 }

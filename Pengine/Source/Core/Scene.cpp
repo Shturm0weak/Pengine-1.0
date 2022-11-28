@@ -22,8 +22,8 @@ void Scene::Copy(const Scene& scene)
 	m_Title = scene.m_Title;
 	m_FilePath = scene.m_FilePath;
 
-	delete m_Box2DWorld;
-	m_Box2DWorld = new b2World(scene.m_Box2DWorld->GetGravity());
+	DestroyPhysics();
+	CreatePhysics();
 
 	for (const auto& gameObjectIter : scene.m_GameObjects)
 	{
@@ -37,79 +37,128 @@ void Scene::Copy(const Scene& scene)
 
 void Scene::OnPhysicsUpdate()
 {
-	for (auto& gameObjectIter : m_GameObjects)
+	for (Rigidbody2D* rb2d : m_Rigidbody2D)
 	{
-		if (!gameObjectIter->IsEnabled()) continue;
+		GameObject* owner = rb2d->GetOwner();
+		if (!owner->IsEnabled()) continue;
 
-		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
-		if (rb2d)
+		rb2d->Initialize();
+
+		if (!rb2d->IsInitializedPhysics()) continue;
+
+		const glm::vec3 position = rb2d->GetOwner()->m_Transform.GetPosition();
+		const glm::vec3 scale = rb2d->GetOwner()->m_Transform.GetScale();
+		rb2d->m_Body->SetTransform({ position.x, position.y }, rb2d->GetOwner()->m_Transform.GetRotation().z);
+
+		BoxCollider2D* bc2d = owner->m_ComponentManager.GetComponent<BoxCollider2D>();
+		if (bc2d)
 		{
-			rb2d->Initialize();
-
-			if (!rb2d->IsInitializedPhysics()) continue;
-
-			const glm::vec3 position = rb2d->GetOwner()->m_Transform.GetPosition();
-			const glm::vec3 scale = rb2d->GetOwner()->m_Transform.GetScale();
-			rb2d->m_Body->SetTransform({ position.x, position.y }, rb2d->GetOwner()->m_Transform.GetRotation().z);
-
-			BoxCollider2D* bc2d = gameObjectIter->m_ComponentManager.GetComponent<BoxCollider2D>();
-			if (bc2d)
+			if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
 			{
-				if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
-				{
-					rb2d->m_Body->SetTransform({ bc2d->GetPosition().x, bc2d->GetPosition().y }, bc2d->GetOwner()->m_Transform.GetRotation().z);
-					fixture->SetDensity(bc2d->m_Density);
-					fixture->SetFriction(bc2d->m_Friction);
-					fixture->SetRestitution(bc2d->m_Restitution);
-					fixture->SetRestitutionThreshold(bc2d->m_RestitutionThreshold);
-					static_cast<b2PolygonShape*>(fixture->GetShape())->SetAsBox(bc2d->GetSize().x * scale.x, bc2d->GetSize().y * scale.y);
-				}
-			}
-
-			CircleCollider2D* cc2d = gameObjectIter->m_ComponentManager.GetComponent<CircleCollider2D>();
-			if (cc2d)
-			{
-				if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
-				{
-					rb2d->m_Body->SetTransform({ cc2d->GetPosition().x, cc2d->GetPosition().y }, cc2d->GetOwner()->m_Transform.GetRotation().z);
-					fixture->SetDensity(cc2d->m_Density);
-					fixture->SetFriction(cc2d->m_Friction);
-					fixture->SetRestitution(cc2d->m_Restitution);
-					fixture->SetRestitutionThreshold(cc2d->m_RestitutionThreshold);
-					static_cast<b2PolygonShape*>(fixture->GetShape())->m_radius = cc2d->GetRadius() * scale.x;
-				}
+				rb2d->m_Body->SetTransform({ bc2d->GetPosition().x, bc2d->GetPosition().y }, bc2d->GetOwner()->m_Transform.GetRotation().z);
+				fixture->SetDensity(bc2d->m_Density);
+				fixture->SetFriction(bc2d->m_Friction);
+				fixture->SetRestitution(bc2d->m_Restitution);
+				fixture->SetRestitutionThreshold(bc2d->m_RestitutionThreshold);
+				static_cast<b2PolygonShape*>(fixture->GetShape())->SetAsBox(bc2d->GetSize().x * scale.x, bc2d->GetSize().y * scale.y);
 			}
 		}
+
+		CircleCollider2D* cc2d = owner->m_ComponentManager.GetComponent<CircleCollider2D>();
+		if (cc2d)
+		{
+			if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
+			{
+				rb2d->m_Body->SetTransform({ cc2d->GetPosition().x, cc2d->GetPosition().y }, cc2d->GetOwner()->m_Transform.GetRotation().z);
+				fixture->SetDensity(cc2d->m_Density);
+				fixture->SetFriction(cc2d->m_Friction);
+				fixture->SetRestitution(cc2d->m_Restitution);
+				fixture->SetRestitutionThreshold(cc2d->m_RestitutionThreshold);
+				static_cast<b2PolygonShape*>(fixture->GetShape())->m_radius = cc2d->GetRadius() * scale.x;
+			}
+		}
+	}
+
+	for (Rigidbody3D* rb3d : m_Rigidbody3D)
+	{
+		GameObject* owner = rb3d->GetOwner();
+		if (!owner->IsEnabled()) continue;
+
+		rb3d->Initialize();
+
+		if (!rb3d->IsInitializedPhysics()) continue;
+
+		if (!rb3d->m_AllowToSleep)
+		{
+			rb3d->SetActive(true);
+		}
+
+		glm::vec3 position = { 0.0f, 0.0f, 0.0f };
+		if (ICollider3D* c3d = rb3d->GetCollisionShape())
+		{
+			position = c3d->GetPosition();
+		}
+
+		float mass;
+		btVector3 inertia;
+		rb3d->GetBody().setRestitution(rb3d->m_Restitution);
+		rb3d->GetBody().setFriction(rb3d->m_Friction);
+		rb3d->GetMassProps(mass, inertia);
+		rb3d->GetBody().setMassProps(mass, inertia);
+		btTransform transform;
+		transform.setFromOpenGLMatrix(glm::value_ptr(glm::translate(glm::mat4(1.0f), position) *
+			rb3d->GetOwner()->m_Transform.GetRotationMat4()));
+		rb3d->GetBody().setWorldTransform(transform);
 	}
 
 	const int32_t velocityIterations = 12;
 	const int32_t positionIterations = 4;
 	m_Box2DWorld->Step(Time::GetDeltaTime(), velocityIterations, positionIterations);
 
-	for (auto& gameObjectIter : m_GameObjects)
+	m_BulletPhysicsWorld.Step(Time::GetDeltaTime());
+
+	for (Rigidbody2D* rb2d : m_Rigidbody2D)
 	{
-		if (!gameObjectIter->IsEnabled()) continue;
+		GameObject* owner = rb2d->GetOwner();
+		if (!owner->IsEnabled()) continue;
 
-		Rigidbody2D* rb2d = gameObjectIter->m_ComponentManager.GetComponent<Rigidbody2D>();
-		if (rb2d)
+		b2Body* body = rb2d->m_Body;
+		const auto position = body->GetPosition();
+		glm::vec2 offset = { 0.0f, 0.0f };
+		if (ICollider2D* c2d = owner->m_ComponentManager.GetComponentSubClass<ICollider2D>())
 		{
-			b2Body* body = rb2d->m_Body;
-			const auto position = body->GetPosition();
-			glm::vec2 offset = { 0.0f, 0.0f };
-			if (ICollider2D* c2d = gameObjectIter->m_ComponentManager.GetComponent<ICollider2D>())
-			{
-				offset = c2d->GetOffset();
+			offset = c2d->GetOffset();
 
-				gameObjectIter->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, gameObjectIter->m_Transform.GetPosition().z));
-				gameObjectIter->m_Transform.Rotate(glm::vec3(0.0f, 0.0f, body->GetAngle()));
-			}
+			owner->m_Transform.Translate(glm::vec3(position.x - offset.x, position.y - offset.y, owner->m_Transform.GetPosition().z));
+			owner->m_Transform.Rotate(glm::vec3(0.0f, 0.0f, body->GetAngle()));
 		}
+	}
+
+	for (Rigidbody3D* rb3d : m_Rigidbody3D)
+	{
+		GameObject* owner = rb3d->GetOwner();
+		if (!owner->IsEnabled()) continue;
+
+		const btRigidBody& body = rb3d->GetBody();
+		const btVector3 position = body.getWorldTransform().getOrigin();
+		glm::vec3 rotation;
+		body.getWorldTransform().getBasis().getEulerZYX(rotation.z, rotation.y, rotation.x);
+
+		glm::vec3 offset = { 0.0f, 0.0f, 0.0f };
+		if (ICollider3D* c3d = rb3d->GetCollisionShape())
+		{
+			offset = c3d->GetOffset();
+		}
+
+		owner->m_Transform.Translate(glm::vec3(position.x() - offset.x,
+			position.y() - offset.y, position.z() - offset.z));
+		owner->m_Transform.Rotate(rotation);
 	}
 }
 
 Scene::Scene(const std::string& title) : m_Title(title)
 {
-	m_Box2DWorld = new b2World(b2Vec2(0.0f, -9.8f));
+	CreatePhysics();
 	m_Renderer2DLayers.resize(10);
 }
 
@@ -286,38 +335,61 @@ void Scene::PrepareVisualizer()
 {
 	if (Editor::GetInstance().m_DrawColliders)
 	{
-		for (auto& gameObject : m_GameObjects)
+		for (const BoxCollider2D* bc2d : m_BoxColliders2D)
 		{
-			if (gameObject->m_IsEnabled)
-			{
-				if (const BoxCollider2D* bc2d = gameObject->m_ComponentManager.GetComponent<BoxCollider2D>())
-				{
-					const glm::vec2 size = bc2d->GetSize();
+			if (!bc2d->GetOwner()->IsEnabled()) continue;
 
-					Transform transform = bc2d->GetOwner()->m_Transform;
-					transform.Translate({ bc2d->GetPosition(), 0.0f });
-					const glm::mat4 transformMat = transform.GetTransform();
-					const glm::vec4 a = transformMat * glm::vec4(-size.x, -size.y, 0.0f, 1.0f);
-					const glm::vec4 b = transformMat * glm::vec4(size.x, -size.y, 0.0f, 1.0f);
-					const glm::vec4 c = transformMat * glm::vec4(size.x, size.y, 0.0f, 1.0f);
-					const glm::vec4 d = transformMat * glm::vec4(-size.x, size.y, 0.0f, 1.0f);
+			const glm::vec2 size = bc2d->GetSize();
 
-					Visualizer::DrawLine(a, b, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-					Visualizer::DrawLine(b, c, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-					Visualizer::DrawLine(c, d, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-					Visualizer::DrawLine(d, a, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-				}
+			Transform transform = bc2d->GetOwner()->m_Transform;
+			transform.Translate({ bc2d->GetPosition(), 0.0f });
+			const glm::mat4 transformMat = transform.GetTransform();
+			const glm::vec4 a = transformMat * glm::vec4(-size.x, -size.y, 0.0f, 1.0f);
+			const glm::vec4 b = transformMat * glm::vec4(size.x, -size.y, 0.0f, 1.0f);
+			const glm::vec4 c = transformMat * glm::vec4(size.x, size.y, 0.0f, 1.0f);
+			const glm::vec4 d = transformMat * glm::vec4(-size.x, size.y, 0.0f, 1.0f);
 
-				if (const CircleCollider2D* cc2d = gameObject->m_ComponentManager.GetComponent<CircleCollider2D>())
-				{
-					Transform transform = cc2d->GetOwner()->m_Transform;
-					transform.Translate({ cc2d->GetPosition(), 0.0f });
-					const float radius = cc2d->GetRadius() * gameObject->m_Transform.GetScale().x;
-					Visualizer::DrawCircle(radius - Editor::GetInstance().m_LineWidth * 0.01f, radius,
-						transform.GetPositionMat4() * glm::scale(glm::mat4(1.0f), glm::vec3(radius * 2.0f)),
-						glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
-				}
-			}
+			Visualizer::DrawLine(a, b, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+			Visualizer::DrawLine(b, c, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+			Visualizer::DrawLine(c, d, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+			Visualizer::DrawLine(d, a, glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		}
+
+		std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+		for (const CircleCollider2D* cc2d : m_CircleColliders2D)
+		{
+			if (!cc2d->GetOwner()->IsEnabled()) continue;
+
+			Transform transform = cc2d->GetOwner()->m_Transform;
+			transform.Translate({ cc2d->GetPosition(), 0.0f });
+			const float distance = glm::distance(camera->m_Transform.GetPosition(), transform.GetPosition());
+			const float radius = cc2d->GetRadius() * cc2d->GetOwner()->m_Transform.GetScale().x;
+			Visualizer::DrawCircle(radius - Editor::GetInstance().m_LineWidth * 0.005f * distance, radius,
+				transform.GetPositionMat4() * glm::scale(glm::mat4(1.0f), glm::vec3(radius * 2.0f)),
+				glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+		}
+
+		for (const BoxCollider3D* bc3d : m_BoxColliders3D)
+		{
+			if (!bc3d->GetOwner()->IsEnabled()) continue;
+
+			Transform transform = bc3d->GetOwner()->m_Transform;
+			transform.Translate(transform.GetPosition() + bc3d->GetOffset());
+			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(),
+				transform.GetScaleMat4(), -bc3d->GetHalfExtent(), bc3d->GetHalfExtent());
+		}
+
+		for (const SphereCollider3D* sc3d : m_SphereColliders3D)
+		{
+			if (!sc3d->GetOwner()->IsEnabled()) continue;
+
+			Transform transform = sc3d->GetOwner()->m_Transform;
+			transform.Translate(transform.GetPosition() + sc3d->GetOffset());
+			const float distance = glm::distance(camera->m_Transform.GetPosition(), transform.GetPosition());
+			const float radius = sc3d->GetRadius() * sc3d->GetOwner()->m_Transform.GetScale().x;
+			Visualizer::DrawWireFrameSphere(4, 4, radius - Editor::GetInstance().m_LineWidth * 0.005f * distance, radius,
+				transform.GetPositionMat4(), transform.GetRotationMat4(), glm::scale(glm::mat4(1.0f), glm::vec3(radius * 2.0f)),
+				glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 		}
 	}
 
@@ -366,6 +438,8 @@ void Scene::PrepareToRender()
 
 	for (Renderer3D* r3d : m_Renderers3D)
 	{
+		if (!r3d->GetOwner()->IsEnabled()) continue;
+
 		r3d->SortLods(cameraPosition);
 
 		if (Mesh* mesh = r3d->m_Mesh)
@@ -439,7 +513,19 @@ void Scene::RenderBoundingBoxes()
 void Scene::ShutDown()
 {
 	Clear();
+	DestroyPhysics();
+}
+
+void Scene::CreatePhysics()
+{
+	m_Box2DWorld = new b2World(b2Vec2(0.0f, -9.8f));
+	m_BulletPhysicsWorld.Initialize();
+}
+
+void Scene::DestroyPhysics()
+{
 	delete m_Box2DWorld;
+	m_BulletPhysicsWorld.UnInitialize();
 }
 
 std::vector<PointLight*> Scene::GetEnabledPointLights() const

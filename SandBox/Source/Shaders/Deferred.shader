@@ -80,6 +80,8 @@ uniform sampler2D u_WorldPosition;
 uniform sampler2D u_Normal;
 uniform sampler2D u_Albedo;
 
+uniform bool u_IsShadowsEnabled;
+
 in vec2 uv;
 
 vec4 worldPosition = texture(u_WorldPosition, uv);
@@ -115,11 +117,11 @@ vec3 DirectionalLightCompute()
 
 vec3 sampleOffsetDirections[20] = vec3[]
 (
-	vec3(1, 1, 1), vec3(1, -1, 1), vec3(-1, -1, 1), vec3(-1, 1, 1),
-	vec3(1, 1, -1), vec3(1, -1, -1), vec3(-1, -1, -1), vec3(-1, 1, -1),
-	vec3(1, 1, 0), vec3(1, -1, 0), vec3(-1, -1, 0), vec3(-1, 1, 0),
-	vec3(1, 0, 1), vec3(-1, 0, 1), vec3(1, 0, -1), vec3(-1, 0, -1),
-	vec3(0, 1, 1), vec3(0, -1, 1), vec3(0, -1, -1), vec3(0, 1, -1)
+	vec3(1.0, 1.0, 1.0), vec3( 1.0, -1.0,  1.0), vec3(-1.0, -1.0,  1.0), vec3(-1.0, 1.0,  1.0),
+	vec3(1.0, 1.0, -1.0), vec3(1.0, -1.0, -1.0), vec3(-1.0, -1.0, -1.0), vec3(-1.0, 1.0, -1.0),
+	vec3(1.0, 1.0, 0.0), vec3( 1.0, -1.0,  0.0), vec3(-1.0, -1.0,  0.0), vec3(-1.0, 1.0,  0.0),
+	vec3(1.0, 0.0, 1.0), vec3(-1.0,  0.0,  1.0), vec3( 1.0,  0.0, -1.0), vec3(-1.0, 0.0, -1.0),
+	vec3(0.0, 1.0, 1.0), vec3( 0.0, -1.0,  1.0), vec3( 0.0, -1.0, -1.0), vec3( 0.0, 1.0, -1.0)
 );
 
 vec3 PointShadowCompute(PointLight light)
@@ -164,7 +166,7 @@ vec3 PointLightCompute(PointLight light)
 {
 	vec3 shadow = vec3(0.0);
 
-	if (u_DirectionalShadows.isEnabled && light.drawShadows)
+	if (u_IsShadowsEnabled && light.drawShadows)
 	{
 		shadow = PointShadowCompute(light);
 	}
@@ -243,7 +245,7 @@ vec3 SpotLightCompute(SpotLight light)
 
 void main()
 {
-	if (u_DirectionalShadows.isEnabled)
+	if (u_DirectionalShadows.isEnabled && u_IsShadowsEnabled)
 	{
 		shadow = texture(u_DirectionalShadows.color, gl_FragCoord.xy / u_ViewportSize).rgb;
 	}

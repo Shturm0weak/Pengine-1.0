@@ -75,7 +75,7 @@ void Rigidbody2D::Initialize()
 {
 	if (m_IsInitializedPhysics) return;
 
-	if (ICollider2D* c2d = m_Owner->m_ComponentManager.GetComponent<ICollider2D>())
+	if (ICollider2D* c2d = m_Owner->m_ComponentManager.GetComponentSubClass<ICollider2D>())
 	{
 		b2World& box2World = m_Owner->GetScene()->GetBox2DWorld();
 		b2BodyDef bodyDef;

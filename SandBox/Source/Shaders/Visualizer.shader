@@ -70,13 +70,32 @@ flat in vec4 additionalData0;
 flat in vec4 additionalData1;
 flat in vec4 textureData;
 
+bool RenderCircle(float innerRadius, float outerRadius)
+{
+	float distance = sqrt(pow(worldPixelPosition.x - worldPosition.x, 2) + pow(worldPixelPosition.y - worldPosition.y, 2)
+		+ pow(worldPixelPosition.z - worldPosition.z, 2));
+	if (distance < additionalData0.y && distance > additionalData0.x)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void main()
 {
+	if ((additionalData0.x > 0.0 || additionalData0.y > 0.0) && !RenderCircle(additionalData0.x, additionalData0.y))
+	{
+		discard;
+	}
+
 	vec4 textureColor = texture(u_Texture[int(textureData[0])], uv);
 	if (textureColor.a < 0.05)
 	{
 		discard;
 	}
 
-	fragColor = textureColor;
+	fragColor = textureColor * color;
 }

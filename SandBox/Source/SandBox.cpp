@@ -8,7 +8,7 @@ using namespace Pengine;
 int main()
 {
 	EntryPoint entrypoint;
-	BulletPhysics application;
+	Application application;
 
 #ifdef STANDALONE
 	ShowWindow(GetConsoleWindow(), SW_HIDE);

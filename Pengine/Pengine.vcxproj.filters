@@ -300,6 +300,11 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\BulletPhysicsWorld.h" />
+    <ClInclude Include="Source\Components\BoxCollider3D.h" />
+    <ClInclude Include="Source\Components\ICollider3D.h" />
+    <ClInclude Include="Source\Components\Rigidbody3D.h" />
+    <ClInclude Include="Source\Components\SphereCollider3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -504,5 +509,10 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Core\BulletPhysicsWorld.cpp" />
+    <ClCompile Include="Source\Components\BoxCollider3D.cpp" />
+    <ClCompile Include="Source\Components\Rigidbody3D.cpp" />
+    <ClCompile Include="Source\Components\ICollider3D.cpp" />
+    <ClCompile Include="Source\Components\SphereCollider3D.cpp" />
   </ItemGroup>
 </Project>

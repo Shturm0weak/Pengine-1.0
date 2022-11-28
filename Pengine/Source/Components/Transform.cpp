@@ -98,6 +98,33 @@ Transform::Transform(const glm::vec3& position, const glm::vec3& scale, const gl
 	m_Type = "Pengine::Transform";
 }
 
+void Transform::RemoveOnRotationCallback(const std::string& label)
+{
+	auto callback = m_OnRotationCallbacks.find(label);
+	if (callback != m_OnRotationCallbacks.end())
+	{
+		m_OnRotationCallbacks.erase(callback);
+	}
+}
+
+void Transform::RemoveOnTranslationCallback(const std::string& label)
+{
+	auto callback = m_OnTranslationCallbacks.find(label);
+	if (callback != m_OnTranslationCallbacks.end())
+	{
+		m_OnTranslationCallbacks.erase(callback);
+	}
+}
+
+void Transform::RemoveOnScaleCallback(const std::string& label)
+{
+	auto callback = m_OnScaleCallbacks.find(label);
+	if (callback != m_OnScaleCallbacks.end())
+	{
+		m_OnScaleCallbacks.erase(callback);
+	}
+}
+
 void Transform::SetRotationMat4(const glm::mat4& rotationMat4)
 {
 	m_RotationMat4 = rotationMat4;
@@ -107,7 +134,7 @@ void Transform::SetRotationMat4(const glm::mat4& rotationMat4)
 
 	for (auto& onRotationCallback : m_OnRotationCallbacks)
 	{
-		onRotationCallback();
+		onRotationCallback.second();
 	}
 }
 
@@ -121,7 +148,7 @@ void Transform::Translate(const glm::vec3& position)
 
 	for (auto& onTranslationCallback : m_OnTranslationCallbacks)
 	{
-		onTranslationCallback();
+		onTranslationCallback.second();
 	}
 
 	if (m_Owner)
@@ -147,7 +174,7 @@ void Transform::Rotate(const glm::vec3& rotation)
 	
 	for (auto& onRotationCallback : m_OnRotationCallbacks)
 	{
-		onRotationCallback();
+		onRotationCallback.second();
 	}
 
 	if (m_Owner)
@@ -171,7 +198,7 @@ void Transform::Scale(const glm::vec3& scale)
 
 	for (auto& onScaleCallback : m_OnScaleCallbacks)
 	{
-		onScaleCallback();
+		onScaleCallback.second();
 	}
 
 	if (m_Owner)
