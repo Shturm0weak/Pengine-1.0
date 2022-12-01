@@ -54,7 +54,7 @@ IComponent* Renderer2D::Create(GameObject* owner)
 
 void Renderer2D::Delete()
 {
-	Utils::Erase<Renderer2D>(m_Owner->GetScene()->m_Renderer2DLayers[m_Layer], this);
+	Utils::Erase<Renderer2D*>(m_Owner->GetScene()->m_Renderer2DLayers[m_Layer], this);
 	MemoryManager::GetInstance().FreeMemory<Renderer2D>(static_cast<IAllocator*>(this));
 }
 
@@ -122,7 +122,7 @@ void Renderer2D::SetLayer(int layer)
 	{
 		std::function<void()> callback = std::function<void()>([=] {
 			Scene* scene = m_Owner->GetScene();
-			Utils::Erase<Renderer2D>(scene->m_Renderer2DLayers[m_Layer], this);
+			Utils::Erase<Renderer2D*>(scene->m_Renderer2DLayers[m_Layer], this);
 			m_Layer = layer;
 			scene->m_Renderer2DLayers[m_Layer].push_back(this);
 		});

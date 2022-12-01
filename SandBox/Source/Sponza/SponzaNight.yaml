@@ -4,7 +4,7 @@ Environment:
   Directional Light: 1
   Blur passes: 3
   Brightness threshold: 1
-  Exposure: 0.0199999996
+  Exposure: 0.0399999991
   Gamma: 2.20000005
   Pixels blured: 6
   IsEnabled: true
@@ -27,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [-3.60568881, 1.81036401, -3.41684413]
-    Rotation: [-0.205823585, 1.64015651, 0]
+    Position: [-10.0725822, 1.09595907, -0.0244492255]
+    Rotation: [-0.0412524641, -0.759142101, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -101,7 +101,7 @@ GameObjects:
     PointLight:
       Color: [1, 1, 1]
       Constant: 0.699999988
-      Linear: 0.100000001
+      Linear: 1
       Quadratic: 0.100000001
       ZFar: 150
       ZNear: 0.100000001
@@ -10712,3 +10712,155 @@ GameObjects:
       m_CurrentSpeed:
         Type: float
         Value: 0
+  - GameObject: 3c850f70-5438-4d46-bddd-a4502f26b125
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.93480438, 6.79678392, -0.672024846]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 560ca10e-56f2-4b43-af33-d470636dde40
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.93480438, 6.80061865, 0.143703699]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 6c6ec5e4-9778-448b-b67b-cf8cd7cfb4b8
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.7940762, 6.80061865, 0.143703699]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 0074f480-0d74-44b3-9f9d-c61e13a67dfa
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.7940762, 6.79678392, -0.672024846]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 038b85db-a2b0-4d2d-95be-5ad359c5c8f4
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.90073085, 6.80267143, 0.143666208]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 1cd4052d-7a47-4ac1-a57f-1017e0f30d7d
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.90073085, 6.79883671, -0.672062278]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: ad075d2e-8f4c-444d-9281-5d89f4303715
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.75047398, 6.79883671, -0.672062278]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: f5a12ad8-ef17-442a-9f1b-21138149b7c3
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.75047398, 6.80267143, 0.143666208]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618

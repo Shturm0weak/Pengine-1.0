@@ -127,5 +127,5 @@ void PigThrowing::OnStart()
 {
 	Pig::OnStart();
 
-	m_ThrowingObjectPrefab = GetOwner()->GetScene()->FindGameObject(m_ObjectName);
+	m_ThrowingObjectPrefab = GetOwner()->GetScene()->FindGameObjectByName(m_ObjectName);
 }

@@ -88,5 +88,5 @@ void Box::OnUpdate()
 
 void Box::OnStart()
 {
-	m_HeartPrefab = GetOwner()->GetScene()->FindGameObject("HeartPrefab");
+	m_HeartPrefab = GetOwner()->GetScene()->FindGameObjectByName("HeartPrefab");
 }

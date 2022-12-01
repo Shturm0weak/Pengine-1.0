@@ -7,11 +7,11 @@
 
 using namespace Pengine;
 
-void VertexBuffer::Initialize(const void* data, uint32_t size, bool Static)
+void VertexBuffer::Initialize(const void* data, uint32_t size, bool isStatic)
 {
 	glGenBuffers(1, &m_RendererID);
 	Bind();
-	if (Static)
+	if (isStatic)
 	{
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}

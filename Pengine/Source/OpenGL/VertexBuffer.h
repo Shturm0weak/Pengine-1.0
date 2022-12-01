@@ -17,7 +17,7 @@ namespace Pengine
 
 		uint32_t GetRendererID() const { return m_RendererID; }
 		
-		void Initialize(const void* data, uint32_t size, bool Static = true);
+		void Initialize(const void* data, uint32_t size, bool isStatic = true);
 		
 		void Clear();
 		

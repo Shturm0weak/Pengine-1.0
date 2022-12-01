@@ -48,6 +48,8 @@ namespace Pengine
 		
 		std::string GetFilePath() const { return m_FilePath; }
 
+		uint32_t GetRendererID() const { return m_RendererID; }
+
 		ShaderProgramSource Parseshader(const std::string& filepath);
 		
 		uint32_t CreateShader(const std::string& vertexShader, const std::string& geometryShader, const std::string& FragmentShader);
@@ -71,6 +73,11 @@ namespace Pengine
 		void SetUniformMat4f(const std::string& name,const glm::mat4& matrix);
 		void SetUniformMat3f(const std::string& name,const glm::mat3& matrix);
 		void SetUniformMat4fv(const std::string& name, const std::vector<glm::mat4>& matrices);
+
+		uint32_t GetUniformBlockIndex(const char* name);
+		std::vector<uint32_t> GetUniformIndices(uint32_t size, const char** names);
+		std::vector<int> GetUniformsOffset(uint32_t size, const char** names);
+		int GetUniformBlockSize(const char* name);
 
 		friend class Editor;
 	};

@@ -542,7 +542,7 @@ GameObject* Serializer::DeserializePrefab(const std::string filePath)
 
 	Scene* scene = EntryPoint::GetApplication().GetScene();
 
-	std::unordered_map<GameObject*, std::vector<size_t>> childs;
+	std::unordered_map<GameObject*, std::vector<std::string>> childs;
 
 	if (auto& gameObjects = data["GameObjects"])
 	{
@@ -556,17 +556,12 @@ GameObject* Serializer::DeserializePrefab(const std::string filePath)
 	{
 		for (auto childUUID : gameObject.second)
 		{
-			GameObject* child = scene->FindGameObject(childUUID);
+			GameObject* child = scene->FindGameObjectByUUID(childUUID);
 			if (child)
 			{
 				gameObject.first->AddChild(child);
 			}
 		}
-	}
-
-	for (auto gameObject : childs)
-	{
-		gameObject.first->m_UUID = UUID::Generate();
 	}
 
 	Logger::Success("has been deserialized!", "Prefab", Utils::GetNameFromFilePath(filePath).c_str());
@@ -646,7 +641,7 @@ Scene* Serializer::DeserializeScene(const std::string filePath)
 	DeserializeEnvironment(data);
 	Environment::GetInstance().GetMainCamera()->Copy(DeserializeCamera(data));
 
-	std::unordered_map<GameObject*, std::vector<size_t>> childs;
+	std::unordered_map<GameObject*, std::vector<std::string>> childs;
 
 	if (auto& gameObjects = data["GameObjects"])
 	{
@@ -660,17 +655,12 @@ Scene* Serializer::DeserializeScene(const std::string filePath)
 	{
 		for (auto childUUID : gameObject.second)
 		{
-			GameObject* child = scene->FindGameObject(childUUID);
+			GameObject* child = scene->FindGameObjectByUUID(childUUID);
 			if (child)
 			{
 				gameObject.first->AddChild(child);
 			}
 		}
-	}
-
-	for (auto gameObject : childs)
-	{
-		gameObject.first->m_UUID = UUID::Generate();
 	}
 
 	Logger::Success("has been deserialized!", "Scene", scene->m_Title.c_str());
@@ -1124,14 +1114,11 @@ void Serializer::SerializeGameObjects(YAML::Emitter& out, const Scene& scene)
 void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 {
 	out << YAML::BeginMap;
-	out << YAML::Key << "GameObject" << YAML::Value << std::to_string(gameObject.GetUUID());
+	out << YAML::Key << "GameObject" << YAML::Value << gameObject.GetUUID();
 	out << YAML::Key << "Name" << YAML::Value << gameObject.m_Name;
 	out << YAML::Key << "Is Enabled" << YAML::Value << gameObject.m_IsEnabled;
 	out << YAML::Key << "Is Selectable" << YAML::Value << gameObject.m_IsSelectable;
 	out << YAML::Key << "Prefab File Path" << YAML::Value << gameObject.m_PrefabFilePath;
-
-	//gameObject.m_UUID.Clear();
-	//gameObject.m_UUID = UUID::Generate();
 
 	SerializeGameObjectChilds(out, gameObject);
 	SerializeTransform(out, gameObject.m_Transform);
@@ -1155,14 +1142,14 @@ void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 	out << YAML::EndMap;
 }
 
-void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unordered_map<GameObject*, std::vector<size_t>>& childs)
+void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unordered_map<GameObject*, std::vector<std::string>>& childs)
 {
 	GameObject* gameObject = nullptr;
 
 	if (auto& nameData = in["Name"])
 	{
 		gameObject = scene.CreateGameObject(nameData.as<std::string>(),
-			DeserializeTransform(in), UUID(in["GameObject"].as<size_t>()));
+			DeserializeTransform(in), UUID(in["GameObject"].as<std::string>()));
 	}
 	else
 	{
@@ -1207,7 +1194,7 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 void Serializer::SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameObject)
 {
 	std::vector<GameObject*> childs = gameObject.GetChilds();
-	std::vector<size_t> childsUUID;
+	std::vector<std::string> childsUUID;
 	for (auto& child : childs)
 	{
 		childsUUID.push_back(child->GetUUID());
@@ -1216,12 +1203,12 @@ void Serializer::SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameO
 }
 
 void Serializer::DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObject,
-	std::unordered_map<GameObject*, std::vector<size_t>>& childs)
+	std::unordered_map<GameObject*, std::vector<std::string>>& childs)
 {
 	if (auto& childsIn = in["Childs"])
 	{
-		std::pair<GameObject*, std::vector<size_t>> pair = std::make_pair(gameObject, std::vector<size_t>());
-		std::vector<size_t> childsUUID = childsIn.as<std::vector<size_t>>();
+		std::pair<GameObject*, std::vector<std::string>> pair = std::make_pair(gameObject, std::vector<std::string>());
+		std::vector<std::string> childsUUID = childsIn.as<std::vector<std::string>>();
 		for (auto childUUID : childsUUID)
 		{
 			pair.second.push_back(childUUID);

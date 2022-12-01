@@ -13,7 +13,7 @@ IComponent* SphereCollider3D::Create(GameObject* owner)
     owner->m_Transform.SetOnScaleCallback("SphereCollider3D", 
         [bc3d]()
     {
-        if (IComponent::IsValid(bc3d) && bc3d->m_IsInitialized)
+        if (IComponent::IsValid(bc3d) && bc3d->IsInitialized())
         {
             bc3d->SetRadius(bc3d->GetRadius());
         }

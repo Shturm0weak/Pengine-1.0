@@ -1,57 +1,68 @@
 #include "UUID.h"
 
-#include "Utils.h"
-#include "Logger.h"
-
-#include <algorithm>
 #include <random>
+#include <sstream>
+
+#include "Logger.h"
 
 namespace Pengine
 {
 
 	static std::random_device s_RandomDevice;
 	static std::mt19937_64 s_Engine(s_RandomDevice());
-	static std::uniform_int_distribution<size_t> s_UniformDistribution;
+	static std::uniform_int_distribution<size_t> s_UniformDistributionUUID1(0, 15);
+	static std::uniform_int_distribution<size_t> s_UniformDistributionUUID2(8, 11);
 
-	size_t UUID::Generate()
+	void UUID::Generate()
 	{
-		size_t uuid = s_UniformDistribution(s_Engine);
-		if (!std::binary_search(s_UUIDs.begin(), s_UUIDs.end(), uuid))
+		std::stringstream uuid;
+		uuid << std::hex;
+		
+		for (size_t i = 0; i < 8; i++)
 		{
-			s_UUIDs.push_back(uuid);
-			std::sort(s_UUIDs.begin(), s_UUIDs.end());
-			return uuid;
+			uuid << s_UniformDistributionUUID1(s_Engine);
 		}
-		else
+
+		uuid << "-";
+
+		for (size_t i = 0; i < 4; i++)
 		{
-			return Generate();
+			uuid << s_UniformDistributionUUID1(s_Engine);
 		}
+
+		uuid << "-4";
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			uuid << s_UniformDistributionUUID1(s_Engine);
+		}
+
+		uuid << "-";
+		uuid << s_UniformDistributionUUID2(s_Engine);
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			uuid << s_UniformDistributionUUID1(s_Engine);
+		}
+
+		uuid << "-";
+		
+		for (size_t i = 0; i < 12; i++)
+		{
+			uuid << s_UniformDistributionUUID1(s_Engine);
+		}
+
+		// This code should be commented, for now it is just for a test.
+		m_UUID = uuid.str();
+		for (auto& testUuid : s_UUIDs)
+		{
+			if (m_UUID.compare(testUuid) == 0)
+			{
+				Logger::Error("UUID dublicate!!!");
+			}
+		}
+
+		s_UUIDs.push_back(m_UUID);
 	}
 
-	UUID::UUID(size_t uuid)
-	{
-		if (uuid == -1)
-		{
-			m_UUID = Generate();
-		}
-		else if (!std::binary_search(s_UUIDs.begin(), s_UUIDs.end(), uuid))
-		{
-			s_UUIDs.push_back(uuid);
-			std::sort(s_UUIDs.begin(), s_UUIDs.end());
-			m_UUID = uuid;
-		}
-		else
-		{
-			m_UUID = Generate();
-		}
-	}
-
-	void UUID::Clear()
-	{
-		if (m_UUID != -1)
-		{
-			Utils::Erase<size_t>(s_UUIDs, m_UUID);
-			m_UUID = -1;
-		}
-	}
 }

@@ -15216,3 +15216,4 @@ GameObjects:
       Is Normal used: false
       Ambient: 1
       Emmisive Mask Intensity: 0
+      По поводу FlattenedNode, я извлекаю property, до того как dummy удалят

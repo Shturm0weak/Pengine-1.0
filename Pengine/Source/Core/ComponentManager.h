@@ -101,7 +101,7 @@ namespace Pengine
 		{
 			if (component == nullptr) return;
 
-			Utils::Erase<IComponent>(m_Components, component);
+			Utils::Erase<IComponent*>(m_Components, component);
 
 			component->Delete();
 		}

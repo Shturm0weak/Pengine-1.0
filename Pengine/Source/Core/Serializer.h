@@ -63,11 +63,11 @@ namespace Pengine
 		
 		static void SerializeGameObject(YAML::Emitter& out, GameObject& gameObject);
 		
-		static void DeserializeGameObject(YAML::Node& in, Scene& scene, std::unordered_map<GameObject*, std::vector<size_t>>& childs);
+		static void DeserializeGameObject(YAML::Node& in, Scene& scene, std::unordered_map<GameObject*, std::vector<std::string>>& childs);
 		
 		static void SerializeGameObjectChilds(YAML::Emitter& out, GameObject& gameObject);
 		
-		static void DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObject, std::unordered_map<GameObject*, std::vector<size_t>>& childs);
+		static void DeserializeGameObjectChilds(YAML::Node& in, GameObject* gameObject, std::unordered_map<GameObject*, std::vector<std::string>>& childs);
 		
 		static void SerializeRenderer3D(YAML::Emitter& out, ComponentManager& componentManager);
 

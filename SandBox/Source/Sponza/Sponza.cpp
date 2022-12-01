@@ -6,7 +6,7 @@
 void Sponza::OnStart()
 {
 	m_Camera = Environment::GetInstance().GetMainCamera();
-	m_Spline = GetScene()->FindGameObject("Spline")->m_ComponentManager.AddComponent<Spline>();
+	m_Spline = GetScene()->FindGameObjectByName("Spline")->m_ComponentManager.AddComponent<Spline>();
 }
 
 void Sponza::OnUpdate()
@@ -16,7 +16,7 @@ void Sponza::OnUpdate()
 		m_Time += Time::GetDeltaTime();
 		m_PositionAlongSpline += m_Spline->m_Speed * Time::GetDeltaTime();
 		glm::vec3 position = m_Spline->GetPoint(m_Spline->GetNormalizedOffset(m_PositionAlongSpline));
-		m_Sphere = GetScene()->FindGameObject("PointLight");
+		m_Sphere = GetScene()->FindGameObjectByName("PointLight");
 		m_Sphere->m_Transform.Translate(position);
 	}
 }

@@ -25,12 +25,12 @@ void Scene::Copy(const Scene& scene)
 	DestroyPhysics();
 	CreatePhysics();
 
-	for (const auto& gameObjectIter : scene.m_GameObjects)
+	for (const auto& gameObject : scene.m_GameObjects)
 	{
-		if (gameObjectIter->GetOwner() == nullptr)
+		if (gameObject->GetOwner() == nullptr)
 		{
-			GameObject* gameObject = CreateGameObject(gameObjectIter->m_Name);
-			*gameObject = *gameObjectIter;
+			GameObject* createdGameObject = CreateGameObject(gameObject->m_Name, gameObject->m_Transform, gameObject->m_UUID);
+			*createdGameObject = *gameObject;
 		}
 	}
 }
@@ -598,15 +598,15 @@ void Scene::DeleteGameObjectLater(GameObject* gameObject)
 	gameObject->DeleteLater();
 }
 
-GameObject* Scene::FindGameObject(const std::string& name)
+GameObject* Scene::FindGameObjectByName(const std::string& name)
 {
-	auto gameObjectIter = std::find_if(m_GameObjects.begin(), m_GameObjects.end(), [name](GameObject* gameObject) {
+	auto gameObject = std::find_if(m_GameObjects.begin(), m_GameObjects.end(), [name](GameObject* gameObject) {
 		return gameObject->GetName() == name;
 	});
 
-	if (gameObjectIter != m_GameObjects.end())
+	if (gameObject != m_GameObjects.end())
 	{
-		return *gameObjectIter;
+		return *gameObject;
 	}
 
 	return nullptr;
@@ -625,15 +625,12 @@ std::vector<GameObject*> Scene::FindGameObjects(const std::string& name)
 	return gameObjects;
 }
 
-GameObject* Scene::FindGameObject(size_t uuid)
+GameObject* Scene::FindGameObjectByUUID(const std::string& uuid)
 {
-	auto gameObjectIter = std::find_if(m_GameObjects.begin(), m_GameObjects.end(), [uuid](GameObject* gameObject) {
-		return gameObject->GetUUID().operator size_t() == uuid;
-	});
-
-	if (gameObjectIter != m_GameObjects.end())
+	auto gameObject = m_GameObjectsByUUID.find(uuid);
+	if (gameObject != m_GameObjectsByUUID.end())
 	{
-		return *gameObjectIter;
+		return gameObject->second;
 	}
 
 	return nullptr;

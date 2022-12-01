@@ -68,7 +68,6 @@ void Editor::Debug()
 			ImGui::Text("RTTR classes: %zu", ReflectionSystem::GetInstance().m_RegisteredClasses.size());
 			ImGui::Text("Selected objs: %zu", m_SelectedGameObjects.size());
 			ImGui::Text("GameObjects: %zu", m_CurrentScene->m_GameObjects.size());
-			ImGui::Text("UUIDs: %zu", UUID::s_UUIDs.size());
 			ImGui::Text("Events: %zu", EventSystem::GetInstance().m_CurrentEvents.size());
 			ImGui::Text("Lua states: %zu", LuaStateManager::GetInstance().m_LuaStates.size());
 			ImGui::Text("Raw Lua states: %zu", LuaStateManager::GetInstance().m_LuaStatesRaw.size());
@@ -611,7 +610,7 @@ void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
 			auto callback = [=]() {
 				for (auto child : m_SelectedGameObjects)
 				{
-					gameObject->AddChild(child);
+					gameObject->AddChild(m_CurrentScene->FindGameObjectByUUID(child));
 				}
 			};
 			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
@@ -642,7 +641,7 @@ void Editor::DrawChilds(GameObject* gameObject)
 	for (uint32_t i = 0; i < childsSize; i++)
 	{
 		GameObject* child = static_cast<GameObject*>(gameObject->GetChilds()[i]);
-		ImGuiTreeNodeFlags flags = Utils::IsThere<GameObject*>(m_SelectedGameObjects, child) 
+		ImGuiTreeNodeFlags flags = Utils::IsThere<std::string>(m_SelectedGameObjects, child->GetUUID()) 
 			? ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_Selected : 0;
 		DrawNode(child, flags);
 	}
@@ -675,8 +674,9 @@ void Editor::DrawScene()
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
 			{
 				auto callback = [=]() {
-					for (auto child : m_SelectedGameObjects)
+					for (auto childUUID : m_SelectedGameObjects)
 					{
+						GameObject* child = m_CurrentScene->FindGameObjectByUUID(childUUID);
 						if (GameObject* owner = child->GetOwner())
 						{
 							owner->RemoveChild(child);
@@ -695,7 +695,7 @@ void Editor::DrawScene()
 		{
 			GameObject* gameObject = objectIter;
 			if (gameObject->GetOwner()) continue;
-			ImGuiTreeNodeFlags flags = Utils::IsThere<GameObject*>(m_SelectedGameObjects, gameObject)
+			ImGuiTreeNodeFlags flags = Utils::IsThere<std::string>(m_SelectedGameObjects, gameObject->GetUUID())
 				? ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_Selected : 0;
 			DrawNode(gameObject, flags);
 		}
@@ -712,7 +712,9 @@ void Editor::AssetBrowser()
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
 			{
-				GameObject* gameObject = m_CurrentScene->FindGameObject(*(size_t*)payload->Data);
+				std::string uuid((const char*)payload->Data);
+				uuid.resize(payload->DataSize);
+				GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(uuid);
 				if (gameObject)
 				{
 					Serializer::SerializePrefab(m_CurrentDirectory.string(), *gameObject);
@@ -892,11 +894,17 @@ void Editor::Properties()
 {
 	if (ImGui::Begin("Properties"))
 	{
-		for(GameObject* gameObject : m_SelectedGameObjects)
+		for(const std::string gameObjectUUID : m_SelectedGameObjects)
 		{
+			GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID);
+			if (!gameObject)
+			{
+				continue;
+			}
+
 			ComponentsMenu(gameObject);
 
-			ImGui::Text("ID: %zu", gameObject->GetUUID());
+			ImGui::Text("UUID: %s", gameObject->GetUUID().c_str());
 
 			char name[32];
 			strcpy(name, gameObject->GetName().c_str());
@@ -908,7 +916,7 @@ void Editor::Properties()
 			ImGui::Text("Owner: %s", gameObject->HasOwner() ? gameObject->GetOwner()->GetName().c_str() : "Null");
 			ImGui::Checkbox("Is Serializable", &gameObject->m_IsSerializable);
 			ImGui::Checkbox("Is Selectable", &gameObject->m_IsSelectable);
-			ImGui::Text(gameObject->m_IsInitialized ? "Is Initialized: Yes" : "Initialized: No");
+			ImGui::Text(gameObject->IsInitialized() ? "Is Initialized: Yes" : "Initialized: No");
 
 			if (gameObject->IsPrefab())
 			{
@@ -1999,7 +2007,7 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 								}
 								else if(const ImGuiPayload * payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
 								{
-									prop.set_value(component, m_SelectedGameObjects[0]->GetName());
+									prop.set_value(component, m_CurrentScene->FindGameObjectByUUID(m_SelectedGameObjects[0])->GetName());
 								}
 								ImGui::EndDragDropTarget();
 							}
@@ -2380,9 +2388,12 @@ void Editor::CreatePopUpMenu()
 		}
 		else if (ImGui::MenuItem("Delete selected"))
 		{
-			for (GameObject* gameObject : m_SelectedGameObjects)
+			for (const std::string& gameObjectUUID : m_SelectedGameObjects)
 			{
-				m_CurrentScene->DeleteGameObject(gameObject);
+				if (GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+				{
+					m_CurrentScene->DeleteGameObject(gameObject);
+				}
 			}
 			m_SelectedGameObjects.clear();
 		}
@@ -2663,9 +2674,12 @@ void Editor::Update(Scene* scene)
 
 		if (!Input::KeyBoard::IsKeyDown(Keycode::KEY_LEFT_CONTROL))
 		{
-			if (m_SelectedGameObjects.size() == 1)
+			for (const std::string& gameObjectUUID : m_SelectedGameObjects)
 			{
-				ignoreMask = m_SelectedGameObjects;
+				if (GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+				{
+					ignoreMask.push_back(gameObject);
+				}
 			}
 
 			m_SelectedGameObjects.clear();
@@ -2674,7 +2688,7 @@ void Editor::Update(Scene* scene)
 			{
 				for (GameObject* gameObject : selectedGameObjects)
 				{
-					if (!Utils::Erase<GameObject>(m_SelectedGameObjects, gameObject))
+					if (!Utils::Erase<std::string>(m_SelectedGameObjects, gameObject->GetUUID()))
 					{
 						AddSelectedGameObject(gameObject);
 					}
@@ -2691,13 +2705,13 @@ void Editor::Update(Scene* scene)
 				{
 					if (Input::KeyBoard::IsKeyDown(Keycode::KEY_X))
 					{
-						Utils::Erase<GameObject>(m_SelectedGameObjects, gameObject);
+						Utils::Erase<std::string>(m_SelectedGameObjects, gameObject->GetUUID());
 					}
-					else if (selectedGameObjects.size() > 1 && !Utils::IsThere<GameObject*>(m_SelectedGameObjects, gameObject))
+					else if (selectedGameObjects.size() > 1 && !Utils::IsThere<std::string>(m_SelectedGameObjects, gameObject->GetUUID()))
 					{
 						AddSelectedGameObject(gameObject);
 					}
-					else if (selectedGameObjects.size() == 1 && !Utils::Erase<GameObject>(m_SelectedGameObjects, gameObject))
+					else if (selectedGameObjects.size() == 1 && !Utils::Erase<std::string>(m_SelectedGameObjects, gameObject->GetUUID()))
 					{
 						AddSelectedGameObject(gameObject);
 					}
@@ -2798,9 +2812,9 @@ void Editor::Settings()
 
 void Editor::AddSelectedGameObject(GameObject* gameObject)
 {
-	if (!Utils::IsThere<GameObject*>(m_SelectedGameObjects, gameObject))
+	if (!Utils::IsThere<std::string>(m_SelectedGameObjects, gameObject->GetUUID()))
 	{
-		m_SelectedGameObjects.push_back(gameObject);
+		m_SelectedGameObjects.push_back(gameObject->GetUUID());
 	}
 }
 
@@ -2811,25 +2825,35 @@ void Editor::ShortCuts()
 		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_D))
 		{
 			std::vector<GameObject*> newGameObjects;
-			for (GameObject* gameObject : m_SelectedGameObjects)
+			for (const std::string& gameObjectUUID : m_SelectedGameObjects)
 			{
-				GameObject* newGameObject = m_CurrentScene->CreateGameObject(gameObject->GetName());
-				newGameObject->Copy(*gameObject);
-				newGameObjects.push_back(newGameObject);
+				if (GameObject * gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+				{
+					GameObject* newGameObject = m_CurrentScene->CreateGameObject(gameObject->GetName());
+					newGameObject->Copy(*gameObject);
+					newGameObjects.push_back(newGameObject);
+				}
 			}
 
 			if (!m_SelectedGameObjects.empty())
 			{
-				m_SelectedGameObjects = newGameObjects;
+				for (GameObject* gameObject : newGameObjects)
+				{
+					m_SelectedGameObjects.clear();
+					m_SelectedGameObjects.emplace_back(gameObject->GetUUID());
+				}
 			}
 		}
 	}
 
 	if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_DELETE))
 	{
-		for (GameObject* gameObject : m_SelectedGameObjects)
+		for (const std::string& gameObjectUUID : m_SelectedGameObjects)
 		{
-			m_CurrentScene->DeleteGameObject(gameObject);
+			if (GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+			{
+				m_CurrentScene->DeleteGameObject(gameObject);
+			}
 		}
 		m_SelectedGameObjects.clear();
 	}
@@ -3135,12 +3159,16 @@ void Editor::TextureAtlasMenu::Update()
 				ImGui::PushID((i * amountOfSpritesX) + j);
 				if (ImGui::ImageButton((void*)(intptr_t)atlasTexture->GetRendererID(), ImVec2(56, 56), ImVec2(uv[0], uv[5]), ImVec2(uv[4], uv[1]), framePadding, ImVec4(1.0f, 1.0f, 1.0f, 0.5f)))
 				{
-					for (auto& gameObject : Editor::GetInstance().m_SelectedGameObjects) {
-						Renderer2D* r2d = gameObject->m_ComponentManager.GetComponent<Renderer2D>();
-						if (r2d)
+					for (const std::string& gameObjectUUID : Editor::GetInstance().m_SelectedGameObjects) {
+						
+						if (GameObject* gameObject = Editor::GetInstance().m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
 						{
-							r2d->SetTexture(atlasTexture);
-							r2d->SetUV(uv);
+							Renderer2D* r2d = gameObject->m_ComponentManager.GetComponent<Renderer2D>();
+							if (r2d)
+							{
+								r2d->SetTexture(atlasTexture);
+								r2d->SetUV(uv);
+							}
 						}
 					}
 				}

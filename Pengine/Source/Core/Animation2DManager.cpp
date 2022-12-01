@@ -12,8 +12,9 @@ Animation2DManager& Animation2DManager::GetInstance()
 
 void Animation2DManager::Save(Animation2D* animation)
 {
-	if (Utils::Erase<Animation2D>(m_Animations, animation))
+	if (m_Animations.count(animation->m_FilePath) > 0)
 	{
+		m_Animations.erase(animation->m_FilePath);
 		m_Animations.insert(std::make_pair(animation->m_FilePath, animation));
 	}
 }

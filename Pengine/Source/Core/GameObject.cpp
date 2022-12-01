@@ -37,7 +37,7 @@ void GameObject::Copy(const GameObject& gameObject)
 	std::vector<GameObject*> childs = gameObject.GetChilds();
 	for (GameObject* child : childs)
 	{
-		GameObject* newChild = m_Scene->CreateGameObject(child->m_Name);
+		GameObject* newChild = m_Scene->CreateGameObject(child->m_Name, child->m_Transform, child->m_UUID);
 		*newChild = *child;
 		AddChild(newChild);
 	}
@@ -88,10 +88,20 @@ GameObject* GameObject::Create(Scene* scene, const std::string& name, const Tran
 	gameObject->m_Name = name;
 	gameObject->m_Transform = transform;
 	gameObject->m_Scene = scene;
-	gameObject->m_Scene->m_GameObjects.push_back(gameObject);
 	gameObject->m_Transform.m_Owner = gameObject;
-	gameObject->m_UUID = uuid.operator size_t();
 	gameObject->m_CreationTime = Time::GetTime();
+
+	if (uuid.Get().empty())
+	{
+		gameObject->m_UUID.Generate();
+	}
+	else
+	{
+		gameObject->m_UUID = uuid;
+	}
+
+	gameObject->m_Scene->m_GameObjectsByUUID.emplace(gameObject->GetUUID(), gameObject);
+	gameObject->m_Scene->m_GameObjects.push_back(gameObject);
 
 #ifdef _DEBUG
 	Logger::Log("has been created!", "GameObject", gameObject->m_Name.c_str(), RESET);
@@ -126,10 +136,10 @@ void GameObject::Delete()
 		m_Owner->RemoveChild(this);
 	}
 
-	Utils::Erase<GameObject>(m_Scene->m_GameObjects, this);
+	Utils::Erase<GameObject*>(m_Scene->m_GameObjects, this);
+	m_Scene->m_GameObjectsByUUID.erase(GetUUID());
 
 	m_ComponentManager.Clear();
-	m_UUID.Clear();
 	MemoryManager::GetInstance().FreeMemory<GameObject>(static_cast<IAllocator*>(this));
 
 #ifdef _DEBUG
@@ -174,7 +184,7 @@ void GameObject::AddChild(GameObject* child)
 
 void GameObject::RemoveChild(GameObject* child)
 {
-	if (Utils::Erase<GameObject>(m_Childs, child))
+	if (Utils::Erase<GameObject*>(m_Childs, child))
 	{
 		child->m_Owner = nullptr;
 	}

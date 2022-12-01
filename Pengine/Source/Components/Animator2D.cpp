@@ -121,7 +121,7 @@ void Animator2D::AddAnimation(Animation2DManager::Animation2D* animation)
 
 void Animator2D::RemoveAnimation(Animation2DManager::Animation2D* animation)
 {
-	Utils::Erase<Animation2DManager::Animation2D>(m_Animations, animation);
+	Utils::Erase<Animation2DManager::Animation2D*>(m_Animations, animation);
 }
 
 void Animator2D::RemoveAll()

@@ -13,7 +13,7 @@ IComponent* BoxCollider3D::Create(GameObject* owner)
     owner->m_Transform.SetOnScaleCallback("BoxCollider3D", 
         [bc3d]()
     {
-        if (IComponent::IsValid(bc3d) && bc3d->m_IsInitialized)
+        if (IComponent::IsValid(bc3d) && bc3d->IsInitialized())
         {
             bc3d->SetHalfExtent(bc3d->GetHalfExtent());
         }

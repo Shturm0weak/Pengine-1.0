@@ -9,10 +9,11 @@ namespace Pengine
 	{
 	public:
 
-		bool m_IsInitialized = false;
+		bool IsInitialized() const { return m_IsInitialized; }
 	private:
 
 		char* m_MemoryPoolPtr = nullptr;
+		bool m_IsInitialized = false;
 
 		friend class MemoryManager;
 	};

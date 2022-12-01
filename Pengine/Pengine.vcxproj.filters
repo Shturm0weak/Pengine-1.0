@@ -305,6 +305,7 @@
     <ClInclude Include="Source\Components\ICollider3D.h" />
     <ClInclude Include="Source\Components\Rigidbody3D.h" />
     <ClInclude Include="Source\Components\SphereCollider3D.h" />
+    <ClInclude Include="Source\OpenGL\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -514,5 +515,6 @@
     <ClCompile Include="Source\Components\Rigidbody3D.cpp" />
     <ClCompile Include="Source\Components\ICollider3D.cpp" />
     <ClCompile Include="Source\Components\SphereCollider3D.cpp" />
+    <ClCompile Include="Source\OpenGL\UniformBuffer.cpp" />
   </ItemGroup>
 </Project>

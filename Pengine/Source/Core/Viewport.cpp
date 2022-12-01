@@ -249,8 +249,6 @@ void Viewport::Update()
 
 	m_IsActiveGuizmo = false;
 	//Need to fix Rotation doesn't change orientation of gizmos
-	Editor& editor = Editor::GetInstance();
-	std::vector<GameObject*> gameObjects = editor.GetSelectedGameObjects();
 
 	glm::vec3 averagePosition = { 0.0f, 0.0f, 0.0f };
 	glm::vec3 averageScale = { 0.0f, 0.0f, 0.0f };
@@ -265,23 +263,32 @@ void Viewport::Update()
 
 	std::vector<TransformParams> transformParamsDiff;
 
-	for (GameObject* gameObject : gameObjects)
+	Editor& editor = Editor::GetInstance();
+	std::vector<std::string> gameObjectsUUID = editor.GetSelectedGameObjects();
+
+	for (const std::string& gameObjectUUID : gameObjectsUUID)
 	{
-		averagePosition += gameObject->m_Transform.GetPosition();
-		averageRotation += gameObject->m_Transform.GetRotation();
-		averageScale += gameObject->m_Transform.GetScale();
+		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+		{
+			averagePosition += gameObject->m_Transform.GetPosition();
+			averageRotation += gameObject->m_Transform.GetRotation();
+			averageScale += gameObject->m_Transform.GetScale();
+		}
 	}
 
-	averagePosition /= gameObjects.size();
-	averageRotation /= gameObjects.size();
-	averageScale /= gameObjects.size();
+	averagePosition /= gameObjectsUUID.size();
+	averageRotation /= gameObjectsUUID.size();
+	averageScale /= gameObjectsUUID.size();
 
-	transformParamsDiff.resize(gameObjects.size());
+	transformParamsDiff.resize(gameObjectsUUID.size());
 	for (size_t i = 0; i < transformParamsDiff.size(); i++)
 	{
-		transformParamsDiff[i].m_Position = gameObjects[i]->m_Transform.GetPosition() - averagePosition;
-		transformParamsDiff[i].m_Rotation = gameObjects[i]->m_Transform.GetRotation() - averageRotation;
-		transformParamsDiff[i].m_Scale = gameObjects[i]->m_Transform.GetScale() - averageScale;
+		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[i]))
+		{
+			transformParamsDiff[i].m_Position = gameObject->m_Transform.GetPosition() - averagePosition;
+			transformParamsDiff[i].m_Rotation = gameObject->m_Transform.GetRotation() - averageRotation;
+			transformParamsDiff[i].m_Scale = gameObject->m_Transform.GetScale() - averageScale;
+		}
 	}
 
 	ImGuizmo::SetOrthographic(!(bool)camera->GetType());
@@ -309,7 +316,7 @@ void Viewport::Update()
 			position.z = 0.0f;
 		}
 
-		for (size_t i = 0; i < gameObjects.size(); i++)
+		for (size_t i = 0; i < gameObjectsUUID.size(); i++)
 		{
 			//glm::vec3 deltaRotation = rotation - gameObjects[i]->m_Transform.GetRotation();
 			//rotation = gameObjects[i]->m_Transform.GetRotation() + deltaRotation;
@@ -320,9 +327,12 @@ void Viewport::Update()
 				newPosition = glm::round(newPosition);
 			}
 
-			gameObjects[i]->m_Transform.Translate(newPosition);
-			gameObjects[i]->m_Transform.Rotate(rotation + transformParamsDiff[i].m_Rotation);
-			gameObjects[i]->m_Transform.Scale(scale + transformParamsDiff[i].m_Scale);
+			if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[i]))
+			{
+				gameObject->m_Transform.Translate(newPosition);
+				gameObject->m_Transform.Rotate(rotation + transformParamsDiff[i].m_Rotation);
+				gameObject->m_Transform.Scale(scale + transformParamsDiff[i].m_Scale);
+			}
 		}
 	}
 

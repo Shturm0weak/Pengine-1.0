@@ -208,6 +208,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClInclude Include="Source\OpenGL\stb_image.h" />
     <ClInclude Include="Source\UI\Character.h" />
     <ClInclude Include="Source\UI\Gui.h" />
+    <ClInclude Include="Source\OpenGL\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp" />
@@ -283,6 +284,7 @@ IF EXIST $(SolutionDir)Dlls\rttr_core.dll\ (xcopy /Q /E /Y /I $(SolutionDir)Dlls
     <ClCompile Include="Source\StaticVariables.cpp" />
     <ClCompile Include="Source\UI\Character.cpp" />
     <ClCompile Include="Source\UI\Gui.cpp" />
+    <ClCompile Include="Source\OpenGL\UniformBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vendor\Box2D\Box2D.vcxproj">

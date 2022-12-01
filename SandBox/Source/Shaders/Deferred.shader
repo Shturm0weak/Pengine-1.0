@@ -13,7 +13,7 @@ void main()
 }
 
 #shader fragment
-#version 330 core
+#version 420 core
 
 layout(location = 0) out vec4 fragColor;
 
@@ -27,26 +27,48 @@ struct DirectionalLight
 struct PointLight
 {
 	vec3 position;
-	vec3 color;
-	int shadowMapIndex;
 	float constant;
+	vec3 color;
+	int drawShadows;
+
 	float _linear;
 	float quadratic;
 	float farPlane;
 	float fog;
-	bool drawShadows;
+	
+	int shadowMapIndex;
+	float _unused1;
+	float _unused2;
+	float _unused3;
+};
+
+#define MAX_POINT_LIGHTS 1000
+layout(std140, binding = 0) uniform PointLightUniformBufferObject
+{
+	PointLight u_PointLights[MAX_POINT_LIGHTS];
 };
 
 struct SpotLight
 {
 	vec3 position;
-	vec3 color;
-	vec3 direction;
 	float constant;
+
+	vec3 color;
 	float _linear;
+
+	vec3 direction;
 	float quadratic;
+
 	float innerCutOff;
 	float outerCutOff;
+	float _unused1;
+	float _unused2;
+};
+
+#define MAX_SPOT_LIGHTS 1000
+layout(std140, binding = 1) uniform SpotLightUniformBufferObject
+{
+	SpotLight u_SpotLights[MAX_SPOT_LIGHTS];
 };
 
 struct DirectionalShadows
@@ -63,11 +85,9 @@ struct SSAO
 
 #define MAX_LIGHT 32
 uniform samplerCube u_PointLightsShadowMap[MAX_LIGHT];
-uniform PointLight u_PointLights[MAX_LIGHT];
-uniform int u_PointLightsSize;
 
+uniform int u_PointLightsSize;
 uniform int u_SpotLightsSize;
-uniform SpotLight u_SpotLights[MAX_LIGHT];
 
 uniform DirectionalLight u_DirectionalLight;
 uniform DirectionalShadows u_DirectionalShadows;
@@ -166,7 +186,7 @@ vec3 PointLightCompute(PointLight light)
 {
 	vec3 shadow = vec3(0.0);
 
-	if (u_IsShadowsEnabled && light.drawShadows)
+	if (u_IsShadowsEnabled && light.drawShadows == 1)
 	{
 		shadow = PointShadowCompute(light);
 	}

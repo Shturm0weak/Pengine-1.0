@@ -122,6 +122,37 @@ void Shader::SetUniformMat4fv(const std::string& name, const std::vector<glm::ma
 	}
 }
 
+uint32_t Shader::GetUniformBlockIndex(const char* name)
+{
+	return glGetUniformBlockIndex(m_RendererID, name);
+}
+
+std::vector<uint32_t> Shader::GetUniformIndices(uint32_t size, const char** names)
+{
+	std::vector<uint32_t> indices(size);
+	glGetUniformIndices(m_RendererID, size, names, &indices[0]);
+	return indices;
+}
+
+std::vector<int> Shader::GetUniformsOffset(uint32_t size, const char** names)
+{
+	std::vector<int> offsets(size);
+	std::vector<uint32_t> indices = GetUniformIndices(size, names);
+	glGetActiveUniformsiv(m_RendererID, size, &indices[0], GL_UNIFORM_OFFSET, &offsets[0]);
+	return offsets;
+}
+
+int Shader::GetUniformBlockSize(const char* name)
+{
+	uint32_t index = GetUniformBlockIndex(name);
+	int size = 0;
+	if (index != GL_INVALID_INDEX)
+	{
+		glGetActiveUniformBlockiv(m_RendererID, index, GL_UNIFORM_BLOCK_DATA_SIZE, &size);
+	}
+	return size;
+}
+
 void Shader::Reload()
 {
 	glDeleteProgram(m_RendererID);

@@ -37,7 +37,7 @@ void LuaStateManager::Remove(LuaState* luaState)
 {
     if (!luaState) return;
 
-    Utils::Erase<LuaState>(m_LuaStates, luaState);
+    Utils::Erase<LuaState*>(m_LuaStates, luaState);
 
     delete luaState;
 }

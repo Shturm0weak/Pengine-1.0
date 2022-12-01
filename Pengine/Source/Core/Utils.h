@@ -12,8 +12,8 @@
 
 #include <filesystem>
 #include <map>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 #include <algorithm>
 
 namespace fs = std::filesystem;
@@ -23,19 +23,6 @@ namespace Pengine
 
 	namespace Utils
 	{
-		/*template<class T>
-		PENGINE_API inline T Find(std::unordered_map<UUID, T*> map, T* value)
-		{
-			auto mapIter = std::find_if(map.begin(), map.end(), [value](const auto& second) {return second.m_FilePath == value; });
-			if (mapIter != map.end())
-			{
-				return mapIter.second;
-			}
-			else
-			{
-				return nullptr;
-			}
-		}*/
 
 		PENGINE_API inline glm::vec2 Direction(const glm::vec2& a, const glm::vec2& b)
 		{
@@ -121,78 +108,43 @@ namespace Pengine
 			return !Utils::Contains(type, "Pengine::");
 		}
 
-		template<class T>
+		template<typename T>
 		inline bool IsThere(const std::vector<T>& vector, const T& object)
 		{
 			return std::find(vector.begin(), vector.end(), object) != vector.end();
 		}
 
-		template<class T>
-		PENGINE_API inline bool Erase(std::vector<T*>& vector, T* object)
-		{
-			auto objectIter = std::find(vector.begin(), vector.end(), object);
-			if (objectIter != vector.end())
-			{
-				vector.erase(objectIter);
-				return true;
-			}
-			return false;
-		}
-
-		template<class T>
+		template<typename T>
 		PENGINE_API inline bool Erase(std::vector<T>& vector, T object)
 		{
-			auto objectIter = std::find(vector.begin(), vector.end(), object);
-			if (objectIter != vector.end())
+			auto vectorIter = std::find(vector.begin(), vector.end(), object);
+			if (vectorIter != vector.end())
 			{
-				vector.erase(objectIter);
+				vector.erase(vectorIter);
+				return true;
+			}
+			return false;
+		}
+
+		template<typename T, typename U>
+		inline bool IsThere(const std::unordered_map<U, T>& map, const U& key)
+		{
+			return map.count(key) > 0;
+		}
+
+		template<typename T, typename U>
+		inline bool Erase(const std::unordered_map<U, T>& map, const U& key)
+		{
+			auto mapIter = map.find(key);
+			if (mapIter != map.end())
+			{
+				map.erase(mapIter);
 				return true;
 			}
 			return false;
 		}
 
 		template<typename T>
-		PENGINE_API inline bool IsThere(const std::unordered_map<UUID, T*>& map, UUID uuid)
-		{
-			return map.find(uuid) != map.end();
-		}
-
-		template<typename T>
-		PENGINE_API inline bool Erase(std::unordered_map<UUID, T*>& map, UUID uuid)
-		{
-			auto objectIter = map.find(uuid);
-			if (objectIter != map.end())
-			{
-				map.erase(objectIter);
-				return true;
-			}
-			return false;
-		}
-
-		template<typename T>
-		PENGINE_API inline T* Find(std::unordered_map <std::string, T*>& map, T* value)
-		{
-			auto objectIter = std::find_if(map.begin(), map.end(), [value](const auto& iter) { return iter.second == value; });
-			if (objectIter != map.end())
-			{
-				return objectIter.second;
-			}
-			return nullptr;
-		}
-
-		template<typename T>
-		PENGINE_API inline bool Erase(std::unordered_map <std::string, T*>& map, T* value)
-		{
-			auto objectIter = std::find_if(map.begin(), map.end(), [value](const auto& iter) { return iter.second == value; });
-			if (objectIter != map.end())
-			{
-				map.erase(objectIter);
-				return true;
-			}
-			return false;
-		}
-
-		template<class T>
 		inline std::string GetTypeName()
 		{
 			return (std::string(typeid(T).name()).substr(6));
@@ -386,7 +338,7 @@ namespace Pengine
 			return texturesPtr;
 		}
 
-		template<class T>
+		template<typename T>
 		PENGINE_API inline char* PreAllocateMemory(std::map<char*, uint64_t>& memoryPool, std::vector<char*>& freeMemory)
 		{
 			if (freeMemory.capacity() == 0)

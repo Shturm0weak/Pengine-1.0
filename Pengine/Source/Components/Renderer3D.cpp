@@ -154,7 +154,7 @@ void Renderer3D::Delete()
 {
 	SetMaterial(MaterialManager::GetInstance().Load("Source/Materials/Material.mat"));
 
-	Utils::Erase<Renderer3D>(GetOwner()->GetScene()->m_Renderers3D, this);
+	Utils::Erase<Renderer3D*>(GetOwner()->GetScene()->m_Renderers3D, this);
 	MemoryManager::GetInstance().FreeMemory<Renderer3D>(static_cast<IAllocator*>(this));
 }
 

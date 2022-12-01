@@ -163,7 +163,7 @@ void Pig::OnStart()
 	m_StartPosition = GetOwner()->GetChildByName("StartPosition");
 	m_EndPosition = GetOwner()->GetChildByName("EndPosition");
 
-	m_King = GetOwner()->GetScene()->FindGameObject("King");
+	m_King = GetOwner()->GetScene()->FindGameObjectByName("King");
 }
 
 void Pig::Movement()
@@ -175,7 +175,7 @@ void Pig::Movement()
 		Patrol();
 		Attack();
 
-		if ((!m_CurrentTargetPosition || !m_CurrentTargetPosition->m_IsInitialized)
+		if ((!m_CurrentTargetPosition || !m_CurrentTargetPosition->IsInitialized())
 			|| (m_State == STATE::ATTACK && !IsAbleToAttack()))
 		{
 			Idle();

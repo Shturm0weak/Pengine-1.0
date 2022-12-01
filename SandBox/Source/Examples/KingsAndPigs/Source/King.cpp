@@ -235,12 +235,12 @@ void King::OnUpdate()
 
 void King::OnStart()
 {
-	if (GameObject* door = GetOwner()->GetScene()->FindGameObject("Door"))
+	if (GameObject* door = GetOwner()->GetScene()->FindGameObjectByName("Door"))
 	{
 		m_Door = door->m_ComponentManager.GetComponent<Door>();
 	}
 
-	if (GameObject* entranceDoor = GetOwner()->GetScene()->FindGameObject("EntranceDoor"))
+	if (GameObject* entranceDoor = GetOwner()->GetScene()->FindGameObjectByName("EntranceDoor"))
 	{
 		GetOwner()->m_Transform.Translate(entranceDoor->m_Transform.GetPosition());
 

@@ -1,6 +1,12 @@
 #pragma once
 
+#define MAX_POINT_LIGHTS 1000
+#define MAX_SPOT_LIGHTS 1000
+#define MAX_SHADOW_LIGHTS 32
+
 #include "Core.h"
+
+#include "../OpenGL/UniformBuffer.h"
 
 #include <vector>
 #include <memory>
@@ -12,10 +18,55 @@ namespace Pengine
 	{
 	private:
 
-		Renderer() = default;
-		Renderer(const Renderer&) = delete;
-		Renderer& operator=(const Renderer&) { return *this; }
-		~Renderer() = default;
+		struct PointLightUniform
+		{
+			glm::vec3 position;
+			float constant;
+
+			glm::vec3 color;
+			int drawShadows;
+
+			float _linear;
+			float quadratic;
+			float farPlane;
+			float fog;
+			
+			int shadowMapIndex;
+			float _unused1;
+			float _unused2;
+			float _unused3;
+		};
+
+		struct PointLights
+		{
+			std::vector<int> m_ShadowSamplers;
+			UniformBuffer m_UniformBuffer;
+			size_t m_Size;
+		} m_PointLights;
+
+		struct SpotLightUniform
+		{
+			glm::vec3 position;
+			float constant;
+
+			glm::vec3 color;
+			float _linear;
+
+			glm::vec3 direction;
+			float quadratic;
+
+			float innerCutOff;
+			float outerCutOff;
+			float _unused1;
+			float _unused2;
+		};
+
+		struct SpotLights
+		{
+			std::vector<int> m_ShadowSamplers;
+			UniformBuffer m_UniformBuffer;
+			size_t m_Size;
+		} m_SpotLights;
 
 		std::shared_ptr<class FrameBuffer> m_FrameBufferScene = nullptr;
 		std::shared_ptr<class FrameBuffer> m_FrameBufferSSAO = nullptr;
@@ -37,6 +88,11 @@ namespace Pengine
 
 		static Renderer& GetInstance();
 
+		Renderer() = default;
+		Renderer(const Renderer&) = delete;
+		Renderer& operator=(const Renderer&) { return *this; }
+		~Renderer() = default;
+
 		void Initialize();
 
 		void Begin(std::shared_ptr<FrameBuffer>& frameBuffer, const glm::vec4& clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f), float depth = 1.0f);
@@ -48,6 +104,12 @@ namespace Pengine
 		void GenerateSSAOKernel();
 
 		void GenerateSSAONoiseTexture();
+
+		void PrepareUniformBuffers(class Scene* scene);
+
+		void PreparePointLightsUniformBuffer(const std::vector<class PointLight*>& pointLights);
+
+		void PrepareSpotLightsUniformBuffer(const std::vector<class SpotLight*>& spotLights);
 
 		bool RenderCascadeShadowMaps(class Scene* scene);
 

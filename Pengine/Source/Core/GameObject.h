@@ -56,7 +56,7 @@ namespace Pengine
 		static bool IsValid(GameObject* gameObject) { return gameObject && gameObject->m_CheckTypeID == 0; }
 		
 		static GameObject* Create(Scene* scene, const std::string& name = "Unnamed",
-			const Transform& transform = Transform(), const UUID& uuid = -1);
+			const Transform& transform = Transform(), const UUID& uuid = UUID());
 
 		void Copy(const GameObject& gameObject);
 		
@@ -82,7 +82,7 @@ namespace Pengine
 		
 		std::string GetName() const { return m_Name; }
 		
-		UUID GetUUID() const { return m_UUID; }
+		std::string GetUUID() const { return m_UUID.Get(); }
 		
 		void SetName(const std::string& name) { m_Name = name; }
 		

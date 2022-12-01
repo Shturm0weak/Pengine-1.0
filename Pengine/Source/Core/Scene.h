@@ -28,6 +28,9 @@ namespace Pengine
 	{
 	private:
 		
+		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_OpaqueByMesh;
+		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_ShadowsByMesh;
+		std::unordered_map<std::string, GameObject*> m_GameObjectsByUUID;
 		std::vector<GameObject*> m_GameObjects;
 		std::vector<std::vector<Renderer2D*>> m_Renderer2DLayers;
 		std::vector<BoxCollider2D*> m_BoxColliders2D;
@@ -40,8 +43,7 @@ namespace Pengine
 		std::vector<PointLight*> m_PointLights;
 		std::vector<SpotLight*> m_SpotLights;
 		std::vector<DirectionalLight*> m_DirectionalLights;
-		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_OpaqueByMesh;
-		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_ShadowsByMesh;
+		
 		std::vector<Renderer3D*> m_TransparentByDistance;
 		std::vector<Renderer3D*> m_Renderers3D;
 
@@ -133,13 +135,13 @@ namespace Pengine
 		std::string GetTitle() const { return m_Title; }
 		
 		GameObject* CreateGameObject(const std::string& name = "Unnamed",
-			const Transform& transform = Transform(), const UUID& uuid = -1);
+			const Transform& transform = Transform(), const UUID& uuid = UUID());
 		
-		GameObject* FindGameObject(const std::string& name);
+		GameObject* FindGameObjectByName(const std::string& name);
 		
 		std::vector<GameObject*> FindGameObjects(const std::string& name);
 		
-		GameObject* FindGameObject(size_t uuid);
+		GameObject* FindGameObjectByUUID(const std::string& uuid);
 		
 		void DeleteGameObject(GameObject* gameObject);
 		

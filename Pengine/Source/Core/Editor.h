@@ -69,7 +69,7 @@ namespace Pengine
 			void Update();
 		} m_CreatingFileMenu;
 
-		std::vector<GameObject*> m_SelectedGameObjects;
+		std::vector<std::string> m_SelectedGameObjects;
 
 		const char* m_RootDirectory = "Source";
 
@@ -239,7 +239,7 @@ namespace Pengine
 		
 		void SetEnabled(bool enabled) { m_IsEnabled = enabled; }
 
-		std::vector<GameObject*> GetSelectedGameObjects() const { return m_SelectedGameObjects; }
+		std::vector<std::string> GetSelectedGameObjects() const { return m_SelectedGameObjects; }
 	};
 
 }
