@@ -9,6 +9,138 @@
 
 using namespace Pengine;
 
+IComponent* BoxCollider2D::Create(GameObject* owner)
+{
+    BoxCollider2D* bc2d = MemoryManager::GetInstance().Allocate<BoxCollider2D>();
+    glm::vec3 scale = owner->m_Transform.GetScale();
+    bc2d->m_PolygonShape.SetAsBox(bc2d->m_Size.x * scale.x, bc2d->m_Size.y * scale.y);
+    bc2d->m_Shape = &bc2d->m_PolygonShape;
+
+    bc2d->m_Fixture.shape = &bc2d->m_PolygonShape;
+    bc2d->m_Fixture.density = bc2d->GetDensity();
+    bc2d->m_Fixture.friction = bc2d->GetFriction();
+    bc2d->m_Fixture.restitution = bc2d->GetRestitution();
+    bc2d->m_Fixture.restitutionThreshold = bc2d->GetRestitutionThreshold();
+
+    owner->GetScene()->m_BoxColliders2D.push_back(bc2d);
+
+    return bc2d;
+}
+
+BoxCollider2D::BoxCollider2D(const BoxCollider2D& bc2d)
+{
+    Copy(bc2d);
+}
+
+BoxCollider2D::BoxCollider2D(BoxCollider2D&& bc2d) noexcept
+{
+    Move(std::move(*(IComponent*)&bc2d));
+}
+
+BoxCollider2D& BoxCollider2D::operator=(const BoxCollider2D& bc2d)
+{
+    Copy(bc2d);
+
+    return *this;
+}
+
+BoxCollider2D& BoxCollider2D::operator=(BoxCollider2D&& bc2d) noexcept
+{
+    Move(std::move(*(IComponent*)&bc2d));
+
+    return *this;
+}
+
+void BoxCollider2D::Copy(const IComponent& component)
+{
+    BoxCollider2D& bc2d = *(BoxCollider2D*)&component;
+    m_Type = component.GetType();
+    SetOffset(bc2d.GetOffset());
+    SetSize(bc2d.GetSize());
+    SetDensity(bc2d.GetDensity());
+    SetFriction(bc2d.GetFriction());
+    SetRestitution(bc2d.GetRestitution());
+    SetRestitutionThreshold(bc2d.GetRestitutionThreshold());
+    SetTag(bc2d.GetTag());
+    SetTrigger(bc2d.IsTrigger());
+}
+
+void BoxCollider2D::Move(IComponent&& component)
+{
+    BoxCollider2D&& bc2d = std::move(*(BoxCollider2D*)&component);
+    m_Type = component.GetType();
+
+    SetOffset(bc2d.GetOffset());
+    bc2d.SetOffset({ 0.0f, 0.0f });
+
+    SetSize(bc2d.GetSize());
+    bc2d.SetSize({ 0.0f, 0.0f });
+
+    SetDensity(bc2d.GetDensity());
+    bc2d.SetDensity(0.0f);
+
+    SetFriction(bc2d.GetFriction());
+    bc2d.SetFriction(0.0f);
+
+    SetRestitution(bc2d.GetRestitution());
+    bc2d.SetRestitution(0.0f);
+
+    SetRestitutionThreshold(bc2d.GetRestitutionThreshold());
+    bc2d.SetRestitutionThreshold(0.0f);
+
+    SetTag(bc2d.GetTag());
+    bc2d.SetTag("");
+
+    SetTrigger(bc2d.IsTrigger());
+    bc2d.SetTrigger(false);
+}
+
+void BoxCollider2D::Delete()
+{
+    Utils::Erase(m_Owner->GetScene()->m_BoxColliders2D, this);
+    MemoryManager::GetInstance().FreeMemory<BoxCollider2D>(static_cast<IAllocator*>(this));
+}
+
+ICollider2D* BoxCollider2D::IntersectTrigger()
+{
+    Scene* scene = m_Owner->GetScene();
+
+    size_t size = scene->m_BoxColliders2D.size();
+    for (size_t i = 0; i < size; i++)
+    {
+        BoxCollider2D* bc2d = scene->m_BoxColliders2D[i];
+        
+        if (this == bc2d) continue;
+
+        if (!bc2d->IsTrigger() || !bc2d->GetOwner()->IsEnabled()) continue;
+
+        if (BoxBoxOverlapSAT(bc2d))
+        {
+            return bc2d;
+        }
+    }
+
+    size = scene->m_CircleColliders2D.size();
+    for (size_t i = 0; i < size; i++)
+    {
+        CircleCollider2D* cc2d = scene->m_CircleColliders2D[i];
+
+        if (!cc2d->IsTrigger() || !cc2d->GetOwner()->IsEnabled()) continue;
+
+        if (BoxCircleOverlap(cc2d))
+        {
+            return cc2d;
+        }
+    }
+
+    return nullptr;
+}
+
+IComponent* BoxCollider2D::New(GameObject* owner)
+{
+    return Create(owner);
+}
+
 bool BoxCollider2D::BoxBoxOverlapSAT(BoxCollider2D* other)
 {
     std::vector<glm::vec4> thisBox(4);
@@ -18,16 +150,16 @@ bool BoxCollider2D::BoxBoxOverlapSAT(BoxCollider2D* other)
     transform.Translate({ GetPosition(), 0.0f });
     glm::mat4 transformMat = transform.GetTransform();
     thisBox[0] = { transformMat * glm::vec4(-m_Size.x, -m_Size.y, 0.0f, 1.0f) };
-    thisBox[1] = { transformMat * glm::vec4( m_Size.x, -m_Size.y, 0.0f, 1.0f) };
-    thisBox[2] = { transformMat * glm::vec4( m_Size.x,  m_Size.y, 0.0f, 1.0f) };
+    thisBox[1] = { transformMat * glm::vec4(m_Size.x, -m_Size.y, 0.0f, 1.0f) };
+    thisBox[2] = { transformMat * glm::vec4(m_Size.x,  m_Size.y, 0.0f, 1.0f) };
     thisBox[3] = { transformMat * glm::vec4(-m_Size.x,  m_Size.y, 0.0f, 1.0f) };
 
     transform = other->m_Owner->m_Transform;
     transform.Translate({ other->GetPosition(), 0.0f });
     transformMat = transform.GetTransform();
     otherBox[0] = { transformMat * glm::vec4(-other->m_Size.x, -other->m_Size.y, 0.0f, 1.0f) };
-    otherBox[1] = { transformMat * glm::vec4( other->m_Size.x, -other->m_Size.y, 0.0f, 1.0f) };
-    otherBox[2] = { transformMat * glm::vec4( other->m_Size.x,  other->m_Size.y, 0.0f, 1.0f) };
+    otherBox[1] = { transformMat * glm::vec4(other->m_Size.x, -other->m_Size.y, 0.0f, 1.0f) };
+    otherBox[2] = { transformMat * glm::vec4(other->m_Size.x,  other->m_Size.y, 0.0f, 1.0f) };
     otherBox[3] = { transformMat * glm::vec4(-other->m_Size.x,  other->m_Size.y, 0.0f, 1.0f) };
 
     std::vector<glm::vec4> box1 = thisBox;
@@ -90,8 +222,8 @@ bool BoxCollider2D::BoxCircleOverlap(CircleCollider2D* other)
     transform.Translate({ GetPosition(), 0.0f });
     glm::mat4 transformMat = transform.GetTransform();
     thisBox[0] = { transformMat * glm::vec4(-m_Size.x, -m_Size.y, 0.0f, 1.0f) };
-    thisBox[1] = { transformMat * glm::vec4( m_Size.x, -m_Size.y, 0.0f, 1.0f) };
-    thisBox[2] = { transformMat * glm::vec4( m_Size.x,  m_Size.y, 0.0f, 1.0f) };
+    thisBox[1] = { transformMat * glm::vec4(m_Size.x, -m_Size.y, 0.0f, 1.0f) };
+    thisBox[2] = { transformMat * glm::vec4(m_Size.x,  m_Size.y, 0.0f, 1.0f) };
     thisBox[3] = { transformMat * glm::vec4(-m_Size.x,  m_Size.y, 0.0f, 1.0f) };
 
     glm::vec3 scaleOther = other->GetOwner()->m_Transform.GetScale();
@@ -126,87 +258,4 @@ bool BoxCollider2D::BoxCircleOverlap(CircleCollider2D* other)
     }
 
     return false;
-}
-
-IComponent* BoxCollider2D::Create(GameObject* owner)
-{
-    BoxCollider2D* bc2d = MemoryManager::GetInstance().Allocate<BoxCollider2D>();
-    glm::vec3 scale = owner->m_Transform.GetScale();
-    bc2d->m_PolygonShape.SetAsBox(bc2d->m_Size.x * scale.x, bc2d->m_Size.y * scale.y);
-    bc2d->m_Shape = &bc2d->m_PolygonShape;
-
-    bc2d->m_Fixture.shape = &bc2d->m_PolygonShape;
-    bc2d->m_Fixture.density = bc2d->m_Density;
-    bc2d->m_Fixture.friction = bc2d->m_Friction;
-    bc2d->m_Fixture.restitution = bc2d->m_Restitution;
-    bc2d->m_Fixture.restitutionThreshold = bc2d->m_RestitutionThreshold;
-
-    owner->GetScene()->m_BoxColliders2D.push_back(bc2d);
-
-    return bc2d;
-}
-
-void BoxCollider2D::Copy(const IComponent& component)
-{
-    BoxCollider2D& bc2d = *(BoxCollider2D*)&component;
-    m_Offset = bc2d.m_Offset;
-    m_Size = bc2d.m_Size;
-    m_Density = bc2d.m_Density;
-    m_Friction = bc2d.m_Friction;
-    m_Restitution = bc2d.m_Restitution;
-    m_RestitutionThreshold = bc2d.m_RestitutionThreshold;
-    m_Type = component.GetType();
-    m_Tag = bc2d.m_Tag;
-    m_IsTrigger = bc2d.m_IsTrigger;
-}
-
-void BoxCollider2D::Delete()
-{
-    Utils::Erase(m_Owner->GetScene()->m_BoxColliders2D, this);
-    MemoryManager::GetInstance().FreeMemory<BoxCollider2D>(static_cast<IAllocator*>(this));
-}
-
-ICollider2D* BoxCollider2D::IntersectTrigger()
-{
-    Scene* scene = m_Owner->GetScene();
-
-    size_t size = scene->m_BoxColliders2D.size();
-    for (size_t i = 0; i < size; i++)
-    {
-        BoxCollider2D* bc2d = scene->m_BoxColliders2D[i];
-        
-        if (this == bc2d) continue;
-
-        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->IsEnabled()) continue;
-
-        if (BoxBoxOverlapSAT(bc2d))
-        {
-            return bc2d;
-        }
-    }
-
-    size = scene->m_CircleColliders2D.size();
-    for (size_t i = 0; i < size; i++)
-    {
-        CircleCollider2D* cc2d = scene->m_CircleColliders2D[i];
-
-        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->IsEnabled()) continue;
-
-        if (BoxCircleOverlap(cc2d))
-        {
-            return cc2d;
-        }
-    }
-
-    return nullptr;
-}
-
-glm::vec2 BoxCollider2D::GetPosition() const
-{
-    return m_Offset + glm::vec2(m_Owner->m_Transform.GetPosition());
-}
-
-IComponent* BoxCollider2D::New(GameObject* owner)
-{
-    return Create(owner);
 }

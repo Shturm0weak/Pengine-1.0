@@ -14,11 +14,16 @@ namespace Pengine
 
 		glm::vec2 m_Size = { 0.5f, 0.5f };
 
-		bool BoxBoxOverlapSAT(BoxCollider2D* other);
-		
-		bool BoxCircleOverlap(class CircleCollider2D* other);
-
 		friend class CircleCollider2D;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Move(IComponent&& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
 
 		b2PolygonShape m_PolygonShape;
@@ -27,23 +32,25 @@ namespace Pengine
 
 		BoxCollider2D() = default;
 
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Delete() override;
-		
-		virtual IComponent* New(GameObject* owner) override;
-		
+		~BoxCollider2D() = default;
+
+		BoxCollider2D(const BoxCollider2D& bc2d);
+
+		BoxCollider2D(BoxCollider2D&& bc2d) noexcept;
+
+		BoxCollider2D& operator=(const BoxCollider2D& bc2d);
+
+		BoxCollider2D& operator=(BoxCollider2D&& bc2d) noexcept;
+
 		virtual ICollider2D* IntersectTrigger() override;
 
-		virtual void SetSize(const glm::vec2& size) override { m_Size = size; }
+		void SetSize(const glm::vec2& size) { m_Size = size; }
 
 		glm::vec2 GetSize() const { return m_Size; }
-		
-		glm::vec2 GetOffset() const { return m_Offset; }
-		
-		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
-		
-		glm::vec2 GetPosition() const;
+
+		bool BoxBoxOverlapSAT(BoxCollider2D* other);
+
+		bool BoxCircleOverlap(class CircleCollider2D* other);
 	};
 
 }

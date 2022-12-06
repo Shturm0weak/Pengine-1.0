@@ -28,7 +28,7 @@ void Pig::LookForEnemy()
 	Raycast2D::Hit2D hit;
 	Raycast2D::Raycast(GetOwner()->GetScene(), start, end, hit, m_IgnoreAttackColliderTags);
 
-	if (hit.GetCollider() && hit.GetCollider()->m_Tag == m_EnemyColliderTag)
+	if (hit.GetCollider() && hit.GetCollider()->GetTag() == m_EnemyColliderTag)
 	{
 		//Visualizer::DrawLine(start, glm::vec3(hit.GetPosition(), 0.0f), { 0.0f, 0.0f, 1.0f, 1.0f });
 		m_CurrentTargetPosition = hit.GetCollider()->GetOwner();

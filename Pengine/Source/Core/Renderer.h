@@ -2,7 +2,6 @@
 
 #define MAX_POINT_LIGHTS 1000
 #define MAX_SPOT_LIGHTS 1000
-#define MAX_SHADOW_LIGHTS 32
 
 #include "Core.h"
 
@@ -41,7 +40,8 @@ namespace Pengine
 		{
 			std::vector<int> m_ShadowSamplers;
 			UniformBuffer m_UniformBuffer;
-			size_t m_Size;
+			size_t m_Size = 0;
+			size_t m_MaxShadowsSize = 10;
 		} m_PointLights;
 
 		struct SpotLightUniform
@@ -65,7 +65,7 @@ namespace Pengine
 		{
 			std::vector<int> m_ShadowSamplers;
 			UniformBuffer m_UniformBuffer;
-			size_t m_Size;
+			size_t m_Size = 0;
 		} m_SpotLights;
 
 		std::shared_ptr<class FrameBuffer> m_FrameBufferScene = nullptr;

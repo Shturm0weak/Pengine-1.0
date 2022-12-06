@@ -12,29 +12,38 @@ namespace Pengine
 
 	protected:
 
-		size_t m_CheckTypeID = 0; // Used to see whether a void ptr from lua is castable.
+		/**
+		 * If the instance is corrupted, it may shows this.
+		 */
+		size_t m_CheckID = 0;
+
 		std::string m_Type;
+
 		class GameObject* m_Owner = nullptr;
 
 		virtual IComponent* New(GameObject* owner) = 0;
 		
+		virtual void Copy(const IComponent& component) = 0;
+
+		virtual void Move(IComponent&& component) {};
+
+		virtual void Delete() { delete this; }
+
+		virtual void OnRegisterClient() {}
+
+		virtual IComponent* CreateCopy(GameObject* newOwner);
+
 		friend class ComponentManager;
+		friend class LuaState;
+		friend class Scene;
 	public:
+
+		static bool IsValid(IComponent* component) { return component && component->m_CheckID == 0; }
 
 		IComponent() = default;
 		virtual ~IComponent() = default;
 		virtual void operator=(const IComponent& component) { Copy(component); }
 		virtual void operator=(IComponent* component) { Copy(*component); }
-		
-		static bool IsValid(IComponent* component) { return component && component->m_CheckTypeID == 0; }
-
-		virtual void Copy(const IComponent& component) {}
-		
-		virtual void Delete() { delete this; }
-		
-		virtual void OnRegisterClient() {}
-
-		virtual IComponent* CreateCopy(GameObject* newOwner);
 
 		std::string GetType() const { return m_Type; }
 		

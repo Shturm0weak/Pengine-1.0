@@ -28,12 +28,12 @@ namespace Pengine
 		ALuint m_Buffer;
 		ALuint m_Source;
 		AudioState m_State;
-		short* m_SoundBuffer;
+		short* m_SoundBuffer = nullptr;
 		float m_Volume;
 		int m_Channels;
 		int m_SampleRate;
 		int m_NumberOfSamples;
-		bool m_IsLooped;
+		bool m_IsLooped = false;
 
 		Sound(const std::string& filePath);
 		~Sound();

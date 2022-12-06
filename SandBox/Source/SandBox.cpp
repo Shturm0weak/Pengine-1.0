@@ -2,13 +2,14 @@
 
 #include "Sponza/Sponza.h"
 #include "Examples/BulletPhysics.h"
+#include "Examples/KingsAndPigs/Source/KingsAndPigs.h"
 
 using namespace Pengine;
 
 int main()
 {
 	EntryPoint entrypoint;
-	Application application;
+	KingsAndPigs application;
 
 #ifdef STANDALONE
 	ShowWindow(GetConsoleWindow(), SW_HIDE);

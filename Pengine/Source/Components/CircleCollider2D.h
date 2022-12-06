@@ -13,29 +13,40 @@ namespace Pengine
 	private:
 
 		float m_Radius = 0.5f;
+	protected:
 
-		bool CircleCircleOberlap(CircleCollider2D* other);
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Move(IComponent&& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
 
 		b2CircleShape m_CircleShape;
-		
+
 		static IComponent* Create(GameObject* owner);
 
 		CircleCollider2D() = default;
 
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Delete() override;
-		
-		virtual IComponent* New(GameObject* owner) override;
-		
+		~CircleCollider2D() = default;
+
+		CircleCollider2D(const CircleCollider2D & bc2d);
+
+		CircleCollider2D(CircleCollider2D && bc2d) noexcept;
+
+		CircleCollider2D& operator=(const CircleCollider2D& bc2d);
+
+		CircleCollider2D& operator=(CircleCollider2D&& bc2d) noexcept;
+
 		virtual ICollider2D* IntersectTrigger() override;
-	
-		virtual void SetSize(const glm::vec2& size) override { SetRadius(size.x); };
 
 		void SetRadius(float radius) { m_Radius = radius; }
 		
 		float GetRadius() const { return m_Radius; }
+	
+		bool CircleCircleOverlap(CircleCollider2D* other);
 	};
 
 }

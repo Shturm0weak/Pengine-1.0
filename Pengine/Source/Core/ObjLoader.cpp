@@ -84,11 +84,13 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 					std::vector<uint32_t> layouts = { 3, 3, 2, 3, 3 };
 
 					std::string metaFilePath = Pengine::Serializer::GenerateMetaFilePath(meta.m_FilePath, curMesh.MeshName);
+					Pengine::Mesh::Meta meta = Pengine::Serializer::DeserializeMeshMeta(metaFilePath);
 
 					Pengine::MeshManager::GetInstance().Create(curMesh.MeshName, vertexAttributesTemp, indicesTemp, layouts, metaFilePath);
 					Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Get(metaFilePath);
 					mesh->m_BoundingBox =
 					{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
+					mesh->m_CullFace = meta.m_CullFace;
 				};
 				Pengine::EventSystem::GetInstance().SendEvent(new Pengine::OnMainThreadCallback(callbackMainThread, Pengine::EventType::ONMAINTHREADPROCESS));
 			}
@@ -163,7 +165,7 @@ void objl::Loader::LoadAsyncToViewport(const std::string& filePath)
 	}
 }
 
-void objl::Loader::GenerateMeshMeta(const std::string& filePath)
+void objl::Loader::GenerateMeshMeta(const std::string& filePath, bool onlyMissing)
 {
 	objl::Loader loader;
 
@@ -174,12 +176,23 @@ void objl::Loader::GenerateMeshMeta(const std::string& filePath)
 		{
 			objl::Mesh curMesh = loader.LoadedMeshes[i];
 
-			Pengine::Mesh::Meta meta;
-			meta.m_Name = curMesh.MeshName;
-			meta.m_FilePath = filePath;
-			meta.m_CullFace = true;
+			Pengine::Mesh::Meta newMeta;
+			newMeta.m_Name = curMesh.MeshName;
+			newMeta.m_FilePath = filePath;
+			newMeta.m_CullFace = true;
 
-			Pengine::Serializer::SerializeMeshMeta(meta);
+			if (onlyMissing)
+			{
+				Pengine::Mesh::Meta meta = Pengine::Serializer::DeserializeMeshMeta(Pengine::Serializer::GenerateMetaFilePath(filePath, curMesh.MeshName));
+				if (meta.m_FilePath.empty())
+				{
+					Pengine::Serializer::SerializeMeshMeta(newMeta);
+				}
+			}
+			else
+			{
+				Pengine::Serializer::SerializeMeshMeta(newMeta);
+			}
 		}
 	}
 }

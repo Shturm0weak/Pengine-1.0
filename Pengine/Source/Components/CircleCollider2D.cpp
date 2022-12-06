@@ -7,24 +7,6 @@
 
 using namespace Pengine;
 
-bool CircleCollider2D::CircleCircleOberlap(CircleCollider2D* other)
-{
-    glm::vec3 scaleThis = m_Owner->m_Transform.GetScale();
-    glm::vec3 scaleOther = other->m_Owner->m_Transform.GetScale();
-    glm::vec3 positionThis = m_Owner->m_Transform.GetPosition();
-    glm::vec3 positionOther = other->m_Owner->m_Transform.GetPosition();
-    float distance = glm::sqrt(glm::pow(positionOther.x - positionThis.x, 2) + glm::pow(positionOther.y - positionThis.y, 2));
-
-    if (distance < m_Radius * scaleThis.x + other->m_Radius * scaleOther.x)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
 IComponent* CircleCollider2D::Create(GameObject* owner)
 {
     CircleCollider2D* cc2d = MemoryManager::GetInstance().Allocate<CircleCollider2D>();
@@ -33,28 +15,82 @@ IComponent* CircleCollider2D::Create(GameObject* owner)
     cc2d->m_Shape = &cc2d->m_CircleShape;
 
     cc2d->m_Fixture.shape = &cc2d->m_CircleShape;
-    cc2d->m_Fixture.density = cc2d->m_Density;
-    cc2d->m_Fixture.friction = cc2d->m_Friction;
-    cc2d->m_Fixture.restitution = cc2d->m_Restitution;
-    cc2d->m_Fixture.restitutionThreshold = cc2d->m_RestitutionThreshold;
+    cc2d->m_Fixture.density = cc2d->GetDensity();
+    cc2d->m_Fixture.friction = cc2d->GetFriction();
+    cc2d->m_Fixture.restitution = cc2d->GetRestitution();
+    cc2d->m_Fixture.restitutionThreshold = cc2d->GetRestitutionThreshold();
 
     owner->GetScene()->m_CircleColliders2D.push_back(cc2d);
 
     return cc2d;
 }
 
+CircleCollider2D::CircleCollider2D(const CircleCollider2D& cc2d)
+{
+    Copy(cc2d);
+}
+
+CircleCollider2D::CircleCollider2D(CircleCollider2D&& cc2d) noexcept
+{
+    Move(std::move(*(IComponent*)&cc2d));
+}
+
+CircleCollider2D& CircleCollider2D::operator=(const CircleCollider2D& cc2d)
+{
+    Copy(cc2d);
+
+    return *this;
+}
+
+CircleCollider2D& CircleCollider2D::operator=(CircleCollider2D&& cc2d) noexcept
+{
+    Move(std::move(*(IComponent*)&cc2d));
+
+    return *this;
+}
+
 void CircleCollider2D::Copy(const IComponent& component)
 {
     CircleCollider2D& cc2d = *(CircleCollider2D*)&component;
-    m_Offset = cc2d.m_Offset;
-    m_Radius = cc2d.m_Radius;
-    m_Density = cc2d.m_Density;
-    m_Friction = cc2d.m_Friction;
-    m_Restitution = cc2d.m_Restitution;
-    m_RestitutionThreshold = cc2d.m_RestitutionThreshold;
     m_Type = component.GetType();
-    m_Tag = cc2d.m_Tag;
-    m_IsTrigger = cc2d.m_IsTrigger;
+    SetOffset(cc2d.GetOffset());
+    SetRadius(cc2d.GetRadius());
+    SetDensity(cc2d.GetDensity());
+    SetFriction(cc2d.GetFriction());
+    SetRestitution(cc2d.GetRestitution());
+    SetRestitutionThreshold(cc2d.GetRestitutionThreshold());
+    SetTag(cc2d.GetTag());
+    SetTrigger(cc2d.IsTrigger());
+}
+
+void CircleCollider2D::Move(IComponent&& component)
+{
+    CircleCollider2D& cc2d = *(CircleCollider2D*)&component;
+    m_Type = component.GetType();
+
+    SetOffset(cc2d.GetOffset());
+    cc2d.SetOffset({ 0.0f, 0.0f });
+
+    SetRadius(cc2d.GetRadius());
+    cc2d.SetRadius(0.0f);
+
+    SetDensity(cc2d.GetDensity());
+    cc2d.SetDensity(0.0f);
+
+    SetFriction(cc2d.GetFriction());
+    cc2d.SetFriction(0.0f);
+
+    SetRestitution(cc2d.GetRestitution());
+    cc2d.SetRestitution(0.0f);
+
+    SetRestitutionThreshold(cc2d.GetRestitutionThreshold());
+    cc2d.SetRestitutionThreshold(0.0f);
+
+    SetTag(cc2d.GetTag());
+    cc2d.SetTag("");
+
+    SetTrigger(cc2d.IsTrigger());
+    cc2d.SetTrigger(false);
 }
 
 void CircleCollider2D::Delete()
@@ -79,9 +115,9 @@ ICollider2D* CircleCollider2D::IntersectTrigger()
 
         if (this == cc2d) continue;
 
-        if (!cc2d->m_IsTrigger || !cc2d->GetOwner()->IsEnabled()) continue;
+        if (!cc2d->IsTrigger() || !cc2d->GetOwner()->IsEnabled()) continue;
 
-        if (CircleCircleOberlap(cc2d))
+        if (CircleCircleOverlap(cc2d))
         {
             return cc2d;
         }
@@ -92,7 +128,7 @@ ICollider2D* CircleCollider2D::IntersectTrigger()
     {
         BoxCollider2D* bc2d = scene->m_BoxColliders2D[i];
     
-        if (!bc2d->m_IsTrigger || !bc2d->GetOwner()->IsEnabled()) continue;
+        if (!bc2d->IsTrigger() || !bc2d->GetOwner()->IsEnabled()) continue;
     
         if (bc2d->BoxCircleOverlap(this))
         {
@@ -101,4 +137,22 @@ ICollider2D* CircleCollider2D::IntersectTrigger()
     }
 
     return nullptr;
+}
+
+bool CircleCollider2D::CircleCircleOverlap(CircleCollider2D* other)
+{
+    glm::vec3 scaleThis = m_Owner->m_Transform.GetScale();
+    glm::vec3 scaleOther = other->m_Owner->m_Transform.GetScale();
+    glm::vec3 positionThis = m_Owner->m_Transform.GetPosition();
+    glm::vec3 positionOther = other->m_Owner->m_Transform.GetPosition();
+    float distance = glm::sqrt(glm::pow(positionOther.x - positionThis.x, 2) + glm::pow(positionOther.y - positionThis.y, 2));
+
+    if (distance < m_Radius * scaleThis.x + other->m_Radius * scaleOther.x)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

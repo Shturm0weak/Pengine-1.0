@@ -6,6 +6,7 @@
 #include "yaml-cpp/yaml.h"
 #include "Environment.h"
 
+#include <fstream>
 #include <vector>
 
 namespace Pengine
@@ -45,7 +46,7 @@ namespace Pengine
 
 		static std::string GenerateMetaFilePath(const std::string& filePath, const std::string& name);
 
-		static std::string GenerateMetaFilePathFromFilePath(const std::string& filePath, size_t formatCount = 3);
+		static std::string GenerateMetaFilePathFromFilePath(const std::string& filePath);
 
 		static std::string SerializeMeshMeta(Mesh::Meta meta);
 
@@ -138,10 +139,10 @@ namespace Pengine
 		static Material* DeserializeMaterial(const std::string& filePath);
 
 		template<typename T>
-		static void SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* Class);
+		static void SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* instance);
 
 		template<typename T>
-		static void DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* Class);
+		static void DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* instance);
 	};
 
 }

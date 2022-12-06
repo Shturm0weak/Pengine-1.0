@@ -56,10 +56,10 @@ void Scene::OnPhysicsUpdate()
 			if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
 			{
 				rb2d->m_Body->SetTransform({ bc2d->GetPosition().x, bc2d->GetPosition().y }, bc2d->GetOwner()->m_Transform.GetRotation().z);
-				fixture->SetDensity(bc2d->m_Density);
-				fixture->SetFriction(bc2d->m_Friction);
-				fixture->SetRestitution(bc2d->m_Restitution);
-				fixture->SetRestitutionThreshold(bc2d->m_RestitutionThreshold);
+				fixture->SetDensity(bc2d->GetDensity());
+				fixture->SetFriction(bc2d->GetFriction());
+				fixture->SetRestitution(bc2d->GetRestitution());
+				fixture->SetRestitutionThreshold(bc2d->GetRestitutionThreshold());
 				static_cast<b2PolygonShape*>(fixture->GetShape())->SetAsBox(bc2d->GetSize().x * scale.x, bc2d->GetSize().y * scale.y);
 			}
 		}
@@ -70,10 +70,10 @@ void Scene::OnPhysicsUpdate()
 			if (b2Fixture* fixture = rb2d->m_Body->GetFixtureList())
 			{
 				rb2d->m_Body->SetTransform({ cc2d->GetPosition().x, cc2d->GetPosition().y }, cc2d->GetOwner()->m_Transform.GetRotation().z);
-				fixture->SetDensity(cc2d->m_Density);
-				fixture->SetFriction(cc2d->m_Friction);
-				fixture->SetRestitution(cc2d->m_Restitution);
-				fixture->SetRestitutionThreshold(cc2d->m_RestitutionThreshold);
+				fixture->SetDensity(cc2d->GetDensity());
+				fixture->SetFriction(cc2d->GetFriction());
+				fixture->SetRestitution(cc2d->GetRestitution());
+				fixture->SetRestitutionThreshold(cc2d->GetRestitutionThreshold());
 				static_cast<b2PolygonShape*>(fixture->GetShape())->m_radius = cc2d->GetRadius() * scale.x;
 			}
 		}

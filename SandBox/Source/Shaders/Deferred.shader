@@ -83,8 +83,8 @@ struct SSAO
 	bool isEnabled;
 };
 
-#define MAX_LIGHT 32
-uniform samplerCube u_PointLightsShadowMap[MAX_LIGHT];
+#define MAX_POINT_LIGHT_SHADOWS 10
+uniform samplerCube u_PointLightsShadowMap[MAX_POINT_LIGHT_SHADOWS];
 
 uniform int u_PointLightsSize;
 uniform int u_SpotLightsSize;

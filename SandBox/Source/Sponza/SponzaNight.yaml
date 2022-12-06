@@ -27,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [-10.0725822, 1.09595907, -0.0244492255]
-    Rotation: [-0.0412524641, -0.759142101, 0]
+    Position: [-9.30494881, 5.0812912, 0.76736021]
+    Rotation: [-0.244602576, -1.4006772, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -38,75 +38,6 @@ Camera:
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 4290860232974749256
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [2.10538101, 5.05344772, -0.372707427]
-      Rotation: [0, 0, 0]
-      Scale: [0.100000001, 0.100000001, 0.100000001]
-    Renderer3D:
-      Mesh: Source\Meshes\Sphere.meta
-      IsOpaque: true
-      DrawShadows: false
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Materials/Material.mat
-      m_Name:
-        Type: std::string
-        Value: Material
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes\Sphere.meta
-        - None
-        - None
-    PointLight:
-      Color: [1, 1, 1]
-      Constant: 0.699999988
-      Linear: 1
-      Quadratic: 0.100000001
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
   - GameObject: 13089628568264481686
     Name: Spline
     Is Enabled: true
@@ -170,6 +101,720 @@ GameObjects:
     Transform:
       Follow owner: true
       Position: [-7.16600275, 0.746050775, 3.29957676]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 6723580036568587773
+    Name: Colliders
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 17821801245834420047
+      - 13618995793500844517
+      - 4921056579272028905
+      - 13451325841688628189
+      - 14155741706798279925
+      - 1025005540994305906
+      - 8170479532933446764
+      - 10852288228098271574
+      - 13230906688841016593
+      - 17602359699634788476
+      - 10318917952501783749
+      - 2017323152036185102
+      - 10168069661334524796
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17821801245834420047
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.243193388, -0.202799976, -5.96046448e-08]
+      Rotation: [0, 0, 0]
+      Scale: [10.7087107, 0.200000003, 5.10485411]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 13618995793500844517
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.589068294, 1.91012752, 1.49599314]
+      Rotation: [0, 0, 0]
+      Scale: [7.55412149, 1.93818307, 0.292171508]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 4921056579272028905
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.589068294, 1.91012752, -2.01927304]
+      Rotation: [0, 0, 0]
+      Scale: [7.55412149, 1.93818307, 0.292171508]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 13451325841688628189
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.322984099, 2.94831753, -3.68898916]
+      Rotation: [0, 0, 0]
+      Scale: [10.6569405, 0.161237001, 2.10347509]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 14155741706798279925
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.322984099, 4.72553682, 4.68652153]
+      Rotation: [0, 0, 0]
+      Scale: [10.5653486, 4.83973932, 0.292171508]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 1025005540994305906
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-11.3371172, 4.62909222, -0.413920164]
+      Rotation: [0, 0, 0]
+      Scale: [0.231124207, 5.01377916, 5.21189594]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 8170479532933446764
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [10.127162, 4.62909222, -0.413920164]
+      Rotation: [0, 0, 0]
+      Scale: [0.231124207, 5.01377916, 5.21189594]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 10852288228098271574
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.322984099, 4.65328407, -5.34649181]
+      Rotation: [0, 0, 0]
+      Scale: [10.5653486, 4.83973932, 0.292171508]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 13230906688841016593
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.322984099, 2.95000005, 2.57827806]
+      Rotation: [0, 0, 0]
+      Scale: [10.6569405, 0.161237001, 2.10347509]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 17602359699634788476
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-9.45678139, 2.95000029, -0.554416955]
+      Rotation: [0, 0, 0]
+      Scale: [1.55751634, 0.159999996, 1.04543185]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 10318917952501783749
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.499403, 2.95000029, -0.554416955]
+      Rotation: [0, 0, 0]
+      Scale: [1.83310008, 0.159999996, 1.04543185]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 2017323152036185102
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [6.78436565, 3.49447703, -0.258669883]
+      Rotation: [0, 0, 0]
+      Scale: [0.354479015, 0.414968282, 1.37418282]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 10168069661334524796
+    Name: Collider
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.76821518, 3.49447703, -0.258669883]
+      Rotation: [0, 0, 0]
+      Scale: [0.354479015, 0.414968282, 1.37418282]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 0
+      AllowToSleep: true
+      Restitution: 0.800000012
+      Friction: 0.800000012
+  - GameObject: 10598796332377062647
+    Name: Character
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Cube.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.51604295, 1.28168488, -0.221291125]
+      Rotation: [0, 0, 0]
+      Scale: [0.219780028, 0.250863492, 0.219780028]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
+    Rigidbody3D:
+      Mass: 10
+      AllowToSleep: false
+      Restitution: 0
+      Friction: 0.5
+    FirstPersonController:
+      m_MaxSpeed:
+        Type: float
+        Value: 10
+      m_Accelaration:
+        Type: float
+        Value: 10
+      m_CurrentSpeed:
+        Type: float
+        Value: 0
+  - GameObject: 570ec430-ae74-4967-acd1-4e7a6aa8fd97
+    Name: Lights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 0b25c1e5-560d-4cb4-b7c3-3de0ede62cae
+      - d58d12ea-9b92-4024-b854-aa656058086a
+      - bb9e1169-4d7f-49ac-a33b-601e481766cf
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 0b25c1e5-560d-4cb4-b7c3-3de0ede62cae
+    Name: PointLights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 17052853813793737378
+      - 8686352707580560710
+      - 5469447088000214592
+      - 8520775826036166235
+      - 4290860232974749256
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: 17052853813793737378
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.37369251, 0.740196645, 2.95002556]
+      Rotation: [0, 0, 0]
+      Scale: [0.100000001, 0.100000001, 0.100000001]
+    Renderer3D:
+      Mesh: Source\Meshes\Sphere.meta
+      IsOpaque: true
+      DrawShadows: false
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    PointLight:
+      Color: [1, 0, 0]
+      Constant: 0.699999988
+      Linear: 0.100000001
+      Quadratic: 1
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+  - GameObject: 8686352707580560710
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [7.96416378, 0.815330267, 1.77237463]
+      Rotation: [0, 0, 0]
+      Scale: [0.100000001, 0.100000001, 0.100000001]
+    Renderer3D:
+      Mesh: Source\Meshes\Sphere.meta
+      IsOpaque: true
+      DrawShadows: false
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    PointLight:
+      Color: [0, 0.481012583, 1]
+      Constant: 0.699999988
+      Linear: 0.100000001
+      Quadratic: 1
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+  - GameObject: 5469447088000214592
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [8.64443207, 1.31585062, -3.40478015]
+      Rotation: [0, 0, 0]
+      Scale: [0.100000001, 0.100000001, 0.100000001]
+    Renderer3D:
+      Mesh: Source\Meshes\Sphere.meta
+      IsOpaque: true
+      DrawShadows: false
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    PointLight:
+      Color: [1, 0.962986708, 0.734177232]
+      Constant: 0.699999988
+      Linear: 0.100000001
+      Quadratic: 1
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+  - GameObject: 8520775826036166235
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-7.67589188, 0.743062139, -3.02771401]
+      Rotation: [0, 0, 0]
+      Scale: [0.100000001, 0.100000001, 0.100000001]
+    Renderer3D:
+      Mesh: Source\Meshes\Sphere.meta
+      IsOpaque: true
+      DrawShadows: false
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    PointLight:
+      Color: [1, 0.658227861, 0]
+      Constant: 0.699999988
+      Linear: 0.100000001
+      Quadratic: 1
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+  - GameObject: 4290860232974749256
+    Name: PointLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [2.10538101, 5.05344772, -0.372707427]
+      Rotation: [0, 0, 0]
+      Scale: [0.100000001, 0.100000001, 0.100000001]
+    Renderer3D:
+      Mesh: Source\Meshes\Sphere.meta
+      IsOpaque: true
+      DrawShadows: false
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    PointLight:
+      Color: [1, 1, 1]
+      Constant: 0.699999988
+      Linear: 1
+      Quadratic: 0.100000001
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+  - GameObject: d58d12ea-9b92-4024-b854-aa656058086a
+    Name: SpotLights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - f5a12ad8-ef17-442a-9f1b-21138149b7c3
+      - ad075d2e-8f4c-444d-9281-5d89f4303715
+      - 1cd4052d-7a47-4ac1-a57f-1017e0f30d7d
+      - 038b85db-a2b0-4d2d-95be-5ad359c5c8f4
+      - 0074f480-0d74-44b3-9f9d-c61e13a67dfa
+      - 6c6ec5e4-9778-448b-b67b-cf8cd7cfb4b8
+      - 560ca10e-56f2-4b43-af33-d470636dde40
+      - 3c850f70-5438-4d46-bddd-a4502f26b125
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: f5a12ad8-ef17-442a-9f1b-21138149b7c3
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.75047398, 6.80267143, 0.143666208]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: ad075d2e-8f4c-444d-9281-5d89f4303715
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4.75047398, 6.79883671, -0.672062278]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 1cd4052d-7a47-4ac1-a57f-1017e0f30d7d
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.90073085, 6.79883671, -0.672062278]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 038b85db-a2b0-4d2d-95be-5ad359c5c8f4
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.90073085, 6.80267143, 0.143666208]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 0074f480-0d74-44b3-9f9d-c61e13a67dfa
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.7940762, 6.79678392, -0.672024846]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 6c6ec5e4-9778-448b-b67b-cf8cd7cfb4b8
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.7940762, 6.80061865, 0.143703699]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 560ca10e-56f2-4b43-af33-d470636dde40
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.93480438, 6.80061865, 0.143703699]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: 3c850f70-5438-4d46-bddd-a4502f26b125
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.93480438, 6.79678392, -0.672024846]
+      Rotation: [-1.58907652, 0, 0]
+      Scale: [1, 1, 1]
+    SpotLight:
+      Color: [1, 0.889440775, 0.620253205]
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+  - GameObject: bb9e1169-4d7f-49ac-a33b-601e481766cf
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [1.46881521, -0.0711815208, -0.778194308]
+      Scale: [0.999999881, 1, 0.999999642]
+    Directional Light:
+      Color: [0, 0.303797722, 1]
+      Intensity: 0.5
+  - GameObject: 1ce68e19-1c8b-4ac2-b9f8-a6e4d70e279e
+    Name: Geometry
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 14711322433873521086
+      - 7387233434110546016
+      - 9432870114082636099
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
   - GameObject: 14711322433873521086
@@ -10089,531 +10734,6 @@ GameObjects:
         - Source\Sponza\Mesh/sponza_344.meta
         - None
         - None
-  - GameObject: 17052853813793737378
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [7.37369251, 0.740196645, 2.95002556]
-      Rotation: [0, 0, 0]
-      Scale: [0.100000001, 0.100000001, 0.100000001]
-    Renderer3D:
-      Mesh: Source\Meshes\Sphere.meta
-      IsOpaque: true
-      DrawShadows: false
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Materials/Material.mat
-      m_Name:
-        Type: std::string
-        Value: Material
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes\Sphere.meta
-        - None
-        - None
-    PointLight:
-      Color: [1, 0, 0]
-      Constant: 0.699999988
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 8686352707580560710
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [7.96416378, 0.815330267, 1.77237463]
-      Rotation: [0, 0, 0]
-      Scale: [0.100000001, 0.100000001, 0.100000001]
-    Renderer3D:
-      Mesh: Source\Meshes\Sphere.meta
-      IsOpaque: true
-      DrawShadows: false
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Materials/Material.mat
-      m_Name:
-        Type: std::string
-        Value: Material
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes\Sphere.meta
-        - None
-        - None
-    PointLight:
-      Color: [0, 0.481012583, 1]
-      Constant: 0.699999988
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 5469447088000214592
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [8.64443207, 1.31585062, -3.40478015]
-      Rotation: [0, 0, 0]
-      Scale: [0.100000001, 0.100000001, 0.100000001]
-    Renderer3D:
-      Mesh: Source\Meshes\Sphere.meta
-      IsOpaque: true
-      DrawShadows: false
-      IsInherited: false
-      LodsDistance:
-        - 1000
-        - 1000
-      Material: Source/Materials/Material.mat
-      Lods:
-        - Source\Meshes\Sphere.meta
-        - None
-        - None
-    PointLight:
-      Color: [1, 0.962986708, 0.734177232]
-      Constant: 0.699999988
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 8520775826036166235
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-7.67589188, 0.743062139, -3.02771401]
-      Rotation: [0, 0, 0]
-      Scale: [0.100000001, 0.100000001, 0.100000001]
-    Renderer3D:
-      Mesh: Source\Meshes\Sphere.meta
-      IsOpaque: true
-      DrawShadows: false
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Materials/Material.mat
-      m_Name:
-        Type: std::string
-        Value: Material
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes\Sphere.meta
-        - None
-        - None
-    PointLight:
-      Color: [1, 0.658227861, 0]
-      Constant: 0.699999988
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 6723580036568587773
-    Name: Colliders
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      - 17821801245834420047
-      - 13618995793500844517
-      - 4921056579272028905
-      - 13451325841688628189
-      - 14155741706798279925
-      - 1025005540994305906
-      - 8170479532933446764
-      - 10852288228098271574
-      - 13230906688841016593
-      - 17602359699634788476
-      - 10318917952501783749
-      - 2017323152036185102
-      - 10168069661334524796
-    Transform:
-      Follow owner: true
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 17821801245834420047
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.243193388, -0.202799976, -5.96046448e-08]
-      Rotation: [0, 0, 0]
-      Scale: [10.7087107, 0.200000003, 5.10485411]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 13618995793500844517
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.589068294, 1.91012752, 1.49599314]
-      Rotation: [0, 0, 0]
-      Scale: [7.55412149, 1.93818307, 0.292171508]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 4921056579272028905
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.589068294, 1.91012752, -2.01927304]
-      Rotation: [0, 0, 0]
-      Scale: [7.55412149, 1.93818307, 0.292171508]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 13451325841688628189
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.322984099, 2.94831753, -3.68898916]
-      Rotation: [0, 0, 0]
-      Scale: [10.6569405, 0.161237001, 2.10347509]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 14155741706798279925
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.322984099, 4.72553682, 4.68652153]
-      Rotation: [0, 0, 0]
-      Scale: [10.5653486, 4.83973932, 0.292171508]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 1025005540994305906
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-11.3371172, 4.62909222, -0.413920164]
-      Rotation: [0, 0, 0]
-      Scale: [0.231124207, 5.01377916, 5.21189594]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 8170479532933446764
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [10.127162, 4.62909222, -0.413920164]
-      Rotation: [0, 0, 0]
-      Scale: [0.231124207, 5.01377916, 5.21189594]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 10852288228098271574
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.322984099, 4.65328407, -5.34649181]
-      Rotation: [0, 0, 0]
-      Scale: [10.5653486, 4.83973932, 0.292171508]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 13230906688841016593
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-0.322984099, 2.95000005, 2.57827806]
-      Rotation: [0, 0, 0]
-      Scale: [10.6569405, 0.161237001, 2.10347509]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 17602359699634788476
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-9.45678139, 2.95000029, -0.554416955]
-      Rotation: [0, 0, 0]
-      Scale: [1.55751634, 0.159999996, 1.04543185]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 10318917952501783749
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [8.499403, 2.95000029, -0.554416955]
-      Rotation: [0, 0, 0]
-      Scale: [1.83310008, 0.159999996, 1.04543185]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 2017323152036185102
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [6.78436565, 3.49447703, -0.258669883]
-      Rotation: [0, 0, 0]
-      Scale: [0.354479015, 0.414968282, 1.37418282]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
-  - GameObject: 10168069661334524796
-    Name: Collider
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-7.76821518, 3.49447703, -0.258669883]
-      Rotation: [0, 0, 0]
-      Scale: [0.354479015, 0.414968282, 1.37418282]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 0
-      AllowToSleep: true
-      Restitution: 0.800000012
-      Friction: 0.800000012
   - GameObject: 7387233434110546016
     Name: Sphere
     Is Enabled: true
@@ -10630,6 +10750,39 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: true
+      IsInherited: false
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source\Meshes\Sphere.meta
+        - None
+        - None
+    SphereCollider3D:
+      Radius: 1
+      Offset: [0, 0, 0]
+    Rigidbody3D:
+      Mass: 10
+      AllowToSleep: false
+      Restitution: 0.80400002
+      Friction: 0.808000028
+  - GameObject: 9432870114082636099
+    Name: Sky
+    Is Enabled: true
+    Is Selectable: false
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 15, 0]
+      Rotation: [0, 0, 0]
+      Scale: [100, 1, 100]
+    Renderer3D:
+      Mesh: Source\Meshes/Plane.meta
+      IsOpaque: true
+      DrawShadows: false
       IsInherited: true
       LodsDistance:
         - 1000
@@ -10663,7 +10816,7 @@ GameObjects:
         Value: 64
       m_Scale:
         Type: float
-        Value: 1
+        Value: 0.531000018
       m_Solid:
         Type: float
         Value: 1
@@ -10671,196 +10824,6 @@ GameObjects:
         Type: bool
         Value: false
       Lods:
-        - Source\Meshes\Sphere.meta
+        - Source\Meshes/Plane.meta
         - None
         - None
-    SphereCollider3D:
-      Radius: 1
-      Offset: [0, 0, 0]
-    Rigidbody3D:
-      Mass: 10
-      AllowToSleep: false
-      Restitution: 0.80400002
-      Friction: 0.808000028
-  - GameObject: 10598796332377062647
-    Name: Character
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: Source\Prefabs\3D/Cube.prefab
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [3.51604295, 1.28168488, -0.221291125]
-      Rotation: [0, 0, 0]
-      Scale: [0.219780028, 0.250863492, 0.219780028]
-    BoxCollider3D:
-      Offset: [0, 0, 0]
-      HalfExtent: [1, 1, 1]
-    Rigidbody3D:
-      Mass: 10
-      AllowToSleep: false
-      Restitution: 0
-      Friction: 0.5
-    FirstPersonController:
-      m_MaxSpeed:
-        Type: float
-        Value: 10
-      m_Accelaration:
-        Type: float
-        Value: 10
-      m_CurrentSpeed:
-        Type: float
-        Value: 0
-  - GameObject: 3c850f70-5438-4d46-bddd-a4502f26b125
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0.93480438, 6.79678392, -0.672024846]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: 560ca10e-56f2-4b43-af33-d470636dde40
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0.93480438, 6.80061865, 0.143703699]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: 6c6ec5e4-9778-448b-b67b-cf8cd7cfb4b8
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [3.7940762, 6.80061865, 0.143703699]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: 0074f480-0d74-44b3-9f9d-c61e13a67dfa
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [3.7940762, 6.79678392, -0.672024846]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: 038b85db-a2b0-4d2d-95be-5ad359c5c8f4
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-1.90073085, 6.80267143, 0.143666208]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: 1cd4052d-7a47-4ac1-a57f-1017e0f30d7d
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-1.90073085, 6.79883671, -0.672062278]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: ad075d2e-8f4c-444d-9281-5d89f4303715
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-4.75047398, 6.79883671, -0.672062278]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618
-  - GameObject: f5a12ad8-ef17-442a-9f1b-21138149b7c3
-    Name: SpotLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-4.75047398, 6.80267143, 0.143666208]
-      Rotation: [-1.58907652, 0, 0]
-      Scale: [1, 1, 1]
-    SpotLight:
-      Color: [1, 0.889440775, 0.620253205]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.305432618

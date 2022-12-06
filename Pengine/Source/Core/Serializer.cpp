@@ -13,10 +13,6 @@
 #include "../Components/Script.h"
 #include "../Components/Spline.h"
 
-#include <fstream>
-#include <string>
-#include <vector>
-
 using namespace Pengine;
 
 namespace ReflectedProps
@@ -44,7 +40,7 @@ if (auto& propData = _in[_prop.get_name()]) \
 if (ReflectedProps::is_##type(prop.get_type().get_name())) \
 { \
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_##type(); \
-	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(Class).get_value<type>(); \
+	out << YAML::Key << "Value" << YAML::Value << (type)prop.get_value(instance).get_value<type>(); \
 }
 
 #define SERIALIZE_REFLECTED_VECTOR_PROPERTY(type) \
@@ -53,7 +49,7 @@ if (Utils::Contains(prop.get_type().get_name(), ReflectedProps::get_vector##type
 	out << YAML::Key << "Type" << YAML::Value << ReflectedProps::get_vector##type(); \
 	out << YAML::Key << "Value" << YAML::Value << YAML::BeginSeq; \
 \
-	vector<type> value = prop.get_value(Class).get_value<vector<type>>(); \
+	vector<type> value = prop.get_value(instance).get_value<vector<type>>(); \
 \
 	for (size_t i = 0; i < value.size(); i++) \
 	{ \
@@ -907,9 +903,9 @@ std::string Serializer::GenerateMetaFilePath(const std::string& filePath, const 
 	return Utils::GetDirectoryFromFilePath(filePath) + "/" + name + ".meta";
 }
 
-std::string Serializer::GenerateMetaFilePathFromFilePath(const std::string& filePath, size_t formatCount)
+std::string Serializer::GenerateMetaFilePathFromFilePath(const std::string& filePath)
 {
-	return filePath.substr(0, filePath.size() - 1 - formatCount) + ".meta";
+	return Utils::RemoveResolution(filePath) + ".meta";
 }
 
 std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
@@ -1333,7 +1329,7 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 
 		if (isInherited)
 		{
-			r3d->SetMaterial(r3d->m_Material->Inherit());
+			r3d->SetMaterial(r3d->m_Material ? r3d->m_Material->Inherit() : new Material());
 			auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
 			rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
 			DeserializeRttrType<Material>(renderer3DIn, materialClass, r3d->m_Material);
@@ -1497,14 +1493,14 @@ void Serializer::SerializeBoxCollider2D(YAML::Emitter& out, ComponentManager& co
 	{
 		out << YAML::Key << "BoxCollider2D";
 		out << YAML::BeginMap;
-		out << YAML::Key << "Trigger" << YAML::Value << bc2d->m_IsTrigger;
-		out << YAML::Key << "Offset" << YAML::Value << bc2d->m_Offset;
+		out << YAML::Key << "Trigger" << YAML::Value << bc2d->IsTrigger();
+		out << YAML::Key << "Offset" << YAML::Value << bc2d->GetOffset();
 		out << YAML::Key << "Size" << YAML::Value << bc2d->GetSize();
-		out << YAML::Key << "Density" << YAML::Value << bc2d->m_Density;
-		out << YAML::Key << "Friction" << YAML::Value << bc2d->m_Friction;
-		out << YAML::Key << "Restitution" << YAML::Value << bc2d->m_Restitution;
-		out << YAML::Key << "Restitution threshold" << YAML::Value << bc2d->m_RestitutionThreshold;
-		out << YAML::Key << "Tag" << YAML::Value << bc2d->m_Tag;
+		out << YAML::Key << "Density" << YAML::Value << bc2d->GetDensity();
+		out << YAML::Key << "Friction" << YAML::Value << bc2d->GetFriction();
+		out << YAML::Key << "Restitution" << YAML::Value << bc2d->GetRestitution();
+		out << YAML::Key << "Restitution threshold" << YAML::Value << bc2d->GetRestitutionThreshold();
+		out << YAML::Key << "Tag" << YAML::Value << bc2d->GetTag();
 		out << YAML::EndMap;
 	}
 }
@@ -1517,12 +1513,12 @@ void Serializer::DeSerializeBoxCollider2D(YAML::Node& in, ComponentManager& comp
 
 		if (auto& triggerData = boxCollider2DIn["Trigger"])
 		{
-			bc2d->m_IsTrigger = triggerData.as<bool>();
+			bc2d->SetTrigger(triggerData.as<bool>());
 		}
 
 		if (auto& offsetData = boxCollider2DIn["Offset"])
 		{
-			bc2d->m_Offset = offsetData.as<glm::vec2>();
+			bc2d->SetOffset(offsetData.as<glm::vec2>());
 		}
 
 		if (auto& sizeData = boxCollider2DIn["Size"])
@@ -1532,27 +1528,27 @@ void Serializer::DeSerializeBoxCollider2D(YAML::Node& in, ComponentManager& comp
 
 		if (auto& densityData = boxCollider2DIn["Density"])
 		{
-			bc2d->m_Density = densityData.as<float>();
+			bc2d->SetDensity(densityData.as<float>());
 		}
 
 		if (auto& frictionData = boxCollider2DIn["Friction"])
 		{
-			bc2d->m_Friction = frictionData.as<float>();
+			bc2d->SetFriction(frictionData.as<float>());
 		}
 	
 		if (auto& restitutionData = boxCollider2DIn["Restitution"])
 		{
-			bc2d->m_Restitution = restitutionData.as<float>();
+			bc2d->SetRestitution(restitutionData.as<float>());
 		}
 		
 		if (auto& restitutionData = boxCollider2DIn["Restitution threshold"])
 		{
-			bc2d->m_RestitutionThreshold = restitutionData.as<float>();
+			bc2d->SetRestitutionThreshold(restitutionData.as<float>());
 		}
 
 		if (auto& tagData = boxCollider2DIn["Tag"])
 		{
-			bc2d->m_Tag = tagData.as<std::string>();
+			bc2d->SetTag(tagData.as<std::string>());
 		}
 	}
 }
@@ -1595,14 +1591,14 @@ void Serializer::SerializeCircleCollider2D(YAML::Emitter& out, ComponentManager&
 	{
 		out << YAML::Key << "CircleCollider2D";
 		out << YAML::BeginMap;
-		out << YAML::Key << "Trigger" << YAML::Value << cc2d->m_IsTrigger;
-		out << YAML::Key << "Offset" << YAML::Value << cc2d->m_Offset;
+		out << YAML::Key << "Trigger" << YAML::Value << cc2d->IsTrigger();
+		out << YAML::Key << "Offset" << YAML::Value << cc2d->GetOffset();
 		out << YAML::Key << "Radius" << YAML::Value << cc2d->GetRadius();
-		out << YAML::Key << "Density" << YAML::Value << cc2d->m_Density;
-		out << YAML::Key << "Friction" << YAML::Value << cc2d->m_Friction;
-		out << YAML::Key << "Restitution" << YAML::Value << cc2d->m_Restitution;
-		out << YAML::Key << "Restitution threshold" << YAML::Value << cc2d->m_RestitutionThreshold;
-		out << YAML::Key << "Tag" << YAML::Value << cc2d->m_Tag;
+		out << YAML::Key << "Density" << YAML::Value << cc2d->GetDensity();
+		out << YAML::Key << "Friction" << YAML::Value << cc2d->GetFriction();
+		out << YAML::Key << "Restitution" << YAML::Value << cc2d->GetRestitution();
+		out << YAML::Key << "Restitution threshold" << YAML::Value << cc2d->GetRestitutionThreshold();
+		out << YAML::Key << "Tag" << YAML::Value << cc2d->GetTag();
 		out << YAML::EndMap;
 	}
 }
@@ -1615,12 +1611,12 @@ void Serializer::DeSerializeCircleCollider2D(YAML::Node& in, ComponentManager& c
 
 		if (auto& triggerData = circleCollider2DIn["Trigger"])
 		{
-			cc2d->m_IsTrigger = triggerData.as<bool>();
+			cc2d->SetTrigger(triggerData.as<bool>());
 		}
 
 		if (auto& offsetData = circleCollider2DIn["Offset"])
 		{
-			cc2d->m_Offset = offsetData.as<glm::vec2>();
+			cc2d->SetOffset(offsetData.as<glm::vec2>());
 		}
 
 		if (auto& radiusData = circleCollider2DIn["Radius"])
@@ -1630,27 +1626,27 @@ void Serializer::DeSerializeCircleCollider2D(YAML::Node& in, ComponentManager& c
 
 		if (auto& densityData = circleCollider2DIn["Density"])
 		{
-			cc2d->m_Density = densityData.as<float>();
+			cc2d->SetDensity(densityData.as<float>());
 		}
 
 		if (auto& frictionData = circleCollider2DIn["Friction"])
 		{
-			cc2d->m_Friction = frictionData.as<float>();
+			cc2d->SetFriction(frictionData.as<float>());
 		}
 
 		if (auto& restitutionData = circleCollider2DIn["Restitution"])
 		{
-			cc2d->m_Restitution = restitutionData.as<float>();
+			cc2d->SetRestitution(restitutionData.as<float>());
 		}
 
 		if (auto& restitutionData = circleCollider2DIn["Restitution threshold"])
 		{
-			cc2d->m_RestitutionThreshold = restitutionData.as<float>();
+			cc2d->SetRestitutionThreshold(restitutionData.as<float>());
 		}
 
 		if (auto& tagData = circleCollider2DIn["Tag"])
 		{
-			cc2d->m_Tag = tagData.as<std::string>();
+			cc2d->SetTag(tagData.as<std::string>());
 		}
 	}
 }
@@ -1770,14 +1766,15 @@ void Serializer::SerializeAnimator2D(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "Speed" << YAML::Value << a2d->GetSpeed();
 		out << YAML::Key << "Play" << YAML::Value << a2d->IsPlaying();
 
-		std::vector<std::string> animations;
+		std::vector<std::string> animationsFilePaths;
 
-		size_t size = a2d->m_Animations.size();
-		for (uint32_t i = 0; i < size; i++)
+		std::vector<Animation2DManager::Animation2D*> animations = a2d->GetAnimations();
+		for (auto animation : animations)
 		{
-			animations.push_back(a2d->m_Animations[i]->m_FilePath);
+			animationsFilePaths.push_back(animation->m_FilePath);
 		}
-		out << YAML::Key << "Animations" << YAML::Value << animations;
+
+		out << YAML::Key << "Animations" << YAML::Value << animationsFilePaths;
 		out << YAML::Key << "Current animation" << YAML::Value << (a2d->GetCurrentAnimation() ? 
 			a2d->GetCurrentAnimation()->m_FilePath.c_str() : "Null");
 
@@ -1808,7 +1805,7 @@ void Serializer::DeSerializeAnimator2D(YAML::Node& in, ComponentManager& compone
 			{
 				if (Animation2DManager::Animation2D* animation = Animation2DManager::GetInstance().Load(animationFilePath))
 				{
-					a2d->m_Animations.push_back(animation);
+					a2d->AddAnimation(animation);
 				}
 			}
 		}
@@ -2220,6 +2217,8 @@ void Serializer::SerializeMaterial(const std::string& filePath, Material* materi
 {
 	if (filePath.empty() || filePath == "None")
 	{
+		Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
+
 		return;
 	}
 
@@ -2244,19 +2243,17 @@ void Serializer::SerializeMaterial(const std::string& filePath, Material* materi
 		std::ofstream fout(filePath);
 		fout << out.c_str();
 
-		Logger::Success("has been serialized!", "Mesh meta", filePath.c_str());
+		Logger::Success("has been serialized!", "Material", filePath.c_str());
 	}
 }
 
 Material* Serializer::DeserializeMaterial(const std::string& filePath)
 {
-	Material* material = new Material();
-
-	material->GenerateFromFilePath(filePath);
-
 	if (filePath.empty() || filePath == "None")
 	{
-		return material;
+		Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
+
+		return nullptr;
 	}
 
 	std::ifstream stream(filePath);
@@ -2264,17 +2261,30 @@ Material* Serializer::DeserializeMaterial(const std::string& filePath)
 
 	strStream << stream.rdbuf();
 
-	YAML::Node data = YAML::LoadMesh(strStream.str())["Material"];
+	YAML::Node data = YAML::LoadMesh(strStream.str());
 	if (!data)
 	{
-		return material;
+		Logger::Warning("file doesn't exist!", "Material", filePath.c_str());
+
+		return nullptr;
 	}
+
+	YAML::Node materialData = data["Material"];
+	if (!materialData)
+	{
+		Logger::Warning("file doesn't contain any material data!", "Material", filePath.c_str());
+
+		return nullptr;
+	}
+
+	Material* material = new Material();
+	material->GenerateFromFilePath(filePath);
 
 	auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
 	if (registeredClass != ReflectionSystem::GetInstance().m_RegisteredClasses.end())
 	{
 		rttr::type componentClass = rttr::type::get_by_name(registeredClass->first.c_str());
-		DeserializeRttrType<Material>(data, componentClass, material);
+		DeserializeRttrType<Material>(materialData, componentClass, material);
 	}
 
 	TextureManager::GetInstance().AsyncLoad(material->m_BaseColorFilePath,
@@ -2289,11 +2299,13 @@ Material* Serializer::DeserializeMaterial(const std::string& filePath)
 		material->SetNormalMap(texture, material->m_NormalMapFilePath);
 	});
 
+	Logger::Success("has been deserialized!", "Material", filePath.c_str());
+
 	return material;
 }
 
 template<typename T>
-void Serializer::SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* Class)
+void Serializer::SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* instance)
 {
 	using namespace glm;
 	using namespace std;
@@ -2349,7 +2361,7 @@ void Serializer::SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T
 }
 
 template<typename T>
-void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* Class)
+void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* instance)
 {
 	using namespace glm;
 	using namespace std;
@@ -2358,43 +2370,43 @@ void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* 
 		// Maybe it is better to make a dispatcher function with callbacks
 		// and call it here, so we don't need to explicitly write each function by hand.
 
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3, in, prop, Class)
-		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4, in, prop, Class)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(float, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(double, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(string, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint32_t, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(uint64_t, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(int64_t, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(bool, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec2, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec3, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vec4, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec2, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec3, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(ivec4, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec2, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec3, in, prop, instance)
+		DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(dvec4, in, prop, instance)
 
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint, std::vector<int>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint64_t, std::vector<__int64>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint32_t, std::vector<unsigned int>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorfloat, std::vector<float>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordouble, std::vector<double>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorbool, std::vector<bool>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec2, std::vector<glm::vec2>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec3, std::vector<glm::vec3>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec4, std::vector<glm::vec4>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec2, std::vector<glm::ivec2>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec3, std::vector<glm::ivec3>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec4, std::vector<glm::ivec4>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec2, std::vector<glm::dvec2>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec3, std::vector<glm::dvec3>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec4, std::vector<glm::dvec4>, in, prop, Class)
-		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorstring, std::vector<std::string>, in, prop, Class)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint, std::vector<int>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorint64_t, std::vector<__int64>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint32_t, std::vector<unsigned int>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectoruint64_t, std::vector<unsigned __int64>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorfloat, std::vector<float>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordouble, std::vector<double>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorbool, std::vector<bool>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec2, std::vector<glm::vec2>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec3, std::vector<glm::vec3>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorvec4, std::vector<glm::vec4>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec2, std::vector<glm::ivec2>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec3, std::vector<glm::ivec3>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorivec4, std::vector<glm::ivec4>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec2, std::vector<glm::dvec2>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec3, std::vector<glm::dvec3>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectordvec4, std::vector<glm::dvec4>, in, prop, instance)
+		EXPLICIT_DESERIALIZE_REFLECTED_PRIMITIVE_PROPERTY(vectorstring, std::vector<std::string>, in, prop, instance)
 
-		if (auto& propData = in[prop.get_name()])
+		/*if (auto& propData = in[prop.get_name()])
 		{
 			if (auto& propTypeData = propData["Type"])
 			{
@@ -2408,12 +2420,12 @@ void Serializer::DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* 
 							TextureManager::GetInstance().AsyncLoad(assetFilePath,
 								[=](Texture* texture)
 							{
-								prop.set_value(Class, texture);
+								prop.set_value(instance, texture);
 							});
 						}
 					}
 				}
 			}
-		}
+		}*/
 	}
 }

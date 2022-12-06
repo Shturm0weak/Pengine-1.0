@@ -75,7 +75,14 @@ Sound* SoundManager::Load(const std::string& filePath)
 	if (!sound)
 	{
 		sound = new Sound(filePath);
-		CreateSoundAsset(sound);
+		if (sound->m_NumberOfSamples < 0)
+		{
+			delete sound;
+		}
+		else
+		{
+			CreateSoundAsset(sound);
+		}
 	}
 
 	return sound;

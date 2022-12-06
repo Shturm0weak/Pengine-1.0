@@ -91,7 +91,7 @@ EXPLICIT_REFLECTED_PRIMITIVE_PROPERTY(asset, asset)
 namespace Pengine
 {
 
-    // Only used for components for now!!!
+    // Used for components and materials.
     class PENGINE_API ReflectionSystem
     {
     private:

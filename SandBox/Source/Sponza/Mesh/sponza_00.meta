@@ -1,3 +1,4 @@
 Mesh:
   Name: sponza_00
   FilePath: Source\Sponza\Mesh\sponza.obj
+  CullFace: false

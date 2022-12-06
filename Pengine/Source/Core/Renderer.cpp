@@ -237,12 +237,13 @@ void Renderer::PrepareUniformBuffers(Scene* scene)
 
 void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& pointLights)
 {
+    Environment& environment = Environment::GetInstance();
+
     m_PointLights.m_Size = pointLights.size();
 
     size_t offset = 5;
-    const size_t maxPointLights = 32;
-    m_PointLights.m_ShadowSamplers.resize(maxPointLights);
-    for (size_t i = 0; i < maxPointLights; i++)
+    m_PointLights.m_ShadowSamplers.resize(m_PointLights.m_MaxShadowsSize);
+    for (size_t i = 0; i < m_PointLights.m_MaxShadowsSize; i++)
     {
         m_PointLights.m_ShadowSamplers[i] = offset;
     }
@@ -270,7 +271,7 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
         setData(pointLightBufferPtr, &pointLight->m_Color, 12, uniformOffset);
 
         int drawShadows = pointLight->IsRenderShadows() 
-            && i < Environment::GetInstance().m_ShadowsSettings.m_MaxPointLightShadows;
+            && i < environment.m_ShadowsSettings.m_MaxPointLightShadows;
         setData(pointLightBufferPtr, &drawShadows, 4, uniformOffset);
 
         setData(pointLightBufferPtr, &pointLight->m_Linear, 4, uniformOffset);
@@ -283,7 +284,7 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
 
         setData(pointLightBufferPtr, &offsetIndex, 4, uniformOffset);
 
-        if (pointLight->IsRenderShadows() && i < maxPointLights)
+        if (pointLight->IsRenderShadows() && i < m_PointLights.m_MaxShadowsSize)
         {
             m_PointLights.m_ShadowSamplers[offsetIndex] = offset;
 
@@ -609,7 +610,7 @@ void Renderer::RenderDeferred(Scene* scene)
     glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferShadowsBlur[0]->m_Textures[0]);
 
     glActiveTexture(GL_TEXTURE0 + 4);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferSSAOBlur[0]->m_Textures[0]);
+    glBindTexture(GL_TEXTURE_2D, m_FrameBufferSSAOBlur[1]->m_Textures[0]);
 
     Environment& environment = Environment::GetInstance();
 
@@ -639,7 +640,7 @@ void Renderer::RenderDeferred(Scene* scene)
 
     shader->SetUniform1i("u_PointLightsSize", m_PointLights.m_Size);
     shader->SetUniform1i("u_SpotLightsSize", m_SpotLights.m_Size);
-    shader->SetUniform1iv("u_PointLightsShadowMap", &m_PointLights.m_ShadowSamplers[0], MAX_SHADOW_LIGHTS);
+    shader->SetUniform1iv("u_PointLightsShadowMap", &m_PointLights.m_ShadowSamplers[0], m_PointLights.m_MaxShadowsSize);
 
     RenderFullScreenQuad();
 }

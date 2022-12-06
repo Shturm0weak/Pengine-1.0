@@ -79,13 +79,13 @@ void Raycast2D::Raycast(Scene* scene, const glm::vec2& from, const glm::vec2& to
 	{
 		BoxCollider2D* bc2d = scene->m_BoxColliders2D[i];
 
-		if (bc2d->m_IsTrigger) continue;
+		if (bc2d->IsTrigger()) continue;
 
 		bool ignoreFlag = false;
 		size_t ignoreMaskByTagSize = ignoreMaskByTag.size();
 		for (size_t i = 0; i < ignoreMaskByTagSize; i++)
 		{
-			if (ignoreMaskByTag[i] == bc2d->m_Tag)
+			if (ignoreMaskByTag[i] == bc2d->GetTag())
 			{
 				ignoreFlag = true;
 			}
@@ -155,13 +155,13 @@ void Raycast2D::Raycast(Scene* scene, const glm::vec2& from, const glm::vec2& to
 	{
 		CircleCollider2D* cc2d = scene->m_CircleColliders2D[i];
 
-		if (cc2d->m_IsTrigger) continue;
+		if (cc2d->IsTrigger()) continue;
 
 		bool ignoreFlag = false;
 		size_t ignoreMaskByTagSize = ignoreMaskByTag.size();
 		for (size_t i = 0; i < ignoreMaskByTagSize; i++)
 		{
-			if (ignoreMaskByTag[i] == cc2d->m_Tag)
+			if (ignoreMaskByTag[i] == cc2d->GetTag())
 			{
 				ignoreFlag = true;
 			}

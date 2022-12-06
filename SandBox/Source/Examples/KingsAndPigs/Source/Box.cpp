@@ -49,7 +49,7 @@ void Box::OnUpdate()
 		GetOwner()->ForChilds([this](GameObject& child)
 			{
 				child.SetEnabled(true);
-				child.m_ComponentManager.AddComponent<BoxCollider2D>()->m_Tag = "Wall";
+				child.m_ComponentManager.AddComponent<BoxCollider2D>()->SetTag("Wall");
 				Rigidbody2D* rb2d = child.m_ComponentManager.AddComponent<Rigidbody2D>();
 				rb2d->SetStatic(false);
 				

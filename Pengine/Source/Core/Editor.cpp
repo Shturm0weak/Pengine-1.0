@@ -836,9 +836,16 @@ void Editor::AssetBrowser()
 						}
 					}
 				}
-				else if (fileType == "obj" && ImGui::MenuItem("Load"))
+				else if (fileType == "obj")
 				{
-					MeshManager::GetInstance().GenerateMeshMeta(path);
+					if (ImGui::MenuItem("Generate all mesh meta"))
+					{
+						MeshManager::GetInstance().GenerateMeshMeta(path);
+					}
+					else if (ImGui::MenuItem("Generate missing mesh meta"))
+					{
+						MeshManager::GetInstance().GenerateMeshMeta(path, true);
+					}
 				}
 
 				ImGui::EndPopup();
@@ -1068,7 +1075,7 @@ void Editor::Environment()
 			ImGui::PushID("ShadowsSettings");
 			ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_IsEnabled);
 			ImGui::Checkbox("Is Visualized", &environment.m_ShadowsSettings.m_IsVisualized);
-			ImGui::SliderInt("Max Point Light Shadows", &environment.m_ShadowsSettings.m_MaxPointLightShadows, 1, 10);
+			ImGui::SliderInt("Max Point Light Shadows", &environment.m_ShadowsSettings.m_MaxPointLightShadows, 1, Renderer::GetInstance().m_PointLights.m_MaxShadowsSize);
 			ImGui::SliderFloat("Bias", &environment.m_ShadowsSettings.m_Bias, 0.001f, 0.005f);
 			ImGui::SliderInt("Pcf", &environment.m_ShadowsSettings.m_Pcf, 0, 10);
 			ImGui::SliderFloat("Fog", &environment.m_ShadowsSettings.m_Fog, 0.0f, 1.0f);
@@ -1328,19 +1335,37 @@ void Editor::BoxCollider2DComponent(GameObject* gameObject)
 			{
 				Indent indent;
 
-				float size[2] = { bc2d->GetSize().x, bc2d->GetSize().y };
-				ImGui::SliderFloat2("Size", size, 0.0f, 10.0f);
-				bc2d->SetSize({ size[0], size[1] });
-				ImGui::SliderFloat2("Offset", &bc2d->m_Offset[0], -10.0f, 10.0f);
-				ImGui::Checkbox("Trigger", &bc2d->m_IsTrigger);
-				ImGui::DragFloat("Density", &bc2d->m_Density, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Friction", &bc2d->m_Friction, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Restitution", &bc2d->m_Restitution, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Restitution threshold", &bc2d->m_RestitutionThreshold, 0.1f, 0.0f, 5.0f);
+				glm::vec2 size = bc2d->GetSize();
+				ImGui::SliderFloat2("Size", &size[0], 0.0f, 10.0f);
+				bc2d->SetSize(size);
+
+				glm::vec2 offset = bc2d->GetOffset();
+				ImGui::SliderFloat2("Offset", &offset[0], -10.0f, 10.0f);
+
+				float density = bc2d->GetDensity();
+				ImGui::DragFloat("Density", &density, 0.1f, 0.0f, 5.0f);
+				bc2d->SetDensity(density);
+
+				float friction = bc2d->GetFriction();
+				ImGui::DragFloat("Friction", &friction, 0.1f, 0.0f, 5.0f);
+				bc2d->SetFriction(friction);
+
+				float restitution = bc2d->GetRestitution();
+				ImGui::DragFloat("Restitution", &restitution, 0.1f, 0.0f, 5.0f);
+				bc2d->SetRestitution(restitution);
+
+				float restitutionThreshold = bc2d->GetRestitutionThreshold();
+				ImGui::DragFloat("Restitution threshold", &restitutionThreshold, 0.1f, 0.0f, 5.0f);
+				bc2d->SetRestitutionThreshold(restitutionThreshold);
+
 				char tag[32];
-				strcpy(tag, bc2d->m_Tag.c_str());
+				strcpy(tag, bc2d->GetTag().c_str());
 				ImGui::InputText("Tag", tag, sizeof(char) * 32);
-				bc2d->m_Tag = tag;
+				bc2d->SetTag(tag);
+				
+				bool isTrigger = bc2d->IsTrigger();
+				ImGui::Checkbox("Trigger", &isTrigger);
+				bc2d->SetTrigger(isTrigger);
 			}
 		}
 	}
@@ -1387,15 +1412,34 @@ void Editor::CircleCollider2DComponent(GameObject* gameObject)
 				float radius = cc2d->GetRadius();
 				ImGui::SliderFloat("Radius", &radius, 0.0, 10.0f);
 				cc2d->SetRadius(radius);
-				ImGui::Checkbox("Trigger", &cc2d->m_IsTrigger);
-				ImGui::DragFloat("Density", &cc2d->m_Density, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Friction", &cc2d->m_Friction, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Restitution", &cc2d->m_Restitution, 0.1f, 0.0f, 5.0f);
-				ImGui::DragFloat("Restitution threshold", &cc2d->m_RestitutionThreshold, 0.1f, 0.0f, 5.0f);
+
+				glm::vec2 offset = cc2d->GetOffset();
+				ImGui::SliderFloat2("Offset", &offset[0], -10.0f, 10.0f);
+
+				float density = cc2d->GetDensity();
+				ImGui::DragFloat("Density", &density, 0.1f, 0.0f, 5.0f);
+				cc2d->SetDensity(density);
+
+				float friction = cc2d->GetFriction();
+				ImGui::DragFloat("Friction", &friction, 0.1f, 0.0f, 5.0f);
+				cc2d->SetFriction(friction);
+
+				float restitution = cc2d->GetRestitution();
+				ImGui::DragFloat("Restitution", &restitution, 0.1f, 0.0f, 5.0f);
+				cc2d->SetRestitution(restitution);
+
+				float restitutionThreshold = cc2d->GetRestitutionThreshold();
+				ImGui::DragFloat("Restitution threshold", &restitutionThreshold, 0.1f, 0.0f, 5.0f);
+				cc2d->SetRestitutionThreshold(restitutionThreshold);
+
 				char tag[32];
-				strcpy(tag, cc2d->m_Tag.c_str());
+				strcpy(tag, cc2d->GetTag().c_str());
 				ImGui::InputText("Tag", tag, sizeof(char) * 32);
-				cc2d->m_Tag = tag;
+				cc2d->SetTag(tag);
+
+				bool isTrigger = cc2d->IsTrigger();
+				ImGui::Checkbox("Trigger", &isTrigger);
+				cc2d->SetTrigger(isTrigger);
 			}
 		}
 	}
@@ -1474,10 +1518,10 @@ void Editor::Rigidbody3DComponent(GameObject* gameObject)
 
 void Editor::Animator2DComponent(GameObject* gameObject)
 {
-	Animator2D* anim2d = gameObject->m_ComponentManager.GetComponent<Animator2D>();
-	if (anim2d)
+	Animator2D* a2d = gameObject->m_ComponentManager.GetComponent<Animator2D>();
+	if (a2d)
 	{
-		if (RemoveComponentMenu(gameObject, anim2d))
+		if (RemoveComponentMenu(gameObject, a2d))
 		{
 			if (ImGui::CollapsingHeader("Animator 2D"))
 			{
@@ -1493,20 +1537,19 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 						if (Animation2DManager::Animation2D* animation =
 							Animation2DManager::GetInstance().Load(path))
 						{
-							anim2d->AddAnimation(animation);
+							a2d->AddAnimation(animation);
 						}
 					}
 					ImGui::EndDragDropTarget();
 				}
 
-				for (size_t i = 0; i < anim2d->m_Animations.size(); i++)
+				for (auto animation : a2d->GetAnimations())
 				{
-					Animation2DManager::Animation2D* anim = anim2d->m_Animations[i];
 					
-					ImGui::PushID(anim);
+					ImGui::PushID(animation);
 					if (ImGui::Button("-"))
 					{
-						anim2d->RemoveAnimation(anim);
+						a2d->RemoveAnimation(animation);
 					}
 					ImGui::PopID();
 
@@ -1515,14 +1558,14 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 					ImGuiStyle* style = &ImGui::GetStyle();
 					ImVec4 tempNameColor = style->Colors[ImGuiCol_Text];
 
-					if (anim2d->m_CurrentAnimation == anim)
+					if (a2d->GetCurrentAnimation() == animation)
 					{
 						style->Colors[ImGuiCol_Text] = ImVec4(0.0f, 0.8f, 1.0f, 1.0f);
 					}
 
-					if (ImGui::Button(anim->GetName().c_str()))
+					if (ImGui::Button(animation->GetName().c_str()))
 					{
-						anim2d->m_CurrentAnimation = anim;
+						a2d->SetCurrentAnimation(animation);
 					}
 
 					style->Colors[ImGuiCol_Text] = tempNameColor;
@@ -1530,24 +1573,28 @@ void Editor::Animator2DComponent(GameObject* gameObject)
 
 				if (ImGui::Button("Clear"))
 				{
-					anim2d->m_Animations.clear();
+					a2d->RemoveAllAnimations();
 				}
 
-				ImGui::InputFloat("Speed", &anim2d->m_Speed, 0.1f, 1.0f);
+				float animationSpeed = a2d->GetSpeed();
+				if (ImGui::InputFloat("Speed", &animationSpeed, 0.1f, 1.0f))
+				{
+					a2d->SetSpeed(animationSpeed);
+				}
 
 				const float size = 32.0f;
-				ImTextureID icon = anim2d->m_Play ?
+				ImTextureID icon = a2d->IsPlaying() ?
 					(ImTextureID)TextureManager::GetInstance().GetByName("StopButton")->GetRendererID()
 					: (ImTextureID)TextureManager::GetInstance().GetByName("PlayButton")->GetRendererID();
 				if (ImGui::ImageButton(icon, { size, size }))
 				{
-					if (anim2d->m_Play)
+					if (a2d->IsPlaying())
 					{
-						anim2d->m_Play = false;
+						a2d->SetPlay(false);
 					}
 					else
 					{
-						anim2d->m_Play = true;
+						a2d->SetPlay(true);
 					}
 
 				}

@@ -1153,7 +1153,7 @@ namespace objl
 
 		static void LoadAsyncToViewport(const std::string& filePath);
 
-		static void GenerateMeshMeta(const std::string& filePath);
+		static void GenerateMeshMeta(const std::string& filePath, bool onlyMissing);
 
 		static void LoadVertexData(const std::vector<objl::Vertex>& vertices, const std::vector<uint32_t>& indices,
 			std::vector<float>& vertexAttributes, glm::vec3& minBoundingBox, glm::vec3& maxBoundingBox);

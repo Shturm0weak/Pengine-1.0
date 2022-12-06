@@ -255,7 +255,7 @@ void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Rende
 		Mesh& mesh = *buffer->first;
 		DynamicBuffer& dynamicBuffer = buffer->second;
 
-		if (!dynamicBuffer.m_VertAttrib)
+		if (dynamicBuffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
@@ -333,7 +333,7 @@ void Instancing::RenderShadowsObjects(const std::unordered_map<Mesh*, std::vecto
 		Mesh& mesh = *buffer->first;
 		DynamicBuffer& dynamicBuffer = buffer->second;
 
-		if (!dynamicBuffer.m_VertAttrib)
+		if (dynamicBuffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
@@ -375,19 +375,15 @@ void Instancing::PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector
 		dynamicBuffer.m_AllocateNewBuffer = false;
 		dynamicShadowsBuffer.m_AllocateNewBuffer = false;
 
-		if (dynamicBuffer.m_PrevObjectSize < objectsSize || dynamicBuffer.m_VertAttrib == nullptr)
+		if (dynamicBuffer.m_PrevObjectSize < objectsSize || dynamicBuffer.m_VertexAttributes.empty())
 		{
-			delete[] dynamicBuffer.m_VertAttrib;
-			dynamicBuffer.m_Size = objectsSize * m_SizeOfAttribs;
-			dynamicBuffer.m_VertAttrib = new float[dynamicBuffer.m_Size];
+			dynamicBuffer.m_VertexAttributes.resize(objectsSize * m_SizeOfAttribs);
 			dynamicBuffer.m_AllocateNewBuffer = true;
 		}
 
-		if (dynamicShadowsBuffer.m_PrevObjectSize < objectsSize || dynamicShadowsBuffer.m_VertAttrib == nullptr)
+		if (dynamicShadowsBuffer.m_PrevObjectSize < objectsSize || dynamicShadowsBuffer.m_VertexAttributes.empty())
 		{
-			delete[] dynamicShadowsBuffer.m_VertAttrib;
-			dynamicShadowsBuffer.m_Size = objectsSize * 16;
-			dynamicShadowsBuffer.m_VertAttrib = new float[dynamicShadowsBuffer.m_Size];
+			dynamicShadowsBuffer.m_VertexAttributes.resize(objectsSize * 16);
 			dynamicShadowsBuffer.m_AllocateNewBuffer = true;
 		}
 
@@ -437,7 +433,7 @@ void Instancing::PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector
 			const glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
 			const glm::vec3 specular = material.m_Specular * material.m_Scale;
 
-			float* startPtr = &dynamicBuffer.m_VertAttrib[i * m_SizeOfAttribs];
+			float* startPtr = &dynamicBuffer.m_VertexAttributes[i * m_SizeOfAttribs];
 			memcpy(&startPtr[0], &ambient[0], 12);
 			memcpy(&startPtr[3], &diffuse[0], 12);
 			memcpy(&startPtr[6], &specular[0], 12);
@@ -457,7 +453,7 @@ void Instancing::PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector
 
 			if (r3d.m_DrawShadows)
 			{
-				float* startPtr = &dynamicShadowsBuffer.m_VertAttrib[(i - rejectedShadows) * 16];
+				float* startPtr = &dynamicShadowsBuffer.m_VertexAttributes[(i - rejectedShadows) * 16];
 				memcpy(&startPtr[0], transform, 64);
 			}
 		}
@@ -490,7 +486,7 @@ void Instancing::BindBuffers(const std::unordered_map<Mesh*, std::vector<Rendere
 		Mesh& mesh = *buffer->first;
 		DynamicBuffer& dynamicBuffer = buffer->second;
 
-		if (!dynamicBuffer.m_VertAttrib)
+		if (dynamicBuffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
@@ -500,11 +496,11 @@ void Instancing::BindBuffers(const std::unordered_map<Mesh*, std::vector<Rendere
 		dynamicBuffer.m_VboDynamic.Bind();
 		if (dynamicBuffer.m_AllocateNewBuffer)
 		{
-			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib, GL_DYNAMIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
 		}
 		else
 		{
-			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0]);
 		}
 
 		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
@@ -535,7 +531,7 @@ void Instancing::BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<
 		Mesh& mesh = *buffer->first;
 		DynamicBuffer& dynamicBuffer = buffer->second;
 
-		if (!dynamicBuffer.m_VertAttrib)
+		if (dynamicBuffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
@@ -545,11 +541,11 @@ void Instancing::BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<
 		dynamicBuffer.m_VboDynamic.Bind();
 		if (dynamicBuffer.m_AllocateNewBuffer)
 		{
-			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib, GL_DYNAMIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
 		}
 		else
 		{
-			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_Size * sizeof(float), dynamicBuffer.m_VertAttrib);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0]);
 		}
 
 		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
@@ -560,11 +556,11 @@ void Instancing::ShutDown()
 {
 	for (auto buffer : m_OpaqueBuffersByMesh)
 	{
-		delete buffer.second.m_VertAttrib;
+		buffer.second.m_VertexAttributes.clear();
 	}
 
 	for (auto buffer : m_ShadowsBuffersByMesh)
 	{
-		delete buffer.second.m_VertAttrib;
+		buffer.second.m_VertexAttributes.clear();
 	}
 }

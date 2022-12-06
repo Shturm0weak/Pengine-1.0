@@ -1,0 +1,8 @@
+Texture:
+  Name: adventurer-v1.5-Sheet
+  FilePath: Source\Examples\Adventure\Sprites\adventurer-v1.5-Sheet.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

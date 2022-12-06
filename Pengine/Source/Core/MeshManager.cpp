@@ -55,6 +55,11 @@ void MeshManager::LoadAsync(const std::string& filePath, std::function<void(Mesh
 	}
 
 	Mesh::Meta meta = Serializer::DeserializeMeshMeta(filePath);
+	if (meta.m_FilePath.empty())
+	{
+		Logger::Error("file doesn't exist!", "Mesh::Meta", filePath.c_str());
+		return;
+	}
 
 	if (Utils::IsThere<std::string>(m_MeshesIsLoading, meta.m_FilePath))
 	{
@@ -70,10 +75,10 @@ void MeshManager::LoadAsync(const std::string& filePath, std::function<void(Mesh
 	}	
 }
 
-void MeshManager::GenerateMeshMeta(const std::string& filePath)
+void MeshManager::GenerateMeshMeta(const std::string& filePath, bool onlyMissing)
 {
 	ThreadPool::GetInstance().Enqueue([=] {
-		objl::Loader::GenerateMeshMeta(filePath);
+		objl::Loader::GenerateMeshMeta(filePath, onlyMissing);
 	});
 }
 

@@ -51,7 +51,6 @@ public: PROPERTY(Controller, std::vector<std::string>, m_IgnoreAttackColliderTag
 
 	GameObject* m_LastHitInstigator = nullptr;
 
-	size_t m_AttackIndexCallback = 0;
 	int m_PreviousDirection = 0;
 	float m_AttackCoolDownTimer = 0.0f;
 	bool m_IsLanded = false;

@@ -78,25 +78,25 @@ void ThrowingObject::Blow()
 
 	m_BlewUp = true;
 	GetOwner()->m_ComponentManager.RemoveComponent<Rigidbody2D>();
-	m_Ic2d->m_IsTrigger = true;
-	m_A2d->Reset();
+	m_Ic2d->SetTrigger(true);
+	m_A2d->ResetTime();
 	m_A2d->SetCurrentAnimation(m_A2d->GetAnimation("Blow") ?
 		m_A2d->GetAnimation("Blow") : m_A2d->GetAnimation("Death"));
-	m_Ic2d->SetSize(m_DamageArea);
+	((BoxCollider2D*)m_Ic2d)->SetSize(m_DamageArea);
 
 	m_ExplosionSound = SoundManager::GetInstance().Load("Source/Examples/KingsAndPigs/Sounds/Explosion.ogg");
 	SoundManager::GetInstance().Play(m_ExplosionSound);
 
 	auto callback = [this]
 	{
-		if (m_CheckTypeID == 0)
+		if (m_CheckID == 0)
 		{
-			m_Ic2d->m_IsTrigger = false;
+			m_Ic2d->SetTrigger(false);
 		}
 	};
 	EventSystem::GetInstance().SendCallbackOnFrame(callback, 2);
 
-	m_A2d->m_EndCallbacks.push_back([this]
+	m_A2d->AddEndCallback("DeleteLater", [this]
 		{
 			GetOwner()->DeleteLater();
 
@@ -107,7 +107,7 @@ void ThrowingObject::Blow()
 	GetOwner()->ForChilds([this](GameObject& child)
 		{
 			child.SetEnabled(true);
-			child.m_ComponentManager.AddComponent<BoxCollider2D>()->m_Tag = "Wall";
+			child.m_ComponentManager.AddComponent<BoxCollider2D>()->SetTag("Wall");
 			Rigidbody2D* rb2d = child.m_ComponentManager.AddComponent<Rigidbody2D>();
 			rb2d->SetStatic(false);
 

@@ -12,6 +12,11 @@ namespace Pengine
 
 	class PENGINE_API IListener
 	{
+	private:
+
+		void HandleEvent(class IEvent* event);
+
+		friend class EventSystem;
 	protected:
 
 		virtual void OnStart() {}
@@ -24,8 +29,6 @@ namespace Pengine
 
 		virtual void OnSetScroll(const OnSetScrollEvent& event) {}
 	public:
-
-		void HandleEvent(class IEvent* event);
 
 		virtual ~IListener() {}
 	};

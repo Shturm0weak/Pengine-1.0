@@ -34,7 +34,7 @@ namespace Pengine
 		
 		void LoadAsync(const std::string& filePath, std::function<void(Mesh*)> callback);
 
-		void GenerateMeshMeta(const std::string& filePath);
+		void GenerateMeshMeta(const std::string& filePath, bool onlyMissing = false);
 		
 		void LoadAsyncToViewport(const std::string& filePath);
 

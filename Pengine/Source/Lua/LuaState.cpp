@@ -284,7 +284,6 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<Renderer2D> r2d(l->m_L, "Renderer2D");
 	r2d.ctor<GameObject*>("Get", &LuaState::LuaGetRenderer2D, nullptr); 
 	r2d.ctor<GameObject*>("Add", &LuaState::LuaAddRenderer2D, nullptr);
-	r2d.fun("Copy", &Renderer2D::Copy);
 	r2d.fun("Flip", &Renderer2D::Flip);
 	r2d.fun("GetLayer", &Renderer2D::GetLayer);
 	r2d.fun("SetLayer", &Renderer2D::SetLayer);
@@ -315,7 +314,6 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<Rigidbody2D> rb2d(l->m_L, "RigidBody2D");
 	rb2d.ctor<GameObject*>("Get", LuaGetRigidBody2D, nullptr);
 	rb2d.ctor<GameObject*>("Add", LuaAddRigidBody2D, nullptr);
-	rb2d.fun("Copy", &Rigidbody2D::Copy);
 	rb2d.fun("IsSleepingAllowed", &Rigidbody2D::IsSleepingAllowed);
 	rb2d.fun("SetAllowToSleep", &Rigidbody2D::SetAllowToSleep);
 	rb2d.fun("SetStatic", &Rigidbody2D::SetStatic);
@@ -342,11 +340,10 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<Animator2D> a2d(l->m_L, "Animator2D");
 	a2d.ctor<GameObject*>("Get", LuaGetAnimator2D, nullptr);
 	a2d.ctor<GameObject*>("Add", LuaAddAnimator2D, nullptr);
-	a2d.fun("Copy", &Animator2D::Copy);
 	a2d.fun("GetOriginalUV", &Animator2D::GetOriginalUV);
 	a2d.fun("GetReversedUV", &Animator2D::GetReversedUV);
-	a2d.fun("Reset", &Animator2D::Reset);
-	a2d.fun("RemoveAll", &Animator2D::RemoveAll);
+	a2d.fun("Reset", &Animator2D::ResetTime);
+	a2d.fun("RemoveAll", &Animator2D::RemoveAllAnimations);
 	a2d.fun("SetCurrentAnimation", &Animator2D::SetCurrentAnimation);
 	a2d.fun("AddAnimation", &Animator2D::AddAnimation);
 	a2d.fun("GetAnimation", &Animator2D::GetAnimation);
@@ -358,7 +355,6 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<PointLight> pl2d(l->m_L, "PointLight2D");
 	pl2d.ctor<GameObject*>("Get", LuaGetPointLight2D, nullptr);
 	pl2d.ctor<GameObject*>("Add", LuaAddPointLight2D, nullptr);
-	pl2d.fun("Copy", &PointLight::Copy);
 	pl2d.fun("SetConstant", &PointLight::SetConstant);
 	pl2d.fun("SetLinear", &PointLight::SetLinear);
 	pl2d.fun("SetQuadratic", &PointLight::SetQuadratic);
@@ -372,7 +368,6 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<BoxCollider2D> bc2d(l->m_L, "BoxCollider2D");
 	bc2d.ctor<GameObject*>("Get", LuaGetBoxCollider2D, nullptr);
 	bc2d.ctor<GameObject*>("Add", LuaAddBoxCollider2D, nullptr);
-	bc2d.fun("Copy", &BoxCollider2D::Copy);
 	bc2d.fun("SetSize", &BoxCollider2D::SetSize);
 	bc2d.fun("GetSize", &BoxCollider2D::GetSize);
 	bc2d.fun("SetOffset", &BoxCollider2D::SetOffset);
@@ -382,7 +377,6 @@ void LuaState::RegisterFunction(LuaState* l)
 	LuaClass<CircleCollider2D> cc2d(l->m_L, "CicrleCollider2D");
 	cc2d.ctor<GameObject*>("Get", LuaGetCircleCollider2D, nullptr);
 	cc2d.ctor<GameObject*>("Add", LuaAddCircleCollider2D, nullptr);
-	cc2d.fun("Copy", &BoxCollider2D::Copy);
 	cc2d.fun("SetRadius", &CircleCollider2D::SetRadius);
 	cc2d.fun("GetRadius", &CircleCollider2D::GetRadius);
 

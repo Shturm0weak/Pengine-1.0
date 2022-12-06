@@ -11,10 +11,7 @@ namespace Pengine
 
 	class PENGINE_API ICollider2D : public IComponent, public IAllocator
 	{
-	public:
-
-		b2Shape* m_Shape;
-		b2FixtureDef m_Fixture;
+	private:
 
 		std::string m_Tag;
 
@@ -24,19 +21,47 @@ namespace Pengine
 		float m_Friction = 0.5f;
 		float m_Restitution = 0.0f;
 		float m_RestitutionThreshold = 0.5f;
+
 		bool m_IsTrigger = false;
+	protected:
+
+		b2Shape* m_Shape;
+		b2FixtureDef m_Fixture;
+
+		friend class Rigidbody2D;
+	public:
 
 		ICollider2D() { m_Type = "ICollider2D"; }
 		
 		void SetTrigger(bool isTrigger) { m_IsTrigger = isTrigger; }
 
-		glm::vec2 GetPosition() const;
+		bool IsTrigger() const { return m_IsTrigger; }
+
+		void SetTag(const std::string& tag) { m_Tag = tag; }
+
+		std::string GetTag() const { return m_Tag; }
+
+		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
 		
 		glm::vec2 GetOffset() const { return m_Offset; }
-		
-		void SetOffset(const glm::vec2& offset) { m_Offset = offset; }
 
-		virtual void SetSize(const glm::vec2& size) = 0;
+		void SetDensity(float density) { m_Density = density; }
+
+		float GetDensity() const { return m_Density; }
+
+		void SetFriction(float friction) { m_Friction = friction; }
+
+		float GetFriction() const { return m_Friction; }
+
+		void SetRestitution(float restitution) { m_Restitution = restitution; }
+
+		float GetRestitution() const { return m_Restitution; }
+
+		void SetRestitutionThreshold(float restitutionThreshold) { m_RestitutionThreshold = restitutionThreshold; }
+
+		float GetRestitutionThreshold() const { return m_RestitutionThreshold; }
+
+		glm::vec2 GetPosition() const;
 		
 		virtual ICollider2D* IntersectTrigger() = 0;
 		

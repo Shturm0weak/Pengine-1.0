@@ -58,10 +58,10 @@ Controller::Controller()
 			auto callback1 = [this]
 			{
 				m_IsDead = true;
-				m_Bc2d->m_Tag = "Dead";
-				m_A2d->Reset();
+				m_Bc2d->SetTag("Dead");
+				m_A2d->ResetTime();
 
-				m_A2d->m_EndCallbacks.push_back([this]
+				m_A2d->AddEndCallback("Dead", [this]
 					{
 						auto callback2 = [this]
 						{
@@ -163,12 +163,12 @@ void Controller::Hit(float damage)
 
 	if (m_IsAttacking)
 	{
-		m_A2d->m_EndCallbacks[m_AttackIndexCallback]();
-		m_A2d->m_EndCallbacks.erase(m_A2d->m_EndCallbacks.begin() + m_AttackIndexCallback);
+		m_A2d->GetEndCallback("Attack")();
+		m_A2d->RemoveEndCallback("Attack");
 	}
 
-	m_A2d->Reset();
-	m_A2d->m_EndCallbacks.push_back([damage, this] {
+	m_A2d->ResetTime();
+	m_A2d->AddEndCallback("TakeDamage", [damage, this] {
 		m_IsHit = false;
 
 		m_Health->TakeDamage(damage);
@@ -227,7 +227,7 @@ bool Controller::IsLandedCalculate()
 		if (hit.GetCollider())
 		{
 			float distance = glm::abs(hit.GetPosition().y - position.y);
-			if (hit.GetCollider()->m_Tag == m_GroundColliderTag)
+			if (hit.GetCollider()->GetTag() == m_GroundColliderTag)
 			{
 				//Visualizer::DrawLine(position, { hit.GetPosition(), 0.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
 
@@ -243,7 +243,7 @@ void Controller::MoveRight()
 {
 	if (m_Direction == -1)
 	{
-		m_Bc2d->m_Offset.x = -m_Bc2d->m_Offset.x;
+		m_Bc2d->SetOffset({ -m_Bc2d->GetOffset().x, m_Bc2d->GetOffset().y });
 	}
 
 	m_Owner->m_Transform.Translate(m_Owner->m_Transform.GetPosition()
@@ -255,7 +255,7 @@ void Controller::MoveLeft()
 {
 	if (m_Direction == 1)
 	{
-		m_Bc2d->m_Offset.x = -m_Bc2d->m_Offset.x;
+		m_Bc2d->SetOffset({ -m_Bc2d->GetOffset().x, m_Bc2d->GetOffset().y });
 	}
 
 	m_Owner->m_Transform.Translate(m_Owner->m_Transform.GetPosition()
@@ -297,9 +297,8 @@ void Controller::AttackStart()
 
 void Controller::AttackEnd(std::function<void()> callback)
 {
-	m_A2d->Reset();
-	m_AttackIndexCallback = m_A2d->m_EndCallbacks.size();
-	m_A2d->m_EndCallbacks.push_back([this, callback]
+	m_A2d->ResetTime();
+	m_A2d->AddEndCallback("Attack", [this, callback]
 		{
 			m_IsAttacking = false;
 
@@ -324,7 +323,7 @@ void Controller::Attack()
 		Raycast2D::Hit2D hit;
 		Raycast2D::Raycast(GetOwner()->GetScene(), start, end, hit, m_IgnoreAttackColliderTags);
 
-		if (hit.GetCollider() && hit.GetCollider()->m_Tag == m_EnemyColliderTag)
+		if (hit.GetCollider() && hit.GetCollider()->GetTag() == m_EnemyColliderTag)
 		{
 			GameObject* enemy = hit.GetCollider()->GetOwner();
 			if (Rigidbody2D* rb2d = enemy->m_ComponentManager.GetComponent<Rigidbody2D>())

@@ -81,36 +81,18 @@ namespace Pengine
 		std::vector<GameObject*> SelectGameObject(std::vector<GameObject*> ignoreMask = std::vector<GameObject*>(),
 			int maxGameObjects = 1);
 
-		friend GameObject* GameObject::Create(Scene* scene, const std::string& name,
-			const Transform& transform, const UUID& uuid);
-		friend ICollider2D* BoxCollider2D::IntersectTrigger();
-		friend ICollider2D* CircleCollider2D::IntersectTrigger();
-		friend void Renderer3D::Render();
-		friend IComponent* Renderer2D::Create(GameObject* owner);
-		friend IComponent* Renderer3D::Create(GameObject* owner);
-		friend IComponent* Rigidbody2D::Create(GameObject* owner);
-		friend IComponent* BoxCollider2D::Create(GameObject* owner); 
-		friend IComponent* CircleCollider2D::Create(GameObject* owner);
-		friend IComponent* ParticleEmitter::Create(GameObject* owner);
-		friend IComponent* PointLight::Create(GameObject* owner);
-		friend IComponent* SpotLight::Create(GameObject* owner);
-		friend IComponent* DirectionalLight::Create(GameObject* owner);
-		friend void GameObject::Delete();
-		friend void GameObject::DeleteLater(float seconds);
-		friend void Renderer2D::Delete();
-		friend void Renderer3D::Delete();
-		friend void Rigidbody2D::Delete();
-		friend void BoxCollider2D::Delete();
-		friend void CircleCollider2D::Delete();
-		friend void ParticleEmitter::Delete();
-		friend void PointLight::Delete();
-		friend void SpotLight::Delete();
-		friend void DirectionalLight::Delete();
-		friend void Renderer2D::SetLayer(int layer);
 		
+		friend class GameObject;
+		friend class ParticleEmitter;
+		friend class DirectionalLight;
+		friend class SpotLight;
+		friend class PointLight;
 		friend class BoxCollider3D;
+		friend class BoxCollider2D;
+		friend class CircleCollider2D;
 		friend class SphereCollider3D;
 		friend class Rigidbody3D;
+		friend class Rigidbody2D;
 		friend class Instancing;
 		friend class Application;
 		friend class Editor;
@@ -119,6 +101,7 @@ namespace Pengine
 		friend class Batch;
 		friend class Renderer;
 		friend class Renderer3D;
+		friend class Renderer2D;
 		friend class EntryPoint;
 	public:
 

@@ -6,6 +6,7 @@
 #include <condition_variable>
 #include <mutex>
 #include <array>
+#include <vector>
 
 namespace Pengine
 {
@@ -23,8 +24,7 @@ namespace Pengine
 			VertexBuffer m_VboDynamic;
 			VertexBufferLayout m_LayoutDynamic;
 			size_t m_PrevObjectSize = 0;
-			size_t m_Size = 0;
-			float* m_VertAttrib = nullptr;
+			std::vector<float> m_VertexAttributes;
 			bool m_AllocateNewBuffer = true;
 		};
 

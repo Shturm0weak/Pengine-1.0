@@ -43,7 +43,7 @@ void King::ThrowingObjectCheck()
 {
 	if (ICollider2D* collider = GetBc2d()->IntersectTrigger())
 	{
-		if (collider->m_Tag == "ThrowingObject")
+		if (collider->GetTag() == "ThrowingObject")
 		{
 			ThrowingObject* throwingObject = collider->GetOwner()->m_ComponentManager.GetComponent<ThrowingObject>();
 			Hit(throwingObject->m_Damage);
@@ -55,8 +55,8 @@ void King::EnterLevel()
 {
 	m_IsEnteringLevel = true;
 
-	GetA2d()->Reset();
-	GetA2d()->m_EndCallbacks.push_back([this]()
+	GetA2d()->ResetTime();
+	GetA2d()->AddEndCallback("EnterLevel", [this]()
 		{
 			m_IsEnteringLevel = false;
 
@@ -69,7 +69,7 @@ void King::PickUpHearts()
 {
 	if (ICollider2D* collider = GetBc2d()->IntersectTrigger())
 	{
-		if (collider->m_Tag == "Heart" && GetHealth()->GetCurrentHealth() < GetHealth()->GetMaxHealth())
+		if (collider->GetTag() == "Heart" && GetHealth()->GetCurrentHealth() < GetHealth()->GetMaxHealth())
 		{
 			GetHealth()->SetCurrentHealth(GetHealth()->GetCurrentHealth() + 1);
 			collider->GetOwner()->DeleteLater();
@@ -84,7 +84,7 @@ void King::LeaveLevel()
 	if (GetBc2d())
 	{
 		ICollider2D* collider = GetBc2d()->IntersectTrigger();
-		if (collider && collider->m_Tag == "Door")
+		if (collider && collider->GetTag() == "Door")
 		{
 			m_IsLeavingLevel = true;
 
@@ -95,10 +95,10 @@ void King::LeaveLevel()
 				GetOwner()->m_Transform.Translate(glm::vec3(collider->GetOwner()->m_Transform.GetPosition().x,
 					GetOwner()->m_Transform.GetPosition().y, 0.0f));
 
-				m_Door->GetA2d()->Reset();
+				m_Door->GetA2d()->ResetTime();
 
-				GetA2d()->Reset();
-				GetA2d()->m_EndCallbacks.push_back([this]
+				GetA2d()->ResetTime();
+				GetA2d()->AddEndCallback("LeaveLevel", [this]
 					{
 						bool isLeavingLevel = m_IsLeavingLevel;
 						auto callback = [this, isLeavingLevel]
@@ -248,10 +248,10 @@ void King::OnStart()
 		{
 			auto callback = [a2d]
 			{
-				a2d->Reset();
+				a2d->ResetTime();
 				a2d->SetCurrentAnimation(a2d->GetAnimation("Close"));
 
-				a2d->m_EndCallbacks.push_back([a2d]()
+				a2d->AddEndCallback("Idle", [a2d]()
 					{
 						a2d->SetCurrentAnimation(a2d->GetAnimation("Idle"));
 
