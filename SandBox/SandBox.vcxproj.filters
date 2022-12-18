@@ -21,82 +21,38 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Examples\BulletPhysics.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\ExampleApplication.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\ExampleComponent.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Health.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\King.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Examples\TestRTTRSystem.h">
-      <Filter>Examples</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Sponza\Sponza.h">
       <Filter>Sponza</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Examples\RTTRSystem.h" />
+    <ClInclude Include="Source\Examples\BulletPhysics.h" />
+    <ClInclude Include="Source\Examples\ExampleApplication.h" />
+    <ClInclude Include="Source\Examples\ExampleComponent.h" />
     <ClInclude Include="Source\Examples\FirstPersonController.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Box.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Controller.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Door.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Health.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\King.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\KingsAndPigs.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
+    <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Examples\BulletPhysics.cpp">
-      <Filter>Examples</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\King.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp">
-      <Filter>Examples\KingsAndPigs\Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\SandBox.cpp" />
     <ClCompile Include="Source\Sponza\Sponza.cpp">
       <Filter>Sponza</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Examples\BulletPhysics.cpp" />
     <ClCompile Include="Source\Examples\FirstPersonController.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Door.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Health.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\King.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
+    <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
   </ItemGroup>
 </Project>

@@ -51,8 +51,6 @@ namespace Pengine
 		void UnBind() const;
 		
 		void Refresh();
-
-		virtual void Reload() override;
 	};
 
 }

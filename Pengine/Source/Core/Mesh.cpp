@@ -11,8 +11,8 @@ Mesh::Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::v
 	, m_Indices(std::move(indices))
 	, m_Layouts(layouts)
 {
-	SetName(name);
-	SetFilePath(filePath);
+	m_Name = name;
+	m_FilePath = filePath;
 
 	m_Va.Initialize();
 	m_Vb.Initialize(&m_VertexAttributes[0], m_VertexAttributes.size() * sizeof(float));
@@ -55,8 +55,4 @@ void Mesh::Refresh()
 	}
 	m_Va.AddBuffer(m_Vb, m_Layout);
 	m_Ib.Initialize(&m_Indices[0], m_Indices.size());
-}
-
-void Mesh::Reload()
-{
 }

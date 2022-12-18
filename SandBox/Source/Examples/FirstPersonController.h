@@ -10,11 +10,10 @@ using namespace Pengine;
 
 class FirstPersonController : public IComponent, public IListener
 {
-	RTTR_ENABLE(IComponent)
-
-public: PROPERTY(FirstPersonController, float, m_MaxSpeed, 1.0f)
-public: PROPERTY(FirstPersonController, float, m_Accelaration, 1.0f)
-public: PROPERTY(FirstPersonController, float, m_CurrentSpeed, 0.0f)
+	REGISTER_PARENT_CLASS(IComponent)
+public: PROPERTY(float, m_MaxSpeed, 1.0f)
+public: PROPERTY(float, m_Accelaration, 1.0f)
+public: PROPERTY(float, m_CurrentSpeed, 0.0f)
 private:
 
 	Rigidbody3D* m_Rb3d = nullptr;
@@ -39,4 +38,4 @@ public:
 
 	virtual void OnStart() override;
 };
-REGISTER_CLASS(FirstPersonController)
+REGISTER_COMPONENT(FirstPersonController)

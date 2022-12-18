@@ -46,7 +46,7 @@ void Renderer2D::Render()
 IComponent* Renderer2D::Create(GameObject* owner)
 {
 	Renderer2D* r2d = MemoryManager::GetInstance().Allocate<Renderer2D>();
-	r2d->m_Type = Utils::GetTypeName<Renderer2D>();
+	r2d->m_Type = GetTypeName<Renderer2D>();
 	r2d->SetLayer(0);
 
 	return r2d;

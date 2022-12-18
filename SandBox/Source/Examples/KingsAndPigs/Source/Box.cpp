@@ -18,11 +18,8 @@ IComponent* Box::New(GameObject* owner)
 
 void Box::Copy(const IComponent& component)
 {
-	Controller::Copy(component);
-
-	COPY_PROPERTIES(Box, component)
-
 	Box& box = *(Box*)&component;
+	COPY_PROPERTIES(box)
 	m_Type = component.GetType();
 }
 

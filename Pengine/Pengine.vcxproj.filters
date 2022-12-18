@@ -69,6 +69,9 @@
     <ClInclude Include="Source\Components\BoxCollider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\BoxCollider3D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Components\CircleCollider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -76,6 +79,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\ICollider2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\ICollider3D.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\IRenderer.h">
@@ -96,7 +102,13 @@
     <ClInclude Include="Source\Components\Rigidbody2D.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Components\Rigidbody3D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Components\Script.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\SphereCollider3D.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\Spline.h">
@@ -121,6 +133,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\BoundingBox.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Core\BulletPhysicsWorld.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Camera.h">
@@ -282,6 +297,9 @@
     <ClInclude Include="Source\OpenGL\Texture.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="Source\OpenGL\UniformBuffer.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Source\OpenGL\VertexArray.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
@@ -300,12 +318,6 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\BulletPhysicsWorld.h" />
-    <ClInclude Include="Source\Components\BoxCollider3D.h" />
-    <ClInclude Include="Source\Components\ICollider3D.h" />
-    <ClInclude Include="Source\Components\Rigidbody3D.h" />
-    <ClInclude Include="Source\Components\SphereCollider3D.h" />
-    <ClInclude Include="Source\OpenGL\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -320,6 +332,9 @@
     <ClCompile Include="Source\Components\BoxCollider2D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\BoxCollider3D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Components\CircleCollider2D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -327,6 +342,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\ICollider2D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\ICollider3D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\ParticleEmitter.cpp">
@@ -344,7 +362,13 @@
     <ClCompile Include="Source\Components\Rigidbody2D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Components\Rigidbody3D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Components\Script.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\SphereCollider3D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Source\Components\Spline.cpp">
@@ -369,6 +393,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\BoundingBox.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Core\BulletPhysicsWorld.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Camera.cpp">
@@ -494,6 +521,9 @@
     <ClCompile Include="Source\OpenGL\Texture.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OpenGL\UniformBuffer.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Source\OpenGL\VertexArray.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -510,11 +540,5 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\BulletPhysicsWorld.cpp" />
-    <ClCompile Include="Source\Components\BoxCollider3D.cpp" />
-    <ClCompile Include="Source\Components\Rigidbody3D.cpp" />
-    <ClCompile Include="Source\Components\ICollider3D.cpp" />
-    <ClCompile Include="Source\Components\SphereCollider3D.cpp" />
-    <ClCompile Include="Source\OpenGL\UniformBuffer.cpp" />
   </ItemGroup>
 </Project>

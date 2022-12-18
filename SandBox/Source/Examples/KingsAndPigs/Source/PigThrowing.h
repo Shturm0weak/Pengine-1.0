@@ -9,11 +9,11 @@ using namespace Pengine;
 
 class PigThrowing : public Pig
 {
-	RTTR_ENABLE(Pig)
+	REGISTER_PARENT_CLASS(Pig)
 
-public: PROPERTY(PigThrowing, std::string, m_ObjectName, "")
-public: PROPERTY(PigThrowing, glm::vec3, m_PigScale, { 0.8f COM 0.8f COM 0.8f })
-public: PROPERTY(PigThrowing, glm::vec3, m_ThrowingPigScale, { 0.6f COM 0.6f COM 0.6f })
+public: PROPERTY(std::string, m_ObjectName, "")
+public: PROPERTY(glm::vec3, m_PigScale, { 0.8f COM 0.8f COM 0.8f })
+public: PROPERTY(glm::vec3, m_ThrowingPigScale, { 0.6f COM 0.6f COM 0.6f })
 private:
 
 	GameObject* m_ThrowingObjectPrefab = nullptr;
@@ -34,4 +34,4 @@ public:
 
 	virtual void OnStart() override;
 };
-REGISTER_CLASS(PigThrowing)
+REGISTER_COMPONENT(PigThrowing)

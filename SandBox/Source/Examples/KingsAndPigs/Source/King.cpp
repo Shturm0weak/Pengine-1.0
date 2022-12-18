@@ -19,11 +19,8 @@ IComponent* King::New(GameObject* owner)
 
 void King::Copy(const IComponent& component)
 {
-	Controller::Copy(component);
-
-	COPY_PROPERTIES(King, component)
-
 	King& king = *(King*)&component;
+	COPY_PROPERTIES(king)
 	m_Type = component.GetType();
 }
 

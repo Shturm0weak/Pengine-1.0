@@ -17,9 +17,8 @@ IComponent* Controller::New(GameObject* owner)
 
 void Controller::Copy(const IComponent& component)
 {
-	COPY_PROPERTIES(Controller, component)
-
 	Controller& controller = *(Controller*)&component;
+	COPY_PROPERTIES(controller)
 	m_Type = component.GetType();
 }
 

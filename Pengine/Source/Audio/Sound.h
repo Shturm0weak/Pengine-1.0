@@ -46,8 +46,6 @@ namespace Pengine
 		int GetState() const { return (int)m_State; }
 
 		ALuint GetId() const { return m_Source; }
-
-		virtual void Reload() override {}
 	};
 
 }

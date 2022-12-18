@@ -14,7 +14,7 @@ using namespace Pengine;
 void Renderer3D::Copy(const IComponent& component)
 {
 	Renderer3D& r3d = *(Renderer3D*)&component;
-    SetMaterial(r3d.m_Material->Inherit());
+    SetMaterial(r3d.m_Material);
 	m_Lods = r3d.m_Lods;
 	m_LodsDistance = r3d.m_LodsDistance;
 	m_CurrentLOD = -1;
@@ -143,7 +143,7 @@ IComponent* Renderer3D::Create(GameObject* owner)
 {
 	Renderer3D* r3d = MemoryManager::GetInstance().Allocate<Renderer3D>();
 	r3d->m_Owner = owner;
-	r3d->m_Type = Utils::GetTypeName<Renderer3D>();
+	r3d->m_Type = GetTypeName<Renderer3D>();
 	r3d->SetMaterial(MaterialManager::GetInstance().Load("Source/Materials/Material.mat"));
 	owner->GetScene()->m_Renderers3D.push_back(r3d);
 
@@ -191,11 +191,6 @@ void Renderer3D::SetMesh(Mesh* mesh, size_t lod)
 
 void Renderer3D::SetMaterial(Material* material)
 {
-	if (m_Material && m_Material->IsInherited())
-	{
-		delete m_Material;
-	}
-
 	m_Material = material;
 }
 

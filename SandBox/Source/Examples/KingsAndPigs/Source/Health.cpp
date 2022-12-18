@@ -26,9 +26,8 @@ IComponent* Health::New(GameObject* owner)
 
 void Health::Copy(const IComponent& component)
 {
-	COPY_PROPERTIES(Health, component)
-
 	Health& health = *(Health*)&component;
+	COPY_PROPERTIES(health)
 	m_Type = component.GetType();
 }
 

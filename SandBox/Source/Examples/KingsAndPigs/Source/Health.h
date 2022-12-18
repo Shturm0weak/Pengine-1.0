@@ -11,10 +11,10 @@ using namespace Pengine;
 
 class Health : public IComponent
 {
-	RTTR_ENABLE(IComponent)
+	REGISTER_PARENT_CLASS(IComponent)
 
-private: PROPERTY(Health, int, m_CurrentHealth, 3)
-private: PROPERTY(Health, int, m_MaxHealth, 3)
+private: PROPERTY(int, m_CurrentHealth, 3)
+private: PROPERTY(int, m_MaxHealth, 3)
 
 	std::function<void()> m_OnDeathCallback;
 
@@ -48,4 +48,4 @@ public:
 
 	bool IsDead() { return m_CurrentHealth <= Utils::Epsilonf(); }
 };
-REGISTER_CLASS(Health)
+REGISTER_COMPONENT(Health)

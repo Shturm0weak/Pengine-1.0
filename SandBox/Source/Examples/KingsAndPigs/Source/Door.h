@@ -9,9 +9,9 @@ using namespace Pengine;
 
 class Door : public IComponent, public IListener
 {
-	RTTR_ENABLE(IComponent)
+	REGISTER_PARENT_CLASS(IComponent)
 
-public: PROPERTY(Door, std::string, m_LevelName, "")
+public: PROPERTY(std::string, m_LevelName, "")
 private:
 
 	Animator2D* m_A2d = nullptr;
@@ -37,4 +37,4 @@ public:
 
 	void Open();
 };
-REGISTER_CLASS(Door)
+REGISTER_COMPONENT(Door)

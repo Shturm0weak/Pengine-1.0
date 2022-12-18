@@ -26,9 +26,29 @@
 
 #include <string>
 
+constexpr char* none = "None";
+
 // Used for RTTR.
 template<typename T>
 inline void ReflectionAddComponent(void* componentManager)
 {
 	static_cast<Pengine::ComponentManager*>(componentManager)->AddComponent<T>();
+}
+
+template<typename T>
+std::string GetTypeName()
+{
+	std::string typeName = std::string(typeid(T).name());
+	if (typeName.find(std::string("class")) == 0)
+	{
+		return typeName.substr(sizeof("class"));
+	}
+	else if (typeName.find(std::string("struct")) == 0)
+	{
+		return typeName.substr(sizeof("struct"));
+	}
+	else
+	{
+		return typeName;
+	}
 }

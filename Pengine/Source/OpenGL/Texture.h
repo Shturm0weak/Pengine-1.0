@@ -10,8 +10,6 @@ namespace Pengine
 
 	class PENGINE_API Texture : public IAsset
 	{
-		RTTR_ENABLE(IAsset)
-
 	public:
 
 		struct PENGINE_API TexParameteri
@@ -49,7 +47,7 @@ namespace Pengine
 		Texture(const std::string& filePath);
 		~Texture();
 
-		virtual void Reload() override;
+		void Reload();
 
 		void Reload(const std::vector<Texture::TexParameteri>& params, const std::vector<int>& texParametersIndices);
 		

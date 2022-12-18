@@ -10,7 +10,7 @@ using namespace Pengine;
 
 class Box : public Controller
 {
-	RTTR_ENABLE(Controller)
+	REGISTER_PARENT_CLASS(Controller)
 
 private:
 
@@ -30,4 +30,4 @@ public:
 
 	virtual void OnStart() override;
 };
-REGISTER_CLASS(Box)
+REGISTER_COMPONENT(Box)

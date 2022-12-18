@@ -22,8 +22,6 @@ namespace Pengine
 		friend class Serializer;
 	public:
 
-		virtual void Reload() override {}
-
 		std::vector<float> GetUV(const glm::vec2& position) const;
 		
 		void SetTexture(Texture* texture) { m_Texture = texture; }

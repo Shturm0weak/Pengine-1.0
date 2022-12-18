@@ -18,9 +18,8 @@ IComponent* Door::New(GameObject* owner)
 
 void Door::Copy(const IComponent& component)
 {
-	COPY_PROPERTIES(Door, component)
-
 	Door& door = *(Door*)&component;
+	COPY_PROPERTIES(door)
 	m_Type = component.GetType();
 }
 

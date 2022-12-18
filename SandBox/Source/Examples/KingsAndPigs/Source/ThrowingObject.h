@@ -13,13 +13,13 @@ using namespace Pengine;
 
 class ThrowingObject : public IComponent, public IListener
 {
-	RTTR_ENABLE(IComponent)
+	REGISTER_PARENT_CLASS(IComponent)
 
-public: PROPERTY(ThrowingObject, int, m_Damage, 1)
-public: PROPERTY(ThrowingObject, float, m_TimeToBlow, 1.0f)
-public: PROPERTY(ThrowingObject, bool, m_BlowOnCollide, false)
-public: PROPERTY(ThrowingObject, glm::vec2, m_DamageArea, { 0.25f COM 0.25f })
-public: PROPERTY(ThrowingObject, glm::vec2, m_BlowImpulse, { 0.25f COM 0.25f })
+public: PROPERTY(int, m_Damage, 1)
+public: PROPERTY(float, m_TimeToBlow, 1.0f)
+public: PROPERTY(bool, m_BlowOnCollide, false)
+public: PROPERTY(glm::vec2, m_DamageArea, { 0.25f COM 0.25f })
+public: PROPERTY(glm::vec2, m_BlowImpulse, { 0.25f COM 0.25f })
 private:
 
 	void Blow();
@@ -45,4 +45,4 @@ public:
 
 	void OnThrow();
 };
-REGISTER_CLASS(ThrowingObject)
+REGISTER_COMPONENT(ThrowingObject)

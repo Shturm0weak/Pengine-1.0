@@ -65,7 +65,7 @@ void Editor::Debug()
 		if (ImGui::CollapsingHeader("Misc"))
 		{
 			ImGui::Text("Allocations: %zu", m_Stats.s_AllocationsCount);
-			ImGui::Text("RTTR classes: %zu", ReflectionSystem::GetInstance().m_RegisteredClasses.size());
+			ImGui::Text("RTTR classes: %zu", ReflectionSystem::GetInstance().m_ClassesByType.size());
 			ImGui::Text("Selected objs: %zu", m_SelectedGameObjects.size());
 			ImGui::Text("GameObjects: %zu", m_CurrentScene->m_GameObjects.size());
 			ImGui::Text("Events: %zu", EventSystem::GetInstance().m_CurrentEvents.size());
@@ -1871,15 +1871,6 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 						ImGui::EndDragDropTarget();
 					}
 
-					if (r3d->m_Material->IsInherited() && ImGui::Button("Deinherited"))
-					{
-						r3d->SetMaterial(MaterialManager::GetInstance().Load(r3d->m_Material->GetFilePath()));
-					}
-					else if (!r3d->m_Material->IsInherited() && ImGui::Button("Inherited"))
-					{
-						r3d->SetMaterial(r3d->m_Material->Inherit());
-					}
-
 					ImGui::Text("FilePath: %s", r3d->m_Material ? r3d->m_Material->GetFilePath().c_str() : "None");
 					ImGui::Text("Name: %s", r3d->m_Material ? r3d->m_Material->GetName().c_str() : "None");
 
@@ -1899,7 +1890,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 							TextureManager::GetInstance().AsyncLoad(path,
 								[=](Texture* texture) 
 							{
-								r3d->m_Material->SetBaseColor(texture, path);
+								r3d->m_Material->m_BaseColor = texture;
 							});
 						}
 						ImGui::EndDragDropTarget();
@@ -1911,7 +1902,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					if (ImGui::Button("Reset"))
 					{
-						r3d->m_Material->SetBaseColor(TextureManager::GetInstance().White(), TextureManager::GetInstance().White()->GetName());
+						r3d->m_Material->m_BaseColor = TextureManager::GetInstance().White();
 					}
 
 					ImGui::PopID();
@@ -1932,7 +1923,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 							TextureManager::GetInstance().AsyncLoad(path,
 								[=](Texture* texture)
 							{
-								r3d->m_Material->SetNormalMap(texture, path);
+								r3d->m_Material->m_NormalMap = texture;
 							});
 						}
 						ImGui::EndDragDropTarget();
@@ -1948,7 +1939,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					if (ImGui::Button("Reset"))
 					{
-						r3d->m_Material->SetNormalMap(TextureManager::GetInstance().White(), TextureManager::GetInstance().White()->GetName());
+						r3d->m_Material->m_NormalMap = TextureManager::GetInstance().White();
 					}
 
 					ImGui::PopID();
@@ -1960,7 +1951,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 					ImGui::SliderFloat("Shininess", &r3d->m_Material->m_Shininess, 0.0f, 64.0f);
 					ImGui::SliderFloat("Solid", &r3d->m_Material->m_Solid, 0.0f, 1.0f);
 
-					if (!r3d->m_Material->IsInherited() && ImGui::Button("Save"))
+					if (ImGui::Button("Save"))
 					{
 						Serializer::SerializeMaterial(r3d->m_Material->GetFilePath(), r3d->m_Material);
 					}
@@ -1986,117 +1977,123 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 				{
 					Indent indent;
 
-					auto& types = rttr::type::get_types();
-					rttr::type componentClass = rttr::type::get_by_name(component->GetType().c_str());
-					for (auto& prop : componentClass.get_properties())
+					std::function<void(void*, const std::string&, size_t)> show = [&show, this](void* component, const std::string& typeName, size_t offset)
 					{
-						std::string type = prop.get_type().get_name();
-						std::string name = prop.get_name();
+						ReflectionSystem& reflectionSystem = ReflectionSystem::GetInstance();
+						auto classByType = reflectionSystem.m_ClassesByType.find(typeName);
+						if (classByType == reflectionSystem.m_ClassesByType.end())
+						{
+							return;
+						}
 
-						if (ReflectedProps::is_bool(type))
-						{
-							bool value = prop.get_value(component).to_float();
-							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::Checkbox(name.c_str(), &value))
-							{
-								prop.set_value(component, value);
-							}
-							ImGui::PopID();
-						}
-						else if (ReflectedProps::is_float(type))
-						{
-							float value = prop.get_value(component).to_float();
-							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::SliderFloat(name.c_str(), &value, 0.0f, 10.0f))
-							{
-								prop.set_value(component, value);
-							}
-							ImGui::PopID();
-						}
-						else if (ReflectedProps::is_int(type))
-						{
-							int value = prop.get_value(component).to_int();
-							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::SliderInt(name.c_str(), &value, 0, 10))
-							{
-								prop.set_value(component, value);
-							}
-							ImGui::PopID();
-						}
-						else if (ReflectedProps::is_double(type))
-						{
-							double value = prop.get_value(component).to_double();
-							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::InputDouble(name.c_str(), &value))
-							{
-								prop.set_value(component, value);
-							}
-							ImGui::PopID();
-						}
-						else if (ReflectedProps::is_string(type))
-						{
-							std::string value = prop.get_value(component).to_string();
-							char buffer[64];
-							strcpy(buffer, value.c_str());
-							ImGui::PushID(std::string(component->GetType() + name).c_str());
-							if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
-							{
-								prop.set_value(component, std::string(buffer));
-							}
+						const std::string componentType = typeName;
 
-							if (ImGui::BeginDragDropTarget())
+						for (auto& [name, prop] : classByType->second.m_PropertiesByName)
+						{
+							if (prop.IsValue<bool>())
 							{
-								if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+								bool value = reflectionSystem.GetValue<bool>(component, componentType, name);
+								ImGui::PushID(std::string(componentType + name).c_str());
+								if (ImGui::Checkbox(name.c_str(), &value))
 								{
-									std::string path((const char*)payload->Data);
-									path.resize(payload->DataSize);
-									prop.set_value(component, path);
+									reflectionSystem.SetValue(value, component, componentType, name);
 								}
-								else if(const ImGuiPayload * payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
-								{
-									prop.set_value(component, m_CurrentScene->FindGameObjectByUUID(m_SelectedGameObjects[0])->GetName());
-								}
-								ImGui::EndDragDropTarget();
+								ImGui::PopID();
 							}
+							else if (prop.IsValue<float>())
+							{
+								float value = reflectionSystem.GetValue<float>(component, componentType, name);
+								ImGui::PushID(std::string(componentType + name).c_str());
+								if (ImGui::SliderFloat(name.c_str(), &value, 0.0f, 10.0f))
+								{
+									reflectionSystem.SetValue(value, component, componentType, name);
+								}
+								ImGui::PopID();
+							}
+							else if (prop.IsValue<int>())
+							{
+								int value = reflectionSystem.GetValue<int>(component, componentType, name);
+								ImGui::PushID(std::string(componentType + name).c_str());
+								if (ImGui::SliderInt(name.c_str(), &value, 0, 10))
+								{
+									reflectionSystem.SetValue(value, component, componentType, name);
+								}
+								ImGui::PopID();
+							}
+							else if (prop.IsValue<double>())
+							{
+								double value = reflectionSystem.GetValue<double>(component, componentType, name);
+								ImGui::PushID(std::string(componentType + name).c_str());
+								if (ImGui::InputDouble(name.c_str(), &value))
+								{
+									reflectionSystem.SetValue(value, component, componentType, name);
+								}
+								ImGui::PopID();
+							}
+							else if (prop.IsValue<std::string>())
+							{
+								std::string value = reflectionSystem.GetValue<std::string>(component, componentType, name);
+								char buffer[64];
+								strcpy(buffer, value.c_str());
+								ImGui::PushID(std::string(componentType + name).c_str());
+								if (ImGui::InputText(name.c_str(), buffer, sizeof(buffer)))
+								{
+									reflectionSystem.SetValue(std::string(buffer), component, componentType, name);
+								}
 
-							ImGui::PopID();
-						}
-						else if (ReflectedProps::is_vec2(type))
-						{
-							glm::vec2 value = prop.get_value(component).get_value<glm::vec2>();
-							DrawVec2Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vec3(type))
-						{
-							glm::vec3 value = prop.get_value(component).get_value<glm::vec3>();
-							DrawVec3Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vec4(type))
-						{
-							glm::vec4 value = prop.get_value(component).get_value<glm::vec4>();
-							DrawVec4Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_ivec2(type))
-						{
-							glm::ivec2 value = prop.get_value(component).get_value<glm::ivec2>();
-							DrawIVec2Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_ivec3(type))
-						{
-							glm::ivec3 value = prop.get_value(component).get_value<glm::ivec3>();
-							DrawIVec3Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_ivec4(type))
-						{
-							glm::ivec4 value = prop.get_value(component).get_value<glm::ivec4>();
-							DrawIVec4Control(name.c_str(), value);
-							prop.set_value(component, value);
-						}
+								if (ImGui::BeginDragDropTarget())
+								{
+									if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+									{
+										std::string path((const char*)payload->Data);
+										path.resize(payload->DataSize);
+										reflectionSystem.SetValue(path, component, componentType, name);
+									}
+									else if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
+									{
+										reflectionSystem.SetValue(m_CurrentScene->FindGameObjectByUUID(m_SelectedGameObjects[0])->GetName(), component, componentType, name);
+									}
+									ImGui::EndDragDropTarget();
+								}
+
+								ImGui::PopID();
+							}
+							else if (prop.IsValue<glm::vec2>())
+							{
+								glm::vec2 value = reflectionSystem.GetValue<glm::vec2>(component, componentType, name);
+								DrawVec2Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<glm::vec3>())
+							{
+								glm::vec3 value = reflectionSystem.GetValue<glm::vec3>(component, componentType, name);
+								DrawVec3Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<glm::vec4>())
+							{
+								glm::vec4 value = reflectionSystem.GetValue<glm::vec4>(component, componentType, name);
+								DrawVec4Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<glm::ivec2>())
+							{
+								glm::ivec2 value = reflectionSystem.GetValue<glm::ivec2>(component, componentType, name);
+								DrawIVec2Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<glm::ivec3>())
+							{
+								glm::ivec3 value = reflectionSystem.GetValue<glm::ivec3>(component, componentType, name);
+								DrawIVec3Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<glm::ivec4>())
+							{
+								glm::ivec4 value = reflectionSystem.GetValue<glm::ivec4>(component, componentType, name);
+								DrawIVec4Control(name.c_str(), value);
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
 
 #define ADD_ELEMENT(_name, _value, _i) \
 						ImGui::Text(_name.c_str()); \
@@ -2109,10 +2106,10 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 						ImGui::PushID(std::string(_name + "-" + std::to_string(_i)).c_str()); \
 						if (ImGui::Button("-")) { _value.erase(_value.begin() + _i); } ImGui::PopID();
 
-						if (ReflectedProps::is_vectorfloat(type))
+							else if (prop.IsValue<std::vector<float>>())
 						{
-							std::vector<float> value = prop.get_value(component).get_value<std::vector<float>>();
-							
+							std::vector<float> value = reflectionSystem.GetValue<std::vector<float>>(component, componentType, name);
+
 							if (value.empty())
 							{
 								ADD_ELEMENT(name, value, -1)
@@ -2124,18 +2121,18 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 
 								REMOVE_ELEMENT(name, value, i)
 
-								if (i == 0)
-								{
-									ImGui::SameLine();
-									ADD_ELEMENT(name, value, i)
-								}
+									if (i == 0)
+									{
+										ImGui::SameLine();
+										ADD_ELEMENT(name, value, i)
+									}
 							}
 
-							prop.set_value(component, value);
+							reflectionSystem.SetValue(value, component, componentType, name);
 						}
-						else if (ReflectedProps::is_vectorint(type))
+							else if (prop.IsValue<std::vector<int>>())
 						{
-							std::vector<int> value = prop.get_value(component).get_value<std::vector<int>>();
+							std::vector<int> value = reflectionSystem.GetValue<std::vector<int>>(component, componentType, name);
 
 							if (value.empty())
 							{
@@ -2145,21 +2142,21 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 							for (size_t i = 0; i < value.size(); i++)
 							{
 								ImGui::InputInt(std::string("##int" + name + std::to_string(i)).c_str(), &value[i]);
-								
+
 								REMOVE_ELEMENT(name, value, i)
 
-								if (i == 0)
-								{
-									ImGui::SameLine();
-									ADD_ELEMENT(name, value, i)
-								}
+									if (i == 0)
+									{
+										ImGui::SameLine();
+										ADD_ELEMENT(name, value, i)
+									}
 							}
 
-							prop.set_value(component, value);
+							reflectionSystem.SetValue(value, component, componentType, name);
 						}
-						else if (ReflectedProps::is_vectordouble(type))
+							else if (prop.IsValue<std::vector<double>>())
 						{
-							std::vector<double> value = prop.get_value(component).get_value<std::vector<double>>();
+							std::vector<double> value = reflectionSystem.GetValue<std::vector<double>>(component, componentType, name);
 
 							if (value.empty())
 							{
@@ -2169,21 +2166,21 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 							for (size_t i = 0; i < value.size(); i++)
 							{
 								ImGui::InputDouble(std::string("##double" + name + std::to_string(i)).c_str(), &value[i]);
-							
+
 								REMOVE_ELEMENT(name, value, i)
 
-								if (i == 0)
-								{
-									ImGui::SameLine();
-									ADD_ELEMENT(name, value, i)
-								}
+									if (i == 0)
+									{
+										ImGui::SameLine();
+										ADD_ELEMENT(name, value, i)
+									}
 							}
 
-							prop.set_value(component, value);
+							reflectionSystem.SetValue(value, component, componentType, name);
 						}
-						else if (ReflectedProps::is_vectorbool(type))
+							else if (prop.IsValue<std::vector<bool>>())
 						{
-							std::vector<bool> value = prop.get_value(component).get_value<std::vector<bool>>();
+							std::vector<bool> value = reflectionSystem.GetValue<std::vector<bool>>(component, componentType, name);
 
 							if (value.empty())
 							{
@@ -2198,18 +2195,18 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 
 								REMOVE_ELEMENT(name, value, i)
 
-								if (i == 0)
-								{
-									ImGui::SameLine();
-									ADD_ELEMENT(name, value, i)
-								}
+									if (i == 0)
+									{
+										ImGui::SameLine();
+										ADD_ELEMENT(name, value, i)
+									}
 							}
 
-							prop.set_value(component, value);
+							reflectionSystem.SetValue(value, component, componentType, name);
 						}
-						else if (ReflectedProps::is_vectorstring(type))
+							else if (prop.IsValue<std::vector<std::string>>())
 						{
-							std::vector<std::string> value = prop.get_value(component).get_value<std::vector<std::string>>();
+							std::vector<std::string> value = reflectionSystem.GetValue<std::vector<std::string>>(component, componentType, name);
 
 							if (value.empty())
 							{
@@ -2224,171 +2221,152 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 								{
 									value[i] = buffer;
 								}
-								
+
 								REMOVE_ELEMENT(name, value, i)
 
-								if (i == 0)
+									if (i == 0)
+									{
+										ImGui::SameLine();
+										ADD_ELEMENT(name, value, i)
+									}
+							}
+
+							reflectionSystem.SetValue(value, component, componentType, name);
+						}
+
+							m_DrawVecLabel = false;
+
+							if (prop.IsValue<std::vector<glm::vec2>>())
+							{
+								std::vector<glm::vec2> value = reflectionSystem.GetValue<std::vector<glm::vec2>>(component, componentType, name);
+
+								if (value.empty())
 								{
-									ImGui::SameLine();
-									ADD_ELEMENT(name, value, i)
+									ADD_ELEMENT(name, value, -1)
 								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawVec2Control(std::string("vec2" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<std::vector<glm::vec3>>())
+							{
+								std::vector<glm::vec3> value = reflectionSystem.GetValue<std::vector<glm::vec3>>(component, componentType, name);
+
+								if (value.empty())
+								{
+									ADD_ELEMENT(name, value, -1)
+								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawVec3Control(std::string("vec3" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<std::vector<glm::vec4>>())
+							{
+								std::vector<glm::vec4> value = reflectionSystem.GetValue<std::vector<glm::vec4>>(component, componentType, name);
+
+								if (value.empty())
+								{
+									ADD_ELEMENT(name, value, -1)
+								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawVec4Control(std::string("vec4" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<std::vector<glm::ivec2>>())
+							{
+								std::vector<glm::ivec2> value = reflectionSystem.GetValue<std::vector<glm::ivec2>>(component, componentType, name);
+
+								if (value.empty())
+								{
+									ADD_ELEMENT(name, value, -1)
+								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawIVec2Control(std::string("ivec2" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<std::vector<glm::ivec3>>())
+							{
+								std::vector<glm::ivec3> value = reflectionSystem.GetValue<std::vector<glm::ivec3>>(component, componentType, name);
+
+								if (value.empty())
+								{
+									ADD_ELEMENT(name, value, -1)
+								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawIVec3Control(std::string("ivec3" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
+							}
+							else if (prop.IsValue<std::vector<glm::ivec4>>())
+							{
+								std::vector<glm::ivec4> value = reflectionSystem.GetValue<std::vector<glm::ivec4>>(component, componentType, name);
+
+								if (value.empty())
+								{
+									ADD_ELEMENT(name, value, -1)
+								}
+
+								for (size_t i = 0; i < value.size(); i++)
+								{
+									if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
+
+									DrawIVec4Control(std::string("ivec4" + name + std::to_string(i)), value[i]);
+
+									REMOVE_ELEMENT(name, value, i)
+								}
+
+								reflectionSystem.SetValue(value, component, componentType, name);
 							}
 
-							prop.set_value(component, value);
+							m_DrawVecLabel = true;
 						}
 
-						m_DrawVecLabel = false;
-
-						if (ReflectedProps::is_vectorvec2(type))
+						for (const auto& parent : classByType->second.m_Parents)
 						{
-							std::vector<glm::vec2> value = prop.get_value(component).get_value<std::vector<glm::vec2>>();
-
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawVec2Control(std::string("vec2" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
+							show(component, parent.first, parent.second);
 						}
-						else if (ReflectedProps::is_vectorvec3(type))
-						{
-							std::vector<glm::vec3> value = prop.get_value(component).get_value<std::vector<glm::vec3>>();
+					};
 
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawVec3Control(std::string("vec3" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vectorvec4(type))
-						{
-							std::vector<glm::vec4> value = prop.get_value(component).get_value<std::vector<glm::vec4>>();
-
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawVec4Control(std::string("vec4" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vectorivec2(type))
-						{
-							std::vector<glm::ivec2> value = prop.get_value(component).get_value<std::vector<glm::ivec2>>();
-
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawIVec2Control(std::string("ivec2" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vectorivec3(type))
-						{
-							std::vector<glm::ivec3> value = prop.get_value(component).get_value<std::vector<glm::ivec3>>();
-
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawIVec3Control(std::string("ivec3" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
-						}
-						else if (ReflectedProps::is_vectorivec4(type))
-						{
-							std::vector<glm::ivec4> value = prop.get_value(component).get_value<std::vector<glm::ivec4>>();
-
-							if (value.empty())
-							{
-								ADD_ELEMENT(name, value, -1)
-							}
-
-							for (size_t i = 0; i < value.size(); i++)
-							{
-								if (i == 0) { ADD_ELEMENT(name, value, i); ImGui::SameLine(); }
-
-								DrawIVec4Control(std::string("ivec4" + name + std::to_string(i)), value[i]);
-
-								REMOVE_ELEMENT(name, value, i)
-							}
-
-							prop.set_value(component, value);
-						}
-
-						m_DrawVecLabel = true;
-
-						//else if (prop.get_type().is_pointer())
-						//{
-						//	if (prop.get_value(component).can_convert<Texture*>())
-						//	{
-						//		Texture* value = prop.get_value(component).get_value<Texture*>();
-						//		ImGui::Image((ImTextureID)value->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0, 1), ImVec2(1, 0));
-						//
-						//		if (ImGui::BeginDragDropTarget())
-						//		{
-						//			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
-						//			{
-						//				std::string path((const char*)payload->Data);
-						//				path.resize(payload->DataSize);
-						//				TextureManager::GetInstance().AsyncCreate(path);
-						//				TextureManager::GetInstance().AsyncGet([=](Texture* texture) {
-						//					prop.set_value(component, texture);
-						//					}, Utils::GetNameFromFilePath(path));
-						//			}
-						//			ImGui::EndDragDropTarget();
-						//		}
-						//
-						//		ImGui::SameLine();
-						//
-						//		ImGui::Text(prop.get_name().c_str());
-						//	}
-						//}
-					}
+					show(component, component->GetType(), 0);
 				}
 			}
 		}
@@ -2601,11 +2579,11 @@ void Editor::ComponentsMenu(GameObject* gameObject)
 			gameObject->m_ComponentManager.AddComponent<Spline>();
 		}
 
-		for (auto& registeredClass : ReflectionSystem::GetInstance().m_RegisteredClasses)
+		for (auto& classesByType : ReflectionSystem::GetInstance().m_ClassesByType)
 		{
-			if (Utils::IsUserDefinedComponent(registeredClass.first) && ImGui::MenuItem(registeredClass.first.c_str()))
+			if (Utils::IsUserDefinedComponent(classesByType.first) && ImGui::MenuItem(classesByType.first.c_str()))
 			{
-				registeredClass.second.m_AddComponentCallBack(&gameObject->m_ComponentManager);
+				classesByType.second.m_AddComponentCallBack(&gameObject->m_ComponentManager);
 			}
 		}
 		ImGui::EndPopup();
@@ -2842,17 +2820,6 @@ void Editor::Settings()
 			ImGui::PopID();
 		}
 
-		if (ImGui::Button("Deinherit all materials"))
-		{
-			for (Renderer3D* r3d : m_CurrentScene->m_Renderers3D)
-			{
-				if (r3d->m_Material->IsInherited())
-				{
-					r3d->SetMaterial(MaterialManager::GetInstance().Load(r3d->m_Material->GetFilePath()));
-				}
-			}
-		}
-
 		ImGui::End();
 	}
 }
@@ -3072,7 +3039,7 @@ void Editor::Animation2DMenu::Update()
 		}
 		else
 		{
-			ImGui::Text("Filepath: %s", m_Animation->m_FilePath.c_str());
+			ImGui::Text("Filepath: %s", m_Animation->GetFilePath().c_str());
 		}
 
 		const float padding = 16.0f;

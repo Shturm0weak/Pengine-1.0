@@ -14,14 +14,14 @@ using namespace Pengine;
 
 class Pig : public Controller
 {
-	RTTR_ENABLE(Controller)
+	REGISTER_PARENT_CLASS(Controller)
 
 private:
 
-public: PROPERTY(Pig, int, m_InitializeDirection, 1)
-public: PROPERTY(Pig, float, m_VisibilityRange, 2.0f)
-public: PROPERTY(Pig, float, m_WaitTimer, 0.0f);
-public: PROPERTY(Pig, float, m_TimeToWait, 3.0f);
+public: PROPERTY(int, m_InitializeDirection, 1)
+public: PROPERTY(float, m_VisibilityRange, 2.0f)
+public: PROPERTY(float, m_WaitTimer, 0.0f);
+public: PROPERTY(float, m_TimeToWait, 3.0f);
 
 	GameObject* m_StartPosition = nullptr;
 	GameObject* m_EndPosition = nullptr;
@@ -59,4 +59,4 @@ public:
 
 	virtual void OnStart() override;
 };
-REGISTER_CLASS(Pig)
+REGISTER_COMPONENT(Pig)

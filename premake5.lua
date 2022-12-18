@@ -25,7 +25,6 @@ project "Pengine"
 		"$(SolutionDir)Includes/GLEW",
 		"$(SolutionDir)Includes/GLFW",
 		"$(SolutionDir)Includes/LUA",
-		"$(SolutionDir)Includes/rttr",
 		"$(SolutionDir)Includes",
 		"$(SolutionDir)Vendor",
 		"$(SolutionDir)Vendor/ImGui"
@@ -75,14 +74,9 @@ project "Pengine"
 		
 		postbuildcommands {
 			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug"),
-			("{COPY} $(SolutionDir)Dlls/rttr_core_d.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 		}
 
 		libdirs {"$(SolutionDir)Libs/Debug"}
-
-		links {
-			"rttr_core_d.lib"
-		}
 		
 	filter "configurations:Release"
 		defines "_RELEASE"
@@ -92,14 +86,9 @@ project "Pengine"
 
 		postbuildcommands {
 			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release"),
-			("{COPY} $(SolutionDir)Dlls/rttr_core.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
 		}
 
 		libdirs {"$(SolutionDir)Libs/Release"}
-
-		links {
-			"rttr_core.lib"
-		}
 
 project "SandBox"
 	location "SandBox"
@@ -162,10 +151,6 @@ project "SandBox"
 
 		libdirs {"$(SolutionDir)Libs/Debug"}
 
-		links {
-			"rttr_core_d.lib"
-		}
-
 	filter "configurations:Release"
 		defines "_RELEASE"
 		runtime "Release"
@@ -173,10 +158,6 @@ project "SandBox"
 		optimize "Full"
 
 		libdirs {"$(SolutionDir)Libs/Release"}
-
-		links {
-			"rttr_core.lib"
-		}
 
 ImGuiLocation = "Vendor/ImGui"
 

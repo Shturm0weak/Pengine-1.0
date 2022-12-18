@@ -45,7 +45,7 @@ namespace Pengine
 		{
 			for (auto component : m_Components)
 			{
-				if (component->GetType() == Utils::GetTypeName<T>())
+				if (component->GetType() == GetTypeName<T>())
 				{
 					return static_cast<T*>(component);
 				}
@@ -80,11 +80,11 @@ namespace Pengine
 			{
 				component = T::Create(m_Owner);
 				component->m_Owner = m_Owner;
-				component->m_Type = Utils::GetTypeName<T>();
+				component->m_Type = GetTypeName<T>();
 				m_Components.push_back(component);
 #ifdef _DEBUG
 				Logger::Log("has been added to GameObject!",
-					Utils::GetTypeName<T>().c_str(), m_Owner->GetName().c_str(), RESET);
+					GetTypeName<T>().c_str(), m_Owner->GetName().c_str(), RESET);
 #endif
 				return static_cast<T*>(component);
 			}

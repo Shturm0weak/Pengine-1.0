@@ -34,11 +34,9 @@ namespace Pengine
 
 			Animation2D(const std::string& filePath, const std::string& name)
 			{
-				SetFilePath(filePath);
-				SetName(name);
+				m_FilePath = filePath;
+				m_Name = name;
 			}
-
-			virtual void Reload() override {}
 
 			void operator=(const Animation2D& animation)
 			{

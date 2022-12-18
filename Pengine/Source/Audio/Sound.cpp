@@ -15,8 +15,8 @@ void Sound::SetVolume(float volume) const
 
 Sound::Sound(const std::string& filePath)
 {
-	SetFilePath(filePath);
-	SetName(filePath);
+	m_FilePath = filePath;
+	m_Name = filePath;
 
 	std::string format = Utils::GetResolutionFromFilePath(filePath);
 	if (format == "ogg")

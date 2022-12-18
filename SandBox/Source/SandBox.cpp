@@ -1,15 +1,13 @@
 #include "Core/EntryPoint.h"
 
-#include "Sponza/Sponza.h"
-#include "Examples/BulletPhysics.h"
-#include "Examples/KingsAndPigs/Source/KingsAndPigs.h"
+#include "Examples/RTTRSystem.h"
 
 using namespace Pengine;
 
 int main()
 {
 	EntryPoint entrypoint;
-	KingsAndPigs application;
+	Application application;
 
 #ifdef STANDALONE
 	ShowWindow(GetConsoleWindow(), SW_HIDE);

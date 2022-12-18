@@ -14,7 +14,7 @@ using namespace Pengine;
 
 class King : public Controller
 {
-	RTTR_ENABLE(Controller)
+	REGISTER_PARENT_CLASS(Controller)
 
 private:
 
@@ -52,4 +52,4 @@ public:
 
 	virtual void OnUpdate() override;
 };
-REGISTER_CLASS(King)
+REGISTER_COMPONENT(King)

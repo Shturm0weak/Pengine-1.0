@@ -17,26 +17,26 @@ using namespace Pengine;
 
 class Controller : public IComponent, public IListener
 {
-	RTTR_ENABLE(IComponent)
+	REGISTER_PARENT_CLASS(IComponent)
 
 private:
 
 	bool IsLandedCalculate();
 
-public: PROPERTY(Controller, bool, m_UVReversedByDefault, false)
-public: PROPERTY(Controller, bool, m_HasRigidbody, true)
-public: PROPERTY(Controller, int, m_Direction, 1)
-public: PROPERTY(Controller, int, m_Damage, 1)
-public: PROPERTY(Controller, float, m_DeathSpeed, 0.3f)
-public: PROPERTY(Controller, float, m_Speed, 2.0f)
-public: PROPERTY(Controller, float, m_Jump, 3.0f)
-public: PROPERTY(Controller, float, m_AttackRange, 0.5f)
-public: PROPERTY(Controller, float, m_AttackCoolDown, 1.0f)
-public: PROPERTY(Controller, glm::vec2, m_AttackImpulse, { 0.5f COM 0.25f })
-public: PROPERTY(Controller, std::string, m_GroundColliderTag, "")
-public: PROPERTY(Controller, std::string, m_EnemyColliderTag, "")
-public: PROPERTY(Controller, std::vector<std::string>, m_IgnoreGroundColliderTags, {})
-public: PROPERTY(Controller, std::vector<std::string>, m_IgnoreAttackColliderTags, {})
+public: PROPERTY(bool, m_UVReversedByDefault, false)
+public: PROPERTY(bool, m_HasRigidbody, true)
+public: PROPERTY(int, m_Direction, 1)
+public: PROPERTY(int, m_Damage, 1)
+public: PROPERTY(float, m_DeathSpeed, 0.3f)
+public: PROPERTY(float, m_Speed, 2.0f)
+public: PROPERTY(float, m_Jump, 3.0f)
+public: PROPERTY(float, m_AttackRange, 0.5f)
+public: PROPERTY(float, m_AttackCoolDown, 1.0f)
+public: PROPERTY(glm::vec2, m_AttackImpulse, { 0.5f COM 0.25f })
+public: PROPERTY(std::string, m_GroundColliderTag, "")
+public: PROPERTY(std::string, m_EnemyColliderTag, "")
+public: PROPERTY(std::vector<std::string>, m_IgnoreGroundColliderTags, {})
+public: PROPERTY(std::vector<std::string>, m_IgnoreAttackColliderTags, {})
 
 	std::vector<Sound*> m_JumpSounds;
 	std::vector<Sound*> m_HitSounds;
@@ -135,4 +135,4 @@ public:
 
 	int GetDirection() const { return m_Direction; }
 };
-REGISTER_CLASS(Controller)
+REGISTER_COMPONENT(Controller)

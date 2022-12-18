@@ -15,9 +15,8 @@ IComponent* ThrowingObject::New(GameObject* owner)
 
 void ThrowingObject::Copy(const IComponent& component)
 {
-	COPY_PROPERTIES(ThrowingObject, component)
-
 	ThrowingObject& throwingObject = *(ThrowingObject*)&component;
+	COPY_PROPERTIES(throwingObject)
 	m_Type = component.GetType();
 }
 

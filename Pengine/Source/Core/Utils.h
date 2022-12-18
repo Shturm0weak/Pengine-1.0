@@ -144,12 +144,6 @@ namespace Pengine
 			return false;
 		}
 
-		template<typename T>
-		inline std::string GetTypeName()
-		{
-			return (std::string(typeid(T).name()).substr(6));
-		}
-
 		PENGINE_API inline void Print(const glm::mat3& mat)
 		{
 			for (size_t i = 0; i < 3; i++)

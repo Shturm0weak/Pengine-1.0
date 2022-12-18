@@ -134,15 +134,13 @@ namespace Pengine
 
 		static void DeserializeUserDefinedComponents(YAML::Node& in, ComponentManager& componentManager);
 
+		static void SerializeRTTR(YAML::Emitter& out, void* instance, const std::string typeName);
+
+		static void DeSerializeRTTR(YAML::Node& in, void* instance, const std::string typeName);
+
 		static void SerializeMaterial(const std::string& filePath, Material* material);
 
 		static Material* DeserializeMaterial(const std::string& filePath);
-
-		template<typename T>
-		static void SerializeRttrType(YAML::Emitter& out, const rttr::type& type, T* instance);
-
-		template<typename T>
-		static void DeserializeRttrType(YAML::Node& in, const rttr::type& type, T* instance);
 	};
 
 }

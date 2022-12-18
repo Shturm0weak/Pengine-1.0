@@ -114,9 +114,8 @@ IComponent* FirstPersonController::New(GameObject* owner)
 
 void FirstPersonController::Copy(const IComponent& component)
 {
-	COPY_PROPERTIES(FirstPersonController, component)
-
 	FirstPersonController& firstPersonController = *(FirstPersonController*)&component;
+	COPY_PROPERTIES(firstPersonController)
 	m_Type = component.GetType();
 }
 

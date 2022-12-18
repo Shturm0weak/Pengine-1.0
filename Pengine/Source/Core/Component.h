@@ -8,8 +8,6 @@ namespace Pengine
 
 	class PENGINE_API IComponent
 	{
-		RTTR_ENABLE()
-
 	protected:
 
 		/**

@@ -40,19 +40,19 @@ namespace Pengine
 		template<typename T>
 		void FreeMemory(class IAllocator* allocator)
 		{
-			FreeMemory(Utils::GetTypeName<T>(), allocator);
+			FreeMemory(GetTypeName<T>(), allocator);
 		}
 
 		template<typename T>
 		MemoryPool* GetPool()
 		{
-			return GetPool(Utils::GetTypeName<T>());
+			return GetPool(GetTypeName<T>());
 		}
 
 		template<typename T>
 		T* Allocate()
 		{
-			std::string type = Utils::GetTypeName<T>();
+			std::string type = GetTypeName<T>();
 
 			AddPool(type);
 			MemoryPool* memoryPool = GetPool(type);

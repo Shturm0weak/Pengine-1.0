@@ -134,11 +134,8 @@ IComponent* Pig::New(GameObject* owner)
 
 void Pig::Copy(const IComponent& component)
 {
-	Controller::Copy(component);
-
-	COPY_PROPERTIES(Pig, component)
-
 	Pig& pig = *(Pig*)&component;
+	COPY_PROPERTIES(pig)
 	m_Type = component.GetType();
 }
 
