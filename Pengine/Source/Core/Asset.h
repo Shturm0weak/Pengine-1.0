@@ -8,10 +8,8 @@ namespace Pengine
 
 	class PENGINE_API IAsset
 	{
-	protected:
-
-		std::string m_Name = none;
-		std::string m_FilePath = none;
+	protected: PROPERTY(std::string, m_Name, none)
+	protected: PROPERTY(std::string, m_FilePath, none)
 	public:
 
 		std::string GetName() const { return m_Name; }
@@ -19,5 +17,6 @@ namespace Pengine
 
 		void GenerateFromFilePath(const std::string& filePath);
 	};
+	REGISTER_CLASS(IAsset)
 
 }

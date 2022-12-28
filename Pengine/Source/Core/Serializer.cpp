@@ -1274,6 +1274,15 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 		{
 			r3d->SetMaterial(MaterialManager::GetInstance().Load(MaterialData.as<std::string>(), true));
 		}
+
+		if (auto& inheritedData = renderer3DIn["IsInherited"])
+		{
+			if (inheritedData.as<bool>())
+			{
+				std::string filePathData = renderer3DIn["m_FilePath"]["Value"].as<std::string>();
+				r3d->SetMaterial(MaterialManager::GetInstance().Load(filePathData, true));
+			}
+		}
 	}
 }
 
@@ -2197,7 +2206,12 @@ if (prop.IsValue<_type>()) \
 			else SERIALIZE_VECTOR_PROPERTY(std::vector<glm::ivec2>)
 			else SERIALIZE_VECTOR_PROPERTY(std::vector<glm::ivec3>)
 			else SERIALIZE_VECTOR_PROPERTY(std::vector<glm::ivec4>)
-
+			else if (prop.IsValue<Texture*>())
+			{
+				Texture* value = reflectionSystem.GetValue<Texture*>(instance, typeName, name);
+				out << YAML::Key << "Type" << prop.m_Type;
+				out << YAML::Key << "Value" << value->GetFilePath();
+			}
 			out << YAML::EndMap;
 		}
 
@@ -2255,6 +2269,15 @@ if (GetTypeName<_type>() == type) \
 				else DESERIALIZE_PROPERTY(std::vector<glm::ivec2>)
 				else DESERIALIZE_PROPERTY(std::vector<glm::ivec3>)
 				else DESERIALIZE_PROPERTY(std::vector<glm::ivec4>)
+				else if (GetTypeName<Texture*>() == type)
+				{
+					std::string value = propData["Value"].as<std::string>();
+					TextureManager::GetInstance().AsyncLoad(value,
+						[&reflectionSystem, instance, typeName, propName = name](Texture* texture)
+					{
+						reflectionSystem.SetValue(texture, instance, typeName, propName);
+					});
+				}
 			}
 		}
 
@@ -2269,15 +2292,15 @@ if (GetTypeName<_type>() == type) \
 
 void Serializer::SerializeMaterial(const std::string& filePath, Material* material)
 {
-	/*if (filePath.empty() || filePath == "None")
+	if (filePath.empty() || filePath == "None")
 	{
 		Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
 
 		return;
 	}
 
-	auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
-	if (registeredClass != ReflectionSystem::GetInstance().m_RegisteredClasses.end())
+	auto registeredClass = ReflectionSystem::GetInstance().m_ClassesByType.find(GetTypeName<Material>());
+	if (registeredClass != ReflectionSystem::GetInstance().m_ClassesByType.end())
 	{
 		YAML::Emitter out;
 
@@ -2286,9 +2309,7 @@ void Serializer::SerializeMaterial(const std::string& filePath, Material* materi
 		out << YAML::Key << "Material";
 		out << YAML::BeginMap;
 
-		rttr::type materialClass = rttr::type::get_by_name(registeredClass->first.c_str());
-
-		SerializeRttrType<Material>(out, materialClass, material);
+		SerializeRTTR(out, material, GetTypeName<Material>());
 
 		out << YAML::EndMap;
 
@@ -2298,62 +2319,45 @@ void Serializer::SerializeMaterial(const std::string& filePath, Material* materi
 		fout << out.c_str();
 
 		Logger::Success("has been serialized!", "Material", filePath.c_str());
-	}*/
+	}
 }
 
 Material* Serializer::DeserializeMaterial(const std::string& filePath)
 {
-	//if (filePath.empty() || filePath == "None")
-	//{
-	//	Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
+	if (filePath.empty() || filePath == "None" || !Utils::Contains(filePath, "mat"))
+	{
+		Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
 
-	//	return nullptr;
-	//}
+		return nullptr;
+	}
 
-	//std::ifstream stream(filePath);
-	//std::stringstream strStream;
+	std::ifstream stream(filePath);
+	std::stringstream strStream;
 
-	//strStream << stream.rdbuf();
-
-	//YAML::Node data = YAML::LoadMesh(strStream.str());
-	//if (!data)
-	//{
-	//	Logger::Warning("file doesn't exist!", "Material", filePath.c_str());
-
-	//	return nullptr;
-	//}
-
-	//YAML::Node materialData = data["Material"];
-	//if (!materialData)
-	//{
-	//	Logger::Warning("file doesn't contain any material data!", "Material", filePath.c_str());
-
-	//	return nullptr;
-	//}
+	strStream << stream.rdbuf();
 
 	Material* material = new Material();
-	//material->GenerateFromFilePath(filePath);
+	material->GenerateFromFilePath(filePath);
 
-	//auto registeredClass = ReflectionSystem::GetInstance().m_RegisteredClasses.find(std::string(typeid(Material).name()).substr(6));
-	//if (registeredClass != ReflectionSystem::GetInstance().m_RegisteredClasses.end())
-	//{
-	//	rttr::type componentClass = rttr::type::get_by_name(registeredClass->first.c_str());
-	//	DeserializeRttrType<Material>(materialData, componentClass, material);
-	//}
+	YAML::Node data = YAML::LoadMesh(strStream.str());
+	if (!data)
+	{
+		Logger::Warning("file doesn't exist!", "Material", filePath.c_str());
 
-	//TextureManager::GetInstance().AsyncLoad(material->m_BaseColorFilePath,
-	//	[=](Texture* texture)
-	//{
-	//		material->SetBaseColor(texture, material->m_BaseColorFilePath);
-	//});
+		return nullptr;
+	}
 
-	//TextureManager::GetInstance().AsyncLoad(material->m_NormalMapFilePath,
-	//	[=](Texture* texture)
-	//{
-	//	material->SetNormalMap(texture, material->m_NormalMapFilePath);
-	//});
+	YAML::Node materialData = data["Material"];
+	if (!materialData)
+	{
+		Logger::Warning("file doesn't contain any material data! Default material is loaded!", "Material", filePath.c_str());
 
-	//Logger::Success("has been deserialized!", "Material", filePath.c_str());
+		return material;
+	}
+
+	DeSerializeRTTR(materialData, material, GetTypeName<Material>());
+
+	Logger::Success("has been deserialized!", "Material", filePath.c_str());
 
 	return material;
 }

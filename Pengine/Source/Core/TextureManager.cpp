@@ -67,6 +67,11 @@ void TextureManager::Delete(Texture* texture)
 
 void TextureManager::AsyncLoad(const std::string& filePath, std::function<void(Texture*)> callback)
 {
+	if (filePath == "White")
+	{
+		callback(White());
+	}
+
 	if (!Utils::IsTextureFile(filePath) && !Utils::Contains(filePath, ".meta"))
 	{
 		return;

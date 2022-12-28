@@ -27,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [-9.30494881, 5.0812912, 0.76736021]
-    Rotation: [-0.244602576, -1.4006772, 0]
+    Position: [-9.07692146, 5.21203852, 0.919805348]
+    Rotation: [-0.180454418, -1.295789, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -463,11 +463,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Sponza/Materials/Emissive.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -497,11 +496,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Sponza/Materials/Emissive.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -531,11 +529,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Sponza/Materials/Emissive.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -565,11 +562,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Sponza/Materials/Emissive.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -599,11 +595,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Sponza/Materials/Emissive.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -1225,7 +1220,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_236.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1250,7 +1244,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_328.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1275,7 +1268,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_329.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1300,7 +1292,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_237.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1325,7 +1316,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_261.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1350,7 +1340,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_99.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1375,7 +1364,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_98.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1400,7 +1388,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_320.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1425,7 +1412,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_321.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1450,7 +1436,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_322.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1475,7 +1460,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_323.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1500,7 +1484,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_324.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1525,7 +1508,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_325.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1550,7 +1532,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_326.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1575,7 +1556,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_327.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1600,7 +1580,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_263.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1625,7 +1604,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_150.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1650,7 +1628,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_265.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1675,7 +1652,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_156.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1700,7 +1676,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_155.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1725,7 +1700,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_266.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1750,7 +1724,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_117.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1775,7 +1748,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_116.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1800,7 +1772,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_115.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1825,7 +1796,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_114.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1850,7 +1820,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_113.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1875,7 +1844,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_220.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1900,7 +1868,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_223.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1925,7 +1892,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_222.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1950,7 +1916,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_229.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -1975,7 +1940,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_228.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2000,7 +1964,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_119.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2025,7 +1988,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_118.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2050,7 +2012,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_75.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2075,7 +2036,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_74.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2100,7 +2060,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_77.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2125,7 +2084,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_76.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2150,7 +2108,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_71.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2175,7 +2132,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_70.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2200,7 +2156,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_73.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2225,7 +2180,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_72.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2250,7 +2204,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_90.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2275,7 +2228,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_79.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2300,7 +2252,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_78.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2325,7 +2276,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_97.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2350,7 +2300,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_96.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2375,7 +2324,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_95.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2400,7 +2348,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_343.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2425,7 +2372,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_340.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2450,7 +2396,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_341.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2475,7 +2420,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_346.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2500,7 +2444,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_347.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2525,7 +2468,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_94.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2550,7 +2492,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_345.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2575,7 +2516,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_348.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2600,7 +2540,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_349.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2625,7 +2564,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_93.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2650,7 +2588,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_92.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2675,7 +2612,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_188.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2700,7 +2636,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_189.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2725,7 +2660,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_184.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2750,7 +2684,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_185.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2775,7 +2708,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_186.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2800,7 +2732,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_187.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2825,7 +2756,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_180.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2850,7 +2780,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_181.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2875,7 +2804,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_182.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2900,7 +2828,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_183.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2925,7 +2852,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_122.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2950,7 +2876,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_123.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -2975,7 +2900,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_120.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3000,7 +2924,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_121.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3025,7 +2948,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_126.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3050,7 +2972,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_127.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3075,7 +2996,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_171.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3100,7 +3020,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_209.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3125,7 +3044,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_208.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3150,7 +3068,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_207.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3175,7 +3092,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_206.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3200,7 +3116,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_205.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3225,7 +3140,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_204.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3250,7 +3164,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_203.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3275,7 +3188,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_202.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3300,7 +3212,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_201.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3325,7 +3236,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_200.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3350,7 +3260,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_173.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3375,7 +3284,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_59.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3400,7 +3308,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_58.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3425,7 +3332,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_172.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3450,7 +3356,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_53.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3475,7 +3380,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_52.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3500,7 +3404,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_51.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3525,7 +3428,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_50.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3550,7 +3452,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_57.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3575,7 +3476,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_56.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3600,7 +3500,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_55.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3625,7 +3524,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_54.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3650,7 +3548,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_282.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3675,7 +3572,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_175.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3700,7 +3596,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_177.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3725,7 +3620,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_286.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3750,7 +3644,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_176.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3775,7 +3668,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_218.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3800,7 +3692,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_219.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3825,7 +3716,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_214.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3850,7 +3740,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_215.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3875,7 +3764,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_216.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3900,7 +3788,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_217.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3925,7 +3812,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_210.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3950,7 +3836,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_211.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -3975,7 +3860,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_212.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4000,7 +3884,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_213.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4025,7 +3908,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_260.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4050,7 +3932,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_28.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4075,7 +3956,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_29.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4100,7 +3980,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_26.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4125,7 +4004,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_27.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4150,7 +4028,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_24.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4175,7 +4052,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_25.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4200,7 +4076,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_22.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4225,7 +4100,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_23.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4250,7 +4124,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_20.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4275,7 +4148,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_21.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4300,7 +4172,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_269.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4325,7 +4196,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_268.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4350,7 +4220,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_159.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4375,7 +4244,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_158.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4400,7 +4268,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_153.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4425,7 +4292,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_152.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4450,7 +4316,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_151.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4475,7 +4340,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_262.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4500,7 +4364,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_157.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4525,7 +4388,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_264.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4550,7 +4412,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_267.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4575,7 +4436,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_154.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4600,7 +4460,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_302.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4625,7 +4484,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_91.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4650,7 +4508,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_306.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4675,7 +4532,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_307.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4700,7 +4556,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_304.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4725,7 +4580,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_305.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4750,7 +4604,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_276.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4775,7 +4628,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_303.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4800,7 +4652,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_300.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4825,7 +4676,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_301.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4850,7 +4700,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_277.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4875,7 +4724,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_308.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4900,7 +4748,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_309.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4925,7 +4772,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_142.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4950,7 +4796,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_143.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -4975,7 +4820,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_144.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5000,7 +4844,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_145.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5025,7 +4868,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_146.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5050,7 +4892,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_147.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5075,7 +4916,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_05.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5100,7 +4940,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_06.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5125,7 +4964,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_07.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5150,7 +4988,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_00.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5175,7 +5012,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_01.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5200,7 +5036,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_03.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5225,7 +5060,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_08.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5250,7 +5084,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_09.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5275,7 +5108,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_139.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5300,7 +5132,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_138.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5325,7 +5156,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_135.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5350,7 +5180,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_134.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5375,7 +5204,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_137.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5400,7 +5228,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_136.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5425,7 +5252,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_131.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5450,7 +5276,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_130.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5475,7 +5300,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_133.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5500,7 +5324,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_132.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5525,7 +5348,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_243.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5550,7 +5372,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_242.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5575,7 +5396,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_241.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5600,7 +5420,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_240.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5625,7 +5444,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_247.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5650,7 +5468,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_246.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5675,7 +5492,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_245.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5700,7 +5516,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_244.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5725,7 +5540,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_249.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5750,7 +5564,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_248.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5775,7 +5588,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_17.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5800,7 +5612,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_16.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5825,7 +5636,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_15.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5850,7 +5660,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_14.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5875,7 +5684,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_13.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5900,7 +5708,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_12.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5925,7 +5732,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_11.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5950,7 +5756,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_10.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -5975,7 +5780,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_19.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6000,7 +5804,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_18.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6025,7 +5828,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_250.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6050,7 +5852,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_251.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6075,7 +5876,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_252.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6100,7 +5900,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_253.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6125,7 +5924,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_254.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6150,7 +5948,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_255.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6175,7 +5972,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_256.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6200,7 +5996,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_257.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6225,7 +6020,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_258.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6250,7 +6044,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_259.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6275,7 +6068,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_128.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6300,7 +6092,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_129.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6325,7 +6116,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_351.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6350,7 +6140,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_62.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6375,7 +6164,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_63.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6400,7 +6188,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_60.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6425,7 +6212,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_61.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6450,7 +6236,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_66.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6475,7 +6260,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_67.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6500,7 +6284,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_64.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6525,7 +6308,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_65.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6550,7 +6332,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_68.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6575,7 +6356,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_69.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6600,7 +6380,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_225.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6625,7 +6404,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_333.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6650,7 +6428,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_224.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6675,7 +6452,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_227.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6700,7 +6476,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_359.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6725,7 +6500,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_358.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6750,7 +6524,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_226.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6775,7 +6548,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_355.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6800,7 +6572,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_354.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6825,7 +6596,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_357.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6850,7 +6620,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_356.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6875,7 +6644,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_221.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6900,7 +6668,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_350.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6925,7 +6692,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_353.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6950,7 +6716,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_352.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -6975,7 +6740,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_112.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7000,7 +6764,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_294.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7025,7 +6788,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_111.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7050,7 +6812,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_167.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7075,7 +6836,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_110.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7100,7 +6860,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_296.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7125,7 +6884,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_165.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7150,7 +6908,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_198.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7175,7 +6932,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_197.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7200,7 +6956,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_196.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7225,7 +6980,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_195.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7250,7 +7004,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_194.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7275,7 +7028,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_193.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7300,7 +7052,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_192.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7325,7 +7076,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_191.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7350,7 +7100,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_190.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7375,7 +7124,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_291.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7400,7 +7148,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_292.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7425,7 +7172,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_293.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7450,7 +7196,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_104.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7475,7 +7220,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_105.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7500,7 +7244,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_238.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7525,7 +7268,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_239.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7550,7 +7292,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_100.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7575,7 +7316,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_101.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7600,7 +7340,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_102.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7625,7 +7364,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_103.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7650,7 +7388,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_232.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7675,7 +7412,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_233.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7700,7 +7436,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_230.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7725,7 +7460,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_231.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7750,7 +7484,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_108.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7775,7 +7508,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_109.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7800,7 +7532,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_234.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7825,7 +7556,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_235.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7850,7 +7580,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_48.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7875,7 +7604,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_49.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7900,7 +7628,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_40.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7925,7 +7652,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_41.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7950,7 +7676,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_42.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -7975,7 +7700,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_43.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8000,7 +7724,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_44.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8025,7 +7748,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_45.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8050,7 +7772,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_46.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8075,7 +7796,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_47.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8100,7 +7820,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_364.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8125,7 +7844,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_199.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8150,7 +7868,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_287.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8175,7 +7892,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_170.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8200,7 +7916,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_285.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8225,7 +7940,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_284.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8250,7 +7964,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_283.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8275,7 +7988,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_174.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8300,7 +8012,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_281.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8325,7 +8036,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_280.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8350,7 +8060,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_179.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8375,7 +8084,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_178.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8400,7 +8108,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_289.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8425,7 +8132,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_288.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8450,7 +8156,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_377.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8475,7 +8180,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_376.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8500,7 +8204,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_375.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8525,7 +8228,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_374.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8550,7 +8252,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_373.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8575,7 +8276,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_372.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8600,7 +8300,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_371.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8625,7 +8324,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_370.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8650,7 +8348,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_362.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8675,7 +8372,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_379.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8700,7 +8396,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_378.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8725,7 +8420,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_124.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8750,7 +8444,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_290.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8775,7 +8468,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_368.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8800,7 +8492,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_166.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8825,7 +8516,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_295.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8850,7 +8540,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_164.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8875,7 +8564,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_297.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8900,7 +8588,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_162.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8925,7 +8612,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_163.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8950,7 +8636,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_160.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -8975,7 +8660,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_161.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9000,7 +8684,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_332.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9025,7 +8708,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_125.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9050,7 +8732,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_298.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9075,7 +8756,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_299.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9100,7 +8780,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_168.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9125,7 +8804,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_169.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9150,7 +8828,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_331.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9175,7 +8852,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_365.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9200,7 +8876,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_366.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9225,7 +8900,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_367.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9250,7 +8924,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_360.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9275,7 +8948,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_361.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9300,7 +8972,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_330.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9325,7 +8996,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_363.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9350,7 +9020,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_337.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9375,7 +9044,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_369.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9400,7 +9068,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_336.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9425,7 +9092,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_335.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9450,7 +9116,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_334.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9475,7 +9140,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_311.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9500,7 +9164,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_310.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9525,7 +9188,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_313.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9550,7 +9212,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_312.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9575,7 +9236,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_315.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9600,7 +9260,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_314.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9625,7 +9284,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_317.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9650,7 +9308,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_316.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9675,7 +9332,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_319.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9700,7 +9356,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_318.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9725,7 +9380,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_31.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9750,7 +9404,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_30.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9775,7 +9428,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_33.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9800,7 +9452,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_32.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9825,7 +9476,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_35.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9850,7 +9500,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_34.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9875,7 +9524,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_37.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9900,7 +9548,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_36.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9925,7 +9572,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_39.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9950,7 +9596,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_38.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -9975,7 +9620,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_148.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10000,7 +9644,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_149.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10025,7 +9668,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_278.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10050,7 +9692,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_279.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10075,7 +9716,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_140.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10100,7 +9740,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_141.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10125,7 +9764,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_274.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10150,7 +9788,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_275.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10175,7 +9812,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_272.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10200,7 +9836,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_273.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10225,7 +9860,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_270.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10250,7 +9884,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_271.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10275,7 +9908,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_382.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10300,7 +9932,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_380.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10325,7 +9956,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_381.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10350,7 +9980,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_342.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10375,7 +10004,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_106.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10400,7 +10028,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_339.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10425,7 +10052,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_338.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10450,7 +10076,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_88.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10475,7 +10100,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_89.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10500,7 +10124,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_107.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10525,7 +10148,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_84.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10550,7 +10172,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_85.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10575,7 +10196,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_86.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10600,7 +10220,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_87.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10625,7 +10244,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_80.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10650,7 +10268,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_81.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10675,7 +10292,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_82.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10700,7 +10316,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_83.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10725,7 +10340,6 @@ GameObjects:
       Mesh: Source\Sponza\Mesh/sponza_344.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 50
         - 100
@@ -10750,11 +10364,10 @@ GameObjects:
       Mesh: Source\Meshes\Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Materials/Material.mat
+      Material: Source/Materials/EmissiveBlue.mat
       Lods:
         - Source\Meshes\Sphere.meta
         - None
@@ -10783,46 +10396,10 @@ GameObjects:
       Mesh: Source\Meshes/Plane.meta
       IsOpaque: true
       DrawShadows: false
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Materials/Material.mat
-      m_Name:
-        Type: std::string
-        Value: Material
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 0.531000018
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Materials/Material.mat
       Lods:
         - Source\Meshes/Plane.meta
         - None

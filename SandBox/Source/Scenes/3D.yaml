@@ -3,7 +3,7 @@ Environment:
   Global Intensity: 1
   Directional Light: 1
   Blur passes: 3
-  Brightness threshold: 11
+  Brightness threshold: 1
   Exposure: 0.00999999978
   Gamma: 2.20000005
   Pixels blured: 6
@@ -14,6 +14,7 @@ Environment:
     IsEnabled: true
     IsVisualized: false
     Pcf: 1
+    MaxPointLightShadows: 8
     Fog: 0.200000003
     Texels: 1
     ZFarScale: 0.200000003
@@ -26,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [5.66015339, 21.1048374, -26.8969879]
-    Rotation: [-0.757427752, -3.71437454, 0]
+    Position: [-6.67599964, 4.58697176, -12.1040812]
+    Rotation: [-0.613334715, -3.0644908, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -68,7 +69,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -93,7 +93,6 @@ GameObjects:
       Mesh: Source\Meshes/Cube.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -118,7 +117,6 @@ GameObjects:
       Mesh: Source\Meshes/Cone.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -147,6 +145,7 @@ GameObjects:
       ZFar: 150
       ZNear: 0.100000001
       Fog: 0.200000003
+      DrawShadows: true
   - GameObject: 12373308994809936150
     Name: Torus
     Is Enabled: true
@@ -163,276 +162,10 @@ GameObjects:
       Mesh: Source\Meshes/Torus.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
       Material: Source/Materials/Material.mat
-      Lods:
-        - Source\Meshes/Torus.meta
-        - None
-        - None
-  - GameObject: 6827443076014023218
-    Name: Torus
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-12, 0, -7]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
-      IsOpaque: true
-      DrawShadows: true
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source\Materials\Emissive.mat
-      m_Name:
-        Type: std::string
-        Value: Emissive
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.897468388, 0.100000024, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.897000015, 0.100000001, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.897000015, 0.100000001, 1]
-      m_Shininess:
-        Type: float
-        Value: 1
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes/Torus.meta
-        - None
-        - None
-  - GameObject: 7086999029756315616
-    Name: Torus
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-9, 0, -7]
-      Rotation: [-0.0710632354, 0, 0]
-      Scale: [1.00000024, 1.00000024, 0.999988139]
-    Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
-      IsOpaque: true
-      DrawShadows: true
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source\Materials\Emissive.mat
-      m_Name:
-        Type: std::string
-        Value: Emissive
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.396202564, 1, 0.100000024]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.395999998, 1, 0.100000001]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.395999998, 1, 0.100000001]
-      m_Shininess:
-        Type: float
-        Value: 1
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes/Torus.meta
-        - None
-        - None
-  - GameObject: 11933578768100711922
-    Name: Torus
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-6, 0, -7]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
-      IsOpaque: true
-      DrawShadows: true
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source\Materials\Emissive.mat
-      m_Name:
-        Type: std::string
-        Value: Emissive
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 0.965822756, 0.100000024]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 0.966000021, 0.100000001]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 0.966000021, 0.100000001]
-      m_Shininess:
-        Type: float
-        Value: 1
-      m_Scale:
-        Type: float
-        Value: 5
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes/Torus.meta
-        - None
-        - None
-  - GameObject: 1502312815100629932
-    Name: Torus
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-3, 0, -7]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
-      IsOpaque: true
-      DrawShadows: true
-      IsInherited: true
-      LodsDistance:
-        - 1000
-        - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source\Materials\Emissive.mat
-      m_Name:
-        Type: std::string
-        Value: Emissive
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: White
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.100000024, 0.305063486, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.100000001, 0.305000007, 0.100000001]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [0.100000001, 0.305000007, 0.100000001]
-      m_Shininess:
-        Type: float
-        Value: 1
-      m_Scale:
-        Type: float
-        Value: 255
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
-      Lods:
-        - Source\Meshes/Torus.meta
-        - None
-        - None
-  - GameObject: 4176822679039488847
-    Name: Torus
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0, 0, -7]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
-      IsOpaque: true
-      DrawShadows: true
-      IsInherited: false
-      LodsDistance:
-        - 1000
-        - 1000
-      Material: Source\Materials\Emissive.mat
       Lods:
         - Source\Meshes/Torus.meta
         - None
@@ -453,7 +186,6 @@ GameObjects:
       Mesh: Source\Meshes/Cube.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -478,7 +210,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -503,7 +234,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -528,7 +258,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -553,7 +282,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -578,7 +306,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -603,7 +330,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -628,7 +354,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -653,7 +378,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -678,7 +402,6 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: false
       LodsDistance:
         - 1000
         - 1000
@@ -703,46 +426,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -763,46 +450,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -823,46 +474,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -883,46 +498,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -943,46 +522,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1003,46 +546,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1063,46 +570,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1123,46 +594,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1183,46 +618,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1243,46 +642,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1303,46 +666,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1363,46 +690,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1423,46 +714,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1483,46 +738,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1543,46 +762,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1603,46 +786,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1663,46 +810,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1723,46 +834,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1783,46 +858,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1843,46 +882,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1903,46 +906,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -1963,46 +930,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2023,46 +954,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2083,46 +978,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2143,46 +1002,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2203,46 +1026,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2263,46 +1050,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2323,46 +1074,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2383,46 +1098,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2443,46 +1122,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2503,46 +1146,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2563,46 +1170,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2623,46 +1194,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2683,46 +1218,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2743,46 +1242,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2803,46 +1266,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2863,46 +1290,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2923,46 +1314,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -2983,46 +1338,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3043,46 +1362,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3103,46 +1386,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3163,46 +1410,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3223,46 +1434,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3283,46 +1458,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3343,46 +1482,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3403,46 +1506,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3463,46 +1530,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3523,46 +1554,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3583,46 +1578,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3643,46 +1602,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3703,46 +1626,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Arch.mat
-      m_Name:
-        Type: std::string
-        Value: Arch
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_arch_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Arch.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3763,46 +1650,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Bricks.mat
-      m_Name:
-        Type: std::string
-        Value: Bricks
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\spnza_bricks_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Bricks.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3823,46 +1674,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/Ceiling.mat
-      m_Name:
-        Type: std::string
-        Value: Ceiling
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_ceiling_a_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3883,46 +1698,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/ColumnSquare.mat
-      m_Name:
-        Type: std::string
-        Value: ColumnSquare
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_column_c_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -3943,46 +1722,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainBlue.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -4003,46 +1746,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainGreen.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -4063,46 +1770,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/CurtainRed.mat
-      m_Name:
-        Type: std::string
-        Value: CurtainRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_curtain_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 64
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -4123,46 +1794,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricBlue.mat
-      m_Name:
-        Type: std::string
-        Value: FabricBlue
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_blue_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -4183,46 +1818,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricRed.mat
-      m_Name:
-        Type: std::string
-        Value: FabricRed
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
@@ -4243,46 +1842,10 @@ GameObjects:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
-      IsInherited: true
       LodsDistance:
         - 1000
         - 1000
-      m_FilePath:
-        Type: std::string
-        Value: Source/Sponza/Materials/FabricGreen.mat
-      m_Name:
-        Type: std::string
-        Value: FabricGreen
-      m_BaseColorFilePath:
-        Type: std::string
-        Value: Source\Sponza\Textures\sponza_fabric_green_diff.png
-      m_NormalMapFilePath:
-        Type: std::string
-        Value: White
-      m_ShaderFilePath:
-        Type: std::string
-        Value: Instancing3D.shader
-      m_Ambient:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Diffuse:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Specular:
-        Type: struct glm::vec<3,float,0>
-        Value: [1, 1, 1]
-      m_Shininess:
-        Type: float
-        Value: 32
-      m_Scale:
-        Type: float
-        Value: 1
-      m_Solid:
-        Type: float
-        Value: 1
-      m_UseNormalMap:
-        Type: bool
-        Value: false
+      Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
         - Source\Meshes/Sphere.meta
         - None
