@@ -72,6 +72,8 @@ namespace Pengine
 		std::vector<std::string> m_SelectedGameObjects;
 
 		const char* m_RootDirectory = "Source";
+		
+		char m_FilterBuffer[64];
 
 		std::filesystem::path m_CurrentDirectory = std::filesystem::path(m_RootDirectory);
 

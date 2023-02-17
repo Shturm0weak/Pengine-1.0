@@ -141,6 +141,10 @@ namespace Pengine
 		static void SerializeMaterial(const std::string& filePath, Material* material);
 
 		static Material* DeserializeMaterial(const std::string& filePath);
+
+		static void SerializeBaseMaterial(const std::string& filePath, BaseMaterial* material);
+
+		static BaseMaterial* DeserializeBaseMaterial(const std::string& filePath);
 	};
 
 }

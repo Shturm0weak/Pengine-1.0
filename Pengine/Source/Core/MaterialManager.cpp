@@ -1,6 +1,8 @@
 #include "MaterialManager.h"
 
 #include "Serializer.h"
+#include "../OpenGL/Material.h"
+#include "../OpenGL/BaseMaterial.h"
 
 using namespace Pengine;
 
@@ -17,7 +19,20 @@ Material* MaterialManager::Get(const std::string& filePath)
     }
 }
 
-Material* MaterialManager::Load(const std::string& filePath, bool reload)
+BaseMaterial* MaterialManager::GetBase(const std::string& filePath)
+{
+    auto& materialByFilePath = m_BaseMaterialsByFilePath.find(filePath);
+    if (materialByFilePath != m_BaseMaterialsByFilePath.end())
+    {
+        return materialByFilePath->second;
+    }
+    else
+    {
+        return nullptr;
+    }
+}
+
+Material* MaterialManager::Load(const std::string& filePath)
 {
     std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
     Material* material = Get(formattedFilePath);
@@ -25,6 +40,20 @@ Material* MaterialManager::Load(const std::string& filePath, bool reload)
     {
         material = Serializer::DeserializeMaterial(formattedFilePath);
         m_MaterialsByFilePath.emplace(formattedFilePath, material);
+        m_BaseMaterialsByFilePath.emplace(material->m_BaseMaterial->GetFilePath(), material->m_BaseMaterial);
+    }
+
+    return material;
+}
+
+BaseMaterial* MaterialManager::LoadBase(const std::string& filePath)
+{
+    std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
+    BaseMaterial* material = GetBase(formattedFilePath);
+    if (!material)
+    {
+        material = Serializer::DeserializeBaseMaterial(formattedFilePath);
+        m_BaseMaterialsByFilePath.emplace(material->GetFilePath(), material);
     }
 
     return material;

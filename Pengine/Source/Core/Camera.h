@@ -45,6 +45,7 @@ namespace Pengine
 		friend class Editor;
 		friend class Serializer;
 	public:
+
 		Transform m_Transform;
 		
 		Camera();

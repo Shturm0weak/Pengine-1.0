@@ -1,0 +1,8 @@
+Texture:
+  Name: front interior
+  FilePath: Source\Examples\Car\Textures\front interior.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

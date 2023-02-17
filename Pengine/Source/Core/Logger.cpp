@@ -21,9 +21,9 @@ void Logger::Log(const char* message, const char* color, const char* type)
 	std::cout << color << Logger::s_TimeString << type << ":" << message << RESET << "\n";
 }
 
-void Logger::Log(const char* message, const char* withWhat, const char* where, const char* color, const char* type)
+void Logger::Log(const char* message, const char* type, const char* name, const char* color, const char* mode)
 {
-	std::cout << color << Logger::s_TimeString << type << ":" << NAMECOLOR << withWhat << color << ": <" << NAMECOLOR << where << color << "> " << message << "\n" << RESET;
+	std::cout << color << Logger::s_TimeString << mode << ":" << NAMECOLOR << type << color << ": <" << NAMECOLOR << name << color << "> " << message << "\n" << RESET;
 }
 
 void Logger::Error(const char* message)
@@ -31,9 +31,9 @@ void Logger::Error(const char* message)
 	Logger::Log(message, BOLDRED, "ERROR");
 }
 
-void Logger::Error(const char* message, const char* withWhat, const char* where)
+void Logger::Error(const char* message, const char* type, const char* name)
 {
-	Log(message, withWhat, where, BOLDRED, "ERROR");
+	Log(message, type, name, BOLDRED, "ERROR");
 }
 
 void Logger::Warning(const char* message)
@@ -41,9 +41,9 @@ void Logger::Warning(const char* message)
 	Logger::Log(message, BOLDYELLOW, "WARNING");
 }
 
-void Logger::Warning(const char* message, const char* withWhat, const char* where)
+void Logger::Warning(const char* message, const char* type, const char* name)
 {
-	Log(message, withWhat, where, BOLDYELLOW, "WARNING");
+	Log(message, type, name, BOLDYELLOW, "WARNING");
 }
 
 void Logger::Success(const char* message)
@@ -51,7 +51,7 @@ void Logger::Success(const char* message)
 	Logger::Log(message, BOLDGREEN, "SUCCESS");
 }
 
-void Logger::Success(const char* message, const char* withWhat, const char* where)
+void Logger::Success(const char* message, const char* type, const char* name)
 {
-	Log(message, withWhat, where, BOLDGREEN, "SUCCESS");
+	Log(message, type, name, BOLDGREEN, "SUCCESS");
 }

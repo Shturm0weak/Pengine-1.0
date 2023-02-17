@@ -1,0 +1,4 @@
+Mesh:
+  Name: BackLights_Plane.010
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

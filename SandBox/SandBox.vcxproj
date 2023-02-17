@@ -101,6 +101,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Examples\BulletPhysics.h" />
+    <ClInclude Include="Source\Examples\Car\Vehicle.h" />
     <ClInclude Include="Source\Examples\ExampleApplication.h" />
     <ClInclude Include="Source\Examples\ExampleComponent.h" />
     <ClInclude Include="Source\Examples\FirstPersonController.h" />
@@ -114,10 +115,13 @@
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
     <ClInclude Include="Source\Examples\RTTRSystem.h" />
+    <ClInclude Include="Source\Shaders\Default\Common\UniformObjects.incl" />
+    <ClInclude Include="Source\Shaders\Default\Common\Uniforms.incl" />
     <ClInclude Include="Source\Sponza\Sponza.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Examples\BulletPhysics.cpp" />
+    <ClCompile Include="Source\Examples\Car\Vehicle.cpp" />
     <ClCompile Include="Source\Examples\FirstPersonController.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Box.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Controller.cpp" />
@@ -134,6 +138,28 @@
     <ProjectReference Include="..\Pengine\Pengine.vcxproj">
       <Project>{EB708C05-5750-0BA1-6068-9677CCC67102}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Shaders\Default\AddBlurImages.shader" />
+    <None Include="Source\Shaders\Default\Blur.shader" />
+    <None Include="Source\Shaders\Default\Common\DirectionalShadows.incl" />
+    <None Include="Source\Shaders\Default\ComposeFinalImage.shader" />
+    <None Include="Source\Shaders\Default\Custom.shader" />
+    <None Include="Source\Shaders\Default\Default2D.shader" />
+    <None Include="Source\Shaders\Default\Default2DGBuffer.shader" />
+    <None Include="Source\Shaders\Default\Default3D.shader" />
+    <None Include="Source\Shaders\Default\DefaultLines.shader" />
+    <None Include="Source\Shaders\Default\Deferred.shader" />
+    <None Include="Source\Shaders\Default\Depth.shader" />
+    <None Include="Source\Shaders\Default\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\Default\Instancing3D.shader" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthDirShadows.shader" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthPointShadows.shader" />
+    <None Include="Source\Shaders\Default\InstancingGBuffer.shader" />
+    <None Include="Source\Shaders\Default\InstancingShadows.shader" />
+    <None Include="Source\Shaders\Default\SSAO.shader" />
+    <None Include="Source\Shaders\Default\UI.shader" />
+    <None Include="Source\Shaders\Default\Visualizer.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

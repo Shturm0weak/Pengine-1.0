@@ -27,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [-6.67599964, 4.58697176, -12.1040812]
-    Rotation: [-0.613334715, -3.0644908, 0]
+    Position: [-13.0713444, 13.6844158, -9.88163662]
+    Rotation: [-0.467510164, -1.53592324, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -66,15 +66,15 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
         - 1000
         - 1000
-      Material: Source/Sponza/Materials/Arch.mat
+      Material: Source/Materials/Custom.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 16819910025678273609
@@ -90,7 +90,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [25, 1, 25]
     Renderer3D:
-      Mesh: Source\Meshes/Cube.meta
+      Mesh: Source/Meshes/Cube.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -98,7 +98,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/Material.mat
       Lods:
-        - Source\Meshes/Cube.meta
+        - Source/Meshes/Cube.meta
         - None
         - None
   - GameObject: 7977348276986839716
@@ -114,7 +114,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Cone.meta
+      Mesh: Source/Meshes/Cone.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -122,7 +122,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/Material.mat
       Lods:
-        - Source\Meshes/Cone.meta
+        - Source/Meshes/Cone.meta
         - None
         - None
   - GameObject: 18077684031712773104
@@ -159,7 +159,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Torus.meta
+      Mesh: Source/Meshes/Torus.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -167,7 +167,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/Material.mat
       Lods:
-        - Source\Meshes/Torus.meta
+        - Source/Meshes/Torus.meta
         - None
         - None
   - GameObject: 2876046990851086732
@@ -183,7 +183,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Cube.meta
+      Mesh: Source/Meshes/Cube.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -191,7 +191,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/Material.mat
       Lods:
-        - Source\Meshes/Cube.meta
+        - Source/Meshes/Cube.meta
         - None
         - None
   - GameObject: 5683478954789256467
@@ -200,14 +200,15 @@ GameObjects:
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      []
+      - 17782560797531803786
+      - 4369518761302311768
     Transform:
       Follow owner: true
-      Position: [-7.27595761e-12, 5.58793545e-09, 2.51875138]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Position: [-4.0005784, 10.0880442, -10.3473167]
+      Rotation: [-2.2587862, -0.350863487, -0.396052033]
+      Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -215,9 +216,12 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
   - GameObject: 17782560797531803786
     Name: Sphere
     Is Enabled: true
@@ -227,11 +231,11 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0, 0, 4.71999025]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Position: [-1.63457036, 13.0659437, -13.1725254]
+      Rotation: [-2.2587862, -0.350863487, -0.396052033]
+      Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -239,9 +243,12 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
   - GameObject: 4369518761302311768
     Name: Sphere
     Is Enabled: true
@@ -251,11 +258,11 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0, 0, 7.42485332]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Position: [0.731437683, 16.0438423, -15.9977341]
+      Rotation: [-2.2587862, -0.350863487, -0.396052033]
+      Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -263,9 +270,12 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]
   - GameObject: 5556706725465755156
     Name: Sphere
     Is Enabled: true
@@ -279,7 +289,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -287,7 +297,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 8456964073120998434
@@ -303,7 +313,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -311,7 +321,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2433500140841265193
@@ -327,7 +337,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -335,7 +345,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 18116399267042929554
@@ -351,7 +361,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -359,7 +369,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7001614406654244090
@@ -375,7 +385,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -383,7 +393,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1142046336850158933
@@ -399,7 +409,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -407,7 +417,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2891036107455361668
@@ -423,15 +433,15 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
-      IsOpaque: true
+      Mesh: Source/Meshes/Sphere.meta
+      IsOpaque: false
       DrawShadows: true
       LodsDistance:
         - 1000
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7324429288900844021
@@ -447,7 +457,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -455,7 +465,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 9264603823968543979
@@ -471,7 +481,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -479,7 +489,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1142230920021896838
@@ -495,7 +505,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -503,7 +513,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10599674681613407739
@@ -519,7 +529,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -527,7 +537,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 15308557062039911481
@@ -543,7 +553,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -551,7 +561,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 4143373880516454027
@@ -567,7 +577,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -575,7 +585,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 14163977956571779812
@@ -591,7 +601,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -599,7 +609,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 6025178226127395275
@@ -615,7 +625,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -623,7 +633,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10091308165810335173
@@ -639,7 +649,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -647,7 +657,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 3542647461848967072
@@ -663,7 +673,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -671,7 +681,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 238230319631925927
@@ -687,7 +697,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -695,7 +705,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 17585235476021330251
@@ -711,7 +721,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -719,7 +729,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 11203051304150972592
@@ -735,7 +745,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -743,7 +753,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 4621935767116028087
@@ -759,7 +769,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -767,7 +777,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 3220749068843898789
@@ -783,7 +793,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -791,7 +801,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5653941482659617931
@@ -807,7 +817,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -815,7 +825,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 13917601243899983855
@@ -831,7 +841,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -839,7 +849,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 16122186525490126083
@@ -855,7 +865,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -863,7 +873,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5733602292411416425
@@ -879,7 +889,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -887,7 +897,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1150495037901420520
@@ -903,7 +913,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -911,7 +921,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7201187111187593460
@@ -927,7 +937,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -935,7 +945,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5138381487270188880
@@ -951,7 +961,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -959,7 +969,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2700715109075597348
@@ -975,7 +985,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -983,7 +993,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 17156922644403928136
@@ -999,7 +1009,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1007,7 +1017,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10814386928616910593
@@ -1023,7 +1033,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1031,7 +1041,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 4884133549425820321
@@ -1047,7 +1057,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1055,7 +1065,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5883945131314370848
@@ -1071,7 +1081,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1079,7 +1089,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 9926033720390641919
@@ -1095,7 +1105,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1103,7 +1113,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 18002136137087841283
@@ -1119,7 +1129,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1127,7 +1137,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2143516965596750812
@@ -1143,7 +1153,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1151,7 +1161,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 9483858357290056278
@@ -1167,7 +1177,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1175,7 +1185,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 14068821259665650651
@@ -1191,7 +1201,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1199,7 +1209,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 3035858569633596612
@@ -1215,7 +1225,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1223,7 +1233,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 13608529638801415256
@@ -1239,7 +1249,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1247,7 +1257,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5468023825779282600
@@ -1263,7 +1273,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1271,7 +1281,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5951611780741590012
@@ -1287,7 +1297,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1295,7 +1305,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 15346187989152597820
@@ -1311,7 +1321,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1319,7 +1329,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1263745938229429321
@@ -1335,7 +1345,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1343,7 +1353,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7949333951947232132
@@ -1359,7 +1369,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1367,7 +1377,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 9273734152255535792
@@ -1383,7 +1393,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1391,7 +1401,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5422571238808827609
@@ -1407,7 +1417,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1415,7 +1425,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 11139868389448496335
@@ -1431,7 +1441,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1439,7 +1449,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 517589412172173280
@@ -1455,7 +1465,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1463,7 +1473,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 6280162881696873312
@@ -1479,7 +1489,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1487,7 +1497,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 13987860301374292174
@@ -1503,7 +1513,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1511,7 +1521,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 17657112219348214073
@@ -1527,7 +1537,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1535,7 +1545,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 12610965808922983126
@@ -1551,7 +1561,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1559,7 +1569,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 5011892407103841620
@@ -1575,7 +1585,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1583,7 +1593,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 12768843747693663815
@@ -1599,7 +1609,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1607,7 +1617,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 18362562596161547640
@@ -1623,7 +1633,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1631,7 +1641,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Arch.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 8974158844693155451
@@ -1647,7 +1657,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1655,7 +1665,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Bricks.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 17107046283508187743
@@ -1671,7 +1681,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1679,7 +1689,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/Ceiling.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 15867254558897620650
@@ -1695,7 +1705,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1703,7 +1713,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/ColumnSquare.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 14953665955019027198
@@ -1719,7 +1729,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1727,7 +1737,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7681425919763210770
@@ -1743,7 +1753,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1751,7 +1761,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 16006757744800606952
@@ -1767,7 +1777,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1775,7 +1785,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/CurtainRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10655155197168694341
@@ -1791,7 +1801,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1799,7 +1809,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 14998778231372057244
@@ -1815,7 +1825,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1823,7 +1833,7 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10389080250201007868
@@ -1839,7 +1849,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: true
       DrawShadows: true
       LodsDistance:
@@ -1847,6 +1857,6 @@ GameObjects:
         - 1000
       Material: Source/Sponza/Materials/FabricGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None

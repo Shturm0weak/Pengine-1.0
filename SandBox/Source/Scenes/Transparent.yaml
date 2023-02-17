@@ -11,24 +11,24 @@ Environment:
   DepthTest: true
   Shadows:
     Bias: 0.00499999989
-    IsEnabled: false
+    IsEnabled: true
     IsVisualized: false
     Pcf: 2
     MaxPointLightShadows: 8
     Fog: 0.200000003
     Texels: 1
-    ZFarScale: 1
+    ZFarScale: 0.159999996
     CascadesDistance:
-      - 100
-      - 300
+      - 5
+      - 25
     Blur:
-      Passes: 1
+      Passes: 2
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [1.76657677, 8.03386688, -9.68326187]
-    Rotation: [-0.643470824, 2.59489775, 0]
+    Position: [-5.92337465, 4.14782572, -15.3501434]
+    Rotation: [-0.357607871, -2.83387852, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -47,12 +47,18 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-5, 2, -5]
-      Rotation: [1.03758729, -0.526929498, -0.23805818]
-      Scale: [0.999999881, 0.999999642, 0.999999762]
-    Directional Light:
+      Position: [-3.39514208, 3.44113994, -8.64470291]
+      Rotation: [0, 0, 0]
+      Scale: [0.999999762, 0.99999994, 0.999999881]
+    PointLight:
       Color: [1, 1, 1]
-      Intensity: 1
+      Constant: 1
+      Linear: 0.0900000036
+      Quadratic: 0.0320000015
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
   - GameObject: 6281854133817977581
     Name: Sphere
     Is Enabled: true
@@ -66,7 +72,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -74,7 +80,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 13964508742796972212
@@ -90,7 +96,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -98,7 +104,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 15463258811372093520
@@ -114,7 +120,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -122,7 +128,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 22733504977568968
@@ -138,7 +144,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -146,7 +152,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2200069201839441552
@@ -162,7 +168,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -170,7 +176,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2211028336686865054
@@ -186,7 +192,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -194,7 +200,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 682922618039255170
@@ -210,7 +216,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -218,7 +224,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 2364800898757400174
@@ -234,7 +240,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -242,7 +248,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 16344320420820692237
@@ -258,7 +264,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -266,7 +272,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 15429349142397841754
@@ -282,7 +288,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -290,7 +296,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1801478464200139614
@@ -302,11 +308,11 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-6, 0, -3]
+      Position: [-5.92443466, -4.75245884e-07, -2.71075916]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -314,7 +320,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7966106110924417420
@@ -330,7 +336,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -338,7 +344,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10232683342723963277
@@ -354,7 +360,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -362,7 +368,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 18357132678046642917
@@ -378,7 +384,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -386,7 +392,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 13899808964204261042
@@ -402,7 +408,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -410,7 +416,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 10991696104756255953
@@ -426,7 +432,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -434,7 +440,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 8895151030295822151
@@ -450,7 +456,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -458,7 +464,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 8391975640165480473
@@ -474,7 +480,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -482,7 +488,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 8476997766411721954
@@ -498,7 +504,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -506,7 +512,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 1026605657360553040
@@ -522,7 +528,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -530,7 +536,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 4572124631836927954
@@ -546,7 +552,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -554,7 +560,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentGreen.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 9289206773205681744
@@ -570,7 +576,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -578,7 +584,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentYellow.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 7797183360721592999
@@ -594,7 +600,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -602,7 +608,7 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentBlue.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
         - None
         - None
   - GameObject: 16053021403729537012
@@ -618,7 +624,7 @@ GameObjects:
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
-      Mesh: Source\Meshes/Sphere.meta
+      Mesh: Source/Meshes/Sphere.meta
       IsOpaque: false
       DrawShadows: true
       LodsDistance:
@@ -626,6 +632,78 @@ GameObjects:
         - 1000
       Material: Source/Materials/TransparentRed.mat
       Lods:
-        - Source\Meshes/Sphere.meta
+        - Source/Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 9432870114082636099
+    Name: Plane
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4, -2, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1000, 1, 1000]
+    Renderer3D:
+      Mesh: Source/Meshes/Plane.meta
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Plane.meta
+        - None
+        - None
+  - GameObject: 3317178810493346797
+    Name: Cube
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Cube.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-2.85003829, 3, -6.05042934]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source/Meshes/Cube.meta
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Cube.meta
+        - None
+        - None
+  - GameObject: a050a344-230c-4374-a7a2-50529afeeb62
+    Name: Plane
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-4, 3.24317813, -11.5159426]
+      Rotation: [-1.00276184, 0, 0]
+      Scale: [4.99998617, 1, 2]
+    Renderer3D:
+      Mesh: Source/Meshes/Plane.meta
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/Material.mat
+      Lods:
+        - Source/Meshes/Plane.meta
         - None
         - None

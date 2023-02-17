@@ -1,0 +1,8 @@
+Texture:
+  Name: Dash_Display_3
+  FilePath: Source\Examples\Car\Textures\Dash_Display_3.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

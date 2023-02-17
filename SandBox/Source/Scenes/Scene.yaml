@@ -14,6 +14,7 @@ Environment:
     IsEnabled: true
     IsVisualized: false
     Pcf: 2
+    MaxPointLightShadows: 8
     Fog: 0.200000003
     Texels: 1
     ZFarScale: 0.200000003
@@ -26,8 +27,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [0.465693831, -2.55485272, 70.7718353]
-    Rotation: [-0.503262877, -0.00821703672, 0]
+    Position: [4.5707531, 0.732643962, 3.60443497]
+    Rotation: [-0.138621598, 1.2386086, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -52,3 +53,107 @@ GameObjects:
     Directional Light:
       Color: [1, 1, 1]
       Intensity: 1
+    ExampleComponent:
+      m_IVec2:
+        Type: glm::vec<2,int,0>
+        Value: [0, 0]
+      m_GameObject:
+        Type: Pengine::GameObject * __ptr64
+        Value: 97e06ae0-c03d-4d82-b62d-3a588f0e4a87
+      m_Vec2:
+        Type: glm::vec<2,float,0>
+        Value: [0, 0]
+      m_Bool:
+        Type: bool
+        Value: false
+      m_Float:
+        Type: float
+        Value: 0
+      m_String:
+        Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+        Value: ""
+      m_Double:
+        Type: double
+        Value: 0
+      m_Int:
+        Type: int
+        Value: 0
+      m_Vec3:
+        Type: glm::vec<3,float,0>
+        Value: [0, 0, 0]
+      m_Vec4:
+        Type: glm::vec<4,float,0>
+        Value: [0, 0, 0, 0]
+      m_IVec3:
+        Type: glm::vec<3,int,0>
+        Value: [0, 0, 0]
+      m_IVec4:
+        Type: glm::vec<4,int,0>
+        Value: [0, 0, 0, 0]
+  - GameObject: 97e06ae0-c03d-4d82-b62d-3a588f0e4a87
+    Name: Unnamed
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 4ca2d359-41fe-4643-b678-efc995f08f5c
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+  - GameObject: 4ca2d359-41fe-4643-b678-efc995f08f5c
+    Name: Unnamed
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer2D:
+      Color: [1, 1, 1, 1]
+      Texture: White
+      Normal Texture: White
+      Emissive Mask Texture: White
+      UV:
+        - 0
+        - 0
+        - 1
+        - 0
+        - 1
+        - 1
+        - 0
+        - 1
+      Layer: 0
+      Inner radius: 0
+      Outer radius: 0
+      Is Normal used: false
+      Ambient: 1
+      Emmisive Mask Intensity: 0
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 1, 1]

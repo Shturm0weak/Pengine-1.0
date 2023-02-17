@@ -1,0 +1,63 @@
+struct PointLight
+{
+	vec3 position;
+	float constant;
+	vec3 color;
+	int drawShadows;
+
+	float _linear;
+	float quadratic;
+	float farPlane;
+	float fog;
+
+	int shadowMapIndex;
+	float _unused1;
+	float _unused2;
+	float _unused3;
+};
+
+#define MAX_POINT_LIGHTS 1000
+layout(std140, binding = 0) uniform PointLightUniformBufferObject
+{
+	PointLight u_PointLights[MAX_POINT_LIGHTS];
+};
+
+struct SpotLight
+{
+	vec3 position;
+	float constant;
+
+	vec3 color;
+	float _linear;
+
+	vec3 direction;
+	float quadratic;
+
+	float innerCutOff;
+	float outerCutOff;
+	float _unused1;
+	float _unused2;
+};
+
+#define MAX_SPOT_LIGHTS 1000
+layout(std140, binding = 1) uniform SpotLightUniformBufferObject
+{
+	SpotLight u_SpotLights[MAX_SPOT_LIGHTS];
+};
+
+struct Material
+{
+	vec3 ambient;
+	int baseColor;
+
+	int normalColor;
+	float useNormalMap;
+	float alpha;
+	float shiness;
+};
+
+#define MAX_MATERIALS 1000
+layout(std140, binding = 2) uniform MaterialUniformBufferObject
+{
+	Material u_Materials[MAX_MATERIALS];
+};

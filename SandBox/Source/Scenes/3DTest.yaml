@@ -10,25 +10,25 @@ Environment:
   IsEnabled: true
   DepthTest: true
   Shadows:
-    Bias: 0.00499999989
+    Bias: 0
     IsEnabled: true
     IsVisualized: false
     Pcf: 2
     MaxPointLightShadows: 8
-    Fog: 0.200000003
-    Texels: 1
-    ZFarScale: 1
+    Fog: 0.103
+    Texels: 2
+    ZFarScale: 0.100000001
     CascadesDistance:
-      - 100
-      - 300
+      - 5
+      - 12
     Blur:
       Passes: 1
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [2.16412878, 20.2013798, 30.2694473]
-    Rotation: [-0.074298501, 0.0328055546, 0]
+    Position: [13.5330772, 24.0790768, -29.1104107]
+    Rotation: [-0.273846, -3.34861493, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -64,7 +64,7 @@ GameObjects:
       Follow owner: true
       Position: [0, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [25, 1, 1]
+      Scale: [500, 1, 500]
     Renderer3D:
       Mesh: Source\Meshes/Cube.meta
       IsOpaque: true
@@ -572,7 +572,7 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
-      DrawShadows: true
+      DrawShadows: false
       LodsDistance:
         - 1000
         - 1000
@@ -617,7 +617,7 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
-      DrawShadows: true
+      DrawShadows: false
       LodsDistance:
         - 1000
         - 1000
@@ -662,7 +662,7 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
-      DrawShadows: true
+      DrawShadows: false
       LodsDistance:
         - 1000
         - 1000
@@ -707,7 +707,7 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
-      DrawShadows: true
+      DrawShadows: false
       LodsDistance:
         - 1000
         - 1000
@@ -752,7 +752,7 @@ GameObjects:
     Renderer3D:
       Mesh: Source\Meshes/Sphere.meta
       IsOpaque: true
-      DrawShadows: true
+      DrawShadows: false
       LodsDistance:
         - 1000
         - 1000

@@ -26,6 +26,7 @@
 #include "../Components/Spline.h"
 #include "../Audio/SoundManager.h"
 #include "../Lua/LuaStateManager.h"
+#include "../OpenGL/Material.h"
 #include "Box2D/include/box2d/b2_fixture.h"
 
 #include <filesystem>
@@ -71,7 +72,6 @@ void Editor::Debug()
 			ImGui::Text("Events: %zu", EventSystem::GetInstance().m_CurrentEvents.size());
 			ImGui::Text("Lua states: %zu", LuaStateManager::GetInstance().m_LuaStates.size());
 			ImGui::Text("Raw Lua states: %zu", LuaStateManager::GetInstance().m_LuaStatesRaw.size());
-			ImGui::Text("Instanced meshes: %zu", m_CurrentScene->m_OpaqueByMesh.size());
 			ImGui::Text("Meshes: %zu", MeshManager::GetInstance().m_Meshes.size());
 
 			size_t amount = 0;
@@ -599,7 +599,7 @@ void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
 
 	if (ImGui::BeginDragDropSource())
 	{
-		ImGui::SetDragDropPayload("GAMEOBJECT", (const void*)&gameObject->m_UUID, sizeof(size_t));
+		ImGui::SetDragDropPayload("GAMEOBJECT", (const void*)gameObject->m_UUID.Get().c_str(), gameObject->m_UUID.Get().size());
 		ImGui::EndDragDropSource();
 	}
 
@@ -607,18 +607,22 @@ void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
 	{
 		if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
 		{
-			auto callback = [=]() {
-				for (auto child : m_SelectedGameObjects)
+			std::string uuid((const char*)payload->Data);
+			uuid.resize(payload->DataSize);
+			auto callback = [gameObject, uuid, scene = m_CurrentScene]()
+			{
+				GameObject* child = scene->FindGameObjectByUUID(uuid);
+				if (child)
 				{
-					gameObject->AddChild(m_CurrentScene->FindGameObjectByUUID(child));
+					gameObject->AddChild(child);
 				}
 			};
-			EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+			EventSystem::GetInstance().SendCallbackOnFrame(callback);
 		}
 		ImGui::EndDragDropTarget();
 	}
 
-	if (ImGui::IsItemClicked())
+	if (ImGui::IsItemHovered() && Input::Mouse::IsMouseReleased(Keycode::MOUSE_BUTTON_1))
 	{
 		if (!Input::KeyBoard::IsKeyDown(Keycode::KEY_LEFT_CONTROL))
 		{
@@ -641,8 +645,9 @@ void Editor::DrawChilds(GameObject* gameObject)
 	for (uint32_t i = 0; i < childsSize; i++)
 	{
 		GameObject* child = static_cast<GameObject*>(gameObject->GetChilds()[i]);
-		ImGuiTreeNodeFlags flags = Utils::IsThere<std::string>(m_SelectedGameObjects, child->GetUUID()) 
-			? ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_Selected : 0;
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+		flags |= Utils::IsThere<std::string>(m_SelectedGameObjects, child->GetUUID())
+			?  ImGuiTreeNodeFlags_Selected : 0;
 		DrawNode(child, flags);
 	}
 }
@@ -673,13 +678,16 @@ void Editor::DrawScene()
 		{
 			if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
 			{
-				auto callback = [=]() {
-					for (auto childUUID : m_SelectedGameObjects)
+				std::string uuid((const char*)payload->Data);
+				uuid.resize(payload->DataSize);
+				auto callback = [=]() 
+				{
+					GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(uuid);
+					if (gameObject)
 					{
-						GameObject* child = m_CurrentScene->FindGameObjectByUUID(childUUID);
-						if (GameObject* owner = child->GetOwner())
+						if (GameObject* owner = gameObject->GetOwner())
 						{
-							owner->RemoveChild(child);
+							owner->RemoveChild(gameObject);
 						}
 					}
 				};
@@ -695,8 +703,9 @@ void Editor::DrawScene()
 		{
 			GameObject* gameObject = objectIter;
 			if (gameObject->GetOwner()) continue;
-			ImGuiTreeNodeFlags flags = Utils::IsThere<std::string>(m_SelectedGameObjects, gameObject->GetUUID())
-				? ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_Selected : 0;
+			ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+			flags |= Utils::IsThere<std::string>(m_SelectedGameObjects, gameObject->GetUUID())
+				? ImGuiTreeNodeFlags_Selected : 0;
 			DrawNode(gameObject, flags);
 		}
 	}
@@ -729,7 +738,11 @@ void Editor::AssetBrowser()
 			{
 				m_CurrentDirectory = m_CurrentDirectory.parent_path();
 			}
+
+			ImGui::SameLine();
 		}
+
+		ImGui::InputText("Filter", m_FilterBuffer, 64);
 
 		const float padding = 16.0f;
 		const float thumbnailSize = 128.0f * m_ThumbnailScale;
@@ -757,7 +770,7 @@ void Editor::AssetBrowser()
 
 		for (auto& directoryIter : std::filesystem::directory_iterator(m_CurrentDirectory))
 		{
-			const std::string path = directoryIter.path().string();
+			const std::string path = Utils::Replace(directoryIter.path().string(), '\\', '/');
 			if (Utils::Contains(path, ".cpp") || Utils::Contains(path, ".h"))
 			{
 				continue;
@@ -766,6 +779,12 @@ void Editor::AssetBrowser()
 			const std::string filename = Utils::RemoveDirectoryFromFilePath(path);
 			const std::string format = Utils::GetResolutionFromFilePath(path);
 			ImTextureID currentIcon;
+
+			if (m_FilterBuffer[0] != '\0' && !Utils::Contains(filename, m_FilterBuffer))
+			{
+				continue;
+			}
+
 			if (directoryIter.is_directory())
 			{
 				currentIcon = folderIconId;
@@ -830,7 +849,7 @@ void Editor::AssetBrowser()
 				{
 					for (auto gameObject : m_CurrentScene->m_GameObjects)
 					{
-						if (Utils::ReplaceSlashWithDoubleSlash(gameObject->m_PrefabFilePath) == path)
+						if (Utils::Replace(gameObject->m_PrefabFilePath, '\\', '/') == path)
 						{
 							gameObject->ResetWithPrefab();
 						}
@@ -913,7 +932,7 @@ void Editor::Properties()
 
 			ImGui::Text("UUID: %s", gameObject->GetUUID().c_str());
 
-			char name[32];
+			char name[64];
 			strcpy(name, gameObject->GetName().c_str());
 			if (ImGui::InputText("Name", name, sizeof(name)))
 			{
@@ -983,8 +1002,10 @@ void Editor::Properties()
 				{
 					if (r3d->m_Mesh)
 					{
-						Visualizer::DrawWireFrameCube(gameObject->m_Transform.GetPositionMat4(), gameObject->m_Transform.GetRotationMat4()
-							, gameObject->m_Transform.GetScaleMat4(), r3d->m_Mesh->m_BoundingBox.m_Min, r3d->m_Mesh->m_BoundingBox.m_Max);
+						Visualizer::DrawWireFrameCube(gameObject->m_Transform.GetPositionMat4(),
+							gameObject->m_Transform.GetRotationMat4(Transform::System::LOCAL),
+							gameObject->m_Transform.GetScaleMat4(Transform::System::LOCAL),
+							r3d->m_Mesh->m_BoundingBox.m_Min, r3d->m_Mesh->m_BoundingBox.m_Max);
 					}
 				}
 			}
@@ -1009,7 +1030,7 @@ void Editor::Environment()
 	{
 		Pengine::Environment& environment = Environment::GetInstance();
 		
-		char name[32];
+		char name[64];
 		strcpy(name, m_CurrentScene->m_Title.c_str());
 		if (ImGui::InputText("Scene title", name, sizeof(name)))
 		{
@@ -1186,9 +1207,9 @@ void Editor::TransformComponent(Transform& transform)
 		Indent indent;
 
 		ImGui::Checkbox("Follow owner", &transform.m_FollowOwner);
-		glm::vec3 position = transform.GetPosition();
-		glm::vec3 rotation = glm::degrees(transform.GetRotation());
-		glm::vec3 scale = transform.GetScale();
+		glm::vec3 position = transform.GetPosition(Transform::System::LOCAL);
+		glm::vec3 rotation = glm::degrees(transform.GetRotation(Transform::System::LOCAL));
+		glm::vec3 scale = transform.GetScale(Transform::System::LOCAL);
 		DrawVec3Control("Translation", position);
 		DrawVec3Control("Rotation", rotation, 0.0f, {-360.0f, 360.0f }, 1.0f);
 		DrawVec3Control("Scale", scale, 1.0f, { 0.0f, 25.0f });
@@ -1358,7 +1379,7 @@ void Editor::BoxCollider2DComponent(GameObject* gameObject)
 				ImGui::DragFloat("Restitution threshold", &restitutionThreshold, 0.1f, 0.0f, 5.0f);
 				bc2d->SetRestitutionThreshold(restitutionThreshold);
 
-				char tag[32];
+				char tag[64];
 				strcpy(tag, bc2d->GetTag().c_str());
 				ImGui::InputText("Tag", tag, sizeof(char) * 32);
 				bc2d->SetTag(tag);
@@ -1432,7 +1453,7 @@ void Editor::CircleCollider2DComponent(GameObject* gameObject)
 				ImGui::DragFloat("Restitution threshold", &restitutionThreshold, 0.1f, 0.0f, 5.0f);
 				cc2d->SetRestitutionThreshold(restitutionThreshold);
 
-				char tag[32];
+				char tag[64];
 				strcpy(tag, cc2d->GetTag().c_str());
 				ImGui::InputText("Tag", tag, sizeof(char) * 32);
 				cc2d->SetTag(tag);
@@ -1945,11 +1966,82 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 					ImGui::PopID();
 
 					ImGui::ColorEdit3("Ambient", &r3d->m_Material->m_Ambient[0], ImGuiColorEditFlags_Float);
-					ImGui::ColorEdit3("Diffuse", &r3d->m_Material->m_Diffuse[0], ImGuiColorEditFlags_Float);
-					ImGui::ColorEdit3("Specular", &r3d->m_Material->m_Specular[0], ImGuiColorEditFlags_Float);
 					ImGui::SliderFloat("Scale", &r3d->m_Material->m_Scale, 0.0f, 15.0f);
-					ImGui::SliderFloat("Shininess", &r3d->m_Material->m_Shininess, 0.0f, 64.0f);
 					ImGui::SliderFloat("Solid", &r3d->m_Material->m_Solid, 0.0f, 1.0f);
+					ImGui::SliderFloat("Shiness", &r3d->m_Material->m_Shiness, 0.0f, 128.0f);
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_FloatUniformsByName)
+					{
+						float newValue = value;
+						if (ImGui::SliderFloat(name.c_str(), &newValue, 0.0f, 1.0f))
+						{
+							value = newValue;
+						}
+					}
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_IntUniformsByName)
+					{
+						int newValue = value;
+						if (ImGui::InputInt(name.c_str(), &newValue))
+						{
+							value = newValue;
+						}
+					}
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_Vec2UniformsByName)
+					{
+						DrawVec2Control(name, value);
+					}
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_Vec3UniformsByName)
+					{
+						DrawVec3Control(name, value);
+					}
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_Vec4UniformsByName)
+					{
+						DrawVec4Control(name, value);
+					}
+
+					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_TextureUniformsByName)
+					{
+						if (ImGui::ImageButton((ImTextureID)value->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+						{
+							m_TextureMenu.m_IsActive = true;
+							m_TextureMenu.m_Texture = value;
+						}
+
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+							{
+								std::string path((const char*)payload->Data);
+								path.resize(payload->DataSize);
+
+								TextureManager::GetInstance().AsyncLoad(path,
+									[=, _name = name](Texture* texture)
+									{
+										r3d->m_Material->m_BaseMaterial->m_TextureUniformsByName[_name] = texture;
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+
+						ImGui::SameLine();
+
+						ImGui::PushID(value->GetRendererID() + 100000);
+
+						if (ImGui::Button("Reset"))
+						{
+							r3d->m_Material->m_BaseMaterial->m_TextureUniformsByName[name] = TextureManager::GetInstance().White();
+						}
+
+						ImGui::PopID();
+
+						ImGui::SameLine();
+
+						ImGui::Text(name.c_str());
+					}
 
 					if (ImGui::Button("Save"))
 					{
@@ -2057,6 +2149,29 @@ void Editor::UserDefinedComponents(GameObject* gameObject)
 								}
 
 								ImGui::PopID();
+							}
+							else if (prop.IsValue<GameObject*>())
+							{
+								GameObject* value = reflectionSystem.GetValue<GameObject*>(component, componentType, name);
+								const ImTextureID gameObjectIconId = (ImTextureID)TextureManager::GetInstance().GetByName("FileIcon")->GetRendererID();
+								if (ImGui::ImageButton(gameObjectIconId, { 16, 16 }, ImVec2(0, 1), ImVec2(1, 0)))
+								{
+									reflectionSystem.SetValue<GameObject*>(nullptr, component, componentType, name);
+								}
+
+								if (ImGui::BeginDragDropTarget())
+								{
+									if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("GAMEOBJECT"))
+									{
+										std::string uuid((const char*)payload->Data);
+										uuid.resize(payload->DataSize);
+										reflectionSystem.SetValue(m_CurrentScene->FindGameObjectByUUID(uuid), component, componentType, name);
+									}
+									ImGui::EndDragDropTarget();
+								}
+
+								ImGui::SameLine();
+								ImGui::Text(std::string((value ? value->GetName() : "Null")).c_str());
 							}
 							else if (prop.IsValue<glm::vec2>())
 							{
@@ -2820,6 +2935,20 @@ void Editor::Settings()
 			ImGui::PopID();
 		}
 
+		if (ImGui::Button("Reload shaders"))
+		{
+			Shader::ReloadAll();
+		}
+
+		if (ImGui::Button("Save materials"))
+		{
+			auto materials = MaterialManager::GetInstance().GetMaterials();
+			for (const auto& [filePath, material] : materials)
+			{
+				Serializer::SerializeMaterial(filePath, material);
+			}
+		}
+
 		ImGui::End();
 	}
 }
@@ -2841,9 +2970,13 @@ void Editor::ShortCuts()
 			std::vector<GameObject*> newGameObjects;
 			for (const std::string& gameObjectUUID : m_SelectedGameObjects)
 			{
-				if (GameObject * gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+				if (GameObject* gameObject = m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
 				{
 					GameObject* newGameObject = m_CurrentScene->CreateGameObject(gameObject->GetName());
+					if (GameObject* owner = gameObject->GetOwner())
+					{
+						owner->AddChild(newGameObject);
+					}
 					newGameObject->Copy(*gameObject);
 					newGameObjects.push_back(newGameObject);
 				}

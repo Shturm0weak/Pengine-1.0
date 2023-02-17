@@ -1,0 +1,4 @@
+Mesh:
+  Name: Silver_Plane.005
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

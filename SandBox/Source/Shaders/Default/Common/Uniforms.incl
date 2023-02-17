@@ -1,0 +1,35 @@
+uniform float u_Fps;
+uniform float u_DeltaTime;
+uniform float u_Time;
+uniform vec3 u_CameraPosition;
+uniform vec2 u_ViewportSize;
+
+struct DirectionalLight
+{
+	vec3 direction;
+	vec3 color;
+	float intensity;
+};
+
+struct DirectionalShadows
+{
+	sampler2D color;
+	bool isEnabled;
+};
+
+struct SSAO
+{
+	sampler2D color;
+	bool isEnabled;
+};
+
+#define MAX_POINT_LIGHT_SHADOWS 10
+uniform samplerCube u_PointLightsShadowMap[MAX_POINT_LIGHT_SHADOWS];
+
+uniform int u_PointLightsSize;
+uniform int u_SpotLightsSize;
+
+uniform DirectionalLight u_DirectionalLight;
+uniform DirectionalShadows u_DirectionalShadows;
+
+uniform bool u_IsShadowsEnabled;

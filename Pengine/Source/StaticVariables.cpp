@@ -31,9 +31,6 @@ std::vector<Visualizer::LineParams> Visualizer::m_Lines;
 std::vector<Visualizer::QuadParams> Visualizer::m_Quads;
 std::vector<Visualizer::CircleParams> Visualizer::m_Circles;
 
-// UUID.
-std::vector<std::string> Pengine::UUID::s_UUIDs;
-
 // Timer.
 std::vector<std::pair<std::function<void()>, float>> Timer::s_Callbacks;
 

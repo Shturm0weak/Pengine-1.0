@@ -1,0 +1,4 @@
+Mesh:
+  Name: FuelCapLogo_Plane.013
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

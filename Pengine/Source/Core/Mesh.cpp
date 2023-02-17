@@ -1,6 +1,5 @@
 #include "Mesh.h"
 
-#include "Instancing.h"
 #include "Serializer.h"
 
 using namespace Pengine;
@@ -23,7 +22,11 @@ Mesh::Mesh(const std::string& name, std::vector<float>& vertexAttributes, std::v
 	m_Va.AddBuffer(m_Vb, m_Layout);
 	m_Ib.Initialize(&m_Indices[0], m_Indices.size());
 
-	Instancing::GetInstance().Create(this);
+	m_DynamicBufferShadows.m_VboDynamic.Initialize(nullptr, 1, false);
+	m_DynamicBufferShadows.m_LayoutDynamic.Push<float>(4);
+	m_DynamicBufferShadows.m_LayoutDynamic.Push<float>(4);
+	m_DynamicBufferShadows.m_LayoutDynamic.Push<float>(4);
+	m_DynamicBufferShadows.m_LayoutDynamic.Push<float>(4);
 }
 
 void Mesh::Bind() const
@@ -55,4 +58,40 @@ void Mesh::Refresh()
 	}
 	m_Va.AddBuffer(m_Vb, m_Layout);
 	m_Ib.Initialize(&m_Indices[0], m_Indices.size());
+}
+
+void Mesh::DynamicBuffer::Initialize()
+{
+	if (m_Initialized)
+	{
+		return;
+	}
+
+	m_VboDynamic.Initialize(nullptr, 1, false);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(3);
+	m_LayoutDynamic.Push<float>(3);
+	m_LayoutDynamic.Push<float>(3);
+	m_LayoutDynamic.Push<float>(1);
+
+	m_Initialized = true;
+}
+
+void Mesh::DynamicBufferShadows::Initialize()
+{
+	if (m_Initialized)
+	{
+		return;
+	}
+
+	m_VboDynamic.Initialize(nullptr, 1, false);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+	m_LayoutDynamic.Push<float>(4);
+
+	m_Initialized = true;
 }

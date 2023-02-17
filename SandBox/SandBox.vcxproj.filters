@@ -38,6 +38,9 @@
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
+    <ClInclude Include="Source\Shaders\Default\Common\UniformObjects.incl" />
+    <ClInclude Include="Source\Shaders\Default\Common\Uniforms.incl" />
+    <ClInclude Include="Source\Examples\Car\Vehicle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\SandBox.cpp" />
@@ -54,5 +57,28 @@
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\Pig.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\PigThrowing.cpp" />
     <ClCompile Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.cpp" />
+    <ClCompile Include="Source\Examples\Car\Vehicle.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Shaders\Default\AddBlurImages.shader" />
+    <None Include="Source\Shaders\Default\Blur.shader" />
+    <None Include="Source\Shaders\Default\ComposeFinalImage.shader" />
+    <None Include="Source\Shaders\Default\Default2D.shader" />
+    <None Include="Source\Shaders\Default\Default2DGBuffer.shader" />
+    <None Include="Source\Shaders\Default\Default3D.shader" />
+    <None Include="Source\Shaders\Default\DefaultLines.shader" />
+    <None Include="Source\Shaders\Default\Deferred.shader" />
+    <None Include="Source\Shaders\Default\Depth.shader" />
+    <None Include="Source\Shaders\Default\DrawFullScreenTexture.shader" />
+    <None Include="Source\Shaders\Default\Instancing3D.shader" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthDirShadows.shader" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthPointShadows.shader" />
+    <None Include="Source\Shaders\Default\InstancingGBuffer.shader" />
+    <None Include="Source\Shaders\Default\InstancingShadows.shader" />
+    <None Include="Source\Shaders\Default\SSAO.shader" />
+    <None Include="Source\Shaders\Default\UI.shader" />
+    <None Include="Source\Shaders\Default\Visualizer.shader" />
+    <None Include="Source\Shaders\Default\Custom.shader" />
+    <None Include="Source\Shaders\Default\Common\DirectionalShadows.incl" />
   </ItemGroup>
 </Project>

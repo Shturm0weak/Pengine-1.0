@@ -1,6 +1,7 @@
 #pragma once
 
 #define MAX_PREALLOCATED_INSTANCES 1000
+#define MAX_TEXTURE_SLOTS 32
 
 #ifdef PENGINE_ENGINE
 #define PENGINE_API __declspec(dllexport)

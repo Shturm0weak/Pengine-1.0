@@ -1,0 +1,8 @@
+Texture:
+  Name: Wheel_2_Left_Firefox
+  FilePath: Source\Examples\Car\Textures\Wheel_2_Left_Firefox.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -1,0 +1,8 @@
+Texture:
+  Name: Brake_Disc_1_Hub_1_Normal
+  FilePath: Source\Examples\Car\Textures\Brake_Disc_1_Hub_1_Normal.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -1,34 +1,25 @@
 Material:
-  m_BaseColor:
-    Type: Pengine::Texture * __ptr64
-    Value: Source\Sponza\Textures\sponza_flagpole_diff.png
-  m_NormalMap:
-    Type: Pengine::Texture * __ptr64
-    Value: Source\Sponza\Textures\sponza_flagpole_diff_NRM.png
-  m_Diffuse:
-    Type: glm::vec<3,float,0>
-    Value: [1, 1, 1]
-  m_ShaderFilePath:
-    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
-    Value: Instancing3D.shader
-  m_Shininess:
-    Type: float
-    Value: 32
-  m_Ambient:
-    Type: glm::vec<3,float,0>
-    Value: [1, 1, 1]
-  m_Specular:
-    Type: glm::vec<3,float,0>
-    Value: [1, 1, 1]
-  m_Scale:
-    Type: float
-    Value: 1
-  m_Solid:
-    Type: float
-    Value: 1
   m_UseNormalMap:
     Type: bool
     Value: true
+  m_BaseColor:
+    Type: Pengine::Texture * __ptr64
+    Value: Source\Sponza\Textures\sponza_flagpole_diff.png
+  m_Solid:
+    Type: float
+    Value: 1
+  m_NormalMap:
+    Type: Pengine::Texture * __ptr64
+    Value: Source\Sponza\Textures\sponza_flagpole_diff_NRM.png
+  m_Scale:
+    Type: float
+    Value: 1
+  m_BaseMaterial:
+    Type: Pengine::BaseMaterial * __ptr64
+    Value: Source/Materials/Material.basemat
+  m_Ambient:
+    Type: glm::vec<3,float,0>
+    Value: [1, 1, 1]
   m_Name:
     Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
     Value: FlagPole

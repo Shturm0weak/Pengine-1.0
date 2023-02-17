@@ -5,6 +5,8 @@
 #include "Renderer.h"
 #include "Viewport.h"
 #include "../OpenGL/FrameBuffer.h"
+#include "../OpenGL/Material.h"
+#include "../OpenGL/BaseMaterial.h"
 
 using namespace Pengine;
 
@@ -17,34 +19,6 @@ Instancing& Instancing::GetInstance()
 {
 	static Instancing instancing;
 	return instancing;
-}
-
-void Instancing::Create(Mesh* mesh)
-{
-	std::pair<Mesh*, DynamicBuffer> bufferByMesh = std::make_pair(mesh, DynamicBuffer());
-	bufferByMesh.second.m_VboDynamic.Initialize(nullptr, 1, false);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-	bufferByMesh.second.m_LayoutDynamic.Push<float>(3);
-
-	m_OpaqueBuffersByMesh.insert(bufferByMesh);
-
-	std::pair<Mesh*, DynamicBuffer> shadowBufferByMesh = std::make_pair(mesh, DynamicBuffer());
-	shadowBufferByMesh.second.m_VboDynamic.Initialize(nullptr, 1, false);
-	shadowBufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	shadowBufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	shadowBufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-	shadowBufferByMesh.second.m_LayoutDynamic.Push<float>(4);
-
-	m_ShadowsBuffersByMesh.insert(shadowBufferByMesh);
 }
 
 /*
@@ -217,295 +191,250 @@ void Instancing::Render(const std::unordered_map<Mesh*, std::vector<Renderer3D*>
 }
 */
 
-void Instancing::RenderGBuffer(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
-	std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh)
+void Instancing::RenderGBuffer(const std::unordered_map<BaseMaterial*, Scene::Renderable>& instancedObjects)
 {
 	if (instancedObjects.empty())
 	{
 		return;
 	}
 
-	Shader* shader = Shader::Get("InstancingGBuffer");
-	shader->Bind();
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	if (Editor::GetInstance().m_PolygonMode)
+	for (const auto& [material, renderable] : instancedObjects)
 	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
+		Shader* shader = material->m_Shader->GetPass() == Shader::Pass::DEFERRED ? material->m_Shader : Shader::Get("InstancingGBuffer");;
+		shader->Bind();
+		shader->SetGlobalUniforms();
 
-	shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
-
-	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
-	{
-		auto buffer = bufferByMesh.find(instancedObject->first);
-		if (buffer == bufferByMesh.end())
+		for (const auto& [name, value] : material->m_FloatUniformsByName)
 		{
-			continue;
+			shader->SetUniform1f(name, value);
 		}
 
-		size_t objectsSize = instancedObject->second.size();
-		if (objectsSize == 0)
+		for (const auto& [name, value] : material->m_IntUniformsByName)
 		{
-			continue;
+			shader->SetUniform1i(name, value);
 		}
 
-		Mesh& mesh = *buffer->first;
-		DynamicBuffer& dynamicBuffer = buffer->second;
-
-		if (dynamicBuffer.m_VertexAttributes.empty())
+		for (const auto& [name, value] : material->m_Vec2UniformsByName)
 		{
-			continue;
+			shader->SetUniform2fv(name, value);
 		}
 
-		Editor::GetInstance().m_Stats.m_Triangles += (mesh.m_Ib.GetCount() * objectsSize) / 3;
-		Editor::GetInstance().m_Stats.m_DrawCalls++;
+		for (const auto& [name, value] : material->m_Vec3UniformsByName)
+		{
+			shader->SetUniform3fv(name, value);
+		}
 
-		mesh.m_Va.Bind();
-		mesh.m_Ib.Bind();
-		mesh.m_Vb.Bind();
+		for (const auto& [name, value] : material->m_Vec4UniformsByName)
+		{
+			shader->SetUniform4fv(name, value);
+		}
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		if (Editor::GetInstance().m_PolygonMode)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+
+		for (const auto& [mesh, r3ds] : renderable)
+		{
+			mesh->m_DynamicBufferOpaqueByMaterial[material].Initialize();
+			Mesh::DynamicBuffer& buffer = mesh->m_DynamicBufferOpaqueByMaterial[material];
+
+			for (const auto& [name, value] : material->m_TextureUniformsByName)
+			{
+				shader->SetUniform1i(name, material->BindTexture(value->GetRendererID()));
+			}
+
+			for (const auto& r3d : r3ds)
+			{
+				r3d->m_Material->m_BaseColorIndex = material->BindTexture(r3d->m_Material->m_BaseColor->GetRendererID());
+				r3d->m_Material->m_NormalMapIndex = material->BindTexture(r3d->m_Material->m_NormalMap->GetRendererID());
+			}
+
+			std::vector<int> samplers = material->BindTextures();
+			shader->SetUniform1iv("u_Texture", &samplers[0], samplers.size());
+
+			size_t objectsSize = r3ds.size();
+			if (objectsSize == 0)
+			{
+				continue;
+			}
+
+			if (buffer.m_VertexAttributes.empty())
+			{
+				continue;
+			}
+
+			mesh->m_Va.Bind();
+
+			buffer.m_VboDynamic.Bind();
+			if (buffer.m_AllocateNewBuffer)
+			{
+				glBufferData(GL_ARRAY_BUFFER, buffer.m_VertexAttributes.size() * sizeof(float), &buffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
+			}
+			else
+			{
+				glBufferSubData(GL_ARRAY_BUFFER, 0, buffer.m_VertexAttributes.size() * sizeof(float), &buffer.m_VertexAttributes[0]);
+			}
+
+			mesh->m_Va.AddBuffer(buffer.m_VboDynamic, buffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
+
+			Editor::GetInstance().m_Stats.m_Triangles += (mesh->m_Ib.GetCount() * objectsSize) / 3;
+			Editor::GetInstance().m_Stats.m_DrawCalls++;
+
+			if (mesh->m_CullFace)
+			{
+				glEnable(GL_CULL_FACE);
+			}
+			else
+			{
+				glDisable(GL_CULL_FACE);
+			}
+
+			mesh->m_Va.Bind();
+			mesh->m_Ib.Bind();
+			mesh->m_Vb.Bind();
+			buffer.m_VboDynamic.Bind();
+
+			glDrawElementsInstanced(GL_TRIANGLES, mesh->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, r3ds.size());
+
+			material->UnBindTextures();
+		}
+
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDisable(GL_CULL_FACE);
 		
-		int samplers[32];
-		for (size_t i = 0; i < dynamicBuffer.m_TextureSlotsIndex; i++)
-		{
-			glActiveTexture(GL_TEXTURE0 + i);
-			glBindTexture(GL_TEXTURE_2D, dynamicBuffer.m_TextureSlots[i]);
-		}
-		for (size_t i = 0; i < maxTextureSlots; i++)
-		{
-			samplers[i] = i;
-		}
-		shader->SetUniform1iv("u_Texture", samplers);
-
-		if (instancedObject->first->m_CullFace)
-		{
-			glEnable(GL_CULL_FACE);
-		}
-		else
-		{
-			glDisable(GL_CULL_FACE);
-		}
-
-		mesh.m_Va.Bind();
-		mesh.m_Ib.Bind();
-		mesh.m_Vb.Bind();
-		dynamicBuffer.m_VboDynamic.Bind();
-
-		glDrawElementsInstanced(GL_TRIANGLES, mesh.m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
-
-		dynamicBuffer.m_TextureSlotsIndex = 0;
-		for (size_t i = 0; i < 32; i++)
-		{
-			dynamicBuffer.m_TextureSlots[i] = 0;
-		}
+		shader->UnBind();
 	}
-
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glDisable(GL_CULL_FACE);
-
-	shader->UnBind();
 }
 
-void Instancing::RenderShadowsObjects(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects,
-	std::unordered_map<Mesh*, DynamicBuffer>& bufferByMesh)
+void Instancing::RenderShadowsObjects(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
 {
 	if (instancedObjects.empty())
 	{
 		return;
 	}
 
-	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
+	for (const auto& [mesh, r3ds] : instancedObjects)
 	{
-		auto buffer = bufferByMesh.find(instancedObject->first);
-		if (buffer == bufferByMesh.end())
-		{
-			continue;
-		}
+		Mesh::DynamicBufferShadows& buffer = mesh->m_DynamicBufferShadows;
 
-		size_t objectsSize = instancedObject->second.size();
+		size_t objectsSize = r3ds.size();
 		if (objectsSize == 0)
 		{
 			continue;
 		}
 
-		Mesh& mesh = *buffer->first;
-		DynamicBuffer& dynamicBuffer = buffer->second;
-
-		if (dynamicBuffer.m_VertexAttributes.empty())
+		if (buffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
 
-		Editor::GetInstance().m_Stats.m_Triangles += (mesh.m_Ib.GetCount() * objectsSize) / 3;
+		Editor::GetInstance().m_Stats.m_Triangles += (mesh->m_Ib.GetCount() * objectsSize) / 3;
 		Editor::GetInstance().m_Stats.m_DrawCalls++;
 
-		mesh.m_Va.Bind();
-		mesh.m_Ib.Bind();
-		mesh.m_Vb.Bind();
+		mesh->m_Va.Bind();
+		mesh->m_Ib.Bind();
+		mesh->m_Vb.Bind();
 
-		glDrawElementsInstanced(GL_TRIANGLES, mesh.m_Ib.GetCount(), GL_UNSIGNED_INT, 0, instancedObject->second.size());
+		glDrawElementsInstanced(GL_TRIANGLES, mesh->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, r3ds.size());
 	}
 }
 
-void Instancing::PrepareVertexAtrrib(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
+void Instancing::PrepareVertexAtrrib(const std::unordered_map<BaseMaterial*, Scene::Renderable>& instancedObjects)
 {
-	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
+	for (const auto& [material, renderable] : instancedObjects)
 	{
-		auto buffer = m_OpaqueBuffersByMesh.find(instancedObject->first);
-		if (buffer == m_OpaqueBuffersByMesh.end())
+		for (const auto& [mesh, r3ds] : renderable)
 		{
+			Mesh::DynamicBuffer& buffer = mesh->m_DynamicBufferOpaqueByMaterial[material];
+			buffer.Initialize();
+
+			size_t objectsSize = r3ds.size();
+			if (objectsSize == 0)
+			{
+				continue;
+			}
+
+			buffer.m_AllocateNewBuffer = false;
+
+			if (buffer.m_PrevObjectSize < objectsSize || buffer.m_VertexAttributes.empty())
+			{
+				buffer.m_VertexAttributes.resize(objectsSize * m_SizeOfAttribs);
+				buffer.m_AllocateNewBuffer = true;
+			}
+
+			buffer.m_PrevObjectSize = objectsSize;
+
+			for (size_t i = 0; i < r3ds.size(); i++)
+			{
+				Renderer3D* r3d = r3ds[i];
+
+				GameObject& owner = *(r3d->GetOwner());
+
+				float* startPtr = &buffer.m_VertexAttributes[i * m_SizeOfAttribs];
+
+				const glm::mat4 transformMat4 = owner.m_Transform.GetTransform();
+				const float* transform = glm::value_ptr(transformMat4);
+				memcpy(&startPtr[0], transform, 64);
+
+				const glm::mat3 inverseTransformMat3 = glm::transpose(owner.m_Transform.GetInverseTransform());
+				const float* inverseTransform = glm::value_ptr(inverseTransformMat3);
+				memcpy(&startPtr[16], inverseTransform, 36);
+
+				startPtr[25] = (float)r3d->m_Material->m_UniformIndex;
+			}
+
 			continue;
 		}
+	}
+}
 
-		auto shadowsBuffer = m_ShadowsBuffersByMesh.find(instancedObject->first);
+void Instancing::PrepareShadowsVertexAtrrib(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
+{
+	for (const auto& [mesh, r3ds] : instancedObjects)
+	{
+		Mesh::DynamicBufferShadows& shadowsBuffer = mesh->m_DynamicBufferShadows;
 		size_t rejectedShadows = 0;
 
-		size_t objectsSize = instancedObject->second.size();
+		size_t objectsSize = r3ds.size();
 		if (objectsSize == 0)
 		{
 			continue;
 		}
 
-		Mesh& mesh = *buffer->first;
-		DynamicBuffer& dynamicBuffer = buffer->second;
-		DynamicBuffer& dynamicShadowsBuffer = shadowsBuffer->second;
+		shadowsBuffer.m_AllocateNewBuffer = false;
 
-		dynamicBuffer.m_AllocateNewBuffer = false;
-		dynamicShadowsBuffer.m_AllocateNewBuffer = false;
-
-		if (dynamicBuffer.m_PrevObjectSize < objectsSize || dynamicBuffer.m_VertexAttributes.empty())
+		if (shadowsBuffer.m_PrevObjectSize < objectsSize || shadowsBuffer.m_VertexAttributes.empty())
 		{
-			dynamicBuffer.m_VertexAttributes.resize(objectsSize * m_SizeOfAttribs);
-			dynamicBuffer.m_AllocateNewBuffer = true;
+			shadowsBuffer.m_VertexAttributes.resize(objectsSize * 16);
+			shadowsBuffer.m_AllocateNewBuffer = true;
 		}
 
-		if (dynamicShadowsBuffer.m_PrevObjectSize < objectsSize || dynamicShadowsBuffer.m_VertexAttributes.empty())
+		shadowsBuffer.m_PrevObjectSize = objectsSize;
+
+		for (size_t i = 0; i < r3ds.size(); i++)
 		{
-			dynamicShadowsBuffer.m_VertexAttributes.resize(objectsSize * 16);
-			dynamicShadowsBuffer.m_AllocateNewBuffer = true;
-		}
+			Renderer3D* r3d = r3ds[i];
 
-		dynamicBuffer.m_PrevObjectSize = objectsSize;
-		dynamicShadowsBuffer.m_PrevObjectSize = objectsSize;
+			rejectedShadows += !r3d->m_DrawShadows;
 
-		// TODO: Chacing texture index in Renderer3D by calling GetTextureIndex and pass it here!
-		for (size_t i = 0; i < objectsSize; i++)
-		{
-			Renderer3D& r3d = *(instancedObject->second[i]);
-			Material& material = *r3d.m_Material;
-				
-			rejectedShadows += !r3d.m_DrawShadows;
-
-			auto bindTexture = [&dynamicBuffer](Texture* texture)
+			if (r3d->m_DrawShadows)
 			{
-				int textureIndex = 0;
-				
-				auto instancedObject = std::find(dynamicBuffer.m_TextureSlots.begin(), dynamicBuffer.m_TextureSlots.end(), texture->GetRendererID());
-				if (instancedObject != dynamicBuffer.m_TextureSlots.end())
-				{
-					textureIndex = (instancedObject - dynamicBuffer.m_TextureSlots.begin());
-				}
-				else
-				{
-					if (dynamicBuffer.m_TextureSlotsIndex >= 32)
-					{
-						Logger::Warning("limit of texture slots, texture will be set to white!");
-					}
-					else
-					{
-						textureIndex = dynamicBuffer.m_TextureSlotsIndex;
-						dynamicBuffer.m_TextureSlots[dynamicBuffer.m_TextureSlotsIndex] = texture->GetRendererID();
-						dynamicBuffer.m_TextureSlotsIndex++;
-					}
-				}
+				GameObject& owner = *(r3d->GetOwner());
 
-				return textureIndex;
-			};
-			
-			int baseColorIndex = bindTexture(r3d.m_Material->m_BaseColor);
-			int NormalMapIndex = bindTexture(r3d.m_Material->m_NormalMap);
+				const glm::mat4 transformMat4 = owner.m_Transform.GetTransform();
+				const float* transform = glm::value_ptr(transformMat4);
 
-			GameObject& owner = *(r3d.GetOwner());
-
-			const glm::vec3 ambient = material.m_Ambient * material.m_Scale;
-			const glm::vec3 diffuse = material.m_Diffuse * material.m_Scale;
-			const glm::vec3 specular = material.m_Specular * material.m_Scale;
-
-			float* startPtr = &dynamicBuffer.m_VertexAttributes[i * m_SizeOfAttribs];
-			memcpy(&startPtr[0], &ambient[0], 12);
-			memcpy(&startPtr[3], &diffuse[0], 12);
-			memcpy(&startPtr[6], &specular[0], 12);
-
-			startPtr[9] = (float)baseColorIndex;
-			startPtr[10] = (float)NormalMapIndex;
-			startPtr[11] = material.m_Shininess;
-			startPtr[12] = (float)material.m_UseNormalMap;
-
-			const glm::mat4 transformMat4 = owner.m_Transform.GetTransform();
-			const float* transform = glm::value_ptr(transformMat4);
-			memcpy(&startPtr[13], transform, 64);
-
-			const glm::mat3 inverseTransformMat3 = glm::transpose(owner.m_Transform.GetInverseTransform());
-			const float* inverseTransform = glm::value_ptr(inverseTransformMat3);
-			memcpy(&startPtr[29], inverseTransform, 36);
-
-			if (r3d.m_DrawShadows)
-			{
-				float* startPtr = &dynamicShadowsBuffer.m_VertexAttributes[(i - rejectedShadows) * 16];
+				float* startPtr = &shadowsBuffer.m_VertexAttributes[(i - rejectedShadows) * 16];
 				memcpy(&startPtr[0], transform, 64);
 			}
 		}
-
-		continue;
 	}
 }
 
-void Instancing::BindBuffers(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
-{
-	if (instancedObjects.empty())
-	{
-		return;
-	}
-
-	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
-	{
-		auto buffer = m_OpaqueBuffersByMesh.find(instancedObject->first);
-		if (buffer == m_OpaqueBuffersByMesh.end())
-		{
-			continue;
-		}
-
-		size_t objectsSize = instancedObject->second.size();
-		if (objectsSize == 0)
-		{
-			continue;
-		}
-
-		Mesh& mesh = *buffer->first;
-		DynamicBuffer& dynamicBuffer = buffer->second;
-
-		if (dynamicBuffer.m_VertexAttributes.empty())
-		{
-			continue;
-		}
-
-		mesh.m_Va.Bind();
-
-		dynamicBuffer.m_VboDynamic.Bind();
-		if (dynamicBuffer.m_AllocateNewBuffer)
-		{
-			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
-		}
-		else
-		{
-			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0]);
-		}
-
-		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
-	}
-}
 
 void Instancing::BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<Renderer3D*>>& instancedObjects)
 {
@@ -514,53 +443,33 @@ void Instancing::BindShadowsBuffers(const std::unordered_map<Mesh*, std::vector<
 		return;
 	}
 
-	for (auto instancedObject = instancedObjects.begin(); instancedObject != instancedObjects.end(); instancedObject++)
+	for (const auto& [mesh, r3ds] : instancedObjects)
 	{
-		auto buffer = m_ShadowsBuffersByMesh.find(instancedObject->first);
-		if (buffer == m_ShadowsBuffersByMesh.end())
-		{
-			continue;
-		}
+		Mesh::DynamicBufferShadows& buffer = mesh->m_DynamicBufferShadows;
 
-		size_t objectsSize = instancedObject->second.size();
+		size_t objectsSize = r3ds.size();
 		if (objectsSize == 0)
 		{
 			continue;
 		}
 
-		Mesh& mesh = *buffer->first;
-		DynamicBuffer& dynamicBuffer = buffer->second;
-
-		if (dynamicBuffer.m_VertexAttributes.empty())
+		if (buffer.m_VertexAttributes.empty())
 		{
 			continue;
 		}
 
-		mesh.m_Va.Bind();
+		mesh->m_Va.Bind();
 
-		dynamicBuffer.m_VboDynamic.Bind();
-		if (dynamicBuffer.m_AllocateNewBuffer)
+		buffer.m_VboDynamic.Bind();
+		if (buffer.m_AllocateNewBuffer)
 		{
-			glBufferData(GL_ARRAY_BUFFER, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, buffer.m_VertexAttributes.size() * sizeof(float), &buffer.m_VertexAttributes[0], GL_DYNAMIC_DRAW);
 		}
 		else
 		{
-			glBufferSubData(GL_ARRAY_BUFFER, 0, dynamicBuffer.m_VertexAttributes.size() * sizeof(float), &dynamicBuffer.m_VertexAttributes[0]);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, buffer.m_VertexAttributes.size() * sizeof(float), &buffer.m_VertexAttributes[0]);
 		}
 
-		mesh.m_Va.AddBuffer(dynamicBuffer.m_VboDynamic, dynamicBuffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
-	}
-}
-
-void Instancing::ShutDown()
-{
-	for (auto buffer : m_OpaqueBuffersByMesh)
-	{
-		buffer.second.m_VertexAttributes.clear();
-	}
-
-	for (auto buffer : m_ShadowsBuffersByMesh)
-	{
-		buffer.second.m_VertexAttributes.clear();
+		mesh->m_Va.AddBuffer(buffer.m_VboDynamic, buffer.m_LayoutDynamic, Mesh::GetStaticAttributeVertexOffset(), 1);
 	}
 }

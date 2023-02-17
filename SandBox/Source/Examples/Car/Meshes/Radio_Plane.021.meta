@@ -1,0 +1,4 @@
+Mesh:
+  Name: Radio_Plane.021
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

@@ -26,6 +26,33 @@ namespace Pengine
 			bool m_CullFace = true;
 		};
 
+		struct DynamicBuffer
+		{
+			VertexBuffer m_VboDynamic;
+			VertexBufferLayout m_LayoutDynamic;
+			size_t m_PrevObjectSize = 0;
+			std::vector<float> m_VertexAttributes;
+			bool m_AllocateNewBuffer = true;
+			bool m_Initialized = false;
+
+			void Initialize();
+		};
+
+		struct DynamicBufferShadows
+		{
+			VertexBuffer m_VboDynamic;
+			VertexBufferLayout m_LayoutDynamic;
+			size_t m_PrevObjectSize = 0;
+			std::vector<float> m_VertexAttributes;
+			bool m_AllocateNewBuffer = true;
+			bool m_Initialized = false;
+
+			void Initialize();
+		};
+
+		std::unordered_map<class BaseMaterial*, DynamicBuffer> m_DynamicBufferOpaqueByMaterial;
+		DynamicBufferShadows m_DynamicBufferShadows;
+
 		BoundingBox m_BoundingBox;
 
 		VertexArray m_Va;

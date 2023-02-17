@@ -6,6 +6,8 @@
 #include "../Events/OnMainThreadCallback.h"
 #include "../EventSystem/EventSystem.h"
 
+#include <unordered_map>
+
 Pengine::Mesh* objl::Loader::Load(const std::string& filePath)
 {
 	Pengine::Mesh* meshToReturn = nullptr;
@@ -16,9 +18,20 @@ Pengine::Mesh* objl::Loader::Load(const std::string& filePath)
 	bool loadOut = loader.LoadFile(filePath);
 	if (loadOut)
 	{
+		std::unordered_map<std::string, size_t> names;
 		for (size_t i = 0; i < loader.LoadedMeshes.size(); i++)
 		{
 			objl::Mesh curMesh = loader.LoadedMeshes[i];
+
+			std::string meshName = curMesh.MeshName;
+			if (names.count(meshName) > 0)
+			{
+				meshName += "_" + std::to_string(i);
+			}
+			else
+			{
+				names[meshName] = i;
+			}
 
 			std::vector<float> vertexAttributes;
 			glm::vec3 minBoundingBox = { FLT_MAX, FLT_MAX, FLT_MAX };
@@ -28,10 +41,10 @@ Pengine::Mesh* objl::Loader::Load(const std::string& filePath)
 
 			std::vector<uint32_t> layouts = { 3, 3, 2, 3, 3 };
 
-			Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Create(curMesh.MeshName, vertexAttributes, curMesh.Indices, layouts, filePath);
+			Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Create(meshName, vertexAttributes, curMesh.Indices, layouts, filePath);
 			mesh->m_BoundingBox = { minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
 
-			if (curMesh.MeshName == meta.m_Name)
+			if (meshName == meta.m_Name)
 			{
 				mesh->m_CullFace = meta.m_CullFace;
 				meshToReturn = mesh;
@@ -51,9 +64,20 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 	bool loadOut = loader.LoadFile(meta.m_FilePath);
 	if (loadOut)
 	{
+		std::unordered_map<std::string, size_t> names;
 		for (size_t i = 0; i < loader.LoadedMeshes.size(); i++)
 		{
 			objl::Mesh curMesh = loader.LoadedMeshes[i];
+
+			std::string meshName = curMesh.MeshName;
+			if (names.count(meshName) > 0)
+			{
+				meshName += "_" + std::to_string(i);
+			}
+			else
+			{
+				names[meshName] = i;
+			}
 
 			std::vector<float> vertexAttributes;
 			glm::vec3 minBoundingBox = { FLT_MAX, FLT_MAX, FLT_MAX };
@@ -61,14 +85,14 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 
 			LoadVertexData(curMesh.Vertices, curMesh.Indices, vertexAttributes, minBoundingBox, maxBoundingBox);
 
-			if (curMesh.MeshName == meta.m_Name)
+			if (meshName == meta.m_Name)
 			{
 				auto callbackMainThread = [=]() {
 					std::vector<float> vertexAttributesTemp = vertexAttributes;
 					std::vector<unsigned int> indicesTemp = curMesh.Indices;
 					std::vector<uint32_t> layouts = { 3, 3, 2, 3, 3 };
 
-					Pengine::MeshManager::GetInstance().CreateAsync(curMesh.MeshName, vertexAttributesTemp, indicesTemp, layouts, callback, filePath);
+					Pengine::MeshManager::GetInstance().CreateAsync(meshName, vertexAttributesTemp, indicesTemp, layouts, callback, filePath);
 					Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Get(filePath);
 					mesh->m_BoundingBox =
 					{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
@@ -83,10 +107,10 @@ void objl::Loader::LoadAsync(const std::string& filePath, std::function<void(Pen
 					std::vector<unsigned int> indicesTemp = curMesh.Indices;
 					std::vector<uint32_t> layouts = { 3, 3, 2, 3, 3 };
 
-					std::string metaFilePath = Pengine::Serializer::GenerateMetaFilePath(meta.m_FilePath, curMesh.MeshName);
+					std::string metaFilePath = Pengine::Serializer::GenerateMetaFilePath(meta.m_FilePath, meshName);
 					Pengine::Mesh::Meta meta = Pengine::Serializer::DeserializeMeshMeta(metaFilePath);
 
-					Pengine::MeshManager::GetInstance().Create(curMesh.MeshName, vertexAttributesTemp, indicesTemp, layouts, metaFilePath);
+					Pengine::MeshManager::GetInstance().Create(meshName, vertexAttributesTemp, indicesTemp, layouts, metaFilePath);
 					Pengine::Mesh* mesh = Pengine::MeshManager::GetInstance().Get(metaFilePath);
 					mesh->m_BoundingBox =
 					{ minBoundingBox, maxBoundingBox, (minBoundingBox + maxBoundingBox) * 0.5f };
@@ -107,12 +131,23 @@ void objl::Loader::LoadAsyncToViewport(const std::string& filePath)
 	bool loadOut = loader.LoadFile(filePath);
 	if (loadOut)
 	{
+		std::unordered_map<std::string, size_t> names;
 		for (size_t i = 0; i < loader.LoadedMeshes.size(); i++)
 		{
 			objl::Mesh curMesh = loader.LoadedMeshes[i];
 
+			std::string meshName = curMesh.MeshName;
+			if (names.count(meshName) > 0)
+			{
+				meshName += "_" + std::to_string(i);
+			}
+			else
+			{
+				names[meshName] = i;
+			}
+
 			Pengine::Mesh::Meta meta;
-			meta.m_Name = curMesh.MeshName;
+			meta.m_Name = meshName;
 			meta.m_FilePath = filePath;
 
 			meshesFilePath.emplace_back(meta.m_Name, Pengine::Serializer::SerializeMeshMeta(meta));
@@ -172,18 +207,29 @@ void objl::Loader::GenerateMeshMeta(const std::string& filePath, bool onlyMissin
 	bool loadOut = loader.LoadFile(filePath);
 	if (loadOut)
 	{
+		std::unordered_map<std::string, size_t> names;
 		for (size_t i = 0; i < loader.LoadedMeshes.size(); i++)
 		{
 			objl::Mesh curMesh = loader.LoadedMeshes[i];
 
+			std::string meshName = curMesh.MeshName;
+			if (names.count(meshName) > 0)
+			{
+				meshName += "_" + std::to_string(i);
+			}
+			else
+			{
+				names[meshName] = i;
+			}
+
 			Pengine::Mesh::Meta newMeta;
-			newMeta.m_Name = curMesh.MeshName;
+			newMeta.m_Name = meshName;
 			newMeta.m_FilePath = filePath;
 			newMeta.m_CullFace = true;
 
 			if (onlyMissing)
 			{
-				Pengine::Mesh::Meta meta = Pengine::Serializer::DeserializeMeshMeta(Pengine::Serializer::GenerateMetaFilePath(filePath, curMesh.MeshName));
+				Pengine::Mesh::Meta meta = Pengine::Serializer::DeserializeMeshMeta(Pengine::Serializer::GenerateMetaFilePath(filePath, meshName));
 				if (meta.m_FilePath.empty())
 				{
 					Pengine::Serializer::SerializeMeshMeta(newMeta);

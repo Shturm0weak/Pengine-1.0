@@ -1,34 +1,25 @@
 Material:
-  m_BaseColor:
-    Type: Pengine::Texture * __ptr64
-    Value: White
-  m_NormalMap:
-    Type: Pengine::Texture * __ptr64
-    Value: White
-  m_Diffuse:
-    Type: glm::vec<3,float,0>
-    Value: [0, 1, 0]
-  m_ShaderFilePath:
-    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
-    Value: Instancing3D.shader
-  m_Shininess:
-    Type: float
-    Value: 32
-  m_Ambient:
-    Type: glm::vec<3,float,0>
-    Value: [0, 1, 0]
-  m_Specular:
-    Type: glm::vec<3,float,0>
-    Value: [0, 1, 0]
-  m_Scale:
-    Type: float
-    Value: 1
-  m_Solid:
-    Type: float
-    Value: 0.300000012
   m_UseNormalMap:
     Type: bool
     Value: false
+  m_BaseColor:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_Solid:
+    Type: float
+    Value: 0.300000012
+  m_NormalMap:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_Scale:
+    Type: float
+    Value: 1
+  m_BaseMaterial:
+    Type: Pengine::BaseMaterial * __ptr64
+    Value: Source/Materials/Material.basemat
+  m_Ambient:
+    Type: glm::vec<3,float,0>
+    Value: [0, 1, 0]
   m_Name:
     Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
     Value: TransparentGreen

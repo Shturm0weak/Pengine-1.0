@@ -1,0 +1,4 @@
+Mesh:
+  Name: SeatsRed_Plane.024
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

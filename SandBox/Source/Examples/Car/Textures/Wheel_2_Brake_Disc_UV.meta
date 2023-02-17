@@ -1,0 +1,8 @@
+Texture:
+  Name: Wheel_2_Brake_Disc_UV
+  FilePath: Source\Examples\Car\Textures\Wheel_2_Brake_Disc_UV.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

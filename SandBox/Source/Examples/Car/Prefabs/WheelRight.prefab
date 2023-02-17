@@ -1,0 +1,108 @@
+GameObjects:
+  - GameObject: b225fced-1225-4c27-870e-00b346117267
+    Name: WheelRight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/Car/Prefabs/WheelRight.prefab
+    Childs:
+      - ded9b408-c1a1-462a-bb96-2d4125f37a1a
+      - 68118f34-d7aa-4e5c-8735-1e74e3582daa
+      - f030b5fa-44db-477e-a6f2-f6bb4e74cdae
+      - c3a7673e-b4ed-4449-9587-b3973e68b0df
+    Transform:
+      Follow owner: true
+      Position: [-0.959999979, -0.319999993, 2.08999991]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+  - GameObject: ded9b408-c1a1-462a-bb96-2d4125f37a1a
+    Name: CaliperRight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.959999979, -0.319999993, 2.08999991]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BrakeCaliper.mat
+      Lods:
+        - Source/Examples/Car/Meshes/CapilinerRight_Plane.060.meta
+        - None
+        - None
+  - GameObject: 68118f34-d7aa-4e5c-8735-1e74e3582daa
+    Name: DiskRight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.959999979, -0.319999993, 2.08999991]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Wheels.mat
+      Lods:
+        - Source/Examples/Car/Meshes/DiskRight_Plane.032.meta
+        - None
+        - None
+  - GameObject: f030b5fa-44db-477e-a6f2-f6bb4e74cdae
+    Name: DiskRightNuts
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.959999979, -0.319999993, 2.08999991]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BrakeCaliperNuts.mat
+      Lods:
+        - Source/Examples/Car/Meshes/DiskRightNuts_Plane.031.meta
+        - None
+        - None
+  - GameObject: c3a7673e-b4ed-4449-9587-b3973e68b0df
+    Name: TyreRight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-0.959999979, -0.319999993, 2.08999991]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/TyreRight.mat
+      Lods:
+        - Source/Examples/Car/Meshes/TyreRight_Plane.025.meta
+        - None
+        - None

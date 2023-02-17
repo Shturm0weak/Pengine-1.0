@@ -1,0 +1,12 @@
+BaseMaterial:
+  m_Shader:
+    Type: Pengine::Shader * __ptr64
+    Value: InstancingGBuffer
+  m_Name:
+    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+    Value: Material
+  m_FilePath:
+    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+    Value: Source/Materials/Material.basemat
+  Uniforms:
+    {}

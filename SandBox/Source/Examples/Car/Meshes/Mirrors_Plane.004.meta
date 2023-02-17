@@ -1,0 +1,4 @@
+Mesh:
+  Name: Mirrors_Plane.004
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

@@ -16,6 +16,13 @@ namespace Pengine
 
 	class PENGINE_API Shader
 	{
+	public:
+
+		enum class Pass
+		{
+			AMBIENT,
+			DEFERRED
+		};
 	private:
 
 		static std::unordered_map<std::string, Shader*> s_Shaders;
@@ -26,6 +33,8 @@ namespace Pengine
 
 		std::string m_Name;
 		std::string m_FilePath;
+
+		Pass m_Pass = Pass::DEFERRED;
 
 		int GetUniformLocation(const std::string& name);
 		
@@ -44,11 +53,17 @@ namespace Pengine
 		
 		void Reload();
 
+		static void ReloadAll();
+
+		void SetGlobalUniforms();
+
 		std::string GetName() const { return m_Name; }
 		
 		std::string GetFilePath() const { return m_FilePath; }
 
 		uint32_t GetRendererID() const { return m_RendererID; }
+
+		Pass GetPass() const { return m_Pass; }
 
 		ShaderProgramSource Parseshader(const std::string& filepath);
 		

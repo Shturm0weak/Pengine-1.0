@@ -1,0 +1,4 @@
+Mesh:
+  Name: FrontLights_Plane.006
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Core.h"
-#include "../OpenGL/Material.h"
 
 #include <unordered_map>
 
@@ -12,7 +11,8 @@ namespace Pengine
 	{
 	private:
 
-		std::unordered_map<std::string, Material*> m_MaterialsByFilePath;
+		std::unordered_map<std::string, class Material*> m_MaterialsByFilePath;
+		std::unordered_map<std::string, class BaseMaterial*> m_BaseMaterialsByFilePath;
 
 		MaterialManager() = default;
 		MaterialManager(const MaterialManager&) = delete;
@@ -24,9 +24,15 @@ namespace Pengine
 
 		static MaterialManager& GetInstance();
 		
-		Material* Get(const std::string& filePath);
+		class Material* Get(const std::string& filePath);
 
-		Material* Load(const std::string& filePath, bool reload = false);
+		class BaseMaterial* GetBase(const std::string& filePath);
+
+		class Material* Load(const std::string& filePath);
+
+		class BaseMaterial* LoadBase(const std::string& filePath);
+
+		std::unordered_map<std::string, class Material*> GetMaterials() const { return m_MaterialsByFilePath; }
 
 		void Delete(Material* material);
 

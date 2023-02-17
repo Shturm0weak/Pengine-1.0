@@ -32,7 +32,6 @@ namespace Pengine
 
 		Material* m_Material = nullptr;
 
-		bool m_BackFaceCulling = true;
 		bool m_IsOpaque = true;
 		bool m_DrawShadows = true;
 

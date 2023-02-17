@@ -1,5 +1,9 @@
 #include "Shader.h"
 
+#include "../Core/Viewport.h"
+#include "../Core/Environment.h"
+
+#include <functional>
 #include <fstream>
 #include <sstream>
 #include <glew.h>
@@ -155,10 +159,29 @@ int Shader::GetUniformBlockSize(const char* name)
 
 void Shader::Reload()
 {
+	m_UniformLocationCache.clear();
 	glDeleteProgram(m_RendererID);
 	ShaderProgramSource source = Parseshader(m_FilePath);
 	m_RendererID = CreateShader(source.m_VertexSource, source.m_GeometrySource, source.m_FragmentSource);
 	Logger::Success("has been updated!", "Shader", m_Name.c_str());
+}
+
+void Shader::ReloadAll()
+{
+	for (const auto& [name, shader] : s_Shaders)
+	{
+		shader->Reload();
+	}
+}
+
+void Shader::SetGlobalUniforms()
+{
+	SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
+	SetUniform3fv("u_CameraPosition", Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition());
+	SetUniform2fv("u_ViewportSize", (glm::vec2)Viewport::GetInstance().GetSize());
+	SetUniform1f("u_DeltaTime", Time::GetDeltaTime());
+	SetUniform1f("u_Time", Time::GetTime());
+	SetUniform1f("u_Fps", Time::GetFps());
 }
 
 void Shader::SetUniform2fv(const std::string& name, const glm::vec2& vec2)
@@ -175,10 +198,19 @@ void Shader::SetUniform1f(const std::string& name, float v0)
 int Shader::GetUniformLocation(const std::string& name) 
 {
 	if (m_UniformLocationCache.find(name) != m_UniformLocationCache.end())
-		return m_UniformLocationCache[name];
+	{
+			return m_UniformLocationCache[name];
+	}
+	
 	int location = glGetUniformLocation(m_RendererID, name.c_str());
+	
+#ifdef _DEBUG
 	if (location == -1)
+	{
 		Logger::Warning("doesn't exist!", "Uniform", (m_Name + "::" + name).c_str());
+	}
+#endif
+
 	m_UniformLocationCache[name] = location;
 	return location;
 }
@@ -193,12 +225,49 @@ ShaderProgramSource Shader::Parseshader(const std::string& filepath)
 
 	};
 
+	std::function<void(const std::string&, std::stringstream&)> parseInclude = [&parseInclude](const std::string& line, std::stringstream& ss)
+	{
+		size_t first = line.find_first_of('"');
+		size_t last = line.find_last_of('"');
+		if (first == std::string::npos ||
+			last == std::string::npos)
+		{
+			return;
+		}
+
+		std::string includeLine;
+		std::string filePath = line.substr(first + 1, last - first - 1);
+		std::ifstream includeStream(filePath);
+		while (getline(includeStream, includeLine))
+		{
+			if (includeLine.find("#include") != std::string::npos)
+			{
+				parseInclude(includeLine, ss);
+			}
+			else
+			{
+				ss << includeLine << '\n';
+			}
+		}
+	};
+
 	shadertype type = shadertype::NONE;
 	std::string line;
 	std::stringstream ss[3];
 	while (getline(stream, line))
 	{
-		if (line.find("#shader") != std::string::npos)
+		if (line.find("#pass") != std::string::npos)
+		{
+			if (line.find("ambient") != std::string::npos)
+			{
+				m_Pass = Pass::AMBIENT;
+			}
+			else if (line.find("deferred") != std::string::npos)
+			{
+				m_Pass = Pass::DEFERRED;
+			}
+		}
+		else if (line.find("#shader") != std::string::npos)
 		{
 			if (line.find("vertex") != std::string::npos)
 			{
@@ -213,11 +282,19 @@ ShaderProgramSource Shader::Parseshader(const std::string& filepath)
 				type = shadertype::FRAGMENT;
 			}
 		}
+		else if (line.find("#include") != std::string::npos)
+		{
+			if (line.find("//#") == std::string::npos)
+			{
+				parseInclude(line, ss[(int)type]);
+			}
+		}
 		else
 		{
 			ss[(int)type] << line << '\n';
 		}
 	}
+
 	return { ss[0].str(), ss[1].str(), ss[2].str() };
 }
 

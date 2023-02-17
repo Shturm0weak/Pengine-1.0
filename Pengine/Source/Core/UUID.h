@@ -12,12 +12,10 @@ namespace Pengine
 	{
 	private:
 
-		static std::vector<std::string> s_UUIDs;
-
 		std::string m_UUID;
 	public:
 
-		void Generate();
+		std::string Generate();
 
 		UUID() = default;
 		~UUID() = default;

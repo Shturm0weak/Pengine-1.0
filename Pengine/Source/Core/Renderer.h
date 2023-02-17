@@ -2,6 +2,7 @@
 
 #define MAX_POINT_LIGHTS 1000
 #define MAX_SPOT_LIGHTS 1000
+#define MAX_MATERIALS 1000
 
 #include "Core.h"
 
@@ -39,6 +40,7 @@ namespace Pengine
 		struct PointLights
 		{
 			std::vector<int> m_ShadowSamplers;
+			std::vector<int> m_ShadowCubeMaps;
 			UniformBuffer m_UniformBuffer;
 			size_t m_Size = 0;
 			size_t m_MaxShadowsSize = 10;
@@ -67,6 +69,23 @@ namespace Pengine
 			UniformBuffer m_UniformBuffer;
 			size_t m_Size = 0;
 		} m_SpotLights;
+
+		struct MaterialUniform
+		{
+			glm::vec3 ambient;
+			int baseColor;
+
+			int normalColor;
+			float useNormalMap;
+			float alpha;
+			float shiness;
+		};
+
+		struct Materials
+		{
+			UniformBuffer m_UniformBuffer;
+			size_t m_Size = 0;
+		} m_Materials;
 
 		std::shared_ptr<class FrameBuffer> m_FrameBufferScene = nullptr;
 		std::shared_ptr<class FrameBuffer> m_FrameBufferSSAO = nullptr;
@@ -107,9 +126,13 @@ namespace Pengine
 
 		void PrepareUniformBuffers(class Scene* scene);
 
+		void PrepareVertexAttrib(class Scene* scene);
+
 		void PreparePointLightsUniformBuffer(const std::vector<class PointLight*>& pointLights);
 
 		void PrepareSpotLightsUniformBuffer(const std::vector<class SpotLight*>& spotLights);
+
+		void PrepareMaterialsUniformBuffer();
 
 		bool RenderCascadeShadowMaps(class Scene* scene);
 
@@ -155,6 +178,7 @@ namespace Pengine
 		friend class EntryPoint;
 		friend class Editor;
 		friend class PointLight;
+		friend class Renderer3D;
 	};
 
 }

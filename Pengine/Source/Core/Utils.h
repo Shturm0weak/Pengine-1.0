@@ -228,13 +228,6 @@ namespace Pengine
 			return path.substr(slash + 1, path.length() - slash - 2 - (path.length() - dot - 1));
 		}
 
-		PENGINE_API inline std::string ReplaceSlashWithDoubleSlash(const std::string& string)
-		{
-			std::string replacedString = string;
-			std::replace(replacedString.begin(), replacedString.end(), '/', '\\');
-			return replacedString;
-		}
-
 		PENGINE_API inline std::string Replace(const std::string& string, char what, char to)
 		{
 			std::string replacedString = string;
@@ -244,11 +237,7 @@ namespace Pengine
 
 		PENGINE_API inline std::string GetDirectoryFromFilePath(const std::string& path)
 		{
-			size_t index = path.find_last_of("/");
-			if (index == std::string::npos)
-			{
-				index = path.find_last_of("\\");
-			}
+			size_t index = Replace(path, '\\', '/').find_last_of("/");
 			return path.substr(0, index);
 		}
 
@@ -292,41 +281,37 @@ namespace Pengine
 
 		PENGINE_API inline void LoadShadersFromFolder(const std::string& path)
 		{
-			std::vector<std::string> shaders;
-			for (const auto& entry : fs::directory_iterator(path))
+			for (const auto& entry : fs::recursive_directory_iterator(path))
 			{
-				shaders.push_back(entry.path().string());
-				size_t index = 0;
-				index = shaders.back().find("\\", index);
-				shaders.back().replace(index, 1, "/");
-				Shader::Create(GetNameFromFilePath(shaders.back()), shaders.back());
+				if(!entry.is_directory())
+				{
+					std::string filePath = Utils::Replace(entry.path().string(), '\\', '/');
+
+					if(Utils::GetResolutionFromFilePath(filePath) == "shader")
+					{
+						Shader::Create(GetNameFromFilePath(filePath), filePath);
+					}
+				}
 			}
 		}
 
 		PENGINE_API inline std::vector<Texture*> LoadTexturesFromFolder(const std::string& path)
 		{
-			std::vector<std::string> textures;
 			std::vector<Texture*> texturesPtr;
-			for (const auto& entry : fs::directory_iterator(path))
+			for (const auto& entry : fs::recursive_directory_iterator(path))
 			{
-				if (entry.is_directory())
+				if (!entry.is_directory())
 				{
-					continue;
-				}
-
-				std::string pathToTexture = entry.path().string();
-				textures.push_back(entry.path().string());
-				size_t index = 0;
-				index = textures.back().find("\\", index);
-				textures.back().replace(index, 1, "/");
-				TextureManager::GetInstance().Create(textures.back(),
-					[&](Texture* texture)
-				{
-					if (texture)
+					std::string pathToTexture = entry.path().string();
+					TextureManager::GetInstance().Create(Replace(pathToTexture, '\\', '/'),
+						[&](Texture* texture)
 					{
-						texturesPtr.push_back(texture);
-					}
-				});
+						if (texture)
+						{
+							texturesPtr.push_back(texture);
+						}
+					});
+				}
 			}
 
 			return texturesPtr;

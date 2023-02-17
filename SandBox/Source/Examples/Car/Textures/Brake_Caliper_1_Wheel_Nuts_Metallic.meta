@@ -1,0 +1,8 @@
+Texture:
+  Name: Brake_Caliper_1_Wheel_Nuts_Metallic
+  FilePath: Source\Examples\Car\Textures\Brake_Caliper_1_Wheel_Nuts_Metallic.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

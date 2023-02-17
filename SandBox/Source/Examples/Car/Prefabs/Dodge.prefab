@@ -1,0 +1,732 @@
+GameObjects:
+  - GameObject: 49e1a1ba-a957-4ccd-9a55-4eb2e401a6a2
+    Name: Dodge
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source/Examples/Car/Prefabs/Dodge.prefab
+    Childs:
+      - 07c9b6d8-9d5e-4f20-82a4-3a39520cf089
+      - 37191b9c-b5ad-431f-b1e6-3ecb9a96268e
+      - da3f42ac-a514-4bdf-95bd-6521e6fb8b08
+      - 011cec09-8888-429f-abb0-f05fca7f8aa9
+      - 3255a684-62b8-4e06-b69f-57b0ffc75b0b
+      - e92548eb-fcd2-4389-9329-287fa9d1270a
+      - 4de27ae6-be7e-4af9-8362-befc403e0bb6
+      - 3797fd62-30da-4f9f-9405-90f1364fbb2f
+      - a4d05bc0-990b-411d-9b7d-5b03f2565015
+      - ed9b12d6-4669-4fbc-be60-2b5292847147
+      - 0c3a3423-848f-4a96-a354-f089dd74d88d
+      - 1bc50b39-88eb-4f38-83fb-3617be54f776
+      - f86b8950-a1cc-4c14-be60-211f262c7eff
+      - 8bc29818-af25-4711-9ce6-63d04feb2792
+      - 3f3e4e37-57c9-4097-850d-754b6297720d
+      - 5e51379a-015c-40f5-bef1-939e4aa26100
+      - e2f33c55-6259-44e4-92cb-923d75537c59
+      - 15c341a2-a577-4e4f-807b-286512e3f727
+      - 623df861-837e-4cd1-9d94-cfe71c81e47d
+      - 95edd307-5dbf-45fc-bfc1-ced33d02e2d5
+      - 8c4aa40f-7b66-468a-b1ed-84c40ec40684
+      - 2090f8ba-b42c-41e7-8038-ce1076830d55
+      - 9519a809-19c5-4aaa-93bf-07a87813a835
+      - ccbf491d-15a8-4733-a5ea-0ae136db050c
+      - d29dab8f-c571-4651-aa08-7443fbaeb22d
+      - c88bcd3a-7611-480f-908e-eddcb67154e2
+      - a11a0d5e-ccca-4bbf-a038-2dac12ad9ef3
+      - f462c0ed-ac56-467d-b6b4-32f75593890d
+      - 921afef4-7d16-44e6-8b6c-5b477eb6315e
+      - 4334dff2-cecd-48f9-a0df-b404c15064c4
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -1.74855259e-07, 0]
+      Scale: [1, 0.999999404, 0.999999881]
+    BoxCollider3D:
+      Offset: [0, 0, 0]
+      HalfExtent: [1, 0.800000012, 3.20000005]
+    Rigidbody3D:
+      Mass: 10
+      AllowToSleep: false
+      Restitution: 0
+      Friction: 1
+  - GameObject: 07c9b6d8-9d5e-4f20-82a4-3a39520cf089
+    Name: BackLights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BackLightsGlass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/BackLights_Plane.010.meta
+        - None
+        - None
+  - GameObject: 37191b9c-b5ad-431f-b1e6-3ecb9a96268e
+    Name: BackLightsDecoraw
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BackLights.mat
+      Lods:
+        - Source/Examples/Car/Meshes/BackLightsDecor_Plane.003.meta
+        - None
+        - None
+  - GameObject: da3f42ac-a514-4bdf-95bd-6521e6fb8b08
+    Name: Body
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Body.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Body_Plane.002.meta
+        - None
+        - None
+  - GameObject: 011cec09-8888-429f-abb0-f05fca7f8aa9
+    Name: Dash
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Dash.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Dash_Plane.019.meta
+        - None
+        - None
+  - GameObject: 3255a684-62b8-4e06-b69f-57b0ffc75b0b
+    Name: FrontLights
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Silver.mat
+      Lods:
+        - Source/Examples/Car/Meshes/FrontLights_Plane.006.meta
+        - None
+        - None
+  - GameObject: e92548eb-fcd2-4389-9329-287fa9d1270a
+    Name: FrontLightsGlass
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/LightsGlass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/FrontLightsGlass_Plane.007.meta
+        - None
+        - None
+  - GameObject: 4de27ae6-be7e-4af9-8362-befc403e0bb6
+    Name: FuelCap
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/FuelCapBlack.mat
+      Lods:
+        - Source/Examples/Car/Meshes/FuelCap_Plane.012.meta
+        - None
+        - None
+  - GameObject: 3797fd62-30da-4f9f-9405-90f1364fbb2f
+    Name: FuelCapLogo
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/FuelCap.mat
+      Lods:
+        - Source/Examples/Car/Meshes/FuelCapLogo_Plane.013.meta
+        - None
+        - None
+  - GameObject: a4d05bc0-990b-411d-9b7d-5b03f2565015
+    Name: Gears
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BlackSalon.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Gears_Plane.008.meta
+        - None
+        - None
+  - GameObject: ed9b12d6-4669-4fbc-be60-2b5292847147
+    Name: GlassBack
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassBack_Plane.041.meta
+        - None
+        - None
+  - GameObject: 0c3a3423-848f-4a96-a354-f089dd74d88d
+    Name: GlassBackDecor
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BlackSalon.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassBackDecor_Plane.040.meta
+        - None
+        - None
+  - GameObject: 1bc50b39-88eb-4f38-83fb-3617be54f776
+    Name: GlassFront
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassFront_Plane.039.meta
+        - None
+        - None
+  - GameObject: f86b8950-a1cc-4c14-be60-211f262c7eff
+    Name: GlassLeft
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassLeft_Plane.037.meta
+        - None
+        - None
+  - GameObject: 8bc29818-af25-4711-9ce6-63d04feb2792
+    Name: GlassLeftIn
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassLeftIn_Plane.018.meta
+        - None
+        - None
+  - GameObject: 3f3e4e37-57c9-4097-850d-754b6297720d
+    Name: GlassLeftOut
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassLeftOut_Plane.035.meta
+        - None
+        - None
+  - GameObject: 5e51379a-015c-40f5-bef1-939e4aa26100
+    Name: GlassRight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassRight_Plane.038.meta
+        - None
+        - None
+  - GameObject: e2f33c55-6259-44e4-92cb-923d75537c59
+    Name: GlassRightIn
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassRightIn_Plane.034.meta
+        - None
+        - None
+  - GameObject: 15c341a2-a577-4e4f-807b-286512e3f727
+    Name: GlassRightOut
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: false
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Glass.mat
+      Lods:
+        - Source/Examples/Car/Meshes/GlassRightOut_Plane.036.meta
+        - None
+        - None
+  - GameObject: 623df861-837e-4cd1-9d94-cfe71c81e47d
+    Name: License
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/LicensePlate.mat
+      Lods:
+        - Source/Examples/Car/Meshes/License_Plane.017.meta
+        - None
+        - None
+  - GameObject: 95edd307-5dbf-45fc-bfc1-ced33d02e2d5
+    Name: LogoFront
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Silver.mat
+      Lods:
+        - Source/Examples/Car/Meshes/LogoFront_Plane.015.meta
+        - None
+        - None
+  - GameObject: 8c4aa40f-7b66-468a-b1ed-84c40ec40684
+    Name: Mirrors
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Mirrors.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Mirrors_Plane.004.meta
+        - None
+        - None
+  - GameObject: 2090f8ba-b42c-41e7-8038-ce1076830d55
+    Name: Panels
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/PanelsBlack.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Panels_Plane.011.meta
+        - None
+        - None
+  - GameObject: 9519a809-19c5-4aaa-93bf-07a87813a835
+    Name: Radio
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Radio.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Radio_Plane.021.meta
+        - None
+        - None
+  - GameObject: ccbf491d-15a8-4733-a5ea-0ae136db050c
+    Name: Reflectors
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Reflectors.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Reflectors_Plane.009.meta
+        - None
+        - None
+  - GameObject: d29dab8f-c571-4651-aa08-7443fbaeb22d
+    Name: Salon
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BlackSalon.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Salon_Plane.020.meta
+        - None
+        - None
+  - GameObject: c88bcd3a-7611-480f-908e-eddcb67154e2
+    Name: SeatsBlack
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/BlackSeats.mat
+      Lods:
+        - Source/Examples/Car/Meshes/SeatsBlack_Plane.023.meta
+        - None
+        - None
+  - GameObject: a11a0d5e-ccca-4bbf-a038-2dac12ad9ef3
+    Name: SeatsRed
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/RedSeat.mat
+      Lods:
+        - Source/Examples/Car/Meshes/SeatsRed_Plane.024.meta
+        - None
+        - None
+  - GameObject: f462c0ed-ac56-467d-b6b4-32f75593890d
+    Name: Silver
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Silver.mat
+      Lods:
+        - Source/Examples/Car/Meshes/Silver_Plane.005.meta
+        - None
+        - None
+  - GameObject: 921afef4-7d16-44e6-8b6c-5b477eb6315e
+    Name: SteeringWheels
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Examples/Car/Materials/Body.mat
+      Lods:
+        - Source/Examples/Car/Meshes/SteeringWheel_Plane.022.meta
+        - None
+        - None
+  - GameObject: 4334dff2-cecd-48f9-a0df-b404c15064c4
+    Name: Wheels
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      - 704e2a59-d056-4525-8b3d-67d3b60acd61
+      - 1f52b4d9-421b-46fa-a0f4-eda4d2f5a95d
+      - e7c2eaf4-4ff5-4e87-aad1-b55371cc1abc
+      - 4141c7b9-a720-4184-acdc-4014f5f645d3
+    Transform:
+      Follow owner: true
+      Position: [0, 14.2948551, 0]
+      Rotation: [0, -8.68283223e-12, 0]
+      Scale: [1, 1, 1]

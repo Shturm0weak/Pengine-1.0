@@ -250,23 +250,23 @@ void Viewport::Update()
 	m_IsActiveGuizmo = false;
 	//Need to fix Rotation doesn't change orientation of gizmos
 
-	glm::vec3 averagePosition = { 0.0f, 0.0f, 0.0f };
-	glm::vec3 averageScale = { 0.0f, 0.0f, 0.0f };
-	glm::vec3 averageRotation = { 0.0f, 0.0f, 0.0f };
+	//glm::vec3 averagePosition = { 0.0f, 0.0f, 0.0f };
+	//glm::vec3 averageScale = { 0.0f, 0.0f, 0.0f };
+	//glm::vec3 averageRotation = { 0.0f, 0.0f, 0.0f };
 
-	struct TransformParams
-	{
-		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_Rotation = { 0.0f, 0.0f, 0.0f };
-		glm::vec3 m_Scale = { 0.0f, 0.0f, 0.0f };
-	};
+	//struct TransformParams
+	//{
+	//	glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
+	//	glm::vec3 m_Rotation = { 0.0f, 0.0f, 0.0f };
+	//	glm::vec3 m_Scale = { 0.0f, 0.0f, 0.0f };
+	//};
 
-	std::vector<TransformParams> transformParamsDiff;
+	//std::vector<TransformParams> transformParamsDiff;
 
 	Editor& editor = Editor::GetInstance();
 	std::vector<std::string> gameObjectsUUID = editor.GetSelectedGameObjects();
 
-	for (const std::string& gameObjectUUID : gameObjectsUUID)
+	/*for (const std::string& gameObjectUUID : gameObjectsUUID)
 	{
 		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
 		{
@@ -289,50 +289,44 @@ void Viewport::Update()
 			transformParamsDiff[i].m_Rotation = gameObject->m_Transform.GetRotation() - averageRotation;
 			transformParamsDiff[i].m_Scale = gameObject->m_Transform.GetScale() - averageScale;
 		}
-	}
+	}*/
 
-	ImGuizmo::SetOrthographic(!(bool)camera->GetType());
-	ImGuizmo::SetDrawlist();
-
-	float windowWidth = (float)ImGui::GetWindowWidth();
-	float windowHeight = (float)ImGui::GetWindowHeight();
-	ImGuizmo::SetRect(m_Position.x, m_Position.y, windowWidth, windowHeight);
-
-	glm::mat4 projectionMat4 = camera->GetProjectionMat4();
-	glm::mat4 viewMat4 = camera->GetViewMat4();
-	glm::mat4 transformMat4 = glm::translate(glm::mat4(1.0f), averagePosition)
-		* glm::toMat4(glm::quat(averageRotation))
-		* glm::scale(glm::mat4(1.0f), averageScale);
-	ImGuizmo::Manipulate(glm::value_ptr(viewMat4), glm::value_ptr(projectionMat4),
-		(ImGuizmo::OPERATION)m_GizmoOperation, ImGuizmo::LOCAL, glm::value_ptr(transformMat4));
-
-	if (ImGuizmo::IsUsing())
+	if (GameObject* go = gameObjectsUUID.size() > 0 ? editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[0]) : nullptr)
 	{
-		m_IsActiveGuizmo = true;
-		glm::vec3 position, rotation, scale;
-		Utils::DecomposeTransform(transformMat4, position, rotation, scale);
-		if (camera->GetType() == Camera::CameraType::ORTHOGRAPHIC)
-		{
-			position.z = 0.0f;
-		}
+		ImGuizmo::SetOrthographic(!(bool)camera->GetType());
+		ImGuizmo::SetDrawlist();
 
-		for (size_t i = 0; i < gameObjectsUUID.size(); i++)
-		{
-			//glm::vec3 deltaRotation = rotation - gameObjects[i]->m_Transform.GetRotation();
-			//rotation = gameObjects[i]->m_Transform.GetRotation() + deltaRotation;
+		float windowWidth = (float)ImGui::GetWindowWidth();
+		float windowHeight = (float)ImGui::GetWindowHeight();
+		ImGuizmo::SetRect(m_Position.x, m_Position.y, windowWidth, windowHeight);
 
-			glm::vec3 newPosition = position + transformParamsDiff[i].m_Position;
+		glm::mat4 projectionMat4 = camera->GetProjectionMat4();
+		glm::mat4 viewMat4 = camera->GetViewMat4();
+		glm::mat4 transformMat4 = go->m_Transform.GetTransform();
+		ImGuizmo::Manipulate(glm::value_ptr(viewMat4), glm::value_ptr(projectionMat4),
+			(ImGuizmo::OPERATION)m_GizmoOperation, ImGuizmo::LOCAL, glm::value_ptr(transformMat4));
+
+		if (ImGuizmo::IsUsing())
+		{
+			transformMat4 = glm::inverse(go->m_Transform.GetTransform() * glm::inverse(go->m_Transform.GetTransform(Transform::System::LOCAL))) * transformMat4;
+
+			m_IsActiveGuizmo = true;
+			glm::vec3 position, rotation, scale;
+			Utils::DecomposeTransform(transformMat4, position, rotation, scale);
+			if (camera->GetType() == Camera::CameraType::ORTHOGRAPHIC)
+			{
+				position.z = 0.0f;
+			}
+
+			glm::vec3 newPosition = position;
 			if (editor.m_Snap)
 			{
 				newPosition = glm::round(newPosition);
 			}
 
-			if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[i]))
-			{
-				gameObject->m_Transform.Translate(newPosition);
-				gameObject->m_Transform.Rotate(rotation + transformParamsDiff[i].m_Rotation);
-				gameObject->m_Transform.Scale(scale + transformParamsDiff[i].m_Scale);
-			}
+			go->m_Transform.Translate(newPosition);
+			go->m_Transform.Rotate(rotation);
+			go->m_Transform.Scale(scale);
 		}
 	}
 

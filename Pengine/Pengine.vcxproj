@@ -194,6 +194,7 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClInclude Include="Source\Events\WindowResizeEvent.h" />
     <ClInclude Include="Source\Lua\LuaState.h" />
     <ClInclude Include="Source\Lua\LuaStateManager.h" />
+    <ClInclude Include="Source\OpenGL\BaseMaterial.h" />
     <ClInclude Include="Source\OpenGL\Batch.h" />
     <ClInclude Include="Source\OpenGL\FrameBuffer.h" />
     <ClInclude Include="Source\OpenGL\IndexBuffer.h" />
@@ -270,6 +271,7 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClCompile Include="Source\EventSystem\Listener.cpp" />
     <ClCompile Include="Source\Lua\LuaState.cpp" />
     <ClCompile Include="Source\Lua\LuaStateManager.cpp" />
+    <ClCompile Include="Source\OpenGL\BaseMaterial.cpp" />
     <ClCompile Include="Source\OpenGL\Batch.cpp" />
     <ClCompile Include="Source\OpenGL\FrameBuffer.cpp" />
     <ClCompile Include="Source\OpenGL\IndexBuffer.cpp" />

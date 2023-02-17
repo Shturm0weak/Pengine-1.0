@@ -28,10 +28,13 @@ namespace Pengine
 	{
 	private:
 		
-		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_OpaqueByMesh;
+		using Renderable = std::unordered_map<Mesh*, std::vector<Renderer3D*>>;
+		std::unordered_map<BaseMaterial*, Renderable> m_OpaqueByBaseMaterial;
 		std::unordered_map<Mesh*, std::vector<Renderer3D*>> m_ShadowsByMesh;
+
 		std::unordered_map<std::string, GameObject*> m_GameObjectsByUUID;
 		std::vector<GameObject*> m_GameObjects;
+
 		std::vector<std::vector<Renderer2D*>> m_Renderer2DLayers;
 		std::vector<BoxCollider2D*> m_BoxColliders2D;
 		std::vector<BoxCollider3D*> m_BoxColliders3D;

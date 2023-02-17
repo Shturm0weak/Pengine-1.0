@@ -6,6 +6,9 @@
 #include "TextureAtlasManager.h"
 #include "../EventSystem/EventSystem.h"
 #include "../OpenGL/Texture.h"
+#include "../OpenGL/Material.h"
+#include "../OpenGL/BaseMaterial.h"
+#include "../OpenGL/BaseMaterial.h"
 #include "../Components/BoxCollider2D.h"
 #include "../Components/Rigidbody2D.h"
 #include "../Components/Animator2D.h"
@@ -448,16 +451,22 @@ void Serializer::SerializePrefab(const std::string& filePath, GameObject& gameOb
 {
 	YAML::Emitter out;
 
-	std::string prefabFilePath = filePath + "/" + gameObject.GetName() + ".prefab";
+	std::string prefabFilePath = Utils::Replace(filePath, '\\', '/') + "/" + gameObject.GetName() + ".prefab";
 	gameObject.m_PrefabFilePath = prefabFilePath;
 
 	out << YAML::BeginMap;
 	out << YAML::Key << "GameObjects";
 	out << YAML::Value << YAML::BeginSeq;
 
-	SerializeGameObject(out, gameObject);
+	// We need to make a copy of the GameObject, because at this moment the scene has GameObjects
+	// with UUIDs of this GameObject and his Childs, so to not make UUIDs collisions we create 
+	// a copy of this GameObject, so UUIDs will be regenerated.
+	GameObject* serializableGameObject = gameObject.GetScene()->CreateGameObject();
+	serializableGameObject->Copy(gameObject);
 
-	std::vector<GameObject*> childs = gameObject.GetChilds();
+	SerializeGameObject(out, *serializableGameObject);
+
+	std::vector<GameObject*> childs = serializableGameObject->GetChilds();
 	for (auto child : childs)
 	{
 		SerializeGameObject(out, *child);
@@ -468,6 +477,8 @@ void Serializer::SerializePrefab(const std::string& filePath, GameObject& gameOb
 
 	std::ofstream fout(prefabFilePath);
 	fout << out.c_str();
+
+	serializableGameObject->DeleteLater();
 
 	Logger::Success("has been serialized!", "Prefab", gameObject.GetName().c_str());
 }
@@ -1049,12 +1060,11 @@ void Serializer::SerializeGameObjects(YAML::Emitter& out, const Scene& scene)
 
 	std::vector<GameObject*> gameObjects = scene.GetGameObjects();
 
-	size_t size = gameObjects.size();
-	for (uint32_t i = 0; i < size; i++)
+	for (GameObject* gameObject : gameObjects)
 	{
-		if (gameObjects[i]->m_IsSerializable)
+		if (gameObject->m_IsSerializable)
 		{
-			SerializeGameObject(out, *gameObjects[i]);
+			SerializeGameObject(out, *gameObject);
 		}
 	}
 
@@ -1064,7 +1074,7 @@ void Serializer::SerializeGameObjects(YAML::Emitter& out, const Scene& scene)
 void Serializer::SerializeGameObject(YAML::Emitter& out, GameObject& gameObject)
 {
 	out << YAML::BeginMap;
-	out << YAML::Key << "GameObject" << YAML::Value << gameObject.GetUUID();
+	out << YAML::Key << "GameObject" << YAML::Value << gameObject.m_UUID;
 	out << YAML::Key << "Name" << YAML::Value << gameObject.m_Name;
 	out << YAML::Key << "Is Enabled" << YAML::Value << gameObject.m_IsEnabled;
 	out << YAML::Key << "Is Selectable" << YAML::Value << gameObject.m_IsSelectable;
@@ -1098,8 +1108,20 @@ void Serializer::DeserializeGameObject(YAML::Node& in, Scene& scene, std::unorde
 
 	if (auto& nameData = in["Name"])
 	{
+		UUID previousUuid = UUID(in["GameObject"].as<std::string>());
+		
 		gameObject = scene.CreateGameObject(nameData.as<std::string>(),
-			DeserializeTransform(in), UUID(in["GameObject"].as<std::string>()));
+			DeserializeTransform(in), previousUuid);
+		for (auto& child : childs)
+		{
+			for (size_t i = 0; i < child.second.size(); ++i)
+			{
+				if (previousUuid.Get() != gameObject->GetUUID() && child.second[i] == previousUuid.Get())
+				{
+					child.second[i] = gameObject->GetUUID();
+				}
+			}
+		}
 	}
 	else
 	{
@@ -1272,7 +1294,7 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 
 		if (auto& MaterialData = renderer3DIn["Material"])
 		{
-			r3d->SetMaterial(MaterialManager::GetInstance().Load(MaterialData.as<std::string>(), true));
+			r3d->SetMaterial(MaterialManager::GetInstance().Load(MaterialData.as<std::string>()));
 		}
 
 		if (auto& inheritedData = renderer3DIn["IsInherited"])
@@ -1280,7 +1302,7 @@ void Serializer::DeSerializeRenderer3D(YAML::Node& in, ComponentManager& compone
 			if (inheritedData.as<bool>())
 			{
 				std::string filePathData = renderer3DIn["m_FilePath"]["Value"].as<std::string>();
-				r3d->SetMaterial(MaterialManager::GetInstance().Load(filePathData, true));
+				r3d->SetMaterial(MaterialManager::GetInstance().Load(filePathData));
 			}
 		}
 	}
@@ -2212,6 +2234,25 @@ if (prop.IsValue<_type>()) \
 				out << YAML::Key << "Type" << prop.m_Type;
 				out << YAML::Key << "Value" << value->GetFilePath();
 			}
+			else if (prop.IsValue<Shader*>())
+			{
+				Shader* value = reflectionSystem.GetValue<Shader*>(instance, typeName, name);
+				out << YAML::Key << "Type" << prop.m_Type;
+				out << YAML::Key << "Value" << value->GetName();
+			}
+			else if (prop.IsValue<BaseMaterial*>())
+			{
+				BaseMaterial* value = reflectionSystem.GetValue<BaseMaterial*>(instance, typeName, name);
+				SerializeBaseMaterial(value->GetFilePath(), value);
+				out << YAML::Key << "Type" << prop.m_Type;
+				out << YAML::Key << "Value" << value->GetFilePath();
+			}
+			else if (prop.IsValue<GameObject*>())
+			{
+				GameObject* value = reflectionSystem.GetValue<GameObject*>(instance, typeName, name);
+				out << YAML::Key << "Type" << prop.m_Type;
+				out << YAML::Key << "Value" << value->GetUUID();
+			}
 			out << YAML::EndMap;
 		}
 
@@ -2276,6 +2317,38 @@ if (GetTypeName<_type>() == type) \
 						[&reflectionSystem, instance, typeName, propName = name](Texture* texture)
 					{
 						reflectionSystem.SetValue(texture, instance, typeName, propName);
+					});
+				}
+				else if (GetTypeName<Shader*>() == type)
+				{
+					std::string value = propData["Value"].as<std::string>();
+					reflectionSystem.SetValue(Shader::Get(value), instance, typeName, name);
+				}
+				else if (GetTypeName<BaseMaterial*>() == type)
+				{
+					std::string value = propData["Value"].as<std::string>();
+
+					BaseMaterial* materal = nullptr;
+					if (materal = MaterialManager::GetInstance().GetBase(value))
+					{
+						reflectionSystem.SetValue(materal, instance, typeName, name);
+					}
+					else
+					{
+						materal = DeserializeBaseMaterial(value);
+						reflectionSystem.SetValue(materal, instance, typeName, name);
+					}
+					
+				}
+				else if (GetTypeName<GameObject*>() == type)
+				{
+					std::string value = propData["Value"].as<std::string>();
+					EventSystem::GetInstance().SendCallbackOnFrame([=, &reflectionSystem]
+					{
+						if (GameObject* gameObject = EntryPoint::GetApplication().GetScene()->FindGameObjectByUUID(value))
+						{
+							reflectionSystem.SetValue(gameObject, instance, typeName, name);
+						}
 					});
 				}
 			}
@@ -2356,8 +2429,142 @@ Material* Serializer::DeserializeMaterial(const std::string& filePath)
 	}
 
 	DeSerializeRTTR(materialData, material, GetTypeName<Material>());
-
+	
 	Logger::Success("has been deserialized!", "Material", filePath.c_str());
+
+	return material;
+}
+
+void Serializer::SerializeBaseMaterial(const std::string& filePath, BaseMaterial* material)
+{
+	if (filePath.empty() || filePath == "None")
+	{
+		Logger::Warning("file path is incorrect!", "Material", filePath.c_str());
+
+		return;
+	}
+
+	auto registeredClass = ReflectionSystem::GetInstance().m_ClassesByType.find(GetTypeName<BaseMaterial>());
+	if (registeredClass != ReflectionSystem::GetInstance().m_ClassesByType.end())
+	{
+		YAML::Emitter out;
+
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "BaseMaterial";
+		out << YAML::BeginMap;
+
+		SerializeRTTR(out, material, GetTypeName<BaseMaterial>());
+
+		out << YAML::Key << "Uniforms";
+		out << YAML::BeginMap;
+
+#define SERIALIZE_UNIFORMS(_uniforms, _type) \
+for (auto& [name, value] : _uniforms) \
+{ \
+	out << YAML::Key << name; \
+	out << YAML::BeginMap; \
+	out << YAML::Key << "Type" << GetTypeName<_type>(); \
+	out << YAML::Key << "Value" << value; \
+	out << YAML::EndMap; \
+} \
+
+		SERIALIZE_UNIFORMS(material->m_FloatUniformsByName, float)
+		SERIALIZE_UNIFORMS(material->m_IntUniformsByName, int)
+		SERIALIZE_UNIFORMS(material->m_Vec2UniformsByName, glm::vec2)
+		SERIALIZE_UNIFORMS(material->m_Vec3UniformsByName, glm::vec3)
+		SERIALIZE_UNIFORMS(material->m_Vec4UniformsByName, glm::vec4)
+		for (auto& [name, value] : material->m_TextureUniformsByName)
+		{
+			out << YAML::Key << name;
+			out << YAML::BeginMap;
+			out << YAML::Key << "Type" << GetTypeName<Texture*>();
+			out << YAML::Key << "Value" << value->GetFilePath();
+			out << YAML::EndMap;
+		}
+
+		out << YAML::EndMap;
+
+		out << YAML::EndMap;
+
+		out << YAML::EndMap;
+
+		std::ofstream fout(filePath);
+		fout << out.c_str();
+
+		Logger::Success("has been serialized!", "BaseMaterial", filePath.c_str());
+	}
+}
+
+BaseMaterial* Serializer::DeserializeBaseMaterial(const std::string& filePath)
+{
+	if (filePath.empty() || filePath == "None" || !Utils::Contains(filePath, "basemat"))
+	{
+		Logger::Warning("file path is incorrect!", "BaseMaterial", filePath.c_str());
+
+		return nullptr;
+	}
+
+	std::ifstream stream(filePath);
+	std::stringstream strStream;
+
+	strStream << stream.rdbuf();
+
+	BaseMaterial* material = new BaseMaterial();
+	material->GenerateFromFilePath(filePath);
+
+	YAML::Node data = YAML::LoadMesh(strStream.str());
+	if (!data)
+	{
+		Logger::Warning("file doesn't exist!", "BaseMaterial", filePath.c_str());
+
+		return nullptr;
+	}
+
+	YAML::Node materialData = data["BaseMaterial"];
+	if (!materialData)
+	{
+		Logger::Warning("file doesn't contain any material data! Default material is loaded!", "BaseMaterial", filePath.c_str());
+
+		return material;
+	}
+
+	DeSerializeRTTR(materialData, material, GetTypeName<BaseMaterial>());
+
+#define DESERIALIZE_UNIFORMS(_uniforms, _type) \
+if (GetTypeName<_type>() == typeData.as<std::string>()) \
+{ \
+	if (auto& valueData = uniformData.second["Value"]) \
+	{ \
+		_uniforms[uniformData.first.as<std::string>()] = valueData.as<_type>(); \
+	} \
+} \
+
+	if (auto& uniformsData = materialData["Uniforms"])
+	{
+		for (auto& uniformData : uniformsData)
+		{
+			if (auto& typeData = uniformData.second["Type"])
+			{
+				DESERIALIZE_UNIFORMS(material->m_FloatUniformsByName, float)
+				else DESERIALIZE_UNIFORMS(material->m_IntUniformsByName, int)
+				else DESERIALIZE_UNIFORMS(material->m_Vec2UniformsByName, glm::vec2)
+				else DESERIALIZE_UNIFORMS(material->m_Vec3UniformsByName, glm::vec3)
+				else DESERIALIZE_UNIFORMS(material->m_Vec4UniformsByName, glm::vec4)
+				else if (GetTypeName<Texture*>() == typeData.as<std::string>())
+				{
+					std::string value = uniformData.second["Value"].as<std::string>();
+					TextureManager::GetInstance().AsyncLoad(value,
+						[material, name = uniformData.first.as<std::string>()](Texture* texture)
+					{
+						material->m_TextureUniformsByName[name] = texture;;
+					});
+				}
+			}
+		}
+	}
+
+	Logger::Success("has been deserialized!", "BaseMaterial", filePath.c_str());
 
 	return material;
 }

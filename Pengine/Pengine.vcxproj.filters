@@ -318,6 +318,7 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\OpenGL\BaseMaterial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -540,5 +541,6 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OpenGL\BaseMaterial.cpp" />
   </ItemGroup>
 </Project>

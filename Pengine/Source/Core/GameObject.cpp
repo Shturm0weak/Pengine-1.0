@@ -24,11 +24,6 @@ void GameObject::Copy(const GameObject& gameObject)
 	m_IsSelectable = gameObject.m_IsSelectable;
 	m_PrefabFilePath = gameObject.m_PrefabFilePath;
 
-	if (gameObject.GetOwner())
-	{
-		gameObject.GetOwner()->AddChild(this);
-	}
-
 	while (m_Childs.size() > 0)
 	{
 		m_Childs.back()->Delete();
@@ -37,22 +32,10 @@ void GameObject::Copy(const GameObject& gameObject)
 	std::vector<GameObject*> childs = gameObject.GetChilds();
 	for (GameObject* child : childs)
 	{
-		GameObject* newChild = m_Scene->CreateGameObject(child->m_Name, child->m_Transform, child->m_UUID);
-		*newChild = *child;
+		GameObject* newChild = m_Scene->CreateGameObject(child->m_Name, child->m_Transform);
 		AddChild(newChild);
+		*newChild = *child;
 	}
-}
-
-void GameObject::Move(GameObject&& gameObject) noexcept
-{
-	m_Name = std::move(gameObject.m_Name);
-	m_Transform = std::move(gameObject.m_Transform);
-}
-
-GameObject::GameObject(GameObject&& gameObject) noexcept 
-	: m_Name(std::move(gameObject.m_Name))
-	, m_Transform(std::move(gameObject.m_Transform))
-{
 }
 
 GameObject::GameObject(const GameObject& gameObject)
@@ -75,11 +58,6 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::operator=(GameObject&& gameObject) noexcept
-{
-	Move(std::move(gameObject));
-}
-
 GameObject* GameObject::Create(Scene* scene, const std::string& name, const Transform& transform, const UUID& uuid)
 {
 	assert(scene != nullptr);
@@ -88,10 +66,10 @@ GameObject* GameObject::Create(Scene* scene, const std::string& name, const Tran
 	gameObject->m_Name = name;
 	gameObject->m_Transform = transform;
 	gameObject->m_Scene = scene;
-	gameObject->m_Transform.m_Owner = gameObject;
 	gameObject->m_CreationTime = Time::GetTime();
+	gameObject->m_Transform.m_Owner = gameObject;	
 
-	if (uuid.Get().empty())
+	if (uuid.Get().empty() || gameObject->m_Scene->FindGameObjectByUUID(uuid))
 	{
 		gameObject->m_UUID.Generate();
 	}
@@ -179,14 +157,32 @@ void GameObject::AddChild(GameObject* child)
 		m_Childs.push_back(child);
 	}
 
+	glm::vec3 position = Utils::GetPosition(glm::inverse(m_Transform.GetTransform()) * (child->m_Transform.GetPositionMat4()));
+	glm::vec3 rotation = child->m_Transform.GetRotation() - m_Transform.GetRotation();
+	glm::vec3 scale = child->m_Transform.GetScale() / m_Transform.GetScale();
+
 	child->m_Owner = this;
+	child->m_Transform.m_Parent = &m_Transform;
+
+	child->m_Transform.Translate(position);
+	child->m_Transform.Rotate(rotation);
+	child->m_Transform.Scale(scale);
 }
 
 void GameObject::RemoveChild(GameObject* child)
 {
 	if (Utils::Erase<GameObject*>(m_Childs, child))
 	{
+		glm::vec3 position = child->m_Transform.GetPosition();
+		glm::vec3 rotation = child->m_Transform.GetRotation();
+		glm::vec3 scale = child->m_Transform.GetScale();
+
 		child->m_Owner = nullptr;
+		child->m_Transform.m_Parent = nullptr;
+
+		child->m_Transform.Translate(position);
+		child->m_Transform.Rotate(rotation);
+		child->m_Transform.Scale(scale);
 	}
 }
 
@@ -215,7 +211,8 @@ GameObject* GameObject::GetChildByName(const std::string& name)
 
 void GameObject::ResetWithPrefab()
 {
-	auto callback = [this]() {
+	auto callback = [this]()
+	{
 		GameObject* prefab = Serializer::DeserializePrefab(this->m_PrefabFilePath);
 		if (prefab)
 		{
@@ -226,11 +223,10 @@ void GameObject::ResetWithPrefab()
 			prefab->Delete();
 		}
 	};
-	EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
+	EventSystem::GetInstance().SendCallbackOnFrame(callback);
 }
 
 void GameObject::UpdatePrefab()
 {
 	Serializer::SerializePrefab(Utils::GetDirectoryFromFilePath(m_PrefabFilePath), *this);
-
 }

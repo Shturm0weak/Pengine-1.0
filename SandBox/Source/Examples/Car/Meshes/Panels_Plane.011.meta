@@ -1,0 +1,4 @@
+Mesh:
+  Name: Panels_Plane.011
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: true

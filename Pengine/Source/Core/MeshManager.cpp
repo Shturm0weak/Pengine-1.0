@@ -92,13 +92,14 @@ void MeshManager::LoadAsyncToViewport(const std::string& filePath)
 Mesh* MeshManager::Create(const std::string& name, std::vector<float>& vertexAttributes,
 	std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, const std::string& filePath)
 {
+	std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
 	if (Mesh* mesh = Get(filePath))
 	{
 		return mesh;
 	}
 	else
 	{
-		mesh = new Mesh(name, vertexAttributes, indices, layouts, filePath);
+		mesh = new Mesh(name, vertexAttributes, indices, layouts, formattedFilePath);
 		m_Meshes.insert(std::make_pair(mesh->GetFilePath(), mesh));
 		DispatchLoadedMeshes();
 
@@ -106,15 +107,17 @@ Mesh* MeshManager::Create(const std::string& name, std::vector<float>& vertexAtt
 	}
 }
 
-void MeshManager::CreateAsync(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices, const std::vector<uint32_t>& layouts, std::function<void(Mesh*)> callback, const std::string& filePath)
+void MeshManager::CreateAsync(const std::string& name, std::vector<float>& vertexAttributes, std::vector<uint32_t>& indices,
+	const std::vector<uint32_t>& layouts, std::function<void(Mesh*)> callback, const std::string& filePath)
 {
-	if (Mesh* mesh = Get(filePath))
+	std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
+	if (Mesh* mesh = Get(formattedFilePath))
 	{
 		callback(mesh);
 	}
 	else
 	{
-		mesh = new Mesh(name, vertexAttributes, indices, layouts, filePath);
+		mesh = new Mesh(name, vertexAttributes, indices, layouts, formattedFilePath);
 		m_Meshes.insert(std::make_pair(mesh->GetFilePath(), mesh));
 		callback(mesh);
 
@@ -124,7 +127,8 @@ void MeshManager::CreateAsync(const std::string& name, std::vector<float>& verte
 
 Mesh* MeshManager::Get(const std::string& filePath) const
 {
-	auto meshIter = m_Meshes.find(filePath);
+	std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
+	auto meshIter = m_Meshes.find(formattedFilePath);
 	if (meshIter != m_Meshes.end())
 	{
 		return meshIter->second;
@@ -142,13 +146,14 @@ Mesh* MeshManager::Get(const std::string& filePath) const
 
 void MeshManager::GetAsync(const std::string& filePath, std::function<void(Mesh*)> callback)
 {
-	if (Mesh* mesh = Get(filePath))
+	std::string formattedFilePath = Utils::Replace(filePath, '\\', '/');
+	if (Mesh* mesh = Get(formattedFilePath))
 	{
 		callback(mesh);
 	}
 	else
 	{
-		m_WaitingForMeshes.emplace(filePath, callback);
+		m_WaitingForMeshes.emplace(formattedFilePath, callback);
 	}
 }
 

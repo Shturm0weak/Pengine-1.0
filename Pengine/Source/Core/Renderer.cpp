@@ -14,6 +14,8 @@
 #include "../OpenGL/Batch.h"
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/FrameBuffer.h"
+#include "../OpenGL/Material.h"
+#include "../OpenGL/BaseMaterial.h"
 
 using namespace Pengine;
 
@@ -233,6 +235,13 @@ void Renderer::PrepareUniformBuffers(Scene* scene)
 {
     PreparePointLightsUniformBuffer(scene->GetEnabledPointLights());
     PrepareSpotLightsUniformBuffer(scene->GetEnabledSpotLights());
+    PrepareMaterialsUniformBuffer();
+}
+
+void Renderer::PrepareVertexAttrib(Scene* scene)
+{
+    Instancing::GetInstance().PrepareVertexAtrrib(scene->m_OpaqueByBaseMaterial);
+    Instancing::GetInstance().PrepareShadowsVertexAtrrib(scene->m_ShadowsByMesh);
 }
 
 void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& pointLights)
@@ -243,6 +252,7 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
 
     size_t offset = 5;
     m_PointLights.m_ShadowSamplers.resize(m_PointLights.m_MaxShadowsSize);
+    m_PointLights.m_ShadowCubeMaps.resize(m_PointLights.m_MaxShadowsSize);
     for (size_t i = 0; i < m_PointLights.m_MaxShadowsSize; i++)
     {
         m_PointLights.m_ShadowSamplers[i] = offset;
@@ -287,7 +297,8 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
         if (pointLight->IsRenderShadows() && i < m_PointLights.m_MaxShadowsSize)
         {
             m_PointLights.m_ShadowSamplers[offsetIndex] = offset;
-
+            m_PointLights.m_ShadowCubeMaps[offsetIndex] = pointLight->m_ShadowsCubeMap->m_Textures[0];
+            
             glActiveTexture(GL_TEXTURE0 + offset);
             glBindTexture(GL_TEXTURE_CUBE_MAP, pointLight->m_ShadowsCubeMap->m_Textures[0]);
 
@@ -357,6 +368,60 @@ void Renderer::PrepareSpotLightsUniformBuffer(const std::vector<SpotLight*>& spo
     }
 }
 
+void Renderer::PrepareMaterialsUniformBuffer()
+{
+    auto materials = MaterialManager::GetInstance().GetMaterials();
+    m_Materials.m_Size = materials.size();
+
+    auto setData = [](char* dst, void* src, size_t size, int& offset)
+    {
+        memcpy(&dst[offset], src, size);
+        offset += size;
+    };
+
+    size_t offsetIndex = 0;
+    std::vector<char> buffer(sizeof(MaterialUniform) * m_Materials.m_Size);
+
+    int i = 0;
+    for (const auto& [filePath, material] : materials)
+    {
+        material->m_UniformIndex = i;
+
+        int uniformOffset = 0;
+
+        char* materialBufferPtr = &buffer[i * sizeof(MaterialUniform)];
+
+        float useNormalMap = (float)material->m_UseNormalMap;
+        
+        glm::vec3 ambient = material->m_Ambient * material->m_Scale;
+
+        setData(materialBufferPtr, &ambient, 12, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_BaseColorIndex, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_NormalMapIndex, 4, uniformOffset);
+
+        setData(materialBufferPtr, &useNormalMap, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_Solid, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_Shiness, 4, uniformOffset);
+
+        ++i;
+    }
+
+    if (m_Materials.m_UniformBuffer.GetSize() == 0)
+    {
+        m_Materials.m_UniformBuffer.Initialize(nullptr, sizeof(MaterialUniform) * MAX_MATERIALS, false);
+        m_Materials.m_UniformBuffer.BindBufferBase(2);
+    }
+
+    if (m_Materials.m_Size > 0)
+    {
+        m_Materials.m_UniformBuffer.SetData(&buffer[0], sizeof(MaterialUniform) * m_Materials.m_Size, 0);
+    }
+}
+
 bool Renderer::RenderCascadeShadowMaps(Scene* scene)
 {
     m_LightSpaceMatrices.clear();
@@ -386,11 +451,11 @@ bool Renderer::RenderCascadeShadowMaps(Scene* scene)
         Begin(m_FrameBufferCSM[i]);
 
         glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
+        //glCullFace(GL_FRONT);
         glEnable(GL_DEPTH_CLAMP);
-        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh, Instancing::GetInstance().m_ShadowsBuffersByMesh);
+        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
         glDisable(GL_DEPTH_CLAMP);
-        glCullFace(GL_BACK);
+        //glCullFace(GL_BACK);
     }
 
     shader->UnBind();
@@ -470,11 +535,11 @@ void Renderer::RenderPointLightShadows(Scene* scene)
         Begin(pointLight->m_ShadowsCubeMap);
 
         glEnable(GL_CULL_FACE);
-        glCullFace(GL_FRONT);
+        //glCullFace(GL_FRONT);
         glEnable(GL_DEPTH_CLAMP);
-        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh, Instancing::GetInstance().m_ShadowsBuffersByMesh);
+        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
         glDisable(GL_DEPTH_CLAMP);
-        glCullFace(GL_BACK);
+        //glCullFace(GL_BACK);
     }
 
     shader->UnBind();
@@ -620,10 +685,9 @@ void Renderer::RenderDeferred(Scene* scene)
     shader->SetUniform1i("u_DirectionalShadows.color", 3);
     shader->SetUniform1i("u_SSAO.color", 4);
     shader->SetUniform1i("u_SSAO.isEnabled", (int)environment.m_SSAO.m_IsEnabled);
-    shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
-    shader->SetUniform2fv("u_ViewportSize", (glm::vec2)Viewport::GetInstance().GetSize());
     shader->SetUniform1i("u_DirectionalShadows.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
     shader->SetUniform1i("u_IsShadowsEnabled", environment.m_ShadowsSettings.m_IsEnabled);
+    shader->SetGlobalUniforms();
 
     if (scene->m_DirectionalLights.empty())
     {
@@ -683,6 +747,15 @@ void Renderer::RenderOutline()
         }
     };
 
+    std::function<void(GameObject*)> DrawChildsOutlineObject = [shader, DrawOutlineObject, &DrawChildsOutlineObject](GameObject* gameObject)
+    {
+        DrawOutlineObject(gameObject);
+        for (auto& child : gameObject->GetChilds())
+        {
+            DrawChildsOutlineObject(child);
+        }
+    };
+
     Viewport& viewport = Viewport::GetInstance();
    
     std::vector<std::string> gameObjectsUUID = Editor::GetInstance().GetSelectedGameObjects();
@@ -690,11 +763,7 @@ void Renderer::RenderOutline()
     {
         if (GameObject* gameObject = Editor::GetInstance().m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
         {
-            DrawOutlineObject(gameObject);
-            for (auto& child : gameObject->GetChilds())
-            {
-                DrawOutlineObject(child);
-            }
+            DrawChildsOutlineObject(gameObject);
         }
     }
 }
@@ -853,7 +922,8 @@ void Renderer::Render(Application* application)
     GeometryPass(scene);
     ShadowPass(scene);
 
-    Instancing::GetInstance().PrepareVertexAtrrib(scene->m_OpaqueByMesh);
+    PrepareVertexAttrib(scene);
+
     scene->PrepareVisualizer();
     scene->SortTransparent();
     
@@ -867,8 +937,7 @@ void Renderer::GeometryPass(Scene* scene)
     Begin(m_FrameBufferG);
     {
         Timer timer = Timer(false, &Editor::GetInstance().m_Stats.m_RenderGBufferTime);
-        Instancing::GetInstance().BindBuffers(scene->m_OpaqueByMesh);
-        Instancing::GetInstance().RenderGBuffer(scene->m_OpaqueByMesh, Instancing::GetInstance().m_OpaqueBuffersByMesh);
+        Instancing::GetInstance().RenderGBuffer(scene->m_OpaqueByBaseMaterial);
     }
     End(m_FrameBufferG);
 }

@@ -72,6 +72,7 @@ namespace Pengine
 
 		friend class Editor;
 		friend class Renderer;
+		friend class Renderer3D;
 		friend class Serializer;
 		friend class Instancing;
 		friend class Application;

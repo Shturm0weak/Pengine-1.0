@@ -1,4 +1,4 @@
 Mesh:
   Name: Torus
   FilePath: Source\Meshes\Torus.obj
-  CullFace: true
+  CullFace: false

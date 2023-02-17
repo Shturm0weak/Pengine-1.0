@@ -9,6 +9,7 @@ using namespace Pengine;
 class ExampleComponent : public IComponent
 {
 	REGISTER_PARENT_CLASS(IComponent)
+public: PROPERTY(GameObject*, m_GameObject, false)
 public: PROPERTY(float, m_Float, 0.0f)
 public: PROPERTY(double, m_Double, 0.0)
 public: PROPERTY(int, m_Int, 0)

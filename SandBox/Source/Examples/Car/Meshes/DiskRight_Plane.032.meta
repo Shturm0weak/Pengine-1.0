@@ -1,0 +1,4 @@
+Mesh:
+  Name: DiskRight_Plane.032
+  FilePath: Source\Examples\Car\Meshes\WheelRight.obj
+  CullFace: true

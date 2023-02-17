@@ -14,6 +14,8 @@
 #include "../Components/Rigidbody2D.h"
 #include "../Components/BoxCollider2D.h"
 #include "../Components/ParticleEmitter.h"
+#include "../OpenGL/Material.h"
+#include "../OpenGL/BaseMaterial.h"
 
 using namespace Pengine;
 
@@ -107,7 +109,7 @@ void Scene::OnPhysicsUpdate()
 		rb3d->GetBody().setMassProps(mass, inertia);
 		btTransform transform;
 		transform.setFromOpenGLMatrix(glm::value_ptr(glm::translate(glm::mat4(1.0f), position) *
-			rb3d->GetOwner()->m_Transform.GetRotationMat4()));
+			rb3d->GetOwner()->m_Transform.GetRotationMat4(Transform::System::LOCAL)));
 		rb3d->GetBody().setWorldTransform(transform);
 	}
 
@@ -141,9 +143,6 @@ void Scene::OnPhysicsUpdate()
 
 		const btRigidBody& body = rb3d->GetBody();
 		const btVector3 position = body.getWorldTransform().getOrigin();
-		glm::vec3 rotation;
-		body.getWorldTransform().getBasis().getEulerZYX(rotation.z, rotation.y, rotation.x);
-
 		glm::vec3 offset = { 0.0f, 0.0f, 0.0f };
 		if (ICollider3D* c3d = rb3d->GetCollisionShape())
 		{
@@ -151,8 +150,11 @@ void Scene::OnPhysicsUpdate()
 		}
 
 		owner->m_Transform.Translate(glm::vec3(position.x() - offset.x,
-			position.y() - offset.y, position.z() - offset.z));
-		owner->m_Transform.Rotate(rotation);
+			position.y() - offset.y, position.z() - offset.z) - owner->m_Transform.GetPosition() + owner->m_Transform.GetPosition(Transform::System::LOCAL));
+
+		glm::vec3 rotation;
+		body.getWorldTransform().getBasis().getEulerZYX(rotation.z, rotation.y, rotation.x);
+		owner->m_Transform.Rotate(rotation - owner->m_Transform.GetRotation() + owner->m_Transform.GetRotation(Transform::System::LOCAL));
 	}
 }
 
@@ -373,7 +375,8 @@ void Scene::PrepareVisualizer()
 		{
 			if (!bc3d->GetOwner()->IsEnabled()) continue;
 
-			Transform transform = bc3d->GetOwner()->m_Transform;
+			Transform transform;
+			transform.CopyGlobal(bc3d->GetOwner()->m_Transform);
 			transform.Translate(transform.GetPosition() + bc3d->GetOffset());
 			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(),
 				transform.GetScaleMat4(), -bc3d->GetHalfExtent(), bc3d->GetHalfExtent());
@@ -430,7 +433,7 @@ void Scene::PrepareVisualizer()
 
 void Scene::PrepareToRender()
 {
-	m_OpaqueByMesh.clear();
+	m_OpaqueByBaseMaterial.clear();
 	m_TransparentByDistance.clear();
 	m_ShadowsByMesh.clear();
 
@@ -446,7 +449,7 @@ void Scene::PrepareToRender()
 		{
 			if (r3d->m_IsOpaque)
 			{
-				m_OpaqueByMesh[mesh].emplace_back(r3d);
+				m_OpaqueByBaseMaterial[r3d->m_Material->m_BaseMaterial][mesh].emplace_back(r3d);
 
 				if (r3d->m_DrawShadows)
 				{
@@ -504,7 +507,7 @@ void Scene::RenderBoundingBoxes()
 		if (const Mesh* mesh = r3d->m_Mesh)
 		{
 			const Transform& transform = r3d->GetOwner()->m_Transform;
-			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(), transform.GetScaleMat4(),
+			Visualizer::DrawWireFrameCube(transform.GetPositionMat4(), transform.GetRotationMat4(Transform::System::LOCAL), transform.GetScaleMat4(Transform::System::LOCAL),
 				mesh->m_BoundingBox.m_Min, mesh->m_BoundingBox.m_Max);
 		}
 	}

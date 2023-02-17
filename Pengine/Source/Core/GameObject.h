@@ -34,8 +34,6 @@ namespace Pengine
 		bool m_IsEnabled = true;
 		bool m_IsSelectable = true;
 
-		void Move(GameObject&& gameObject) noexcept;
-
 		friend class Scene;
 		friend class GameObjectManager;
 		friend class Editor;
@@ -43,12 +41,10 @@ namespace Pengine
 		friend class LuaState;
 	public:
 
-		GameObject(GameObject&& gameObject) noexcept;
 		GameObject(const GameObject& gameObject);
 		GameObject(const std::string& name = "Unnamed", const Transform& transform = Transform());
 		~GameObject();
 		void operator=(const GameObject& gameObject);
-		void operator=(GameObject&& gameObject) noexcept;
 
 		Transform m_Transform;
 		ComponentManager m_ComponentManager = ComponentManager(this);

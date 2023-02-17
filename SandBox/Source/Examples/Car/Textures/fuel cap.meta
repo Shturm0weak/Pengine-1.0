@@ -1,0 +1,8 @@
+Texture:
+  Name: fuel cap
+  FilePath: Source\Examples\Car\Textures\fuel cap.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

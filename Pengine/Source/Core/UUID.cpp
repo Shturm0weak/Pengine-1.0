@@ -13,7 +13,7 @@ namespace Pengine
 	static std::uniform_int_distribution<size_t> s_UniformDistributionUUID1(0, 15);
 	static std::uniform_int_distribution<size_t> s_UniformDistributionUUID2(8, 11);
 
-	void UUID::Generate()
+	std::string UUID::Generate()
 	{
 		std::stringstream uuid;
 		uuid << std::hex;
@@ -52,17 +52,8 @@ namespace Pengine
 			uuid << s_UniformDistributionUUID1(s_Engine);
 		}
 
-		// This code should be commented, for now it is just for a test.
 		m_UUID = uuid.str();
-		for (auto& testUuid : s_UUIDs)
-		{
-			if (m_UUID.compare(testUuid) == 0)
-			{
-				Logger::Error("UUID dublicate!!!");
-			}
-		}
-
-		s_UUIDs.push_back(m_UUID);
+		return m_UUID;
 	}
 
 }

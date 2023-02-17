@@ -11,6 +11,13 @@ namespace Pengine
 
 	class PENGINE_API Transform : public IComponent
 	{
+	public:
+
+		enum class System
+		{
+			LOCAL,
+			GLOBAL
+		};
 	private:
 
 		glm::mat4 m_TransformMat4;
@@ -31,6 +38,8 @@ namespace Pengine
 		std::unordered_map<std::string, std::function<void()>> m_OnRotationCallbacks;
 		std::unordered_map<std::string, std::function<void()>> m_OnTranslationCallbacks;
 		std::unordered_map<std::string, std::function<void()>> m_OnScaleCallbacks;
+
+		Transform* m_Parent = nullptr;
 
 		bool m_FollowOwner = true;
 		bool m_Copyable = true;
@@ -59,21 +68,23 @@ namespace Pengine
 		
 		virtual IComponent* CreateCopy(GameObject* newOwner) override;
 		
-		glm::mat4 GetPositionMat4() const { return m_PositionMat4; }
+		void CopyGlobal(const Transform& transform);
+
+		glm::mat4 GetPositionMat4(System system = System::GLOBAL, bool isTransformed = true) const;
 		
-		glm::mat4 GetRotationMat4() const { return m_RotationMat4; }
+		glm::mat4 GetRotationMat4(System system = System::GLOBAL, bool isTransformed = true) const;
 		
-		glm::mat4 GetScaleMat4() const { return m_ScaleMat4; }
+		glm::mat4 GetScaleMat4(System system = System::GLOBAL, bool isTransformed = true) const;
 		
-		glm::vec3 GetPreviousPosition() const { return m_PreviousPosition; }
+		glm::vec3 GetPreviousPosition(System system = System::GLOBAL) const;
 		
-		glm::vec3 GetPositionDelta() const { return m_PositionDelta; }
+		glm::vec3 GetPositionDelta(System system = System::GLOBAL) const;
 		
-		glm::vec3 GetPosition() const;
+		glm::vec3 GetPosition(System system = System::GLOBAL) const;
 		
-		glm::vec3 GetRotation() const { return m_Rotation; }
+		glm::vec3 GetRotation(System system = System::GLOBAL) const;
 		
-		glm::vec3 GetScale() const;
+		glm::vec3 GetScale(System system = System::GLOBAL) const;
 		
 		glm::vec3 GetBack() const { return m_Back; }
 		
@@ -83,9 +94,9 @@ namespace Pengine
 		
 		glm::vec3 GetRight() const { return glm::normalize(glm::cross(GetForward(), GetUp())); }
 		
-		glm::mat4 GetTransform() const { return m_TransformMat4; }
+		glm::mat4 GetTransform(System system = System::GLOBAL) const;
 
-		glm::mat3 GetInverseTransform() const { return m_InverseTransformMat3; }
+		glm::mat3 GetInverseTransform(System system = System::GLOBAL) const;
 		
 		bool GetFollorOwner() const { return m_FollowOwner; }
 		

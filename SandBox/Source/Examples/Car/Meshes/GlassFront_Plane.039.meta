@@ -1,0 +1,4 @@
+Mesh:
+  Name: GlassFront_Plane.039
+  FilePath: Source\Examples\Car\Meshes\Dodge.obj
+  CullFace: false
