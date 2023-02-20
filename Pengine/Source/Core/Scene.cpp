@@ -500,6 +500,27 @@ void Scene::SortPointLights()
 	}
 }
 
+void Scene::SortSpotLights()
+{
+	const glm::vec3 cameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+
+	auto isCloser = [cameraPosition](SpotLight* a, SpotLight* b)
+	{
+		float distance2A = glm::length2(cameraPosition - a->GetOwner()->m_Transform.GetPosition());
+		float distance2B = glm::length2(cameraPosition - b->GetOwner()->m_Transform.GetPosition());
+
+		return distance2A < distance2B;
+	};
+
+	std::sort(m_SpotLights.begin(), m_SpotLights.end(), isCloser);
+
+	for (SpotLight* spotLight : m_SpotLights)
+	{
+		float distance2 = glm::length2(cameraPosition - spotLight->GetOwner()->m_Transform.GetPosition());
+		spotLight->m_ShadowsVisible = distance2 < spotLight->m_ZFar* spotLight->m_ZFar * 2.0f;
+	}
+}
+
 void Scene::RenderBoundingBoxes()
 {
 	for (const Renderer3D* r3d : m_Renderers3D)

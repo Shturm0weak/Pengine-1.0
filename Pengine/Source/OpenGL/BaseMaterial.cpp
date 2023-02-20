@@ -1,6 +1,7 @@
 #include "BaseMaterial.h"
 
 #include "../Core/Logger.h"
+#include "../Core/Renderer.h"
 
 using namespace Pengine;
 
@@ -36,10 +37,11 @@ std::vector<int> BaseMaterial::BindTextures()
     std::vector<int> samplers;
     samplers.resize(MAX_TEXTURE_SLOTS);
 
+    Renderer::GetInstance().ClearTextureBindings();
+
     for (size_t i = 0; i < m_TextureSlotsIndex; i++)
     {
-        glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(m_TextureSlotsTarget[i], m_TextureSlots[i]);
+        Renderer::GetInstance().BindTexture(m_TextureSlots[i], -1, m_TextureSlotsTarget[i]);
     }
     for (size_t i = 0; i < MAX_TEXTURE_SLOTS; i++)
     {

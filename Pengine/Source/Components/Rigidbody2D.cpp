@@ -34,11 +34,6 @@ void Rigidbody2D::Copy(const IComponent& component)
 	m_Type = rb2d.GetType();
 }
 
-IComponent* Rigidbody2D::New(GameObject* owner)
-{
-	return Create(owner);
-}
-
 void Rigidbody2D::Delete()
 {
 	if (m_Body)
@@ -49,6 +44,11 @@ void Rigidbody2D::Delete()
 
 	Utils::Erase(m_Owner->GetScene()->m_Rigidbody2D, this);
 	MemoryManager::GetInstance().FreeMemory<Rigidbody2D>(static_cast<IAllocator*>(this));
+}
+
+IComponent* Rigidbody2D::New(GameObject* owner)
+{
+	return Create(owner);
 }
 
 void Rigidbody2D::SetFixedRotation(bool fixedRotation)

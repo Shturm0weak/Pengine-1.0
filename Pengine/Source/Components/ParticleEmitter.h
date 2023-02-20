@@ -56,26 +56,28 @@ namespace Pengine
 
 		friend class Editor;
 		friend class Serializer;
+	protected:
+
+		virtual void OnStart() override;
+
+		virtual void OnUpdate() override;
+
+		virtual void OnClose() override;
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
 
 		std::vector<std::function<void()>> m_EndCallbacks;
 		
-		ParticleEmitter();
-		~ParticleEmitter();
-		
 		static IComponent* Create(GameObject* owner);
 
-		virtual IComponent* New(GameObject* owner) override;
-		
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Delete() override;
-		
-		virtual void OnStart() override;
-		
-		virtual void OnUpdate() override;
-		
-		virtual void OnClose() override;
+		ParticleEmitter();
+
+		~ParticleEmitter();
 
 		void Render();
 	};

@@ -19,8 +19,6 @@ namespace Pengine
 
 		virtual void Copy(const IComponent& component) override;
 
-		virtual void Move(IComponent&& component) override;
-
 		virtual void Delete() override;
 
 		virtual IComponent* New(GameObject* owner) override;
@@ -36,11 +34,7 @@ namespace Pengine
 
 		BoxCollider2D(const BoxCollider2D& bc2d);
 
-		BoxCollider2D(BoxCollider2D&& bc2d) noexcept;
-
 		BoxCollider2D& operator=(const BoxCollider2D& bc2d);
-
-		BoxCollider2D& operator=(BoxCollider2D&& bc2d) noexcept;
 
 		virtual ICollider2D* IntersectTrigger() override;
 

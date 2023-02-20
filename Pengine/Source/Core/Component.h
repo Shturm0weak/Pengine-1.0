@@ -23,8 +23,6 @@ namespace Pengine
 		
 		virtual void Copy(const IComponent& component) = 0;
 
-		virtual void Move(IComponent&& component) {};
-
 		virtual void Delete() { delete this; }
 
 		virtual void OnRegisterClient() {}

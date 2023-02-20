@@ -11,10 +11,9 @@ namespace Pengine
 	{
 	protected:
 
-		Shader* m_Shader = Shader::Get("Default2D");
+		virtual void Render() = 0;
 	public:
 
-		virtual void Render() = 0;
 		virtual ~IRenderer() {};
 	};
 

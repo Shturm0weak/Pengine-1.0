@@ -50,6 +50,13 @@ namespace Pengine
 
 		friend class GameObject;
 		friend class Editor;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual IComponent* New(GameObject* owner) override;
+
+		virtual IComponent* CreateCopy(GameObject* newOwner) override;
 	public:
 
 		Transform(const Transform& transform);
@@ -62,12 +69,6 @@ namespace Pengine
 		void operator=(const Transform& transform);
 		void operator=(Transform&& transform) noexcept;
 
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual IComponent* New(GameObject* owner) override;
-		
-		virtual IComponent* CreateCopy(GameObject* newOwner) override;
-		
 		void CopyGlobal(const Transform& transform);
 
 		glm::mat4 GetPositionMat4(System system = System::GLOBAL, bool isTransformed = true) const;

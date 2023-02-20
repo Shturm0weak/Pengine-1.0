@@ -779,6 +779,7 @@ void Serializer::SerializeShadows(YAML::Emitter& out)
 	out << YAML::Key << "IsVisualized" << YAML::Value << shadows.m_IsVisualized;
 	out << YAML::Key << "Pcf" << YAML::Value << shadows.m_Pcf;
 	out << YAML::Key << "MaxPointLightShadows" << YAML::Value << shadows.m_MaxPointLightShadows;
+	out << YAML::Key << "MaxSpotLightShadows" << YAML::Value << shadows.m_MaxSpotLightShadows;
 	out << YAML::Key << "Fog" << YAML::Value << shadows.m_Fog;
 	out << YAML::Key << "Texels" << YAML::Value << shadows.m_Texels;
 	out << YAML::Key << "ZFarScale" << YAML::Value << shadows.m_ZFarScale;
@@ -824,6 +825,11 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 		if (auto& maxPointLightShadowsData = shadowsIn["MaxPointLightShadows"])
 		{
 			shadows.m_MaxPointLightShadows = maxPointLightShadowsData.as<int>();
+		}
+
+		if (auto& maxSpotLightShadowsData = shadowsIn["MaxSpotLightShadows"])
+		{
+			shadows.m_MaxSpotLightShadows = maxSpotLightShadowsData.as<int>();
 		}
 
 		if (auto& fogData = shadowsIn["Fog"])
@@ -1967,6 +1973,7 @@ void Serializer::SerializePointLight(YAML::Emitter& out, ComponentManager& compo
 		out << YAML::Key << "ZNear" << YAML::Value << pointLight->m_ZNear;
 		out << YAML::Key << "Fog" << YAML::Value << pointLight->m_Fog;
 		out << YAML::Key << "DrawShadows" << YAML::Value << pointLight->IsDrawShadows();
+		out << YAML::Key << "ShadowBias" << YAML::Value << pointLight->GetShadowBias();
 
 		out << YAML::EndMap;
 	}
@@ -2017,6 +2024,11 @@ void Serializer::DeSerializePointLight(YAML::Node& in, ComponentManager& compone
 		{
 			pointLight->SetDrawShadows(drawShadowsData.as<bool>());
 		}
+
+		if (auto& shadowBiasData = pointLightIn["ShadowBias"])
+		{
+			pointLight->SetShadowBias(shadowBiasData.as<float>());
+		}
 	}
 }
 
@@ -2034,6 +2046,12 @@ void Serializer::SerializeSpotLight(YAML::Emitter& out, ComponentManager& compon
 		out << YAML::Key << "Quadratic" << YAML::Value << spotLight->m_Quadratic;
 		out << YAML::Key << "InnerCutOff" << YAML::Value << spotLight->GetInnerCutOff();
 		out << YAML::Key << "OuterCutOff" << YAML::Value << spotLight->GetOuterCutOfff();
+		out << YAML::Key << "ZFar" << YAML::Value << spotLight->m_ZFar;
+		out << YAML::Key << "ZNear" << YAML::Value << spotLight->m_ZNear;
+		out << YAML::Key << "Fog" << YAML::Value << spotLight->m_Fog;
+		out << YAML::Key << "DrawShadows" << YAML::Value << spotLight->IsDrawShadows();
+		out << YAML::Key << "ShadowBias" << YAML::Value << spotLight->GetShadowBias();
+		out << YAML::Key << "ShadowPcf" << YAML::Value << spotLight->GetShadowPcf();
 
 		out << YAML::EndMap;
 	}
@@ -2074,6 +2092,36 @@ void Serializer::DeSerializeSpotLight(YAML::Node& in, ComponentManager& componen
 		{
 			spotLight->SetOuterCutOff(outerCutOffData.as<float>());
 		}
+
+		if (auto& zNearData = spotLighttIn["ZNear"])
+		{
+			spotLight->m_ZNear = zNearData.as<float>();
+		}
+
+		if (auto& zFarData = spotLighttIn["ZFar"])
+		{
+			spotLight->m_ZFar = zFarData.as<float>();
+		}
+
+		if (auto& fogData = spotLighttIn["Fog"])
+		{
+			spotLight->m_Fog = fogData.as<float>();
+		}
+
+		if (auto& drawShadowsData = spotLighttIn["DrawShadows"])
+		{
+			spotLight->SetDrawShadows(drawShadowsData.as<bool>());
+		}
+
+		if (auto& shadowBiasData = spotLighttIn["ShadowBias"])
+		{
+			spotLight->SetShadowBias(shadowBiasData.as<float>());
+		}
+
+		if (auto& shadowPcfData = spotLighttIn["ShadowPcf"])
+		{
+			spotLight->SetShadowPcf(shadowPcfData.as<int>());
+		}
 	}
 }
 
@@ -2085,8 +2133,8 @@ void Serializer::SerializeDirectionalLight(YAML::Emitter& out, ComponentManager&
 		out << YAML::Key << "Directional Light";
 		out << YAML::BeginMap;
 
-		out << YAML::Key << "Color" << YAML::Value << directionalLight->m_Color;
-		out << YAML::Key << "Intensity" << YAML::Value << directionalLight->m_Intensity;
+		out << YAML::Key << "Color" << YAML::Value << directionalLight->GetColor();
+		out << YAML::Key << "Intensity" << YAML::Value << directionalLight->GetIntensity();
 
 		out << YAML::EndMap;
 	}
@@ -2100,12 +2148,12 @@ void Serializer::DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& c
 
 		if (auto& colorData = directionalLightIn["Color"])
 		{
-			directionalLight->m_Color = colorData.as<glm::vec3>();
+			directionalLight->SetColor(colorData.as<glm::vec3>());
 		}
 
 		if (auto& intensityData = directionalLightIn["Intensity"])
 		{
-			directionalLight->m_Intensity = intensityData.as<float>();
+			directionalLight->SetIntensity(intensityData.as<float>());
 		}
 	}
 }

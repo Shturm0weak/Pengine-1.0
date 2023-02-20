@@ -16,8 +16,6 @@ protected:
 
 	virtual void Copy(const IComponent& component) override;
 
-	virtual void Move(IComponent&& component) override;
-
 	virtual IComponent* New(GameObject* owner) override;
 public:
 
@@ -29,10 +27,6 @@ public:
 
 	Vehicle(const Vehicle & a2d);
 
-	Vehicle(Vehicle && a2d) noexcept;
-
 	Vehicle& operator=(const Vehicle & a2d);
-
-	Vehicle& operator=(Vehicle && a2d) noexcept;
 };
 REGISTER_COMPONENT(Vehicle)

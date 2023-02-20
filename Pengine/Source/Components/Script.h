@@ -7,6 +7,9 @@
 namespace Pengine
 {
 
+	/**
+	 * @Deprectated. No longer supported.
+	 */
 	class Script : public IComponent
 	{
 	private:
@@ -15,18 +18,20 @@ namespace Pengine
 
 		friend class Editor;
 		friend class Serializer;
-	public:
-
-		Script() = default;
-		~Script();
-		
-		static IComponent* Create(GameObject* owner);
-		
-		virtual IComponent* CreateCopy(GameObject* newOwner) override;
-		
-		virtual IComponent* New(GameObject* owner) override;
+	protected:
 
 		virtual void Copy(const IComponent& component) override;
+
+		virtual IComponent* New(GameObject* owner) override;
+
+		virtual IComponent* CreateCopy(GameObject* newOwner) override;
+	public:
+
+		static IComponent* Create(GameObject* owner);
+
+		Script() = default;
+
+		~Script();
 
 		LuaState* Get(const std::string& filePath);
 		

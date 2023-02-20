@@ -28,6 +28,15 @@ namespace Pengine
 		friend class Scene;
 		friend class Raycast3D;
 		friend class Renderer;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
+
+		virtual void Render() override;
 	public:
 
 		Material* m_Material = nullptr;
@@ -35,18 +44,12 @@ namespace Pengine
 		bool m_IsOpaque = true;
 		bool m_DrawShadows = true;
 
-		Renderer3D() = default;
-		
 		static IComponent* Create(GameObject* owner);
 
-		virtual IComponent* New(GameObject* owner) override;
-		
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Render() override;
-		
-		virtual void Delete() override;
+		Renderer3D() = default;
 
+		~Renderer3D() = default;
+		
 		void SortLods(const glm::vec3& cameraPosition);
 
 		void SetMesh(Mesh* mesh, size_t lod = 0);

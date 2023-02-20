@@ -23,19 +23,22 @@ namespace Pengine
 
 		friend class Scene;
 		friend class Editor;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
+
+		static IComponent* Create(GameObject* owner);
+
+		static b2BodyType ConvertToB2BodyType(BodyType bodyType);
 
 		Rigidbody2D() = default;
 
-		static IComponent* Create(GameObject* owner);
-		
-		static b2BodyType ConvertToB2BodyType(BodyType bodyType);
-
-		virtual IComponent* New(GameObject* owner) override;
-		
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Delete() override;
+		~Rigidbody2D() = default;
 
 		b2Body* GetBody() const { return m_Body; }
 		

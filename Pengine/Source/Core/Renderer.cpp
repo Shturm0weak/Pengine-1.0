@@ -149,24 +149,15 @@ void Renderer::End(std::shared_ptr<FrameBuffer>& frameBuffer)
 
 void Renderer::ComposeFinalImage()
 {
+    ClearTextureBindings();
+
     Shader* shader = Shader::Get("ComposeFinalImage");
     shader->Bind();
     
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferScene->m_Textures[0]);
-    shader->SetUniform1i("u_SceneTexture", 0);
-
-    glActiveTexture(GL_TEXTURE0 + 1);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferUI->m_Textures[0]);
-    shader->SetUniform1i("u_UITexture", 1);
-
-    glActiveTexture(GL_TEXTURE0 + 2);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferBloom->m_Textures[0]);
-    shader->SetUniform1i("u_BloomTexture", 2);
-
-    glActiveTexture(GL_TEXTURE0 + 3);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferOutline->m_Textures[0]);
-    shader->SetUniform1i("u_OutlineTexture", 3);
+    shader->SetUniform1i("u_SceneTexture", BindTexture(m_FrameBufferScene->m_Textures[0]));
+    shader->SetUniform1i("u_UITexture", BindTexture(m_FrameBufferUI->m_Textures[0]));
+    shader->SetUniform1i("u_BloomTexture", BindTexture(m_FrameBufferBloom->m_Textures[0]));
+    shader->SetUniform1i("u_OutlineTexture", BindTexture(m_FrameBufferOutline->m_Textures[0]));
 
     shader->SetUniform1f("u_Gamma", Environment::GetInstance().m_BloomSettings.m_Gamma);
     shader->SetUniform1i("u_IsBloomEnabled", Environment::GetInstance().m_BloomSettings.m_IsEnabled);
@@ -177,8 +168,7 @@ void Renderer::ComposeFinalImage()
 
     shader->UnBind();
 
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
+    BindTexture(TextureManager::GetInstance().White()->GetRendererID(), 0, GL_TEXTURE_2D);
 }
 
 void Renderer::GenerateSSAOKernel()
@@ -250,12 +240,12 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
 
     m_PointLights.m_Size = pointLights.size();
 
-    size_t offset = 5;
+    m_PointLights.m_ShadowCubeMaps.clear();
+    m_PointLights.m_ShadowCubeMaps.reserve(m_PointLights.m_MaxShadowsSize);
     m_PointLights.m_ShadowSamplers.resize(m_PointLights.m_MaxShadowsSize);
-    m_PointLights.m_ShadowCubeMaps.resize(m_PointLights.m_MaxShadowsSize);
     for (size_t i = 0; i < m_PointLights.m_MaxShadowsSize; i++)
     {
-        m_PointLights.m_ShadowSamplers[i] = offset;
+        m_PointLights.m_ShadowSamplers[i] = m_PointLights.m_LastCubeMapIndex;
     }
 
     auto setData = [](char* dst, void* src, size_t size, int& offset)
@@ -294,15 +284,12 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
 
         setData(pointLightBufferPtr, &offsetIndex, 4, uniformOffset);
 
+        setData(pointLightBufferPtr, &pointLight->m_ShadowBias, 4, uniformOffset);
+
         if (pointLight->IsRenderShadows() && i < m_PointLights.m_MaxShadowsSize)
         {
-            m_PointLights.m_ShadowSamplers[offsetIndex] = offset;
-            m_PointLights.m_ShadowCubeMaps[offsetIndex] = pointLight->m_ShadowsCubeMap->m_Textures[0];
-            
-            glActiveTexture(GL_TEXTURE0 + offset);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, pointLight->m_ShadowsCubeMap->m_Textures[0]);
+            m_PointLights.m_ShadowCubeMaps.push_back(pointLight->m_ShadowsCubeMap->m_Textures[0]);
 
-            offset++;
             offsetIndex++;
         }
     }
@@ -321,7 +308,19 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
 
 void Renderer::PrepareSpotLightsUniformBuffer(const std::vector<SpotLight*>& spotLights)
 {
+    Environment& environment = Environment::GetInstance();
+
     m_SpotLights.m_Size = spotLights.size();
+
+    m_SpotLights.m_ShadowMaps.clear();
+    m_SpotLights.m_ShadowMaps.reserve(m_SpotLights.m_MaxShadowsSize);
+    m_SpotLights.m_ShadowMapsProjections.clear();
+    m_SpotLights.m_ShadowMapsProjections.reserve(m_SpotLights.m_MaxShadowsSize);
+    m_SpotLights.m_ShadowSamplers.resize(m_SpotLights.m_MaxShadowsSize);
+    for (size_t i = 0; i < m_SpotLights.m_MaxShadowsSize; i++)
+    {
+        m_SpotLights.m_ShadowSamplers[i] = 0;
+    }
 
     auto setData = [](char* dst, void* src, size_t size, int& offset)
     {
@@ -329,9 +328,9 @@ void Renderer::PrepareSpotLightsUniformBuffer(const std::vector<SpotLight*>& spo
         offset += size;
     };
 
-    size_t offsetIndex = 0;
     std::vector<char> buffer(sizeof(SpotLightUniform) * m_SpotLights.m_Size);
 
+    size_t offsetIndex = 0;
     for (int i = 0; i < m_SpotLights.m_Size; i++)
     {
         int uniformOffset = 0;
@@ -354,6 +353,27 @@ void Renderer::PrepareSpotLightsUniformBuffer(const std::vector<SpotLight*>& spo
         setData(spotLightBufferPtr, &spotLight->m_CosInnerCutOff, 4, uniformOffset);
 
         setData(spotLightBufferPtr, &spotLight->m_CosOuterCutOff, 4, uniformOffset);
+
+        setData(spotLightBufferPtr, &offsetIndex, 4, uniformOffset);
+
+        setData(spotLightBufferPtr, &spotLight->m_ZFar, 4, uniformOffset);
+
+        setData(spotLightBufferPtr, &spotLight->m_Fog, 4, uniformOffset);
+
+        int drawShadows = spotLight->IsRenderShadows()
+            && i < environment.m_ShadowsSettings.m_MaxSpotLightShadows;
+        setData(spotLightBufferPtr, &drawShadows, 4, uniformOffset);
+
+        setData(spotLightBufferPtr, &spotLight->m_ShadowBias, 4, uniformOffset);
+
+        setData(spotLightBufferPtr, &spotLight->m_ShadowPcf, 4, uniformOffset);
+
+        if (spotLight->IsRenderShadows() && i < m_SpotLights.m_MaxShadowsSize)
+        {
+            m_SpotLights.m_ShadowMaps.push_back(spotLight->m_ShadowMap->m_Textures[0]);
+            m_SpotLights.m_ShadowMapsProjections.push_back(spotLight->m_ShadowTransform);
+            offsetIndex++;
+        }
     }
 
     if (m_SpotLights.m_UniformBuffer.GetSize() == 0)
@@ -484,11 +504,10 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     shader->SetUniform1f("u_Shadows.texels", (int)environment.m_ShadowsSettings.m_Texels);
     shader->SetUniformMat4fv("u_Shadows.lightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
 
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[1]);
+    ClearTextureBindings();
 
-    glActiveTexture(GL_TEXTURE0 + 1);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[2]);
+    BindTexture(m_FrameBufferG->m_Textures[1]);
+    BindTexture(m_FrameBufferG->m_Textures[2]);
 
     shader->SetUniform1i("u_WorldPosition", 0);
     shader->SetUniform1i("u_Normal", 1);
@@ -496,9 +515,7 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     std::vector<int> csm(Renderer::GetInstance().m_FrameBufferCSM.size());
     for (size_t i = 0; i < csm.size(); i++)
     {
-        glActiveTexture(GL_TEXTURE0 + i + 2);
-        glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
-        csm[i] = i + 2;
+        csm[i] = BindTexture(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
     }
     shader->SetUniform1iv("u_Shadows.CSM", &csm[0], csm.size());
 
@@ -533,6 +550,37 @@ void Renderer::RenderPointLightShadows(Scene* scene)
         shader->SetUniform1f("u_FarPlane", pointLight->m_ZFar);
 
         Begin(pointLight->m_ShadowsCubeMap);
+
+        glEnable(GL_CULL_FACE);
+        //glCullFace(GL_FRONT);
+        glEnable(GL_DEPTH_CLAMP);
+        Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
+        glDisable(GL_DEPTH_CLAMP);
+        //glCullFace(GL_BACK);
+    }
+
+    shader->UnBind();
+    glViewport(0, 0, viewport.m_PreviousWindowSize.x, viewport.m_PreviousWindowSize.y);
+}
+
+void Renderer::RenderSpotLightShadows(Scene* scene)
+{
+    Viewport& viewport = Viewport::GetInstance();
+
+    Shader* shader = Shader::Get("Instancing3DDepthSpotShadows");
+    shader->Bind();
+
+    size_t spotLightsSize = scene->m_SpotLights.size();
+    for (size_t j = 0; j < spotLightsSize; j++)
+    {
+        SpotLight* spotLight = scene->m_SpotLights[j];
+        if (!spotLight->IsRenderShadows() || j >= Environment::GetInstance().m_ShadowsSettings.m_MaxSpotLightShadows) continue;
+
+        shader->SetUniformMat4f("u_Projection", spotLight->m_ShadowTransform);
+        shader->SetUniform3fv("u_LightPosition", spotLight->GetOwner()->m_Transform.GetPosition());
+        shader->SetUniform1f("u_FarPlane", spotLight->m_ZFar);
+
+        Begin(spotLight->m_ShadowMap);
 
         glEnable(GL_CULL_FACE);
         //glCullFace(GL_FRONT);
@@ -658,32 +706,19 @@ std::vector<glm::mat4> Renderer::GetLightSpaceMatrices(DirectionalLight* light)
 }
 
 void Renderer::RenderDeferred(Scene* scene)
-{
+{   
+    Environment& environment = Environment::GetInstance();
+
+    ClearTextureBindings();
+
     Shader* shader = Shader::Get("Deferred");
     shader->Bind();
 
-    glActiveTexture(GL_TEXTURE0 + 0);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[0]);
-
-    glActiveTexture(GL_TEXTURE0 + 1);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[1]);
-
-    glActiveTexture(GL_TEXTURE0 + 2);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferG->m_Textures[2]);
-
-    glActiveTexture(GL_TEXTURE0 + 3);
-    glBindTexture(GL_TEXTURE_2D, Renderer::GetInstance().m_FrameBufferShadowsBlur[0]->m_Textures[0]);
-
-    glActiveTexture(GL_TEXTURE0 + 4);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferSSAOBlur[1]->m_Textures[0]);
-
-    Environment& environment = Environment::GetInstance();
-
-    shader->SetUniform1i("u_Albedo", 0);
-    shader->SetUniform1i("u_WorldPosition", 1);
-    shader->SetUniform1i("u_Normal", 2);
-    shader->SetUniform1i("u_DirectionalShadows.color", 3);
-    shader->SetUniform1i("u_SSAO.color", 4);
+    shader->SetUniform1i("u_Albedo", BindTexture(m_FrameBufferG->m_Textures[0]));
+    shader->SetUniform1i("u_WorldPosition", BindTexture(m_FrameBufferG->m_Textures[1]));
+    shader->SetUniform1i("u_Normal", BindTexture(m_FrameBufferG->m_Textures[2]));
+    shader->SetUniform1i("u_DirectionalShadows.color", BindTexture(m_FrameBufferShadowsBlur[0]->m_Textures[0]));
+    shader->SetUniform1i("u_SSAO.color", BindTexture(m_FrameBufferSSAOBlur[1]->m_Textures[0]));
     shader->SetUniform1i("u_SSAO.isEnabled", (int)environment.m_SSAO.m_IsEnabled);
     shader->SetUniform1i("u_DirectionalShadows.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
     shader->SetUniform1i("u_IsShadowsEnabled", environment.m_ShadowsSettings.m_IsEnabled);
@@ -698,13 +733,29 @@ void Renderer::RenderDeferred(Scene* scene)
         DirectionalLight* directionalLight = scene->m_DirectionalLights[0];
 
         shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetDirection());
-        shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->m_Color);
-        shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
+        shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
+        shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
     }
 
     shader->SetUniform1i("u_PointLightsSize", m_PointLights.m_Size);
     shader->SetUniform1i("u_SpotLightsSize", m_SpotLights.m_Size);
+
+    for (size_t i = 0; i < m_PointLights.m_ShadowCubeMaps.size(); i++)
+    {
+        m_PointLights.m_LastCubeMapIndex = BindTexture(m_PointLights.m_ShadowCubeMaps[i], -1, GL_TEXTURE_CUBE_MAP);
+        m_PointLights.m_ShadowSamplers[i] = m_PointLights.m_LastCubeMapIndex;
+    }
+
+    for (size_t i = 0; i < m_SpotLights.m_ShadowMaps.size(); i++)
+    {
+        m_SpotLights.m_LastShadowMapIndex = BindTexture(m_SpotLights.m_ShadowMaps[i], -1, GL_TEXTURE_2D);
+        m_SpotLights.m_ShadowSamplers[i] = m_SpotLights.m_LastShadowMapIndex;
+
+        shader->SetUniformMat4f(std::string("u_SpotLightShadowMapProjections[" + std::to_string(i) + "]").c_str(), m_SpotLights.m_ShadowMapsProjections[i]);
+    }
+
     shader->SetUniform1iv("u_PointLightsShadowMap", &m_PointLights.m_ShadowSamplers[0], m_PointLights.m_MaxShadowsSize);
+    shader->SetUniform1iv("u_SpotLightsShadowMap", &m_SpotLights.m_ShadowSamplers[0], m_SpotLights.m_MaxShadowsSize);
 
     RenderFullScreenQuad();
 }
@@ -809,16 +860,11 @@ void Renderer::RenderSSAO()
     shader->SetUniform1i("u_KernelSize", environment.m_SSAO.m_KernelSize);
     shader->SetUniform1f("u_NoiseSize", (float)environment.m_SSAO.m_NoiseTextureDimension);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferGDownSampled->m_Textures[0]);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_FrameBufferGDownSampled->m_Textures[1]);
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, m_SSAO);
+    ClearTextureBindings();
 
-    shader->SetUniform1i("u_Position", 0);
-    shader->SetUniform1i("u_Normal", 1);
-    shader->SetUniform1i("u_Noise", 2);
+    shader->SetUniform1i("u_Position", BindTexture(m_FrameBufferGDownSampled->m_Textures[0]));
+    shader->SetUniform1i("u_Normal", BindTexture(m_FrameBufferGDownSampled->m_Textures[1]));
+    shader->SetUniform1i("u_Noise", BindTexture(m_SSAO));
 
     Begin(m_FrameBufferSSAO);
 
@@ -857,14 +903,11 @@ void Renderer::Blur(std::shared_ptr<class FrameBuffer>& frameBufferSource, std::
             shader->SetUniform1i("u_Horizontal", horizontal);
             shader->SetUniform1i("u_FirstFrameBufferIteration", firstIterationOfFirstFrameBuffer);
 
+            ClearTextureBindings();
+            
             int id = firstIteration ? texture : frameBuffers[(int)horizontal + (j * 2)]->m_Textures[0];
-            glActiveTexture(GL_TEXTURE0 + 0);
-            glBindTexture(GL_TEXTURE_2D, id);
-            shader->SetUniform1i("u_Image", 0);
-
-            glActiveTexture(GL_TEXTURE0 + 1);
-            glBindTexture(GL_TEXTURE_2D, frameBufferSource->m_Textures[0]);
-            shader->SetUniform1i("u_SourceImage", 1);
+            shader->SetUniform1i("u_Image", BindTexture(id));
+            shader->SetUniform1i("u_SourceImage", BindTexture(frameBufferSource->m_Textures[0]));
 
             RenderFullScreenQuad();
 
@@ -882,11 +925,12 @@ void Renderer::Bloom()
     
     Blur(m_FrameBufferScene, m_FrameBufferBlur, bloomSettings.m_BlurPasses, bloomSettings.m_BrightnessThreshold, bloomSettings.m_PixelsBlured);
 
+    ClearTextureBindings();
+
     int samplers[32];
     for (size_t i = 0; i < m_FrameBufferBlur.size(); i+=2)
     {
-        glActiveTexture(GL_TEXTURE0 + i / 2);
-        glBindTexture(GL_TEXTURE_2D, m_FrameBufferBlur[i]->m_Textures[0]);
+        BindTexture(m_FrameBufferBlur[i]->m_Textures[0]);
     }
     
     for (unsigned int i = 0; i < 32; i++)
@@ -916,6 +960,7 @@ void Renderer::Render(Application* application)
 
     scene->PrepareToRender();
     scene->SortPointLights();
+    scene->SortSpotLights();
 
     PrepareUniformBuffers(scene);
 
@@ -1000,6 +1045,7 @@ void Renderer::ShadowPass(Scene* scene)
         }
 
         RenderPointLightShadows(scene);
+        RenderSpotLightShadows(scene);
     }
 }
 
@@ -1054,4 +1100,18 @@ void Renderer::PostProcessingPass(Application* application)
         ComposeFinalImage();
     }
     viewport.End();
+}
+
+uint32_t Renderer::BindTexture(uint32_t texture, int slot, uint32_t target)
+{
+    if (slot < 0)
+    {
+        slot = m_TextureSlotOffset;
+        m_TextureSlotOffset++;
+    }
+
+    glActiveTexture(GL_TEXTURE0 + slot);
+    glBindTexture(target, texture);
+
+    return slot;
 }

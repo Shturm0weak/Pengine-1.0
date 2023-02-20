@@ -13,18 +13,20 @@ namespace Pengine
 		float m_Radius = 1.0f;
 
 		virtual void Initialize() override;
-	public:
-
-		SphereCollider3D() = default;
-		~SphereCollider3D() = default;
-
-		static IComponent* Create(GameObject* owner);
+	protected:
 
 		virtual void Copy(const IComponent& component) override;
 
 		virtual void Delete() override;
 
 		virtual IComponent* New(GameObject* owner) override;
+	public:
+
+		static IComponent* Create(GameObject* owner);
+
+		SphereCollider3D() = default;
+
+		~SphereCollider3D() = default;
 
 		void SetRadius(float radius);
 

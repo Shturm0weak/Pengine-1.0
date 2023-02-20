@@ -9,12 +9,6 @@
 
 using namespace Pengine;
 
-void ParticleEmitter::Delete()
-{
-	Utils::Erase(m_Owner->GetScene()->m_ParticleEmitters, this);
-	delete this;
-}
-
 void ParticleEmitter::OnStart()
 {
 	m_MeshVertexAttributes = MeshManager::GetInstance().Get("Quad")->GetVertexAttributes();
@@ -84,11 +78,6 @@ void ParticleEmitter::OnClose()
 	m_Particles.clear();
 }
 
-IComponent* ParticleEmitter::New(GameObject* owner)
-{
-	return Create(owner);
-}
-
 void ParticleEmitter::Copy(const IComponent& component)
 {
 	ParticleEmitter& particleEmitter = *(ParticleEmitter*)&component;
@@ -107,6 +96,17 @@ void ParticleEmitter::Copy(const IComponent& component)
 	m_Intensity = particleEmitter.m_Intensity;
 	m_FacingMode = particleEmitter.m_FacingMode;
 	m_Type = component.GetType();
+}
+
+void ParticleEmitter::Delete()
+{
+	Utils::Erase(m_Owner->GetScene()->m_ParticleEmitters, this);
+	delete this;
+}
+
+IComponent* ParticleEmitter::New(GameObject* owner)
+{
+	return Create(owner);
 }
 
 void ParticleEmitter::Render()

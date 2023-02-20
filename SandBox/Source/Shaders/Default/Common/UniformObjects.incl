@@ -11,7 +11,7 @@ struct PointLight
 	float fog;
 
 	int shadowMapIndex;
-	float _unused1;
+	float shadowBias;
 	float _unused2;
 	float _unused3;
 };
@@ -35,11 +35,16 @@ struct SpotLight
 
 	float innerCutOff;
 	float outerCutOff;
-	float _unused1;
-	float _unused2;
+	int shadowMapIndex;
+	float farPlane;
+
+	float fog;
+	int drawShadows;
+	float shadowBias;
+	int pcf;
 };
 
-#define MAX_SPOT_LIGHTS 1000
+#define MAX_SPOT_LIGHTS 100
 layout(std140, binding = 1) uniform SpotLightUniformBufferObject
 {
 	SpotLight u_SpotLights[MAX_SPOT_LIGHTS];

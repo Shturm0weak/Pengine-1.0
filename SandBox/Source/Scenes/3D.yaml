@@ -15,6 +15,7 @@ Environment:
     IsVisualized: false
     Pcf: 1
     MaxPointLightShadows: 8
+    MaxSpotLightShadows: 8
     Fog: 0.200000003
     Texels: 1
     ZFarScale: 0.200000003
@@ -27,8 +28,8 @@ Environment:
 Camera:
   Transform:
     Follow owner: true
-    Position: [-13.0713444, 13.6844158, -9.88163662]
-    Rotation: [-0.467510164, -1.53592324, 0]
+    Position: [-27.224659, 38.4162178, -8.5845232]
+    Rotation: [-0.582337022, -1.52915239, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -38,21 +39,6 @@ Camera:
   Speed: 5
   Type: 1
 GameObjects:
-  - GameObject: 3937625822247069962
-    Name: Sun
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0, 5, 0]
-      Rotation: [1.08210409, 0, 0]
-      Scale: [0.999999642, 1, 1]
-    Directional Light:
-      Color: [1, 1, 1]
-      Intensity: 0.100000001
   - GameObject: 3668866001965437086
     Name: Sphere
     Is Enabled: true
@@ -125,27 +111,6 @@ GameObjects:
         - Source/Meshes/Cone.meta
         - None
         - None
-  - GameObject: 18077684031712773104
-    Name: PointLight
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [2.44686985, 3.28644061, 4.15425444]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    PointLight:
-      Color: [1, 1, 1]
-      Constant: 1
-      Linear: 0.0900000036
-      Quadratic: 0.0320000015
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
   - GameObject: 12373308994809936150
     Name: Torus
     Is Enabled: true
@@ -155,8 +120,8 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-12, 0, 0]
-      Rotation: [0, 0, 0]
+      Position: [-12, -1.57105851, 0.54446435]
+      Rotation: [0, -0, 0]
       Scale: [1, 1, 1]
     Renderer3D:
       Mesh: Source/Meshes/Torus.meta
@@ -231,7 +196,7 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-1.63457036, 13.0659437, -13.1725254]
+      Position: [-1.63456345, 13.065938, -13.1725302]
       Rotation: [-2.2587862, -0.350863487, -0.396052033]
       Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
@@ -258,7 +223,7 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0.731437683, 16.0438423, -15.9977341]
+      Position: [0.731442451, 16.0438347, -15.997736]
       Rotation: [-2.2587862, -0.350863487, -0.396052033]
       Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
@@ -1860,3 +1825,27 @@ GameObjects:
         - Source/Meshes/Sphere.meta
         - None
         - None
+  - GameObject: 13fb434d-627c-458f-b834-2e8091a17d9a
+    Name: SpotLight
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-1.72466588, 26.8981113, -11.9425259]
+      Rotation: [-1.28950047, -0, 0]
+      Scale: [1, 0.999971867, 0.999971867]
+    SpotLight:
+      Color: [1, 1, 1]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.00200000009
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.767944932
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+      ShadowBias: 9.99999975e-05

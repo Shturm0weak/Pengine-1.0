@@ -30,6 +30,12 @@ void Renderer2D::Copy(const IComponent& component)
 	SetLayer(r2d.GetLayer());
 }
 
+void Renderer2D::Delete()
+{
+	Utils::Erase<Renderer2D*>(m_Owner->GetScene()->m_Renderer2DLayers[m_Layer], this);
+	MemoryManager::GetInstance().FreeMemory<Renderer2D>(static_cast<IAllocator*>(this));
+}
+
 IComponent* Renderer2D::New(GameObject* owner)
 {
 	return Create(owner);
@@ -50,12 +56,6 @@ IComponent* Renderer2D::Create(GameObject* owner)
 	r2d->SetLayer(0);
 
 	return r2d;
-}
-
-void Renderer2D::Delete()
-{
-	Utils::Erase<Renderer2D*>(m_Owner->GetScene()->m_Renderer2DLayers[m_Layer], this);
-	MemoryManager::GetInstance().FreeMemory<Renderer2D>(static_cast<IAllocator*>(this));
 }
 
 void Renderer2D::SetTexture(Texture* texture)

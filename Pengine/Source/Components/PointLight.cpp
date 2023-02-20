@@ -1,23 +1,9 @@
 #include "PointLight.h"
 
 #include "../Core/Scene.h"
-#include "../Core/Renderer.h"
 #include "../OpenGL/FrameBuffer.h"
 
 using namespace Pengine;
-
-void PointLight::Delete()
-{
-	GetOwner()->m_Transform.RemoveOnTranslationCallback("PointLight");
-
-	Utils::Erase(m_Owner->GetScene()->m_PointLights, this);
-	delete this;
-}
-
-IComponent* PointLight::New(GameObject* owner)
-{
-	return Create(owner);
-}
 
 void PointLight::Copy(const IComponent& component)
 {
@@ -32,6 +18,20 @@ void PointLight::Copy(const IComponent& component)
 	m_ZFar = pointLight.m_ZFar;
 	m_ZNear = pointLight.m_ZNear;
 	m_DrawShadows = pointLight.m_DrawShadows;
+	m_ShadowBias = pointLight.m_ShadowBias;
+}
+
+void PointLight::Delete()
+{
+	GetOwner()->m_Transform.RemoveOnTranslationCallback("PointLight");
+
+	Utils::Erase(m_Owner->GetScene()->m_PointLights, this);
+	delete this;
+}
+
+IComponent* PointLight::New(GameObject* owner)
+{
+	return Create(owner);
 }
 
 IComponent* PointLight::Create(GameObject* owner)
@@ -71,15 +71,7 @@ void PointLight::SetDrawShadows(bool drawShadows)
 
 		auto onTranslationCallback = [this, shadowCubeMapSize]()
 		{
-			m_ShadowsTransforms.resize(6);
-			glm::vec3 position = GetOwner()->m_Transform.GetPosition();
-			glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)shadowCubeMapSize.x / (float)shadowCubeMapSize.y, m_ZNear, m_ZFar);
-			m_ShadowsTransforms[0] = (projection * glm::lookAt(position, position + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-			m_ShadowsTransforms[1] = (projection * glm::lookAt(position, position + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-			m_ShadowsTransforms[2] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
-			m_ShadowsTransforms[3] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
-			m_ShadowsTransforms[4] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-			m_ShadowsTransforms[5] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+			BuildProjectionMatrix();
 		};
 
 		onTranslationCallback();
@@ -96,4 +88,22 @@ void PointLight::SetDrawShadows(bool drawShadows)
 bool PointLight::IsRenderShadows() const
 {
 	return m_DrawShadows && m_ShadowsVisible && GetOwner()->IsEnabled();
+}
+
+void PointLight::BuildProjectionMatrix()
+{
+	if (!GetOwner() || !m_ShadowsCubeMap)
+	{
+		return;
+	}
+
+	m_ShadowsTransforms.resize(6);
+	glm::vec3 position = GetOwner()->m_Transform.GetPosition();
+	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)m_ShadowsCubeMap->m_Params[0].m_Size.x / (float)m_ShadowsCubeMap->m_Params[0].m_Size.y, m_ZNear, m_ZFar);
+	m_ShadowsTransforms[0] = (projection * glm::lookAt(position, position + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	m_ShadowsTransforms[1] = (projection * glm::lookAt(position, position + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	m_ShadowsTransforms[2] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+	m_ShadowsTransforms[3] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+	m_ShadowsTransforms[4] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	m_ShadowsTransforms[5] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 }

@@ -1,7 +1,5 @@
 #include "Core/EntryPoint.h"
 
-#include "Examples/RTTRSystem.h"
-
 using namespace Pengine;
 
 int main()

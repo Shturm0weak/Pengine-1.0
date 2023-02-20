@@ -80,5 +80,6 @@
     <None Include="Source\Shaders\Default\Visualizer.shader" />
     <None Include="Source\Shaders\Default\Custom.shader" />
     <None Include="Source\Shaders\Default\Common\DirectionalShadows.incl" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthSpotShadows.shader" />
   </ItemGroup>
 </Project>

@@ -10,39 +10,6 @@
 
 using namespace Pengine;
 
-IComponent* Spline::New(GameObject* owner)
-{
-    return Create(owner);
-}
-void Spline::Copy(const IComponent& component)
-{
-    Spline& spline = *(Spline*)&component;
-	m_Lengths = spline.m_Lengths;
-	m_Speed = spline.m_Speed;
-    m_Type = component.GetType();
-}
-
-void Spline::Delete()
-{
-	delete this;
-}
-
-Spline::~Spline()
-{
-	EventSystem::GetInstance().UnregisterAll(this);
-}
-
-void Spline::OnRegisterClient()
-{
-	EventSystem::GetInstance().RegisterClient(EventType::ONSTART, this);
-	EventSystem::GetInstance().RegisterClient(EventType::ONUPDATE, this);
-}
-
-IComponent* Spline::Create(GameObject* owner)
-{
-    return new Spline();
-}
-
 void Spline::OnStart()
 {
 }
@@ -56,6 +23,40 @@ void Spline::OnUpdate()
 	{
 		Visualize();
 	}
+}
+
+void Spline::Copy(const IComponent& component)
+{
+    Spline& spline = *(Spline*)&component;
+	m_Lengths = spline.m_Lengths;
+	m_Speed = spline.m_Speed;
+    m_Type = component.GetType();
+}
+
+void Spline::Delete()
+{
+	delete this;
+}
+
+IComponent* Spline::New(GameObject* owner)
+{
+	return Create(owner);
+}
+
+void Spline::OnRegisterClient()
+{
+	EventSystem::GetInstance().RegisterClient(EventType::ONSTART, this);
+	EventSystem::GetInstance().RegisterClient(EventType::ONUPDATE, this);
+}
+
+Spline::~Spline()
+{
+	EventSystem::GetInstance().UnregisterAll(this);
+}
+
+IComponent* Spline::Create(GameObject* owner)
+{
+    return new Spline();
 }
 
 float Spline::GetLength() const

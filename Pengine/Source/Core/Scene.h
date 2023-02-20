@@ -69,6 +69,8 @@ namespace Pengine
 
 		void SortPointLights();
 
+		void SortSpotLights();
+
 		void RenderBoundingBoxes();
 
 		void ShutDown();

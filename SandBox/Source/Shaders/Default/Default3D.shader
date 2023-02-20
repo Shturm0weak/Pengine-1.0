@@ -121,6 +121,56 @@ vec3 PointShadowCompute(PointLight light)
 	return vec3(pointLightShadow);
 }
 
+
+vec3 SpotShadowCompute(SpotLight light)
+{
+	float shadow = 0.0f;
+	vec4 lightSpacePosition = u_SpotLightShadowMapProjections[light.shadowMapIndex] * worldPosition;
+	vec3 projectedCoords = lightSpacePosition.xyz / lightSpacePosition.w;
+
+	if (projectedCoords.z <= 1.0f)
+	{
+		projectedCoords = (projectedCoords + 1.0f) / 2.0f;
+		float currentDepth = projectedCoords.z;
+
+		float bias = max(light.shadowBias * (1.0f - dot(normal, light.direction)), 0.000005f);
+
+		vec2 pixelSize = 1.0 / textureSize(u_SpotLightsShadowMap[light.shadowMapIndex], 0);
+		for (int y = -light.pcf; y <= light.pcf; y++)
+		{
+			for (int x = -light.pcf; x <= light.pcf; x++)
+			{
+				float closestDepth = texture(u_SpotLightsShadowMap[light.shadowMapIndex], projectedCoords.xy + vec2(x, y) * pixelSize).r;
+				if (currentDepth > closestDepth + bias)
+					shadow += 1.0f;
+			}
+		}
+
+		shadow /= ((light.pcf * 2 + 1) * (light.pcf * 2 + 1));
+
+		vec3 toLight = worldPosition.xyz - light.position;
+		vec3 toCamera = worldPosition.xyz - u_CameraPosition;
+		float distanceToCamera = length(toCamera);
+
+		if (currentDepth > light.farPlane || dot(normalize(toLight), normal) > 0.0)
+		{
+			return vec3(0.0);
+		}
+
+		shadow *= (1.0 - (currentDepth / light.farPlane));
+		shadow = clamp(shadow, 0.1, 1.0);
+
+		float farPlaneEdge = light.farPlane * (1.0 - light.fog);
+		if (distanceToCamera > farPlaneEdge)
+		{
+			float shadowFog = clamp((distanceToCamera - farPlaneEdge) / (light.farPlane * light.fog), 0.0, 1.0);
+			shadow *= (1.0 - shadowFog);
+		}
+	}
+
+	return vec3(shadow);
+}
+
 vec3 PointLightCompute(PointLight light)
 {
 	vec3 pointLightShadow = vec3(0.0);
@@ -154,6 +204,13 @@ vec3 PointLightCompute(PointLight light)
 
 vec3 SpotLightCompute(SpotLight light)
 {
+	vec3 shadow = vec3(0.0);
+
+	if (u_IsShadowsEnabled && light.drawShadows == 1)
+	{
+		shadow = SpotShadowCompute(light);
+	}
+
 	vec3 lightDirection = normalize(light.position - worldPosition.xyz);
 	float theta = dot(lightDirection, normalize(-light.direction));
 
@@ -184,7 +241,7 @@ vec3 SpotLightCompute(SpotLight light)
 		specular *= intensity;
 		diffuse *= intensity;
 
-		return (ambient + (diffuse + specular)) * baseColor;
+		return ((vec3(1.0) - shadow) * (diffuse + specular)) * baseColor;
 	}
 	else  // Use ambient light, so scene isn't completely dark outside the spotlight.
 	{

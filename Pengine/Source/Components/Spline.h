@@ -9,8 +9,24 @@
 namespace Pengine
 {
 
+	/**
+	 * @Deprectated. Used for tests.
+	 */
 	class PENGINE_API Spline : public IComponent, public IListener
 	{
+	protected:
+
+		virtual void OnStart() override;
+
+		virtual void OnUpdate() override;
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
+
+		virtual void OnRegisterClient() override;
 	public:
 
 		std::vector<class GameObject*> m_Points;
@@ -19,22 +35,11 @@ namespace Pengine
 		float m_Speed = 1.0f;
 		bool m_Visualize = false;
 
-		virtual IComponent* New(GameObject* owner) override;
-
-		virtual void Copy(const IComponent& component) override;
-
-		virtual void Delete() override;
-
-		virtual void OnRegisterClient() override;
-
-		Spline() = default;
-		~Spline();
-
 		static IComponent* Create(GameObject* owner);
 
-		virtual void OnStart() override;
+		Spline() = default;
 
-		virtual void OnUpdate() override;
+		~Spline();
 
 		float GetLength() const;
 

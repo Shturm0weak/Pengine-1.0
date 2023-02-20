@@ -44,6 +44,7 @@ namespace Pengine
 			UniformBuffer m_UniformBuffer;
 			size_t m_Size = 0;
 			size_t m_MaxShadowsSize = 10;
+			uint32_t m_LastCubeMapIndex = 0;
 		} m_PointLights;
 
 		struct SpotLightUniform
@@ -59,15 +60,24 @@ namespace Pengine
 
 			float innerCutOff;
 			float outerCutOff;
-			float _unused1;
-			float _unused2;
+			int shadowMapIndex;
+			float farPlane;
+
+			float fog;
+			float drawShadows;
+			float shadowBias;
+			float pcf;
 		};
 
 		struct SpotLights
 		{
 			std::vector<int> m_ShadowSamplers;
+			std::vector<int> m_ShadowMaps;
+			std::vector<glm::mat4> m_ShadowMapsProjections;
 			UniformBuffer m_UniformBuffer;
 			size_t m_Size = 0;
+			size_t m_MaxShadowsSize = 10;
+			uint32_t m_LastShadowMapIndex = 0;
 		} m_SpotLights;
 
 		struct MaterialUniform
@@ -102,10 +112,10 @@ namespace Pengine
 
 		std::vector<glm::mat4> m_LightSpaceMatrices;
 
+		uint32_t m_TextureSlotOffset = 0;		
+
 		uint32_t m_SSAO = 0;
 		std::vector<glm::vec3> m_SSAOKernel;
-
-		static Renderer& GetInstance();
 
 		Renderer() = default;
 		Renderer(const Renderer&) = delete;
@@ -139,6 +149,8 @@ namespace Pengine
 		void RenderCascadeShadowsToScene(class Scene* scene);
 
 		void RenderPointLightShadows(class Scene* scene);
+
+		void RenderSpotLightShadows(class Scene* scene);
 
 		glm::mat4 Renderer::GetLightSpaceMatrix(class DirectionalLight* light, const float nearPlane, const float farPlane);
 
@@ -179,6 +191,13 @@ namespace Pengine
 		friend class Editor;
 		friend class PointLight;
 		friend class Renderer3D;
+	public:
+		
+		static Renderer& GetInstance();
+
+		uint32_t BindTexture(uint32_t texture, int slot = -1, uint32_t target = GL_TEXTURE_2D);
+
+		void ClearTextureBindings() { m_TextureSlotOffset = 0; }
 	};
 
 }

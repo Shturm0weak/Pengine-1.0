@@ -13,18 +13,20 @@ namespace Pengine
 		glm::vec3 m_HalfExtent = { 1.0f, 1.0f, 1.0f };
 
 		virtual void Initialize() override;
-	public:
-
-		BoxCollider3D() = default;
-		~BoxCollider3D() = default;
-
-		static IComponent* Create(GameObject* owner);
+	protected:
 
 		virtual void Copy(const IComponent& component) override;
 
 		virtual void Delete() override;
 
 		virtual IComponent* New(GameObject* owner) override;
+	public:
+
+		static IComponent* Create(GameObject* owner);
+		
+		BoxCollider3D() = default;
+
+		~BoxCollider3D() = default;
 
 		void SetHalfExtent(const glm::vec3& halfExtent);
 

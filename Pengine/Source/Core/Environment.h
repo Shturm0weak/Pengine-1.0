@@ -28,6 +28,7 @@ namespace Pengine
 			std::vector<float> m_CascadesDistance = { 100.0f, 300.0f };
 			int m_Pcf = 2;
 			int m_MaxPointLightShadows = 8;
+			int m_MaxSpotLightShadows = 8;
 			float m_Texels = 1.0f;
 			float m_Bias = 0.005f;
 			float m_ZFarScale = 1.0f;

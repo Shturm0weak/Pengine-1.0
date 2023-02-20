@@ -4,11 +4,6 @@
 
 using namespace Pengine;
 
-IComponent* DirectionalLight::New(GameObject* owner)
-{
-	return Create(owner);
-}
-
 void DirectionalLight::Copy(const IComponent& component)
 {
 	DirectionalLight& directionalLight = *(DirectionalLight*)&component;
@@ -24,6 +19,11 @@ void DirectionalLight::Delete()
 
 	Utils::Erase(m_Owner->GetScene()->m_DirectionalLights, this);
 	delete this;
+}
+
+IComponent* DirectionalLight::New(GameObject* owner)
+{
+	return Create(owner);
 }
 
 IComponent* DirectionalLight::Create(GameObject* owner)

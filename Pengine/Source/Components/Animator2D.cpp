@@ -27,24 +27,6 @@ void Animator2D::Copy(const IComponent& component)
 	m_Play = a2d.m_Play;
 }
 
-void Animator2D::Move(IComponent&& component)
-{
-	Animator2D&& a2d = std::move(*(Animator2D*)&component);
-	m_Type = component.GetType();
-
-	m_Animations = std::move(a2d.m_Animations);
-	a2d.m_Animations.clear();
-
-	m_CurrentAnimation = a2d.m_CurrentAnimation;
-	a2d.m_CurrentAnimation = nullptr;
-
-	m_Speed = a2d.m_Speed;
-	a2d.m_Speed = 0.0f;
-
-	m_Play = a2d.m_Play;
-	a2d.m_Play = false;
-}
-
 void Animator2D::OnRegisterClient()
 {
 	EventSystem::GetInstance().RegisterClient(EventType::ONUPDATE, this);
@@ -72,21 +54,9 @@ Animator2D::Animator2D(const Animator2D& a2d)
 	Copy(a2d);
 }
 
-Animator2D::Animator2D(Animator2D&& a2d) noexcept
-{
-	Move(std::move(*(IComponent*)&a2d));
-}
-
 Animator2D& Animator2D::operator=(const Animator2D& a2d)
 {
 	Copy(a2d);
-
-	return *this;
-}
-
-Animator2D& Animator2D::operator=(Animator2D&& a2d) noexcept
-{
-	Move(std::move(*(IComponent*)&a2d));
 
 	return *this;
 }

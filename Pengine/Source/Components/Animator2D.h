@@ -36,8 +36,6 @@ namespace Pengine
 
 		virtual void Copy(const IComponent& component) override;
 
-		virtual void Move(IComponent&& component) override;
-
 		virtual void OnRegisterClient() override;
 
 		virtual IComponent* New(GameObject* owner) override;
@@ -51,11 +49,7 @@ namespace Pengine
 
 		Animator2D(const Animator2D& a2d);
 
-		Animator2D(Animator2D&& a2d) noexcept;
-
 		Animator2D& operator=(const Animator2D& a2d);
-
-		Animator2D& operator=(Animator2D&& a2d) noexcept;
 
 		float GetSpeed() const { return m_Speed; }
 

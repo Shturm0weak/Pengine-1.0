@@ -1097,6 +1097,7 @@ void Editor::Environment()
 			ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_IsEnabled);
 			ImGui::Checkbox("Is Visualized", &environment.m_ShadowsSettings.m_IsVisualized);
 			ImGui::SliderInt("Max Point Light Shadows", &environment.m_ShadowsSettings.m_MaxPointLightShadows, 1, Renderer::GetInstance().m_PointLights.m_MaxShadowsSize);
+			ImGui::SliderInt("Max Spot Light Shadows", &environment.m_ShadowsSettings.m_MaxSpotLightShadows, 1, Renderer::GetInstance().m_SpotLights.m_MaxShadowsSize);
 			ImGui::SliderFloat("Bias", &environment.m_ShadowsSettings.m_Bias, 0.001f, 0.005f);
 			ImGui::SliderInt("Pcf", &environment.m_ShadowsSettings.m_Pcf, 0, 10);
 			ImGui::SliderFloat("Fog", &environment.m_ShadowsSettings.m_Fog, 0.0f, 1.0f);
@@ -1687,39 +1688,39 @@ void Editor::ParticleEmitterComponent(GameObject* gameObject)
 
 void Editor::ScriptComponent(GameObject* gameObject)
 {
-	Script* script = gameObject->m_ComponentManager.GetComponent<Script>();
-	if (script)
+Script* script = gameObject->m_ComponentManager.GetComponent<Script>();
+if (script)
+{
+	if (RemoveComponentMenu(gameObject, script))
 	{
-		if (RemoveComponentMenu(gameObject, script))
+		if (ImGui::CollapsingHeader("Script"))
 		{
-			if (ImGui::CollapsingHeader("Script"))
+			Indent indent;
+
+			if (ImGui::BeginDragDropTarget())
 			{
-				Indent indent;
-
-				if (ImGui::BeginDragDropTarget())
+				if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
 				{
-					if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+					std::string path((const char*)payload->Data);
+					path.resize(payload->DataSize);
+					if (Utils::Contains(path, ".lua"))
 					{
-						std::string path((const char*)payload->Data);
-						path.resize(payload->DataSize);
-						if (Utils::Contains(path, ".lua"))
-						{
-							script->Assign(path);
-						}
+						script->Assign(path);
 					}
-					ImGui::EndDragDropTarget();
 				}
+				ImGui::EndDragDropTarget();
+			}
 
-				for (auto& state : script->m_LStates)
+			for (auto& state : script->m_LStates)
+			{
+				if (ImGui::Button(state->m_FilePath.c_str()))
 				{
-					if (ImGui::Button(state->m_FilePath.c_str()))
-					{
-						script->Remove(state->m_FilePath);
-					}
+					script->Remove(state->m_FilePath);
 				}
 			}
 		}
 	}
+}
 }
 
 void Editor::PointLightComponent(GameObject* gameObject)
@@ -1737,9 +1738,24 @@ void Editor::PointLightComponent(GameObject* gameObject)
 				ImGui::SliderFloat("Linear", &pointLight->m_Linear, 0.0f, 0.100f);
 				ImGui::SliderFloat("Quadratic", &pointLight->m_Quadratic, 0.0f, 0.1f);
 				ImGui::ColorEdit3("Color", &pointLight->m_Color[0]);
-				ImGui::SliderFloat("ZNear", &pointLight->m_ZNear, 0.1, 1.0f);
-				ImGui::SliderFloat("ZFar", &pointLight->m_ZFar, 1.0f, 150.0f);
+				
+				if (ImGui::SliderFloat("ZNear", &pointLight->m_ZNear, 0.1, 1.0f))
+				{
+					pointLight->BuildProjectionMatrix();
+				}
+
+				if (ImGui::SliderFloat("ZFar", &pointLight->m_ZFar, 1.0f, 150.0f))
+				{
+					pointLight->BuildProjectionMatrix();
+				}
+
 				ImGui::SliderFloat("Fog", &pointLight->m_Fog, 0.0f, 1.0f);
+
+				float shadowBias = pointLight->GetShadowBias();
+				if (ImGui::SliderFloat("Bias", &shadowBias, 0.0f, 1.0f, "%.6f"))
+				{
+					pointLight->SetShadowBias(shadowBias);
+				}
 
 				bool drawShadows = pointLight->IsDrawShadows();
 				if (ImGui::Checkbox("Draw Shadows", &drawShadows))
@@ -1779,6 +1795,36 @@ void Editor::SpotLightComponent(GameObject* gameObject)
 				}
 
 				ImGui::ColorEdit3("Color", &spotLight->m_Color[0]);
+
+				if (ImGui::SliderFloat("ZNear", &spotLight->m_ZNear, 0.1, 1.0f))
+				{
+					spotLight->BuildProjectionMatrix();
+				}
+
+				if (ImGui::SliderFloat("ZFar", &spotLight->m_ZFar, 1.0f, 150.0f))
+				{
+					spotLight->BuildProjectionMatrix();
+				}
+
+				ImGui::SliderFloat("Fog", &spotLight->m_Fog, 0.0f, 1.0f);
+
+				float shadowBias = spotLight->GetShadowBias();
+				if (ImGui::SliderFloat("Bias", &shadowBias, 0.0f, 0.001f, "%.6f"))
+				{
+					spotLight->SetShadowBias(shadowBias);
+				}
+
+				int shadowPcf = spotLight->GetShadowPcf();
+				if (ImGui::SliderInt("Pcf", &shadowPcf, 0, 5))
+				{
+					spotLight->SetShadowPcf(shadowPcf);
+				}
+				
+				bool drawShadows = spotLight->IsDrawShadows();
+				if (ImGui::Checkbox("Draw Shadows", &drawShadows))
+				{
+					spotLight->SetDrawShadows(drawShadows);
+				}
 			}
 		}
 	}
@@ -1795,8 +1841,17 @@ void Editor::DirectionalLightComponent(GameObject* gameObject)
 			{
 				Indent indent;
 
-				ImGui::SliderFloat("Intensity", &directionalLight->m_Intensity, 0.0f, 10.0f);
-				ImGui::ColorEdit3("Color", &directionalLight->m_Color[0]);
+				float intensity = directionalLight->GetIntensity();
+				if (ImGui::SliderFloat("Intensity", &intensity, 0.0f, 10.0f))
+				{
+					directionalLight->SetIntensity(intensity);
+				}
+
+				glm::vec3 color = directionalLight->GetColor();
+				if (ImGui::ColorEdit3("Color", &color[0]))
+				{
+					directionalLight->SetColor(color);
+				}
 			}
 		}
 	}

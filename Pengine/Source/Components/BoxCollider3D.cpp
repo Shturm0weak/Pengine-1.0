@@ -5,22 +5,6 @@
 
 using namespace Pengine;
 
-IComponent* BoxCollider3D::Create(GameObject* owner)
-{
-    BoxCollider3D* bc3d = MemoryManager::GetInstance().Allocate<BoxCollider3D>();
-    owner->GetScene()->m_BoxColliders3D.push_back(bc3d);
-
-    owner->m_Transform.SetOnScaleCallback("BoxCollider3D", 
-        [bc3d]()
-    {
-        if (IComponent::IsValid(bc3d) && bc3d->IsInitialized())
-        {
-            bc3d->SetHalfExtent(bc3d->GetHalfExtent());
-        }
-    });
-
-    return bc3d;
-}
 void BoxCollider3D::Copy(const IComponent& component)
 {
     BoxCollider3D& bc3d = *(BoxCollider3D*)&component;
@@ -44,6 +28,23 @@ void BoxCollider3D::Delete()
 IComponent* BoxCollider3D::New(GameObject* owner)
 {
     return Create(owner);
+}
+
+IComponent* BoxCollider3D::Create(GameObject* owner)
+{
+    BoxCollider3D* bc3d = MemoryManager::GetInstance().Allocate<BoxCollider3D>();
+    owner->GetScene()->m_BoxColliders3D.push_back(bc3d);
+
+    owner->m_Transform.SetOnScaleCallback("BoxCollider3D", 
+        [bc3d]()
+    {
+        if (IComponent::IsValid(bc3d) && bc3d->IsInitialized())
+        {
+            bc3d->SetHalfExtent(bc3d->GetHalfExtent());
+        }
+    });
+
+    return bc3d;
 }
 
 void BoxCollider3D::SetHalfExtent(const glm::vec3& halfExtent)

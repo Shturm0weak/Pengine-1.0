@@ -32,21 +32,9 @@ BoxCollider2D::BoxCollider2D(const BoxCollider2D& bc2d)
     Copy(bc2d);
 }
 
-BoxCollider2D::BoxCollider2D(BoxCollider2D&& bc2d) noexcept
-{
-    Move(std::move(*(IComponent*)&bc2d));
-}
-
 BoxCollider2D& BoxCollider2D::operator=(const BoxCollider2D& bc2d)
 {
     Copy(bc2d);
-
-    return *this;
-}
-
-BoxCollider2D& BoxCollider2D::operator=(BoxCollider2D&& bc2d) noexcept
-{
-    Move(std::move(*(IComponent*)&bc2d));
 
     return *this;
 }
@@ -63,36 +51,6 @@ void BoxCollider2D::Copy(const IComponent& component)
     SetRestitutionThreshold(bc2d.GetRestitutionThreshold());
     SetTag(bc2d.GetTag());
     SetTrigger(bc2d.IsTrigger());
-}
-
-void BoxCollider2D::Move(IComponent&& component)
-{
-    BoxCollider2D&& bc2d = std::move(*(BoxCollider2D*)&component);
-    m_Type = component.GetType();
-
-    SetOffset(bc2d.GetOffset());
-    bc2d.SetOffset({ 0.0f, 0.0f });
-
-    SetSize(bc2d.GetSize());
-    bc2d.SetSize({ 0.0f, 0.0f });
-
-    SetDensity(bc2d.GetDensity());
-    bc2d.SetDensity(0.0f);
-
-    SetFriction(bc2d.GetFriction());
-    bc2d.SetFriction(0.0f);
-
-    SetRestitution(bc2d.GetRestitution());
-    bc2d.SetRestitution(0.0f);
-
-    SetRestitutionThreshold(bc2d.GetRestitutionThreshold());
-    bc2d.SetRestitutionThreshold(0.0f);
-
-    SetTag(bc2d.GetTag());
-    bc2d.SetTag("");
-
-    SetTrigger(bc2d.IsTrigger());
-    bc2d.SetTrigger(false);
 }
 
 void BoxCollider2D::Delete()

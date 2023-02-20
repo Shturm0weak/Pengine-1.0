@@ -88,6 +88,12 @@ void Renderer3D::Render()
 		m_Material->m_BaseMaterial->BindTexture(Renderer::GetInstance().m_PointLights.m_ShadowCubeMaps[i], GL_TEXTURE_CUBE_MAP);
 	}
 
+	for (size_t i = 0; i < Renderer::GetInstance().m_SpotLights.m_ShadowMaps.size(); i++)
+	{
+		m_Material->m_BaseMaterial->BindTexture(Renderer::GetInstance().m_SpotLights.m_ShadowMaps[i]);
+		shader->SetUniformMat4f(std::string("u_SpotLightShadowMapProjections[" + std::to_string(i) + "]").c_str(), Renderer::GetInstance().m_SpotLights.m_ShadowMapsProjections[i]);
+	}
+
 	for (const auto& [name, value] : material->m_TextureUniformsByName)
 	{
 		shader->SetUniform1i(name, material->BindTexture(value->GetRendererID()));
@@ -121,13 +127,14 @@ void Renderer3D::Render()
 		DirectionalLight* directionalLight = GetOwner()->GetScene()->m_DirectionalLights[0];
 
 		shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
-		shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->m_Color);
-		shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->m_Intensity);
+		shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
+		shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
 	}
 
 	shader->SetUniform1i("u_PointLightsSize", Renderer::GetInstance().m_PointLights.m_Size);
 	shader->SetUniform1i("u_SpotLightsSize", Renderer::GetInstance().m_SpotLights.m_Size);
 	shader->SetUniform1iv("u_PointLightsShadowMap", &Renderer::GetInstance().m_PointLights.m_ShadowSamplers[0], Renderer::GetInstance().m_PointLights.m_MaxShadowsSize);
+	shader->SetUniform1iv("u_SpotLightsShadowMap", &Renderer::GetInstance().m_SpotLights.m_ShadowSamplers[0], Renderer::GetInstance().m_SpotLights.m_MaxShadowsSize);
 
 	m_Mesh->m_Va.Bind();
 	m_Mesh->m_Ib.Bind();

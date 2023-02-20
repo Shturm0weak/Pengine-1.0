@@ -19,6 +19,13 @@ namespace Pengine
 		void Initialize();
 
 		friend class Scene;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
 
 		float m_Mass = 0.0f;
@@ -26,16 +33,11 @@ namespace Pengine
 		float m_Friction = 1.0f;
 		bool m_AllowToSleep = true;
 
-		Rigidbody3D() = default;
-		~Rigidbody3D() = default;
-
 		static IComponent* Create(GameObject* owner);
 
-		virtual IComponent* New(GameObject* owner) override;
+		Rigidbody3D() = default;
 
-		virtual void Copy(const IComponent& component) override;
-
-		virtual void Delete() override;
+		~Rigidbody3D() = default;
 
 		void SetCollisionShape(ICollider3D* collisionShape);
 

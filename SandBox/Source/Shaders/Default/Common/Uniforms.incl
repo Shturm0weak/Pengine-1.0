@@ -25,6 +25,9 @@ struct SSAO
 
 #define MAX_POINT_LIGHT_SHADOWS 10
 uniform samplerCube u_PointLightsShadowMap[MAX_POINT_LIGHT_SHADOWS];
+#define MAX_SPOT_LIGHT_SHADOWS 10
+uniform sampler2D u_SpotLightsShadowMap[MAX_SPOT_LIGHT_SHADOWS];
+uniform mat4 u_SpotLightShadowMapProjections[MAX_SPOT_LIGHT_SHADOWS];
 
 uniform int u_PointLightsSize;
 uniform int u_SpotLightsSize;

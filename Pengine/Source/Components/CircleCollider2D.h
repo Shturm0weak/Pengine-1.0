@@ -17,8 +17,6 @@ namespace Pengine
 
 		virtual void Copy(const IComponent& component) override;
 
-		virtual void Move(IComponent&& component) override;
-
 		virtual void Delete() override;
 
 		virtual IComponent* New(GameObject* owner) override;
@@ -32,13 +30,9 @@ namespace Pengine
 
 		~CircleCollider2D() = default;
 
-		CircleCollider2D(const CircleCollider2D & bc2d);
-
-		CircleCollider2D(CircleCollider2D && bc2d) noexcept;
+		CircleCollider2D(const CircleCollider2D& bc2d);
 
 		CircleCollider2D& operator=(const CircleCollider2D& bc2d);
-
-		CircleCollider2D& operator=(CircleCollider2D&& bc2d) noexcept;
 
 		virtual ICollider2D* IntersectTrigger() override;
 

@@ -30,21 +30,9 @@ CircleCollider2D::CircleCollider2D(const CircleCollider2D& cc2d)
     Copy(cc2d);
 }
 
-CircleCollider2D::CircleCollider2D(CircleCollider2D&& cc2d) noexcept
-{
-    Move(std::move(*(IComponent*)&cc2d));
-}
-
 CircleCollider2D& CircleCollider2D::operator=(const CircleCollider2D& cc2d)
 {
     Copy(cc2d);
-
-    return *this;
-}
-
-CircleCollider2D& CircleCollider2D::operator=(CircleCollider2D&& cc2d) noexcept
-{
-    Move(std::move(*(IComponent*)&cc2d));
 
     return *this;
 }
@@ -61,36 +49,6 @@ void CircleCollider2D::Copy(const IComponent& component)
     SetRestitutionThreshold(cc2d.GetRestitutionThreshold());
     SetTag(cc2d.GetTag());
     SetTrigger(cc2d.IsTrigger());
-}
-
-void CircleCollider2D::Move(IComponent&& component)
-{
-    CircleCollider2D& cc2d = *(CircleCollider2D*)&component;
-    m_Type = component.GetType();
-
-    SetOffset(cc2d.GetOffset());
-    cc2d.SetOffset({ 0.0f, 0.0f });
-
-    SetRadius(cc2d.GetRadius());
-    cc2d.SetRadius(0.0f);
-
-    SetDensity(cc2d.GetDensity());
-    cc2d.SetDensity(0.0f);
-
-    SetFriction(cc2d.GetFriction());
-    cc2d.SetFriction(0.0f);
-
-    SetRestitution(cc2d.GetRestitution());
-    cc2d.SetRestitution(0.0f);
-
-    SetRestitutionThreshold(cc2d.GetRestitutionThreshold());
-    cc2d.SetRestitutionThreshold(0.0f);
-
-    SetTag(cc2d.GetTag());
-    cc2d.SetTag("");
-
-    SetTrigger(cc2d.IsTrigger());
-    cc2d.SetTrigger(false);
 }
 
 void CircleCollider2D::Delete()

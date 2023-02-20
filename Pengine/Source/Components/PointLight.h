@@ -28,6 +28,13 @@ namespace Pengine
 
 		friend class Renderer;
 		friend class Scene;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
 	public:
 
 		glm::vec3 m_Color = { 1.0f, 1.0f, 1.0f };
@@ -38,17 +45,17 @@ namespace Pengine
 		float m_ZFar = 150.0f;
 		float m_ZNear = 0.1f;
 		float m_Fog = 0.2f;
-
-		virtual IComponent* New(GameObject* owner) override;
-
-		virtual void Copy(const IComponent& component) override;
-
-		virtual void Delete() override;
-
-		PointLight() = default;
-		~PointLight() = default;
+		float m_ShadowBias = 0.05f;
 
 		static IComponent* Create(GameObject* owner);
+
+		PointLight() = default;
+
+		~PointLight() = default;
+
+		void SetShadowBias(float shadowBias) { m_ShadowBias = shadowBias; }
+
+		float GetShadowBias() const { return m_ShadowBias; }
 
 		void SetColor(const glm::vec3& color) { m_Color = color; }
 
@@ -63,6 +70,8 @@ namespace Pengine
 		bool IsDrawShadows() const { return m_DrawShadows; }
 
 		bool IsRenderShadows() const;
+
+		void BuildProjectionMatrix();
 	};
 
 }

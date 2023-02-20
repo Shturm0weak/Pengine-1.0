@@ -155,6 +155,7 @@
     <None Include="Source\Shaders\Default\Instancing3D.shader" />
     <None Include="Source\Shaders\Default\Instancing3DDepthDirShadows.shader" />
     <None Include="Source\Shaders\Default\Instancing3DDepthPointShadows.shader" />
+    <None Include="Source\Shaders\Default\Instancing3DDepthSpotShadows.shader" />
     <None Include="Source\Shaders\Default\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Default\InstancingShadows.shader" />
     <None Include="Source\Shaders\Default\SSAO.shader" />

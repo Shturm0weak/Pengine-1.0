@@ -28,6 +28,7 @@ namespace Pengine
 		Texture* m_Texture = TextureManager::GetInstance().White();
 		Texture* m_NormalTexture = TextureManager::GetInstance().White();
 		Texture* m_EmissiveMaskTexture = TextureManager::GetInstance().White();
+		Shader* m_Shader = Shader::Get("Default2D");
 
 		glm::vec4 m_Color = glm::vec4(1.0f);
 		
@@ -37,6 +38,16 @@ namespace Pengine
 
 		friend class Serializer;
 		friend class Editor;
+		friend class Scene;
+	protected:
+
+		virtual void Copy(const IComponent& component) override;
+
+		virtual void Delete() override;
+
+		virtual IComponent* New(GameObject* owner) override;
+
+		virtual void Render() override;
 	public:
 
 		float m_InnerRadius = 0.0f;
@@ -45,18 +56,11 @@ namespace Pengine
 		float m_Ambient = 1.0f;
 		float m_EmmisiveMaskIntensity = 0.0f;
 
-		Renderer2D(int layer) { m_Layer = layer; }
-		Renderer2D() = default;
-		
 		static IComponent* Create(GameObject* owner);
 
-		virtual IComponent* New(GameObject* owner) override;
-		
-		virtual void Copy(const IComponent& component) override;
-		
-		virtual void Render() override;
-		
-		virtual void Delete() override;
+		Renderer2D(int layer) { m_Layer = layer; }
+
+		Renderer2D() = default;
 
 		glm::vec4 GetColor() const { return m_Color; }
 		
