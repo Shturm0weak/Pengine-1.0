@@ -11,6 +11,11 @@ void DirectionalLight::Copy(const IComponent& component)
 
 	m_Intensity = directionalLight.m_Intensity;
 	m_Color = directionalLight.m_Color;
+	m_Pcf = directionalLight.m_Pcf;
+	m_Texels = directionalLight.m_Texels;
+	m_Bias = directionalLight.m_Bias;
+	m_ZFarScale = directionalLight.m_ZFarScale;
+	m_Fog = directionalLight.m_Fog;
 }
 
 void DirectionalLight::Delete()

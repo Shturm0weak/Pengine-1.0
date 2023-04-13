@@ -10,12 +10,15 @@
 #include "Visualizer.h"
 #include "Application.h"
 #include "Instancing.h"
+#include "Input.h"
 #include "../UI/Gui.h"
 #include "../OpenGL/Batch.h"
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/FrameBuffer.h"
 #include "../OpenGL/Material.h"
 #include "../OpenGL/BaseMaterial.h"
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../OpenGL/stb_image_write.h"
 
 using namespace Pengine;
 
@@ -32,96 +35,166 @@ void Renderer::Initialize()
     TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST };
     TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST };
 
-    FrameBuffer::FrameBufferParams SSAOParams = { size, GL_COLOR_ATTACHMENT0, GL_RED, GL_RED, GL_FLOAT };
-    m_FrameBufferSSAO = std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ SSAOParams },
-        TextureManager::GetInstance().GetTexParamertersi());
+    FrameBuffer::FrameBufferParams SSAOParams = { GL_COLOR_ATTACHMENT0, GL_RED, GL_RED, GL_FLOAT };
+    m_FrameBufferSSAO = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ SSAOParams },
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
 
     TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
     TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
 
-    FrameBuffer::FrameBufferParams sceneParams = { size, GL_COLOR_ATTACHMENT0, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT };
-    m_FrameBufferScene = std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ sceneParams }, 
-        TextureManager::GetInstance().GetTexParamertersi());
-    m_FrameBufferScene->GenerateRbo();
-
-    m_FrameBufferG = std::make_shared<FrameBuffer>(
+    m_FrameBufferScene = std::make_shared<FrameBuffer>(
+        size,
         std::vector<FrameBuffer::FrameBufferParams>
         {
-            { size, GL_COLOR_ATTACHMENT0, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT }, // Albedo.
-            { size, GL_COLOR_ATTACHMENT1, GL_RGB32F, GL_RGB, GL_FLOAT }, // WorldPosition.
-            { size, GL_COLOR_ATTACHMENT2, GL_RGB16F, GL_RGB, GL_FLOAT }, // Normal.
+            { GL_COLOR_ATTACHMENT0, GL_RGB16F, GL_RGB, GL_FLOAT }, // Color.
         },
-        TextureManager::GetInstance().GetTexParamertersi());
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
+    m_FrameBufferScene->GenerateRbo();
+
+    FrameBuffer::FrameBufferParams skyBoxParams = { GL_COLOR_ATTACHMENT0, GL_RGB16F, GL_RGB, GL_FLOAT };
+    m_FrameBufferSkyBox = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ skyBoxParams },
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
+
+    glm::ivec2 skyBoxCubeMapFaceSize = { 256, 256 };
+    m_FrameBufferAtmosphere = std::make_shared<FrameBuffer>(
+        skyBoxCubeMapFaceSize,
+        std::vector<FrameBuffer::FrameBufferParams>
+        {
+            { GL_COLOR_ATTACHMENT0, GL_RGB16F, GL_RGB, GL_FLOAT, true, true }
+        },
+        std::vector<Texture::TexParameteri>
+        {
+            { GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR },
+            { GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR },
+            { GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE },
+            { GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE },
+            { GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE }
+        }
+    );
+
+    m_FrameBufferG = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>
+        {
+            { GL_COLOR_ATTACHMENT0, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT }, // Albedo.
+            { GL_COLOR_ATTACHMENT1, GL_RGB32F, GL_RGB, GL_FLOAT }, // WorldPosition.
+            { GL_COLOR_ATTACHMENT2, GL_RGB32F, GL_RGB, GL_FLOAT }, // Normal.
+            { GL_COLOR_ATTACHMENT3, GL_RGB, GL_RGB, GL_FLOAT }, // Metallic, roughness, ao.
+        },
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
     m_FrameBufferG->GenerateRbo();
 
     m_FrameBufferGDownSampled = std::make_shared<FrameBuffer>(
+        size / 4,
         std::vector<FrameBuffer::FrameBufferParams>
         {
-            { size / 2, GL_COLOR_ATTACHMENT0, GL_RGB32F, GL_RGB, GL_FLOAT }, // WorldPosition.
-            { size / 2, GL_COLOR_ATTACHMENT1, GL_RGB16F, GL_RGB, GL_FLOAT }, // Normal.
+            { GL_COLOR_ATTACHMENT0, GL_RGB32F, GL_RGB, GL_FLOAT }, // WorldPosition.
+            { GL_COLOR_ATTACHMENT1, GL_RGB32F, GL_RGB, GL_FLOAT }, // Normal.
         },
-        TextureManager::GetInstance().GetTexParamertersi());
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
 
     m_FrameBufferShadows = std::make_shared<FrameBuffer>(
+        size,
         std::vector<FrameBuffer::FrameBufferParams>
         { 
-            { size, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB, GL_FLOAT }
+            { GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB, GL_FLOAT }
         },
-        TextureManager::GetInstance().GetTexParamertersi());
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
     m_FrameBufferShadows->GenerateRbo();
     
-    FrameBuffer::FrameBufferParams uiParams = { size, GL_COLOR_ATTACHMENT0, GL_RGBA, GL_RGBA, GL_UNSIGNED_INT };
-    m_FrameBufferUI = std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ uiParams }, 
-        TextureManager::GetInstance().GetTexParamertersi());
+    FrameBuffer::FrameBufferParams uiParams = { GL_COLOR_ATTACHMENT0, GL_RGBA, GL_RGBA, GL_UNSIGNED_INT };
+    m_FrameBufferUI = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ uiParams }, 
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
 
-    FrameBuffer::FrameBufferParams bloomParams = { size, GL_COLOR_ATTACHMENT0, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT};
-    m_FrameBufferBloom = std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ bloomParams }, 
-        TextureManager::GetInstance().GetTexParamertersi());
+    FrameBuffer::FrameBufferParams SSAOBlurParams = { GL_COLOR_ATTACHMENT0, GL_RED, GL_RED, GL_UNSIGNED_INT };
+    m_FrameBufferSSAOBlur.push_back(std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ SSAOBlurParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
+    m_FrameBufferSSAOBlur.push_back(std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ SSAOBlurParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
 
-    FrameBuffer::FrameBufferParams SSAOBlurParams = { size, GL_COLOR_ATTACHMENT0, GL_RED, GL_RED,
-       GL_UNSIGNED_INT };
-    m_FrameBufferSSAOBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ SSAOBlurParams },
-        TextureManager::GetInstance().GetTexParamertersi()));
-    m_FrameBufferSSAOBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ SSAOBlurParams },
-        TextureManager::GetInstance().GetTexParamertersi()));
+    FrameBuffer::FrameBufferParams blurParams = { GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB, GL_UNSIGNED_INT };
+    m_FrameBufferShadowsBlur.push_back(std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ blurParams }, 
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
+    m_FrameBufferShadowsBlur.push_back(std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ blurParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
 
-    FrameBuffer::FrameBufferParams blurParams = { size, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
-      GL_UNSIGNED_INT };
-    m_FrameBufferShadowsBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ blurParams }
-    , TextureManager::GetInstance().GetTexParamertersi()));
-    m_FrameBufferShadowsBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ blurParams },
-        TextureManager::GetInstance().GetTexParamertersi()));
+    FrameBuffer::FrameBufferParams bloomParams = { GL_COLOR_ATTACHMENT0, GL_R11F_G11F_B10F, GL_RGB, GL_FLOAT };
+    m_FrameBufferBloom = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ bloomParams },
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
 
     for (size_t i = 0; i < 12; i += 2)
     {
         size /= 2;
-        m_FrameBufferBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ bloomParams },
-            TextureManager::GetInstance().GetTexParamertersi()));
-        m_FrameBufferBlur.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ bloomParams },
-            TextureManager::GetInstance().GetTexParamertersi()));
+        m_FrameBufferBlur.push_back(std::make_shared<FrameBuffer>(
+            size, 
+            std::vector<FrameBuffer::FrameBufferParams>{ bloomParams },
+            TextureManager::GetInstance().GetTexParamertersi())
+        );
+        
+        m_FrameBufferBlur.push_back(std::make_shared<FrameBuffer>(
+            size,
+            std::vector<FrameBuffer::FrameBufferParams>{ bloomParams },
+            TextureManager::GetInstance().GetTexParamertersi())
+        );
     }
 
-    FrameBuffer::FrameBufferParams depthParams = { size, GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT };
-    m_FrameBufferOutline = std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
-        TextureManager::GetInstance().GetTexParamertersi());
+    FrameBuffer::FrameBufferParams depthParams = { GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT };
+    m_FrameBufferOutline = std::make_shared<FrameBuffer>(
+        size,
+        std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
+        TextureManager::GetInstance().GetTexParamertersi()
+    );
 
     TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST };
     TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST };
     TextureManager::GetInstance().m_TexParameters[2] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER };
     TextureManager::GetInstance().m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER };
 
-    depthParams.m_Size = { 4096, 4096 };
-    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ depthParams }, 
-        TextureManager::GetInstance().GetTexParamertersi()));
-    depthParams.m_Size = { 2048, 2048 };
-    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
-        TextureManager::GetInstance().GetTexParamertersi()));
-    depthParams.m_Size = { 1024, 1024 };
-    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
-        TextureManager::GetInstance().GetTexParamertersi()));
-    //for (size_t i = 0; i < 3; i++)
-    //{
-    //}
+    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(
+        glm::ivec2{ 2048, 2048 },
+        std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
+
+    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(
+        glm::ivec2{ 2048, 2048 }, 
+        std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
+
+    m_FrameBufferCSM.push_back(std::make_shared<FrameBuffer>(
+        glm::ivec2{ 4096, 4096 }, 
+        std::vector<FrameBuffer::FrameBufferParams>{ depthParams },
+        TextureManager::GetInstance().GetTexParamertersi())
+    );
 
     TextureManager::GetInstance().ResetTexParametersi();
 
@@ -136,7 +209,7 @@ void Renderer::Begin(std::shared_ptr<FrameBuffer>& frameBuffer, const glm::vec4&
     frameBuffer->Bind();
     Viewport& viewport = Viewport::GetInstance();
     viewport.m_PreviousWindowSize = Window::GetInstance().GetSize();
-    glViewport(0, 0, frameBuffer->m_Params[0].m_Size.x, frameBuffer->m_Params[0].m_Size.y);
+    glViewport(0, 0, frameBuffer->m_Size.x, frameBuffer->m_Size.y);
     Window::GetInstance().Clear(clearColor, depth);
 }
 
@@ -159,7 +232,7 @@ void Renderer::ComposeFinalImage()
     shader->SetUniform1i("u_BloomTexture", BindTexture(m_FrameBufferBloom->m_Textures[0]));
     shader->SetUniform1i("u_OutlineTexture", BindTexture(m_FrameBufferOutline->m_Textures[0]));
 
-    shader->SetUniform1f("u_Gamma", Environment::GetInstance().m_BloomSettings.m_Gamma);
+    shader->SetUniform1f("u_Gamma", Environment::GetInstance().m_Gamma);
     shader->SetUniform1i("u_IsBloomEnabled", Environment::GetInstance().m_BloomSettings.m_IsEnabled);
     shader->SetUniform1i("u_OutlineThickness", Editor::GetInstance().m_OutlineParams.m_Thickness);
     shader->SetUniform3fv("u_OutlineColor", Editor::GetInstance().m_OutlineParams.m_Color);
@@ -226,6 +299,7 @@ void Renderer::PrepareUniformBuffers(Scene* scene)
     PreparePointLightsUniformBuffer(scene->GetEnabledPointLights());
     PrepareSpotLightsUniformBuffer(scene->GetEnabledSpotLights());
     PrepareMaterialsUniformBuffer();
+    PrepareGlobalUniformsUniformBuffer();
 }
 
 void Renderer::PrepareVertexAttrib(Scene* scene)
@@ -245,7 +319,7 @@ void Renderer::PreparePointLightsUniformBuffer(const std::vector<PointLight*>& p
     m_PointLights.m_ShadowSamplers.resize(m_PointLights.m_MaxShadowsSize);
     for (size_t i = 0; i < m_PointLights.m_MaxShadowsSize; i++)
     {
-        m_PointLights.m_ShadowSamplers[i] = m_PointLights.m_LastCubeMapIndex;
+        m_PointLights.m_ShadowSamplers[i] = 1;
     }
 
     auto setData = [](char* dst, void* src, size_t size, int& offset)
@@ -319,7 +393,7 @@ void Renderer::PrepareSpotLightsUniformBuffer(const std::vector<SpotLight*>& spo
     m_SpotLights.m_ShadowSamplers.resize(m_SpotLights.m_MaxShadowsSize);
     for (size_t i = 0; i < m_SpotLights.m_MaxShadowsSize; i++)
     {
-        m_SpotLights.m_ShadowSamplers[i] = 0;
+        m_SpotLights.m_ShadowSamplers[i] = 1;
     }
 
     auto setData = [](char* dst, void* src, size_t size, int& offset)
@@ -412,10 +486,11 @@ void Renderer::PrepareMaterialsUniformBuffer()
         char* materialBufferPtr = &buffer[i * sizeof(MaterialUniform)];
 
         float useNormalMap = (float)material->m_UseNormalMap;
-        
-        glm::vec3 ambient = material->m_Ambient * material->m_Scale;
+        float useMetallicMap = (float)material->m_UseMetallicMap;
+        float useRoughnessMap = (float)material->m_UseRoughnessMap;
+        float useAoMap = (float)material->m_UseAoMap;
 
-        setData(materialBufferPtr, &ambient, 12, uniformOffset);
+        setData(materialBufferPtr, &material->m_Albedo, 12, uniformOffset);
 
         setData(materialBufferPtr, &material->m_BaseColorIndex, 4, uniformOffset);
 
@@ -423,9 +498,27 @@ void Renderer::PrepareMaterialsUniformBuffer()
 
         setData(materialBufferPtr, &useNormalMap, 4, uniformOffset);
 
-        setData(materialBufferPtr, &material->m_Solid, 4, uniformOffset);
+        setData(materialBufferPtr, &material->m_Alpha, 4, uniformOffset);
 
-        setData(materialBufferPtr, &material->m_Shiness, 4, uniformOffset);
+        setData(materialBufferPtr, &material->m_Intensity, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_Metallic, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_Roughness, 4, uniformOffset);
+
+        setData(materialBufferPtr, &useMetallicMap, 4, uniformOffset);
+
+        setData(materialBufferPtr, &useRoughnessMap, 4, uniformOffset);
+
+        setData(materialBufferPtr, &useAoMap, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_MetallicIndex, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_RoughnessIndex, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_AoIndex, 4, uniformOffset);
+
+        setData(materialBufferPtr, &material->m_UvTransform, 16, uniformOffset);
 
         ++i;
     }
@@ -440,6 +533,27 @@ void Renderer::PrepareMaterialsUniformBuffer()
     {
         m_Materials.m_UniformBuffer.SetData(&buffer[0], sizeof(MaterialUniform) * m_Materials.m_Size, 0);
     }
+}
+
+void Renderer::PrepareGlobalUniformsUniformBuffer()
+{
+    GlobalUniformsUniform buffer;
+
+    buffer.m_CameraPosition = Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition();
+    buffer.m_CameraRotation = Environment::GetInstance().GetMainCamera()->m_Transform.GetRotationMat4();
+    buffer.m_Projection = Environment::GetInstance().GetMainCamera()->GetProjectionMat4();
+    buffer.m_ViewProjection = Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4();
+    buffer.m_DeltaTime = Time::GetDeltaTime();
+    buffer.m_Time = Time::GetTime();
+    buffer.m_ViewportSize = Viewport::GetInstance().GetSize();
+
+    if (m_GlobalUniforms.m_UniformBuffer.GetSize() == 0)
+    {
+        m_GlobalUniforms.m_UniformBuffer.Initialize(nullptr, sizeof(GlobalUniformsUniform), false);
+        m_GlobalUniforms.m_UniformBuffer.BindBufferBase(3);
+    }
+
+    m_GlobalUniforms.m_UniformBuffer.SetData(&buffer, sizeof(GlobalUniformsUniform), 0);
 }
 
 bool Renderer::RenderCascadeShadowMaps(Scene* scene)
@@ -470,12 +584,9 @@ bool Renderer::RenderCascadeShadowMaps(Scene* scene)
 
         Begin(m_FrameBufferCSM[i]);
 
-        glEnable(GL_CULL_FACE);
-        //glCullFace(GL_FRONT);
         glEnable(GL_DEPTH_CLAMP);
         Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
         glDisable(GL_DEPTH_CLAMP);
-        //glCullFace(GL_BACK);
     }
 
     shader->UnBind();
@@ -486,23 +597,33 @@ bool Renderer::RenderCascadeShadowMaps(Scene* scene)
 
 void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
 {
+    if (scene->m_DirectionalLights.empty())
+    {
+        return;
+    }
+
+    DirectionalLight* directionalLight = scene->m_DirectionalLights[0];
+
     Viewport& viewport = Viewport::GetInstance();
     Environment& environment = Environment::GetInstance();
 
     Shader* shader = Shader::Get("InstancingShadows");
     shader->Bind();
 
-    shader->SetUniform3fv("u_CameraPosition", environment.GetMainCamera()->m_Transform.GetPosition());
-    shader->SetUniformMat4f("u_Shadows.view", environment.GetMainCamera()->GetViewMat4());
-    shader->SetUniformfv("u_Shadows.cascadesDistance", environment.m_ShadowsSettings.m_CascadesDistance);
-    shader->SetUniform1i("u_Shadows.pcf", environment.m_ShadowsSettings.m_Pcf);
-    shader->SetUniform1f("u_Shadows.fog", environment.m_ShadowsSettings.m_Fog);
-    shader->SetUniform1f("u_Shadows.bias", environment.m_ShadowsSettings.m_Bias);
-    shader->SetUniform1f("u_Shadows.farPlane", environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
-    shader->SetUniform1i("u_Shadows.isVisualized", environment.m_ShadowsSettings.m_IsVisualized);
-    shader->SetUniform1i("u_Shadows.cascadesCount", (int)environment.m_ShadowsSettings.m_CascadesDistance.size());
-    shader->SetUniform1f("u_Shadows.texels", (int)environment.m_ShadowsSettings.m_Texels);
-    shader->SetUniformMat4fv("u_Shadows.lightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
+    shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
+    shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
+    shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
+    shader->SetUniform1i("u_DirectionalLight.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
+    shader->SetUniformMat4f("u_DirectionalLight.view", environment.GetMainCamera()->GetViewMat4());
+    shader->SetUniformfv("u_DirectionalLight.cascadesDistance", directionalLight->GetCascadesDistance());
+    shader->SetUniform1i("u_DirectionalLight.pcf", directionalLight->GetPcf());
+    shader->SetUniform1f("u_DirectionalLight.fog", directionalLight->GetFog());
+    shader->SetUniformfv("u_DirectionalLight.bias", directionalLight->GetBias());
+    shader->SetUniform1f("u_DirectionalLight.farPlane", environment.GetMainCamera()->GetZFar() * directionalLight->GetZFarScale());
+    shader->SetUniform1i("u_DirectionalLight.isVisualized", environment.m_ShadowsSettings.m_IsVisualized);
+    shader->SetUniform1i("u_DirectionalLight.cascadesCount", (int)directionalLight->GetCascadesDistance().size());
+    shader->SetUniform1f("u_DirectionalLight.texels", (int)directionalLight->GetTexels());
+    shader->SetUniformMat4fv("u_DirectionalLight.lightSpaceMatricies", m_LightSpaceMatrices);
 
     ClearTextureBindings();
 
@@ -517,7 +638,7 @@ void Renderer::RenderCascadeShadowsToScene(class Scene* scene)
     {
         csm[i] = BindTexture(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
     }
-    shader->SetUniform1iv("u_Shadows.CSM", &csm[0], csm.size());
+    shader->SetUniform1iv("u_DirectionalLight.CSM", &csm[0], csm.size());
 
     Begin(m_FrameBufferShadows);
 
@@ -552,11 +673,9 @@ void Renderer::RenderPointLightShadows(Scene* scene)
         Begin(pointLight->m_ShadowsCubeMap);
 
         glEnable(GL_CULL_FACE);
-        //glCullFace(GL_FRONT);
         glEnable(GL_DEPTH_CLAMP);
         Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
         glDisable(GL_DEPTH_CLAMP);
-        //glCullFace(GL_BACK);
     }
 
     shader->UnBind();
@@ -583,11 +702,9 @@ void Renderer::RenderSpotLightShadows(Scene* scene)
         Begin(spotLight->m_ShadowMap);
 
         glEnable(GL_CULL_FACE);
-        //glCullFace(GL_FRONT);
         glEnable(GL_DEPTH_CLAMP);
         Instancing::GetInstance().RenderShadowsObjects(scene->m_ShadowsByMesh);
         glDisable(GL_DEPTH_CLAMP);
-        //glCullFace(GL_BACK);
     }
 
     shader->UnBind();
@@ -686,19 +803,20 @@ std::vector<glm::mat4> Renderer::GetLightSpaceMatrices(DirectionalLight* light)
     
     std::vector<glm::mat4> matrcies;
 
-    for (size_t i = 0; i < environment.m_ShadowsSettings.m_CascadesDistance.size() + 1; ++i)
+    std::vector<float> cascadesDistance = light->GetCascadesDistance();
+    for (size_t i = 0; i < cascadesDistance.size() + 1; ++i)
     {
         if (i == 0)
         {
-            matrcies.push_back(GetLightSpaceMatrix(light, camera->GetZNear(), environment.m_ShadowsSettings.m_CascadesDistance[i]));
+            matrcies.push_back(GetLightSpaceMatrix(light, camera->GetZNear(), cascadesDistance[i]));
         }
-        else if (i < environment.m_ShadowsSettings.m_CascadesDistance.size())
+        else if (i < cascadesDistance.size())
         {
-            matrcies.push_back(GetLightSpaceMatrix(light, environment.m_ShadowsSettings.m_CascadesDistance[i - 1], environment.m_ShadowsSettings.m_CascadesDistance[i]));
+            matrcies.push_back(GetLightSpaceMatrix(light, cascadesDistance[i - 1], cascadesDistance[i]));
         }
         else
         {
-            matrcies.push_back(GetLightSpaceMatrix(light, environment.m_ShadowsSettings.m_CascadesDistance[i - 1], camera->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale));
+            matrcies.push_back(GetLightSpaceMatrix(light, cascadesDistance[i - 1], camera->GetZFar() * light->GetZFarScale()));
         }
     }
 
@@ -717,12 +835,13 @@ void Renderer::RenderDeferred(Scene* scene)
     shader->SetUniform1i("u_Albedo", BindTexture(m_FrameBufferG->m_Textures[0]));
     shader->SetUniform1i("u_WorldPosition", BindTexture(m_FrameBufferG->m_Textures[1]));
     shader->SetUniform1i("u_Normal", BindTexture(m_FrameBufferG->m_Textures[2]));
-    shader->SetUniform1i("u_DirectionalShadows.color", BindTexture(m_FrameBufferShadowsBlur[0]->m_Textures[0]));
+    shader->SetUniform1i("u_Shading", BindTexture(m_FrameBufferG->m_Textures[3]));
+    shader->SetUniform1i("u_SkyBox", BindTexture(m_FrameBufferSkyBox->m_Textures[0]));
+    shader->SetUniform1i("u_DirectionalLight.shadowColor", BindTexture(m_FrameBufferShadowsBlur[0]->m_Textures[0]));
     shader->SetUniform1i("u_SSAO.color", BindTexture(m_FrameBufferSSAOBlur[1]->m_Textures[0]));
     shader->SetUniform1i("u_SSAO.isEnabled", (int)environment.m_SSAO.m_IsEnabled);
-    shader->SetUniform1i("u_DirectionalShadows.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
-    shader->SetUniform1i("u_IsShadowsEnabled", environment.m_ShadowsSettings.m_IsEnabled);
-    shader->SetGlobalUniforms();
+    shader->SetUniform1i("u_DirectionalLight.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
+    shader->SetUniform1i("u_Shadows.isEnabled", environment.m_ShadowsSettings.m_IsEnabled);
 
     if (scene->m_DirectionalLights.empty())
     {
@@ -732,9 +851,20 @@ void Renderer::RenderDeferred(Scene* scene)
     {
         DirectionalLight* directionalLight = scene->m_DirectionalLights[0];
 
-        shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetDirection());
+        shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
         shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
         shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
+        shader->SetUniform1i("u_DirectionalLight.isEnabled", m_LightSpaceMatrices.empty() ? false : true);
+        shader->SetUniformMat4f("u_DirectionalLight.view", environment.GetMainCamera()->GetViewMat4());
+        shader->SetUniformfv("u_DirectionalLight.cascadesDistance", directionalLight->GetCascadesDistance());
+        shader->SetUniform1i("u_DirectionalLight.pcf", directionalLight->GetPcf());
+        shader->SetUniform1f("u_DirectionalLight.fog", directionalLight->GetFog());
+        shader->SetUniformfv("u_DirectionalLight.bias", directionalLight->GetBias());
+        shader->SetUniform1f("u_DirectionalLight.farPlane", environment.GetMainCamera()->GetZFar() * directionalLight->GetZFarScale());
+        shader->SetUniform1i("u_DirectionalLight.isVisualized", environment.m_ShadowsSettings.m_IsVisualized);
+        shader->SetUniform1i("u_DirectionalLight.cascadesCount", (int)directionalLight->GetCascadesDistance().size());
+        shader->SetUniform1f("u_DirectionalLight.texels", (int)directionalLight->GetTexels());
+        shader->SetUniformMat4fv("u_DirectionalLight.lightSpaceMatricies", m_LightSpaceMatrices);
     }
 
     shader->SetUniform1i("u_PointLightsSize", m_PointLights.m_Size);
@@ -821,25 +951,6 @@ void Renderer::RenderOutline()
 
 void Renderer::RenderSSAO()
 {
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_FrameBufferG->m_Fbo);
-    glReadBuffer(GL_COLOR_ATTACHMENT1);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FrameBufferGDownSampled->m_Fbo);
-    glDrawBuffer(GL_COLOR_ATTACHMENT0);
-    glBlitFramebuffer(
-        0, 0, m_FrameBufferG->m_Params[0].m_Size.x, m_FrameBufferG->m_Params[0].m_Size.y, 0, 0,
-        m_FrameBufferGDownSampled->m_Params[0].m_Size.x, m_FrameBufferGDownSampled->m_Params[0].m_Size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR
-    );
-
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_FrameBufferG->m_Fbo);
-    glReadBuffer(GL_COLOR_ATTACHMENT2);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FrameBufferGDownSampled->m_Fbo);
-    glDrawBuffer(GL_COLOR_ATTACHMENT1);
-    glBlitFramebuffer(
-        0, 0, m_FrameBufferG->m_Params[0].m_Size.x, m_FrameBufferG->m_Params[0].m_Size.y, 0, 0,
-        m_FrameBufferGDownSampled->m_Params[0].m_Size.x, m_FrameBufferGDownSampled->m_Params[0].m_Size.y, GL_COLOR_BUFFER_BIT, GL_LINEAR
-    );
-
-    Viewport& viewport = Viewport::GetInstance();
     Environment& environment = Environment::GetInstance();
     std::shared_ptr<Camera> camera = environment.GetMainCamera();
 
@@ -851,10 +962,7 @@ void Renderer::RenderSSAO()
     {
         shader->SetUniform3fv("u_Samples[" + std::to_string(i) + "]", m_SSAOKernel[i]);
     }
-    shader->SetUniformMat4f("u_ViewProjection", camera->GetViewProjectionMat4());
-    shader->SetUniform3fv("u_CameraPosition", camera->m_Transform.GetPosition());
     shader->SetUniform3fv("u_CameraDirection", glm::normalize(camera->m_Transform.GetForward()));
-    shader->SetUniform2fv("u_Resolution", glm::vec2(viewport.GetSize()));
     shader->SetUniform1f("u_Radius", environment.m_SSAO.m_Radius);
     shader->SetUniform1f("u_Bias", environment.m_SSAO.m_Bias);
     shader->SetUniform1i("u_KernelSize", environment.m_SSAO.m_KernelSize);
@@ -862,8 +970,8 @@ void Renderer::RenderSSAO()
 
     ClearTextureBindings();
 
-    shader->SetUniform1i("u_Position", BindTexture(m_FrameBufferGDownSampled->m_Textures[0]));
-    shader->SetUniform1i("u_Normal", BindTexture(m_FrameBufferGDownSampled->m_Textures[1]));
+    shader->SetUniform1i("u_Position", BindTexture(m_FrameBufferG->m_Textures[1]));
+    shader->SetUniform1i("u_Normal", BindTexture(m_FrameBufferG->m_Textures[2]));
     shader->SetUniform1i("u_Noise", BindTexture(m_SSAO));
 
     Begin(m_FrameBufferSSAO);
@@ -871,6 +979,70 @@ void Renderer::RenderSSAO()
     RenderFullScreenQuad();
 
     End(m_FrameBufferSSAO);
+}
+
+void Renderer::RenderAtmosphere(Scene* scene)
+{
+    Environment& environment = Environment::GetInstance();
+
+    Shader* shader = Shader::Get("Atmosphere");
+    shader->Bind();
+
+    if (scene->m_DirectionalLights.empty())
+    {
+        shader->SetUniform1f("u_DirectionalLight.intensity", 0.0f);
+    }
+    else
+    {
+        DirectionalLight* directionalLight = scene->m_DirectionalLights[0];
+
+        shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetDirection());
+        shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
+        shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
+    }
+
+    shader->SetUniform2fv("u_FaceSize", m_FrameBufferAtmosphere->m_Size);
+
+    Begin(m_FrameBufferAtmosphere);
+
+    RenderFullScreenQuad();
+
+    End(m_FrameBufferAtmosphere);
+}
+
+void Renderer::RenderSkyBox()
+{
+    Environment& environment = Environment::GetInstance();
+
+    Shader* shader = Shader::Get("SkyBox");
+    shader->Bind();
+
+    ClearTextureBindings();
+
+    shader->SetUniform1i("u_SkyBox", BindTexture(m_FrameBufferAtmosphere->m_Textures[0], -1, GL_TEXTURE_CUBE_MAP));
+
+    Begin(m_FrameBufferSkyBox);
+
+    Mesh* cube = MeshManager::GetInstance().Load("Source/Meshes/Cube.meta");
+    if (!cube)
+    {
+        return;
+    }
+
+    cube->m_Va.Bind();
+    cube->m_Ib.Bind();
+
+    Editor::GetInstance().m_Stats.m_Triangles += cube->m_Ib.GetCount() / 3;
+    Editor::GetInstance().m_Stats.m_DrawCalls++;
+
+    glDepthMask(GL_FALSE);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glDrawElements(GL_TRIANGLES, cube->m_Ib.GetCount(), GL_UNSIGNED_INT, nullptr);
+    glCullFace(GL_BACK);
+    glDepthMask(GL_TRUE);
+
+    End(m_FrameBufferSkyBox);
 }
 
 void Renderer::Blur(std::shared_ptr<class FrameBuffer>& frameBufferSource, std::vector<std::shared_ptr<class FrameBuffer>>& frameBuffers, 
@@ -944,7 +1116,6 @@ void Renderer::Bloom()
     shader->SetUniform1iv("u_BlurTextures", samplers);
     shader->SetUniform1i("u_BlurTexturesSize", m_FrameBufferBlur.size() / 2);
     shader->SetUniform1f("u_Exposure", bloomSettings.m_Exposure);
-    shader->SetUniform1f("u_Brightness", Environment::GetInstance().m_BloomSettings.m_BrightnessThreshold);
 
     Begin(m_FrameBufferBloom);
     {
@@ -972,9 +1143,16 @@ void Renderer::Render(Application* application)
     scene->PrepareVisualizer();
     scene->SortTransparent();
     
+    RenderAtmosphere(scene);
+    RenderSkyBox();
     SSAOPass(scene);
     LightingPass(scene);
     PostProcessingPass(application);
+
+    if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_F2))
+    {
+        Screenshot();
+    }
 }
 
 void Renderer::GeometryPass(Scene* scene)
@@ -1008,14 +1186,9 @@ void Renderer::LightingPass(Scene* scene)
 
         RenderDeferred(scene);
 
-        glBindFramebuffer(GL_READ_FRAMEBUFFER, m_FrameBufferG->m_Fbo);
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_FrameBufferScene->m_Fbo);
-        glBlitFramebuffer(
-            0, 0, m_FrameBufferG->m_Params[0].m_Size.x, m_FrameBufferG->m_Params[0].m_Size.y, 0, 0,
-            m_FrameBufferScene->m_Params[0].m_Size.x, m_FrameBufferScene->m_Params[0].m_Size.y, GL_DEPTH_BUFFER_BIT, GL_NEAREST
-        );
+        CopyDepthFrameBuffer(m_FrameBufferG, m_FrameBufferScene, GL_NEAREST);
 
-        glBindFramebuffer(GL_FRAMEBUFFER, m_FrameBufferScene->m_Fbo);
+        m_FrameBufferScene->Bind();
 
         Batch::GetInstance().SetGameOjbectsShader(Shader::Get("Default2D"));
         Batch::GetInstance().BeginGameObjects();
@@ -1100,6 +1273,72 @@ void Renderer::PostProcessingPass(Application* application)
         ComposeFinalImage();
     }
     viewport.End();
+}
+
+void Renderer::Screenshot()
+{
+    glm::ivec2 size;
+    glfwGetFramebufferSize(Window::GetInstance().GetWindow(), &size.x, &size.y);
+    const GLsizei nrChannels = 3;
+    GLsizei stride = nrChannels * size.x;
+    stride += (stride % 4) ? (4 - stride % 4) : 0;
+    const GLsizei bufferSize = stride * size.y;
+    std::vector<char> buffer(bufferSize);
+    glPixelStorei(GL_PACK_ALIGNMENT, 4);
+    glReadBuffer(GL_FRONT);
+    glReadPixels(0, 0, size.x, size.y, GL_RGB, GL_UNSIGNED_BYTE, buffer.data());
+    stbi_flip_vertically_on_write(true);
+    const std::string filePath = std::string("Source/Screenshots/" + std::to_string(Time::GetTime()) + ".png");
+    stbi_write_png(filePath.c_str(),
+        size.x, size.y, nrChannels, buffer.data(), stride);
+}
+
+void Renderer::CopyFrameBuffer(
+    std::shared_ptr<FrameBuffer> source,
+    std::shared_ptr<FrameBuffer> destination,
+    int sourceAttachment, 
+    int destinationAttachment,
+    int mask,
+    int filter)
+{
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, source->m_Fbo);
+    if (mask != GL_DEPTH_BUFFER_BIT)
+    {
+        glReadBuffer(sourceAttachment);
+    }
+
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, destination->m_Fbo);
+    if (mask != GL_DEPTH_BUFFER_BIT)
+    {
+        glDrawBuffer(destinationAttachment);
+    }
+    
+    glBlitFramebuffer(
+        0, 0,
+        source->m_Size.x, source->m_Size.y,
+        0, 0,
+        destination->m_Size.x, destination->m_Size.y, 
+        mask,
+        filter
+    );
+}
+
+void Renderer::CopyDepthFrameBuffer(
+    std::shared_ptr<FrameBuffer> source,
+    std::shared_ptr<FrameBuffer> destination,
+    int filter)
+{
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, source->m_Fbo);
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, destination->m_Fbo);
+
+    glBlitFramebuffer(
+        0, 0, 
+        source->m_Size.x, source->m_Size.y,
+        0, 0,
+        destination->m_Size.x, destination->m_Size.y,
+        GL_DEPTH_BUFFER_BIT, 
+        filter
+    );
 }
 
 uint32_t Renderer::BindTexture(uint32_t texture, int slot, uint32_t target)

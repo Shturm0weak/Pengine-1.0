@@ -1,5 +1,8 @@
 #include "Core/EntryPoint.h"
 
+#include "Examples/Animation3D.h"
+#include "Examples/Rotator.h"
+
 using namespace Pengine;
 
 int main()

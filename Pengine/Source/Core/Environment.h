@@ -16,7 +16,6 @@ namespace Pengine
 		struct BloomSettings
 		{
 			float m_BrightnessThreshold = 1.1f;
-			float m_Gamma = 2.2f;
 			float m_Exposure = 0.05f;
 			int m_BlurPasses = 3;
 			int m_PixelsBlured = 6;
@@ -25,14 +24,8 @@ namespace Pengine
 
 		struct ShadowsSettings
 		{
-			std::vector<float> m_CascadesDistance = { 100.0f, 300.0f };
-			int m_Pcf = 2;
 			int m_MaxPointLightShadows = 8;
 			int m_MaxSpotLightShadows = 8;
-			float m_Texels = 1.0f;
-			float m_Bias = 0.005f;
-			float m_ZFarScale = 1.0f;
-			float m_Fog = 0.2f;
 			bool m_IsEnabled = true;
 			bool m_IsVisualized = false;
 
@@ -61,9 +54,9 @@ namespace Pengine
 
 		std::shared_ptr<class Camera> m_EditorCamera;
 		std::shared_ptr<class Camera> m_MainCamera;
-
-		float m_GlobalIntensity = 1.0f;
 	
+		float m_Gamma = 2.2f;
+
 		bool m_DepthTest = true;
 
 		Environment();
@@ -90,10 +83,6 @@ namespace Pengine
 		void SetMainCamera(const std::shared_ptr<class Camera>& camera) { m_MainCamera = camera; }
 		
 		void SetEditorCamera(const std::shared_ptr<class Camera>& camera) { m_EditorCamera = camera; }
-
-		void SetGlobalIntensity(float globalIntensity = 1.0f) { m_GlobalIntensity = glm::clamp(globalIntensity, 0.0f, FLT_MAX); }
-	
-		float GetGlobalIntensity() const { return m_GlobalIntensity; }
 
 		void SetDepthTest(bool depthTest);
 	};

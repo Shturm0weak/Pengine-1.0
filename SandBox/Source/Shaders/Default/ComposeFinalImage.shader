@@ -62,17 +62,22 @@ void main()
 {
 	vec4 sceneColor = texture(u_SceneTexture, uv);
 	vec4 uiColor = texture(u_UITexture, uv);
-    vec4 bloomColor = vec4(pow(texture(u_BloomTexture, uv).rgb, vec3(1.0 / u_Gamma)), 1.0);
+    vec4 bloomColor = texture(u_BloomTexture, uv);
     vec4 outlineColor = Outline();
+
+    sceneColor.rgb = sceneColor.rgb / (sceneColor.rgb + vec3(1.0));
+    sceneColor.rgb = pow(sceneColor.rgb, vec3(1.0 / u_Gamma));
 
 	if (u_IsBloomEnabled)
 	{
+        bloomColor.rgb = bloomColor.rgb / (bloomColor.rgb + vec3(1.0));
+        bloomColor.rgb = pow(bloomColor.rgb, vec3(1.0 / u_Gamma));
 		sceneColor += bloomColor;
 	}
 
     if (outlineColor.rgb != vec3(0.0))
     {
-	    sceneColor  = outlineColor;
+	    sceneColor = outlineColor;
     }
 
 	if (uiColor.a > 0)

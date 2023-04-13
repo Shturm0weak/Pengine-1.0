@@ -1,0 +1,50 @@
+vec3 SpotShadowCompute(SpotLight light)
+{
+	float shadow = 0.0;
+	vec4 lightSpacePosition = u_SpotLightShadowMapProjections[light.shadowMapIndex] * worldPosition;
+	vec3 projectedCoords = lightSpacePosition.xyz / lightSpacePosition.w;
+
+	if (projectedCoords.z <= 1.0)
+	{
+		projectedCoords = (projectedCoords + 1.0) / 2.0;
+		float currentDepth = projectedCoords.z;
+
+		float bias = max(light.shadowBias * (1.0 - dot(normal, light.direction)), 0.000005f);
+
+		vec2 pixelSize = 1.0 / textureSize(u_SpotLightsShadowMap[light.shadowMapIndex], 0);
+		for (int y = -light.pcf; y <= light.pcf; y++)
+		{
+			for (int x = -light.pcf; x <= light.pcf; x++)
+			{
+				float closestDepth = texture(u_SpotLightsShadowMap[light.shadowMapIndex], projectedCoords.xy + vec2(x, y) * pixelSize).r;
+				if (currentDepth > closestDepth + bias)
+				{
+					shadow += 1.0;
+				}
+			}
+		}
+
+		shadow /= ((light.pcf * 2 + 1) * (light.pcf * 2 + 1));
+
+		vec3 toLight = worldPosition.xyz - light.position;
+		vec3 toCamera = worldPosition.xyz - u_GlobalUniforms.cameraPosition;
+		float distanceToCamera = length(toCamera);
+
+		if (currentDepth > light.farPlane || dot(normalize(toLight), normal) > 0.0)
+		{
+			return vec3(0.0);
+		}
+
+		shadow *= (1.0 - (currentDepth / light.farPlane));
+		shadow = clamp(shadow, 0.1, 1.0);
+
+		float farPlaneEdge = light.farPlane * (1.0 - light.fog);
+		if (distanceToCamera > farPlaneEdge)
+		{
+			float shadowFog = clamp((distanceToCamera - farPlaneEdge) / (light.farPlane * light.fog), 0.0, 1.0);
+			shadow *= (1.0 - shadowFog);
+		}
+	}
+	
+	return vec3(shadow);
+}

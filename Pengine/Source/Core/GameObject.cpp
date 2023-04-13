@@ -157,32 +157,14 @@ void GameObject::AddChild(GameObject* child)
 		m_Childs.push_back(child);
 	}
 
-	glm::vec3 position = Utils::GetPosition(glm::inverse(m_Transform.GetTransform()) * (child->m_Transform.GetPositionMat4()));
-	glm::vec3 rotation = child->m_Transform.GetRotation() - m_Transform.GetRotation();
-	glm::vec3 scale = child->m_Transform.GetScale() / m_Transform.GetScale();
-
-	child->m_Owner = this;
-	child->m_Transform.m_Parent = &m_Transform;
-
-	child->m_Transform.Translate(position);
-	child->m_Transform.Rotate(rotation);
-	child->m_Transform.Scale(scale);
+	m_Transform.AddChild(&child->m_Transform);
 }
 
 void GameObject::RemoveChild(GameObject* child)
 {
 	if (Utils::Erase<GameObject*>(m_Childs, child))
 	{
-		glm::vec3 position = child->m_Transform.GetPosition();
-		glm::vec3 rotation = child->m_Transform.GetRotation();
-		glm::vec3 scale = child->m_Transform.GetScale();
-
-		child->m_Owner = nullptr;
-		child->m_Transform.m_Parent = nullptr;
-
-		child->m_Transform.Translate(position);
-		child->m_Transform.Rotate(rotation);
-		child->m_Transform.Scale(scale);
+		m_Transform.RemoveChild(&child->m_Transform);
 	}
 }
 

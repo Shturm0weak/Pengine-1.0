@@ -2,3 +2,4 @@ Mesh:
   Name: Cube
   FilePath: Source\Meshes\Cube.obj
   CullFace: true
+  ShadowCullFace: 0

@@ -1,0 +1,8 @@
+Texture:
+  Name: metal-splotchy-albedo
+  FilePath: Source/Images/MetalPBR/metal-splotchy-albedo.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

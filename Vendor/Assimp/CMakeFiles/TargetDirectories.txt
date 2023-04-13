@@ -1,0 +1,13 @@
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/uninstall.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/UpdateAssimpLibsDebugSymbolsAndDLLs.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/INSTALL.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/ALL_BUILD.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/ZERO_CHECK.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/contrib/zlib/CMakeFiles/zlibstatic.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/contrib/zlib/CMakeFiles/INSTALL.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/contrib/zlib/CMakeFiles/ALL_BUILD.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/code/CMakeFiles/assimp.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/code/CMakeFiles/INSTALL.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/test/CMakeFiles/unit.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/test/CMakeFiles/INSTALL.dir
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/test/headercheck/CMakeFiles/INSTALL.dir

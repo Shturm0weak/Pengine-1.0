@@ -21,6 +21,8 @@ void SpotLight::Copy(const IComponent& component)
 	m_CosOuterCutOff = spotLight.m_CosOuterCutOff;
 	m_ShadowBias = spotLight.m_ShadowBias;
 	m_ShadowPcf = spotLight.m_ShadowPcf;
+	m_Fog = spotLight.m_Fog;
+	m_DrawShadows = spotLight.m_DrawShadows;
 }
 
 void SpotLight::Delete()
@@ -40,16 +42,9 @@ IComponent* SpotLight::Create(GameObject* owner)
 {
 	SpotLight* spotLight = MemoryManager::GetInstance().Allocate<SpotLight>();
 
-	auto onRotationCallback = [owner, spotLight]()
-	{
-		spotLight->SetDirection(owner->m_Transform.GetRotationMat4() * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
-		spotLight->BuildProjectionMatrix();
-	};
-
-	onRotationCallback();
-	owner->m_Transform.SetOnRotationCallback("SpotLight", onRotationCallback);
-
 	owner->GetScene()->m_SpotLights.push_back(spotLight);
+	spotLight->m_Owner = owner;
+	spotLight->SetDrawShadows(true);
 
 	return spotLight;
 }
@@ -76,17 +71,18 @@ void SpotLight::SetDrawShadows(bool drawShadows)
 	{
 		glm::ivec2 shadowMapSize = { 1024, 1024 };
 		m_ShadowMap = std::make_shared<FrameBuffer>(
+			shadowMapSize,
 			std::vector<FrameBuffer::FrameBufferParams>
-		{
-			{ shadowMapSize, GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, false, true }
-		},
+			{
+				{ GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, false, true }
+			},
 			std::vector<Texture::TexParameteri>
-		{
-			{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST },
-			{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST },
-			{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER },
-			{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER },
-		}
+			{
+				{ GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST },
+				{ GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST },
+				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER },
+				{ GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER },
+			}
 		);
 
 		auto onTranslationCallback = [this, shadowMapSize]()
@@ -97,6 +93,15 @@ void SpotLight::SetDrawShadows(bool drawShadows)
 		onTranslationCallback();
 		GetOwner()->m_Transform.ClearOnTranslationCallbacks();
 		GetOwner()->m_Transform.SetOnTranslationCallback("SpotLight", onTranslationCallback);
+
+		auto onRotationCallback = [this]()
+		{
+			SetDirection(GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0.0f, 0.0f, -1.0f, 1.0f));
+			BuildProjectionMatrix();
+		};
+
+		onRotationCallback();
+		GetOwner()->m_Transform.SetOnRotationCallback("SpotLight", onRotationCallback);
 	}
 	else
 	{
@@ -118,6 +123,6 @@ void SpotLight::BuildProjectionMatrix()
 	}
 
 	glm::vec3 position = GetOwner()->m_Transform.GetPosition();
-	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)m_ShadowMap->m_Params[0].m_Size.x / (float)m_ShadowMap->m_Params[0].m_Size.y, m_ZNear, m_ZFar);
+	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)m_ShadowMap->m_Size.x / (float)m_ShadowMap->m_Size.y, m_ZNear, m_ZFar);
 	m_ShadowTransform = projection * glm::lookAt(position, position + GetDirection(), GetOwner()->m_Transform.GetUp());
 }

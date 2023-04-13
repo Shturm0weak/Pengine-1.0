@@ -52,17 +52,46 @@ layout(std140, binding = 1) uniform SpotLightUniformBufferObject
 
 struct Material
 {
-	vec3 ambient;
+	vec3 albedo;
 	int baseColor;
 
 	int normalColor;
 	float useNormalMap;
 	float alpha;
-	float shiness;
+	float intensity;
+
+	float metallic;
+	float roughness;
+	float useMetallicMap;
+	float useRoughnessMap;
+
+	float useAoMap;
+	int metallicColor;
+	int roughnessColor;
+	int aoColor;
+
+	vec4 uvTransform;
 };
 
-#define MAX_MATERIALS 1000
+#define MAX_MATERIALS 500
 layout(std140, binding = 2) uniform MaterialUniformBufferObject
 {
 	Material u_Materials[MAX_MATERIALS];
+};
+
+struct GlobalUniforms
+{
+	mat4 cameraRotation;
+	mat4 viewProjection;
+	mat4 projection;
+	vec3 cameraPosition;
+	float deltaTime;
+	vec2 viewportSize;
+	float time;
+	float unused1;
+};
+
+layout(std140, binding = 3) uniform GlobalUniformsUniformBufferObject
+{
+	GlobalUniforms u_GlobalUniforms;
 };

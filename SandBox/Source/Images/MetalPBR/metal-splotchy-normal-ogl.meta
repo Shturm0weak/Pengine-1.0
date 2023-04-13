@@ -1,0 +1,8 @@
+Texture:
+  Name: metal-splotchy-normal-ogl
+  FilePath: Source/Images/MetalPBR/metal-splotchy-normal-ogl.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

@@ -118,7 +118,7 @@ namespace Pengine
 		void DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags);
 		
 		void DrawChilds(GameObject* gameOBject);
-		
+
 		void AssetList();
 		
 		void DrawScene();

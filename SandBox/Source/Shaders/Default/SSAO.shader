@@ -12,17 +12,17 @@ void main()
 }
 
 #shader fragment
-#version 330 core
+#version 420 core
 
 layout(location = 0) out vec4 fragColor;
+
+#include "Source/Shaders/Default/Common/UniformObjects.incl"
 
 in vec2 uv;
 
 uniform sampler2D u_Position;
 uniform sampler2D u_Normal;
 uniform sampler2D u_Noise;
-
-uniform vec2 u_Resolution;
 
 uniform vec3 u_Samples[64];
 
@@ -33,10 +33,8 @@ uniform float u_Radius;
 uniform float u_Bias;
 
 // tile noise texture over screen based on screen dimensions divided by noise size
-vec2 noiseScale = vec2(u_Resolution.x / u_NoiseSize, u_Resolution.y / u_NoiseSize);
+vec2 noiseScale = vec2(u_GlobalUniforms.viewportSize.x / u_NoiseSize, u_GlobalUniforms.viewportSize.y / u_NoiseSize);
 
-uniform mat4 u_ViewProjection;
-uniform vec3 u_CameraPosition;
 uniform vec3 u_CameraDirection;
 
 void main()
@@ -54,19 +52,19 @@ void main()
     for (int i = 0; i < u_KernelSize; ++i)
     {
         // get sample position
-        vec3 sample = TBN * u_Samples[i]; // From tangent to view-space
-        sample = worldPosition + sample * u_Radius;
+        vec3 _sample = TBN * u_Samples[i]; // From tangent to view-space
+        _sample = worldPosition + _sample * u_Radius;
 
-        float sampleZ = dot(sample - u_CameraPosition, u_CameraDirection); // cameraDirection must be normalized!
+        float sampleZ = dot(_sample - u_GlobalUniforms.cameraPosition, u_CameraDirection); // cameraDirection must be normalized!
 
-        vec4 offset = vec4(sample, 1.0);
-        offset = u_ViewProjection * offset; // from world to clip-space NOTE: we use projection * view instead of view
+        vec4 offset = vec4(_sample, 1.0);
+        offset = u_GlobalUniforms.viewProjection * offset; // from world to clip-space NOTE: we use projection * view instead of view
         offset.xyz /= offset.w; // perspective divide
         offset.xyz = offset.xyz * 0.5 + 0.5; // transform to range 0.0 - 1.0
 
         vec3 sampleProjected = vec4(texture(u_Position, offset.xy)).xyz;
 
-        vec3 toOriginal = sampleProjected - u_CameraPosition;
+        vec3 toOriginal = sampleProjected - u_GlobalUniforms.cameraPosition;
         float sampleDepth = dot(u_CameraDirection, toOriginal);
 
         //// range check & accumulate

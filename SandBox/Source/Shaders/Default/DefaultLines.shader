@@ -1,16 +1,16 @@
 #shader vertex
-#version 330 core
+#version 420 core
 
 layout(location = 0) in vec3 positionA;
 layout(location = 1) in vec4 colorA;
 
-uniform mat4 u_ViewProjectionMat4;
+#include "Source/Shaders/Default/Common/UniformObjects.incl"
 
 out vec4 color;
 
 void main()
 {
-	gl_Position = u_ViewProjectionMat4 * vec4(positionA, 1.0);
+	gl_Position = u_GlobalUniforms.viewProjection * vec4(positionA, 1.0);
 	color = colorA;
 }
 

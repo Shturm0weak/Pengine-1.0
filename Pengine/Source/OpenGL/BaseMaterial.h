@@ -16,7 +16,7 @@ namespace Pengine
 	{
 		REGISTER_PARENT_CLASS(IAsset)
 	public: PROPERTY(Shader*, m_Shader, Shader::Get("InstancingGBuffer"))
-	public: std::vector<class Material*> m_Inherited;	
+	public: std::vector<class Material*> m_Inherited;
 	public: std::unordered_map<std::string, float> m_FloatUniformsByName;
 	public: std::unordered_map<std::string, int> m_IntUniformsByName;
 	public: std::unordered_map<std::string, glm::vec2> m_Vec2UniformsByName;

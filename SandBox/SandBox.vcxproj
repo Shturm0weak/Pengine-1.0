@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;$(SolutionDir)Vendor\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,7 +70,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -79,7 +79,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_WIN64;GLEW_STATIC;_WINDLL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)SandBox\Source;$(SolutionDir)Pengine\Source;$(SolutionDir)Vendor\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -95,11 +95,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Pengine.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Examples\Animation3D.h" />
     <ClInclude Include="Source\Examples\BulletPhysics.h" />
     <ClInclude Include="Source\Examples\Car\Vehicle.h" />
     <ClInclude Include="Source\Examples\ExampleApplication.h" />
@@ -114,9 +115,8 @@
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\Pig.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\PigThrowing.h" />
     <ClInclude Include="Source\Examples\KingsAndPigs\Source\ThrowingObject.h" />
+    <ClInclude Include="Source\Examples\Rotator.h" />
     <ClInclude Include="Source\Examples\RTTRSystem.h" />
-    <ClInclude Include="Source\Shaders\Default\Common\UniformObjects.incl" />
-    <ClInclude Include="Source\Shaders\Default\Common\Uniforms.incl" />
     <ClInclude Include="Source\Sponza\Sponza.h" />
   </ItemGroup>
   <ItemGroup>
@@ -141,10 +141,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\Shaders\Default\AddBlurImages.shader" />
+    <None Include="Source\Shaders\Default\Atmosphere.shader" />
     <None Include="Source\Shaders\Default\Blur.shader" />
+    <None Include="Source\Shaders\Default\Common\CommonPBR.incl" />
+    <None Include="Source\Shaders\Default\Common\DirectionalLight.incl" />
     <None Include="Source\Shaders\Default\Common\DirectionalShadows.incl" />
+    <None Include="Source\Shaders\Default\Common\PointLight.incl" />
+    <None Include="Source\Shaders\Default\Common\PointShadows.incl" />
+    <None Include="Source\Shaders\Default\Common\SpotLight.incl" />
+    <None Include="Source\Shaders\Default\Common\SpotShadows.incl" />
+    <None Include="Source\Shaders\Default\Common\UniformObjects.incl" />
+    <None Include="Source\Shaders\Default\Common\Uniforms.incl" />
     <None Include="Source\Shaders\Default\ComposeFinalImage.shader" />
-    <None Include="Source\Shaders\Default\Custom.shader" />
     <None Include="Source\Shaders\Default\Default2D.shader" />
     <None Include="Source\Shaders\Default\Default2DGBuffer.shader" />
     <None Include="Source\Shaders\Default\Default3D.shader" />
@@ -158,6 +166,7 @@
     <None Include="Source\Shaders\Default\Instancing3DDepthSpotShadows.shader" />
     <None Include="Source\Shaders\Default\InstancingGBuffer.shader" />
     <None Include="Source\Shaders\Default\InstancingShadows.shader" />
+    <None Include="Source\Shaders\Default\SkyBox.shader" />
     <None Include="Source\Shaders\Default\SSAO.shader" />
     <None Include="Source\Shaders\Default\UI.shader" />
     <None Include="Source\Shaders\Default\Visualizer.shader" />

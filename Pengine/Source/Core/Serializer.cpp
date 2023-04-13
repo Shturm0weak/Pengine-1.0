@@ -702,14 +702,12 @@ void Serializer::SerializeEnvironment(YAML::Emitter& out)
 	out << YAML::Key << "Environment";
 	out << YAML::BeginMap;
 
-	out << YAML::Key << "Global Intensity" << YAML::Value << environment.GetGlobalIntensity();
-	out << YAML::Key << "Directional Light" << YAML::Value << environment.GetGlobalIntensity();
 	out << YAML::Key << "Blur passes" << YAML::Value << environment.m_BloomSettings.m_BlurPasses;
 	out << YAML::Key << "Brightness threshold" << YAML::Value << environment.m_BloomSettings.m_BrightnessThreshold;
 	out << YAML::Key << "Exposure" << YAML::Value << environment.m_BloomSettings.m_Exposure;
-	out << YAML::Key << "Gamma" << YAML::Value << environment.m_BloomSettings.m_Gamma;
 	out << YAML::Key << "Pixels blured" << YAML::Value << environment.m_BloomSettings.m_PixelsBlured;
 	out << YAML::Key << "IsEnabled" << YAML::Value << environment.m_BloomSettings.m_IsEnabled;
+	out << YAML::Key << "Gamma" << YAML::Value << environment.m_Gamma;
 	out << YAML::Key << "DepthTest" << YAML::Value << environment.m_DepthTest;
 
 	SerializeShadows(out);
@@ -722,11 +720,6 @@ void Serializer::DeserializeEnvironment(YAML::Node& in)
 	if (auto& environmentIn = in["Environment"])
 	{
 		Environment& environment = Environment::GetInstance();
-
-		if (auto& globalIntensityData = environmentIn["Global Intensity"])
-		{
-			environment.SetGlobalIntensity(globalIntensityData.as<float>());
-		}
 
 		if (auto& blurPassesData = environmentIn["Blur passes"])
 		{
@@ -745,7 +738,7 @@ void Serializer::DeserializeEnvironment(YAML::Node& in)
 
 		if (auto& GammaData = environmentIn["Gamma"])
 		{
-			environment.m_BloomSettings.m_Gamma = GammaData.as<float>();
+			environment.m_Gamma = GammaData.as<float>();
 		}
 
 		if (auto& pixelsbluredData = environmentIn["Pixels blured"])
@@ -774,16 +767,10 @@ void Serializer::SerializeShadows(YAML::Emitter& out)
 	out << YAML::Key << "Shadows";
 	out << YAML::BeginMap;
 
-	out << YAML::Key << "Bias" << YAML::Value << shadows.m_Bias;
 	out << YAML::Key << "IsEnabled" << YAML::Value << shadows.m_IsEnabled;
 	out << YAML::Key << "IsVisualized" << YAML::Value << shadows.m_IsVisualized;
-	out << YAML::Key << "Pcf" << YAML::Value << shadows.m_Pcf;
 	out << YAML::Key << "MaxPointLightShadows" << YAML::Value << shadows.m_MaxPointLightShadows;
 	out << YAML::Key << "MaxSpotLightShadows" << YAML::Value << shadows.m_MaxSpotLightShadows;
-	out << YAML::Key << "Fog" << YAML::Value << shadows.m_Fog;
-	out << YAML::Key << "Texels" << YAML::Value << shadows.m_Texels;
-	out << YAML::Key << "ZFarScale" << YAML::Value << shadows.m_ZFarScale;
-	out << YAML::Key << "CascadesDistance" << YAML::Value << shadows.m_CascadesDistance;
 
 	out << YAML::Key << "Blur";
 	out << YAML::BeginMap;
@@ -802,11 +789,6 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 
 	if (auto& shadowsIn = in["Shadows"])
 	{
-		if (auto& biasData = shadowsIn["Bias"])
-		{
-			shadows.m_Bias = biasData.as<float>();
-		}
-
 		if (auto& isEnabledData = shadowsIn["IsEnabled"])
 		{
 			shadows.m_IsEnabled = isEnabledData.as<bool>();
@@ -817,11 +799,6 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 			shadows.m_IsVisualized = isVisualizedData.as<bool>();
 		}
 
-		if (auto& pcfData = shadowsIn["Pcf"])
-		{
-			shadows.m_Pcf = pcfData.as<int>();
-		}
-
 		if (auto& maxPointLightShadowsData = shadowsIn["MaxPointLightShadows"])
 		{
 			shadows.m_MaxPointLightShadows = maxPointLightShadowsData.as<int>();
@@ -830,26 +807,6 @@ Environment::ShadowsSettings Serializer::DeserializeShadows(YAML::Node& in)
 		if (auto& maxSpotLightShadowsData = shadowsIn["MaxSpotLightShadows"])
 		{
 			shadows.m_MaxSpotLightShadows = maxSpotLightShadowsData.as<int>();
-		}
-
-		if (auto& fogData = shadowsIn["Fog"])
-		{
-			shadows.m_Fog = fogData.as<float>();
-		}
-
-		if (auto& zFarScaleData = shadowsIn["ZFarScale"])
-		{
-			shadows.m_ZFarScale = zFarScaleData.as<float>();
-		}
-
-		if (auto& texelsData = shadowsIn["Texels"])
-		{
-			shadows.m_Texels = texelsData.as<float>();
-		}
-
-		if (auto& cascadesDistanceData = shadowsIn["CascadesDistance"])
-		{
-			shadows.m_CascadesDistance = cascadesDistanceData.as<std::vector<float>>();
 		}
 
 		if (auto& blurData = shadowsIn["Blur"])
@@ -893,6 +850,7 @@ std::string Serializer::SerializeMeshMeta(Mesh::Meta meta)
 	out << YAML::Key << "Name" << YAML::Value << meta.m_Name;
 	out << YAML::Key << "FilePath" << YAML::Value << meta.m_FilePath;
 	out << YAML::Key << "CullFace" << YAML::Value << meta.m_CullFace;
+	out << YAML::Key << "ShadowCullFace" << YAML::Value << meta.m_ShadowCullFace;
 
 	out << YAML::EndMap;
 	
@@ -934,6 +892,11 @@ Mesh::Meta Serializer::DeserializeMeshMeta(const std::string& filePath)
 	if (auto& filePathData = data["FilePath"])
 	{
 		meta.m_FilePath = filePathData.as<std::string>();
+	}
+
+	if (auto& shadowCullFaceData = data["ShadowCullFace"])
+	{
+		meta.m_ShadowCullFace = shadowCullFaceData.as<int>();
 	}
 
 	if (auto& cullFaceData = data["CullFace"])
@@ -2135,6 +2098,12 @@ void Serializer::SerializeDirectionalLight(YAML::Emitter& out, ComponentManager&
 
 		out << YAML::Key << "Color" << YAML::Value << directionalLight->GetColor();
 		out << YAML::Key << "Intensity" << YAML::Value << directionalLight->GetIntensity();
+		out << YAML::Key << "Bias" << YAML::Value << directionalLight->GetBias();
+		out << YAML::Key << "Pcf" << YAML::Value << directionalLight->GetPcf();
+		out << YAML::Key << "Fog" << YAML::Value << directionalLight->GetFog();
+		out << YAML::Key << "Texels" << YAML::Value << directionalLight->GetTexels();
+		out << YAML::Key << "ZFarScale" << YAML::Value << directionalLight->GetZFarScale();
+		out << YAML::Key << "CascadesDistance" << YAML::Value << directionalLight->GetCascadesDistance();
 
 		out << YAML::EndMap;
 	}
@@ -2154,6 +2123,36 @@ void Serializer::DeSerializeDirectionalLight(YAML::Node& in, ComponentManager& c
 		if (auto& intensityData = directionalLightIn["Intensity"])
 		{
 			directionalLight->SetIntensity(intensityData.as<float>());
+		}
+
+		if (auto& biasData = directionalLightIn["Bias"])
+		{
+			directionalLight->SetBias(biasData.as<std::vector<float>>());
+		}
+
+		if (auto& pcfData = directionalLightIn["Pcf"])
+		{
+			directionalLight->SetPcf(pcfData.as<int>());
+		}
+
+		if (auto& fogData = directionalLightIn["Fog"])
+		{
+			directionalLight->SetFog(fogData.as<float>());
+		}
+
+		if (auto& zFarScaleData = directionalLightIn["ZFarScale"])
+		{
+			directionalLight->SetZFarScale(zFarScaleData.as<float>());
+		}
+
+		if (auto& texelsData = directionalLightIn["Texels"])
+		{
+			directionalLight->SetTexels(texelsData.as<float>());
+		}
+
+		if (auto& cascadesDistanceData = directionalLightIn["CascadesDistance"])
+		{
+			directionalLight->SetCascadesDistance(cascadesDistanceData.as<std::vector<float>>());
 		}
 	}
 }

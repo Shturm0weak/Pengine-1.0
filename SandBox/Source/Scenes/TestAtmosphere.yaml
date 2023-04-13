@@ -1,0 +1,180 @@
+Title: TestAtmosphere
+Environment:
+  Blur passes: 3
+  Brightness threshold: 2
+  Exposure: 0.00999999978
+  Pixels blured: 6
+  IsEnabled: true
+  Gamma: 2.20000005
+  DepthTest: true
+  Shadows:
+    IsEnabled: true
+    IsVisualized: false
+    MaxPointLightShadows: 8
+    MaxSpotLightShadows: 8
+    Blur:
+      Passes: 1
+      PixelsBlured: 6
+Camera:
+  Transform:
+    Follow owner: true
+    Position: [3.04461503, 1.2999109, -6.84148645]
+    Rotation: [-0.131720915, -3.62025905, 0]
+    Scale: [1, 1, 1]
+  Fov: 1.57079637
+  Zoom: 1
+  Zoom Sensetivity: 0.25
+  Z near: 0.100000001
+  Z far: 1000
+  Speed: 5
+  Type: 1
+GameObjects:
+  - GameObject: 41882cdc-00a0-4bbc-aa77-7a8a399ed050
+    Name: Sun
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [2.68709111, -0, 0]
+      Scale: [1, 0.999964356, 0.999996305]
+    Directional Light:
+      Color: [1, 1, 1]
+      Intensity: 2
+      Bias:
+        - 0.00100000005
+        - 0.00100000005
+        - 0.000500000024
+      Pcf: 2
+      Fog: 0.200000003
+      Texels: 1
+      ZFarScale: 0.100000001
+      CascadesDistance:
+        - 5
+        - 15
+  - GameObject: a60e8181-efa6-48e9-a28a-afdb6a549f8e
+    Name: Plane
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Plane.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, -1, -1.98553867e-08]
+      Rotation: [0, 0, 0]
+      Scale: [6.2400012, 6.23999119, 6.23999119]
+    Renderer3D:
+      Mesh: Source/Meshes/Plane.meta
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/MetalGridPatternPBR.mat
+      Lods:
+        - Source/Meshes/Plane.meta
+        - None
+        - None
+  - GameObject: 12600008992426737634
+    Name: Sphere
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: Source\Prefabs\3D/Sphere.prefab
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Renderer3D:
+      Mesh: Source/Meshes/Sphere.meta
+      IsOpaque: true
+      DrawShadows: true
+      LodsDistance:
+        - 1000
+        - 1000
+      Material: Source/Materials/GoldPBR.mat
+      Lods:
+        - Source/Meshes/Sphere.meta
+        - None
+        - None
+  - GameObject: 6370bd83-d1c4-436f-9c3f-7253ff8ea98d
+    Name: Yellow
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [-3.61464286, 2.98412371, -0.138410091]
+      Rotation: [-1.61923099, 0.0521701239, 0.821824074]
+      Scale: [0.999990344, 0.999968052, 0.999985516]
+    SpotLight:
+      Color: [1, 0.575121522, 0.0928270221]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.0320000015
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+      ShadowBias: 9.99999975e-05
+      ShadowPcf: 1
+  - GameObject: c58eacd0-72e7-43e2-8d14-6b30eea4eeac
+    Name: Blue
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [0.362837702, 3.27407336, -4.43879366]
+      Rotation: [-2.43374252, -0.0842744783, -1.09052912e-07]
+      Scale: [0.999983072, 0.999985158, 0.999995351]
+    SpotLight:
+      Color: [0, 0.658227921, 1]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.0109999999
+      InnerCutOff: 0.174532935
+      OuterCutOff: 0.314159274
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+      ShadowBias: 9.99999975e-05
+      ShadowPcf: 1
+  - GameObject: 997b02e8-faf0-4863-93fe-1c6af2823a42
+    Name: Red
+    Is Enabled: true
+    Is Selectable: true
+    Prefab File Path: ""
+    Childs:
+      []
+    Transform:
+      Follow owner: true
+      Position: [3.24030876, 3.29062915, -0.0809125975]
+      Rotation: [1.99967515, -1.42328453, 1.91485298]
+      Scale: [0.999934793, 0.999985456, 0.999911666]
+    SpotLight:
+      Color: [1, 0.0548523068, 0.0548523068]
+      Constant: 0
+      Linear: 0
+      Quadratic: 0.0270000007
+      InnerCutOff: 0.218166158
+      OuterCutOff: 0.305432618
+      ZFar: 150
+      ZNear: 0.100000001
+      Fog: 0.200000003
+      DrawShadows: true
+      ShadowBias: 9.99999975e-05
+      ShadowPcf: 1

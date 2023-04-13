@@ -27,7 +27,8 @@ project "Pengine"
 		"$(SolutionDir)Includes/LUA",
 		"$(SolutionDir)Includes",
 		"$(SolutionDir)Vendor",
-		"$(SolutionDir)Vendor/ImGui"
+		"$(SolutionDir)Vendor/ImGui",
+		"$(SolutionDir)Vendor/Assimp/include",
 	}
 
 	links {
@@ -43,7 +44,8 @@ project "Pengine"
 		"Yaml.lib",
 		"BulletDynamics.lib",
 		"BulletCollision.lib",
-		"LinearMath.lib"
+		"LinearMath.lib",
+		"assimp-vc142-mt.lib"
 	}
 
 	postbuildcommands {
@@ -73,7 +75,7 @@ project "Pengine"
 		symbols "on"
 		
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug"),
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Debug")
 		}
 
 		libdirs {"$(SolutionDir)Libs/Debug"}
@@ -85,7 +87,7 @@ project "Pengine"
 		optimize "Full"
 
 		postbuildcommands {
-			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release"),
+			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
 		}
 
 		libdirs {"$(SolutionDir)Libs/Release"}
@@ -106,7 +108,8 @@ project "SandBox"
 		"$(SolutionDir)Vendor",
 		"$(SolutionDir)Vendor/ImGui",
 		"$(SolutionDir)%{prj.name}/Source",
-		"$(SolutionDir)Pengine/Source"
+		"$(SolutionDir)Pengine/Source",
+		"$(SolutionDir)Vendor/Assimp/include"
 	}
 
 	links {
@@ -121,7 +124,8 @@ project "SandBox"
 		"Yaml.lib",
 		"BulletDynamics.lib",
 		"BulletCollision.lib",
-		"LinearMath.lib"
+		"LinearMath.lib",
+		"assimp-vc142-mt.lib"
 	}
 
 	files {
@@ -469,4 +473,54 @@ project "LinearMath"
 
 		postbuildcommands {
 			("{COPY} $(SolutionDir)bin/" .. outputdir .. "/%{prj.name}/%{prj.name}.lib $(SolutionDir)Libs/Release")
+		}
+
+
+AssimpLinkerLocation = "Vendor/AssimpLinker"
+
+project "AssimpLinker"
+	location (AssimpLinkerLocation)
+	kind "StaticLib" 
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files {
+		AssimpLinkerLocation .. "/**.h",
+		AssimpLinkerLocation .. "/**.cpp"
+	}
+
+	postbuildcommands {
+		("{COPY} $(SolutionDir)Vendor/Assimp/bin/Release/assimp-vc142-mt.dll $(SolutionDir)/bin/" .. outputdir .. "/SandBox")
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+		flags {
+			"MultiProcessorCompile",
+		}
+
+	filter "system:linux"
+		pic "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "Off"
+
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "on"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)Vendor/Assimp/lib/Release/assimp-vc142-mt.lib $(SolutionDir)Libs/Debug")
+		}
+
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "Full"
+
+		postbuildcommands {
+			("{COPY} $(SolutionDir)Vendor/Assimp/lib/Release/assimp-vc142-mt.lib $(SolutionDir)Libs/Release")
 		}

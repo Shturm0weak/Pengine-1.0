@@ -1,0 +1,8 @@
+Texture:
+  Name: rustediron2_normal
+  FilePath: Source/Images/RustPBR/rustediron2_normal.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

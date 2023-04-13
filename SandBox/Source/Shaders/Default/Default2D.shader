@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core
+#version 420 core
 
 layout(location = 0) in vec3 positionA;
 layout(location = 1) in vec2 uvA;
@@ -19,7 +19,7 @@ mat4 transform = mat4(
 	transformMat4A
 );
 
-uniform mat4 u_ViewProjectionMat4;
+#include "Source/Shaders/Default/Common/UniformObjects.incl"
 
 out vec2 uv;
 out vec4 color;
@@ -33,7 +33,7 @@ void main()
 {
 	worldPosition = transform[3].xyzw;
 	worldPixelPosition = transform * vec4(positionA, 1.0);
-	gl_Position = u_ViewProjectionMat4 * worldPixelPosition;
+	gl_Position = u_GlobalUniforms.viewProjection * worldPixelPosition;
 	uv = uvA;
 	color = colorA;
 	additionalData0 = additionalData0A;

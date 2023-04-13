@@ -577,6 +577,10 @@ bool Editor::DrawIVec4Control(const std::string& label, glm::ivec4& values, floa
 
 void Editor::DrawNode(GameObject* gameObject, ImGuiTreeNodeFlags flags)
 {
+	if (!gameObject->m_IsEditorVisible)
+	{
+		return;
+	}
 	flags |= gameObject->GetChilds().size() == 0 ? ImGuiTreeNodeFlags_Leaf : 0;
 
 	ImGui::Indent();
@@ -855,7 +859,7 @@ void Editor::AssetBrowser()
 						}
 					}
 				}
-				else if (fileType == "obj")
+				else if (fileType == "obj" || fileType == "fbx" || fileType == "dae")
 				{
 					if (ImGui::MenuItem("Generate all mesh meta"))
 					{
@@ -1042,108 +1046,102 @@ void Editor::Environment()
 			Window::GetInstance().SetVSyncEnabled(Window::GetInstance().m_VSync);
 		}
 
-		if (ImGui::Checkbox("Depth Test", &Environment::GetInstance().m_DepthTest))
+		if (ImGui::Checkbox("Depth Test", &environment.m_DepthTest))
 		{
 			environment.SetDepthTest(environment.m_DepthTest);
 		}
 
-		if (ImGui::CollapsingHeader("SSAO"))
-		{
-			ImGui::Checkbox("Is Enabled", &Environment::GetInstance().m_SSAO.m_IsEnabled);
-			ImGui::SliderFloat("Radius", &Environment::GetInstance().m_SSAO.m_Radius, 0.0f, 5.0f);
-			ImGui::SliderFloat("Bias", &Environment::GetInstance().m_SSAO.m_Bias, 0.0f, 0.1f);
-			if (ImGui::SliderInt("Kernel Size", &Environment::GetInstance().m_SSAO.m_KernelSize, 2, 64))
-			{
-				Renderer::GetInstance().GenerateSSAOKernel();
-			}
-
-			if (ImGui::SliderInt("Noise Size", &Environment::GetInstance().m_SSAO.m_NoiseTextureDimension, 4, 64))
-			{
-				Renderer::GetInstance().GenerateSSAONoiseTexture();
-			}
-
-			ImGui::PushID("SSAOBlurSettings");
-
-			if (ImGui::CollapsingHeader("Blur"))
-			{
-				ImGui::SliderInt("Pixels Blured", &environment.m_SSAO.m_Blur.m_PixelsBlured, 1, 6);
-				ImGui::SliderInt("Passes", &environment.m_SSAO.m_Blur.m_BlurPasses, 1, 10);
-			}
-
-			ImGui::PopID();
-		}
-
-		ImGui::SliderFloat("Intensity", &environment.m_GlobalIntensity, 0.0f, 10.0f);
-		
 		const char* windowModes[] = { "Windowed", "Fullscreen" };
 		if (ImGui::Combo("Window mode", &m_SelectedWindowMode, windowModes, 2))
 		{
 			Window::GetInstance().SetWindowMode((Window::WindowMode)m_SelectedWindowMode);
 		}
 
-		if (ImGui::CollapsingHeader("Bloom"))
+		if (ImGui::CollapsingHeader("Post processing"))
 		{
-			ImGui::Checkbox("Is Enabled", &environment.m_BloomSettings.m_IsEnabled);
-			ImGui::SliderFloat("Threshold", &environment.m_BloomSettings.m_BrightnessThreshold, 0.0f, 2.0f);
-			ImGui::SliderFloat("Gamma", &environment.m_BloomSettings.m_Gamma, 0.0f, 5.0);
-			ImGui::SliderFloat("Exposure", &environment.m_BloomSettings.m_Exposure, 0.0f, 5.0);
-			ImGui::SliderInt("Pixels", &environment.m_BloomSettings.m_PixelsBlured, 1, 6);
-			ImGui::SliderInt("Blur passes", &environment.m_BloomSettings.m_BlurPasses, 3, 20);
+			Indent indent;
+
+			ImGui::SliderFloat("Gamma", &environment.m_Gamma, 0.0f, 5.0);
+
+			ImGui::PushID("SSAO settings");
+
+			if (ImGui::CollapsingHeader("SSAO"))
+			{
+				Indent indent;
+
+				ImGui::Checkbox("Is Enabled", &environment.m_SSAO.m_IsEnabled);
+				ImGui::SliderFloat("Radius", &environment.m_SSAO.m_Radius, 0.0f, 5.0f);
+				ImGui::SliderFloat("Bias", &environment.m_SSAO.m_Bias, 0.0f, 0.1f);
+				if (ImGui::SliderInt("Kernel Size", &environment.m_SSAO.m_KernelSize, 2, 64))
+				{
+					Renderer::GetInstance().GenerateSSAOKernel();
+				}
+
+				if (ImGui::SliderInt("Noise Size", &environment.m_SSAO.m_NoiseTextureDimension, 4, 64))
+				{
+					Renderer::GetInstance().GenerateSSAONoiseTexture();
+				}
+
+				if (ImGui::CollapsingHeader("Blur"))
+				{
+					Indent indent;
+
+					ImGui::SliderInt("Pixels Blured", &environment.m_SSAO.m_Blur.m_PixelsBlured, 1, 6);
+					ImGui::SliderInt("Passes", &environment.m_SSAO.m_Blur.m_BlurPasses, 1, 10);
+				}
+			}
+
+			ImGui::PopID();
+
+			ImGui::PushID("Bloom settings");
+
+			if (ImGui::CollapsingHeader("Bloom"))
+			{
+				Indent indent;
+
+				ImGui::Checkbox("Is Enabled", &environment.m_BloomSettings.m_IsEnabled);
+				ImGui::SliderFloat("Threshold", &environment.m_BloomSettings.m_BrightnessThreshold, 0.0f, 2.0f);
+				ImGui::SliderFloat("Exposure", &environment.m_BloomSettings.m_Exposure, 0.0f, 5.0);
+				if (ImGui::CollapsingHeader("Blur"))
+				{
+					Indent indent;
+
+					ImGui::SliderInt("Pixels", &environment.m_BloomSettings.m_PixelsBlured, 1, 6);
+					ImGui::SliderInt("Blur passes", &environment.m_BloomSettings.m_BlurPasses, 3, 20);
+				}
+			}
+
+			ImGui::PopID();
 		}
+
+		ImGui::PushID("Shadows settings");
 
 		if (ImGui::CollapsingHeader("Shadows"))
 		{
-			ImGui::PushID("ShadowsSettings");
+			Indent indent;
+
 			ImGui::Checkbox("Is Enabled", &environment.m_ShadowsSettings.m_IsEnabled);
 			ImGui::Checkbox("Is Visualized", &environment.m_ShadowsSettings.m_IsVisualized);
 			ImGui::SliderInt("Max Point Light Shadows", &environment.m_ShadowsSettings.m_MaxPointLightShadows, 1, Renderer::GetInstance().m_PointLights.m_MaxShadowsSize);
 			ImGui::SliderInt("Max Spot Light Shadows", &environment.m_ShadowsSettings.m_MaxSpotLightShadows, 1, Renderer::GetInstance().m_SpotLights.m_MaxShadowsSize);
-			ImGui::SliderFloat("Bias", &environment.m_ShadowsSettings.m_Bias, 0.001f, 0.005f);
-			ImGui::SliderInt("Pcf", &environment.m_ShadowsSettings.m_Pcf, 0, 10);
-			ImGui::SliderFloat("Fog", &environment.m_ShadowsSettings.m_Fog, 0.0f, 1.0f);
-			ImGui::SliderFloat("Texel size", &environment.m_ShadowsSettings.m_Texels, 0.0f, 2.0f);
-			ImGui::SliderFloat("Z far scale", &environment.m_ShadowsSettings.m_ZFarScale, 0.0f, 2.0f);
-
-			for (size_t i = 0; i < environment.m_ShadowsSettings.m_CascadesDistance.size(); ++i)
-			{
-				if (i == 0)
-				{
-					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i], 
-						environment.GetMainCamera()->GetZNear(),
-						environment.m_ShadowsSettings.m_CascadesDistance[i + 1]);
-				}
-				else if (i < environment.m_ShadowsSettings.m_CascadesDistance.size() + 1)
-				{
-					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i],
-						environment.m_ShadowsSettings.m_CascadesDistance[i - 1],
-						environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
-				}
-				else if (i < environment.m_ShadowsSettings.m_CascadesDistance.size())
-				{
-					ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &environment.m_ShadowsSettings.m_CascadesDistance[i],
-						environment.m_ShadowsSettings.m_CascadesDistance[i - 1],
-						environment.m_ShadowsSettings.m_CascadesDistance[i + 1]);
-				}
-			}
-
-			ImGui::Text(std::string("Cascade " + std::to_string(environment.m_ShadowsSettings.m_CascadesDistance.size() + 1) + " : %f").c_str(),
-				environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
-
-			ImGui::PopID();
-
-			ImGui::PushID("ShadowBlurSettings");
 
 			if(ImGui::CollapsingHeader("Blur"))
 			{
+				Indent indent;
+
 				ImGui::SliderInt("Pixels Blured", &environment.m_ShadowsSettings.m_Blur.m_PixelsBlured, 1, 6);
 				ImGui::SliderInt("Passes", &environment.m_ShadowsSettings.m_Blur.m_BlurPasses, 1, 10);
 			}
-
-			ImGui::PopID();
 		}
+
+		ImGui::PopID();
+
+		ImGui::PushID("Main camera settings");
 
 		if (ImGui::CollapsingHeader("Main camera"))
 		{
+			Indent indent;
+
 			std::shared_ptr<Camera> camera = environment.GetMainCamera();
 
 			m_SelectedCameraType = (int)camera->GetType();
@@ -1170,6 +1168,9 @@ void Editor::Environment()
 
 			TransformComponent(camera->m_Transform);
 		}
+
+		ImGui::PopID();
+
 		ImGui::End();
 	}
 }
@@ -1852,6 +1853,69 @@ void Editor::DirectionalLightComponent(GameObject* gameObject)
 				{
 					directionalLight->SetColor(color);
 				}
+
+				std::vector<float> bias = directionalLight->GetBias();
+				for (size_t i = 0; i < bias.size(); i++)
+				{
+					if (ImGui::SliderFloat(std::string("Bias" + std::to_string(i)).c_str(), &bias[i], 0.001f, 0.005f, "%.4f"))
+					{
+						directionalLight->SetBias(bias);
+					}
+				}
+
+				int pcf = directionalLight->GetPcf();
+				if (ImGui::SliderInt("Pcf", &pcf, 0, 10))
+				{
+					directionalLight->SetPcf(pcf);
+				}
+
+				float fog = directionalLight->GetFog();
+				if (ImGui::SliderFloat("Fog", &fog, 0.0f, 1.0f))
+				{
+					directionalLight->SetFog(fog);
+				}
+
+				float texelSize = directionalLight->GetTexels();
+				if (ImGui::SliderFloat("Texel size", &texelSize, 0.0f, 2.0f))
+				{
+					directionalLight->SetTexels(texelSize);
+				}
+
+				float zFarScale = directionalLight->GetZFarScale();
+				if (ImGui::SliderFloat("Z far scale", &zFarScale, 0.0f, 2.0f))
+				{
+					directionalLight->SetZFarScale(zFarScale);
+				}
+
+				const float zNear = Environment::GetInstance().GetMainCamera()->GetZNear();
+				const float zFar = Environment::GetInstance().GetMainCamera()->GetZFar();
+				std::vector<float> cascadesDistance = directionalLight->GetCascadesDistance();
+				for (size_t i = 0; i < cascadesDistance.size(); ++i)
+				{
+					if (i == 0)
+					{
+						ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &cascadesDistance[i],
+							zNear,
+							cascadesDistance[i + 1]);
+					}
+					else if (i < cascadesDistance.size() + 1)
+					{
+						ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &cascadesDistance[i],
+							cascadesDistance[i - 1],
+							zFar * directionalLight->GetZFarScale());
+					}
+					else if (i < cascadesDistance.size())
+					{
+						ImGui::SliderFloat(std::string("Cascade " + std::to_string(i)).c_str(), &cascadesDistance[i],
+							cascadesDistance[i - 1],
+							cascadesDistance[i + 1]);
+					}
+				}
+
+				directionalLight->SetCascadesDistance(cascadesDistance);
+
+				ImGui::Text(std::string("Cascade " + std::to_string(cascadesDistance.size() + 1) + " : %f").c_str(),
+					zFar * directionalLight->GetZFarScale());
 			}
 		}
 	}
@@ -1859,6 +1923,8 @@ void Editor::DirectionalLightComponent(GameObject* gameObject)
 
 void Editor::Renderer3DComponent(GameObject* gameObject)
 {
+	size_t imageOffset = 1000;
+
 	Renderer3D* r3d = gameObject->m_ComponentManager.GetComponent<Renderer3D>();
 	if (r3d)
 	{
@@ -1904,10 +1970,29 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 							ImGui::Text("Min: %f %f %f", mesh->m_BoundingBox.m_Min.x, mesh->m_BoundingBox.m_Min.y, mesh->m_BoundingBox.m_Min.z);
 							ImGui::Text("Max: %f %f %f", mesh->m_BoundingBox.m_Max.x, mesh->m_BoundingBox.m_Max.y, mesh->m_BoundingBox.m_Max.z);
 
-							if (ImGui::Checkbox("CullFace", &mesh->m_CullFace))
+							if (ImGui::Checkbox("Cull Face", &mesh->m_CullFace))
 							{
 								Mesh::Meta meta = Serializer::DeserializeMeshMeta(mesh->GetFilePath());
 								meta.m_CullFace = mesh->m_CullFace;
+								Serializer::SerializeMeshMeta(meta);
+							}
+
+							int cullFaceModesIndices[3] = { GL_FRONT, GL_BACK, GL_FRONT_AND_BACK };
+							int selectedCullFace = -1;
+							for (size_t i = 0; i < 3; i++)
+							{
+								if (cullFaceModesIndices[i] == mesh->m_ShadowCullFace)
+								{
+									selectedCullFace = i;
+								}
+							}
+
+							const char* cullFaceModes[] = { "Front", "Back", "None" };
+							if (ImGui::Combo("Cull Face Mode", &selectedCullFace, cullFaceModes, 3))
+							{
+								Mesh::Meta meta = Serializer::DeserializeMeshMeta(mesh->GetFilePath());
+								meta.m_ShadowCullFace = cullFaceModesIndices[selectedCullFace];
+								mesh->m_ShadowCullFace = cullFaceModesIndices[selectedCullFace];
 								Serializer::SerializeMeshMeta(meta);
 							}
 						}
@@ -1974,7 +2059,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					ImGui::SameLine();
 
-					ImGui::PushID(r3d->m_Material->m_BaseColor->GetRendererID() + 100000);
+					ImGui::PushID(imageOffset++);
 
 					if (ImGui::Button("Reset"))
 					{
@@ -2007,7 +2092,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					ImGui::SameLine();
 
-					ImGui::PushID(r3d->m_Material->m_NormalMap->GetRendererID() + 100001);
+					ImGui::PushID(imageOffset++);
 
 					ImGui::Checkbox("Use", &r3d->m_Material->m_UseNormalMap);
 
@@ -2020,10 +2105,163 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 					ImGui::PopID();
 
-					ImGui::ColorEdit3("Ambient", &r3d->m_Material->m_Ambient[0], ImGuiColorEditFlags_Float);
-					ImGui::SliderFloat("Scale", &r3d->m_Material->m_Scale, 0.0f, 15.0f);
-					ImGui::SliderFloat("Solid", &r3d->m_Material->m_Solid, 0.0f, 1.0f);
-					ImGui::SliderFloat("Shiness", &r3d->m_Material->m_Shiness, 0.0f, 128.0f);
+					ImGui::ColorEdit3("Albedo", &r3d->m_Material->m_Albedo[0], ImGuiColorEditFlags_Float);
+					ImGui::SliderFloat4("Uv Transform", &r3d->m_Material->m_UvTransform[0], 0.0f, 1.0f);
+					ImGui::SliderFloat("Intensity", &r3d->m_Material->m_Intensity, 0.0f, 15.0f);
+					ImGui::SliderFloat("Alpha", &r3d->m_Material->m_Alpha, 0.0f, 1.0f);
+
+					if (r3d->m_Material->m_UseMetallicMap)
+					{
+						if (ImGui::ImageButton((ImTextureID)r3d->m_Material->m_MetallicMap->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+						{
+							m_TextureMenu.m_IsActive = true;
+							m_TextureMenu.m_Texture = r3d->m_Material->m_MetallicMap;
+						}
+
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+							{
+								std::string path((const char*)payload->Data);
+								path.resize(payload->DataSize);
+
+								TextureManager::GetInstance().AsyncLoad(path,
+									[=](Texture* texture)
+									{
+										r3d->m_Material->m_MetallicMap = texture;
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+
+						ImGui::SameLine();
+
+						ImGui::PushID(imageOffset++);
+
+						if (ImGui::Button("Reset"))
+						{
+							r3d->m_Material->m_MetallicMap = TextureManager::GetInstance().White();
+						}
+
+						ImGui::SameLine();
+
+						if (ImGui::Button("Switch"))
+						{
+							r3d->m_Material->m_UseMetallicMap = !r3d->m_Material->m_UseMetallicMap;
+						}
+
+						ImGui::PopID();
+					}
+					else
+					{
+						ImGui::SliderFloat("Metallic", &r3d->m_Material->m_Metallic, 0.0f, 1.0f);
+
+						ImGui::SameLine();
+
+						ImGui::PushID(imageOffset++);
+
+						if (ImGui::Button("Switch"))
+						{
+							r3d->m_Material->m_UseMetallicMap = !r3d->m_Material->m_UseMetallicMap;
+						}
+
+						ImGui::PopID();
+					}
+					
+					if (r3d->m_Material->m_UseRoughnessMap)
+					{
+						if (ImGui::ImageButton((ImTextureID)r3d->m_Material->m_RoughnessMap->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+						{
+							m_TextureMenu.m_IsActive = true;
+							m_TextureMenu.m_Texture = r3d->m_Material->m_RoughnessMap;
+						}
+
+						if (ImGui::BeginDragDropTarget())
+						{
+							if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+							{
+								std::string path((const char*)payload->Data);
+								path.resize(payload->DataSize);
+
+								TextureManager::GetInstance().AsyncLoad(path,
+									[=](Texture* texture)
+									{
+										r3d->m_Material->m_RoughnessMap = texture;
+									});
+							}
+							ImGui::EndDragDropTarget();
+						}
+
+						ImGui::SameLine();
+
+						ImGui::PushID(imageOffset++);
+
+						if (ImGui::Button("Reset"))
+						{
+							r3d->m_Material->m_RoughnessMap = TextureManager::GetInstance().White();
+						}
+
+						ImGui::PopID();
+
+						ImGui::SameLine();
+
+						ImGui::PushID(imageOffset++);
+
+						if (ImGui::Button("Switch"))
+						{
+							r3d->m_Material->m_UseRoughnessMap = !r3d->m_Material->m_UseRoughnessMap;
+						}
+
+						ImGui::PopID();
+					}
+					else
+					{
+						ImGui::SliderFloat("Roughness", &r3d->m_Material->m_Roughness, 0.0f, 1.0f);
+
+						ImGui::SameLine();
+
+						ImGui::PushID(imageOffset++);
+
+						if (ImGui::Button("Switch"))
+						{
+							r3d->m_Material->m_UseRoughnessMap = !r3d->m_Material->m_UseRoughnessMap;
+						}
+
+						ImGui::PopID();
+					}
+
+					if (ImGui::ImageButton((ImTextureID)r3d->m_Material->m_AoMap->GetRendererID(), { 64.0f, 64.0f }, ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f)))
+					{
+						m_TextureMenu.m_IsActive = true;
+						m_TextureMenu.m_Texture = r3d->m_Material->m_AoMap;
+					}
+
+					if (ImGui::BeginDragDropTarget())
+					{
+						if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("ASSETS_BROWSER_ITEM"))
+						{
+							std::string path((const char*)payload->Data);
+							path.resize(payload->DataSize);
+
+							TextureManager::GetInstance().AsyncLoad(path,
+								[=](Texture* texture)
+								{
+									r3d->m_Material->m_AoMap = texture;
+								});
+						}
+						ImGui::EndDragDropTarget();
+					}
+
+					ImGui::SameLine();
+
+					ImGui::PushID(imageOffset++);
+
+					if (ImGui::Button("Reset"))
+					{
+						r3d->m_Material->m_AoMap = TextureManager::GetInstance().White();
+					}
+
+					ImGui::PopID();
 
 					for (auto& [name, value] : r3d->m_Material->m_BaseMaterial->m_FloatUniformsByName)
 					{
@@ -2084,7 +2322,7 @@ void Editor::Renderer3DComponent(GameObject* gameObject)
 
 						ImGui::SameLine();
 
-						ImGui::PushID(value->GetRendererID() + 100000);
+						ImGui::PushID(value->GetRendererID() + imageOffset++);
 
 						if (ImGui::Button("Reset"))
 						{
@@ -2628,6 +2866,7 @@ void Editor::TextureMenu()
 				TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
 				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 0, 1 });
 				TextureManager::GetInstance().ResetTexParametersi();
+				Serializer::SerializeTextureMeta(m_TextureMenu.m_Texture->m_Meta);
 			}
 			if (ImGui::Button("Repeat"))
 			{
@@ -2636,6 +2875,7 @@ void Editor::TextureMenu()
 				TextureManager::GetInstance().m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT };
 				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 2, 3 });
 				TextureManager::GetInstance().ResetTexParametersi();
+				Serializer::SerializeTextureMeta(m_TextureMenu.m_Texture->m_Meta);
 			}
 			if (ImGui::Button("Clamp"))
 			{
@@ -2644,9 +2884,6 @@ void Editor::TextureMenu()
 				TextureManager::GetInstance().m_TexParameters[3] = { GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE };
 				m_TextureMenu.m_Texture->Reload(TextureManager::GetInstance().m_TexParameters, { 2, 3 });
 				TextureManager::GetInstance().ResetTexParametersi();
-			}
-			if (ImGui::Button("Save"))
-			{
 				Serializer::SerializeTextureMeta(m_TextureMenu.m_Texture->m_Meta);
 			}
 		}
@@ -3044,6 +3281,15 @@ void Editor::ShortCuts()
 					m_SelectedGameObjects.clear();
 					m_SelectedGameObjects.emplace_back(gameObject->GetUUID());
 				}
+			}
+		}
+
+		if (Input::KeyBoard::IsKeyPressed(Keycode::KEY_A) && Viewport::GetInstance().IsFocused())
+		{
+			m_SelectedGameObjects.clear();
+			for (GameObject* gameObject : m_CurrentScene->GetGameObjects())
+			{
+				m_SelectedGameObjects.emplace_back(gameObject->GetUUID());
 			}
 		}
 	}

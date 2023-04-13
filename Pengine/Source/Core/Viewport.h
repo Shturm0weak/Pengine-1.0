@@ -33,6 +33,8 @@ namespace Pengine
 
 		void SetPosition(const glm::ivec2 position);
 		
+		void Manipulate();
+
 		void Initialize();
 
 		Viewport() = default;

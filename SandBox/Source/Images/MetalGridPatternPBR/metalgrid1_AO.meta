@@ -1,0 +1,8 @@
+Texture:
+  Name: metalgrid1_AO
+  FilePath: Source/Images/MetalGridPatternPBR/metalgrid1_AO.png
+  Params:
+    - 9729
+    - 9729
+    - 10497
+    - 10497

@@ -1,0 +1,4 @@
+Mesh:
+  Name: Soldier_body-mesh
+  FilePath: Source/Meshes/Anim/Test.dae
+  CullFace: true

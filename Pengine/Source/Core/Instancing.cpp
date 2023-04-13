@@ -202,7 +202,6 @@ void Instancing::RenderGBuffer(const std::unordered_map<BaseMaterial*, Scene::Re
 	{
 		Shader* shader = material->m_Shader->GetPass() == Shader::Pass::DEFERRED ? material->m_Shader : Shader::Get("InstancingGBuffer");;
 		shader->Bind();
-		shader->SetGlobalUniforms();
 
 		for (const auto& [name, value] : material->m_FloatUniformsByName)
 		{
@@ -251,6 +250,9 @@ void Instancing::RenderGBuffer(const std::unordered_map<BaseMaterial*, Scene::Re
 			{
 				r3d->m_Material->m_BaseColorIndex = material->BindTexture(r3d->m_Material->m_BaseColor->GetRendererID());
 				r3d->m_Material->m_NormalMapIndex = material->BindTexture(r3d->m_Material->m_NormalMap->GetRendererID());
+				r3d->m_Material->m_MetallicIndex = material->BindTexture(r3d->m_Material->m_MetallicMap->GetRendererID());
+				r3d->m_Material->m_RoughnessIndex = material->BindTexture(r3d->m_Material->m_RoughnessMap->GetRendererID());
+				r3d->m_Material->m_AoIndex = material->BindTexture(r3d->m_Material->m_AoMap->GetRendererID());
 			}
 
 			std::vector<int> samplers = material->BindTextures();
@@ -287,6 +289,7 @@ void Instancing::RenderGBuffer(const std::unordered_map<BaseMaterial*, Scene::Re
 			if (mesh->m_CullFace)
 			{
 				glEnable(GL_CULL_FACE);
+				glEnable(GL_BACK);
 			}
 			else
 			{
@@ -338,8 +341,19 @@ void Instancing::RenderShadowsObjects(const std::unordered_map<Mesh*, std::vecto
 		mesh->m_Va.Bind();
 		mesh->m_Ib.Bind();
 		mesh->m_Vb.Bind();
-
-		glDrawElementsInstanced(GL_TRIANGLES, mesh->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, r3ds.size());
+		
+		if (mesh->m_ShadowCullFace == GL_FRONT_AND_BACK)
+		{
+			glDisable(GL_CULL_FACE);
+			glDrawElementsInstanced(GL_TRIANGLES, mesh->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, r3ds.size());
+		}
+		else
+		{
+			glEnable(GL_CULL_FACE);
+			glCullFace(mesh->m_ShadowCullFace);
+			glDrawElementsInstanced(GL_TRIANGLES, mesh->m_Ib.GetCount(), GL_UNSIGNED_INT, 0, r3ds.size());
+			glCullFace(GL_BACK);
+		}
 	}
 }
 

@@ -49,16 +49,135 @@ void Viewport::SetPosition(const glm::ivec2 position)
 	m_Position = position + glm::ivec2(0, 22);
 }
 
+void Viewport::Manipulate()
+{
+	Editor& editor = Editor::GetInstance();
+	std::vector<std::string> gameObjectsUUID = editor.GetSelectedGameObjects();
+
+	if (gameObjectsUUID.empty())
+	{
+		return;
+	}
+
+	std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
+
+	m_IsActiveGuizmo = false;
+	//Need to fix Rotation doesn't change orientation of gizmos
+
+	glm::vec3 averagePosition = { 0.0f, 0.0f, 0.0f };
+	glm::vec3 averageScale = { 0.0f, 0.0f, 0.0f };
+	glm::vec3 averageRotation = { 0.0f, 0.0f, 0.0f };
+
+	for (const std::string& gameObjectUUID : gameObjectsUUID)
+	{
+		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+		{
+			averagePosition += gameObject->m_Transform.GetPosition();
+			averageRotation += gameObject->m_Transform.GetRotation();
+			averageScale += gameObject->m_Transform.GetScale();
+		}
+	}
+
+	averagePosition /= gameObjectsUUID.size();
+	averageRotation /= gameObjectsUUID.size();
+	averageScale /= gameObjectsUUID.size();
+
+	Transform helper;
+	helper.Translate(averagePosition);
+	helper.Rotate(averageRotation);
+	helper.Scale(averageScale);
+
+	std::unordered_multimap<GameObject*, GameObject*> m_OwnersByChilds;
+	std::vector<GameObject*> removeChilds;
+	for (const std::string& gameObjectUUID : gameObjectsUUID)
+	{
+		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
+		{
+			GameObject* owner = gameObject->GetOwner();
+			bool hasOwner = false;
+			while (owner != nullptr)
+			{
+				if (Utils::IsThere(gameObjectsUUID, owner->GetUUID()))
+				{
+					hasOwner = true;
+				}
+
+				owner = owner->GetOwner();
+			}
+
+			if (!hasOwner)
+			{
+				m_OwnersByChilds.emplace(gameObject, gameObject->GetOwner());
+				if (gameObject->HasOwner())
+				{
+					gameObject->GetOwner()->RemoveChild(gameObject);
+				}
+
+				helper.AddChild(&gameObject->m_Transform);
+				removeChilds.emplace_back(gameObject);
+			}
+		}
+	}
+
+	ImGuizmo::SetOrthographic(!(bool)camera->GetType());
+	ImGuizmo::SetDrawlist();
+
+	float windowWidth = (float)ImGui::GetWindowWidth();
+	float windowHeight = (float)ImGui::GetWindowHeight();
+	ImGuizmo::SetRect(m_Position.x, m_Position.y, windowWidth, windowHeight);
+
+	glm::mat4 projectionMat4 = camera->GetProjectionMat4();
+	glm::mat4 viewMat4 = camera->GetViewMat4();
+	glm::mat4 transformMat4 = helper.GetTransform();
+	ImGuizmo::Manipulate(glm::value_ptr(viewMat4), glm::value_ptr(projectionMat4),
+		(ImGuizmo::OPERATION)m_GizmoOperation, ImGuizmo::LOCAL, glm::value_ptr(transformMat4));
+
+	if (ImGuizmo::IsUsing())
+	{
+		transformMat4 = glm::inverse(helper.GetTransform() * glm::inverse(helper.GetTransform(Transform::System::LOCAL))) * transformMat4;
+		m_IsActiveGuizmo = true;
+		glm::vec3 position, rotation, scale;
+		Utils::DecomposeTransform(transformMat4, position, rotation, scale);
+		if (camera->GetType() == Camera::CameraType::ORTHOGRAPHIC)
+		{
+			position.z = 0.0f;
+		}
+
+		glm::vec3 newPosition = position;
+		if (editor.m_Snap)
+		{
+			newPosition = glm::round(newPosition);
+		}
+
+		helper.Translate(position);
+		helper.Rotate(rotation);
+		helper.Scale(scale);
+	}
+
+	for (GameObject* removeChild : removeChilds)
+	{
+		helper.RemoveChild(&removeChild->m_Transform);
+	}
+
+	for (auto& [child, owner] : m_OwnersByChilds)
+	{
+		if (owner)
+		{
+			owner->AddChild(child);
+		}
+	}
+}
+
 void Viewport::Initialize()
 {
     glm::ivec2 size = Window::GetInstance().GetSize();
-    FrameBuffer::FrameBufferParams params = { size, GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
+    FrameBuffer::FrameBufferParams params = { GL_COLOR_ATTACHMENT0, GL_RGB, GL_RGB,
 		GL_UNSIGNED_BYTE };
 
 	TextureManager::GetInstance().m_TexParameters[0] = { GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR };
 	TextureManager::GetInstance().m_TexParameters[1] = { GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR };
 
-	m_FrameBufferViewport = new FrameBuffer({ params }, TextureManager::GetInstance().GetTexParamertersi());
+	m_FrameBufferViewport = new FrameBuffer(size, { params }, TextureManager::GetInstance().GetTexParamertersi());
 
 	TextureManager::GetInstance().ResetTexParametersi();
 
@@ -119,6 +238,13 @@ void Viewport::Update()
 	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 	ImGui::Begin("Normal", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
 	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferG->m_Textures[2]);
+	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
+	ImGui::PopStyleVar();
+	ImGui::End();
+
+	ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+	ImGui::Begin("Shading", nullptr, ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse);
+	texture = reinterpret_cast<void*>(Renderer::GetInstance().m_FrameBufferG->m_Textures[3]);
 	ImGui::Image(texture, ImVec2(m_Size.x, m_Size.y), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f));
 	ImGui::PopStyleVar();
 	ImGui::End();
@@ -209,7 +335,7 @@ void Viewport::Update()
 				};
 				EventSystem::GetInstance().SendEvent(new OnMainThreadCallback(callback, EventType::ONMAINTHREADPROCESS));
 			}
-			else if (format == "obj")
+			else if (format == "obj" || format == "fbx")
 			{
 				MeshManager::GetInstance().LoadAsyncToViewport(path);
 			}
@@ -247,88 +373,7 @@ void Viewport::Update()
 	m_UIMousePosition *= Gui::GetInstance().m_RelativeHeight * 0.5f;
 	m_UIMousePosition.x *= camera->GetAspect();
 
-	m_IsActiveGuizmo = false;
-	//Need to fix Rotation doesn't change orientation of gizmos
-
-	//glm::vec3 averagePosition = { 0.0f, 0.0f, 0.0f };
-	//glm::vec3 averageScale = { 0.0f, 0.0f, 0.0f };
-	//glm::vec3 averageRotation = { 0.0f, 0.0f, 0.0f };
-
-	//struct TransformParams
-	//{
-	//	glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
-	//	glm::vec3 m_Rotation = { 0.0f, 0.0f, 0.0f };
-	//	glm::vec3 m_Scale = { 0.0f, 0.0f, 0.0f };
-	//};
-
-	//std::vector<TransformParams> transformParamsDiff;
-
-	Editor& editor = Editor::GetInstance();
-	std::vector<std::string> gameObjectsUUID = editor.GetSelectedGameObjects();
-
-	/*for (const std::string& gameObjectUUID : gameObjectsUUID)
-	{
-		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectUUID))
-		{
-			averagePosition += gameObject->m_Transform.GetPosition();
-			averageRotation += gameObject->m_Transform.GetRotation();
-			averageScale += gameObject->m_Transform.GetScale();
-		}
-	}
-
-	averagePosition /= gameObjectsUUID.size();
-	averageRotation /= gameObjectsUUID.size();
-	averageScale /= gameObjectsUUID.size();
-
-	transformParamsDiff.resize(gameObjectsUUID.size());
-	for (size_t i = 0; i < transformParamsDiff.size(); i++)
-	{
-		if (GameObject* gameObject = editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[i]))
-		{
-			transformParamsDiff[i].m_Position = gameObject->m_Transform.GetPosition() - averagePosition;
-			transformParamsDiff[i].m_Rotation = gameObject->m_Transform.GetRotation() - averageRotation;
-			transformParamsDiff[i].m_Scale = gameObject->m_Transform.GetScale() - averageScale;
-		}
-	}*/
-
-	if (GameObject* go = gameObjectsUUID.size() > 0 ? editor.m_CurrentScene->FindGameObjectByUUID(gameObjectsUUID[0]) : nullptr)
-	{
-		ImGuizmo::SetOrthographic(!(bool)camera->GetType());
-		ImGuizmo::SetDrawlist();
-
-		float windowWidth = (float)ImGui::GetWindowWidth();
-		float windowHeight = (float)ImGui::GetWindowHeight();
-		ImGuizmo::SetRect(m_Position.x, m_Position.y, windowWidth, windowHeight);
-
-		glm::mat4 projectionMat4 = camera->GetProjectionMat4();
-		glm::mat4 viewMat4 = camera->GetViewMat4();
-		glm::mat4 transformMat4 = go->m_Transform.GetTransform();
-		ImGuizmo::Manipulate(glm::value_ptr(viewMat4), glm::value_ptr(projectionMat4),
-			(ImGuizmo::OPERATION)m_GizmoOperation, ImGuizmo::LOCAL, glm::value_ptr(transformMat4));
-
-		if (ImGuizmo::IsUsing())
-		{
-			transformMat4 = glm::inverse(go->m_Transform.GetTransform() * glm::inverse(go->m_Transform.GetTransform(Transform::System::LOCAL))) * transformMat4;
-
-			m_IsActiveGuizmo = true;
-			glm::vec3 position, rotation, scale;
-			Utils::DecomposeTransform(transformMat4, position, rotation, scale);
-			if (camera->GetType() == Camera::CameraType::ORTHOGRAPHIC)
-			{
-				position.z = 0.0f;
-			}
-
-			glm::vec3 newPosition = position;
-			if (editor.m_Snap)
-			{
-				newPosition = glm::round(newPosition);
-			}
-
-			go->m_Transform.Translate(newPosition);
-			go->m_Transform.Rotate(rotation);
-			go->m_Transform.Scale(scale);
-		}
-	}
+	Manipulate();
 
 	m_IsClamped = false;
 
@@ -351,13 +396,14 @@ void Viewport::Resize(const glm::ivec2& size)
 
     m_FrameBufferViewport->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferScene->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferSkyBox->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferG->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferGDownSampled->Resize(m_Size / 2);
 	Renderer::GetInstance().m_FrameBufferShadows->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferUI->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferBloom->Resize(m_Size);
 	Renderer::GetInstance().m_FrameBufferOutline->Resize(m_Size);
-	Renderer::GetInstance().m_FrameBufferSSAO->Resize(m_Size);
+	Renderer::GetInstance().m_FrameBufferSSAO->Resize(m_Size / 2);
 
     std::shared_ptr<Camera> camera = Environment::GetInstance().GetMainCamera();
     camera->SetSize(m_Size);
@@ -379,7 +425,7 @@ void Viewport::Resize(const glm::ivec2& size)
 
 	for (size_t i = 0; i < Renderer::GetInstance().m_FrameBufferSSAOBlur.size(); i++)
 	{
-		Renderer::GetInstance().m_FrameBufferSSAOBlur[i]->Resize(m_Size);
+		Renderer::GetInstance().m_FrameBufferSSAOBlur[i]->Resize(m_Size / 2);
 	}
 }
 

@@ -316,6 +316,34 @@ void Transform::operator=(Transform&& transform) noexcept
 	Move(std::move(transform));
 }
 
+void Transform::AddChild(Transform* child)
+{
+	glm::vec3 position = Utils::GetPosition(glm::inverse(GetTransform()) * (child->GetPositionMat4()));
+	glm::vec3 rotation = child->GetRotation() - GetRotation();
+	glm::vec3 scale = child->GetScale() / GetScale();
+
+	child->GetOwner()->SetOwner(GetOwner());
+	child->m_Parent = this;
+
+	child->Translate(position);
+	child->Rotate(rotation);
+	child->Scale(scale);
+}
+
+void Transform::RemoveChild(Transform* child)
+{
+	glm::vec3 position = child->GetPosition();
+	glm::vec3 rotation = child->GetRotation();
+	glm::vec3 scale = child->GetScale();
+
+	child->GetOwner()->SetOwner(nullptr);
+	child->m_Parent = nullptr;
+
+	child->Translate(position);
+	child->Rotate(rotation);
+	child->Scale(scale);
+}
+
 Transform::Transform(const Transform& transform)
 {
 	Copy(transform);
@@ -387,10 +415,23 @@ void Transform::Translate(const glm::vec3& position)
 
 	UpdateTransforms();
 
-	for (auto& onTranslationCallback : m_OnTranslationCallbacks)
+	std::function<void(Transform*)> translationCallbacks = [&translationCallbacks](Transform* transform)
 	{
-		onTranslationCallback.second();
-	}
+		for (auto& onTranslationCallback : transform->m_OnTranslationCallbacks)
+		{
+			onTranslationCallback.second();
+		}
+
+		if (GameObject* owner = transform->GetOwner())
+		{
+			for (GameObject* child : owner->GetChilds())
+			{
+				translationCallbacks(&child->m_Transform);
+			}
+		}
+	};
+
+	translationCallbacks(this);
 }
 
 void Transform::Rotate(const glm::vec3& rotation)
@@ -403,10 +444,23 @@ void Transform::Rotate(const glm::vec3& rotation)
 	UpdateTransforms();
 	UpdateVectors();
 
-	for (auto& onRotationCallback : m_OnRotationCallbacks)
+	std::function<void(Transform*)> rotationCallbacks = [&rotationCallbacks](Transform* transform)
 	{
-		onRotationCallback.second();
-	}
+		for (auto& onRotationCallback : transform->m_OnRotationCallbacks)
+		{
+			onRotationCallback.second();
+		}
+
+		if (GameObject* owner = transform->GetOwner())
+		{
+			for (GameObject* child : owner->GetChilds())
+			{
+				rotationCallbacks(&child->m_Transform);
+			}
+		}
+	};
+
+	rotationCallbacks(this);
 }
 
 void Transform::Scale(const glm::vec3& scale)
@@ -417,10 +471,23 @@ void Transform::Scale(const glm::vec3& scale)
 
 	UpdateTransforms();
 
-	for (auto& onScaleCallback : m_OnScaleCallbacks)
+	std::function<void(Transform*)> scaleCallbacks = [&scaleCallbacks](Transform* transform)
 	{
-		onScaleCallback.second();
-	}
+		for (auto& onScaleCallback : transform->m_OnScaleCallbacks)
+		{
+			onScaleCallback.second();
+		}
+
+		if (GameObject* owner = transform->GetOwner())
+		{
+			for (GameObject* child : owner->GetChilds())
+			{
+				scaleCallbacks(&child->m_Transform);
+			}
+		}
+	};
+
+	scaleCallbacks(this);
 }
 
 void Transform::LogTransform()

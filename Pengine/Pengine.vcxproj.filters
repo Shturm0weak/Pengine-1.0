@@ -132,6 +132,9 @@
     <ClInclude Include="Source\Core\Asset.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\AssimpGLMHelpers.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Core\BoundingBox.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -186,10 +189,10 @@
     <ClInclude Include="Source\Core\Mesh.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\MeshManager.h">
+    <ClInclude Include="Source\Core\MeshLoader.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\ObjLoader.h">
+    <ClInclude Include="Source\Core\MeshManager.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\Core\Raycast2D.h">
@@ -279,6 +282,9 @@
     <ClInclude Include="Source\Lua\LuaStateManager.h">
       <Filter>Lua</Filter>
     </ClInclude>
+    <ClInclude Include="Source\OpenGL\BaseMaterial.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="Source\OpenGL\Batch.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
@@ -318,7 +324,7 @@
     <ClInclude Include="Source\UI\Gui.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OpenGL\BaseMaterial.h" />
+    <ClInclude Include="Source\OpenGL\stb_image_write.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Audio\Sound.cpp">
@@ -444,10 +450,10 @@
     <ClCompile Include="Source\Core\Mesh.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\MeshManager.cpp">
+    <ClCompile Include="Source\Core\MeshLoader.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\ObjLoader.cpp">
+    <ClCompile Include="Source\Core\MeshManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\Core\Raycast2D.cpp">
@@ -504,6 +510,9 @@
     <ClCompile Include="Source\Lua\LuaStateManager.cpp">
       <Filter>Lua</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OpenGL\BaseMaterial.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="Source\OpenGL\Batch.cpp">
       <Filter>OpenGL</Filter>
     </ClCompile>
@@ -541,6 +550,5 @@
     <ClCompile Include="Source\UI\Gui.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OpenGL\BaseMaterial.cpp" />
   </ItemGroup>
 </Project>

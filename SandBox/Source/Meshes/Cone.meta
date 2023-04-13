@@ -2,3 +2,4 @@ Mesh:
   Name: Cone
   FilePath: Source\Meshes\Cone.obj
   CullFace: true
+  ShadowCullFace: 1028

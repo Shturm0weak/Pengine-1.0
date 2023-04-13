@@ -2,3 +2,4 @@ Mesh:
   Name: Body_Plane.002
   FilePath: Source\Examples\Car\Meshes\Dodge.obj
   CullFace: false
+  ShadowCullFace: 0

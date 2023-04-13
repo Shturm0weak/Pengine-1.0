@@ -1,35 +1,25 @@
 Title: 3D
 Environment:
-  Global Intensity: 1
-  Directional Light: 1
   Blur passes: 3
   Brightness threshold: 1
   Exposure: 0.00999999978
-  Gamma: 2.20000005
   Pixels blured: 6
   IsEnabled: true
+  Gamma: 2.20000005
   DepthTest: true
   Shadows:
-    Bias: 0
     IsEnabled: true
     IsVisualized: false
-    Pcf: 1
     MaxPointLightShadows: 8
     MaxSpotLightShadows: 8
-    Fog: 0.200000003
-    Texels: 1
-    ZFarScale: 0.200000003
-    CascadesDistance:
-      - 10
-      - 50
     Blur:
       Passes: 1
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [-27.224659, 38.4162178, -8.5845232]
-    Rotation: [-0.582337022, -1.52915239, 0]
+    Position: [-23.2654057, 9.40359879, -16.186657]
+    Rotation: [-0.322497725, 3.98893929, 0]
     Scale: [1, 1, 1]
   Fov: 1.58389997
   Zoom: 1
@@ -165,8 +155,8 @@ GameObjects:
     Is Selectable: true
     Prefab File Path: ""
     Childs:
-      - 17782560797531803786
-      - 4369518761302311768
+      - bfdee2d7-ad1d-4ade-8bfa-1d17e53f549b
+      - a4326982-8e60-4882-9e83-c777d7a03f39
     Transform:
       Follow owner: true
       Position: [-4.0005784, 10.0880442, -10.3473167]
@@ -187,7 +177,7 @@ GameObjects:
     BoxCollider3D:
       Offset: [0, 0, 0]
       HalfExtent: [1, 1, 1]
-  - GameObject: 17782560797531803786
+  - GameObject: bfdee2d7-ad1d-4ade-8bfa-1d17e53f549b
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -196,7 +186,7 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-1.63456345, 13.065938, -13.1725302]
+      Position: [-1.63455892, 13.0659342, -13.172533]
       Rotation: [-2.2587862, -0.350863487, -0.396052033]
       Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
@@ -214,7 +204,7 @@ GameObjects:
     BoxCollider3D:
       Offset: [0, 0, 0]
       HalfExtent: [1, 1, 1]
-  - GameObject: 4369518761302311768
+  - GameObject: a4326982-8e60-4882-9e83-c777d7a03f39
     Name: Sphere
     Is Enabled: true
     Is Selectable: true
@@ -223,7 +213,7 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0.731442451, 16.0438347, -15.997736]
+      Position: [0.731448174, 16.0438309, -15.9977379]
       Rotation: [-2.2587862, -0.350863487, -0.396052033]
       Scale: [0.947613478, 0.947578132, 0.947579801]
     Renderer3D:
@@ -1834,18 +1824,20 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [-1.72466588, 26.8981113, -11.9425259]
-      Rotation: [-1.28950047, -0, 0]
-      Scale: [1, 0.999971867, 0.999971867]
-    SpotLight:
+      Position: [-1.7247262, 7.30737066, 1.08079672]
+      Rotation: [2.67035365, 0.541052043, 0]
+      Scale: [1, 0.999961317, 0.999961317]
+    Directional Light:
       Color: [1, 1, 1]
-      Constant: 0
-      Linear: 0
-      Quadratic: 0.00200000009
-      InnerCutOff: 0.218166158
-      OuterCutOff: 0.767944932
-      ZFar: 150
-      ZNear: 0.100000001
+      Intensity: 1
+      Bias:
+        - 0.00100000005
+        - 0.00100000005
+        - 0.00100000005
+      Pcf: 2
       Fog: 0.200000003
-      DrawShadows: true
-      ShadowBias: 9.99999975e-05
+      Texels: 1
+      ZFarScale: 0.100000001
+      CascadesDistance:
+        - 5
+        - 15

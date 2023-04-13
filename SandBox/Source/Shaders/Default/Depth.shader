@@ -10,7 +10,6 @@ void main()
 	gl_Position = u_TransformViewProjected * vec4(positionA, 1.0);
 }
 
-
 #shader fragment
 #version 330 core
 

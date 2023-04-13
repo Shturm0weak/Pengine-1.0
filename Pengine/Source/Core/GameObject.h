@@ -33,6 +33,7 @@ namespace Pengine
 		bool m_IsSerializable = true;
 		bool m_IsEnabled = true;
 		bool m_IsSelectable = true;
+		bool m_IsEditorVisible = true;
 
 		friend class Scene;
 		friend class GameObjectManager;
@@ -68,6 +69,10 @@ namespace Pengine
 		
 		void SetEnabled(bool isEnabled) { m_IsEnabled = isEnabled; }
 
+		bool IsEditorVisible() const { return m_IsEditorVisible; }
+
+		void SetEditorVisible(bool isEditorVisible) { m_IsEditorVisible = isEditorVisible; }
+
 		float GetCreationTime() const { return m_CreationTime; }
 
 		void Delete();
@@ -97,6 +102,8 @@ namespace Pengine
 		bool HasOwner() const { return m_Owner != nullptr; }
 		
 		GameObject* GetOwner() const { return m_Owner; }
+
+		void SetOwner(GameObject* owner) { m_Owner = owner; }
 		
 		Scene* GetScene() const { return m_Scene; }
 		

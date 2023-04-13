@@ -1,0 +1,10 @@
+^C:\USERS\ALEXANDR\SOURCE\REPOS\PENGINE\VENDOR\ASSIMP\TEST\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/Alexandr/source/repos/Pengine/Vendor/Assimp -BC:/Users/Alexandr/source/repos/Pengine/Vendor/Assimp --check-stamp-file C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/test/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,34 +1,25 @@
 Title: Sponza
 Environment:
-  Global Intensity: 1
-  Directional Light: 1
   Blur passes: 3
   Brightness threshold: 1
   Exposure: 0.0199999996
-  Gamma: 2.20000005
   Pixels blured: 6
   IsEnabled: true
+  Gamma: 2.20000005
   DepthTest: true
   Shadows:
-    Bias: 0.00100000005
     IsEnabled: true
     IsVisualized: false
-    Pcf: 2
     MaxPointLightShadows: 8
-    Fog: 0.200000003
-    Texels: 1
-    ZFarScale: 0.0299999993
-    CascadesDistance:
-      - 5
-      - 12
+    MaxSpotLightShadows: 8
     Blur:
       Passes: 1
       PixelsBlured: 6
 Camera:
   Transform:
     Follow owner: true
-    Position: [7.13447523, 4.75966597, -1.19726181]
-    Rotation: [-0.202443451, 1.71827173, 0]
+    Position: [7.50784159, 1.49451852, -0.5898332]
+    Rotation: [0.101294294, 1.679726, 0]
     Scale: [1, 1, 1]
   Fov: 1.57079637
   Zoom: 1
@@ -47,222 +38,23 @@ GameObjects:
       []
     Transform:
       Follow owner: true
-      Position: [0.558471143, -1.62191892, -0.232537687]
-      Rotation: [1.75921118, -2.98023224e-08, 0.349065781]
-      Scale: [1, 1.00000703, 1.00000072]
+      Position: [0, 0, 0]
+      Rotation: [1.55334306, 0, 0]
+      Scale: [0.999999762, 1.0000056, 0.100010216]
     Directional Light:
       Color: [1, 1, 1]
-      Intensity: 2
-  - GameObject: 16069697419997340253
-    Name: ParticleEmitters
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      - 15620196985342387401
-      - 17322259034923800519
-      - 14106426506095447944
-      - 8612159351313134154
-      - 14398913409952262597
-    Transform:
-      Follow owner: true
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 15620196985342387401
-    Name: ParticleEmitter
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [8.6215868, 0.81360805, 3.11705303]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Particle Emitter:
-      Acceleration: 1.89300001
-      Color end: [1, 0.810126543, 0, 1]
-      Color start: [1, 0.405063272, 0, 1]
-      Direction X: [0.200000003, -0.200000003]
-      Direction Y: [1, 0]
-      Direction Z: [-0.200000003, 0.200000003]
-      Intensity: 1
-      Gravity: [0, -1.78600001, 0]
-      Loop: true
-      Max time to live: 1
-      Particles size: 500
-      Radius X to spawn: [0, 0]
-      Radius Y to spawn: [0, 0]
-      Radius Z to spawn: [0, 0]
-      Scale: [0.100000001, 0.300000012]
-      Texture: Source/Images/WhiteCirlce.png
-      Time to spawn: [0, 1]
-      Facing mode: 1
-    PointLight:
-      Color: [1, 0.61256206, 0.215189874]
-      Constant: 1
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
+      Intensity: 3
+      Bias:
+        - 0.00100000005
+        - 0.00100000005
+        - 0.00100000005
+      Pcf: 2
       Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 17322259034923800519
-    Name: ParticleEmitter
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [8.6215868, 0.81360805, -3.42705369]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Particle Emitter:
-      Acceleration: 1.89300001
-      Color end: [1, 0.810126543, 0, 1]
-      Color start: [1, 0.405063272, 0, 1]
-      Direction X: [0.200000003, -0.200000003]
-      Direction Y: [1, 0]
-      Direction Z: [-0.200000003, 0.200000003]
-      Intensity: 1
-      Gravity: [0, -1.78600001, 0]
-      Loop: true
-      Max time to live: 1
-      Particles size: 500
-      Radius X to spawn: [0, 0]
-      Radius Y to spawn: [0, 0]
-      Radius Z to spawn: [0, 0]
-      Scale: [0.100000001, 0.300000012]
-      Texture: Source/Images/WhiteCirlce.png
-      Time to spawn: [0, 1]
-      Facing mode: 1
-    PointLight:
-      Color: [1, 0.61256206, 0.215189874]
-      Constant: 1
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 14106426506095447944
-    Name: ParticleEmitter
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-9.19870949, 0.81360805, -3.42705369]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Particle Emitter:
-      Acceleration: 1.89300001
-      Color end: [1, 0.810126543, 0, 1]
-      Color start: [1, 0.405063272, 0, 1]
-      Direction X: [0.200000003, -0.200000003]
-      Direction Y: [1, 0]
-      Direction Z: [-0.200000003, 0.200000003]
-      Intensity: 1
-      Gravity: [0, -1.78600001, 0]
-      Loop: true
-      Max time to live: 1
-      Particles size: 500
-      Radius X to spawn: [0, 0]
-      Radius Y to spawn: [0, 0]
-      Radius Z to spawn: [0, 0]
-      Scale: [0.100000001, 0.300000012]
-      Texture: Source/Images/WhiteCirlce.png
-      Time to spawn: [0, 1]
-      Facing mode: 1
-    Script:
-      FilePaths:
-        - Source\Scripts\CampFire.lua
-    PointLight:
-      Color: [1, 0.61256206, 0.215189874]
-      Constant: 1
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 8612159351313134154
-    Name: ParticleEmitter
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-9.19870949, 0.81360805, 3.09461498]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Particle Emitter:
-      Acceleration: 1.89300001
-      Color end: [1, 0.810126543, 0, 1]
-      Color start: [1, 0.405063272, 0, 1]
-      Direction X: [0.200000003, -0.200000003]
-      Direction Y: [1, 0]
-      Direction Z: [-0.200000003, 0.200000003]
-      Intensity: 1
-      Gravity: [0, -1.78600001, 0]
-      Loop: true
-      Max time to live: 1
-      Particles size: 500
-      Radius X to spawn: [0, 0]
-      Radius Y to spawn: [0, 0]
-      Radius Z to spawn: [0, 0]
-      Scale: [0.100000001, 0.300000012]
-      Texture: Source/Images/WhiteCirlce.png
-      Time to spawn: [0, 1]
-      Facing mode: 1
-    PointLight:
-      Color: [1, 0.61256206, 0.215189874]
-      Constant: 1
-      Linear: 0.100000001
-      Quadratic: 1
-      ZFar: 150
-      ZNear: 0.100000001
-      Fog: 0.200000003
-      DrawShadows: true
-  - GameObject: 14398913409952262597
-    Name: ParticleEmitter
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0, 0.025367178, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Particle Emitter:
-      Acceleration: 0
-      Color end: [0.378144532, 0.497890294, 0, 1]
-      Color start: [0.122202635, 0.438818574, 0, 1]
-      Direction X: [0, 0]
-      Direction Y: [0, 0]
-      Direction Z: [0, 0]
-      Intensity: 1
-      Gravity: [0, 0, 0]
-      Loop: true
-      Max time to live: 10000
-      Particles size: 3000
-      Radius X to spawn: [-10, 10]
-      Radius Y to spawn: [0, 0]
-      Radius Z to spawn: [-4.5, 4.5]
-      Scale: [1, 1]
-      Texture: Source/Images/Grass.png
-      Time to spawn: [0, 0]
-      Facing mode: 1
+      Texels: 1
+      ZFarScale: 0.100000001
+      CascadesDistance:
+        - 5
+        - 15
   - GameObject: 5832814391092958034
     Name: Sponza
     Is Enabled: true
@@ -9797,120 +9589,5 @@ GameObjects:
       Material: Source/Sponza/Materials/VaseRound.mat
       Lods:
         - Source/Sponza/Mesh/sponza_344.meta
-        - None
-        - None
-  - GameObject: 13965262468208615892
-    Name: Spline
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      - 18206166339827852886
-      - 17750071496741992544
-      - 9753869144915278936
-      - 1514308694197212010
-      - 5773393203823258955
-      - 7123339240395037071
-    Transform:
-      Follow owner: true
-      Position: [0, 4.33997059, 0]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-    Spline:
-      Speed: 1.18299997
-  - GameObject: 18206166339827852886
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [6.21664667, 4.33997059, -3.27404857]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 17750071496741992544
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-6.84091043, 4.33997059, -3.75902152]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 9753869144915278936
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-9.96803379, 4.33997059, -0.270562381]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 1514308694197212010
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [-7.2946806, 4.33997059, 3.50040722]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 5773393203823258955
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [6.21664667, 4.33997059, 3.05658937]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 7123339240395037071
-    Name: Segment
-    Is Enabled: true
-    Is Selectable: true
-    Prefab File Path: ""
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [9.33546448, 4.33997059, -0.13694188]
-      Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
-  - GameObject: 6042681396806518088
-    Name: Plane
-    Is Enabled: true
-    Is Selectable: false
-    Prefab File Path: Source\Prefabs\3D/Plane.prefab
-    Childs:
-      []
-    Transform:
-      Follow owner: true
-      Position: [0, 13.3741875, -2.49752787e-07]
-      Rotation: [-3.14159274, 0, 0]
-      Scale: [1000, 1, 1000.00018]
-    Renderer3D:
-      Mesh: Source/Meshes/Plane.meta
-      IsOpaque: true
-      DrawShadows: true
-      LodsDistance:
-        - 1000
-        - 1000
-      Material: Source/Sponza/Materials/Sky.mat
-      Lods:
-        - Source/Meshes/Plane.meta
         - None
         - None

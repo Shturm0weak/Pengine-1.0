@@ -10,7 +10,6 @@ layout(location = 4) in vec3 bitangentA;
 
 #include "Source/Shaders/Default/Common/Uniforms.incl"
 
-uniform mat4 u_ViewProjection;
 uniform mat4 u_Transform;
 uniform mat3 u_InverseTransform;
 
@@ -52,11 +51,11 @@ in mat3 TBN;
 vec3 viewDirection = normalize(u_CameraPosition - worldPosition.xyz);
 vec3 normal = n;
 Material material = u_Materials[u_MaterialIndex];
-vec4 baseColorRGBA = texture(u_BaseColor, uv) * vec4(material.ambient, 1.0);
+vec4 baseColorRGBA = texture(u_BaseColor, uv) * vec4(material.albedo, 1.0);
 vec3 baseColor = baseColorRGBA.xyz;
 vec3 shadow = vec3(0.0);
 
-#include "Source/Shaders/Default/Common/DirectionalShadows.incl"
+//#include "Source/Shaders/Default/Common/DirectionalShadows.incl"
 
 vec3 DirectionalLightCompute()
 {
@@ -67,7 +66,7 @@ vec3 DirectionalLightCompute()
 	vec3 diffuse = u_DirectionalLight.color * diffuseStrength;
 
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
-	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), material.shiness);
+	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32.0f);
 	if (diffuseStrength == 0.0) specularf = 0.0;
 	vec3 specular = u_DirectionalLight.color * (specularf);
 
@@ -126,7 +125,7 @@ vec3 PointLightCompute(PointLight light)
 {
 	vec3 pointLightShadow = vec3(0.0);
 
-	if (u_IsShadowsEnabled && light.drawShadows == 1)
+	if (u_Shadows.isEnabled && light.drawShadows == 1)
 	{
 		pointLightShadow = PointShadowCompute(light);
 	}
@@ -138,7 +137,7 @@ vec3 PointLightCompute(PointLight light)
 	vec3 diffuse = light.color * diffuseStrength;
 
 	vec3 halfwayDirection = normalize(lightDirection + viewDirection);
-	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), material.shiness);
+	float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32.0f);
 	if (diffuseStrength == 0.0) specularf = 0.0;
 	vec3 specular = light.color * specularf;
 
@@ -169,7 +168,7 @@ vec3 SpotLightCompute(SpotLight light)
 		vec3 diffuse = light.color * diffuseStrength;
 
 		vec3 halfwayDirection = normalize(lightDirection + viewDirection);
-		float specularf = pow(max(dot(normal, halfwayDirection), 0.0), material.shiness);
+		float specularf = pow(max(dot(normal, halfwayDirection), 0.0), 32.0f);
 		if (diffuseStrength == 0.0) specularf = 0.0;
 		vec3 specular = light.color * specularf;
 
@@ -213,12 +212,18 @@ void main()
 	vec2 transformUV = mix(uv, noiseColor, u_Distortion);
 
 	vec4 rectColor = rect(transformUV, u_Width);
-	baseColor = rectColor.xyz * material.ambient * u_EmissionScale;
+	baseColor = rectColor.xyz * material.albedo * u_EmissionScale;
 
-	if (u_DirectionalShadows.isEnabled && u_IsShadowsEnabled)
+	if (length(baseColor * material.albedo) > EMISSIVE_THRESHOLD)
+	{
+		fragColor = vec4(baseColor * material.albedo, material.alpha);
+		return;
+	}
+
+	/*if (u_DirectionalLight.isEnabled && u_Shadows.isEnabled)
 	{
 		shadow = DirectionalShadowCompute();
-	}
+	}*/
 
 	if (material.useNormalMap > 0.0)
 	{

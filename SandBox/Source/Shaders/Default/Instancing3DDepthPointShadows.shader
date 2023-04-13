@@ -2,7 +2,7 @@
 #version 330 core
 
 layout(location = 0) in vec3 positionA;
-layout(location = 5) in mat4 transformA;
+layout(location = 7) in mat4 transformA;
 
 void main()
 {

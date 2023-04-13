@@ -2,7 +2,7 @@
 
 #define MAX_POINT_LIGHTS 1000
 #define MAX_SPOT_LIGHTS 1000
-#define MAX_MATERIALS 1000
+#define MAX_MATERIALS 500
 
 #include "Core.h"
 
@@ -82,13 +82,25 @@ namespace Pengine
 
 		struct MaterialUniform
 		{
-			glm::vec3 ambient;
+			glm::vec3 albedo;
 			int baseColor;
 
 			int normalColor;
 			float useNormalMap;
 			float alpha;
-			float shiness;
+			float intensity;
+
+			float metallic;
+			float roughness;
+			float ao;
+			float useMetallicMap;
+
+			float useRoughnessMap;
+			float useAoMap;
+			int metallicColor;
+			int roughnessColor;
+
+			glm::vec4 uvTransform;
 		};
 
 		struct Materials
@@ -97,7 +109,26 @@ namespace Pengine
 			size_t m_Size = 0;
 		} m_Materials;
 
+		struct GlobalUniformsUniform
+		{
+			glm::mat4 m_CameraRotation;
+			glm::mat4 m_ViewProjection;
+			glm::mat4 m_Projection;
+			glm::vec3 m_CameraPosition;
+			float m_DeltaTime;
+			glm::vec2 m_ViewportSize;
+			float m_Time;
+			float m_Unused1;
+		};
+
+		struct GlobalUniforms
+		{
+			UniformBuffer m_UniformBuffer;
+		} m_GlobalUniforms;
+
 		std::shared_ptr<class FrameBuffer> m_FrameBufferScene = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferAtmosphere = nullptr;
+		std::shared_ptr<class FrameBuffer> m_FrameBufferSkyBox = nullptr;
 		std::shared_ptr<class FrameBuffer> m_FrameBufferSSAO = nullptr;
 		std::shared_ptr<class FrameBuffer> m_FrameBufferG = nullptr;
 		std::shared_ptr<class FrameBuffer> m_FrameBufferGDownSampled = nullptr;
@@ -144,6 +175,8 @@ namespace Pengine
 
 		void PrepareMaterialsUniformBuffer();
 
+		void PrepareGlobalUniformsUniformBuffer();
+
 		bool RenderCascadeShadowMaps(class Scene* scene);
 
 		void RenderCascadeShadowsToScene(class Scene* scene);
@@ -163,6 +196,10 @@ namespace Pengine
 		void RenderOutline();
 
 		void RenderSSAO();
+
+		void RenderAtmosphere(Scene* scene);
+
+		void RenderSkyBox();
 
 		void Blur(std::shared_ptr<class FrameBuffer>& frameBufferSource, std::vector<std::shared_ptr<class FrameBuffer>>& frameBuffers, 
 			int blurPasses, float brightnessThreshold, int pixelsBlured);
@@ -184,6 +221,14 @@ namespace Pengine
 		void ShadowPass(Scene* scene);
 
 		void PostProcessingPass(Application* application);
+
+		void Screenshot();
+
+		void CopyFrameBuffer(std::shared_ptr<FrameBuffer> source, std::shared_ptr<FrameBuffer> destination,
+			int sourceAttachment, int destinationAttachment, int mask, int filter);
+
+		void CopyDepthFrameBuffer(std::shared_ptr<FrameBuffer> source, std::shared_ptr<FrameBuffer> destination,
+			int filter);
 
 		friend class Instancing;
 		friend class Viewport;

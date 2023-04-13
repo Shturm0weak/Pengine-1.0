@@ -1,7 +1,7 @@
 #include "MeshManager.h"
 
 #include "Logger.h"
-#include "ObjLoader.h"
+#include "MeshLoader.h"
 #include "ThreadPool.h"
 #include "Serializer.h"
 
@@ -42,7 +42,7 @@ Mesh* MeshManager::Load(const std::string& filePath)
 	}
 	else
 	{
-		return objl::Loader::Load(filePath);
+		return MeshLoader::Load(filePath);
 	}
 }
 
@@ -69,7 +69,7 @@ void MeshManager::LoadAsync(const std::string& filePath, std::function<void(Mesh
 	{
 		m_MeshesIsLoading.push_back(meta.m_FilePath);
 		ThreadPool::GetInstance().Enqueue([=] {
-			objl::Loader::LoadAsync(filePath, callback);
+			MeshLoader::LoadAsync(filePath, callback);
 			Utils::Erase<std::string>(m_MeshesIsLoading, meta.m_FilePath);
 		});
 	}	
@@ -78,14 +78,14 @@ void MeshManager::LoadAsync(const std::string& filePath, std::function<void(Mesh
 void MeshManager::GenerateMeshMeta(const std::string& filePath, bool onlyMissing)
 {
 	ThreadPool::GetInstance().Enqueue([=] {
-		objl::Loader::GenerateMeshMeta(filePath, onlyMissing);
+		MeshLoader::GenerateMeshMeta(filePath, onlyMissing);
 	});
 }
 
 void MeshManager::LoadAsyncToViewport(const std::string& filePath)
 {
 	ThreadPool::GetInstance().Enqueue([=] {
-		objl::Loader::LoadAsyncToViewport(filePath);
+		MeshLoader::LoadAsyncToViewport(filePath);
 	});
 }
 

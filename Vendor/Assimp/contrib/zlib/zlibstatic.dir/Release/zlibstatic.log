@@ -1,0 +1,17 @@
+﻿  1>Building Custom Rule C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/contrib/zlib/CMakeLists.txt
+  adler32.c
+  compress.c
+  crc32.c
+  deflate.c
+  gzclose.c
+  gzlib.c
+  gzread.c
+  gzwrite.c
+  inflate.c
+  infback.c
+  inftrees.c
+  inffast.c
+  trees.c
+  uncompr.c
+  zutil.c
+  zlibstatic.vcxproj -> C:\Users\Alexandr\source\repos\Pengine\Vendor\assimp\contrib\zlib\Release\zlibstatic.lib

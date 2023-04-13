@@ -1,0 +1,45 @@
+vec3 sampleOffsetDirections[20] = vec3[]
+(
+	vec3(1.0, 1.0, 1.0), vec3( 1.0, -1.0,  1.0), vec3(-1.0, -1.0,  1.0), vec3(-1.0, 1.0,  1.0),
+	vec3(1.0, 1.0, -1.0), vec3(1.0, -1.0, -1.0), vec3(-1.0, -1.0, -1.0), vec3(-1.0, 1.0, -1.0),
+	vec3(1.0, 1.0, 0.0), vec3( 1.0, -1.0,  0.0), vec3(-1.0, -1.0,  0.0), vec3(-1.0, 1.0,  0.0),
+	vec3(1.0, 0.0, 1.0), vec3(-1.0,  0.0,  1.0), vec3( 1.0,  0.0, -1.0), vec3(-1.0, 0.0, -1.0),
+	vec3(0.0, 1.0, 1.0), vec3( 0.0, -1.0,  1.0), vec3( 0.0, -1.0, -1.0), vec3( 0.0, 1.0, -1.0)
+);
+
+vec3 PointShadowCompute(PointLight light)
+{
+	vec3 toLight = worldPosition.xyz - light.position;
+	vec3 toCamera = worldPosition.xyz - u_GlobalUniforms.cameraPosition;
+	float distanceToCamera = length(toCamera);
+	float currentDepth = length(toLight);
+	float diskRadius = (1.0 + (distanceToCamera / light.farPlane)) / 100.0;
+	int samples = 20;
+	for (int i = 0; i < samples; i++)
+	{
+		float closestDepth = texture(u_PointLightsShadowMap[light.shadowMapIndex], toLight + sampleOffsetDirections[i] * diskRadius).r;
+		closestDepth *= light.farPlane; 
+		if (currentDepth - light.shadowBias > closestDepth)
+		{
+			shadow += 1.0;
+		}
+	}
+	shadow /= float(samples);
+
+	if (currentDepth > light.farPlane || dot(normalize(toLight), normal) > 0.0)
+	{
+		return vec3(0.0);
+	}
+
+	shadow *= (1.0 - (currentDepth / light.farPlane));
+	shadow = clamp(shadow, 0.1, 1.0);
+
+	float farPlaneEdge = light.farPlane * (1.0 - light.fog);
+	if (distanceToCamera > farPlaneEdge)
+	{
+		float shadowFog = clamp((distanceToCamera - farPlaneEdge) / (light.farPlane * light.fog), 0.0, 1.0);
+		shadow *= (1.0 - shadowFog);
+	}
+
+	return vec3(shadow);
+}

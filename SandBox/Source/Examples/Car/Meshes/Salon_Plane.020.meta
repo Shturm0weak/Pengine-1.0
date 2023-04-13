@@ -1,4 +1,5 @@
 Mesh:
   Name: Salon_Plane.020
   FilePath: Source\Examples\Car\Meshes\Dodge.obj
-  CullFace: true
+  CullFace: false
+  ShadowCullFace: 0

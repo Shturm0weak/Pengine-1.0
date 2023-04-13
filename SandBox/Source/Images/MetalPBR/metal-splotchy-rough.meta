@@ -1,0 +1,8 @@
+Texture:
+  Name: metal-splotchy-rough
+  FilePath: Source/Images/MetalPBR/metal-splotchy-rough.png
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

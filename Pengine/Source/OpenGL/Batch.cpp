@@ -648,12 +648,10 @@ void Batch::FlushGameObjects(bool isVisualizer)
 	glBindTexture(GL_TEXTURE_2D, TextureManager::GetInstance().White()->GetRendererID());
 
 	shader->SetUniform1iv("u_Texture", samplers);
-	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
-	//shader->SetUniform2fv("u_Resolution", Viewport::GetInstance().GetSize());
 
 	if (!isVisualizer)
 	{
-		shader->SetUniform1f("u_GlobalIntensity", Environment::GetInstance().GetGlobalIntensity());
+		shader->SetUniform1f("u_GlobalIntensity", 1.0f);
 
 		char buffer[64];
 		Scene* scene = EntryPoint::GetApplication().GetScene();
@@ -710,7 +708,6 @@ void Batch::FlushLines()
 
 	Shader* shader = Shader::Get("DefaultLines");
 	shader->Bind();
-	shader->SetUniformMat4f("u_ViewProjectionMat4", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 
 	glLineWidth(Editor::GetInstance().m_LineWidth);
 
@@ -753,7 +750,6 @@ void Batch::FlushUI()
 	Gui& gui = Gui::GetInstance();
 	shader->SetUniform1iv("u_Texture", samplers);
 	shader->SetUniformMat4f("u_Projection", gui.m_ViewProjection);
-	//shader->SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
 	shader->SetUniform2fv("u_offset", gui.m_TextProps.m_ShadowOffset);
 	shader->SetUniform1f("u_width", gui.m_TextProps.m_Width);
 	shader->SetUniform1f("u_edge", gui.m_TextProps.m_Edge);
@@ -761,7 +757,6 @@ void Batch::FlushUI()
 	shader->SetUniform1f("u_borderedge", gui.m_TextProps.m_BorderEdge);
 	shader->SetUniform1f("u_RoundedRadius", gui.m_Theme.m_RoundedRadius);
 	shader->SetUniform4fv("u_outlineColor", gui.m_TextProps.m_OutLineColor);
-	//shader->SetUniform2fv("u_ViewPortSize", Viewport::GetInstance().GetSize());
 
 	glDrawElements(GL_TRIANGLES, m_UIWrapper.m_IndexCount, GL_UNSIGNED_INT, NULL);
 

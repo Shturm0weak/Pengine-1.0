@@ -36,12 +36,11 @@ void Renderer3D::Render()
 	if (!m_Mesh) return;
 
 	Environment& environment = Environment::GetInstance();
+	Renderer& renderer = Renderer::GetInstance();
 
 	BaseMaterial* material = m_Material->m_BaseMaterial;
 	Shader* shader = material->m_Shader->GetPass() == Shader::Pass::AMBIENT ? material->m_Shader : Shader::Get("Default3D");
 	shader->Bind();
-
-	shader->SetGlobalUniforms();
 
 	for (const auto& [name, value] : material->m_FloatUniformsByName)
 	{
@@ -71,52 +70,43 @@ void Renderer3D::Render()
 	shader->SetUniformMat4f("u_Transform", m_Owner->m_Transform.GetTransform());
 	shader->SetUniformMat3f("u_InverseTransform", glm::transpose(m_Owner->m_Transform.GetInverseTransform()));
 
-	int baseColorIndex = m_Material->m_BaseMaterial->BindTexture(m_Material->m_BaseColor->GetRendererID());
-	int normalColorIndex = m_Material->m_BaseMaterial->BindTexture(m_Material->m_NormalMap->GetRendererID());
+	int baseColorIndex = renderer.BindTexture(m_Material->m_BaseColor->GetRendererID());
+	int normalColorIndex = renderer.BindTexture(m_Material->m_NormalMap->GetRendererID());
+	int metallicColorIndex = renderer.BindTexture(m_Material->m_MetallicMap->GetRendererID());
+	int roughnessColorIndex = renderer.BindTexture(m_Material->m_RoughnessMap->GetRendererID());
+	int aoColorIndex = renderer.BindTexture(m_Material->m_AoMap->GetRendererID());
 
-	std::vector<int> csm(Renderer::GetInstance().m_FrameBufferCSM.size());
-	for (size_t i = 0; i < csm.size(); i++)
-	{
-		csm[i] = m_Material->m_BaseMaterial->BindTexture(Renderer::GetInstance().m_FrameBufferCSM[i]->m_Textures[0]);
-	}
-	shader->SetUniform1iv("u_Shadows.CSM", &csm[0], csm.size());
-
-	m_Material->m_BaseMaterial->BindTexture(11111);
-	m_Material->m_BaseMaterial->BindTexture(11111);
-	for (size_t i = 0; i < Renderer::GetInstance().m_PointLights.m_ShadowCubeMaps.size(); i++)
-	{
-		m_Material->m_BaseMaterial->BindTexture(Renderer::GetInstance().m_PointLights.m_ShadowCubeMaps[i], GL_TEXTURE_CUBE_MAP);
-	}
-
-	for (size_t i = 0; i < Renderer::GetInstance().m_SpotLights.m_ShadowMaps.size(); i++)
-	{
-		m_Material->m_BaseMaterial->BindTexture(Renderer::GetInstance().m_SpotLights.m_ShadowMaps[i]);
-		shader->SetUniformMat4f(std::string("u_SpotLightShadowMapProjections[" + std::to_string(i) + "]").c_str(), Renderer::GetInstance().m_SpotLights.m_ShadowMapsProjections[i]);
-	}
-
-	for (const auto& [name, value] : material->m_TextureUniformsByName)
-	{
-		shader->SetUniform1i(name, material->BindTexture(value->GetRendererID()));
-	}
-
-	std::vector<int> samplers = m_Material->m_BaseMaterial->BindTextures();
-
-	shader->SetUniform1i("u_DirectionalShadows.isEnabled", Renderer::GetInstance().m_LightSpaceMatrices.empty() ? false : true);
-	shader->SetUniform1i("u_IsShadowsEnabled", environment.m_ShadowsSettings.m_IsEnabled);
-	shader->SetUniformMat4f("u_Shadows.view", environment.GetMainCamera()->GetViewMat4());
-	shader->SetUniformfv("u_Shadows.cascadesDistance", environment.m_ShadowsSettings.m_CascadesDistance);
-	shader->SetUniform1i("u_Shadows.pcf", environment.m_ShadowsSettings.m_Pcf);
-	shader->SetUniform1f("u_Shadows.fog", environment.m_ShadowsSettings.m_Fog);
-	shader->SetUniform1f("u_Shadows.bias", environment.m_ShadowsSettings.m_Bias);
-	shader->SetUniform1f("u_Shadows.farPlane", environment.GetMainCamera()->GetZFar() * environment.m_ShadowsSettings.m_ZFarScale);
-	shader->SetUniform1i("u_Shadows.isVisualized", environment.m_ShadowsSettings.m_IsVisualized);
-	shader->SetUniform1i("u_Shadows.cascadesCount", (int)environment.m_ShadowsSettings.m_CascadesDistance.size());
-	shader->SetUniform1f("u_Shadows.texels", (int)environment.m_ShadowsSettings.m_Texels);
-	shader->SetUniformMat4fv("u_Shadows.lightSpaceMatricies", Renderer::GetInstance().m_LightSpaceMatrices);
+	shader->SetUniform1i("u_Shadows.isEnabled", environment.m_ShadowsSettings.m_IsEnabled);
 
 	shader->SetUniform1i("u_MaterialIndex", m_Material->m_UniformIndex);
 	shader->SetUniform1i("u_BaseColor", baseColorIndex);
 	shader->SetUniform1i("u_NormalColor", normalColorIndex);
+	shader->SetUniform1i("u_MetallicColor", metallicColorIndex);
+	shader->SetUniform1i("u_RoughnessColor", roughnessColorIndex);
+	shader->SetUniform1i("u_AoColor", aoColorIndex);
+
+	std::vector<int> csm(renderer.m_FrameBufferCSM.size());
+	for (size_t i = 0; i < csm.size(); i++)
+	{
+		csm[i] = renderer.BindTexture(renderer.m_FrameBufferCSM[i]->m_Textures[0]);
+	}
+	shader->SetUniform1iv("u_DirectionalLight.CSM", &csm[0], csm.size());
+
+	for (size_t i = 0; i < renderer.m_PointLights.m_ShadowCubeMaps.size(); i++)
+	{
+		renderer.BindTexture(renderer.m_PointLights.m_ShadowCubeMaps[i], GL_TEXTURE_CUBE_MAP);
+	}
+
+	for (size_t i = 0; i < renderer.m_SpotLights.m_ShadowMaps.size(); i++)
+	{
+		renderer.BindTexture(renderer.m_SpotLights.m_ShadowMaps[i]);
+		shader->SetUniformMat4f(std::string("u_SpotLightShadowMapProjections[" + std::to_string(i) + "]").c_str(), renderer.m_SpotLights.m_ShadowMapsProjections[i]);
+	}
+
+	for (const auto& [name, value] : material->m_TextureUniformsByName)
+	{
+		shader->SetUniform1i(name, renderer.BindTexture(value->GetRendererID()));
+	}
 
 	if (GetOwner()->GetScene()->m_DirectionalLights.empty())
 	{
@@ -129,12 +119,23 @@ void Renderer3D::Render()
 		shader->SetUniform3fv("u_DirectionalLight.direction", directionalLight->GetOwner()->m_Transform.GetRotationMat4() * glm::vec4(0, 0, -1, 1));
 		shader->SetUniform3fv("u_DirectionalLight.color", directionalLight->GetColor());
 		shader->SetUniform1f("u_DirectionalLight.intensity", directionalLight->GetIntensity());
+		shader->SetUniform1i("u_DirectionalLight.isEnabled", renderer.m_LightSpaceMatrices.empty() ? false : true);
+		shader->SetUniformMat4f("u_DirectionalLight.view", environment.GetMainCamera()->GetViewMat4());
+		shader->SetUniformfv("u_DirectionalLight.cascadesDistance", directionalLight->GetCascadesDistance());
+		shader->SetUniform1i("u_DirectionalLight.pcf", directionalLight->GetPcf());
+		shader->SetUniform1f("u_DirectionalLight.fog", directionalLight->GetFog());
+		shader->SetUniformfv("u_DirectionalLight.bias", directionalLight->GetBias());
+		shader->SetUniform1f("u_DirectionalLight.farPlane", environment.GetMainCamera()->GetZFar() * directionalLight->GetZFarScale());
+		shader->SetUniform1i("u_DirectionalLight.isVisualized", environment.m_ShadowsSettings.m_IsVisualized);
+		shader->SetUniform1i("u_DirectionalLight.cascadesCount", (int)directionalLight->GetCascadesDistance().size());
+		shader->SetUniform1f("u_DirectionalLight.texels", (int)directionalLight->GetTexels());
+		shader->SetUniformMat4fv("u_DirectionalLight.lightSpaceMatricies", renderer.m_LightSpaceMatrices);
 	}
 
-	shader->SetUniform1i("u_PointLightsSize", Renderer::GetInstance().m_PointLights.m_Size);
-	shader->SetUniform1i("u_SpotLightsSize", Renderer::GetInstance().m_SpotLights.m_Size);
-	shader->SetUniform1iv("u_PointLightsShadowMap", &Renderer::GetInstance().m_PointLights.m_ShadowSamplers[0], Renderer::GetInstance().m_PointLights.m_MaxShadowsSize);
-	shader->SetUniform1iv("u_SpotLightsShadowMap", &Renderer::GetInstance().m_SpotLights.m_ShadowSamplers[0], Renderer::GetInstance().m_SpotLights.m_MaxShadowsSize);
+	shader->SetUniform1i("u_PointLightsSize", renderer.m_PointLights.m_Size);
+	shader->SetUniform1i("u_SpotLightsSize", renderer.m_SpotLights.m_Size);
+	shader->SetUniform1iv("u_PointLightsShadowMap", &renderer.m_PointLights.m_ShadowSamplers[0], renderer.m_PointLights.m_MaxShadowsSize);
+	shader->SetUniform1iv("u_SpotLightsShadowMap", &renderer.m_SpotLights.m_ShadowSamplers[0], renderer.m_SpotLights.m_MaxShadowsSize);
 
 	m_Mesh->m_Va.Bind();
 	m_Mesh->m_Ib.Bind();
@@ -150,6 +151,7 @@ void Renderer3D::Render()
 	if (m_Mesh->m_CullFace)
 	{
 		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
 	}
 	else
 	{

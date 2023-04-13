@@ -55,8 +55,6 @@ namespace Pengine
 
 		static void ReloadAll();
 
-		void SetGlobalUniforms();
-
 		std::string GetName() const { return m_Name; }
 		
 		std::string GetFilePath() const { return m_FilePath; }

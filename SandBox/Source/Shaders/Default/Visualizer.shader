@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core
+#version 420 core
 
 layout(location = 0) in vec3 positionA;
 layout(location = 1) in vec2 uvA;
@@ -19,6 +19,8 @@ mat4 transform = mat4(
 	transformMat4A
 );
 
+#include "Source/Shaders/Default/Common/UniformObjects.incl"
+
 uniform mat4 u_ViewProjectionMat4;
 
 out vec2 uv;
@@ -33,7 +35,7 @@ void main()
 {
 	worldPosition = transform[3].xyzw;
 	worldPixelPosition = transform * vec4(positionA, 1.0);
-	gl_Position = u_ViewProjectionMat4 * worldPixelPosition;
+	gl_Position = u_GlobalUniforms.viewProjection * worldPixelPosition;
 	uv = uvA;
 	color = colorA;
 	additionalData0 = additionalData0A;
@@ -46,19 +48,6 @@ void main()
 
 layout(location = 0) out vec4 fragColor;
 
-struct PointLight {
-	vec3 position;
-	vec3 color;
-	float constant;
-	float _linear;
-	float quadratic;
-};
-
-#define MAX_LIGHT 32
-uniform int pointLightSize;
-uniform PointLight pointLights[MAX_LIGHT];
-
-uniform float u_GlobalIntensity;
 uniform sampler2D u_Texture[32];
 //uniform vec2 u_Resolution;
 

@@ -59,7 +59,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Vendor\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -70,7 +70,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Debug-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
@@ -85,7 +85,7 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).li
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;PENGINE_ENGINE;_WIN64;VORBIS_FPU_CONTROL;_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Includes\GLEW;$(SolutionDir)Includes\GLFW;$(SolutionDir)Includes\LUA;$(SolutionDir)Includes;$(SolutionDir)Vendor;$(SolutionDir)Vendor\ImGui;$(SolutionDir)Vendor\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -101,7 +101,7 @@ IF EXIST $(SolutionDir)bin\Debug-windows-x86_64\$(ProjectName)\$(ProjectName).li
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;ImGui.lib;OpenAL32.lib;Box2D.lib;Yaml.lib;BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;assimp-vc142-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)Libs\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ImportLibrary>..\bin\Release-windows-x86_64\Pengine\Pengine.lib</ImportLibrary>
     </Link>
@@ -145,6 +145,7 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClInclude Include="Source\Core\Animation2DManager.h" />
     <ClInclude Include="Source\Core\Application.h" />
     <ClInclude Include="Source\Core\Asset.h" />
+    <ClInclude Include="Source\Core\AssimpGLMHelpers.h" />
     <ClInclude Include="Source\Core\BoundingBox.h" />
     <ClInclude Include="Source\Core\BulletPhysicsWorld.h" />
     <ClInclude Include="Source\Core\Camera.h" />
@@ -163,8 +164,8 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClInclude Include="Source\Core\MaterialManager.h" />
     <ClInclude Include="Source\Core\MemoryManager.h" />
     <ClInclude Include="Source\Core\Mesh.h" />
+    <ClInclude Include="Source\Core\MeshLoader.h" />
     <ClInclude Include="Source\Core\MeshManager.h" />
-    <ClInclude Include="Source\Core\ObjLoader.h" />
     <ClInclude Include="Source\Core\Raycast2D.h" />
     <ClInclude Include="Source\Core\Raycast3D.h" />
     <ClInclude Include="Source\Core\ReflectionSystem.h" />
@@ -200,6 +201,7 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClInclude Include="Source\OpenGL\IndexBuffer.h" />
     <ClInclude Include="Source\OpenGL\Material.h" />
     <ClInclude Include="Source\OpenGL\Shader.h" />
+    <ClInclude Include="Source\OpenGL\stb_image_write.h" />
     <ClInclude Include="Source\OpenGL\Texture.h" />
     <ClInclude Include="Source\OpenGL\UniformBuffer.h" />
     <ClInclude Include="Source\OpenGL\VertexArray.h" />
@@ -251,8 +253,8 @@ IF EXIST $(SolutionDir)bin\Release-windows-x86_64\$(ProjectName)\$(ProjectName).
     <ClCompile Include="Source\Core\MaterialManager.cpp" />
     <ClCompile Include="Source\Core\MemoryManager.cpp" />
     <ClCompile Include="Source\Core\Mesh.cpp" />
+    <ClCompile Include="Source\Core\MeshLoader.cpp" />
     <ClCompile Include="Source\Core\MeshManager.cpp" />
-    <ClCompile Include="Source\Core\ObjLoader.cpp" />
     <ClCompile Include="Source\Core\Raycast2D.cpp" />
     <ClCompile Include="Source\Core\Raycast3D.cpp" />
     <ClCompile Include="Source\Core\Renderer.cpp" />

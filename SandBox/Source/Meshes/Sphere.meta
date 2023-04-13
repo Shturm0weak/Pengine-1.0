@@ -2,3 +2,4 @@ Mesh:
   Name: Sphere
   FilePath: Source\Meshes\Sphere.obj
   CullFace: true
+  ShadowCullFace: 1029

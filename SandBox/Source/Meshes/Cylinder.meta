@@ -1,3 +1,5 @@
 Mesh:
   Name: Cylinder
   FilePath: Source\Meshes\Cylinder.obj
+  CullFace: true
+  ShadowCullFace: 1029

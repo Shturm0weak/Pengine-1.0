@@ -1,0 +1,8 @@
+Texture:
+  Name: Betonas
+  FilePath: Source/Examples/Room/Textures/Betonas.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

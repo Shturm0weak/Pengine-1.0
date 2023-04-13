@@ -1,0 +1,38 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.26/Modules/BasicConfigVersion-SameMajorVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckFunctionExists.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckIncludeFileCXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/CheckTypeSize.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-C.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/WindowsPaths.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/3.26.0-rc4/CMakeCCompiler.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/3.26.0-rc4/CMakeCXXCompiler.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/3.26.0-rc4/CMakeRCCompiler.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeFiles/3.26.0-rc4/CMakeSystem.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/CMakeLists.txt
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/assimp.pc.in
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/cmake-modules/FindPkgMacros.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/cmake-modules/PrecompiledHeader.cmake
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/cmake-modules/assimp-plain-config.cmake.in
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/cmake-modules/cmake_uninstall.cmake.in
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/include/assimp/config.h.in
+C:/Users/Alexandr/source/repos/Pengine/Vendor/assimp/revision.h.in

@@ -174,16 +174,6 @@ void Shader::ReloadAll()
 	}
 }
 
-void Shader::SetGlobalUniforms()
-{
-	SetUniformMat4f("u_ViewProjection", Environment::GetInstance().GetMainCamera()->GetViewProjectionMat4());
-	SetUniform3fv("u_CameraPosition", Environment::GetInstance().GetMainCamera()->m_Transform.GetPosition());
-	SetUniform2fv("u_ViewportSize", (glm::vec2)Viewport::GetInstance().GetSize());
-	SetUniform1f("u_DeltaTime", Time::GetDeltaTime());
-	SetUniform1f("u_Time", Time::GetTime());
-	SetUniform1f("u_Fps", Time::GetFps());
-}
-
 void Shader::SetUniform2fv(const std::string& name, const glm::vec2& vec2)
 {
 	float vec[2] = { vec2[0],vec2[1] };
@@ -314,8 +304,8 @@ uint32_t Shader::CompileShader(uint32_t type, const std::string& source)
 		char* message = new char[length * sizeof(char)];
 		glGetShaderInfoLog(id, length, &length, message);
 		const char* typeOfShader = type == GL_VERTEX_SHADER ? "Vertex" : "Fragment";
-		Logger::Error("failed to compile!", "Shader", std::string(typeOfShader + m_Name).c_str());
-		printf_s(message);
+		Logger::Error("failed to compile!", "Shader", std::string(typeOfShader + std::string(" ") + m_Name).c_str());
+		Logger::Error(message);
 		delete[] message;
 		glDeleteShader(id);
 		return 0;

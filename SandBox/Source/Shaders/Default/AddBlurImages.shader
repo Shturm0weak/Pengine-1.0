@@ -22,7 +22,6 @@ in vec2 uv;
 uniform int u_BlurTexturesSize;
 uniform sampler2D u_BlurTextures[32];
 uniform float u_Exposure;
-uniform float u_Brightness;
 
 void main()
 {

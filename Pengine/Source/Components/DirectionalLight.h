@@ -10,9 +10,16 @@ namespace Pengine
 	{
 	private:
 
+		std::vector<float> m_CascadesDistance = { 5.0f, 15.0f };
+		std::vector<float> m_Bias = { 0.001f, 0.001f, 0.001f };
+
 		glm::vec3 m_Direction;
 		glm::vec3 m_Color = { 1.0f, 1.0f, 1.0f };
 
+		int m_Pcf = 2;
+		float m_Texels = 1.0f;
+		float m_ZFarScale = 0.1f;
+		float m_Fog = 0.2f;
 		float m_Intensity = 1.0f;
 	protected:
 
@@ -40,6 +47,30 @@ namespace Pengine
 		void SetIntensity(float intensity) { m_Intensity = intensity; }
 
 		float GetIntensity() const { return m_Intensity; }
+
+		int GetPcf() const { return m_Pcf; }
+
+		void SetPcf(float pcf) { m_Pcf = pcf; }
+
+		float GetTexels() const { return m_Texels; }
+
+		void SetTexels(float texels) { m_Texels = texels; }
+
+		std::vector<float> GetBias() const { return m_Bias; }
+
+		void SetBias(std::vector<float> bias) { m_Bias = bias; }
+
+		float GetZFarScale() const { return m_ZFarScale; }
+
+		void SetZFarScale(float zFarScale) { m_ZFarScale = zFarScale; }
+
+		float GetFog() const { return m_Fog; }
+
+		void SetFog(float fog) { m_Fog = fog; }
+
+		std::vector<float> GetCascadesDistance() const { return m_CascadesDistance; }
+
+		void SetCascadesDistance(const std::vector<float>& cascadesDistance) { m_CascadesDistance = cascadesDistance;}
 	};
 
 }

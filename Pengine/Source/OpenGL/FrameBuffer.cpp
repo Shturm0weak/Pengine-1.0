@@ -4,8 +4,12 @@
 
 using namespace Pengine;
 
-FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std::vector<Texture::TexParameteri>& texParameters)
+FrameBuffer::FrameBuffer(
+	const glm::ivec2& size,
+	const std::vector<FrameBufferParams>& params, 
+	const std::vector<Texture::TexParameteri>& texParameters)
 {
+	m_Size = size;
 	m_Params = params;
 
 	glGenFramebuffers(1, &m_Fbo);
@@ -23,8 +27,8 @@ FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j,
 					0,
 					params[i].m_TextureInternalFormat,
-					params[i].m_Size.x,
-					params[i].m_Size.y,
+					m_Size.x,
+					m_Size.y,
 					0,
 					params[i].m_TextureFormat,
 					params[i].m_TextureType,
@@ -37,8 +41,8 @@ FrameBuffer::FrameBuffer(const std::vector<FrameBufferParams>& params, const std
 			glTexImage2D(GL_TEXTURE_2D,
 				0,
 				params[i].m_TextureInternalFormat,
-				params[i].m_Size.x,
-				params[i].m_Size.y,
+				m_Size.x,
+				m_Size.y,
 				0,
 				params[i].m_TextureFormat,
 				params[i].m_TextureType,
@@ -101,9 +105,10 @@ FrameBuffer::~FrameBuffer()
 
 void FrameBuffer::Resize(const glm::ivec2& size)
 {
+	m_Size = size;
+	
 	for (uint32_t i = 0; i < m_Params.size(); i++)
 	{
-		m_Params[i].m_Size = size;
 		if (m_Params[i].m_CubeMap)
 		{
 			glBindTexture(GL_TEXTURE_CUBE_MAP, m_Textures[i]);
@@ -112,8 +117,8 @@ void FrameBuffer::Resize(const glm::ivec2& size)
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j,
 					0,
 					m_Params[i].m_TextureInternalFormat,
-					m_Params[i].m_Size.x,
-					m_Params[i].m_Size.y,
+					m_Size.x,
+					m_Size.y,
 					0,
 					m_Params[i].m_TextureFormat,
 					m_Params[i].m_TextureType,
@@ -127,8 +132,8 @@ void FrameBuffer::Resize(const glm::ivec2& size)
 			glTexImage2D(GL_TEXTURE_2D,
 				0,
 				m_Params[i].m_TextureInternalFormat,
-				m_Params[i].m_Size.x,
-				m_Params[i].m_Size.y,
+				m_Size.x,
+				m_Size.y,
 				0,
 				m_Params[i].m_TextureFormat,
 				m_Params[i].m_TextureType,
@@ -139,7 +144,7 @@ void FrameBuffer::Resize(const glm::ivec2& size)
 		if (m_Rbo > 0)
 		{
 			glBindRenderbuffer(GL_RENDERBUFFER, m_Rbo);
-			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Params[0].m_Size.x, m_Params[0].m_Size.y);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Size.x, m_Size.y);
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Rbo);
 		}
 	}
@@ -150,7 +155,7 @@ void FrameBuffer::GenerateRbo()
 	Bind();
 	glGenRenderbuffers(1, &m_Rbo);
 	glBindRenderbuffer(GL_RENDERBUFFER, m_Rbo);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Params[0].m_Size.x, m_Params[0].m_Size.y);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, m_Size.x, m_Size.y);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_Rbo);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)

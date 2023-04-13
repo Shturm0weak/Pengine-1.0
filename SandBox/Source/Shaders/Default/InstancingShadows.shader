@@ -25,12 +25,12 @@ uniform sampler2D u_Normal;
 
 in vec2 uv;
 
-vec4 worldPosition = texture(u_WorldPosition, uv);
-vec3 normal = texture(u_Normal, uv).xyz;
-
 #include "Source/Shaders/Default/Common/DirectionalShadows.incl"
 
 void main()
 {
-	dirShadows = vec4(DirectionalShadowCompute(), 1.0);
+	vec4 worldPosition = texture(u_WorldPosition, uv);
+	vec3 normal = texture(u_Normal, uv).xyz;
+
+	dirShadows = vec4(DirectionalShadowCompute(normal, worldPosition), 1.0);
 }

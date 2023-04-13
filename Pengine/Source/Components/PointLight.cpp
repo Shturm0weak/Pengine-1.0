@@ -55,9 +55,10 @@ void PointLight::SetDrawShadows(bool drawShadows)
 	{
 		glm::ivec2 shadowCubeMapSize = { 1024, 1024 };
 		m_ShadowsCubeMap = std::make_shared<FrameBuffer>(
+			shadowCubeMapSize,
 			std::vector<FrameBuffer::FrameBufferParams>
 			{
-				{ shadowCubeMapSize, GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, true, true }
+				{ GL_DEPTH_ATTACHMENT, GL_DEPTH_COMPONENT, GL_DEPTH_COMPONENT, GL_FLOAT, true, true }
 			},
 			std::vector<Texture::TexParameteri>
 			{
@@ -99,7 +100,7 @@ void PointLight::BuildProjectionMatrix()
 
 	m_ShadowsTransforms.resize(6);
 	glm::vec3 position = GetOwner()->m_Transform.GetPosition();
-	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)m_ShadowsCubeMap->m_Params[0].m_Size.x / (float)m_ShadowsCubeMap->m_Params[0].m_Size.y, m_ZNear, m_ZFar);
+	glm::mat4 projection = glm::perspective(glm::radians(90.0f), (float)m_ShadowsCubeMap->m_Size.x / (float)m_ShadowsCubeMap->m_Size.y, m_ZNear, m_ZFar);
 	m_ShadowsTransforms[0] = (projection * glm::lookAt(position, position + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 	m_ShadowsTransforms[1] = (projection * glm::lookAt(position, position + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 	m_ShadowsTransforms[2] = (projection * glm::lookAt(position, position + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));

@@ -1,0 +1,5 @@
+Mesh:
+  Name: mesh_345
+  FilePath: Source/Examples/Room/Meshes/Darbo_kambarys.obj
+  CullFace: true
+  ShadowCullFace: 1029

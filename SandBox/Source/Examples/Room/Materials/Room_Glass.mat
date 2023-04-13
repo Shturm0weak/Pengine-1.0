@@ -1,0 +1,55 @@
+Material:
+  m_BaseColor:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_NormalMap:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_MetallicMap:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_RoughnessMap:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_BaseMaterial:
+    Type: Pengine::BaseMaterial * __ptr64
+    Value: Source/Materials/Material.basemat
+  m_Roughness:
+    Type: float
+    Value: 0.200000003
+  m_AoMap:
+    Type: Pengine::Texture * __ptr64
+    Value: White
+  m_Albedo:
+    Type: glm::vec<3,float,0>
+    Value: [0.14698498, 0.405063272, 0.40179643]
+  m_UvTransform:
+    Type: glm::vec<4,float,0>
+    Value: [1, 1, 0, 0]
+  m_Intensity:
+    Type: float
+    Value: 1
+  m_Metallic:
+    Type: float
+    Value: 0.0500000007
+  m_UseMetallicMap:
+    Type: bool
+    Value: false
+  m_UseRoughnessMap:
+    Type: bool
+    Value: false
+  m_UseAoMap:
+    Type: bool
+    Value: false
+  m_Alpha:
+    Type: float
+    Value: 0.400000006
+  m_UseNormalMap:
+    Type: bool
+    Value: false
+  m_Name:
+    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+    Value: Room_Glass
+  m_FilePath:
+    Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
+    Value: Source/Examples/Room/Materials/Room_Glass.mat

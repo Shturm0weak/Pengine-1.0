@@ -1,0 +1,8 @@
+Texture:
+  Name: metalgrid1_normal-ogl
+  FilePath: Source/Images/MetalGridPatternPBR/metalgrid1_normal-ogl.png
+  Params:
+    - 9729
+    - 9729
+    - 10497
+    - 10497

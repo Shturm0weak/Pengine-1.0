@@ -1,0 +1,4 @@
+Mesh:
+  Name: Soldier_body
+  FilePath: Source/Meshes/Idle.fbx
+  CullFace: true

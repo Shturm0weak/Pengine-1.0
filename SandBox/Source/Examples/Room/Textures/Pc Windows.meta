@@ -1,0 +1,8 @@
+Texture:
+  Name: Pc Windows
+  FilePath: Source/Examples/Room/Textures/Pc Windows.jpg
+  Params:
+    - 9729
+    - 9729
+    - 33071
+    - 33071

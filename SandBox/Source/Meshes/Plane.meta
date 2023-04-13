@@ -2,3 +2,4 @@ Mesh:
   Name: Plane
   FilePath: Source\Meshes\Plane.obj
   CullFace: false
+  ShadowCullFace: 1032

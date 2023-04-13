@@ -9,12 +9,12 @@ BaseMaterial:
     Type: std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >
     Value: Source/Materials/Custom.basemat
   Uniforms:
-    u_NoiseSpeed:
-      Type: float
-      Value: 0.0250000004
     u_EmissionScale:
       Type: float
       Value: 15
+    u_NoiseSpeed:
+      Type: float
+      Value: 0.0250000004
     u_Distortion:
       Type: float
       Value: 1

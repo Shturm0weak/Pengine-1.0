@@ -18,6 +18,8 @@ namespace Pengine
 		friend class Window;
 	public:
 
+		static std::string GetTimeString() { return s_TimeString; }
+
 		static void Log(const char* message, const char* color = RESET, const char* type = "LOG");
 		
 		static void Log(const char* message, const char* type, const char* name, const char* color, const char* mode = "LOG");

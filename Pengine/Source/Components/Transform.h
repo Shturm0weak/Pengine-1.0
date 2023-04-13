@@ -50,6 +50,7 @@ namespace Pengine
 
 		friend class GameObject;
 		friend class Editor;
+		friend class Viewport;
 	protected:
 
 		virtual void Copy(const IComponent& component) override;
@@ -69,7 +70,15 @@ namespace Pengine
 		void operator=(const Transform& transform);
 		void operator=(Transform&& transform) noexcept;
 
+		void AddChild(Transform* child);
+
+		void RemoveChild(Transform* child);
+
 		void CopyGlobal(const Transform& transform);
+
+		bool HasParent() const { return m_Parent; }
+
+		Transform* GetParent() { return m_Parent; }
 
 		glm::mat4 GetPositionMat4(System system = System::GLOBAL, bool isTransformed = true) const;
 		

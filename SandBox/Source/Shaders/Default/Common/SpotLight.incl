@@ -1,0 +1,50 @@
+vec3 SpotLightCompute(SpotLight light)
+{
+	vec3 shadow = vec3(0.0);
+
+	if (u_Shadows.isEnabled && light.drawShadows == 1)
+	{
+		shadow = SpotShadowCompute(light);
+	}
+
+	vec3 lightDirection = normalize(light.position - worldPosition.xyz);
+	float theta = dot(lightDirection, normalize(-light.direction));
+
+	if (theta > light.outerCutOff)
+	{
+		float epsilon = light.innerCutOff - light.outerCutOff;
+		float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);
+
+		vec3 lightDirection = normalize(light.position - worldPosition.xyz);
+		vec3 H = normalize(viewDirection + lightDirection);
+
+		float distance = length(light.position - worldPosition.xyz);
+		float attenuation = 1.0 / (light.constant + light._linear * distance +
+			light.quadratic * (distance * distance));
+		vec3 radiance = light.color * attenuation * intensity;
+		vec3 ambient = 0.03 * radiance * ao;
+
+		float NdotV = max(dot(normal, viewDirection), 0.0000001);
+		float NdotL = max(dot(normal, lightDirection), 0.0000001);
+		float HdotV = max(dot(H, viewDirection), 0.0);
+		float NdotH = max(dot(normal, H), 0.0);
+
+		float D = DistributionGGX(NdotH, roughness);
+		float G = GeometrySmith(NdotV, NdotL, roughness);
+		vec3 F = FresnelSchlick(HdotV, basicReflectivity);
+
+		vec3 specular = D * G * F;
+		specular /= 4.0 * NdotV * NdotL;// + 0.0001;
+
+		vec3 kS = F;
+		vec3 kD = vec3(1.0) - kS;
+
+		kD *= 1.0 - metallic;
+
+		return ambient * albedo + (vec3(1.0) - shadow) * (kD * albedo / PI + specular) * radiance * NdotL;
+	}
+	else
+	{
+		return vec3(0.0, 0.0, 0.0);
+	}
+}
