@@ -12,8 +12,11 @@ https://www.youtube.com/watch?v=vcoNo1o5r8s
 <img src="https://user-images.githubusercontent.com/48869588/185961976-8b7d092c-48ac-452a-8b48-54591e173825.png">
 <img src="https://user-images.githubusercontent.com/48869588/178851129-857d1916-f737-4a6c-9386-cf22d78816b5.png">
 <img src="https://user-images.githubusercontent.com/48869588/178850673-68461c01-7c4f-4715-a887-1538fe7a0052.jpg">
+<img src="https://github.com/Shturm0weak/Pengine/assets/48869588/94c97a85-294c-40cc-b303-cf6bf1e5f183">
 <img src="https://user-images.githubusercontent.com/48869588/224151173-8b7a9008-14f2-49e7-b148-4d57797174f7.mp4">
 <img src="https://user-images.githubusercontent.com/48869588/224153932-243ba01b-8fbc-446f-8afd-7c86c84835ea.mp4">
+
+https://github.com/Shturm0weak/Pengine/assets/48869588/032b0294-fa49-4a6c-9925-fc4277edcd7b
 
 # **Features**
 
@@ -55,9 +58,11 @@ https://www.youtube.com/watch?v=vcoNo1o5r8s
 # **Instalation**
 
 * Download zip archive and unzip it.
-* Go to Vendor/Assimp and build this project with cmake, run it and build it
-* Go to the top folder and run premake5.exe via console cmd.exe as premake5.exe vs20(your visual studio version).
-* Open PengineEngine.sln, set SandBox as StartUp project.
+* Go to `Vendor/Assimp` and build this project with cmake, run it and build it
+* Go to the top folder and run `premake5.exe` via console `cmd.exe` as `premake5.exe` vs2019, 
+by default works for vs2019 but can also be compiled for different versions
+by replacing `vc142` with the correct one in `premake5.lua`.
+* Open `PengineEngine.sln`, set `SandBox` as StartUp project.
 * Build it twice, first time there will be an error due to non-existent folders.
-* If it didn't run, you need to install OpenAl, run OpenAL.exe in Vendor/OpenAL.
+* If it didn't run, you need to install OpenAl, run `OpenAL.exe` in `Vendor/OpenAL`.
 * Also you may need to install Visual C++ Redistributable.
